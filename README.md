@@ -14,19 +14,19 @@
 To run the dev server for your app, use:
 
 ```sh
-pnpx nx serve super-admin
+pnpx nx serve admin-panel
 ```
 
 To create a production bundle:
 
 ```sh
-pnpx nx build super-admin
+pnpx nx build admin-panel
 ```
 
 To see all available targets to run for a project, run:
 
 ```sh
-pnpx nx show project super-admin
+pnpx nx show project admin-panel
 ```
 
 These targets are either [inferred automatically](https://nx.dev/concepts/inferred-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) or defined in the `project.json` or `package.json` files.

@@ -1,8 +1,8 @@
 export default {
-  displayName: 'super-admin',
+  displayName: 'admin-panel',
   preset: '../../jest.preset.js',
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
-  coverageDirectory: '../../coverage/apps/super-admin',
+  coverageDirectory: '../../coverage/apps/admin-panel',
   transform: {
     '^.+\\.(ts|mjs|js|html)$': [
       'jest-preset-angular',

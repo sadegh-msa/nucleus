@@ -15,13 +15,13 @@ describe('AppComponent', () => {
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
     expect(compiled.querySelector('h1')?.textContent).toContain(
-      'Welcome super-admin'
+      'Welcome admin-panel'
     );
   });
 
-  it(`should have as title 'super-admin'`, () => {
+  it(`should have as title 'admin-panel'`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('super-admin');
+    expect(app.title).toEqual('admin-panel');
   });
 });

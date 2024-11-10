@@ -3,8 +3,8 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
-    "start:super-admin": "nx serve super-admin",
-    "build:super-admin": "nx build super-admin"
+    "start:admin-panel": "nx serve admin-panel",
+    "build:admin-panel": "nx build admin-panel"
   },
   "private": true,
   "dependencies": {
