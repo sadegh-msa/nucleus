@@ -2,7 +2,10 @@
   "name": "@solving-center-front/source",
   "version": "0.0.0",
   "license": "MIT",
-  "scripts": {},
+  "scripts": {
+    "start:super-admin": "nx serve super-admin",
+    "build:super-admin": "nx build super-admin"
+  },
   "private": true,
   "dependencies": {
     "@angular/animations": "~18.2.0",
