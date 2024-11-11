@@ -18,6 +18,10 @@
         "inlineStyleLanguage": "scss",
         "assets": [
           {
+            "input": "libs/theme/src/assets",
+            "glob": "**/*"
+          },
+          {
             "glob": "**/*",
             "input": "apps/demo/public"
           }

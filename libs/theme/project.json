@@ -2,10 +2,26 @@
   "name": "theme",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/theme/src",
-  "prefix": "lib",
+  "prefix": "thm",
   "projectType": "library",
   "tags": [],
   "targets": {
+    "build": {
+      "options": {
+        "assets": [
+          {
+            "input": "src/lib/styles",
+            "glob": "**/*.scss",
+            "output": "styles"
+          },
+          {
+            "input": "src/assets",
+            "glob": "**/*",
+            "output": "assets"
+          }
+        ]
+      }
+    },
     "test": {
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
