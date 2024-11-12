@@ -1,3 +1,11 @@
+*:not(h1, h2, h3, h4, h5, h6) {
+  font-family: var(--font-family-default), sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-family-heading), serif;
+}
+
 h1 {
   @apply font-black;
   @apply handset:text-3xl tablet:text-3xl web:text-4xl;
