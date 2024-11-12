@@ -3,10 +3,13 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
+    "reset": "nx reset",
     "start": "nx serve demo",
-    "build": "nx build demo",
+    "build": "nx build --configuration=fa demo",
+    "i18n:update": "nx extract-i18n demo && node utils/merge-locales.mjs demo",
     "start:admin-panel": "nx serve admin-panel",
-    "build:admin-panel": "nx build admin-panel"
+    "build:admin-panel": "nx build --configuration=fa admin-panel",
+    "i18n:update:admin-panel": "nx extract-i18n admin-panel && node utils/merge-locales.mjs admin-panel"
   },
   "private": true,
   "dependencies": {
@@ -32,6 +35,7 @@
     "@angular/cli": "~18.2.11",
     "@angular/compiler-cli": "~18.2.11",
     "@angular/language-service": "~18.2.11",
+    "@angular/localize": "^18.2.11",
     "@eslint/js": "^9.8.0",
     "@nx/angular": "20.1.0",
     "@nx/devkit": "20.1.0",
@@ -68,5 +72,6 @@
     "tslib": "^2.8.1",
     "typescript": "~5.5.4",
     "typescript-eslint": "^8.14.0"
-  }
+  },
+  "packageManager": "pnpm@9.4.0+sha512.f549b8a52c9d2b8536762f99c0722205efc5af913e77835dbccc3b0b0b2ca9e7dc8022b78062c17291c48e88749c70ce88eb5a74f1fa8c4bf5e18bb46c8bd83a"
 }

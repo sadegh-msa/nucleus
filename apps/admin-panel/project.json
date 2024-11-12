@@ -8,12 +8,17 @@
   "targets": {
     "build": {
       "executor": "@angular-devkit/build-angular:application",
-      "outputs": ["{options.outputPath}"],
+      "outputs": [
+        "{options.outputPath}"
+      ],
       "options": {
         "outputPath": "dist/apps/admin-panel",
         "index": "apps/admin-panel/src/index.html",
         "browser": "apps/admin-panel/src/main.ts",
-        "polyfills": ["zone.js"],
+        "polyfills": [
+          "zone.js",
+          "@angular/localize/init"
+        ],
         "tsConfig": "apps/admin-panel/tsconfig.app.json",
         "inlineStyleLanguage": "scss",
         "assets": [
@@ -26,8 +31,12 @@
             "input": "apps/admin-panel/public"
           }
         ],
-        "styles": ["apps/admin-panel/src/styles.scss"],
+        "styles": [
+          "apps/admin-panel/src/styles.scss"
+        ],
         "scripts": [],
+        "localize": false,
+        "i18nMissingTranslation": "warning",
         "server": "apps/admin-panel/src/main.server.ts",
         "prerender": true,
         "ssr": {
@@ -54,6 +63,16 @@
           "optimization": false,
           "extractLicenses": false,
           "sourceMap": true
+        },
+        "en-US": {
+          "localize": [
+            "en-US"
+          ]
+        },
+        "fa": {
+          "localize": [
+            "fa"
+          ]
         }
       },
       "defaultConfiguration": "production"
@@ -62,10 +81,10 @@
       "executor": "@angular-devkit/build-angular:dev-server",
       "configurations": {
         "production": {
-          "buildTarget": "admin-panel:build:production"
+          "buildTarget": "admin-panel:build:production,fa"
         },
         "development": {
-          "buildTarget": "admin-panel:build:development"
+          "buildTarget": "admin-panel:build:development,fa"
         }
       },
       "defaultConfiguration": "development"
@@ -73,7 +92,9 @@
     "extract-i18n": {
       "executor": "@angular-devkit/build-angular:extract-i18n",
       "options": {
-        "buildTarget": "admin-panel:build"
+        "buildTarget": "admin-panel:build",
+        "format": "json",
+        "outputPath": "apps/admin-panel/src/locales"
       }
     },
     "lint": {
@@ -81,7 +102,9 @@
     },
     "test": {
       "executor": "@nx/jest:jest",
-      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "outputs": [
+        "{workspaceRoot}/coverage/{projectRoot}"
+      ],
       "options": {
         "jestConfig": "apps/admin-panel/jest.config.ts"
       }
@@ -93,6 +116,18 @@
         "port": 4200,
         "staticFilePath": "dist/apps/admin-panel/browser",
         "spa": true
+      }
+    }
+  },
+  "i18n": {
+    "sourceLocale": {
+      "code": "en-US",
+      "baseHref": "en-US/"
+    },
+    "locales": {
+      "fa": {
+        "translation": "apps/admin-panel/src/locales/messages.fa.json",
+        "baseHref": "fa/"
       }
     }
   }
