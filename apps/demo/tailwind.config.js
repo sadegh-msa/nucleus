@@ -1,13 +1,11 @@
 const sharedTailwindConfig = require('../../tailwind.config');
 const { createGlobPatternsForDependencies } = require('@nx/angular/tailwind');
-const { join } = require('path');
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   ...sharedTailwindConfig,
   content: [
-    join(__dirname, 'src/**/!(*.stories|*.spec).{ts,html}'),
-    join(__dirname, 'libs/**/src/!(*.stories|*.spec|*.config).{js,ts,html}'),
+    ...sharedTailwindConfig.content,
     ...createGlobPatternsForDependencies(__dirname),
   ],
 };
