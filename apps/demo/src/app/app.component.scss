@@ -1,0 +1,10 @@
+:host {
+  menu {
+    @apply flex gap-1 mb-4;
+
+    li a {
+      @apply flex justify-center items-center px-4 py-2;
+      @apply border rounded text-blue-500 hover:bg-neutral-100 active:bg-neutral-200;
+    }
+  }
+}

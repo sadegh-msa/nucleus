@@ -1,1 +1,5 @@
 @import 'libs/theme/src/lib/styles/_theme.scss';
+
+body {
+  @apply p-2;
+}

@@ -1,0 +1,33 @@
+h1 {
+  @apply font-black;
+  @apply handset:text-3xl tablet:text-3xl web:text-4xl;
+}
+
+h2 {
+  @apply font-black;
+  @apply handset:text-2xl tablet:text-2xl web:text-3xl;
+}
+
+h3 {
+  @apply font-extrabold;
+  @apply handset:text-xl tablet:text-xl web:text-2xl;
+}
+
+h4 {
+  @apply font-extrabold;
+  @apply handset:text-lg tablet:text-lg web:text-xl;
+}
+
+h5 {
+  @apply font-extrabold;
+  @apply handset:text-base tablet:text-base web:text-lg;
+}
+
+h6 {
+  @apply font-extrabold;
+  @apply handset:text-sm tablet:text-sm web:text-base;
+}
+
+hgroup {
+  @apply flex flex-col;
+}

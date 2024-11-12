@@ -1,3 +1,10 @@
 import { Route } from '@angular/router';
 
-export const appRoutes: Route[] = [];
+export const appRoutes: Route[] = [
+  {
+    path: 'typography',
+    title: 'Typography',
+    loadComponent: () =>
+      import('./blocks/components').then((m) => m.TypographyComponent),
+  },
+];
