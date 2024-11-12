@@ -37,6 +37,49 @@ module.exports = {
       borderColor: {
         DEFAULT: '#A0A8B3',
       },
+      screens: {
+        xsmall: { raw: 'only screen and (max-width: 599.98px)' },
+        small: {
+          raw: 'only screen and (min-width: 600px) and (max-width: 959.98px)',
+        },
+        medium: {
+          raw: 'only screen and (min-width: 960px) and (max-width: 1279.98px)',
+        },
+        large: {
+          raw: 'only screen and (min-width: 1280px) and (max-width: 1919.98px)',
+        },
+        xlarge: { raw: 'only screen and (min-width: 1920px)' },
+        handset: {
+          raw: `only screen and (max-width: 599.98px) and (orientation: portrait),
+           (max-width: 959.98px) and (orientation: landscape)`,
+        },
+        tablet: {
+          raw: `only screen and (min-width: 600px) and (max-width: 839.98px) and (orientation: portrait),
+           (min-width: 960px) and (max-width: 1279.98px) and (orientation: landscape)`,
+        },
+        web: {
+          raw: `only screen and (min-width: 840px) and (orientation: portrait),
+           (min-width: 1280px) and (orientation: landscape)`,
+        },
+        'handset-portrait': {
+          raw: 'only screen and (max-width: 599.98px) and (orientation: portrait)',
+        },
+        'tablet-portrait': {
+          raw: 'only screen and (min-width: 600px) and (max-width: 839.98px) and (orientation: portrait)',
+        },
+        'web-portrait': {
+          raw: 'only screen and (min-width: 840px) and (orientation: portrait)',
+        },
+        'handset-landscape': {
+          raw: 'only screen and (max-width: 959.98px) and (orientation: landscape)',
+        },
+        'tablet-landscape': {
+          raw: 'only screen and (min-width: 960px) and (max-width: 1279.98px) and (orientation: landscape)',
+        },
+        'web-landscape': {
+          raw: 'only screen and (min-width: 1280px) and (orientation: landscape)',
+        },
+      },
     },
   },
   plugins: [],

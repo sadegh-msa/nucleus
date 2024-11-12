@@ -15,7 +15,9 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@solving-center/theme": ["libs/theme/src/index.ts"]
+      "@demo/*": ["src/apps/demo/src/app/*"],
+      "@solving-center/theme": ["libs/theme/src/index.ts"],
+      "@solving-center/ui": ["libs/ui/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
