@@ -57,16 +57,34 @@
         "development": {
           "optimization": false,
           "extractLicenses": false,
-          "sourceMap": true
+          "sourceMap": true,
+          "fileReplacements": [
+            {
+              "replace": "apps/demo/src/environments/environment.ts",
+              "with": "apps/demo/src/environments/environment.development.ts"
+            }
+          ]
         },
         "en-US": {
           "localize": [
             "en-US"
+          ],
+          "fileReplacements": [
+            {
+              "replace": "apps/demo/src/environments/environment.ts",
+              "with": "apps/demo/src/environments/environment.en-US.ts"
+            }
           ]
         },
         "fa": {
           "localize": [
             "fa"
+          ],
+          "fileReplacements": [
+            {
+              "replace": "apps/demo/src/environments/environment.ts",
+              "with": "apps/demo/src/environments/environment.fa.ts"
+            }
           ]
         }
       },
