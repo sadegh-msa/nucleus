@@ -1,1 +1,1 @@
-export * from './ui-screen.service';
+export * from './screen.service';

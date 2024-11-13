@@ -5,7 +5,7 @@ import { toSignal } from '@angular/core/rxjs-interop';
 @Injectable({
   providedIn: 'root',
 })
-export class UiScreenService {
+export class ScreenService {
   readonly #breakpointObserver = inject(BreakpointObserver);
 
   readonly handsetBreakpoint = toSignal(this.#breakpointObserver.observe(Breakpoints.Handset));
