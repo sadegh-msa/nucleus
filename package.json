@@ -6,10 +6,16 @@
     "reset": "nx reset",
     "start": "nx serve demo",
     "build": "nx build --configuration=fa demo",
-    "i18n:update": "nx extract-i18n demo && node utils/merge-locales.mjs demo",
+    "localize": "nx extract-i18n demo && node utils/merge-locales.mjs demo",
     "start:admin-panel": "nx serve admin-panel",
     "build:admin-panel": "nx build --configuration=fa admin-panel",
-    "i18n:update:admin-panel": "nx extract-i18n admin-panel && node utils/merge-locales.mjs admin-panel"
+    "localize:admin-panel": "nx extract-i18n admin-panel && node utils/merge-locales.mjs admin-panel",
+    "start:user-panel": "nx serve user-panel",
+    "build:user-panel": "nx build --configuration=fa user-panel",
+    "localize:user-panel": "nx extract-i18n user-panel && node utils/merge-locales.mjs user-panel",
+    "start:site": "nx serve site",
+    "build:site": "nx build --configuration=fa site",
+    "localize:site": "nx extract-i18n site && node utils/merge-locales.mjs site"
   },
   "private": true,
   "dependencies": {
