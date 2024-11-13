@@ -5,6 +5,7 @@ import {
   formatDistance,
   FormatDistanceOptions,
   FormatOptions,
+  isValid,
   Locale,
   parse,
   ParseOptions,
@@ -52,6 +53,10 @@ export class DateTimeService {
 
   get defaultOutputFormatStr() {
     return this.#defaultFormatStr[this.#localeService.lang()].output;
+  }
+
+  isValidDate(inputValue: unknown) {
+    return isValid(inputValue);
   }
 
   convertToDate(inputValue: string | Date) {
