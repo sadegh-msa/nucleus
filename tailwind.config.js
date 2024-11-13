@@ -1,7 +1,16 @@
 const { join } = require('path');
+const Color = require('color');
 
-/** @type {import('tailwindcss').Config} */
-module.exports = {
+const DARKER_LEVEL = 0.08;
+const DARKEST_LEVEL = 0.15;
+const DARKER_SUFFIX = 'darker';
+const DARKEST_SUFFIX = 'darkest';
+
+function darkenColor(hexColor, level) {
+  return Color(hexColor).darken(level).hex();
+}
+
+const configs = {
   content: [
     join(__dirname, 'src/**/!(*.stories|*.spec).{ts,html}'),
     join(__dirname, 'libs/**/src/!(*.stories|*.spec).{ts,html}'),
@@ -23,6 +32,8 @@ module.exports = {
         'surface-card': '#F4F4F4',
         'surface-form': '#D8DBDF',
         'surface-ground': '#FAFAFA',
+        'surface-primary': '#D4DCE4',
+        'surface-accent': '#F0D1D9',
         'surface-info': '#D8E6FD',
         'surface-success': '#CBFFD8',
         'surface-warning': '#F7F1E7',
@@ -82,3 +93,10 @@ module.exports = {
   },
   plugins: [],
 };
+
+for (const [name, color] of Object.entries({...configs.theme.extend.colors})) {
+  configs.theme.extend.colors[`${name}-${DARKER_SUFFIX}`] = darkenColor(color, DARKER_LEVEL);
+  configs.theme.extend.colors[`${name}-${DARKEST_SUFFIX}`] = darkenColor(color, DARKEST_LEVEL);
+}
+
+module.exports = configs;

@@ -4,7 +4,15 @@
 
     li a {
       @apply flex justify-center items-center px-4 py-2;
-      @apply border rounded text-blue-500 hover:bg-neutral-100 active:bg-neutral-200;
+      @apply rounded font-semibold;
+
+      &:not(.active) {
+        @apply text-primary bg-surface-primary hover:bg-surface-primary-darker active:bg-surface-primary-darkest;
+      }
+
+      &.active {
+        @apply text-surface-primary bg-primary hover:bg-primary-darker active:bg-primary-darkest;
+      }
     }
   }
 }
