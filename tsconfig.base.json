@@ -16,6 +16,7 @@
     "baseUrl": ".",
     "paths": {
       "@demo/*": ["src/apps/demo/src/app/*"],
+      "@solving-center/l10n": ["libs/l10n/src/index.ts"],
       "@solving-center/theme": ["libs/theme/src/index.ts"],
       "@solving-center/ui": ["libs/ui/src/index.ts"]
     }
