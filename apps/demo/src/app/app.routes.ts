@@ -7,4 +7,10 @@ export const appRoutes: Route[] = [
     loadComponent: () =>
       import('./blocks/components').then((m) => m.TypographyComponent),
   },
+  {
+    path: 'icon',
+    title: $localize`Icon`,
+    loadComponent: () =>
+      import('./blocks/components').then((m) => m.IconComponent),
+  },
 ];

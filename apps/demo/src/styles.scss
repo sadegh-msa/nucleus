@@ -3,3 +3,31 @@
 body {
   @apply p-2;
 }
+
+table {
+  @apply w-full border border-separate rounded;
+
+  th,
+  td {
+    @apply p-4 border-t-gray;
+  }
+
+  > thead {
+    th {
+      @apply w-32 text-start;
+      @apply bg-surface-gray;
+    }
+  }
+
+  > tbody {
+    tr {
+      &:hover {
+        @apply bg-surface-gray;
+      }
+
+      td > div {
+        @apply flex items-center gap-2;
+      }
+    }
+  }
+}

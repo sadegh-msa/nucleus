@@ -1,0 +1,31 @@
+<table>
+  <thead>
+    <tr>
+      <th>Icon family</th>
+      @for (color of colors; track $index) {
+        <th>{{ color | titlecase }}</th>
+      }
+    </tr>
+  </thead>
+
+  <tbody>
+    @for (iconFamily of iconFamilies; track $index) {
+      <tr>
+        <td>{{ iconFamily | titlecase }}</td>
+        @let icon = 'icons/' + iconFamily + '/tick-circle.svg';
+        @for (color of colors; track $index) {
+          <td>
+            <div>
+              @for (size of sizes; track $index) {
+                <svg-icon
+                  [src]="icon"
+                  [svgClass]="['ui', 'icon', size, color].join(' ')"
+                />
+              }
+            </div>
+          </td>
+        }
+      </tr>
+    }
+  </tbody>
+</table>
