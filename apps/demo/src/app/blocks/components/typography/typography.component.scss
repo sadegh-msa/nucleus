@@ -3,5 +3,6 @@
 
   section {
     @apply flex flex-col gap-2;
+    @apply border rounded p-4;
   }
 }

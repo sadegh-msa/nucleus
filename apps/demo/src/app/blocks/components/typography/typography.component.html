@@ -1,4 +1,4 @@
-<section>
+<section class="headings">
   <h1 i18n>h1: Heading 1</h1>
   <h2 i18n>h2: Heading 2</h2>
   <h3 i18n>h3: Heading 3</h3>
@@ -6,3 +6,43 @@
   <h5 i18n>h5: Heading 5</h5>
   <h6 i18n>h6: Heading 6</h6>
 </section>
+
+<table class="colors">
+  <thead>
+    <tr>
+      <th>Size / Weight</th>
+      @for (color of colors; track $index) {
+        <th>{{ color | titlecase }}</th>
+      }
+    </tr>
+  </thead>
+
+  <tbody>
+    @for (size of sizes; track $index) {
+      <tr>
+        <td>{{ size | titlecase }}</td>
+        @for (color of colors; track $index) {
+          <td>
+            <span [class]="['ui', 'text', size, color].join(' ')">
+              {{ color | titlecase }}
+            </span>
+          </td>
+        }
+      </tr>
+    }
+
+    @for (weight of weights; track $index) {
+      <tr>
+        <td>{{ weight | titlecase }}</td>
+        @for (color of colors; track $index) {
+          <td>
+            <span [class]="['ui', 'text', weight, color].join(' ')">
+              {{ color | titlecase }}
+            </span>
+          </td>
+        }
+      </tr>
+    }
+  </tbody>
+</table>
+
