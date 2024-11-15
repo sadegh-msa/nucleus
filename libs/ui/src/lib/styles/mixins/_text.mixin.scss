@@ -1,4 +1,5 @@
 @use '../variables';
+@import './icon.mixin';
 @import '../functions/utils.function';
 
 @mixin text-size($size) {
@@ -27,7 +28,15 @@
   }
 }
 
-@mixin text() {
+@mixin text-color($color) {
+  color: getColorValue($color);
+
+  svg:not(ui.icon) {
+    @include icon-color($color);
+  }
+}
+
+@mixin text($has-hover: false, $has-active: false) {
   @each $size in variables.$sizes {
     @if $size == default {
       @include text-size($size);
@@ -50,7 +59,19 @@
 
   @each $color in variables.$colors {
     &.#{$color} {
-      color: getColorValue($color);
+      @include text-color($color);
+
+      @if $has-hover {
+        &:hover {
+          @include text-color('#{$color}-darker');
+        }
+      }
+
+      @if $has-active {
+        &:active {
+          @include text-color('#{$color}-darkest');
+        }
+      }
     }
   }
 }

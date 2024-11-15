@@ -18,14 +18,14 @@ table {
 
   > thead {
     th {
-      @apply w-32 bg-surface-gray;
+      @apply w-32 bg-surface-card;
     }
   }
 
   > tbody {
     tr {
       &:hover {
-        @apply bg-surface-gray;
+        // @apply bg-surface-card;
       }
 
       td > div {

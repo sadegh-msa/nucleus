@@ -4,14 +4,17 @@
 
     li a {
       @apply flex justify-center items-center px-4 py-2;
-      @apply rounded font-semibold;
+      @apply rounded font-medium;
 
       &:not(.active) {
-        @apply text-primary bg-surface-primary hover:bg-surface-primary-darker active:bg-surface-primary-darkest;
+        @apply text-primary bg-primary-pale;
+        @apply hover:bg-primary-pale-darker;
+        @apply active:bg-primary-pale-darkest;
       }
 
       &.active {
-        @apply text-surface-primary bg-primary hover:bg-primary-darker active:bg-primary-darkest;
+        @apply text-primary-pale bg-primary;
+        @apply hover:bg-primary-darker active:bg-primary-darkest;
       }
     }
   }

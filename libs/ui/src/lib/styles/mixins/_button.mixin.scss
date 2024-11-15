@@ -1,0 +1,120 @@
+@use '../variables';
+@import '../functions/utils.function';
+@import './text.mixin';
+
+@mixin button-icon-size($size) {
+  @if $size == small {
+    @apply h-3.5 w-3.5;
+  } @else if $size == medium {
+    @apply h-4.5 w-4.5;
+  } @else if $size == large {
+    @apply h-5.5 w-5.5;
+  } @else {
+    @apply h-5 w-5;
+  }
+}
+
+@mixin button-padding($size) {
+  &:has(span) {
+    @if $size == small {
+      @apply px-4 py-2;
+    } @else if $size == medium {
+      @apply px-4.5 py-2;
+    } @else if $size == large {
+      @apply px-6 py-2;
+    } @else {
+      @apply px-5 py-2;
+    }
+  }
+  &:not(:has(span)) {
+    @apply p-2;
+  }
+}
+
+@mixin button-radius($size) {
+  @apply rounded-md;
+}
+
+@mixin button-variant-solid($bg-color, $text-color) {
+  &:not(:active, :hover) {
+    @include text-color($text-color);
+    background-color: getColorValue('#{$bg-color}');
+  }
+
+  &:hover {
+    @include text-color('#{$text-color}-darker');
+    background-color: getColorValue('#{$bg-color}-darker');
+  }
+
+  &:active {
+    @include text-color('#{$text-color}-darkest');
+    background-color: getColorValue('#{$bg-color}-darkest');
+  }
+}
+
+@mixin button-variant-outline($bg-color, $text-color) {
+  @include button-variant-solid($bg-color, $text-color);
+  @apply border;
+  border-color: getColorValue($text-color);
+}
+
+@mixin button-variant($variant, $color) {
+  $color-pale: '#{$color}-pale';
+
+  @if $variant == bulk {
+    @include button-variant-solid($color-pale, $color);
+  } @else if $variant == outline {
+    @include button-variant-outline(transparent, $color);
+  } @else if $variant == text {
+    @include button-variant-solid(transparent, $color);
+  } @else {
+    @include button-variant-solid($color, $color-pale);
+  }
+}
+
+@mixin button() {
+  @apply flex items-center gap-2;
+
+  &:disabled,
+  .disabled {
+    @apply opacity-50 pointer-events-none;
+  }
+
+  span {
+    @apply pt-1 font-medium;
+  }
+
+  @each $size in variables.$sizes {
+    @if $size == default {
+      @include button-padding($size);
+      @include button-radius($size);
+
+      svg:not(ui.icon) {
+        @include button-icon-size($size);
+      }
+    } @else {
+      &.#{$size} {
+        @include button-padding($size);
+        @include button-radius($size);
+
+        svg:not(ui.icon) {
+          @include button-icon-size($size);
+        }
+      }
+    }
+  }
+
+  @each $color in variables.$colors {
+    &.#{$color} {
+      @each $variant in variables.$button-variants {
+        @if $variant == default {
+          @include button-variant($variant, $color);
+        } @else {
+          &.#{$variant} {
+            @include button-variant($variant, $color);
+          }
+        }
+      }
+    }
+  }
+}

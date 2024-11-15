@@ -1,14 +1,29 @@
 const { join } = require('path');
 const Color = require('color');
 
-const DARKER_LEVEL = 0.08;
-const DARKEST_LEVEL = 0.15;
-const DARKER_SUFFIX = 'darker';
-const DARKEST_SUFFIX = 'darkest';
-
 function darkenColor(hexColor, level) {
   return Color(hexColor).darken(level).hex();
 }
+
+function lightenColor(hexColor, level) {
+  return Color(hexColor).lightness(level).hex();
+}
+
+const pale = { suffix: 'pale', level: 94 };
+const darker = { suffix: 'darker', level: 0.08 };
+const darkest = { suffix: 'darkest', level: 0.15 };
+const blackRgb = Color('black').rgb().array();
+const mainColors = {
+  primary: '#3E5063',
+  accent: '#99324E',
+  info: '#3B82F6',
+  success: '#34C759',
+  warning: '#E16F3E',
+  danger: '#D70000',
+  lightgray: '#A0A8B3',
+  gray: '#8C8C8C',
+  darkgray: '#717171',
+};
 
 const configs = {
   content: [
@@ -18,26 +33,10 @@ const configs = {
   theme: {
     extend: {
       colors: {
-        primary: '#3E5063',
-        accent: '#99324E',
-        info: '#3B82F6',
-        success: '#34C759',
-        warning: '#E16F3E',
-        danger: '#D70000',
-        lightgray: '#A0A8B3',
-        gray: '#8C8C8C',
-        darkgray: '#717171',
         'surface-basic': '#E2DACA',
-        'surface-gray': '#F7F7F7',
         'surface-card': '#F4F4F4',
         'surface-form': '#D8DBDF',
         'surface-ground': '#FAFAFA',
-        'surface-primary': '#D4DCE4',
-        'surface-accent': '#F0D1D9',
-        'surface-info': '#D8E6FD',
-        'surface-success': '#CBFFD8',
-        'surface-warning': '#F7F1E7',
-        'surface-danger': '#F7E7E7',
         'status-cyan': '#32ADE6',
         'status-green': '#34C759',
         'status-purple': '#AF52DE',
@@ -46,6 +45,10 @@ const configs = {
       },
       borderColor: {
         DEFAULT: '#A0A8B3',
+      },
+      spacing: {
+        '4.5': '1.125rem',
+        '5.5': '1.375rem',
       },
       screens: {
         xsmall: { raw: 'only screen and (max-width: 599.98px)' },
@@ -95,9 +98,23 @@ const configs = {
   plugins: [],
 };
 
-for (const [name, color] of Object.entries({...configs.theme.extend.colors})) {
-  configs.theme.extend.colors[`${name}-${DARKER_SUFFIX}`] = darkenColor(color, DARKER_LEVEL);
-  configs.theme.extend.colors[`${name}-${DARKEST_SUFFIX}`] = darkenColor(color, DARKEST_LEVEL);
+for (const [name, color] of Object.entries({ ...mainColors })) {
+  mainColors[`${name}-${pale.suffix}`] = lightenColor(color, pale.level);
 }
+
+for (const [name, color] of Object.entries({ ...mainColors })) {
+  configs.theme.extend.colors[name] = color;
+  configs.theme.extend.colors[`${name}-${darker.suffix}`] = darkenColor(
+    color,
+    darker.level,
+  );
+  configs.theme.extend.colors[`${name}-${darkest.suffix}`] = darkenColor(
+    color,
+    darkest.level,
+  );
+}
+
+configs.theme.extend.colors[`transparent-${darker.suffix}`] = `rgb(${blackRgb.join(',')}, 0.03)`;
+configs.theme.extend.colors[`transparent-${darkest.suffix}`] = `rgb(${blackRgb.join(',')}, 0.06)`;
 
 module.exports = configs;

@@ -1,0 +1,5 @@
+@import './mixins/button.mixin';
+
+:where(a, button).ui:not(.link) {
+  @include button();
+}
