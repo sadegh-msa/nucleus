@@ -1,0 +1,56 @@
+@use '../variables';
+@import '../functions/utils.function';
+
+@mixin text-size($size) {
+  @if $size == small {
+    @apply text-xs;
+  } @else if $size == medium {
+    @apply text-sm;
+  } @else if $size == large {
+    @apply text-lg;
+  } @else {
+    @apply text-base;
+  }
+}
+
+@mixin text-weight($weight) {
+  @if $weight == light {
+    @apply font-light;
+  } @else if $weight == semibold {
+    @apply font-medium;
+  } @else if $weight == bold {
+    @apply font-semibold;
+  } @else if $weight == extrabold {
+    @apply font-bold;
+  } @else {
+    @apply font-normal;
+  }
+}
+
+@mixin text() {
+  @each $size in variables.$sizes {
+    @if $size == default {
+      @include text-size($size);
+    } @else {
+      &.#{$size} {
+        @include text-size($size);
+      }
+    }
+  }
+
+  @each $weight in variables.$font-weights {
+    @if $weight == default {
+      @include text-weight($weight);
+    } @else {
+      &.#{$weight} {
+        @include text-weight($weight);
+      }
+    }
+  }
+
+  @each $color in variables.$colors {
+    &.#{$color} {
+      color: getColorValue($color);
+    }
+  }
+}

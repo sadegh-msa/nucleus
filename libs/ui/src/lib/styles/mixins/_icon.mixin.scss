@@ -1,0 +1,46 @@
+@use '../variables';
+@import '../functions/utils.function';
+
+@mixin icon-color($color) {
+  $color-value: getColorValue($color);
+
+  > * {
+    &[fill] {
+      fill: $color-value;
+    }
+
+    &[stroke] {
+      stroke: $color-value;
+    }
+  }
+}
+
+@mixin icon-size($size) {
+  @if $size == small {
+    @apply h-4 w-4;
+  } @else if $size == medium {
+    @apply h-5 w-5;
+  } @else if $size == large {
+    @apply h-7 w-7;
+  } @else {
+    @apply h-6 w-6;
+  }
+}
+
+@mixin icon() {
+  @each $size in variables.$sizes {
+    @if $size == default {
+      @include icon-size($size);
+    } @else {
+      &.#{$size} {
+        @include icon-size($size);
+      }
+    }
+  }
+
+  @each $color in variables.$colors {
+    &.#{$color} {
+      @include icon-color($color);
+    }
+  }
+}

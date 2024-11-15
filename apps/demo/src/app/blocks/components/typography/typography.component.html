@@ -10,7 +10,7 @@
 <table class="colors">
   <thead>
     <tr>
-      <th>Size / Weight</th>
+      <th>Size</th>
       @for (color of colors; track $index) {
         <th>{{ color | titlecase }}</th>
       }
@@ -20,7 +20,7 @@
   <tbody>
     @for (size of sizes; track $index) {
       <tr>
-        <td>{{ size | titlecase }}</td>
+        <td>{{ (size || 'default') | titlecase }}</td>
         @for (color of colors; track $index) {
           <td>
             <span [class]="['ui', 'text', size, color].join(' ')">
@@ -31,9 +31,14 @@
       </tr>
     }
 
+    <tr>
+      <th>Weight</th>
+      <td [colSpan]="colors.length"></td>
+    </tr>
+
     @for (weight of weights; track $index) {
       <tr>
-        <td>{{ weight | titlecase }}</td>
+        <td>{{ (weight || 'default') | titlecase }}</td>
         @for (color of colors; track $index) {
           <td>
             <span [class]="['ui', 'text', weight, color].join(' ')">

@@ -1,35 +1,7 @@
-@use './variables';
+@import './mixins/text.mixin';
 
 .ui {
   &.text {
-    &.small {
-      @apply text-xs;
-    }
-
-    &.medium {
-      @apply text-sm;
-    }
-
-    &.large {
-      @apply text-base;
-    }
-
-    &.light {
-      @apply font-light;
-    }
-
-    &.semibold {
-      @apply font-semibold;
-    }
-
-    &.bold {
-      @apply font-bold;
-    }
-
-    @each $color in variables.$colors {
-      &.#{$color} {
-        color: theme('colors[#{$color}]');
-      }
-    }
+    @include text();
   }
 }

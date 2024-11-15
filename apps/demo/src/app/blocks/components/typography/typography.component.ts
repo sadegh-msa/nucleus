@@ -1,7 +1,6 @@
 import { TitleCasePipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { colors } from '../../shared/data/colors';
-import { sizes } from '../../shared/data/sizes';
+import { colors, sizes } from '../../shared/data';
 
 @Component({
   selector: 'app-typography',
@@ -14,5 +13,5 @@ import { sizes } from '../../shared/data/sizes';
 export class TypographyComponent {
   readonly colors = colors;
   readonly sizes = sizes;
-  readonly weights = ['light', 'semibold', 'bold'];
+  readonly weights = ['light', '', 'semibold', 'bold', 'extrabold'];
 }

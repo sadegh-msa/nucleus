@@ -1,32 +1,7 @@
-@use './variables';
-
-$icon-sizes: (
-  small: 4,
-  medium: 5,
-  large: 6,
-);
+@import './mixins/icon.mixin';
 
 svg.ui {
   &.icon {
-    @each $key, $value in $icon-sizes {
-      &.#{$key} {
-        height: theme('size[#{$value}]');
-        width: theme('size[#{$value}]');
-      }
-    }
-
-    @each $color in variables.$colors {
-      &.#{$color} {
-        > * {
-          &[fill] {
-            fill: theme('colors[#{$color}]');
-          }
-
-          &[stroke] {
-            stroke: theme('colors[#{$color}]');
-          }
-        }
-      }
-    }
+    @include icon();
   }
 }

@@ -1,0 +1,3 @@
+@function getColorValue($color) {
+  @return theme('colors.#{$color}');
+}

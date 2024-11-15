@@ -1,8 +1,7 @@
 import { TitleCasePipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { SvgIconComponent } from 'angular-svg-icon';
-import { colors } from '../../shared/data/colors';
-import { sizes } from '../../shared/data/sizes';
+import { colors, sizes } from '../../shared/data';
 
 @Component({
   selector: 'app-icon',
@@ -13,6 +12,8 @@ import { sizes } from '../../shared/data/sizes';
   styleUrl: './icon.component.scss',
 })
 export class IconComponent {
+  readonly colors = colors;
+  readonly sizes = sizes;
   readonly iconFamilies = [
     'bold',
     'broken',
@@ -21,6 +22,4 @@ export class IconComponent {
     'outline',
     'twotone',
   ];
-  readonly colors = colors;
-  readonly sizes = sizes;
 }
