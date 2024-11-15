@@ -86,6 +86,7 @@
 
   @each $size in variables.$sizes {
     @if $size == default {
+      @include text-size($size);
       @include button-padding($size);
       @include button-radius($size);
 
@@ -94,6 +95,7 @@
       }
     } @else {
       &.#{$size} {
+        @include text-size($size);
         @include button-padding($size);
         @include button-radius($size);
 
