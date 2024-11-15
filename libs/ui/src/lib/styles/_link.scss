@@ -1,0 +1,6 @@
+@import './mixins/link.mixin';
+
+a.ui:not(.button) {
+  @include link();
+}
+

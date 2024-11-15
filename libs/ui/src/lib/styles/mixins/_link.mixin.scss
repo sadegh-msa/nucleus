@@ -1,0 +1,31 @@
+@use '../variables';
+@import './button.mixin';
+@import './text.mixin';
+
+@mixin link() {
+  @include text(true, true);
+  @apply flex items-center gap-2;
+  @apply font-medium;
+
+  .disabled {
+    @apply opacity-50 pointer-events-none;
+  }
+
+  span {
+    @apply pt-1;
+  }
+
+  @each $size in variables.$sizes {
+    @if $size == default {
+      svg:not(ui.icon) {
+        @include button-icon-size($size);
+      }
+    } @else {
+      &.#{$size} {
+        svg:not(ui.icon) {
+          @include button-icon-size($size);
+        }
+      }
+    }
+  }
+}

@@ -43,3 +43,30 @@
     }
   </tbody>
 </table>
+
+<table>
+  <thead>
+    <tr>
+      <th>Size</th>
+      @for (color of colors; track $index) {
+        <th>{{ color | titlecase }}</th>
+      }
+    </tr>
+  </thead>
+
+  <tbody>
+    @for (size of sizes; track $index) {
+      <tr>
+        <td>{{ size || 'default' | titlecase }}</td>
+        @for (color of colors; track $index) {
+          <td>
+            <a routerLink="/button" [class]="['ui', 'link', size, color].join(' ')">
+              <svg-icon [src]="ICON" />
+              <span>{{ color | titlecase }}</span>
+            </a>
+          </td>
+        }
+      </tr>
+    }
+  </tbody>
+</table>
