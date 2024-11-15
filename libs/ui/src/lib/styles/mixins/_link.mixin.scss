@@ -5,7 +5,7 @@
 @mixin link() {
   @include text(true, true);
   @apply flex items-center gap-2;
-  @apply font-medium;
+  @apply font-medium w-max;
 
   .disabled {
     @apply opacity-50 pointer-events-none;
