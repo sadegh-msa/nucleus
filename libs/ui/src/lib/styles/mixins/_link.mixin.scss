@@ -1,30 +1,39 @@
 @use '../variables';
-@import './button.mixin';
 @import './text.mixin';
+
+@mixin link-icon-size($size) {
+  @if $size == small {
+    @apply h-3.5 w-3.5;
+  } @else if $size == medium {
+    @apply h-4 w-4;
+  } @else if $size == large {
+    @apply h-5 w-5;
+  } @else {
+    @apply h-4.5 w-4.5;
+  }
+}
+
+@mixin link-size($size) {
+  svg:not(.ui.icon) {
+    @include link-icon-size($size);
+  }
+}
 
 @mixin link() {
   @include text(true, true);
   @apply flex items-center gap-2;
   @apply font-medium w-max;
 
-  .disabled {
+  &.disabled {
     @apply opacity-50 pointer-events-none;
-  }
-
-  span {
-    @apply pt-1;
   }
 
   @each $size in variables.$sizes {
     @if $size == default {
-      svg:not(ui.icon) {
-        @include button-icon-size($size);
-      }
+      @include link-size($size);
     } @else {
       &.#{$size} {
-        svg:not(ui.icon) {
-          @include button-icon-size($size);
-        }
+        @include link-size($size);
       }
     }
   }

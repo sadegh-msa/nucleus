@@ -1,7 +1,15 @@
 @import './mixins/icon.mixin';
+@import './mixins/transition.mixin';
 
-svg.ui {
-  &.icon {
-    @include icon();
+svg {
+  &.ui {
+    &.icon {
+      @include icon();
+      @include transition-colors();
+    }
+  }
+
+  &:is(.left, .right) {
+    @apply rtl:transform rtl:-scale-x-100;
   }
 }

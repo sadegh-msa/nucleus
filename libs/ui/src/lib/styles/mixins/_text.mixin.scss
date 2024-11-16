@@ -31,7 +31,7 @@
 @mixin text-color($color) {
   color: getColorValue($color);
 
-  svg:not(ui.icon) {
+  svg:not(.ui.icon) {
     @include icon-color($color);
   }
 }
@@ -59,7 +59,9 @@
 
   @each $color in variables.$colors {
     &.#{$color} {
-      @include text-color($color);
+      &:not(:hover, :active) {
+        @include text-color($color);
+      }
 
       @if $has-hover {
         &:hover {

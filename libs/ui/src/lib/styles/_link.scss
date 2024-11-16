@@ -1,6 +1,8 @@
 @import './mixins/link.mixin';
+@import './mixins/transition.mixin';
 
 a.ui:not(.button) {
   @include link();
+  @include transition-colors();
 }
 

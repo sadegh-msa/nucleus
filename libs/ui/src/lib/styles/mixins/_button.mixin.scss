@@ -35,8 +35,18 @@
   @apply rounded-md;
 }
 
+@mixin button-size($size) {
+  @include text-size($size);
+  @include button-padding($size);
+  @include button-radius($size);
+
+  svg:not(.ui.icon) {
+    @include button-icon-size($size);
+  }
+}
+
 @mixin button-variant-solid($bg-color, $text-color) {
-  &:not(:active, :hover) {
+  &:not(:hover, :active) {
     @include text-color($text-color);
     background-color: getColorValue('#{$bg-color}');
   }
@@ -73,35 +83,22 @@
 }
 
 @mixin button() {
-  @apply flex items-center gap-2;
+  @apply flex justify-center items-center gap-2;
 
-  &:disabled,
-  .disabled {
+  &:is(:disabled,.disabled) {
     @apply opacity-50 pointer-events-none;
   }
 
   span {
-    @apply pt-1 font-medium;
+    @apply font-medium;
   }
 
   @each $size in variables.$sizes {
     @if $size == default {
-      @include text-size($size);
-      @include button-padding($size);
-      @include button-radius($size);
-
-      svg:not(ui.icon) {
-        @include button-icon-size($size);
-      }
+      @include button-size($size);
     } @else {
       &.#{$size} {
-        @include text-size($size);
-        @include button-padding($size);
-        @include button-radius($size);
-
-        svg:not(ui.icon) {
-          @include button-icon-size($size);
-        }
+        @include button-size($size);
       }
     }
   }

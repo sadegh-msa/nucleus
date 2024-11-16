@@ -1,7 +1,9 @@
 @import './mixins/text.mixin';
+@import './mixins/transition.mixin';
 
 .ui {
   &.text {
     @include text();
+    @include transition-colors();
   }
 }

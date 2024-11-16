@@ -1,0 +1,13 @@
+@mixin transition-timing() {
+  @apply duration-300 ease-in-out;
+}
+
+@mixin transition-colors() {
+  @include transition-timing();
+  @apply transition-colors;
+}
+
+@mixin transition-all() {
+  @include transition-timing();
+  @apply transition-all;
+}

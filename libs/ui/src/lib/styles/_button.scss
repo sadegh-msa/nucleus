@@ -1,5 +1,7 @@
 @import './mixins/button.mixin';
+@import './mixins/transition.mixin';
 
 :where(a, button).ui:not(.link) {
   @include button();
+  @include transition-colors();
 }
