@@ -1,5 +1,6 @@
 @use '../variables';
 @import '../functions/utils.function';
+@import './icon.mixin';
 @import './text.mixin';
 
 @mixin button-icon-size($size) {
@@ -27,7 +28,7 @@
     }
   }
   &:not(:has(span)) {
-    @apply p-2;
+    @apply p-1;
   }
 }
 
@@ -36,12 +37,25 @@
 }
 
 @mixin button-size($size) {
-  @include text-size($size);
-  @include button-padding($size);
   @include button-radius($size);
 
-  svg:not(.ui.icon) {
-    @include button-icon-size($size);
+  &:has(span) {
+    @include text-size($size);
+
+    svg:not(.ui.icon) {
+      @include button-icon-size($size);
+    }
+  }
+
+  &:not(:has(span)),
+  &.icon {
+    svg:not(.ui.icon) {
+      @include icon-size($size);
+    }
+  }
+
+  &:not(.icon) {
+    @include button-padding($size);
   }
 }
 
@@ -89,6 +103,8 @@
 
   @if $variant == bulk {
     @include button-variant-solid($color-pale, $color, $is-second);
+  } @else if $variant == icon {
+    @include button-variant-solid(transparent, $color, $is-second);
   } @else if $variant == outline {
     @include button-variant-outline(transparent, $color, $is-second);
   } @else if $variant == text {

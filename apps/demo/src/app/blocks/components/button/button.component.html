@@ -41,7 +41,9 @@
             } @else {
               <button [class]="['ui', 'button', variant, color].join(' ')">
                 <svg-icon [src]="ICON" />
-                <span>{{ color }}</span>
+                @if (variant !== 'icon') {
+                  <span>{{ color }}</span>
+                }
               </button>
             }
           </td>
