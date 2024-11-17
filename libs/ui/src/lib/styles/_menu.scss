@@ -1,0 +1,13 @@
+@import './mixins/menu.mixin';
+@import './mixins/transition.mixin';
+
+menu.ui {
+  &.menu {
+    @include menu();
+    @include transition-all();
+
+    menu {
+      @include transition-all();
+    }
+  }
+}

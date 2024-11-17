@@ -3,11 +3,26 @@
 }
 
 @mixin transition-colors() {
-  @include transition-timing();
   @apply transition-colors;
+  @include transition-timing();
+}
+
+@mixin transition-height() {
+  @apply transition-[max-height];
+  @include transition-timing();
+}
+
+@mixin transition-transform() {
+  @apply transition-transform;
+  @include transition-timing();
+}
+
+@mixin transition-grid-rows() {
+  @apply transition-[grid-template-rows];
+  @include transition-timing();
 }
 
 @mixin transition-all() {
-  @include transition-timing();
   @apply transition-all;
+  @include transition-timing();
 }

@@ -8,15 +8,21 @@ export const appRoutes: Route[] = [
       import('./blocks/components').then((m) => m.ButtonComponent),
   },
   {
-    path: 'typography',
-    title: $localize`Typography`,
-    loadComponent: () =>
-      import('./blocks/components').then((m) => m.TypographyComponent),
-  },
-  {
     path: 'icon',
     title: $localize`Icon`,
     loadComponent: () =>
       import('./blocks/components').then((m) => m.IconComponent),
+  },
+  {
+    path: 'menu',
+    title: $localize`Menu`,
+    loadComponent: () =>
+      import('./blocks/components').then((m) => m.MenuComponent),
+  },
+  {
+    path: 'typography',
+    title: $localize`Typography`,
+    loadComponent: () =>
+      import('./blocks/components').then((m) => m.TypographyComponent),
   },
 ];

@@ -1,0 +1,122 @@
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { MenuItem, MenuItemsComponent } from '@solving-center/ui';
+
+@Component({
+  selector: 'app-menu',
+  standalone: true,
+  imports: [MenuItemsComponent],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  templateUrl: './menu.component.html',
+  styleUrl: './menu.component.scss',
+})
+export class MenuComponent {
+  readonly menuItems: MenuItem[] = [
+    {
+      id: 'demo-menu-link-button',
+      label: $localize`Button`,
+      // labelNgStyle: { 'background-color': 'red' },
+      // labelNgClass: ['demo-menu-link'],
+      tooltip: $localize`Button`,
+      // tooltipPlacement: 'top',
+      icon: 'icons/outline/tick-circle.svg',
+      // iconNgStyle: {},
+      // iconNgClass: [],
+      // ngStyle: {},
+      // ngClass: ['ui', 'link', 'primary'],
+      // disabled: false,
+      // hidden: false,
+      // href: '',
+      routerLink: '/button',
+      routerLinkActive: 'active',
+      permission: 'demo.menu.link.button',
+    },
+    {
+      id: 'demo-menu-link-icon',
+      label: $localize`Icon`,
+      icon: 'icons/outline/tick-circle.svg',
+      routerLink: '/icon',
+      routerLinkActive: 'active',
+      permission: 'demo.menu.link.icon',
+    },
+    {
+      id: 'demo-menu-link-menu',
+      label: $localize`Menu`,
+      icon: 'icons/bold/tick-circle.svg',
+      routerLink: '/menu',
+      routerLinkActive: 'active',
+      permission: 'demo.menu.link.menu',
+    },
+    {
+      id: 'demo-menu-link-typography',
+      label: $localize`Typography`,
+      icon: 'icons/outline/tick-circle.svg',
+      permission: 'demo.menu.link.typography',
+      children: [
+        {
+          id: 'demo-menu-link-button',
+          label: $localize`Button`,
+          icon: 'icons/outline/tick-circle.svg',
+          routerLink: '/button',
+          routerLinkActive: 'active',
+          permission: 'demo.menu.link.button',
+        },
+        {
+          id: 'demo-menu-link-icon',
+          label: $localize`Icon`,
+          icon: 'icons/outline/tick-circle.svg',
+          permission: 'demo.menu.link.icon',
+          children: [
+            {
+              id: 'demo-menu-link-button',
+              label: $localize`Button`,
+              icon: 'icons/outline/tick-circle.svg',
+              routerLink: '/button',
+              routerLinkActive: 'active',
+              permission: 'demo.menu.link.button',
+            },
+            {
+              id: 'demo-menu-link-icon',
+              label: $localize`Icon`,
+              icon: 'icons/outline/tick-circle.svg',
+              routerLink: '/icon',
+              routerLinkActive: 'active',
+              permission: 'demo.menu.link.icon',
+            },
+            {
+              id: 'demo-menu-link-menu',
+              label: $localize`Menu`,
+              icon: 'icons/bold/tick-circle.svg',
+              routerLink: '/menu',
+              routerLinkActive: 'active',
+              permission: 'demo.menu.link.menu',
+            },
+            {
+              id: 'demo-menu-link-typography',
+              label: $localize`Typography`,
+              icon: 'icons/outline/tick-circle.svg',
+              routerLink: '/typography',
+              routerLinkActive: 'active',
+              permission: 'demo.menu.link.typography',
+            },
+          ]
+        },
+        {
+          id: 'demo-menu-link-menu',
+          label: $localize`Menu`,
+          icon: 'icons/bold/tick-circle.svg',
+          routerLink: '/menu',
+          routerLinkActive: 'active',
+          permission: 'demo.menu.link.menu',
+        },
+        {
+          id: 'demo-menu-link-typography',
+          label: $localize`Typography`,
+          icon: 'icons/outline/tick-circle.svg',
+          routerLink: '/typography',
+          routerLinkActive: 'active',
+          permission: 'demo.menu.link.typography',
+        },
+      ]
+    },
+  ];
+}

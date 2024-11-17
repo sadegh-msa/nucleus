@@ -9,7 +9,7 @@ svg {
     }
   }
 
-  &:is(.left, .right) {
+  &.bidi {
     @apply rtl:transform rtl:-scale-x-100;
   }
 }
