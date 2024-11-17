@@ -98,7 +98,7 @@ export class MenuComponent {
               routerLinkActive: 'active',
               permission: 'demo.menu.link.typography',
             },
-          ]
+          ],
         },
         {
           id: 'demo-menu-link-menu',
@@ -116,7 +116,7 @@ export class MenuComponent {
           routerLinkActive: 'active',
           permission: 'demo.menu.link.typography',
         },
-      ]
+      ],
     },
   ];
 }

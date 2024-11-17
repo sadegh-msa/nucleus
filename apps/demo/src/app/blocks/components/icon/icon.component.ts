@@ -1,4 +1,3 @@
-import { TitleCasePipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { SvgIconComponent } from 'angular-svg-icon';
 import { colors, sizes } from '../../shared/data';
@@ -6,7 +5,7 @@ import { colors, sizes } from '../../shared/data';
 @Component({
   selector: 'app-icon',
   standalone: true,
-  imports: [SvgIconComponent, TitleCasePipe],
+  imports: [SvgIconComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './icon.component.html',
   styleUrl: './icon.component.scss',

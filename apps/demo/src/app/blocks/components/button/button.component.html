@@ -3,7 +3,7 @@
     <tr>
       <th>Size</th>
       @for (color of colors; track $index) {
-        <th>{{ color | titlecase }}</th>
+        <th>{{ color }}</th>
       }
     </tr>
   </thead>
@@ -11,12 +11,12 @@
   <tbody>
     @for (size of sizes; track $index) {
       <tr>
-        <td>{{ size || 'default' | titlecase }}</td>
+        <td>{{ size || 'default' }}</td>
         @for (color of colors; track $index) {
           <td>
             <button [class]="['ui', 'button', size, color].join(' ')">
               <svg-icon [src]="ICON" />
-              <span>{{ color | titlecase }}</span>
+              <span>{{ color }}</span>
             </button>
           </td>
         }
@@ -30,12 +30,12 @@
 
     @for (variant of variants; track $index) {
       <tr>
-        <td>{{ variant || 'default' | titlecase }}</td>
+        <td>{{ variant || 'default' }}</td>
         @for (color of colors; track $index) {
           <td>
             <button [class]="['ui', 'button', variant, color].join(' ')">
               <svg-icon [src]="ICON" />
-              <span>{{ color | titlecase }}</span>
+              <span>{{ color }}</span>
             </button>
           </td>
         }
@@ -49,7 +49,7 @@
     <tr>
       <th>Size</th>
       @for (color of colors; track $index) {
-        <th>{{ color | titlecase }}</th>
+        <th>{{ color }}</th>
       }
     </tr>
   </thead>
@@ -57,12 +57,12 @@
   <tbody>
     @for (size of sizes; track $index) {
       <tr>
-        <td>{{ size || 'default' | titlecase }}</td>
+        <td>{{ size || 'default' }}</td>
         @for (color of colors; track $index) {
           <td>
             <a routerLink="/button" [class]="['ui', 'link', size, color].join(' ')">
               <svg-icon [src]="ICON" />
-              <span>{{ color | titlecase }}</span>
+              <span>{{ color }}</span>
             </a>
           </td>
         }

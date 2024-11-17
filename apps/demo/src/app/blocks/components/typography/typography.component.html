@@ -12,7 +12,7 @@
     <tr>
       <th>Size</th>
       @for (color of colors; track $index) {
-        <th>{{ color | titlecase }}</th>
+        <th>{{ color }}</th>
       }
     </tr>
   </thead>
@@ -20,11 +20,11 @@
   <tbody>
     @for (size of sizes; track $index) {
       <tr>
-        <td>{{ (size || 'default') | titlecase }}</td>
+        <td>{{ (size || 'default') }}</td>
         @for (color of colors; track $index) {
           <td>
             <span [class]="['ui', 'text', size, color].join(' ')">
-              {{ color | titlecase }}
+              {{ color }}
             </span>
           </td>
         }
@@ -38,11 +38,11 @@
 
     @for (weight of weights; track $index) {
       <tr>
-        <td>{{ (weight || 'default') | titlecase }}</td>
+        <td>{{ (weight || 'default') }}</td>
         @for (color of colors; track $index) {
           <td>
             <span [class]="['ui', 'text', weight, color].join(' ')">
-              {{ color | titlecase }}
+              {{ color }}
             </span>
           </td>
         }

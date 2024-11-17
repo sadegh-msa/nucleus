@@ -1,11 +1,10 @@
-import { TitleCasePipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { colors, sizes } from '../../shared/data';
 
 @Component({
   selector: 'app-typography',
   standalone: true,
-  imports: [TitleCasePipe],
+  imports: [],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './typography.component.html',
   styleUrl: './typography.component.scss',

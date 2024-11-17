@@ -3,7 +3,7 @@
     <tr>
       <th>Icon family</th>
       @for (color of colors; track $index) {
-        <th>{{ color | titlecase }}</th>
+        <th>{{ color }}</th>
       }
     </tr>
   </thead>
@@ -11,7 +11,7 @@
   <tbody>
     @for (iconFamily of iconFamilies; track $index) {
       <tr>
-        <td>{{ iconFamily | titlecase }}</td>
+        <td>{{ iconFamily }}</td>
         @let icon = 'icons/' + iconFamily + '/tick-circle.svg';
         @for (color of colors; track $index) {
           <td>
