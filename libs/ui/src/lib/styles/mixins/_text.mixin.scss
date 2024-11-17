@@ -9,8 +9,6 @@
     @apply text-sm;
   } @else if $size == large {
     @apply text-lg;
-  } @else {
-    @apply text-base;
   }
 }
 
@@ -23,8 +21,6 @@
     @apply font-semibold;
   } @else if $weight == extrabold {
     @apply font-bold;
-  } @else {
-    @apply font-normal;
   }
 }
 
