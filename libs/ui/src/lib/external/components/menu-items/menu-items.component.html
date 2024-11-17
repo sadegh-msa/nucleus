@@ -3,12 +3,14 @@
 <ng-template #children let-items="items" let-isSubMenu="isSubMenu">
   @for (item of items; track $index) {
     <li>
+      @let tooltip = item.tooltip || (!isSubMenu && !item.children?.length && isCompact() ? item.label : '');
+      @let tooltipPosition = item.tooltipPlacement || tooltipPlacement();
       @if (item.routerLink) {
         <a
           [id]="item.id"
-          [tp]="item.tooltip"
-          [tpIsEnabled]="!!item.tooltip"
-          [tpPlacement]="item.tooltipPlacement || tooltipPlacement()"
+          [tp]="tooltip"
+          [tpIsEnabled]="!!tooltip"
+          [tpPlacement]="tooltipPosition"
           [tpIsLazy]="true"
           [ngStyle]="item.ngStyle"
           [ngClass]="item.ngClass"
@@ -24,9 +26,9 @@
       } @else {
         <button
           [id]="item.id"
-          [tp]="item.tooltip"
-          [tpIsEnabled]="!!item.tooltip"
-          [tpPlacement]="item.tooltipPlacement || tooltipPlacement()"
+          [tp]="tooltip"
+          [tpIsEnabled]="!!tooltip"
+          [tpPlacement]="tooltipPosition"
           [tpIsLazy]="true"
           [ngStyle]="item.ngStyle"
           [ngClass]="item.ngClass"
@@ -40,7 +42,7 @@
 
       @if (item.children?.length) {
         <menu [class.expanded]="item.expanded">
-          @if (mode() === 'compact') {
+          @if (isCompact()) {
             <li>
               <button><strong>{{ item.label }}</strong></button>
             </li>
@@ -61,17 +63,15 @@
     />
   }
 
-  @if (isSubMenu || mode() === 'wide') {
-    @if (item.label) {
-      <span [ngClass]="item.labelNgClass"
-            [ngStyle]="item.labelNgStyle">{{ item.label }}</span>
-    }
+  @if (item.label) {
+    <span [ngClass]="item.labelNgClass"
+          [ngStyle]="item.labelNgStyle">{{ item.label }}</span>
+  }
 
-    @if (item.children?.length) {
-      <svg-icon src="icons/outline/arrow-right-1.svg"
-                svgClass="ui icon small bidi"
-                class="arrow"
-      />
-    }
+  @if (item.children?.length) {
+    <svg-icon src="icons/outline/arrow-right-1.svg"
+              svgClass="ui icon small bidi"
+              class="arrow"
+    />
   }
 </ng-template>

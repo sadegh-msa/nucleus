@@ -16,7 +16,7 @@ export class MenuComponent {
       label: $localize`Button`,
       // labelNgStyle: { 'background-color': 'red' },
       // labelNgClass: ['demo-menu-link'],
-      tooltip: $localize`Button`,
+      // tooltip: $localize`Button`,
       // tooltipPlacement: 'top',
       icon: 'icons/outline/tick-circle.svg',
       // iconNgStyle: {},

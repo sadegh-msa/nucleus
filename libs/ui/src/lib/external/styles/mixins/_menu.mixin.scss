@@ -17,40 +17,23 @@
 @mixin menu() {
   @apply flex flex-col z-30;
 
-  li {
-    @apply relative w-full bg-inherit;
-    border-radius: inherit;
+  &.compact {
+    > li {
+      > :is(a, button) {
+        @apply gap-0;
 
-    a, button {
-      @include menu-item-size(default);
-      @apply flex justify-start items-center gap-2;
-      @apply w-full outline-none;
+        > span {
+          @apply w-0;
+        }
 
-      &:is(:disabled,.disabled) {
-        @apply opacity-50 pointer-events-none;
-      }
+        svg {
+          @apply ms-2;
+        }
 
-      &:not(:hover, .active) {
-        @include button-variant-solid(transparent, primary);
-      }
-
-      &:is(:hover, .active) {
-        @include button-variant-solid(transparent, accent);
-      }
-
-      &.active {
-        span {
-          @apply font-semibold;
+        > .arrow {
+          @apply hidden;
         }
       }
-    }
-
-    > menu {
-      @apply bg-inherit;
-    }
-
-    .arrow {
-      @apply ms-auto;
     }
   }
 
@@ -77,13 +60,13 @@
 
   &.sliding {
     li {
-      > :where(a, button) > .arrow {
+      > :is(a, button) > .arrow {
         @include transition(transform);
         @apply rotate-0;
       }
 
       &:has(.expanded) {
-        > :where(a, button) > .arrow {
+        > :is(a, button) > .arrow {
           @apply ltr:rotate-90 rtl:-rotate-90;
         }
       }
@@ -101,6 +84,53 @@
         }
       }
     }
+  }
 
+  li {
+    @apply relative w-full bg-inherit;
+    border-radius: inherit;
+
+    a, button {
+      @include menu-item-size(default);
+      @include transition(width, gap);
+      @apply flex justify-start items-center gap-2;
+      @apply w-full outline-none;
+
+      &:is(:disabled,.disabled) {
+        @apply opacity-50 pointer-events-none;
+      }
+
+      &:not(:hover, .active) {
+        @include button-variant-solid(transparent, primary);
+      }
+
+      &:is(:hover, .active) {
+        @include button-variant-solid(transparent, accent);
+      }
+
+      &.active {
+        span {
+          @apply font-semibold;
+        }
+      }
+
+      > span {
+        @apply text-ellipsis text-nowrap overflow-hidden;
+        @apply w-full text-start;
+        @include transition(width);
+      }
+
+      svg {
+        @include transition(margin);
+      }
+    }
+
+    > menu {
+      @apply bg-inherit;
+    }
+
+    .arrow {
+      @apply ms-auto;
+    }
   }
 }

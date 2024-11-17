@@ -1,10 +1,5 @@
 import { NgClass, NgStyle, NgTemplateOutlet } from '@angular/common';
-import {
-  ChangeDetectionStrategy,
-  Component,
-  HostBinding,
-  input,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, HostBinding, input } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { TippyDirective } from '@ngneat/helipopper';
 import { SvgIconComponent } from 'angular-svg-icon';
@@ -38,12 +33,15 @@ export class MenuItemsComponent {
     alias: 'uiMenuSubmenuMode',
   });
 
+  readonly isCompact = computed(() => this.mode() === 'compact');
+  readonly isWide = computed(() => this.mode() === 'wide');
+
   @HostBinding('class')
   get styleClass() {
     return [
       this.setStyleClass() ? 'ui menu' : '',
       this.mode(),
-      this.mode() === 'compact' ? 'afloat' : this.submenuMode(),
+      this.isCompact() ? 'afloat' : this.submenuMode(),
     ].join(' ');
   }
 
