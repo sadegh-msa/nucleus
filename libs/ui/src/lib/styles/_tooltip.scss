@@ -1,0 +1,13 @@
+@import 'tippy.js/dist/tippy.css';
+@import './mixins/shadow.mixin';
+
+.tippy-variation-tooltip {
+  .tippy-box {
+    @apply bg-primary text-primary-pale;
+    @include shadow();
+
+    .tippy-arrow::before {
+      @apply text-primary;
+    }
+  }
+}

@@ -30,11 +30,13 @@
     "@angular/platform-server": "~18.2.11",
     "@angular/router": "~18.2.11",
     "@angular/ssr": "~18.2.11",
+    "@ngneat/helipopper": "^9.2.1",
     "angular-svg-icon": "^18.0.2",
     "date-fns": "^4.1.0",
     "date-fns-jalali": "4.1.0-0",
     "express": "~4.21.1",
     "rxjs": "~7.8.1",
+    "tippy.js": "^6.3.7",
     "zone.js": "~0.14.10"
   },
   "devDependencies": {

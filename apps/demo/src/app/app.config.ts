@@ -1,6 +1,7 @@
 import { provideHttpClient, withFetch } from '@angular/common/http';
 import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
 import { provideRouter } from '@angular/router';
+import { uiProviders } from '@solving-center/ui';
 import { provideAngularSvgIcon } from 'angular-svg-icon';
 import { appRoutes } from './app.routes';
 
@@ -10,5 +11,6 @@ export const appConfig: ApplicationConfig = {
     provideRouter(appRoutes),
     provideHttpClient(withFetch()),
     provideAngularSvgIcon(),
+    ...uiProviders
   ],
 };
