@@ -45,40 +45,56 @@
   }
 }
 
-@mixin button-variant-solid($bg-color, $text-color) {
-  &:not(:hover, :active) {
-    @include text-color($text-color);
-    background-color: getColorValue('#{$bg-color}');
-  }
+@mixin button-variant-solid($bg-color, $text-color, $is-second: false) {
+  @if $is-second {
+    &[class*='second-'] {
+      &:hover {
+        @include text-color('#{$text-color}-darker');
+        background-color: getColorValue('#{$bg-color}-darker');
+      }
 
-  &:hover {
-    @include text-color('#{$text-color}-darker');
-    background-color: getColorValue('#{$bg-color}-darker');
-  }
+      &:active {
+        @include text-color('#{$text-color}-darkest');
+        background-color: getColorValue('#{$bg-color}-darkest');
+      }
+    }
+  } @else {
+    &:not(:hover, :active) {
+      @include text-color($text-color);
+      background-color: getColorValue('#{$bg-color}');
+    }
 
-  &:active {
-    @include text-color('#{$text-color}-darkest');
-    background-color: getColorValue('#{$bg-color}-darkest');
+    &:not([class*='second-']) {
+      &:hover {
+        @include text-color('#{$text-color}-darker');
+        background-color: getColorValue('#{$bg-color}-darker');
+      }
+
+      &:active {
+        @include text-color('#{$text-color}-darkest');
+        background-color: getColorValue('#{$bg-color}-darkest');
+      }
+    }
   }
 }
 
-@mixin button-variant-outline($bg-color, $text-color) {
-  @include button-variant-solid($bg-color, $text-color);
+@mixin button-variant-outline($bg-color, $text-color, $is-second: false) {
+  @include button-variant-solid($bg-color, $text-color, $is-second);
   @apply border;
   border-color: getColorValue($text-color);
 }
 
-@mixin button-variant($variant, $color) {
+@mixin button-variant($variant, $color, $is-second: false) {
   $color-pale: '#{$color}-pale';
 
   @if $variant == bulk {
-    @include button-variant-solid($color-pale, $color);
+    @include button-variant-solid($color-pale, $color, $is-second);
   } @else if $variant == outline {
-    @include button-variant-outline(transparent, $color);
+    @include button-variant-outline(transparent, $color, $is-second);
   } @else if $variant == text {
-    @include button-variant-solid(transparent, $color);
+    @include button-variant-solid(transparent, $color, $is-second);
   } @else {
-    @include button-variant-solid($color, $color-pale);
+    @include button-variant-solid($color, $color-pale, $is-second);
   }
 }
 
@@ -111,6 +127,18 @@
         } @else {
           &.#{$variant} {
             @include button-variant($variant, $color);
+          }
+        }
+      }
+    }
+
+    &.second-#{$color} {
+      @each $variant in variables.$button-variants {
+        @if $variant == default {
+          @include button-variant($variant, $color, true);
+        } @else {
+          &.#{$variant} {
+            @include button-variant($variant, $color, true);
           }
         }
       }

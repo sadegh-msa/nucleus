@@ -15,5 +15,5 @@ export class ButtonComponent {
   readonly ICON = 'icons/outline/tick-circle.svg';
   readonly colors = colors;
   readonly sizes = sizes;
-  readonly variants = ['bulk', '', 'outline', 'text'];
+  readonly variants = ['bulk', '', 'outline', 'text', 'second'];
 }
