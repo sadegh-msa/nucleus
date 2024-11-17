@@ -4,10 +4,10 @@
 menu.ui {
   &.menu {
     @include menu();
-    @include transition-all();
+    @include transition(all);
 
     menu {
-      @include transition-all();
+      @include transition(all);
     }
   }
 }

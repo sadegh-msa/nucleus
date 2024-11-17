@@ -3,6 +3,6 @@
 
 a.ui:not(.button) {
   @include link();
-  @include transition-colors();
+  @include transition(colors);
 }
 

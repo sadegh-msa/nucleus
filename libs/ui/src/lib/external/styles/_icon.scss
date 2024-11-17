@@ -5,7 +5,7 @@ svg {
   &.ui {
     &.icon {
       @include icon();
-      @include transition-colors();
+      @include transition(colors);
     }
   }
 

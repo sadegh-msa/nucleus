@@ -1,28 +1,4 @@
-@mixin transition-timing() {
+@mixin transition($attrs...) {
   @apply duration-300 ease-in-out;
-}
-
-@mixin transition-colors() {
-  @apply transition-colors;
-  @include transition-timing();
-}
-
-@mixin transition-height() {
-  @apply transition-[max-height];
-  @include transition-timing();
-}
-
-@mixin transition-transform() {
-  @apply transition-transform;
-  @include transition-timing();
-}
-
-@mixin transition-grid-rows() {
-  @apply transition-[grid-template-rows];
-  @include transition-timing();
-}
-
-@mixin transition-all() {
-  @apply transition-all;
-  @include transition-timing();
+  transition-property: $attrs;
 }

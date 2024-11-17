@@ -78,7 +78,7 @@
   &.sliding {
     li {
       > :where(a, button) > .arrow {
-        @include transition-transform();
+        @include transition(transform);
         @apply rotate-0;
       }
 
@@ -89,7 +89,7 @@
       }
 
       menu {
-        @include transition-height();
+        @include transition(max-height);
         @apply overflow-hidden ps-2;
 
         &:not(.expanded) {

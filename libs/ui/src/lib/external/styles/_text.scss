@@ -4,6 +4,6 @@
 .ui {
   &.text {
     @include text();
-    @include transition-colors();
+    @include transition(colors);
   }
 }
