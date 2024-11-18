@@ -1,7 +1,7 @@
 import { animate, style, transition, trigger } from '@angular/animations';
 
 const TIMINGS = '300ms 0ms ease-in-out';
-const DELAY_TIMINGS = '300ms 100ms ease-in-out';
+const DELAY_TIMINGS = '600ms 100ms ease-in-out';
 
 export function getFadeAnimation(timings = TIMINGS, name = 'fadeEnter') {
   return trigger(name, [
