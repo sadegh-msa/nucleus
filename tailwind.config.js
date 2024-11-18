@@ -46,6 +46,9 @@ const configs = {
       borderColor: {
         DEFAULT: '#A0A8B3',
       },
+      borderRadius: {
+        inherit: 'inherit'
+      },
       spacing: {
         '4.5': '1.125rem',
         '5.5': '1.375rem',

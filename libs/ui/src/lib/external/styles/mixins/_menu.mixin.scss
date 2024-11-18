@@ -6,8 +6,6 @@
 
 @mixin menu-item-size($size) {
   @include text-size($size);
-  @include button-radius($size);
-  @apply p-3;
 
   svg:not(.ui.icon) {
     @include button-icon-size($size);
@@ -21,13 +19,14 @@
     > li {
       > :is(a, button) {
         @apply gap-0;
+        @apply p-2;
 
         > span {
-          @apply w-0;
+          @apply w-0 me-0 opacity-0;
         }
 
-        svg {
-          @apply ms-2;
+        svg-icon {
+          @apply ms-auto;
         }
 
         > .arrow {
@@ -51,9 +50,8 @@
 
       > menu {
         @include shadow();
-        @apply absolute top-0 min-w-full;
+        @apply absolute top-0 min-w-full rounded-inherit;
         @apply ltr:left-full rtl:right-full;
-        border-radius: inherit;
       }
     }
   }
@@ -87,14 +85,26 @@
   }
 
   li {
-    @apply relative w-full bg-inherit;
-    border-radius: inherit;
+    @apply relative w-full bg-inherit rounded-inherit;
+
+    &:first-of-type {
+      a, button {
+        @apply rounded-t-inherit;
+      }
+    }
+
+    &:last-of-type {
+      a, button {
+        @apply rounded-b-inherit;
+      }
+    }
 
     a, button {
       @include menu-item-size(default);
       @include transition(width, gap);
       @apply flex justify-start items-center gap-2;
       @apply w-full outline-none;
+      @apply px-3 py-2;
 
       &:is(:disabled,.disabled) {
         @apply opacity-50 pointer-events-none;
@@ -116,12 +126,13 @@
 
       > span {
         @apply text-ellipsis text-nowrap overflow-hidden;
-        @apply w-full text-start;
-        @include transition(width);
+        @apply w-full text-start me-auto opacity-100;
+        @include transition(width, margin, opacity);
       }
 
-      svg {
+      svg-icon {
         @include transition(margin);
+        @apply me-auto;
       }
     }
 
