@@ -22,11 +22,7 @@
         @apply p-2;
 
         > span {
-          @apply w-0 me-0 opacity-0;
-        }
-
-        svg-icon {
-          @apply ms-auto;
+          @apply w-0 opacity-0;
         }
 
         > .arrow {
@@ -126,13 +122,8 @@
 
       > span {
         @apply text-ellipsis text-nowrap overflow-hidden;
-        @apply w-full text-start me-auto opacity-100;
-        @include transition(width, margin, opacity);
-      }
-
-      svg-icon {
-        @include transition(margin);
-        @apply me-auto;
+        @apply w-full text-start opacity-100;
+        @include transition(width, opacity);
       }
     }
 
