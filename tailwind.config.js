@@ -37,6 +37,7 @@ const configs = {
         'surface-card': '#F4F4F4',
         'surface-form': '#D8DBDF',
         'surface-ground': '#FAFAFA',
+        'surface-inner': `rgb(${blackRgb.join(',')}, 0.009)`,
         'status-cyan': '#32ADE6',
         'status-green': '#34C759',
         'status-purple': '#AF52DE',
