@@ -36,16 +36,17 @@
     li {
       a, button {
         &:hover + menu {
-          @apply visible;
+          @apply visible opacity-100;
         }
       }
 
       &:not(:hover) > menu {
-        @apply invisible;
+        @apply invisible opacity-0;
       }
 
       > menu {
         @include shadow();
+        @include transition(opacity);
         @apply absolute top-0 min-w-full rounded-inherit;
         @apply ltr:left-full rtl:right-full;
       }
@@ -65,9 +66,10 @@
         }
       }
 
-      menu {
+      > menu {
         @include transition(max-height);
-        @apply overflow-hidden ps-2;
+        @include shadow-inner();
+        @apply overflow-hidden;
 
         &:not(.expanded) {
           @apply max-h-0;
@@ -83,18 +85,6 @@
   li {
     @apply relative w-full bg-inherit rounded-inherit;
 
-    &:first-of-type {
-      a, button {
-        @apply rounded-t-inherit;
-      }
-    }
-
-    &:last-of-type {
-      a, button {
-        @apply rounded-b-inherit;
-      }
-    }
-
     a, button {
       @include menu-item-size(default);
       @include transition(width, gap);
@@ -102,7 +92,7 @@
       @apply w-full outline-none;
       @apply px-3 py-2;
 
-      &:is(:disabled,.disabled) {
+      &:is(:disabled, .disabled) {
         @apply opacity-50 pointer-events-none;
       }
 
@@ -129,6 +119,22 @@
 
     > menu {
       @apply bg-inherit;
+    }
+
+    menu {
+      li {
+        &:first-of-type {
+          a, button {
+            @apply rounded-t-inherit;
+          }
+        }
+
+        &:last-of-type {
+          a, button {
+            @apply rounded-b-inherit;
+          }
+        }
+      }
     }
 
     .arrow {

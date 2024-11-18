@@ -1,3 +1,7 @@
 @mixin shadow() {
   @apply shadow-md;
 }
+
+@mixin shadow-inner() {
+  @apply shadow-inner bg-surface-inner;
+}
