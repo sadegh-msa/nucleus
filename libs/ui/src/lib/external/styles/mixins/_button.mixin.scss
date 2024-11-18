@@ -116,6 +116,7 @@
 
 @mixin button() {
   @apply flex justify-center items-center gap-2;
+  @apply outline-none;
 
   &:is(:disabled,.disabled) {
     @apply opacity-50 pointer-events-none;
