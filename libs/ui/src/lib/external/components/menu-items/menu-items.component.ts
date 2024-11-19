@@ -54,11 +54,11 @@ export class MenuItemsComponent {
     const submenuMode = this.submenuMode();
 
     if (item.children?.length) {
-     item.expanded = submenuMode === 'afloat' || !item.expanded;
+      item.expanded = submenuMode === 'afloat' || !item.expanded;
 
-     if (!item.expanded) {
-       this.collapseItem(item);
-     }
+      if (!item.expanded) {
+        this.collapseItem(item);
+      }
     } else if (submenuMode === 'afloat') {
       this.items().forEach((i) => this.collapseItem(i));
     }
@@ -76,15 +76,41 @@ export class MenuItemsComponent {
     }
   }
 
-  pointerenterItem(item: MenuItem) {
+  pointerenterItem(item: MenuItem, liElement: HTMLLIElement) {
     if (this.submenuMode() === 'afloat') {
+      this.placeSubmenu(liElement);
       item.expanded = true;
     }
   }
 
-  pointerleaveItem(item: MenuItem) {
+  pointerleaveItem(item: MenuItem, liElement: HTMLLIElement) {
     if (this.submenuMode() === 'afloat') {
       item.expanded = false;
+      this.resetSubmenuPlacement(liElement);
+    }
+  }
+
+  placeSubmenu(liElement: HTMLLIElement) {
+    const menuElements = liElement.getElementsByTagName('menu');
+    const menuElement = menuElements[0];
+
+    if (menuElement) {
+      const rect = menuElement.getBoundingClientRect();
+      const heightDiff = window.innerHeight - (rect.y + rect.height);
+      const margin = 12;
+      const top = heightDiff <= margin ? Math.abs(heightDiff) + margin : 0;
+
+      menuElement.style['top'] = `-${top}px`;
+    }
+  }
+
+  resetSubmenuPlacement(liElement: HTMLLIElement) {
+    const menuElements = liElement.getElementsByTagName('menu');
+    const elementsLength = menuElements.length;
+
+    for (let i = 0; i < elementsLength; i++) {
+      const menuElement = menuElements[i];
+      menuElement.style['top'] = `0`;
     }
   }
 }

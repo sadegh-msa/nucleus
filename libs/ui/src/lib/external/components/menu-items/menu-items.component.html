@@ -2,9 +2,10 @@
 
 <ng-template #children let-items="items" let-isSubMenu="isSubMenu">
   @for (item of items; track $index) {
-    <li (pointerdown)="pointerdownItem(item)"
-        (pointerenter)="pointerenterItem(item)"
-        (pointerleave)="pointerleaveItem(item)">
+    <li #li
+        (pointerdown)="pointerdownItem(item)"
+        (pointerenter)="pointerenterItem(item, li)"
+        (pointerleave)="pointerleaveItem(item, li)">
       @let tooltip = item.tooltip || (!isSubMenu && !item.children?.length && isCompact() ? item.label : '');
       @let tooltipPosition = item.tooltipPlacement || tooltipPlacement();
       @if (item.routerLink) {
