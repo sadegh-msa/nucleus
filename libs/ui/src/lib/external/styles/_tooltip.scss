@@ -3,11 +3,11 @@
 
 .tippy-variation-tooltip {
   .tippy-box {
-    @apply bg-primary text-primary-pale;
+    @apply bg-surface-card text-primary font-semibold;
     @include shadow();
 
     .tippy-arrow::before {
-      @apply text-primary;
+      @apply text-surface-card;
     }
   }
 }
