@@ -34,21 +34,19 @@
 
   &.afloat {
     li {
-      a, button {
-        &:hover + menu {
-          @apply visible opacity-100;
-        }
-      }
-
-      &:not(:hover) > menu {
-        @apply invisible opacity-0;
-      }
-
       > menu {
         @include shadow();
         @include transition(opacity);
         @apply absolute top-0 min-w-full rounded-inherit;
         @apply ltr:left-full rtl:right-full;
+
+        &:not(.expanded) {
+          @apply invisible opacity-0;
+        }
+
+        &.expanded {
+          @apply visible opacity-100;
+        }
       }
     }
   }

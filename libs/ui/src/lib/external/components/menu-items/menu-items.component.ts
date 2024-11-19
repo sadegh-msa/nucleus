@@ -45,13 +45,46 @@ export class MenuItemsComponent {
     ].join(' ');
   }
 
+  collapseItem(item: MenuItem) {
+    item.children?.forEach((i) => this.collapseItem(i));
+    item.expanded = false;
+  }
+
   clickItem(item: MenuItem) {
+    const submenuMode = this.submenuMode();
+
     if (item.children?.length) {
-      item.expanded = !item.expanded;
+     item.expanded = submenuMode === 'afloat' || !item.expanded;
+
+     if (!item.expanded) {
+       this.collapseItem(item);
+     }
+    } else if (submenuMode === 'afloat') {
+      this.items().forEach((i) => this.collapseItem(i));
     }
 
     if (item.command) {
       item.command(item);
+    }
+  }
+
+  pointerdownItem(item: MenuItem) {
+    if (this.submenuMode() === 'afloat') {
+      if (!item.children?.length) {
+        item.expanded = false;
+      }
+    }
+  }
+
+  pointerenterItem(item: MenuItem) {
+    if (this.submenuMode() === 'afloat') {
+      item.expanded = true;
+    }
+  }
+
+  pointerleaveItem(item: MenuItem) {
+    if (this.submenuMode() === 'afloat') {
+      item.expanded = false;
     }
   }
 }

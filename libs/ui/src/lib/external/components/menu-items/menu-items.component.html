@@ -2,7 +2,9 @@
 
 <ng-template #children let-items="items" let-isSubMenu="isSubMenu">
   @for (item of items; track $index) {
-    <li>
+    <li (pointerdown)="pointerdownItem(item)"
+        (pointerenter)="pointerenterItem(item)"
+        (pointerleave)="pointerleaveItem(item)">
       @let tooltip = item.tooltip || (!isSubMenu && !item.children?.length && isCompact() ? item.label : '');
       @let tooltipPosition = item.tooltipPlacement || tooltipPlacement();
       @if (item.routerLink) {
@@ -36,12 +38,12 @@
           [hidden]="item.hidden"
           (click)="clickItem(item)"
         >
-          <ng-container *ngTemplateOutlet="content; context:{item, isSubMenu}" />
+          <ng-container *ngTemplateOutlet="content; context:{item}" />
         </button>
       }
 
       @if (item.children?.length) {
-        <menu [class.expanded]="item.expanded">
+        <menu class="submenu" [class.expanded]="item.expanded">
           @if (isCompact()) {
             <li>
               <button><strong>{{ item.label }}</strong></button>
@@ -55,7 +57,7 @@
   }
 </ng-template>
 
-<ng-template #content let-item="item" let-isSubMenu="isSubMenu">
+<ng-template #content let-item="item">
   @if (item.icon) {
     <svg-icon [src]="item.icon"
               [svgClass]="item.iconNgClass"
