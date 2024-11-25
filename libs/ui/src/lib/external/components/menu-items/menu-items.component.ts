@@ -29,7 +29,7 @@ export class MenuItemsComponent {
     alias: 'uiMenuTooltipPlacement',
   });
   mode = input<'compact' | 'wide'>('wide', { alias: 'uiMenuMode' });
-  submenuMode = input<'afloat' | 'sliding'>('afloat', {
+  submenuMode = input<'floating' | 'sliding'>('floating', {
     alias: 'uiMenuSubmenuMode',
   });
 
@@ -41,7 +41,7 @@ export class MenuItemsComponent {
     return [
       this.setStyleClass() ? 'ui menu' : '',
       this.mode(),
-      this.isCompact() ? 'afloat' : this.submenuMode(),
+      this.isCompact() ? 'floating' : this.submenuMode(),
     ].join(' ');
   }
 
@@ -54,12 +54,12 @@ export class MenuItemsComponent {
     const submenuMode = this.submenuMode();
 
     if (item.children?.length) {
-      item.expanded = submenuMode === 'afloat' || !item.expanded;
+      item.expanded = submenuMode === 'floating' || !item.expanded;
 
       if (!item.expanded) {
         this.collapseItem(item);
       }
-    } else if (submenuMode === 'afloat') {
+    } else if (submenuMode === 'floating') {
       this.items().forEach((i) => this.collapseItem(i));
     }
 
@@ -69,7 +69,7 @@ export class MenuItemsComponent {
   }
 
   pointerdownItem(item: MenuItem) {
-    if (this.submenuMode() === 'afloat') {
+    if (this.submenuMode() === 'floating') {
       if (!item.children?.length) {
         item.expanded = false;
       }
@@ -77,14 +77,14 @@ export class MenuItemsComponent {
   }
 
   pointerenterItem(item: MenuItem, liElement: HTMLLIElement) {
-    if (this.submenuMode() === 'afloat') {
+    if (this.submenuMode() === 'floating') {
       this.placeSubmenu(liElement);
       item.expanded = true;
     }
   }
 
   pointerleaveItem(item: MenuItem, liElement: HTMLLIElement) {
-    if (this.submenuMode() === 'afloat') {
+    if (this.submenuMode() === 'floating') {
       item.expanded = false;
       this.resetSubmenuPlacement(liElement);
     }

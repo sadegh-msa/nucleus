@@ -32,7 +32,7 @@
     }
   }
 
-  &.afloat {
+  &.floating {
     li {
       > menu {
         @include shadow.medium();
