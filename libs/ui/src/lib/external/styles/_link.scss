@@ -1,6 +1,6 @@
 @use './mixins';
 
-a.ui:not(.button) {
+a.ui.link {
   @include mixins.link-generic();
   @include mixins.transition-generic(colors);
 }

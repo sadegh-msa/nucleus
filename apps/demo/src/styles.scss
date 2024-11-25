@@ -4,27 +4,27 @@ body {
 }
 
 table {
-  @apply w-full border border-separate rounded;
+  @apply w-full border border-collapse rounded;
 
   th,
   td {
-    @apply p-4 border-t-gray;
+    @apply p-4;
   }
 
   th {
-    @apply text-start;
+    @apply text-start text-gray;
   }
 
   > thead {
     th {
-      @apply w-32 bg-surface-card;
+      @apply w-32 border-b;
     }
   }
 
   > tbody {
     tr {
       &:hover {
-        // @apply bg-surface-card;
+         //@apply bg-surface-card;
       }
 
       td > div {

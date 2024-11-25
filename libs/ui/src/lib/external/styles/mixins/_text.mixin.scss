@@ -63,12 +63,16 @@
         &:hover {
           @include color('#{$color}-darker');
         }
+      } @else {
+        @include color($color);
       }
 
       @if $has-active {
         &:active {
           @include color('#{$color}-darkest');
         }
+      } @else {
+        @include color($color);
       }
     }
   }

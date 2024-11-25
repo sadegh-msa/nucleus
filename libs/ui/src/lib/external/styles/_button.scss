@@ -1,6 +1,6 @@
 @use './mixins';
 
-:is(a, button).ui:not(.link) {
+:is(a, button).ui.button {
   @include mixins.button-generic();
   @include mixins.transition-generic(colors);
 }

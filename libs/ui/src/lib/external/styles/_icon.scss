@@ -1,14 +1,13 @@
 @use './mixins';
 
 svg {
-  &.ui {
-    &.icon {
-      @include mixins.icon-generic();
-      @include mixins.transition-generic(colors);
-    }
+  &.ui.icon {
+    @include mixins.icon-generic();
+    @include mixins.transition-generic(colors);
   }
 
   &.bidi {
     @apply rtl:transform rtl:-scale-x-100;
   }
 }
+

@@ -95,11 +95,11 @@
       }
 
       &:not(:hover, .active) {
-        @include button.variant-solid(transparent, primary);
+        @include button.variant-solid(transparent, black);
       }
 
       &:is(:hover, .active) {
-        @include button.variant-solid(transparent, accent);
+        @include button.variant-solid(transparent, primary);
       }
 
       &.active {

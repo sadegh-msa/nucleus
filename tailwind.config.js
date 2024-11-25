@@ -14,15 +14,13 @@ const darker = { suffix: 'darker', level: 0.08 };
 const darkest = { suffix: 'darkest', level: 0.15 };
 const blackRgb = Color('black').rgb().array();
 const mainColors = {
-  primary: '#3E5063',
-  accent: '#99324E',
-  info: '#3B82F6',
-  success: '#34C759',
-  warning: '#E16F3E',
-  danger: '#D70000',
-  lightgray: '#A0A8B3',
-  gray: '#8C8C8C',
-  darkgray: '#717171',
+  primary: '#2563EB',
+  info: '#0891B2',
+  success: '#16A34A',
+  warning: '#D97706',
+  danger: '#DC2626',
+  black: '#27272A',
+  gray: '#71717A',
 };
 
 const configs = {
@@ -33,26 +31,19 @@ const configs = {
   theme: {
     extend: {
       colors: {
-        'surface-basic': '#E2DACA',
-        'surface-card': '#F4F4F4',
-        'surface-form': '#D8DBDF',
-        'surface-ground': '#FAFAFA',
+        'surface-card': '#E4E4E7',
+        'surface-ground': '#D4D4D8',
         'surface-inner': `rgb(${blackRgb.join(',')}, 0.009)`,
-        'status-cyan': '#32ADE6',
-        'status-green': '#34C759',
-        'status-purple': '#AF52DE',
-        'status-red': '#FF3B30',
-        'status-yellow': '#FFCC00',
       },
       borderColor: {
-        DEFAULT: '#A0A8B3',
+        DEFAULT: '#A1A1AA',
       },
       borderRadius: {
-        inherit: 'inherit'
+        inherit: 'inherit',
       },
       spacing: {
-        '4.5': '1.125rem',
-        '5.5': '1.375rem',
+        4.5: '1.125rem',
+        5.5: '1.375rem',
       },
       screens: {
         xsmall: { raw: 'only screen and (max-width: 599.98px)' },
@@ -108,14 +99,8 @@ for (const [name, color] of Object.entries({ ...mainColors })) {
 
 for (const [name, color] of Object.entries({ ...mainColors })) {
   configs.theme.extend.colors[name] = color;
-  configs.theme.extend.colors[`${name}-${darker.suffix}`] = darkenColor(
-    color,
-    darker.level,
-  );
-  configs.theme.extend.colors[`${name}-${darkest.suffix}`] = darkenColor(
-    color,
-    darkest.level,
-  );
+  configs.theme.extend.colors[`${name}-${darker.suffix}`] = darkenColor(color, darker.level);
+  configs.theme.extend.colors[`${name}-${darkest.suffix}`] = darkenColor(color, darkest.level);
 }
 
 configs.theme.extend.colors[`transparent-${darker.suffix}`] = `rgb(${blackRgb.join(',')}, 0.03)`;

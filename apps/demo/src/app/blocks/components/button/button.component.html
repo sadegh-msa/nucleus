@@ -34,7 +34,7 @@
         @for (color of colors; track $index) {
           <td>
             @if (variant === 'second') {
-              <button [class]="['ui', 'button', 'text', 'darkgray', variant+'-'+color].join(' ')">
+              <button [class]="['ui', 'button', 'text', 'gray', variant+'-'+color].join(' ')">
                 <svg-icon [src]="ICON" />
                 <span>{{ color }}</span>
               </button>

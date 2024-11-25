@@ -1,12 +1,11 @@
 @use './mixins';
 
-menu.ui {
-  &.menu {
-    @include mixins.menu-generic();
-    @include mixins.transition-generic(all);
+menu.ui.menu {
+  @include mixins.menu-generic();
+  @include mixins.transition-generic(all);
 
-    menu {
-      @include mixins.transition-generic(all);
-    }
+  menu {
+    @include mixins.transition-generic(all);
   }
 }
+
