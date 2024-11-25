@@ -10,7 +10,7 @@ import { MenuItem, MenuItemsComponent } from '@solving-center/ui';
   styleUrl: './menu.component.scss',
 })
 export class MenuComponent {
-  readonly menuItems: MenuItem[] = [
+  readonly #menuItems: MenuItem[] = [
     {
       id: 'demo-menu-link-button',
       label: $localize`Button`,
@@ -119,4 +119,8 @@ export class MenuComponent {
       ],
     },
   ];
+
+  readonly compactMenuItems = structuredClone(this.#menuItems);
+  readonly floatingMenuItems = structuredClone(this.#menuItems);
+  readonly slidingMenuItems = structuredClone(this.#menuItems);
 }
