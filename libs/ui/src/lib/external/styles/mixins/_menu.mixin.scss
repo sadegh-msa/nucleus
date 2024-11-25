@@ -1,18 +1,18 @@
 @use '../variables';
-@import './text.mixin';
-@import './button.mixin';
-@import './shadow.mixin';
-@import './transition.mixin';
+@use './text.mixin';
+@use './button.mixin';
+@use './shadow.mixin';
+@use './transition.mixin';
 
 @mixin menu-item-size($size) {
-  @include text-size($size);
+  @include text.size($size);
 
   svg:not(.ui.icon) {
-    @include button-icon-size($size);
+    @include button.icon-size($size);
   }
 }
 
-@mixin menu() {
+@mixin generic() {
   @apply flex flex-col z-30;
 
   &.compact {
@@ -35,8 +35,8 @@
   &.afloat {
     li {
       > menu {
-        @include shadow();
-        @include transition(opacity);
+        @include shadow.medium();
+        @include transition.generic(opacity);
         @apply absolute top-0 min-w-full rounded-inherit;
         @apply ltr:left-full rtl:right-full;
 
@@ -54,7 +54,7 @@
   &.sliding {
     li {
       > :is(a, button) > .arrow {
-        @include transition(transform);
+        @include transition.generic(transform);
         @apply rotate-0;
       }
 
@@ -65,8 +65,8 @@
       }
 
       > menu {
-        @include transition(max-height);
-        @include shadow-inner();
+        @include transition.generic(max-height);
+        @include shadow.inner();
         @apply overflow-hidden;
 
         &:not(.expanded) {
@@ -85,7 +85,7 @@
 
     a, button {
       @include menu-item-size(default);
-      @include transition(width, gap);
+      @include transition.generic(width, gap);
       @apply flex justify-start items-center gap-2;
       @apply w-full outline-none;
       @apply px-3 py-2;
@@ -95,11 +95,11 @@
       }
 
       &:not(:hover, .active) {
-        @include button-variant-solid(transparent, primary);
+        @include button.variant-solid(transparent, primary);
       }
 
       &:is(:hover, .active) {
-        @include button-variant-solid(transparent, accent);
+        @include button.variant-solid(transparent, accent);
       }
 
       &.active {
@@ -111,7 +111,7 @@
       > span {
         @apply text-ellipsis text-nowrap overflow-hidden;
         @apply w-full text-start opacity-100;
-        @include transition(width, opacity);
+        @include transition.generic(width, opacity);
       }
     }
 

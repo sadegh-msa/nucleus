@@ -1,5 +1,5 @@
 @use '../variables';
-@import './text.mixin';
+@use './text.mixin';
 
 @mixin link-icon-size($size) {
   @if $size == small {
@@ -19,8 +19,8 @@
   }
 }
 
-@mixin link() {
-  @include text(true, true);
+@mixin generic() {
+  @include text.generic(true, true);
   @apply flex items-center gap-2;
   @apply font-medium w-max;
 

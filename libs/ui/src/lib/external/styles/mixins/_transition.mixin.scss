@@ -1,4 +1,4 @@
-@mixin transition($attrs...) {
+@mixin generic($properties...) {
   @apply duration-300 ease-in-out;
-  transition-property: $attrs;
+  transition-property: $properties;
 }

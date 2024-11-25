@@ -1,8 +1,8 @@
+@use '../functions/utils.function';
 @use '../variables';
-@import './icon.mixin';
-@import '../functions/utils.function';
+@use './icon.mixin';
 
-@mixin text-size($size) {
+@mixin size($size) {
   @if $size == small {
     @apply text-xs;
   } @else if $size == medium {
@@ -12,7 +12,7 @@
   }
 }
 
-@mixin text-weight($weight) {
+@mixin weight($weight) {
   @if $weight == light {
     @apply font-light;
   } @else if $weight == semibold {
@@ -24,31 +24,31 @@
   }
 }
 
-@mixin text-color($color) {
-  color: getColorValue($color);
+@mixin color($color) {
+  color: utils.getColorValue($color);
 
   svg:not(.ui.icon) {
-    @include icon-color($color);
+    @include icon.color($color);
   }
 }
 
-@mixin text($has-hover: false, $has-active: false) {
+@mixin generic($has-hover: false, $has-active: false) {
   @each $size in variables.$sizes {
     @if $size == default {
-      @include text-size($size);
+      @include size($size);
     } @else {
       &.#{$size} {
-        @include text-size($size);
+        @include size($size);
       }
     }
   }
 
   @each $weight in variables.$font-weights {
     @if $weight == default {
-      @include text-weight($weight);
+      @include weight($weight);
     } @else {
       &.#{$weight} {
-        @include text-weight($weight);
+        @include weight($weight);
       }
     }
   }
@@ -56,18 +56,18 @@
   @each $color in variables.$colors {
     &.#{$color} {
       &:not(:hover, :active) {
-        @include text-color($color);
+        @include color($color);
       }
 
       @if $has-hover {
         &:hover {
-          @include text-color('#{$color}-darker');
+          @include color('#{$color}-darker');
         }
       }
 
       @if $has-active {
         &:active {
-          @include text-color('#{$color}-darkest');
+          @include color('#{$color}-darkest');
         }
       }
     }

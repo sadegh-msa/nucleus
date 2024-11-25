@@ -1,10 +1,10 @@
-@import 'tippy.js/dist/tippy.css';
-@import './mixins/shadow.mixin';
+@use 'tippy.js/dist/tippy.css';
+@use './mixins';
 
 .tippy-variation-tooltip {
   .tippy-box {
     @apply bg-surface-card text-primary font-semibold;
-    @include shadow();
+    @include mixins.shadow-medium();
 
     .tippy-arrow::before {
       @apply text-surface-card;

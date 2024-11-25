@@ -1,9 +1,9 @@
+@use '../functions/utils.function';
 @use '../variables';
-@import '../functions/utils.function';
-@import './icon.mixin';
-@import './text.mixin';
+@use './icon.mixin';
+@use './text.mixin';
 
-@mixin button-icon-size($size) {
+@mixin icon-size($size) {
   @if $size == small {
     @apply h-3.5 w-3.5;
   } @else if $size == medium {
@@ -15,7 +15,7 @@
   }
 }
 
-@mixin button-padding($size) {
+@mixin padding($size) {
   &:has(span) {
     @if $size == small {
       @apply px-4 py-2;
@@ -32,89 +32,89 @@
   }
 }
 
-@mixin button-radius($size) {
+@mixin radius($size) {
   @apply rounded-md;
 }
 
-@mixin button-size($size) {
-  @include button-radius($size);
+@mixin size($size) {
+  @include radius($size);
 
   &:has(span) {
-    @include text-size($size);
+    @include text.size($size);
 
     svg:not(.ui.icon) {
-      @include button-icon-size($size);
+      @include icon.size($size);
     }
   }
 
   &:not(:has(span)),
   &.icon {
     svg:not(.ui.icon) {
-      @include icon-size($size);
+      @include icon.size($size);
     }
   }
 
   &:not(.icon) {
-    @include button-padding($size);
+    @include padding($size);
   }
 }
 
-@mixin button-variant-solid($bg-color, $text-color, $is-second: false) {
+@mixin variant-solid($bg-color, $text-color, $is-second: false) {
   @if $is-second {
     &[class*='second-'] {
       &:hover {
-        @include text-color('#{$text-color}-darker');
-        background-color: getColorValue('#{$bg-color}-darker');
+        @include text.color('#{$text-color}-darker');
+        background-color: utils.getColorValue('#{$bg-color}-darker');
       }
 
       &:active {
-        @include text-color('#{$text-color}-darkest');
-        background-color: getColorValue('#{$bg-color}-darkest');
+        @include text.color('#{$text-color}-darkest');
+        background-color: utils.getColorValue('#{$bg-color}-darkest');
       }
     }
   } @else {
     &:not(:hover, :active) {
-      @include text-color($text-color);
-      background-color: getColorValue('#{$bg-color}');
+      @include text.color($text-color);
+      background-color: utils.getColorValue('#{$bg-color}');
     }
 
     &:not([class*='second-']) {
       &:hover {
-        @include text-color('#{$text-color}-darker');
-        background-color: getColorValue('#{$bg-color}-darker');
+        @include text.color('#{$text-color}-darker');
+        background-color: utils.getColorValue('#{$bg-color}-darker');
       }
 
       &:active {
-        @include text-color('#{$text-color}-darkest');
-        background-color: getColorValue('#{$bg-color}-darkest');
+        @include text.color('#{$text-color}-darkest');
+        background-color: utils.getColorValue('#{$bg-color}-darkest');
       }
     }
   }
 }
 
-@mixin button-variant-outline($bg-color, $text-color, $is-second: false) {
-  @include button-variant-solid($bg-color, $text-color, $is-second);
+@mixin variant-outline($bg-color, $text-color, $is-second: false) {
+  @include variant-solid($bg-color, $text-color, $is-second);
   @apply border;
-  border-color: getColorValue($text-color);
+  border-color: utils.getColorValue($text-color);
 }
 
-@mixin button-variant($variant, $color, $is-second: false) {
+@mixin variant($variant, $color, $is-second: false) {
   $color-pale: '#{$color}-pale';
 
   @if $variant == bulk {
-    @include button-variant-solid($color-pale, $color, $is-second);
+    @include variant-solid($color-pale, $color, $is-second);
   } @else if $variant == icon {
-    @include button-variant-solid(transparent, $color, $is-second);
+    @include variant-solid(transparent, $color, $is-second);
   } @else if $variant == outline {
-    @include button-variant-outline(transparent, $color, $is-second);
+    @include variant-outline(transparent, $color, $is-second);
   } @else if $variant == text {
-    @include button-variant-solid(transparent, $color, $is-second);
+    @include variant-solid(transparent, $color, $is-second);
   } @else {
-    @include button-variant-solid($color, $color-pale, $is-second);
+    @include variant-solid($color, $color-pale, $is-second);
   }
 }
 
-@mixin button() {
+@mixin generic() {
   @apply flex justify-center items-center gap-2;
   @apply outline-none;
 
@@ -128,10 +128,10 @@
 
   @each $size in variables.$sizes {
     @if $size == default {
-      @include button-size($size);
+      @include size($size);
     } @else {
       &.#{$size} {
-        @include button-size($size);
+        @include size($size);
       }
     }
   }
@@ -140,10 +140,10 @@
     &.#{$color} {
       @each $variant in variables.$button-variants {
         @if $variant == default {
-          @include button-variant($variant, $color);
+          @include variant($variant, $color);
         } @else {
           &.#{$variant} {
-            @include button-variant($variant, $color);
+            @include variant($variant, $color);
           }
         }
       }
@@ -152,10 +152,10 @@
     &.second-#{$color} {
       @each $variant in variables.$button-variants {
         @if $variant == default {
-          @include button-variant($variant, $color, true);
+          @include variant($variant, $color, true);
         } @else {
           &.#{$variant} {
-            @include button-variant($variant, $color, true);
+            @include variant($variant, $color, true);
           }
         }
       }

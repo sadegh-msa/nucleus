@@ -1,13 +1,12 @@
-@import './mixins/menu.mixin';
-@import './mixins/transition.mixin';
+@use './mixins';
 
 menu.ui {
   &.menu {
-    @include menu();
-    @include transition(all);
+    @include mixins.menu-generic();
+    @include mixins.transition-generic(all);
 
     menu {
-      @include transition(all);
+      @include mixins.transition-generic(all);
     }
   }
 }

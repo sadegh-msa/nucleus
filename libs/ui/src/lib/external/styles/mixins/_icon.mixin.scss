@@ -1,21 +1,21 @@
 @use '../variables';
-@import '../functions/utils.function';
+@use '../functions/utils.function';
 
-@mixin icon-color($color) {
-  $color-value: getColorValue($color);
+@mixin color($color) {
+  $color-value: utils.getColorValue($color);
 
-  > * {
-    &[fill] {
+  > {
+    [fill] {
       fill: $color-value;
     }
 
-    &[stroke] {
+    [stroke] {
       stroke: $color-value;
     }
   }
 }
 
-@mixin icon-size($size) {
+@mixin size($size) {
   @if $size == small {
     @apply h-4 w-4;
   } @else if $size == medium {
@@ -27,20 +27,20 @@
   }
 }
 
-@mixin icon() {
+@mixin generic() {
   @each $size in variables.$sizes {
     @if $size == default {
-      @include icon-size($size);
+      @include size($size);
     } @else {
       &.#{$size} {
-        @include icon-size($size);
+        @include size($size);
       }
     }
   }
 
   @each $color in variables.$colors {
     &.#{$color} {
-      @include icon-color($color);
+      @include color($color);
     }
   }
 }

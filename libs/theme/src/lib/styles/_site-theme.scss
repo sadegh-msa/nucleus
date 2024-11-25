@@ -1,12 +1,12 @@
-@import 'libs/ui/src/lib/external/styles/_button.scss';
-@import 'libs/ui/src/lib/external/styles/_icon.scss';
-@import 'libs/ui/src/lib/external/styles/_link.scss';
-@import 'libs/ui/src/lib/external/styles/_menu.scss';
-@import 'libs/ui/src/lib/external/styles/_text.scss';
-@import 'libs/ui/src/lib/external/styles/_tooltip.scss';
+@use './varibales';
+@use './base';
+@use './fonts/iransansx-fanum.font';
+@use './fonts/kalameh-fanum.font';
+@use './typography';
 
-@import './fonts/iransansx-fanum.font';
-@import './fonts/kalameh-fanum.font';
-@import './varibales';
-@import './base';
-@import './typography';
+@use 'libs/ui/src/lib/external/styles/_button.scss';
+@use 'libs/ui/src/lib/external/styles/_icon.scss';
+@use 'libs/ui/src/lib/external/styles/_link.scss';
+@use 'libs/ui/src/lib/external/styles/_menu.scss';
+@use 'libs/ui/src/lib/external/styles/_text.scss';
+@use 'libs/ui/src/lib/external/styles/_tooltip.scss';
