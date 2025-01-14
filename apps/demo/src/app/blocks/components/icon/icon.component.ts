@@ -13,7 +13,7 @@ import { colors, sizes } from '../../shared/data';
 export class IconComponent {
   readonly colors = colors;
   readonly sizes = sizes;
-  readonly iconFamilies = [
+  readonly variants = [
     'bold',
     'broken',
     'bulk',

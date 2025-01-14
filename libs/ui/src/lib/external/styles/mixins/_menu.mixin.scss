@@ -14,12 +14,13 @@
 
 @mixin generic() {
   @apply flex flex-col z-30;
+  @apply border;
 
   &.compact {
     > li {
       > :is(a, button) {
         @apply gap-0;
-        @apply p-2;
+        @apply px-3 py-2;
 
         > span {
           @apply w-0 opacity-0;
@@ -37,7 +38,8 @@
       > menu {
         @include shadow.medium();
         @include transition.generic(opacity);
-        @apply absolute top-0 min-w-full rounded-inherit;
+        @apply absolute top-0 min-w-full;
+        @apply rounded-inherit border;
         @apply ltr:left-full rtl:right-full;
 
         &:not(.expanded) {
@@ -81,11 +83,13 @@
   }
 
   li {
-    @apply relative w-full bg-inherit rounded-inherit;
+    @apply relative w-full;
+    @apply bg-inherit rounded-inherit;
 
     a, button {
+      @include button.variant(text, black);
       @include menu-item-size(default);
-      @include transition.generic(width, gap);
+      @include transition.generic(width, gap, colors);
       @apply flex justify-start items-center gap-2;
       @apply w-full outline-none;
       @apply px-3 py-2;
@@ -94,15 +98,9 @@
         @apply opacity-50 pointer-events-none;
       }
 
-      &:not(:hover, .active) {
-        @include button.variant-solid(transparent, black);
-      }
-
-      &:is(:hover, .active) {
-        @include button.variant-solid(transparent, primary);
-      }
-
       &.active {
+        @include button.variant(bulk, primary);
+
         span {
           @apply font-semibold;
         }

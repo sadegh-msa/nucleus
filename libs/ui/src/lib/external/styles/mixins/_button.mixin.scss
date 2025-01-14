@@ -2,16 +2,15 @@
 @use '../variables';
 @use './icon.mixin';
 @use './text.mixin';
+@use './shadow.mixin';
 
 @mixin icon-size($size) {
   @if $size == small {
-    @apply h-3.5 w-3.5;
+    @apply h-4 w-4;
   } @else if $size == medium {
-    @apply h-4.5 w-4.5;
-  } @else if $size == large {
-    @apply h-5.5 w-5.5;
-  } @else {
     @apply h-5 w-5;
+  } @else {
+    @apply h-5.5 w-5.5;
   }
 }
 
@@ -21,8 +20,6 @@
       @apply px-4 py-2;
     } @else if $size == medium {
       @apply px-4.5 py-2;
-    } @else if $size == large {
-      @apply px-6 py-2;
     } @else {
       @apply px-5 py-2;
     }
@@ -43,7 +40,7 @@
     @include text.size($size);
 
     svg:not(.ui.icon) {
-      @include icon.size($size);
+      @include icon-size($size);
     }
   }
 
@@ -69,14 +66,13 @@
 
       &:active {
         @include text.color('#{$text-color}-darkest');
+        @include shadow.inner();
         background-color: utils.getColorValue('#{$bg-color}-darkest');
       }
     }
   } @else {
-    &:not(:hover, :active) {
-      @include text.color($text-color);
-      background-color: utils.getColorValue('#{$bg-color}');
-    }
+    @include text.color($text-color);
+    background-color: utils.getColorValue('#{$bg-color}');
 
     &:not([class*='second-']) {
       &:hover {
@@ -86,6 +82,7 @@
 
       &:active {
         @include text.color('#{$text-color}-darkest');
+        @include shadow.inner();
         background-color: utils.getColorValue('#{$bg-color}-darkest');
       }
     }
@@ -99,10 +96,10 @@
 }
 
 @mixin variant($variant, $color, $is-second: false) {
-  $color-pale: '#{$color}-pale';
+  $color-lightest: '#{$color}-lightest';
 
   @if $variant == bulk {
-    @include variant-solid($color-pale, $color, $is-second);
+    @include variant-solid($color-lightest, $color, $is-second);
   } @else if $variant == icon {
     @include variant-solid(transparent, $color, $is-second);
   } @else if $variant == outline {
@@ -110,7 +107,7 @@
   } @else if $variant == text {
     @include variant-solid(transparent, $color, $is-second);
   } @else {
-    @include variant-solid($color, $color-pale, $is-second);
+    @include variant-solid($color, $color-lightest, $is-second);
   }
 }
 

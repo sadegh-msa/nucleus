@@ -7,19 +7,13 @@
     @apply text-xs;
   } @else if $size == medium {
     @apply text-sm;
-  } @else if $size == large {
-    @apply text-lg;
   }
 }
 
 @mixin weight($weight) {
-  @if $weight == light {
-    @apply font-light;
-  } @else if $weight == semibold {
-    @apply font-medium;
-  } @else if $weight == bold {
+  @if $weight == semibold {
     @apply font-semibold;
-  } @else if $weight == extrabold {
+  } @else if $weight == bold {
     @apply font-bold;
   }
 }
@@ -55,24 +49,18 @@
 
   @each $color in variables.$colors {
     &.#{$color} {
-      &:not(:hover, :active) {
-        @include color($color);
-      }
+      @include color($color);
 
       @if $has-hover {
         &:hover {
           @include color('#{$color}-darker');
         }
-      } @else {
-        @include color($color);
       }
 
       @if $has-active {
         &:active {
           @include color('#{$color}-darkest');
         }
-      } @else {
-        @include color($color);
       }
     }
   }

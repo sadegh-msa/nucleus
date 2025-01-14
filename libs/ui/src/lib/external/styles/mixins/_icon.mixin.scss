@@ -4,12 +4,12 @@
 @mixin color($color) {
   $color-value: utils.getColorValue($color);
 
-  > {
-    [fill] {
+  > * {
+    &[fill] {
       fill: $color-value;
     }
 
-    [stroke] {
+    &[stroke] {
       stroke: $color-value;
     }
   }
@@ -20,8 +20,6 @@
     @apply h-4 w-4;
   } @else if $size == medium {
     @apply h-5 w-5;
-  } @else if $size == large {
-    @apply h-7 w-7;
   } @else {
     @apply h-6 w-6;
   }

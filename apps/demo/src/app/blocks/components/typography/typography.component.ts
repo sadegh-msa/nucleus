@@ -12,5 +12,5 @@ import { colors, sizes } from '../../shared/data';
 export class TypographyComponent {
   readonly colors = colors;
   readonly sizes = sizes;
-  readonly weights = ['light', '', 'semibold', 'bold', 'extrabold'];
+  readonly weights = ['', 'semibold', 'bold'];
 }

@@ -9,17 +9,17 @@
   </thead>
 
   <tbody>
-    @for (iconFamily of iconFamilies; track $index) {
+    @for (variant of variants; track $index) {
       <tr>
-        <td>{{ iconFamily }}</td>
-        @let icon = 'icons/' + iconFamily + '/tick-circle.svg';
+        <td>{{ variant }}</td>
+        @let icon = 'icons/' + variant + '/tick-circle.svg';
         @for (color of colors; track $index) {
           <td>
             <div>
               @for (size of sizes; track $index) {
                 <svg-icon
                   [src]="icon"
-                  [svgClass]="['ui', 'icon', size, color].join(' ')"
+                  [svgClass]="['ui', 'icon', variant, size, color].join(' ')"
                 />
               }
             </div>

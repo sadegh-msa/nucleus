@@ -15,8 +15,8 @@
         @for (color of colors; track $index) {
           <td>
             <button [class]="['ui', 'button', size, color].join(' ')">
-              <svg-icon [src]="ICON" />
-              <span>{{ color }}</span>
+              <ng-container *ngTemplateOutlet="icon" />
+              <span>{{ color | titlecase }}</span>
             </button>
           </td>
         }
@@ -34,15 +34,15 @@
         @for (color of colors; track $index) {
           <td>
             @if (variant === 'second') {
-              <button [class]="['ui', 'button', 'text', 'gray', variant+'-'+color].join(' ')">
-                <svg-icon [src]="ICON" />
-                <span>{{ color }}</span>
+              <button [class]="['ui', 'button', 'text', 'darkgray', variant+'-'+color].join(' ')">
+                <ng-container *ngTemplateOutlet="icon" />
+                <span>{{ color | titlecase }}</span>
               </button>
             } @else {
               <button [class]="['ui', 'button', variant, color].join(' ')">
-                <svg-icon [src]="ICON" />
+                <ng-container *ngTemplateOutlet="icon" />
                 @if (variant !== 'icon') {
-                  <span>{{ color }}</span>
+                  <span>{{ color | titlecase }}</span>
                 }
               </button>
             }
@@ -70,8 +70,8 @@
         @for (color of colors; track $index) {
           <td>
             <a routerLink="/button" [class]="['ui', 'link', size, color].join(' ')">
-              <svg-icon [src]="ICON" />
-              <span>{{ color }}</span>
+              <ng-container *ngTemplateOutlet="icon" />
+              <span>{{ color | titlecase }}</span>
             </a>
           </td>
         }
@@ -79,3 +79,7 @@
     }
   </tbody>
 </table>
+
+<ng-template #icon>
+  <svg-icon src="icons/outline/tick-circle.svg" svgClass="outline" />
+</ng-template>

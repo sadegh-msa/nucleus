@@ -10,8 +10,8 @@ export interface MenuItem {
   tooltip?: string;
   tooltipPlacement?: TippyProps['placement'];
   icon?: string;
-  iconNgStyle?: NgStyle['ngStyle'];
-  iconNgClass?: NgClass['ngClass'];
+  iconNgStyle?: Record<string, string | number | boolean>;
+  iconNgClass?: string;
   ngStyle?: NgStyle['ngStyle'];
   ngClass?: NgClass['ngClass'];
   disabled?: boolean;
