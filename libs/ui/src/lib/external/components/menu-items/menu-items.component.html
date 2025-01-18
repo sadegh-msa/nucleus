@@ -44,7 +44,10 @@
       }
 
       @if (item.children?.length) {
-        <menu class="submenu" [class.expanded]="item.expanded">
+        <menu class="submenu"
+              [class.expanded]="item.expanded"
+              [style]="'--menu-size:' + (item.size || item.children.length)"
+        >
           @if (isCompact()) {
             <li>
               <button><strong>{{ item.label }}</strong></button>

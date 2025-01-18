@@ -76,7 +76,7 @@
         }
 
         &.expanded {
-          @apply max-h-[100rem];
+          max-height: calc(theme('size.10') * var(--menu-size));
         }
       }
     }

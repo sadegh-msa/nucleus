@@ -22,6 +22,7 @@ export interface MenuItem {
   permission?: string;
   expanded?: boolean;
   children?: MenuItem[];
+  size?: number;
 
   command?(...args: unknown[]): unknown;
 }

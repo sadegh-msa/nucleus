@@ -1,5 +1,12 @@
 import { NgClass, NgStyle, NgTemplateOutlet } from '@angular/common';
-import { ChangeDetectionStrategy, Component, computed, HostBinding, input } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  effect,
+  HostBinding,
+  input,
+} from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { TippyDirective } from '@ngneat/helipopper';
 import { SvgIconComponent } from 'angular-svg-icon';
@@ -45,6 +52,25 @@ export class MenuItemsComponent {
     ].join(' ');
   }
 
+  constructor() {
+    effect(() => {
+      this.items()
+        .filter((i) => i.expanded)
+        .forEach((item) => this.calculateSize(item));
+    });
+  }
+
+  calculateSize(item: MenuItem) {
+    if (!item.expanded) {
+      return 0;
+    }
+
+    item.size = 0;
+    item.children?.forEach((i) => (item.size! += this.calculateSize(i) + 1));
+
+    return item.size;
+  }
+
   collapseItem(item: MenuItem) {
     item.children?.forEach((i) => this.collapseItem(i));
     item.expanded = false;
@@ -61,6 +87,10 @@ export class MenuItemsComponent {
       }
     } else if (submenuMode === 'floating') {
       this.items().forEach((i) => this.collapseItem(i));
+    }
+
+    if (submenuMode === 'sliding') {
+      this.items().forEach((i) => this.calculateSize(i));
     }
 
     if (item.command) {
