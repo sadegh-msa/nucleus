@@ -35,11 +35,13 @@
 
   &.floating {
     li {
+      @apply bg-inherit;
+
       > menu {
         @include shadow.medium();
         @include transition.generic(opacity);
         @apply absolute top-0 min-w-full;
-        @apply rounded-inherit border;
+        @apply bg-inherit rounded-inherit border;
         @apply ltr:left-full rtl:right-full;
 
         &:not(.expanded) {
@@ -55,19 +57,29 @@
 
   &.sliding {
     li {
-      > :is(a, button) > .arrow {
-        @include transition.generic(transform);
-        @apply rotate-0;
+      > :is(a, button) {
+        @include transition.generic(border-radius);
+
+        > .arrow {
+          @include transition.generic(transform);
+          @apply rotate-0;
+        }
       }
 
       &:has(.expanded) {
-        > :is(a, button) > .arrow {
-          @apply ltr:rotate-90 rtl:-rotate-90;
+        > :is(a, button) {
+          &:has(.arrow) {
+            @apply rounded-b-none;
+          }
+
+          > .arrow {
+            @apply ltr:rotate-90 rtl:-rotate-90;
+          }
         }
       }
 
       > menu {
-        @include transition.generic(max-height);
+        @include transition.generic(max-height, colors);
         @include shadow.inner();
         @apply overflow-hidden;
 
@@ -76,7 +88,8 @@
         }
 
         &.expanded {
-          max-height: calc(theme('size.10') * var(--menu-size));
+          @apply rounded-b-inherit rounded-t-none p-1;
+          max-height: calc(theme('size.12') * var(--menu-size));
         }
       }
     }
@@ -84,9 +97,21 @@
 
   li {
     @apply relative w-full;
-    @apply bg-inherit rounded-inherit;
+    @include transition.generic(colors);
 
-    a, button {
+    &:first-of-type {
+      > :is(a, button) {
+        @apply rounded-t-inherit;
+      }
+    }
+
+    &:last-of-type {
+      > :is(a, button) {
+        @apply rounded-b-inherit;
+      }
+    }
+
+    :is(a, button) {
       @include button.variant(text, black);
       @include menu-item-size(default);
       @include transition.generic(width, gap, colors);
@@ -114,23 +139,7 @@
     }
 
     > menu {
-      @apply bg-inherit;
-    }
-
-    menu {
-      li {
-        &:first-of-type {
-          a, button {
-            @apply rounded-t-inherit;
-          }
-        }
-
-        &:last-of-type {
-          a, button {
-            @apply rounded-b-inherit;
-          }
-        }
-      }
+      @apply rounded-inherit;
     }
 
     .arrow {
