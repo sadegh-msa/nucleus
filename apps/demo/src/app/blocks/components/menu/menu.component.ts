@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { MenuItem, MenuItemsComponent } from '@solving-center/ui';
+import { MenuItem, MenuItemsComponent } from '@fabric/ui';
+import { appMenuItems } from '../../../app.menu';
 
 @Component({
   selector: 'app-menu',
@@ -10,125 +11,7 @@ import { MenuItem, MenuItemsComponent } from '@solving-center/ui';
   styleUrl: './menu.component.scss',
 })
 export class MenuComponent {
-  readonly #menuItems: MenuItem[] = [
-    {
-      id: 'demo-menu-link-button',
-      label: $localize`Button`,
-      // labelNgStyle: { 'background-color': 'red' },
-      // labelNgClass: ['demo-menu-link'],
-      // tooltip: $localize`Button`,
-      // tooltipPlacement: 'top',
-      icon: 'icons/outline/tick-circle.svg',
-      // iconNgStyle: {},
-      iconNgClass: 'outline',
-      // ngStyle: {},
-      // ngClass: ['ui', 'link', 'primary'],
-      // disabled: false,
-      // hidden: false,
-      // href: '',
-      routerLink: '/button',
-      routerLinkActive: 'active',
-      permission: 'demo.menu.link.button',
-    },
-    {
-      id: 'demo-menu-link-icon',
-      label: $localize`Icon`,
-      icon: 'icons/outline/tick-circle.svg',
-      iconNgClass: 'outline',
-      routerLink: '/icon',
-      routerLinkActive: 'active',
-      permission: 'demo.menu.link.icon',
-    },
-    {
-      id: 'demo-menu-link-menu',
-      label: $localize`Menu`,
-      icon: 'icons/bold/tick-circle.svg',
-      routerLink: '/menu',
-      routerLinkActive: 'active',
-      permission: 'demo.menu.link.menu',
-    },
-    {
-      id: 'demo-menu-link-typography',
-      label: $localize`Typography`,
-      icon: 'icons/outline/tick-circle.svg',
-      iconNgClass: 'outline',
-      permission: 'demo.menu.link.typography',
-      children: [
-        {
-          id: 'demo-menu-link-button',
-          label: $localize`Button`,
-          icon: 'icons/outline/tick-circle.svg',
-          iconNgClass: 'outline',
-          routerLink: '/button',
-          routerLinkActive: 'active',
-          permission: 'demo.menu.link.button',
-        },
-        {
-          id: 'demo-menu-link-icon',
-          label: $localize`Icon`,
-          icon: 'icons/outline/tick-circle.svg',
-          iconNgClass: 'outline',
-          permission: 'demo.menu.link.icon',
-          children: [
-            {
-              id: 'demo-menu-link-button',
-              label: $localize`Button`,
-              icon: 'icons/outline/tick-circle.svg',
-              iconNgClass: 'outline',
-              routerLink: '/button',
-              routerLinkActive: 'active',
-              permission: 'demo.menu.link.button',
-            },
-            {
-              id: 'demo-menu-link-icon',
-              label: $localize`Icon`,
-              icon: 'icons/outline/tick-circle.svg',
-              iconNgClass: 'outline',
-              routerLink: '/icon',
-              routerLinkActive: 'active',
-              permission: 'demo.menu.link.icon',
-            },
-            {
-              id: 'demo-menu-link-menu',
-              label: $localize`Menu`,
-              icon: 'icons/bold/tick-circle.svg',
-              routerLink: '/menu',
-              routerLinkActive: 'active',
-              permission: 'demo.menu.link.menu',
-            },
-            {
-              id: 'demo-menu-link-typography',
-              label: $localize`Typography`,
-              icon: 'icons/outline/tick-circle.svg',
-              iconNgClass: 'outline',
-              routerLink: '/typography',
-              routerLinkActive: 'active',
-              permission: 'demo.menu.link.typography',
-            },
-          ],
-        },
-        {
-          id: 'demo-menu-link-menu',
-          label: $localize`Menu`,
-          icon: 'icons/bold/tick-circle.svg',
-          routerLink: '/menu',
-          routerLinkActive: 'active',
-          permission: 'demo.menu.link.menu',
-        },
-        {
-          id: 'demo-menu-link-typography',
-          label: $localize`Typography`,
-          icon: 'icons/outline/tick-circle.svg',
-          iconNgClass: 'outline',
-          routerLink: '/typography',
-          routerLinkActive: 'active',
-          permission: 'demo.menu.link.typography',
-        },
-      ],
-    },
-  ];
-
-  readonly compactMenuItems = structuredClone(this.#menuItems);
-  readonly floatingMenuItems = structuredClone(this.#menuItems);
-  readonly slidingMenuItems = structuredClone(this.#menuItems);
+  readonly compactMenuItems = structuredClone(appMenuItems) as MenuItem[];
+  readonly floatingMenuItems = structuredClone(appMenuItems) as MenuItem[];
+  readonly slidingMenuItems = structuredClone(appMenuItems) as MenuItem[];
 }

@@ -1,0 +1,55 @@
+@use 'libs/ui/src/lib/external/styles/mixins/_index.scss' as mixins;
+
+:host {
+  @apply relative flex flex-col gap-10;
+
+  > header {
+    @apply flex items-start justify-center;
+    @apply h-12 w-full mt-8;
+
+    > a > {
+      .logo {
+        min-width: 140px;
+        min-height: 55px;
+      }
+
+      .logo-small {
+        min-width: 30px;
+        min-height: 30px;
+      }
+    }
+  }
+
+  .subheader {
+    &:has(.empty) {
+      @apply hidden;
+    }
+  }
+
+  menu {
+    @apply w-full overflow-y-auto rounded-lg border-0 gap-1;
+
+    ::ng-deep {
+      menu {
+        @apply bg-inherit flex flex-col gap-1;
+      }
+
+      li a, li button, menu li {
+        @apply rounded-lg;
+      }
+    }
+  }
+
+  footer {
+    @apply mt-auto mb-8;
+  }
+
+  button.toggle {
+    @apply absolute bottom-6 end-5.5 z-40;
+
+    &.compact {
+      @apply transform -scale-x-100;
+    }
+  }
+
+}
