@@ -2,6 +2,10 @@
   @apply shadow-md;
 }
 
+@mixin large() {
+  @apply shadow-lg;
+}
+
 @mixin inner() {
   @apply shadow-inner bg-surface-misty;
 }

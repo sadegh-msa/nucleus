@@ -56,7 +56,7 @@ $panel-nav-wide-width: 260px;
   }
 
   > :is(header, nav, main) {
-    @include mixins.shadow-medium();
+    @include mixins.shadow-large();
     @apply bg-surface-card rounded-lg p-4 border;
   }
 
