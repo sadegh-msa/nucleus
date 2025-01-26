@@ -3,6 +3,7 @@ const twColors = require('tailwindcss/colors');
 const Color = require('color');
 
 const blackRgb = Color('black').rgb().array();
+const baseColor = 'gray';
 
 function darkenColor(hexColor, level) {
   return Color(hexColor).darken(level).hex();
@@ -38,19 +39,19 @@ const configs = {
         ...buildColor('success', 'green'),
         ...buildColor('warning', 'amber'),
         ...buildColor('danger', 'red'),
-        ...buildColor('black', 'zinc', 900),
-        ...buildColor('darkgray', 'zinc', 600),
-        ...buildColor('gray', 'zinc', 500),
-        ...buildColor('lightgray', 'zinc', 300),
+        ...buildColor('black', baseColor, 900),
+        ...buildColor('darkgray', baseColor, 600),
+        ...buildColor('gray', baseColor, 500),
+        ...buildColor('lightgray', baseColor, 300),
+        'surface-card': twColors[baseColor][100],
+        'surface-ground': twColors[baseColor][200],
+        'surface-misty': `rgb(${blackRgb.join(',')}, 0.02)`,
         'transparent-darker': `rgb(${blackRgb.join(',')}, 0.04)`,
         'transparent-darkest': `rgb(${blackRgb.join(',')}, 0.08)`,
-        'surface-card': twColors['zinc'][100],
-        'surface-ground': twColors['zinc'][200],
-        'surface-misty': `rgb(${blackRgb.join(',')}, 0.02)`,
       },
       borderColor: {
-        DEFAULT: lightenColor(twColors['zinc'][300], 89),
-        darker: darkenColor(twColors['zinc'][300], 0.03),
+        DEFAULT: lightenColor(twColors[baseColor][300], 89),
+        darker: darkenColor(twColors[baseColor][300], 0.03),
       },
       borderRadius: {
         inherit: 'inherit',
