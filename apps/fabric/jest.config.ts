@@ -1,8 +1,8 @@
 export default {
-  displayName: 'demo',
+  displayName: 'fabric',
   preset: '../../jest.preset.js',
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
-  coverageDirectory: '../../coverage/apps/demo',
+  coverageDirectory: '../../coverage/apps/fabric',
   transform: {
     '^.+\\.(ts|mjs|js|html)$': [
       'jest-preset-angular',
