@@ -1,0 +1,58 @@
+@import './mixins/checkmark';
+@import './mixins/color';
+@import './mixins/alignment';
+@import './mixins/box';
+@import './mixins/size';
+
+fab-checkbox {
+  @include fab-flex-cross-center;
+  @apply relative gap-2;
+
+  > label {
+    @apply select-none;
+  }
+
+  > .fab-checkbox-box {
+    @include fab-flex-center;
+    @include fab-rounded-box-md;
+    @include fab-rect-sm;
+    @include fab-bg(theme('colors.surface-input'));
+    @apply transition-colors duration-500;
+
+    &:not(.disabled) {
+      @apply cursor-pointer;
+
+      & + label {
+        @apply cursor-pointer;
+      }
+    }
+
+    &.disabled {
+      & + label {
+        @apply cursor-default;
+      }
+    }
+
+    &.checked {
+      &:not(.disabled) {
+        @include fab-bg(theme('colors.primary'));
+      }
+
+      &.disabled {
+        @apply bg-surface-disabled;
+
+        > .fab-checkbox-checkmark {
+          @include fab-checkmark-disabled;
+        }
+      }
+
+      > .fab-checkbox-checkmark {
+        @include fab-checkmark-active;
+      }
+    }
+
+    > .fab-checkbox-checkmark {
+      @include fab-checkmark-base(0.43rem, 0.16rem, theme('colors.white'));
+    }
+  }
+}

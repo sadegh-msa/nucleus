@@ -1,0 +1,43 @@
+@import './color';
+
+@mixin fab-checkmark-base($size, $thickness, $color) {
+  @apply relative bg-transparent ltr:rotate-45 rtl:-rotate-135 z-20;
+  height: calc($size * 2);
+  width: $size;
+  margin-bottom: calc($thickness / 1.5);
+  margin-left: calc($thickness / 2.5);
+
+  &:before,
+  &:after {
+    @include fab-bg($color, false);
+    @apply absolute content-[''] rounded transition-all;
+    @apply ltr:bottom-0 rtl:top-0;
+  }
+
+  &:before {
+    @apply w-0 delay-150;
+    height: $thickness;
+  }
+
+  &:after {
+    @apply h-0 ltr:right-0 rtl:left-0 delay-75;
+    width: $thickness;
+  }
+}
+
+@mixin fab-checkmark-active {
+  &:before {
+    @apply w-full delay-75;
+  }
+
+  &:after {
+    @apply h-full delay-150;
+  }
+}
+
+@mixin fab-checkmark-disabled {
+  &:before,
+  &:after {
+    @apply bg-disabled;
+  }
+}

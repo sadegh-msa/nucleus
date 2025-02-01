@@ -1,0 +1,42 @@
+@import '../variables';
+
+@mixin fab-height-sm {
+  //height: calc(theme('size[5]') + theme('size[0.5]'));
+  height: var(--fab-size-sm);
+}
+
+@mixin fab-height-md {
+  height: var(--fab-size-md);
+}
+
+@mixin fab-height-lg {
+  height: var(--fab-size-lg);
+}
+
+@mixin fab-width-sm {
+  //width: calc(theme('size[5]') + theme('size[0.5]'));
+  width: var(--fab-size-sm);
+}
+
+@mixin fab-width-md {
+  width: var(--fab-size-md);
+}
+
+@mixin fab-width-lg {
+  width: var(--fab-size-lg);
+}
+
+@mixin fab-rect-sm {
+  height: var(--fab-size-sm);
+  width: var(--fab-size-sm);
+}
+
+@mixin fab-rect-md {
+  height: var(--fab-size-md);
+  width: var(--fab-size-md);
+}
+
+@mixin fab-rect-lg {
+  height: var(--fab-size-lg);
+  width: var(--fab-size-lg);
+}

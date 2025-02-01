@@ -1,0 +1,50 @@
+@import './mixins/color';
+@import './mixins/box';
+@import './mixins/size';
+
+.fab-form-field {
+  @apply relative flex flex-col justify-start w-full;
+
+  &:not(.fab-error) {
+    & > {
+      .fab-form-field-header {
+        .fab-form-field-message {
+          @apply text-hint;
+        }
+      }
+    }
+  }
+
+  &.fab-error {
+    & > {
+      .fab-form-field-header {
+        .fab-form-field-message {
+          @apply text-error;
+        }
+      }
+
+      .fab-input-box {
+        @apply border-error;
+      }
+    }
+  }
+
+  > .fab-form-field-header {
+    @apply flex items-end mb-0.5 px-1;
+
+    > .fab-form-field-help {
+      @include fab-bg-transparent;
+      @include fab-rounded-box-md;
+      @include fab-rect-sm;
+      @apply mx-2 mb-0.5;
+    }
+
+    > .fab-form-field-message {
+      @apply grow text-end text-sm;
+    }
+  }
+
+  label {
+    @apply font-semibold;
+  }
+}

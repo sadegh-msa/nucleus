@@ -1,0 +1,49 @@
+import { NgClass, NgTemplateOutlet, TitleCasePipe } from '@angular/common';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  forwardRef,
+  HostBinding,
+  inject,
+  input
+} from '@angular/core';
+import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { componentStyleClass } from '../../configs';
+import { GenericToggleConsumer, ToggleValue } from '../../models/toggle.model';
+import { ToggleService } from '../../services/toggle.service';
+
+@Component({
+  selector: 'fab-toggle',
+  standalone: true,
+  imports: [FormsModule, NgClass, TitleCasePipe, NgTemplateOutlet],
+  templateUrl: './toggle.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => ToggleComponent),
+      multi: true
+    }
+  ]
+})
+export class ToggleComponent implements ControlValueAccessor, GenericToggleConsumer {
+  readonly #toggleService = inject(ToggleService);
+
+  @HostBinding('class') styleClass = componentStyleClass.toggle;
+
+  value = input<ToggleValue>();
+  label = input<string>();
+  isChecked!: GenericToggleConsumer['isChecked'];
+  isDisabled!: GenericToggleConsumer['isDisabled'];
+  isBinary!: GenericToggleConsumer['isBinary'];
+  hasLabel!: GenericToggleConsumer['hasLabel'];
+  toggle!: () => GenericToggleConsumer['toggle'];
+  writeValue!: (obj: any) => void;
+  registerOnChange!: (fn: any) => void;
+  registerOnTouched!: (fn: any) => void;
+  setDisabledState!: (isDisabled: boolean) => void;
+
+  constructor() {
+    this.#toggleService.init(this);
+  }
+}

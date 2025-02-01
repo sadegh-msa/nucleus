@@ -1,0 +1,30 @@
+@import './mixins/box';
+@import './mixins/color';
+@import './mixins/size';
+
+.fab-input-box {
+  @include fab-rounded-box-lg;
+  @include fab-height-md;
+  @apply p-2;
+}
+
+.fab-input {
+  @apply text-lg align-middle transition-colors;
+
+  &:not([disabled]) {
+    @include fab-bg(theme('colors.surface-input'), false);
+    @apply text-black;
+
+    &:focus-visible {
+      @apply border-primary;
+    }
+  }
+
+  &:disabled {
+    @apply text-disabled bg-surface-disabled;
+  }
+
+  &::placeholder {
+    @apply text-placeholder text-lg align-middle;
+  }
+}

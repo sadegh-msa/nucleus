@@ -1,0 +1,215 @@
+@import './mixins/color';
+@import './mixins/box';
+
+@mixin fab-bubble-x-top {
+  @apply -mt-3;
+
+  > .fab-bubble-close {
+    @apply -top-3;
+  }
+
+  > .fab-bubble-arrow {
+    @apply rotate-45 -bottom-2;
+  }
+}
+
+@mixin fab-bubble-x-bottom {
+  @apply mt-3;
+
+  > .fab-bubble-close {
+    @apply -top-3;
+  }
+
+  > .fab-bubble-arrow {
+    @apply rotate-135 -top-2;
+  }
+}
+
+@mixin fab-bubble-x-center {
+  > .fab-bubble-close {
+    @apply ltr:-right-3 rtl:-left-3;
+  }
+
+  > .fab-bubble-arrow {
+    left: calc(50% - theme('size[2]'));
+  }
+}
+
+@mixin fab-bubble-x-start {
+  @apply ltr:ml-6 rtl:-ml-6;
+
+  > .fab-bubble-close {
+    @apply ltr:-left-3 rtl:-right-3;
+  }
+
+  > .fab-bubble-arrow {
+    @apply ltr:right-4 rtl:left-4;
+  }
+}
+
+@mixin fab-bubble-x-end {
+  @apply ltr:-ml-6 rtl:ml-6;
+
+  > .fab-bubble-close {
+    @apply ltr:-right-3 rtl:-left-3;
+  }
+
+  > .fab-bubble-arrow {
+    @apply ltr:left-4 rtl:right-4;
+  }
+}
+
+@mixin fab-bubble-y-start {
+  @apply ltr:-ml-3 rtl:ml-3;
+
+  > .fab-bubble-close {
+    @apply ltr:-left-3 rtl:-right-3;
+  }
+
+  > .fab-bubble-arrow {
+    @apply -rotate-45 ltr:-right-2 rtl:-left-2;
+  }
+}
+
+@mixin fab-bubble-y-end {
+  @apply ltr:ml-3 rtl:-ml-3;
+
+  > .fab-bubble-close {
+    @apply ltr:-right-3 rtl:-left-3;
+  }
+
+  > .fab-bubble-arrow {
+    @apply rotate-45 ltr:-left-2 rtl:-right-2;
+  }
+}
+
+@mixin fab-bubble-y-center {
+  > .fab-bubble-close {
+    @apply -top-3;
+  }
+
+  > .fab-bubble-arrow {
+    top: calc(50% - theme('size[2]'));
+  }
+}
+
+@mixin fab-bubble-y-top {
+  @apply mt-6;
+
+  > .fab-bubble-close {
+    @apply -top-3;
+  }
+
+  > .fab-bubble-arrow {
+    @apply bottom-4;
+  }
+}
+
+@mixin fab-bubble-y-bottom {
+  @apply -mt-6;
+
+  > .fab-bubble-close {
+    @apply -top-3;
+  }
+
+  > .fab-bubble-arrow {
+    @apply top-4;
+  }
+}
+
+.fab-bubble {
+  @include fab-rounded-borderless-box-lg;
+  @include fab-bg-filled($has-active: false);
+  @apply shadow transition-all w-max z-40;
+
+
+  &:not(.fab-bubble-floated) {
+    @apply relative;
+
+    &.fab-bubble-hidden {
+      @apply hidden;
+    }
+  }
+
+  &.fab-bubble-floated {
+    @apply absolute;
+
+    &.fab-bubble-hidden {
+      @apply invisible opacity-0;
+    }
+  }
+
+  &.fab-bubble-top-start {
+    @include fab-bubble-x-top;
+    @include fab-bubble-x-start;
+  }
+
+  &.fab-bubble-top-center {
+    @include fab-bubble-x-top;
+    @include fab-bubble-x-center;
+  }
+
+  &.fab-bubble-top-end {
+    @include fab-bubble-x-top;
+    @include fab-bubble-x-end;
+  }
+
+  &.fab-bubble-bottom-start {
+    @include fab-bubble-x-bottom;
+    @include fab-bubble-x-start;
+  }
+
+  &.fab-bubble-bottom-center {
+    @include fab-bubble-x-bottom;
+    @include fab-bubble-x-center;
+  }
+
+  &.fab-bubble-bottom-end {
+    @include fab-bubble-x-bottom;
+    @include fab-bubble-x-end;
+  }
+
+  &.fab-bubble-start-top {
+    @include fab-bubble-y-start;
+    @include fab-bubble-y-top;
+  }
+
+  &.fab-bubble-start-center {
+    @include fab-bubble-y-start;
+    @include fab-bubble-y-center;
+  }
+
+  &.fab-bubble-start-bottom {
+    @include fab-bubble-y-start;
+    @include fab-bubble-y-bottom;
+  }
+
+  &.fab-bubble-end-top {
+    @include fab-bubble-y-end;
+    @include fab-bubble-y-top;
+  }
+
+  &.fab-bubble-end-center {
+    @include fab-bubble-y-end;
+    @include fab-bubble-y-center;
+  }
+
+  &.fab-bubble-end-bottom {
+    @include fab-bubble-y-end;
+    @include fab-bubble-y-bottom;
+  }
+
+  > .fab-bubble-content {
+    @apply p-2 h-full w-full bg-inherit rounded-inherit;
+  }
+
+  > .fab-bubble-close {
+    @include fab-bg-surface;
+    @apply absolute border rounded-2xl h-6 w-6;
+    @apply text-center leading-none pb-px;
+  }
+
+  > .fab-bubble-arrow {
+    @apply absolute bg-inherit shadow h-4 w-4 -z-1;
+  }
+}

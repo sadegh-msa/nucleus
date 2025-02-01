@@ -1,0 +1,37 @@
+@import './color';
+
+@mixin fab-box($border-color: '') {
+  @if ($border-color != '') {
+    border-color: $border-color;
+  }
+}
+
+@mixin fab-rounded-box($border-color: '') {
+  @include fab-box($border-color);
+  @apply border rounded;
+}
+
+@mixin fab-rounded-box-md($border-color: '') {
+  @include fab-box($border-color);
+  @apply border rounded-md;
+}
+
+@mixin fab-rounded-box-lg($border-color: '') {
+  @include fab-box($border-color);
+  @apply border rounded-lg;
+}
+
+@mixin fab-rounded-borderless-box {
+  @include fab-box;
+  @apply rounded;
+}
+
+@mixin fab-rounded-borderless-box-md {
+  @include fab-box;
+  @apply rounded-md;
+}
+
+@mixin fab-rounded-borderless-box-lg {
+  @include fab-box;
+  @apply rounded-lg;
+}

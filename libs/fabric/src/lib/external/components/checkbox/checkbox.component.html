@@ -1,0 +1,11 @@
+<div class="fab-checkbox-box"
+     [ngClass]="{checked: isChecked(), disabled: isDisabled()}"
+     (click)="toggle()">
+  <span class="fab-checkbox-checkmark"></span>
+</div>
+
+@if (hasLabel()) {
+  <label (click)="toggle()">
+    {{ label() || (value()?.toString() | titlecase) }}
+  </label>
+}

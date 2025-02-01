@@ -1,0 +1,7 @@
+@import './variables';
+
+html {
+  --fab-size-sm: #{$fab-size-sm};
+  --fab-size-md: #{$fab-size-md};
+  --fab-size-lg: #{$fab-size-lg};
+}

@@ -1,0 +1,5 @@
+export type FabPosition = 'auto'
+  | 'top' | 'top-start' | 'top-center' | 'top-end'
+  | 'bottom' | 'bottom-start' | 'bottom-center' | 'bottom-end'
+  | 'start' | 'start-top' | 'start-center' | 'start-bottom'
+  | 'end' | 'end-top' | 'end-center' | 'end-bottom'

@@ -1,0 +1,30 @@
+<div class="fab-form-field"
+     [ngClass]="{'fab-error': inputFormControl?.dirty && inputFormControl?.errors }">
+
+  <div class="fab-form-field-header">
+    @if (label) {
+      <label [for]="inputId">{{ label }}</label>
+    }
+
+    @if (help) {
+      <button class="fab-form-field-help"
+              type="button"
+              [fabPopover]="helpPopover"
+              [fabPopoverPosition]="helpPosition">?
+      </button>
+      <fab-bubble #helpPopover>{{ help }}</fab-bubble>
+    }
+
+    @if (inputFormControl && messages()) {
+      <span class="fab-form-field-message">
+      @if (!inputFormControl.errors || inputFormControl.pristine) {
+        {{ messages()['hint'] }}
+      } @else if (inputFormControl.errors && inputFormControl.dirty) {
+        {{ messages()[(inputFormControl.errors | keyvalue)[0].key] }}
+      }
+      </span>
+    }
+  </div>
+
+  <ng-content></ng-content>
+</div>

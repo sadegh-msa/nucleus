@@ -1,0 +1,13 @@
+<div class="fab-toggle-chassis"
+     [ngClass]="{checked: isChecked(), disabled: isDisabled()}"
+     (click)="toggle()">
+    <span class="fab-toggle-switch">
+      <span class="fab-toggle-checkmark"></span>
+    </span>
+</div>
+
+@if (hasLabel()) {
+  <label (click)="toggle()">
+    {{ label() || (value()?.toString() | titlecase) }}
+  </label>
+}

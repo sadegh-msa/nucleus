@@ -1,0 +1,79 @@
+@import './mixins/checkmark';
+@import './mixins/color';
+@import './mixins/alignment';
+@import './mixins/box';
+@import './mixins/size';
+
+fab-toggle {
+  @include fab-flex-cross-center;
+  @apply relative gap-2;
+
+  > label {
+    @apply select-none;
+  }
+
+  > .fab-toggle-chassis {
+    @include fab-rounded-box-lg;
+    @include fab-flex-cross-center;
+    @include fab-width-md;
+    @apply relative bg-surface-input-active shadow-inner p-px z-10;
+
+    &:not(.disabled) {
+      @apply cursor-pointer;
+
+      & + label {
+        @apply cursor-pointer;
+      }
+    }
+
+    &.disabled {
+      & + label {
+        @apply cursor-default;
+      }
+    }
+
+    &.checked {
+      &:not(.disabled) {
+        @apply border-primary bg-primary-active;
+
+        > .fab-toggle-switch {
+          &:before,
+          &:after {
+            @apply bg-primary;
+          }
+        }
+      }
+
+      &.disabled {
+        @apply bg-surface-disabled;
+
+        > .fab-toggle-switch {
+          > .fab-toggle-checkmark {
+            @include fab-checkmark-disabled;
+          }
+        }
+      }
+
+      > .fab-toggle-switch {
+        @apply ltr:translate-x-5 rtl:-translate-x-5;
+
+        > .fab-toggle-checkmark {
+          @include fab-checkmark-active;
+        }
+      }
+    }
+
+    > .fab-toggle-switch {
+      @include fab-rounded-box-md;
+      @include fab-flex-center;
+      @include fab-rect-sm;
+      @include fab-bg(theme('colors.surface-input'), false);
+      @apply relative shadow-md transition-all;
+      @apply translate-x-0 z-20;
+
+      > .fab-toggle-checkmark {
+        @include fab-checkmark-base(0.43rem, 0.16rem, theme('colors.primary'));
+      }
+    }
+  }
+}

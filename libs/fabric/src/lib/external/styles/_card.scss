@@ -1,0 +1,11 @@
+.fab-card {
+  @apply flex border rounded-lg shadow-lg bg-surface-card p-2;
+
+  &.fab-card-horizontal {
+    @apply flex-row;
+  }
+
+  &.fab-card-vertical {
+    @apply flex-col;
+  }
+}
