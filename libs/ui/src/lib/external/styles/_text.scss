@@ -1,6 +1,0 @@
-@use './mixins';
-
-.ui.text {
-  @include mixins.text-generic();
-  @include mixins.transition-generic(colors);
-}

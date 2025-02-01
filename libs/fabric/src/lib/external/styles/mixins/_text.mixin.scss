@@ -1,0 +1,67 @@
+@use '../functions/utils.function';
+@use '../variables';
+@use './icon.mixin';
+
+@mixin size($size) {
+  @if $size == small {
+    @apply text-xs;
+  } @else if $size == medium {
+    @apply text-sm;
+  }
+}
+
+@mixin weight($weight) {
+  @if $weight == semibold {
+    @apply font-semibold;
+  } @else if $weight == bold {
+    @apply font-bold;
+  }
+}
+
+@mixin color($color) {
+  color: utils.getColorValue($color);
+
+  svg:not(.fab.icon) {
+    @include icon.color($color);
+  }
+}
+
+@mixin generic($has-hover: false, $has-active: false) {
+  @each $size in variables.$sizes {
+    @if $size == default {
+      @include size($size);
+    } @else {
+      &.#{$size} {
+        @include size($size);
+      }
+    }
+  }
+
+  @each $weight in variables.$font-weights {
+    @if $weight == default {
+      @include weight($weight);
+    } @else {
+      &.#{$weight} {
+        @include weight($weight);
+      }
+    }
+  }
+
+  @each $color in variables.$colors {
+    &.#{$color} {
+      @include color($color);
+
+      @if $has-hover {
+        &:hover {
+          @include color('#{$color}-darker');
+        }
+      }
+
+      @if $has-active {
+        &:active {
+          @include color('#{$color}-darkest');
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,75 @@
+@use 'libs/fabric/src/lib/external/styles/mixins/_index.scss' as mixins;
+
+$panel-nav-compact-width: 76px;
+$panel-nav-wide-width: 260px;
+
+@mixin panel-nav-width($width) {
+  grid-template-columns: $width auto;
+
+  > nav {
+    @apply w-[#{$width}];
+  }
+}
+
+@mixin handset() {
+
+}
+
+@mixin web() {
+  @include mixins.transition-generic(grid-template-columns);
+  grid-template-areas: 'nav header' 'nav main';
+  grid-template-rows: auto 1fr;
+
+  &.nu.nav {
+    &-compact {
+      @include panel-nav-width($panel-nav-compact-width);
+    }
+
+    &-wide {
+      @include panel-nav-width($panel-nav-wide-width);
+    }
+  }
+
+  nav {
+    @include mixins.transition-generic(width);
+  }
+}
+
+::ng-deep {
+  body {
+    @apply overflow-hidden;
+    @apply w-dvw h-dvh p-0 m-0;
+  }
+}
+
+:host {
+  @apply grid gap-3 p-3;
+  @apply overflow-hidden w-full h-full;
+  @apply bg-surface-ground;
+
+  @include mixins.screens('handset', 'tablet') {
+    @include handset();
+  }
+
+  @include mixins.screens('web') {
+    @include web();
+  }
+
+  > :is(header, nav, main) {
+    @include mixins.shadow-large();
+    @apply bg-surface-card rounded-lg p-4 border;
+  }
+
+  > nav {
+    grid-area: nav;
+  }
+
+  > header {
+    grid-area: header;
+  }
+
+  > main {
+    grid-area: main;
+    @apply overflow-auto h-auto w-full;
+  }
+}

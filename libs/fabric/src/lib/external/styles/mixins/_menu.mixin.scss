@@ -1,0 +1,149 @@
+@use '../variables';
+@use './text.mixin';
+@use './button.mixin';
+@use './shadow.mixin';
+@use './transition.mixin';
+
+@mixin menu-item-size($size) {
+  @include text.size($size);
+
+  svg:not(.fab.icon) {
+    @include button.icon-size($size);
+  }
+}
+
+@mixin generic() {
+  @apply flex flex-col z-30;
+  @apply border;
+
+  &.compact {
+    > li {
+      > :is(a, button) {
+        @apply gap-0;
+        @apply px-3 py-2;
+
+        > span {
+          @apply w-0 opacity-0;
+        }
+
+        > .arrow {
+          @apply hidden;
+        }
+      }
+    }
+  }
+
+  &.floating {
+    li {
+      @apply bg-inherit rounded-inherit;
+
+      > menu {
+        @include shadow.medium();
+        @include transition.generic(opacity);
+        @apply absolute top-0 min-w-full;
+        @apply bg-inherit rounded-inherit border;
+        @apply ltr:left-full rtl:right-full;
+
+        &:not(.expanded) {
+          @apply invisible opacity-0;
+        }
+
+        &.expanded {
+          @apply visible opacity-100;
+        }
+      }
+    }
+  }
+
+  &.sliding {
+    li {
+      > :is(a, button) {
+        @include transition.generic(border-radius);
+
+        > .arrow {
+          @include transition.generic(transform);
+          @apply rotate-0;
+        }
+      }
+
+      &:has(.expanded) {
+        > :is(a, button) {
+          &:has(.arrow) {
+            @apply rounded-b-none;
+          }
+
+          > .arrow {
+            @apply ltr:rotate-90 rtl:-rotate-90;
+          }
+        }
+      }
+
+      > menu {
+        @include transition.generic(max-height, colors);
+        @include shadow.inner();
+        @apply overflow-hidden;
+
+        &:not(.expanded) {
+          @apply max-h-0;
+        }
+
+        &.expanded {
+          @apply rounded-b-inherit rounded-t-none p-1;
+          max-height: calc(theme('size.12') * var(--menu-size));
+        }
+      }
+    }
+  }
+
+  li {
+    @apply relative w-full;
+    @include transition.generic(colors);
+
+    &:first-of-type {
+      > :is(a, button) {
+        @apply rounded-t-inherit;
+      }
+    }
+
+    &:last-of-type {
+      > :is(a, button) {
+        @apply rounded-b-inherit;
+      }
+    }
+
+    :is(a, button) {
+      @include button.variant(text, black);
+      @include menu-item-size(default);
+      @include transition.generic(width, gap, colors);
+      @apply flex justify-start items-center gap-2;
+      @apply w-full outline-none;
+      @apply px-3 py-2;
+
+      &:is(:disabled, .disabled) {
+        @apply opacity-50 pointer-events-none;
+      }
+
+      &.active {
+        @include button.variant(bulk, primary);
+
+        span {
+          @apply font-semibold;
+        }
+      }
+
+      > span {
+        @apply text-ellipsis text-nowrap overflow-hidden;
+        @apply w-full text-start opacity-100;
+        @include transition.generic(width, opacity);
+      }
+    }
+
+    > menu {
+      @apply rounded-inherit;
+    }
+
+    .arrow {
+      @apply ms-auto;
+    }
+  }
+}

@@ -1,12 +1,12 @@
 {
-  "name": "@fabric/source",
+  "name": "@nucleus/source",
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
     "reset": "nx reset",
-    "start": "nx serve fabric",
-    "build": "nx build --configuration=fa fabric",
-    "localize": "nx extract-i18n fabric && node utils/merge-locales.mjs fabric"
+    "start": "nx serve nucleus",
+    "build": "nx build --configuration=fa nucleus",
+    "localize": "nx extract-i18n nucleus && node utils/merge-locales.mjs nucleus"
   },
   "private": true,
   "dependencies": {

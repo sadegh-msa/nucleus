@@ -1,4 +1,4 @@
-# Fabric
+# Nucleus
 
 <a alt="Nx logo" href="https://nx.dev" target="_blank" rel="noreferrer"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png" width="45"></a>
 
@@ -42,7 +42,7 @@ Use the plugin's generator to create new projects.
 To generate a new application, use:
 
 ```sh
-pnpx nx g @nx/angular:app fabric
+pnpx nx g @nx/angular:app nucleus
 ```
 
 To generate a new library, use:

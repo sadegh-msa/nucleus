@@ -1,7 +1,7 @@
 <header>
   <a routerLink="/">
     @if (navMode() === 'compact') {
-      <img alt="Fabric"
+      <img alt="Nucleus"
            ngSrc="logo/logo-no-title.svg"
            height="40"
            width="40"
@@ -10,7 +10,7 @@
            @fadeDelayEnter
       >
     } @else if (navMode() === 'wide') {
-      <img alt="Fabric"
+      <img alt="Nucleus"
            ngSrc="logo/logo-h-title.svg"
            class="logo"
            height="55"
@@ -26,24 +26,24 @@
   <ng-content select="[subheader]" />
 </section>
 
-<menu [uiMenuItems]="mainMenu()"
-      [uiMenuSetStyleClass]="true"
+<menu [fabMenuItems]="mainMenu()"
+      [fabMenuSetStyleClass]="true"
       [ngClass]="navMode()"
-      [uiMenuMode]="navMode()"
-      [uiMenuSubmenuMode]="navMode() === 'compact' ? 'floating' : 'sliding'"
+      [fabMenuMode]="navMode()"
+      [fabMenuSubmenuMode]="navMode() === 'compact' ? 'floating' : 'sliding'"
 ></menu>
 
 <footer>
-  <menu [uiMenuItems]="footerMenu()"
-        [uiMenuSetStyleClass]="true"
+  <menu [fabMenuItems]="footerMenu()"
+        [fabMenuSetStyleClass]="true"
         [ngClass]="navMode()"
-        [uiMenuMode]="navMode()"
-        [uiMenuSubmenuMode]="navMode() === 'compact' ? 'floating' : 'sliding'"
+        [fabMenuMode]="navMode()"
+        [fabMenuSubmenuMode]="navMode() === 'compact' ? 'floating' : 'sliding'"
   ></menu>
 </footer>
 
 <button (click)="toggleNavMode()"
-        class="ui button text gray second-black medium toggle"
+        class="fab button text gray second-black medium toggle"
         [ngClass]="navMode()">
   <svg-icon src="icons/outline/arrow-left-1.svg" svgClass="bidi" />
 </button>

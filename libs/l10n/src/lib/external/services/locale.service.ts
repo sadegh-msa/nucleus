@@ -1,14 +1,14 @@
 import { DOCUMENT } from '@angular/common';
 import { computed, inject, Injectable } from '@angular/core';
-import { Lang } from '../models';
+import { NuLang } from '../models';
 
 @Injectable({
   providedIn: 'root',
 })
-export class LocaleService {
+export class NuLocaleService {
   readonly #document = inject(DOCUMENT);
 
-  lang = computed(() => this.#document.documentElement.lang as Lang);
+  lang = computed(() => this.#document.documentElement.lang as NuLang);
   isRtl = computed(() => this.#document.documentElement.dir.toLowerCase() === 'rtl');
   isPersian = computed(() => this.lang() === 'fa');
 }

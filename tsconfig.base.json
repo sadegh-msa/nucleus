@@ -16,11 +16,11 @@
     "baseUrl": ".",
     "declarationMap": true,
     "paths": {
-      "@fabric/*": ["src/apps/fabric/src/app/*"],
-      "@fabric/l10n": ["libs/l10n/src/index.ts"],
-      "@fabric/panel": ["libs/panel/src/index.ts"],
-      "@fabric/theme": ["libs/theme/src/index.ts"],
-      "@fabric/ui": ["libs/ui/src/index.ts"]
+      "@nucleus/*": ["src/apps/nucleus/src/app/*"],
+      "@nucleus/l10n": ["libs/l10n/src/index.ts"],
+      "@nucleus/panel": ["libs/panel/src/index.ts"],
+      "@nucleus/theme": ["libs/theme/src/index.ts"],
+      "@nucleus/fabric": ["libs/fabric/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

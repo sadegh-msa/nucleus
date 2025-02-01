@@ -1,8 +1,8 @@
 {
-  "name": "l10n",
+  "name": "@nucleus/l10n",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/l10n/src",
-  "prefix": "lib",
+  "prefix": "nu",
   "projectType": "library",
   "tags": [],
   "targets": {

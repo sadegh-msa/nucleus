@@ -1,8 +1,8 @@
 {
-  "name": "panel",
+  "name": "@nucleus/panel",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/panel/src",
-  "prefix": "panel",
+  "prefix": "nu",
   "projectType": "library",
   "tags": [],
   "targets": {

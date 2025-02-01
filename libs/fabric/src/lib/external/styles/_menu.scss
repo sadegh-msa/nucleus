@@ -1,0 +1,11 @@
+@use './mixins';
+
+menu.fab.menu {
+  @include mixins.menu-generic();
+  @include mixins.transition-generic(all);
+
+  menu {
+    @include mixins.transition-generic(all);
+  }
+}
+

@@ -1,4 +1,4 @@
-@use 'libs/ui/src/lib/external/styles/mixins/_index.scss' as mixins;
+@use 'libs/fabric/src/lib/external/styles/mixins/_index.scss' as mixins;
 
 :host {
   @apply relative flex flex-col gap-10;

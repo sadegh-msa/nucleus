@@ -1,2 +1,2 @@
-export * from './date-time.service';
+export * from './date.service';
 export * from './locale.service';

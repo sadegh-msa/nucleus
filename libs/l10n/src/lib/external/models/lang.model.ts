@@ -1,2 +1,2 @@
-export const langs = ['en-US', 'fa'] as const;
-export type Lang = typeof langs[number];
+export const nuLangs = ['en-US', 'fa'] as const;
+export type NuLang = typeof nuLangs[number];

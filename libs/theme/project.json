@@ -1,8 +1,8 @@
 {
-  "name": "theme",
+  "name": "@nucleus/theme",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/theme/src",
-  "prefix": "thm",
+  "prefix": "nu",
   "projectType": "library",
   "tags": [],
   "targets": {

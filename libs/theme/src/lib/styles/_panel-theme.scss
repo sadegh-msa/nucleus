@@ -4,9 +4,9 @@
 @use './fonts/kalameh-fanum.font';
 @use './typography';
 
-@use 'libs/ui/src/lib/external/styles/_button.scss';
-@use 'libs/ui/src/lib/external/styles/_icon.scss';
-@use 'libs/ui/src/lib/external/styles/_link.scss';
-@use 'libs/ui/src/lib/external/styles/_menu.scss';
-@use 'libs/ui/src/lib/external/styles/_text.scss';
-@use 'libs/ui/src/lib/external/styles/_tooltip.scss';
+@use 'libs/fabric/src/lib/external/styles/_button.scss';
+@use 'libs/fabric/src/lib/external/styles/_icon.scss';
+@use 'libs/fabric/src/lib/external/styles/_link.scss';
+@use 'libs/fabric/src/lib/external/styles/_menu.scss';
+@use 'libs/fabric/src/lib/external/styles/_text.scss';
+@use 'libs/fabric/src/lib/external/styles/_tooltip.scss';

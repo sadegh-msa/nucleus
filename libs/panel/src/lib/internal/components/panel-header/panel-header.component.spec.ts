@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { PanelHeaderComponent } from './panel-header.component';
+import { NuPanelHeaderComponent } from './panel-header.component';
 
 describe('PanelHeaderComponent', () => {
-  let component: PanelHeaderComponent;
-  let fixture: ComponentFixture<PanelHeaderComponent>;
+  let component: NuPanelHeaderComponent;
+  let fixture: ComponentFixture<NuPanelHeaderComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [PanelHeaderComponent],
+      imports: [NuPanelHeaderComponent],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(PanelHeaderComponent);
+    fixture = TestBed.createComponent(NuPanelHeaderComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { PanelNavComponent } from './panel-nav.component';
+import { NuPanelNavComponent } from './panel-nav.component';
 
 describe('PanelNavComponent', () => {
-  let component: PanelNavComponent;
-  let fixture: ComponentFixture<PanelNavComponent>;
+  let component: NuPanelNavComponent;
+  let fixture: ComponentFixture<NuPanelNavComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [PanelNavComponent],
+      imports: [NuPanelNavComponent],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(PanelNavComponent);
+    fixture = TestBed.createComponent(NuPanelNavComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
