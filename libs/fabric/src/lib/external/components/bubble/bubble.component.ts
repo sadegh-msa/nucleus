@@ -15,10 +15,9 @@ import { componentStyleClass } from '../../configs';
 import { FabPosition } from '../../types';
 
 @Component({
-  selector: 'fab-bubble',
-  standalone: true,
-  imports: [CommonModule],
-  templateUrl: './bubble.component.html'
+    selector: 'fab-bubble',
+    imports: [CommonModule],
+    templateUrl: './bubble.component.html'
 })
 export class BubbleComponent {
   readonly #destroyRef = inject(DestroyRef);

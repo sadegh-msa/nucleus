@@ -1,32 +1,31 @@
-import { NgClass, NgTemplateOutlet, TitleCasePipe } from '@angular/common';
+import { NgClass, TitleCasePipe } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
   forwardRef,
   HostBinding,
   inject,
-  input
+  input,
 } from '@angular/core';
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { componentStyleClass } from '../../configs';
 import { GenericToggleConsumer, ToggleValue } from '../../models/toggle.model';
 import { ToggleService } from '../../services/toggle.service';
 
-type Value = boolean | string | null | undefined
+type Value = boolean | string | null | undefined;
 
 @Component({
   selector: 'fab-checkbox',
-  standalone: true,
-  imports: [FormsModule, NgClass, TitleCasePipe, NgTemplateOutlet],
+  imports: [FormsModule, NgClass, TitleCasePipe],
   templateUrl: './checkbox.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
       useExisting: forwardRef(() => CheckboxComponent),
-      multi: true
-    }
-  ]
+      multi: true,
+    },
+  ],
 })
 export class CheckboxComponent implements ControlValueAccessor, GenericToggleConsumer {
   readonly #toggleService = inject(ToggleService);

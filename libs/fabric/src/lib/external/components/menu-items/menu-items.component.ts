@@ -15,19 +15,18 @@ import { MenuItem } from '../../models';
 type TooltipPlacement = NonNullable<MenuItem['tooltipPlacement']>;
 
 @Component({
-  selector: 'menu[fabMenuItems]',
-  standalone: true,
-  imports: [
-    NgTemplateOutlet,
-    SvgIconComponent,
-    TippyDirective,
-    NgStyle,
-    NgClass,
-    RouterLink,
-    RouterLinkActive,
-  ],
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  templateUrl: './menu-items.component.html',
+    selector: 'menu[fabMenuItems]',
+    imports: [
+        NgTemplateOutlet,
+        SvgIconComponent,
+        TippyDirective,
+        NgStyle,
+        NgClass,
+        RouterLink,
+        RouterLinkActive,
+    ],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    templateUrl: './menu-items.component.html'
 })
 export class MenuItemsComponent {
   items = input.required<MenuItem[]>({ alias: 'fabMenuItems' });

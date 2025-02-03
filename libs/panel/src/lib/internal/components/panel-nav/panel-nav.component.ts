@@ -6,12 +6,11 @@ import { SvgIconComponent } from 'angular-svg-icon';
 import { NuPanelService } from '../../../external';
 
 @Component({
-  selector: 'nav[nu-panel-nav]',
-  standalone: true,
-  imports: [RouterLink, SvgIconComponent, NgClass, NgOptimizedImage, MenuItemsComponent],
-  animations: [getFadeDelayEnterAnimation()],
-  templateUrl: './panel-nav.component.html',
-  styleUrl: './panel-nav.component.scss',
+    selector: 'nav[nu-panel-nav]',
+    imports: [RouterLink, SvgIconComponent, NgClass, NgOptimizedImage, MenuItemsComponent],
+    animations: [getFadeDelayEnterAnimation()],
+    templateUrl: './panel-nav.component.html',
+    styleUrl: './panel-nav.component.scss'
 })
 export class NuPanelNavComponent {
   readonly #panelService = inject(NuPanelService);

@@ -5,11 +5,10 @@ import { NuPanelService } from '@nucleus/panel';
 import { appMenuItems } from './app.menu';
 
 @Component({
-  standalone: true,
-  imports: [RouterOutlet],
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrl: './app.component.scss',
+    imports: [RouterOutlet],
+    selector: 'app-root',
+    templateUrl: './app.component.html',
+    styleUrl: './app.component.scss'
 })
 export class AppComponent implements OnInit {
   readonly #panelService = inject(NuPanelService);

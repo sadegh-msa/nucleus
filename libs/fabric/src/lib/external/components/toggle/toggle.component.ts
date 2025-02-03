@@ -1,11 +1,11 @@
-import { NgClass, NgTemplateOutlet, TitleCasePipe } from '@angular/common';
+import { NgClass, TitleCasePipe } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
   forwardRef,
   HostBinding,
   inject,
-  input
+  input,
 } from '@angular/core';
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { componentStyleClass } from '../../configs';
@@ -14,17 +14,16 @@ import { ToggleService } from '../../services/toggle.service';
 
 @Component({
   selector: 'fab-toggle',
-  standalone: true,
-  imports: [FormsModule, NgClass, TitleCasePipe, NgTemplateOutlet],
+  imports: [FormsModule, NgClass, TitleCasePipe],
   templateUrl: './toggle.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
       useExisting: forwardRef(() => ToggleComponent),
-      multi: true
-    }
-  ]
+      multi: true,
+    },
+  ],
 })
 export class ToggleComponent implements ControlValueAccessor, GenericToggleConsumer {
   readonly #toggleService = inject(ToggleService);

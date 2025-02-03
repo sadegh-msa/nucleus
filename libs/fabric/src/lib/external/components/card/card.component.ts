@@ -1,17 +1,11 @@
-import { NgClass, NgComponentOutlet, NgTemplateOutlet } from '@angular/common';
 import { ChangeDetectionStrategy, Component, HostBinding, input } from '@angular/core';
 import { componentStyleClass } from '../../configs';
 
 @Component({
-  selector: 'fab-card',
-  standalone: true,
-  templateUrl: './card.component.html',
-  imports: [
-    NgClass,
-    NgTemplateOutlet,
-    NgComponentOutlet
-  ],
-  changeDetection: ChangeDetectionStrategy.OnPush
+    selector: 'fab-card',
+    templateUrl: './card.component.html',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class CardComponent {
   @HostBinding('class') styleClass = componentStyleClass.card;

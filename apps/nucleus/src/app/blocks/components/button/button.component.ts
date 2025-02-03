@@ -5,12 +5,11 @@ import { SvgIconComponent } from 'angular-svg-icon';
 import { colors, sizes } from '../../shared/data';
 
 @Component({
-  selector: 'app-button',
-  standalone: true,
-  imports: [RouterLink, SvgIconComponent, NgTemplateOutlet, TitleCasePipe],
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  templateUrl: './button.component.html',
-  styleUrl: './button.component.scss',
+    selector: 'app-button',
+    imports: [RouterLink, SvgIconComponent, NgTemplateOutlet, TitleCasePipe],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    templateUrl: './button.component.html',
+    styleUrl: './button.component.scss'
 })
 export class ButtonComponent {
   readonly colors = colors;

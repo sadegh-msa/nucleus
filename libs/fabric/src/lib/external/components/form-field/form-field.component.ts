@@ -8,10 +8,9 @@ import { BubbleComponent } from '../bubble/bubble.component';
 
 
 @Component({
-  selector: 'fab-form-field',
-  standalone: true,
-  imports: [CommonModule, BubbleComponent, PopoverDirective],
-  templateUrl: './form-field.component.html'
+    selector: 'fab-form-field',
+    imports: [CommonModule, BubbleComponent, PopoverDirective],
+    templateUrl: './form-field.component.html'
 })
 export class FormFieldComponent {
   @HostBinding('class') styleClass = componentStyleClass['form-field'];

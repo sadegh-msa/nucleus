@@ -3,19 +3,18 @@ import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/f
 
 
 @Component({
-  selector: 'fab-calendar',
-  standalone: true,
-  imports: [FormsModule],
-  templateUrl: './calendar.component.html',
-  styleUrl: './calendar.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [
-    {
-      provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => CalendarComponent),
-      multi: true
-    }
-  ]
+    selector: 'fab-calendar',
+    imports: [FormsModule],
+    templateUrl: './calendar.component.html',
+    styleUrl: './calendar.component.scss',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    providers: [
+        {
+            provide: NG_VALUE_ACCESSOR,
+            useExisting: forwardRef(() => CalendarComponent),
+            multi: true
+        }
+    ]
 })
 export class CalendarComponent implements ControlValueAccessor {
   value = signal<Date>(new Date());

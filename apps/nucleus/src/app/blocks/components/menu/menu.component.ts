@@ -3,12 +3,11 @@ import { MenuItem, MenuItemsComponent } from '@nucleus/fabric';
 import { appMenuItems } from '../../../app.menu';
 
 @Component({
-  selector: 'app-menu',
-  standalone: true,
-  imports: [MenuItemsComponent],
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  templateUrl: './menu.component.html',
-  styleUrl: './menu.component.scss',
+    selector: 'app-menu',
+    imports: [MenuItemsComponent],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    templateUrl: './menu.component.html',
+    styleUrl: './menu.component.scss'
 })
 export class MenuComponent {
   readonly compactMenuItems = structuredClone(appMenuItems) as MenuItem[];
