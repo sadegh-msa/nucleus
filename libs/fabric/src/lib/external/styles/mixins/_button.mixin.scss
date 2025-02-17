@@ -3,6 +3,7 @@
 @use './icon.mixin';
 @use './text.mixin';
 @use './shadow.mixin';
+@use './transition.mixin';
 
 @mixin icon-size($size) {
   @if $size == small {
@@ -112,6 +113,7 @@
 }
 
 @mixin generic() {
+  @include transition.generic(color, background-color, box-shadow);
   @apply flex justify-center items-center gap-2;
   @apply outline-none;
 

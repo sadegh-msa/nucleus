@@ -2,6 +2,5 @@
 
 a.fab.link {
   @include mixins.link-generic();
-  @include mixins.transition-generic(colors);
 }
 

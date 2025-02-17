@@ -1,6 +1,7 @@
 @use '../functions/utils.function';
 @use '../variables';
 @use './icon.mixin';
+@use './transition.mixin';
 
 @mixin size($size) {
   @if $size == small {
@@ -27,6 +28,8 @@
 }
 
 @mixin generic($has-hover: false, $has-active: false) {
+  @include transition.generic(color, background-color);
+
   @each $size in variables.$sizes {
     @if $size == default {
       @include size($size);

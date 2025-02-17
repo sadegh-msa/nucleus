@@ -13,6 +13,7 @@
 }
 
 @mixin generic() {
+  @include transition.generic(all);
   @apply flex flex-col z-30;
   @apply border;
 
@@ -58,8 +59,6 @@
   &.sliding {
     li {
       > :is(a, button) {
-        @include transition.generic(border-radius);
-
         > .arrow {
           @include transition.generic(transform);
           @apply rotate-0;
@@ -97,7 +96,7 @@
 
   li {
     @apply relative w-full;
-    @include transition.generic(colors);
+    @include transition.generic(color, background-color);
 
     &:first-of-type {
       > :is(a, button) {
@@ -114,7 +113,7 @@
     :is(a, button) {
       @include button.variant(text, black);
       @include menu-item-size(default);
-      @include transition.generic(width, gap, colors);
+      @include transition.generic(border-radius, color, background-color, box-shadow, width, gap);
       @apply flex justify-start items-center gap-2;
       @apply w-full outline-none;
       @apply px-3 py-2;
@@ -139,6 +138,7 @@
     }
 
     > menu {
+      @include transition.generic(all);
       @apply rounded-inherit;
     }
 
