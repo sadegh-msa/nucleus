@@ -4,3 +4,7 @@ $font-weights: light, default, semibold, bold, extrabold;
 $button-variants: bulk, default, icon, outline, text;
 $icon-variants: bold, broken, bulk, linear, outline, twotone;
 $icon-bordered: bold, bulk;
+
+$fab-size-sm: theme('size.6');
+$fab-size-md: theme('size.12');
+$fab-size-lg: theme('size.24');
