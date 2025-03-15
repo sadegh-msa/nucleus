@@ -1,5 +1,5 @@
-@use './mixins';
+@use './mixins/text.mixin' as text;
 
 .fab.text {
-  @include mixins.text-generic();
+  @include text.generic();
 }

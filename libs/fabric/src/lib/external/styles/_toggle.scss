@@ -1,78 +1,99 @@
-@import './mixins/checkmark';
-@import './mixins/color';
-@import './mixins/alignment';
-@import './mixins/box';
-@import './mixins/size';
+@use './funcs' as *;
+@use './mixins' as *;
 
 fab-toggle {
-  @include fab-flex-cross-center;
-  @apply relative gap-2;
+  @include flex-cross-center;
+  position: relative;
+  gap: get-size-var(small-4);
 
   > label {
-    @apply select-none;
+    user-select: none;
   }
 
   > .fab-toggle-chassis {
-    @include fab-rounded-box-lg;
-    @include fab-flex-cross-center;
-    @include fab-width-md;
-    @apply relative bg-surface-input-active shadow-inner p-px z-10;
+    @include rounded-box-lg;
+    @include flex-cross-center;
+    width: get-size-var(huge-3);
+    position: relative;
+    z-index: 10;
+    background-color: rgb(204 212 221 / 1);
+    padding: 1px;
+    box-shadow:
+      0 0 #0000,
+      0 0 #0000,
+      inset 0 2px 4px 0 rgb(0 0 0 / 0.05);
 
     &:not(.disabled) {
-      @apply cursor-pointer;
+      cursor: pointer;
 
       & + label {
-        @apply cursor-pointer;
+        cursor: pointer;
       }
     }
 
     &.disabled {
       & + label {
-        @apply cursor-default;
+        cursor: default;
       }
     }
 
     &.checked {
       &:not(.disabled) {
-        @apply border-primary bg-primary-active;
+        border-color: rgb(7 89 133 / 1);
+        background-color: rgb(6 76 113 / 1);
 
         > .fab-toggle-switch {
           &:before,
           &:after {
-            @apply bg-primary;
+            background-color: rgb(7 89 133 / 1);
           }
         }
       }
 
       &.disabled {
-        @apply bg-surface-disabled;
+        background-color: rgb(243 244 246 / 1);
 
         > .fab-toggle-switch {
           > .fab-toggle-checkmark {
-            @include fab-checkmark-disabled;
+            @include checkmark-disabled;
           }
         }
       }
 
       > .fab-toggle-switch {
-        @apply ltr:translate-x-5 rtl:-translate-x-5;
+        &:dir(ltr) {
+          transform: translate(get-size-var(medium-3), 0);
+        }
+
+        &:dir(rtl) {
+          transform: translate(calc(-1 * #{get-size-var(medium-3)}), 0);
+        }
 
         > .fab-toggle-checkmark {
-          @include fab-checkmark-active;
+          @include checkmark-darkest;
         }
       }
     }
 
     > .fab-toggle-switch {
-      @include fab-rounded-box-md;
-      @include fab-flex-center;
-      @include fab-rect-sm;
-      @include fab-bg(theme('colors.surface-input'), false);
-      @apply relative shadow-md transition-all;
-      @apply translate-x-0 z-20;
+      @include rounded-box-md;
+      @include align-flex;
+      @include rect(medium-5);
+      @include bg(get-color-var(surface-input), false);
+      position: relative;
+      box-shadow:
+        0 0 #0000,
+        0 0 #0000,
+        0 4px 6px -1px rgb(0 0 0 / 0.1),
+        0 2px 4px -2px rgb(0 0 0 / 0.1);
+      transition-property: all;
+      transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+      transition-duration: 150ms;
+      z-index: 20;
+      transform: translate(0, 0) rotate(0) skewX(0) skewY(0) scaleX(1) scaleY(1);
 
       > .fab-toggle-checkmark {
-        @include fab-checkmark-base(0.43rem, 0.16rem, theme('colors.primary'));
+        @include checkmark-base(0.43rem, 0.16rem, get-color-var(primary));
       }
     }
   }

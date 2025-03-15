@@ -1,11 +1,21 @@
+@use '../funcs' as *;
+
+@mixin inset($color: get-color-var(shadow)) {
+  box-shadow: inset 0 0 get-size-var(small-4) $color;
+}
+
 @mixin medium() {
-  @apply shadow-md;
+  box-shadow:
+    0 0 #0000,
+    0 0 #0000,
+    0 4px 6px -1px rgb(0 0 0 / 0.1),
+    0 2px 4px -2px rgb(0 0 0 / 0.1);
 }
 
 @mixin large() {
-  @apply shadow-lg;
-}
-
-@mixin inner() {
-  @apply shadow-inner bg-surface-misty;
+  box-shadow:
+    0 0 #0000,
+    0 0 #0000,
+    0 10px 15px -3px rgb(0 0 0 / 0.1),
+    0 4px 6px -4px rgb(0 0 0 / 0.1);
 }

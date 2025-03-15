@@ -1,0 +1,16 @@
+@use 'sass:map';
+@use './root.mixin' as root;
+
+@mixin attach() {
+  *,
+  ::after,
+  ::before,
+  ::backdrop {
+    box-sizing: border-box;
+    border: 0 transparent solid;
+    margin: 0;
+    padding: 0;
+  }
+
+  @include root.define-css-vars();
+}

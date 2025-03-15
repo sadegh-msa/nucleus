@@ -1,0 +1,32 @@
+@use '../funcs' as *;
+
+@mixin define-css-border-vars() {
+  @each $width, $value in get-config(border, width) {
+    #{create-border-width-var-name($width)}: $value;
+  }
+}
+
+@mixin define-css-color-vars() {
+  @each $color, $value in get-config(color, palette) {
+    #{create-color-var-name($color)}: $value;
+  }
+}
+
+@mixin define-css-size-vars() {
+  $start: get-config(size, factor, min);
+  $end: get-config(size, factor, max);
+
+  @for $i from $start through $end {
+    #{create-size-var-name($i)}: #{get-size($i)};
+  }
+}
+
+@mixin define-css-vars() {
+  :root {
+    color-scheme: light;
+
+    @include define-css-border-vars();
+    @include define-css-color-vars();
+    @include define-css-size-vars();
+  }
+}

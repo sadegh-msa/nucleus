@@ -1,3 +1,4 @@
+@use '../funcs' as *;
 @use '../variables';
 @use './text.mixin';
 @use './button.mixin';
@@ -14,21 +15,28 @@
 
 @mixin generic() {
   @include transition.generic(all);
-  @apply flex flex-col z-30;
-  @apply border;
+  z-index: 30;
+  display: flex;
+  flex-direction: column;
+  border-width: 1px;
+
+  &,
+  menu {
+    list-style: none;
+  }
 
   &.compact {
     > li {
       > :is(a, button) {
-        @apply gap-0;
-        @apply px-3 py-2;
+        gap: 0;
 
-        > span {
-          @apply w-0 opacity-0;
+        span {
+          width: 0;
+          opacity: 0;
         }
 
-        > .arrow {
-          @apply hidden;
+        .arrow {
+          display: none;
         }
       }
     }
@@ -36,21 +44,28 @@
 
   &.floating {
     li {
-      @apply bg-inherit rounded-inherit;
+      border-radius: inherit;
+      background-color: inherit;
 
       > menu {
         @include shadow.medium();
         @include transition.generic(opacity);
-        @apply absolute top-0 min-w-full;
-        @apply bg-inherit rounded-inherit border;
-        @apply ltr:left-full rtl:right-full;
+        position: absolute;
+        inset-block-start: 0;
+        min-width: 100%;
+        border-radius: inherit;
+        border-width: 1px;
+        background-color: inherit;
+        inset-inline-start: 100%;
 
         &:not(.expanded) {
-          @apply invisible opacity-0;
+          visibility: hidden;
+          opacity: 0;
         }
 
         &.expanded {
-          @apply visible opacity-100;
+          visibility: visible;
+          opacity: 1;
         }
       }
     }
@@ -59,54 +74,69 @@
   &.sliding {
     li {
       > :is(a, button) {
-        > .arrow {
+        .arrow {
           @include transition.generic(transform);
-          @apply rotate-0;
+          transform: rotate(0deg);
         }
       }
 
       &:has(.expanded) {
         > :is(a, button) {
           &:has(.arrow) {
-            @apply rounded-b-none;
+            border-bottom-left-radius: 0;
+            border-bottom-right-radius: 0;
           }
 
           > .arrow {
-            @apply ltr:rotate-90 rtl:-rotate-90;
+            &:dir(ltr) {
+              transform: rotate(90deg);
+            }
+
+            &:dir(rtl) {
+              transform: rotate(-90deg);
+            }
           }
         }
       }
 
       > menu {
         @include transition.generic(max-height, colors);
-        @include shadow.inner();
-        @apply overflow-hidden;
+        @include shadow.inset();
+        overflow: hidden;
+        background-color: get-color-var(surface-misty);
 
         &:not(.expanded) {
-          @apply max-h-0;
+          max-height: 0;
         }
 
         &.expanded {
-          @apply rounded-b-inherit rounded-t-none p-1;
-          max-height: calc(theme('size.12') * var(--menu-size));
+          border-radius: 0 0 inherit inherit;
+          padding: get-size-var(small-2);
+          max-height: calc(#{get-size-var(huge-7)} * var(--menu-size));
         }
       }
     }
   }
 
   li {
-    @apply relative w-full;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+
     @include transition.generic(color, background-color);
 
     &:first-of-type {
       > :is(a, button) {
-        @apply rounded-t-inherit;
+        border-top-left-radius: inherit;
+        border-top-right-radius: inherit;
       }
     }
 
     &:last-of-type {
       > :is(a, button) {
-        @apply rounded-b-inherit;
+        border-bottom-left-radius: inherit;
+        border-bottom-right-radius: inherit;
       }
     }
 
@@ -114,36 +144,52 @@
       @include button.variant(text, black);
       @include menu-item-size(default);
       @include transition.generic(border-radius, color, background-color, box-shadow, width, gap);
-      @apply flex justify-start items-center gap-2;
-      @apply w-full outline-none;
-      @apply px-3 py-2;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      gap: get-size-var(small-4);
+      width: 100%;
+      outline: 2px solid transparent;
+      outline-offset: 2px;
+      padding-inline: get-size-var(small-6);
+      padding-block: get-size-var(small-5);
+      border: unset;
+      background: unset;
+      cursor: pointer;
+      text-decoration: none;
 
       &:is(:disabled, .disabled) {
-        @apply opacity-50 pointer-events-none;
+        pointer-events: none;
+        opacity: 0.5;
       }
 
       &.active {
         @include button.variant(bulk, primary);
 
         span {
-          @apply font-semibold;
+          font-weight: 600;
         }
       }
 
       > span {
-        @apply text-ellipsis text-nowrap overflow-hidden;
-        @apply w-full text-start opacity-100;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        text-wrap: nowrap;
+        width: 100%;
+        text-align: start;
+        opacity: 1;
+
         @include transition.generic(width, opacity);
       }
     }
 
     > menu {
       @include transition.generic(all);
-      @apply rounded-inherit;
+      border-radius: inherit;
     }
 
     .arrow {
-      @apply ms-auto;
+      margin-inline-start: auto;
     }
   }
 }

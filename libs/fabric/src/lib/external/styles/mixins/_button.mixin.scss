@@ -1,4 +1,4 @@
-@use '../functions/utils.function';
+@use '../funcs' as *;
 @use '../variables';
 @use './icon.mixin';
 @use './text.mixin';
@@ -7,31 +7,38 @@
 
 @mixin icon-size($size) {
   @if $size == small {
-    @apply h-4 w-4;
+    height: get-size-var(medium-1);
+    width: get-size-var(medium-1);
   } @else if $size == medium {
-    @apply h-5 w-5;
+    height: get-size-var(medium-3);
+    width: get-size-var(medium-3);
   } @else {
-    @apply h-5.5 w-5.5;
+    height: get-size-var(medium-5);
+    width: get-size-var(medium-5);
   }
 }
 
 @mixin padding($size) {
   &:has(span) {
     @if $size == small {
-      @apply px-4 py-2;
+      padding-inline: get-size-var(small-6);
+      padding-block: get-size-var(small-2);
     } @else if $size == medium {
-      @apply px-4.5 py-2;
+      padding-inline: get-size-var(medium-1);
+      padding-block: get-size-var(small-4);
     } @else {
-      @apply px-5 py-2;
+      padding-inline: get-size-var(medium-3);
+      padding-block: get-size-var(small-5);
     }
   }
+
   &:not(:has(span)) {
-    @apply p-1;
+    padding: get-size-var(small-2);
   }
 }
 
 @mixin radius($size) {
-  @apply rounded-md;
+  border-radius: get-size-var(small-3);
 }
 
 @mixin size($size) {
@@ -57,72 +64,80 @@
   }
 }
 
-@mixin variant-solid($bg-color, $text-color, $is-second: false) {
+@mixin variant-properties($bg-color, $text-color, $is-second: false) {
   @if $is-second {
     &[class*='second-'] {
       &:hover {
-        @include text.color('#{$text-color}-darker');
-        background-color: utils.getColorValue('#{$bg-color}-darker');
+        @include text.color('#{$text-color}-dark');
+        background-color: get-color-var('#{$bg-color}-dark');
       }
 
       &:active {
-        @include text.color('#{$text-color}-darkest');
-        @include shadow.inner();
-        background-color: utils.getColorValue('#{$bg-color}-darkest');
+        @include text.color('#{$text-color}-darker');
+        @include shadow.inset();
+        background-color: get-color-var('#{$bg-color}-darker');
       }
     }
   } @else {
     @include text.color($text-color);
-    background-color: utils.getColorValue('#{$bg-color}');
+    background-color: get-color-var('#{$bg-color}');
 
     &:not([class*='second-']) {
       &:hover {
-        @include text.color('#{$text-color}-darker');
-        background-color: utils.getColorValue('#{$bg-color}-darker');
+        @include text.color('#{$text-color}-dark');
+        background-color: get-color-var('#{$bg-color}-dark');
       }
 
       &:active {
-        @include text.color('#{$text-color}-darkest');
-        @include shadow.inner();
-        background-color: utils.getColorValue('#{$bg-color}-darkest');
+        @include text.color('#{$text-color}-darker');
+        @include shadow.inset();
+        background-color: get-color-var('#{$bg-color}-darker');
       }
     }
   }
 }
 
-@mixin variant-outline($bg-color, $text-color, $is-second: false) {
-  @include variant-solid($bg-color, $text-color, $is-second);
-  @apply border;
-  border-color: utils.getColorValue($text-color);
-}
-
 @mixin variant($variant, $color, $is-second: false) {
-  $color-lightest: '#{$color}-lightest';
+  $inverse-color: '#{$color}-inverse';
+  $border-color: transparent;
 
   @if $variant == bulk {
-    @include variant-solid($color-lightest, $color, $is-second);
+    @include variant-properties($inverse-color, $color, $is-second);
+    $border-color: $inverse-color;
   } @else if $variant == icon {
-    @include variant-solid(transparent, $color, $is-second);
+    @include variant-properties(transparent, $color, $is-second);
   } @else if $variant == outline {
-    @include variant-outline(transparent, $color, $is-second);
+    @include variant-properties(transparent, $color, $is-second);
+    $border-color: $color;
   } @else if $variant == text {
-    @include variant-solid(transparent, $color, $is-second);
+    @include variant-properties(transparent, $color, $is-second);
   } @else {
-    @include variant-solid($color, $color-lightest, $is-second);
+    @include variant-properties($color, $inverse-color, $is-second);
+    $border-color: $color;
   }
+  border-color: get-color-var($border-color);
 }
 
 @mixin generic() {
   @include transition.generic(color, background-color, box-shadow);
-  @apply flex justify-center items-center gap-2;
-  @apply outline-none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: get-size-var(small-4);
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+  background: unset;
+  cursor: pointer;
+  text-decoration: none;
+  border: get-border-width-var(thin) transparent solid;
 
-  &:is(:disabled,.disabled) {
-    @apply opacity-50 pointer-events-none;
+  &:is(:disabled, .disabled) {
+    pointer-events: none;
+    opacity: 0.5;
   }
 
   span {
-    @apply font-medium;
+    font-weight: 500;
   }
 
   @each $size in variables.$sizes {

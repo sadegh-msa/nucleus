@@ -1,9 +1,11 @@
 export const colors = Object.freeze([
   'primary',
+  'accent',
   'success',
   'warning',
   'danger',
   'black',
-  'darkgray',
-  'gray',
+  'dim',
+  'neutral',
+  'white',
 ]);

@@ -1,22 +1,18 @@
-@use 'libs/fabric/src/lib/external/styles/mixins/_index.scss' as mixins;
+@use 'libs/fabric/src/lib/external/styles/funcs/_index.scss' as fab-func;
+@use 'libs/fabric/src/lib/external/styles/mixins/_index.scss' as fab-mixin;
 
 $panel-nav-compact-width: 76px;
 $panel-nav-wide-width: 260px;
 
 @mixin panel-nav-width($width) {
   grid-template-columns: $width auto;
-
-  > nav {
-    @apply w-[#{$width}];
-  }
 }
 
 @mixin handset() {
-
 }
 
 @mixin web() {
-  @include mixins.transition-generic(grid-template-columns);
+  @include fab-mixin.transition-generic(grid-template-columns);
   grid-template-areas: 'nav header' 'nav main';
   grid-template-rows: auto 1fr;
 
@@ -31,33 +27,43 @@ $panel-nav-wide-width: 260px;
   }
 
   nav {
-    @include mixins.transition-generic(width);
+    @include fab-mixin.transition-generic(width);
   }
 }
 
 ::ng-deep {
   body {
-    @apply overflow-hidden;
-    @apply w-dvw h-dvh p-0 m-0;
+    overflow: hidden;
+    margin: 0;
+    height: 100dvh;
+    width: 100dvw;
+    padding: 0;
   }
 }
 
 :host {
-  @apply grid gap-3 p-3;
-  @apply overflow-hidden w-full h-full;
-  @apply bg-surface-ground;
+  display: grid;
+  gap: fab-func.get-size-var(small-6);
+  padding: fab-func.get-size-var(small-6);
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  background-color: rgb(229 231 235 / 1);
 
-  @include mixins.screens('handset', 'tablet') {
+  @include fab-mixin.bp-screens('handset', 'tablet') {
     @include handset();
   }
 
-  @include mixins.screens('web') {
+  @include fab-mixin.bp-screens('web') {
     @include web();
   }
 
   > :is(header, nav, main) {
-    @include mixins.shadow-large();
-    @apply bg-surface-card rounded-lg p-4 border;
+    @include fab-mixin.shadow-large();
+    border-radius: fab-func.get-size-var(small-4);
+    border-width: 1px;
+    background-color: rgb(243 244 246 / 1);
+    padding: fab-func.get-size-var(medium-1);
   }
 
   > nav {
@@ -70,6 +76,8 @@ $panel-nav-wide-width: 260px;
 
   > main {
     grid-area: main;
-    @apply overflow-auto h-auto w-full;
+    height: auto;
+    width: auto;
+    overflow: auto;
   }
 }

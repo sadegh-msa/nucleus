@@ -1,33 +1,38 @@
-@use '../functions/utils.function';
+@use '../funcs' as *;
 @use '../variables';
 @use './icon.mixin';
 @use './transition.mixin';
 
 @mixin size($size) {
   @if $size == small {
-    @apply text-xs;
+    font-size: get-size-var(small-6);
+    line-height: get-size-var(small-6);
   } @else if $size == medium {
-    @apply text-sm;
+    font-size: get-size-var(medium-1);
+    line-height: get-size-var(medium-1);
+  } @else {
+    font-size: get-size-var(medium-2);
+    line-height: get-size-var(medium-2);
   }
 }
 
 @mixin weight($weight) {
   @if $weight == semibold {
-    @apply font-semibold;
+    font-weight: 600;
   } @else if $weight == bold {
-    @apply font-bold;
+    font-weight: 700;
   }
 }
 
 @mixin color($color) {
-  color: utils.getColorValue($color);
+  color: get-color-var($color);
 
   svg:not(.fab.icon) {
     @include icon.color($color);
   }
 }
 
-@mixin generic($has-hover: false, $has-active: false) {
+@mixin generic($has-darker: false, $has-darkest: false) {
   @include transition.generic(color, background-color);
 
   @each $size in variables.$sizes {
@@ -54,15 +59,15 @@
     &.#{$color} {
       @include color($color);
 
-      @if $has-hover {
+      @if $has-darker {
         &:hover {
-          @include color('#{$color}-darker');
+          @include color('#{$color}-dark');
         }
       }
 
-      @if $has-active {
+      @if $has-darkest {
         &:active {
-          @include color('#{$color}-darkest');
+          @include color('#{$color}-darker');
         }
       }
     }

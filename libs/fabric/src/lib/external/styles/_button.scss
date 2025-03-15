@@ -1,5 +1,5 @@
-@use './mixins';
+@use './mixins/button.mixin' as button;
 
 :is(a, button).fab.button {
-  @include mixins.button-generic();
+  @include button.generic();
 }

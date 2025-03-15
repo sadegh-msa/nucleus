@@ -1,0 +1,36 @@
+@use 'sass:list';
+@use 'sass:map';
+@use 'sass:math';
+@use 'sass:string';
+@use './config.func' as *;
+@use '../utils/string.util' as *;
+
+@function get-size-factor($value) {
+  @if type-of($value) == 'number' {
+    @return $value;
+  }
+
+  @if string.index('#{$value}', '-') {
+    $split: string.split($value, '-');
+    $alias: nth($split, 1);
+    $level: string-to-number(nth($split, 2));
+    $alias-step: get-config(size, alias, step);
+    $alias-value: (list.index(get-config(size, alias, names), $alias) - 1) * $alias-step;
+
+    @return $alias-value + if($level <=$alias-step, $level, 1);
+  }
+
+  @return $value;
+}
+
+@function get-size($size) {
+  @return get-size-factor($size) * get-config(size, base);
+}
+
+@function create-size-var-name($size) {
+  @return create-css-var-name(size, string-replace('#{$size}', '.', '_'));
+}
+
+@function get-size-var($size) {
+  @return var(create-size-var-name(get-size-factor($size)));
+}

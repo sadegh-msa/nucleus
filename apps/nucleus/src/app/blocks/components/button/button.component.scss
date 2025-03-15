@@ -1,3 +1,7 @@
+@use 'libs/fabric/src/lib/external/styles/funcs/_index.scss' as fab-func;
+
 :host {
-  @apply flex flex-col gap-2;
+  display: flex;
+  flex-direction: column;
+  gap: fab-func.get-size-var(small-4);
 }

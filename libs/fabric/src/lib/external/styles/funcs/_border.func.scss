@@ -1,0 +1,13 @@
+@use './config.func' as *;
+
+@function get-border-width($width) {
+  @return get-config(border, width, $width);
+}
+
+@function create-border-width-var-name($width) {
+  @return create-css-var-name(border, $width);
+}
+
+@function get-border-width-var($width) {
+  @return var(create-border-width-var-name($width));
+}

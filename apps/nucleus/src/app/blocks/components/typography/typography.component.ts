@@ -6,7 +6,6 @@ import { colors, sizes } from '../../shared/data';
     changeDetection: ChangeDetectionStrategy.OnPush,
     templateUrl: './typography.component.html',
     styleUrl: './typography.component.scss',
-    standalone: false
 })
 export class TypographyComponent {
   readonly colors = colors;

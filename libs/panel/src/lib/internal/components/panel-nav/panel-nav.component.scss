@@ -1,11 +1,19 @@
-@use 'libs/fabric/src/lib/external/styles/mixins/_index.scss' as mixins;
+@use 'libs/fabric/src/lib/external/styles/funcs/_index.scss' as fab-func;
+@use 'libs/fabric/src/lib/external/styles/mixins/_index.scss' as fab-mixin;
 
 :host {
-  @apply relative flex flex-col gap-10;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: fab-func.get-size-var(large-6);
 
   > header {
-    @apply flex items-start justify-center;
-    @apply h-12 w-full mt-8;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    margin-block-start: fab-func.get-size-var(large-2);
+    height: fab-func.get-size-var(huge-3);
+    width: 100%;
 
     > a > {
       .logo {
@@ -22,34 +30,46 @@
 
   .subheader {
     &:has(.empty) {
-      @apply hidden;
+      display: none;
     }
   }
 
   menu {
-    @apply w-full overflow-y-auto rounded-lg border-0 gap-1;
+    width: 100%;
+    gap: fab-func.get-size-var(small-2);
+    overflow-y: auto;
+    border-radius: fab-func.get-size-var(small-4);
+    border-width: 0;
 
     ::ng-deep {
       menu {
-        @apply bg-inherit flex flex-col gap-1;
+        display: flex;
+        flex-direction: column;
+        gap: fab-func.get-size-var(small-2);
+        background-color: inherit;
       }
 
-      li a, li button, menu li {
-        @apply rounded-lg;
+      li a,
+      li button,
+      menu li {
+        border-radius: fab-func.get-size-var(small-4);
       }
     }
   }
 
   footer {
-    @apply mt-auto mb-8;
+    margin-block-start: auto;
+    margin-block-end: fab-func.get-size-var(large-2);
   }
 
   button.toggle {
-    @apply absolute bottom-6 end-5.5 z-40;
+    position: absolute;
+    inset-block-end: fab-func.get-size-var(medium-5);
+    inset-inline-end: fab-func.get-size-var(medium-4);
+    z-index: 40;
 
     &.compact {
-      @apply transform -scale-x-100;
+      transform: scaleX(-1);
     }
   }
-
 }

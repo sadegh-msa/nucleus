@@ -1,0 +1,13 @@
+@use './config.func' as *;
+
+@function get-color($color) {
+  @return get-config(color, palette, $color);
+}
+
+@function create-color-var-name($color) {
+  @return create-css-var-name(color, $color);
+}
+
+@function get-color-var($color) {
+  @return var(create-color-var-name($color));
+}

@@ -1,30 +1,38 @@
-@import './mixins/box';
-@import './mixins/color';
-@import './mixins/size';
+@use './funcs' as *;
+@use './mixins' as *;
 
 .fab-input-box {
-  @include fab-rounded-box-lg;
-  @include fab-height-md;
-  @apply p-2;
+  @include rounded-box-lg;
+  height: get-size-var(huge-3);
+  padding: get-size-var(small-4);
 }
 
 .fab-input {
-  @apply text-lg align-middle transition-colors;
+  vertical-align: middle;
+  font-size: get-size-var(medium-2);
+  line-height: get-size-var(medium-7);
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
 
   &:not([disabled]) {
-    @include fab-bg(theme('colors.surface-input'), false);
-    @apply text-black;
+    @include bg(get-color-var(surface-input), false);
+    color: rgb(17 24 39 / 1);
 
     &:focus-visible {
-      @apply border-primary;
+      border-color: rgb(7 89 133 / 1);
     }
   }
 
   &:disabled {
-    @apply text-disabled bg-surface-disabled;
+    background-color: rgb(243 244 246 / 1);
+    color: rgb(156 163 175 / 1);
   }
 
   &::placeholder {
-    @apply text-placeholder text-lg align-middle;
+    vertical-align: middle;
+    font-size: get-size-var(medium-2);
+    line-height: get-size-var(medium-7);
+    color: rgb(107 114 128 / 1);
   }
 }

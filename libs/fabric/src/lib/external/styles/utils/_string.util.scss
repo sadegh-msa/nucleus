@@ -1,0 +1,68 @@
+@use 'sass:list';
+@use 'sass:map';
+@use 'sass:math';
+@use 'sass:string';
+
+@function string-replace($string, $search, $replace: '') {
+  $index: string.index($string, $search);
+
+  @if $index {
+    @return string.slice($string, 1, $index - 1) + $replace +
+      string-replace(string.slice($string, $index + string.length($search)), $search, $replace);
+  }
+
+  @return $string;
+}
+
+@function string-to-integer($value) {
+  @if type-of($value) == 'number' {
+    @return $value;
+  }
+
+  $numbers: (
+    '0': 0,
+    '1': 1,
+    '2': 2,
+    '3': 3,
+    '4': 4,
+    '5': 5,
+    '6': 6,
+    '7': 7,
+    '8': 8,
+    '9': 9,
+  );
+  $string: nth(string.split($value, '.'), 1);
+  $length: string.length($string);
+  $result: 0;
+
+  @for $i from 1 through $length {
+    $char: string.slice($string, $i, $i);
+    $number: map.get($numbers, $char);
+
+    @if not $number {
+      @warn 'Unknown character `#{$char}`.';
+
+      @return false;
+    }
+
+    $result: $result + ($number * math.pow(10, $length - $i));
+  }
+
+  @return $result;
+}
+
+@function string-to-number($value) {
+  @if type-of($value) == 'number' {
+    @return $value;
+  }
+
+  $absolute: string-to-integer($value);
+  $float: 0;
+
+  @if string.index($value, '.') {
+    $float-part: nth(string.split($value, '.'), 2);
+    $float: string-to-integer($float-part) / math.pow(10, string.length($float-part));
+  }
+
+  @return $absolute + $float;
+}

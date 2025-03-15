@@ -1,0 +1,84 @@
+@use 'sass:color';
+
+@function generate-grayscale-color(
+  $weight: 50%,
+  $alpha: 100%,
+  $light: lch(100% 0 0),
+  $dark: lch(0% 0 0),
+  $method: oklch longer hue
+) {
+  $color: color.mix($light, $dark, $weight, $method);
+  $space: nth($method, 1);
+
+  @return color.change($color: $color, $alpha: $alpha, $space: $space);
+}
+
+@function get-light-dark($light, $dark) {
+  @return (light: $light, dark: $dark);
+}
+
+@function css-get-light-dark($light, $dark) {
+  @return light-dark($light, $dark);
+}
+
+$fab-default-configs: (
+  prefix: fab,
+  size: (
+    base: 0.125rem,
+    factor: (
+      min: 1,
+      max: 100,
+    ),
+    alias: (
+      names: small medium large huge vast,
+      step: 7,
+    ),
+  ),
+  color: (
+    pigments: (
+      primary: oklch(50% 0.2 250),
+      primary-inverse: oklch(94% 0.015 250deg),
+      accent: oklch(55% 0.25 360),
+      accent-inverse: oklch(94% 0.015 360),
+      success: oklch(50% 0.2 145),
+      success-inverse: oklch(94% 0.015 145),
+      warning: oklch(65% 0.15 70),
+      warning-inverse: oklch(94% 0.015 70),
+      danger: oklch(50% 0.25 30),
+      danger-inverse: oklch(94% 0.015 30),
+      black: get-light-dark(generate-grayscale-color(0%), generate-grayscale-color(97%)),
+      black-inverse: get-light-dark(generate-grayscale-color(75%), generate-grayscale-color(15%)),
+      dim: get-light-dark(generate-grayscale-color(35%), generate-grayscale-color(85%)),
+      dim-inverse: get-light-dark(generate-grayscale-color(85%), generate-grayscale-color(35%)),
+      neutral: get-light-dark(generate-grayscale-color(50%), generate-grayscale-color(50%)),
+      neutral-inverse: get-light-dark(generate-grayscale-color(90%), generate-grayscale-color(90%)),
+      white: get-light-dark(generate-grayscale-color(97%), generate-grayscale-color(3%)),
+      white-inverse: get-light-dark(generate-grayscale-color(15%), generate-grayscale-color(75%)),
+    ),
+    variants: (
+      light: 5%,
+      lighter: 15%,
+      lightest: -25%,
+      dark: -5%,
+      darker: -15%,
+      darkest: -25%
+    ),
+    palette: (
+      surface-card: css-get-light-dark(generate-grayscale-color(99%), generate-grayscale-color(15%)),
+      surface-ground: css-get-light-dark(generate-grayscale-color(95%), generate-grayscale-color(10%)),
+      surface-misty: css-get-light-dark(oklch(0% 0 0 / 2%), oklch(100% 0 0 / 2%)),
+      shadow: css-get-light-dark(oklch(0% 0 0 / 2%), oklch(100% 0 0 / 2%)),
+      transparent: oklch(0% 0 0 / 0%),
+      transparent-dark: css-get-light-dark(oklch(0% 0 0 / 4%), oklch(100% 0 0 / 4%)),
+      transparent-darker: css-get-light-dark(oklch(0% 0 0 / 8%), oklch(100% 0 0 / 8%)),
+      transparent-darkest: css-get-light-dark(oklch(0% 0 0 / 10%), oklch(100% 0 0 / 10%)),
+    ),
+  ),
+  border: (
+    width: (
+      thin: 1px,
+      medium: 2px,
+      thick: 3px
+    )
+  )
+) !default;

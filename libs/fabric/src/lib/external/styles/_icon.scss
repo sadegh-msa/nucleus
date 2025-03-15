@@ -1,26 +1,34 @@
 @use 'sass:list';
-@use './mixins';
+@use './mixins/icon.mixin' as icon;
+@use './mixins/transition.mixin' as transition;
 @use './variables';
 
 svg-icon {
+  display: flex;
+
   svg {
     &.fab.icon {
-      @include mixins.icon-generic();
-      @include mixins.transition-generic(color, background-color);
+      @include icon.generic();
+      @include transition.generic(color, background-color);
     }
 
     &.bidi {
-      @apply rtl:transform rtl:-scale-x-100;
+      &:dir(rtl) {
+        transform: scaleX(-1);
+      }
     }
 
-    // Fix issue of iconsax
+    // Fix the issue of iconsax
+
     @each $variant in variables.$icon-variants {
       @if not list.index(variables.$icon-bordered, $variant) {
         &.#{$variant} {
-          @apply border border-transparent outline-none;
+          border-width: 1px;
+          border-color: transparent;
+          outline: 2px solid transparent;
+          outline-offset: 2px;
         }
       }
     }
   }
 }
-

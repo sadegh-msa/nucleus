@@ -1,6 +1,5 @@
-@use './mixins';
+@use './mixins/menu.mixin' as menu;
 
 menu.fab.menu {
-  @include mixins.menu-generic();
+  @include menu.generic();
 }
-

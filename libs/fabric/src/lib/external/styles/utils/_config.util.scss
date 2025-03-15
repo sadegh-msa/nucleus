@@ -1,0 +1,66 @@
+@use 'sass:map';
+@use 'sass:list';
+@use 'sass:color';
+
+@function generate-color-variants($color, $color-value, $variants) {
+  $palette: ();
+  $is-map: type-of($color-value) == 'map';
+  $light-value: if($is-map == true, map.get($color-value, light), $color-value);
+  $dark-value: if($is-map == true, map.get($color-value, dark), $color-value);
+  $palette: map.set($palette, $color, light-dark($light-value, $dark-value));
+
+  @each $variant, $variant-value in $variants {
+    $palette: map.set(
+      $palette,
+      $color + '-' + $variant,
+      light-dark(
+        color.adjust($light-value, $space: oklch, $lightness: $variant-value),
+        color.adjust($dark-value, $space: oklch, $lightness: -1 * $variant-value)
+      )
+    );
+  }
+
+  @return $palette;
+}
+
+@function generate-color-palette($pigments, $variants) {
+  $palette: ();
+
+  @each $color, $color-value in $pigments {
+    $palette: map.deep-merge($palette, generate-color-variants($color, $color-value, $variants));
+  }
+
+  @return $palette;
+}
+
+@function merge-color-config($old-value, $new-value) {
+  $palette: map.merge(map.get($old-value, palette), map.get($new-value, palette) or ());
+  $pigments: map.merge(map.get($old-value, pigments), map.get($new-value, pigments) or ());
+  $variants: map.get($new-value, variants) or map.get($old-value, variants);
+
+  @return map.deep-merge(
+    $old-value,
+    (
+      pigments: $pigments,
+      palette: map.merge($palette, generate-color-palette($pigments, $variants)),
+      variants: $variants,
+    )
+  );
+}
+
+@function merge-configs($old-configs, $new-configs) {
+  $merged-configs: $old-configs;
+
+  @each $key, $new-value in map.deep-merge($old-configs, $new-configs) {
+    $old-value: map.get($old-configs, $key);
+
+    @if $key == color {
+      $merged-value: merge-color-config($old-value, $new-value);
+      $merged-configs: map.set($merged-configs, $key, $merged-value);
+    } @else {
+      $merged-configs: map.set($merged-configs, $key, $new-value);
+    }
+  }
+
+  @return $merged-configs;
+}

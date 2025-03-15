@@ -1,34 +1,42 @@
+@use 'libs/fabric/src/lib/external/styles/funcs/_index.scss' as fab-func;
 @use 'libs/theme/src/lib/styles/_panel-theme.scss';
 
 body {
 }
 
 table {
-  @apply w-full border border-collapse rounded;
+  width: 100%;
+  border-collapse: collapse;
+  border-radius: fab-func.get-size-var(small-2);
+  border-width: 1px;
 
   th,
   td {
-    @apply p-4;
+    padding: fab-func.get-size-var(medium-1);
   }
 
   th {
-    @apply text-start text-gray;
+    text-align: start;
+    color: rgb(107 114 128 / 1);
   }
 
   > thead {
     th {
-      @apply w-32 border-b;
+      width: fab-func.get-size-var(vast-4);
+      border-block-end-width: 1px;
     }
   }
 
   > tbody {
     tr {
       &:hover {
-         //@apply bg-surface-card;
+        //@apply bg-surface-card;
       }
 
       td > div {
-        @apply flex items-center gap-2;
+        display: flex;
+        align-items: center;
+        gap: fab-func.get-size-var(small-4);
       }
     }
   }

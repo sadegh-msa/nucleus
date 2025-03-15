@@ -1,15 +1,18 @@
-@import './mixins/color';
-@import './mixins/box';
-@import './mixins/size';
+@use './funcs' as *;
+@use './mixins' as *;
 
 .fab-form-field {
-  @apply relative flex flex-col justify-start w-full;
+  position: relative;
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  justify-content: flex-start;
 
   &:not(.fab-error) {
     & > {
       .fab-form-field-header {
         .fab-form-field-message {
-          @apply text-hint;
+          color: rgb(107 114 128 / 1);
         }
       }
     }
@@ -19,32 +22,39 @@
     & > {
       .fab-form-field-header {
         .fab-form-field-message {
-          @apply text-error;
+          color: rgb(220 38 38 / 1);
         }
       }
 
       .fab-input-box {
-        @apply border-error;
+        border-color: rgb(220 38 38 / 1);
       }
     }
   }
 
   > .fab-form-field-header {
-    @apply flex items-end mb-0.5 px-1;
+    margin-block-end: get-size-var(small-1);
+    display: flex;
+    align-items: flex-end;
+    padding-inline: get-size-var(small-2);
 
     > .fab-form-field-help {
-      @include fab-bg-transparent;
-      @include fab-rounded-box-md;
-      @include fab-rect-sm;
-      @apply mx-2 mb-0.5;
+      @include bg-transparent;
+      @include rounded-box-md;
+      @include rect(medium-5);
+      margin-inline: get-size-var(small-4);
+      margin-block-end: get-size-var(small-1);
     }
 
     > .fab-form-field-message {
-      @apply grow text-end text-sm;
+      flex-grow: 1;
+      text-align: end;
+      font-size: get-size-var(small-7);
+      line-height: get-size-var(medium-3);
     }
   }
 
   label {
-    @apply font-semibold;
+    font-weight: 600;
   }
 }

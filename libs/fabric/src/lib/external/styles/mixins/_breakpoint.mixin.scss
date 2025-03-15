@@ -22,17 +22,17 @@
       }
     } @else if $screen == handset {
       @media only screen and (max-width: 599.98px) and (orientation: portrait),
-      (max-width: 959.98px) and (orientation: landscape) {
+        (max-width: 959.98px) and (orientation: landscape) {
         @content;
       }
     } @else if $screen == tablet {
       @media only screen and (min-width: 600px) and (max-width: 839.98px) and (orientation: portrait),
-      (min-width: 960px) and (max-width: 1279.98px) and (orientation: landscape) {
+        (min-width: 960px) and (max-width: 1279.98px) and (orientation: landscape) {
         @content;
       }
     } @else if $screen == web {
       @media only screen and (min-width: 840px) and (orientation: portrait),
-      (min-width: 1280px) and (orientation: landscape) {
+        (min-width: 1280px) and (orientation: landscape) {
         @content;
       }
     } @else if $screen == handset-portrait {
@@ -47,7 +47,7 @@
       @media only screen and (min-width: 840px) and (orientation: portrait) {
         @content;
       }
-    } @else if $screen ==  handset-landscape {
+    } @else if $screen == handset-landscape {
       @media only screen and (max-width: 959.98px) and (orientation: landscape) {
         @content;
       }

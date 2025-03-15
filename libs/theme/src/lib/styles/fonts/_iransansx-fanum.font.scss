@@ -19,93 +19,101 @@ This set of fonts are used in this project under the license: (.....)
 *
 **/
 
-
 @font-face {
-	font-family: IRANSansXFaNum;
-	font-style: normal;
-	font-weight: 100;
-	src: urls.font('iransansx/fanum/woff/IRANSansXFaNum-Thin.woff') format('woff'),
-	urls.font('iransansx/fanum/woff2/IRANSansXFaNum-Thin.woff2') format('woff2');
+  font-family: IRANSansXFaNum;
+  font-style: normal;
+  font-weight: 100;
+  src:
+    urls.font('iransansx/fanum/woff/IRANSansXFaNum-Thin.woff') format('woff'),
+    urls.font('iransansx/fanum/woff2/IRANSansXFaNum-Thin.woff2') format('woff2');
 }
 
 @font-face {
-	font-family: IRANSansXFaNum;
-	font-style: normal;
-	font-weight: 200;
-	src: urls.font('iransansx/fanum/woff/IRANSansXFaNum-UltraLight.woff') format('woff'),
-	urls.font('iransansx/fanum/woff2/IRANSansXFaNum-UltraLight.woff2') format('woff2');
+  font-family: IRANSansXFaNum;
+  font-style: normal;
+  font-weight: 200;
+  src:
+    urls.font('iransansx/fanum/woff/IRANSansXFaNum-UltraLight.woff') format('woff'),
+    urls.font('iransansx/fanum/woff2/IRANSansXFaNum-UltraLight.woff2') format('woff2');
 }
 
 @font-face {
-	font-family: IRANSansXFaNum;
-	font-style: normal;
-	font-weight: 300;
-	src: urls.font('iransansx/fanum/woff/IRANSansXFaNum-Light.woff') format('woff'),
-	urls.font('iransansx/fanum/woff2/IRANSansXFaNum-Light.woff2') format('woff2');
+  font-family: IRANSansXFaNum;
+  font-style: normal;
+  font-weight: 300;
+  src:
+    urls.font('iransansx/fanum/woff/IRANSansXFaNum-Light.woff') format('woff'),
+    urls.font('iransansx/fanum/woff2/IRANSansXFaNum-Light.woff2') format('woff2');
 }
 
 @font-face {
-	font-family: IRANSansXFaNum;
-	font-style: normal;
-	font-weight: 500;
-	src: urls.font('iransansx/fanum/woff/IRANSansXFaNum-Medium.woff') format('woff'),
-	urls.font('iransansx/fanum/woff2/IRANSansXFaNum-Medium.woff2') format('woff2');
+  font-family: IRANSansXFaNum;
+  font-style: normal;
+  font-weight: 500;
+  src:
+    urls.font('iransansx/fanum/woff/IRANSansXFaNum-Medium.woff') format('woff'),
+    urls.font('iransansx/fanum/woff2/IRANSansXFaNum-Medium.woff2') format('woff2');
 }
 
 @font-face {
-	font-family: IRANSansXFaNum;
-	font-style: normal;
-	font-weight: 600;
-	src: urls.font('iransansx/fanum/woff/IRANSansXFaNum-DemiBold.woff') format('woff'),
-	urls.font('iransansx/fanum/woff2/IRANSansXFaNum-DemiBold.woff2') format('woff2');
+  font-family: IRANSansXFaNum;
+  font-style: normal;
+  font-weight: 600;
+  src:
+    urls.font('iransansx/fanum/woff/IRANSansXFaNum-DemiBold.woff') format('woff'),
+    urls.font('iransansx/fanum/woff2/IRANSansXFaNum-DemiBold.woff2') format('woff2');
 }
 
 @font-face {
-	font-family: IRANSansXFaNum;
-	font-style: normal;
-	font-weight: 800;
-	src: urls.font('iransansx/fanum/woff/IRANSansXFaNum-ExtraBold.woff') format('woff'),
-	urls.font('iransansx/fanum/woff2/IRANSansXFaNum-ExtraBold.woff2') format('woff2');
+  font-family: IRANSansXFaNum;
+  font-style: normal;
+  font-weight: 800;
+  src:
+    urls.font('iransansx/fanum/woff/IRANSansXFaNum-ExtraBold.woff') format('woff'),
+    urls.font('iransansx/fanum/woff2/IRANSansXFaNum-ExtraBold.woff2') format('woff2');
 }
 
 @font-face {
-	font-family: IRANSansXFaNum;
-	font-style: normal;
-	font-weight: 900;
-	src: urls.font('iransansx/fanum/woff/IRANSansXFaNum-Black.woff') format('woff'),
-	urls.font('iransansx/fanum/woff2/IRANSansXFaNum-Black.woff2') format('woff2');
+  font-family: IRANSansXFaNum;
+  font-style: normal;
+  font-weight: 900;
+  src:
+    urls.font('iransansx/fanum/woff/IRANSansXFaNum-Black.woff') format('woff'),
+    urls.font('iransansx/fanum/woff2/IRANSansXFaNum-Black.woff2') format('woff2');
 }
 
 @font-face {
-	font-family: IRANSansXFaNum;
-	font-style: normal;
-	font-weight: 950;
-	src: urls.font('iransansx/fanum/woff/IRANSansXFaNum-ExtraBlack.woff') format('woff'),
-	urls.font('iransansx/fanum/woff2/IRANSansXFaNum-ExtraBlack.woff2') format('woff2');
+  font-family: IRANSansXFaNum;
+  font-style: normal;
+  font-weight: 950;
+  src:
+    urls.font('iransansx/fanum/woff/IRANSansXFaNum-ExtraBlack.woff') format('woff'),
+    urls.font('iransansx/fanum/woff2/IRANSansXFaNum-ExtraBlack.woff2') format('woff2');
 }
 
 @font-face {
-	font-family: IRANSansXFaNum;
-	font-style: normal;
-	font-weight: 1000;
-	src: urls.font('iransansx/fanum/woff/IRANSansXFaNum-Heavy.woff') format('woff'),
-	urls.font('iransansx/fanum/woff2/IRANSansXFaNum-Heavy.woff2') format('woff2');
+  font-family: IRANSansXFaNum;
+  font-style: normal;
+  font-weight: 1000;
+  src:
+    urls.font('iransansx/fanum/woff/IRANSansXFaNum-Heavy.woff') format('woff'),
+    urls.font('iransansx/fanum/woff2/IRANSansXFaNum-Heavy.woff2') format('woff2');
 }
 
 @font-face {
-	font-family: IRANSansXFaNum;
-	font-style: normal;
-	font-weight: bold;
-	src: urls.font('iransansx/fanum/woff/IRANSansXFaNum-Bold.woff') format('woff'),
-	urls.font('iransansx/fanum/woff2/IRANSansXFaNum-Bold.woff2') format('woff2');
+  font-family: IRANSansXFaNum;
+  font-style: normal;
+  font-weight: bold;
+  src:
+    urls.font('iransansx/fanum/woff/IRANSansXFaNum-Bold.woff') format('woff'),
+    urls.font('iransansx/fanum/woff2/IRANSansXFaNum-Bold.woff2') format('woff2');
 }
 
 @font-face {
-	font-family: IRANSansXFaNum;
-	font-style: normal;
-	font-weight: normal;
-	src: urls.font('iransansx/fanum/woff/IRANSansXFaNum-Regular.woff') format('woff'),
-	urls.font('iransansx/fanum/woff2/IRANSansXFaNum-Regular.woff2') format('woff2');
+  font-family: IRANSansXFaNum;
+  font-style: normal;
+  font-weight: normal;
+  src:
+    urls.font('iransansx/fanum/woff/IRANSansXFaNum-Regular.woff') format('woff'),
+    urls.font('iransansx/fanum/woff2/IRANSansXFaNum-Regular.woff2') format('woff2');
 }
-
-

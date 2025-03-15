@@ -1,58 +1,58 @@
-@import './mixins/checkmark';
-@import './mixins/color';
-@import './mixins/alignment';
-@import './mixins/box';
-@import './mixins/size';
+@use './funcs' as *;
+@use './mixins' as *;
 
 fab-checkbox {
-  @include fab-flex-cross-center;
-  @apply relative gap-2;
+  @include flex-cross-center;
+  position: relative;
+  gap: get-size-var(small-4);
 
   > label {
-    @apply select-none;
+    user-select: none;
   }
 
   > .fab-checkbox-box {
-    @include fab-flex-center;
-    @include fab-rounded-box-md;
-    @include fab-rect-sm;
-    @include fab-bg(theme('colors.surface-input'));
-    @apply transition-colors duration-500;
+    @include align-flex;
+    @include rounded-box-md;
+    @include rect(medium-5);
+    @include bg(get-color-var(surface-input));
+    transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 500ms;
 
     &:not(.disabled) {
-      @apply cursor-pointer;
+      cursor: pointer;
 
       & + label {
-        @apply cursor-pointer;
+        cursor: pointer;
       }
     }
 
     &.disabled {
       & + label {
-        @apply cursor-default;
+        cursor: default;
       }
     }
 
     &.checked {
       &:not(.disabled) {
-        @include fab-bg(theme('colors.primary'));
+        @include bg(get-color-var(primary));
       }
 
       &.disabled {
-        @apply bg-surface-disabled;
+        background-color: rgb(243 244 246 / 1);
 
         > .fab-checkbox-checkmark {
-          @include fab-checkmark-disabled;
+          @include checkmark-disabled;
         }
       }
 
       > .fab-checkbox-checkmark {
-        @include fab-checkmark-active;
+        @include checkmark-darkest;
       }
     }
 
     > .fab-checkbox-checkmark {
-      @include fab-checkmark-base(0.43rem, 0.16rem, theme('colors.white'));
+      @include checkmark-base(0.43rem, 0.16rem, get-color-var(white));
     }
   }
 }

@@ -1,11 +1,22 @@
+@use './funcs' as *;
+
 .fab-card {
-  @apply flex border rounded-lg shadow-lg bg-surface-card p-2;
+  display: flex;
+  border-radius: get-size-var(small-4);
+  border-width: 1px;
+  background-color: rgb(243 244 246 / 1);
+  padding: get-size-var(small-4);
+  box-shadow:
+    0 0 #0000,
+    0 0 #0000,
+    0 10px 15px -3px rgb(0 0 0 / 0.1),
+    0 4px 6px -4px rgb(0 0 0 / 0.1);
 
   &.fab-card-horizontal {
-    @apply flex-row;
+    flex-direction: row;
   }
 
   &.fab-card-vertical {
-    @apply flex-col;
+    flex-direction: column;
   }
 }

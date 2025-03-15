@@ -1,0 +1,22 @@
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin flex-main-center {
+  display: flex;
+  justify-content: center;
+}
+
+@mixin flex-cross-center {
+  display: flex;
+  align-items: center;
+}
+
+@mixin flex($main: center, $cross: center, $direction: row) {
+  display: flex;
+  flex-direction: $direction;
+  align-items: $cross;
+  justify-content: $main;
+}

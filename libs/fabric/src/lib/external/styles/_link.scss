@@ -1,6 +1,5 @@
-@use './mixins';
+@use './mixins/link.mixin' as link;
 
 a.fab.link {
-  @include mixins.link-generic();
+  @include link.generic();
 }
-

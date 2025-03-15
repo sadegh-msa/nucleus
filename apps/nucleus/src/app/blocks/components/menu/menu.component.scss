@@ -1,17 +1,31 @@
+@use 'libs/fabric/src/lib/external/styles/funcs/_index.scss' as fab-func;
+
 :host {
-  @apply flex gap-4;
+  display: flex;
+  gap: fab-func.get-size-var(medium-1);
 
   section {
-    @apply flex gap-2 w-full;
-    @apply border rounded p-4;
+    display: flex;
+    width: 100%;
+    gap: fab-func.get-size-var(small-4);
+    border-radius: fab-func.get-size-var(small-2);
+    border-width: 1px;
+    padding: fab-func.get-size-var(medium-1);
 
     > menu {
-      @apply w-max h-max shadow-md bg-surface-card;
-      @apply rounded-lg;
+      height: max-content;
+      width: max-content;
+      background-color: rgb(243 244 246 / 1);
+      box-shadow:
+        0 0 #0000,
+        0 0 #0000,
+        0 4px 6px -1px rgb(0 0 0 / 0.1),
+        0 2px 4px -2px rgb(0 0 0 / 0.1);
+      border-radius: fab-func.get-size-var(small-4);
 
       &.wide,
       &.compact ::ng-deep menu {
-        @apply w-48;
+        width: fab-func.get-size-var(100);
       }
     }
   }

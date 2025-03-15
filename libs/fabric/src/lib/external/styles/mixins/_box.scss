@@ -1,37 +1,40 @@
-@import './color';
+@use './funcs' as *;
 
-@mixin fab-box($border-color: '') {
+@mixin box($border-color: '') {
   @if ($border-color != '') {
     border-color: $border-color;
   }
 }
 
-@mixin fab-rounded-box($border-color: '') {
-  @include fab-box($border-color);
-  @apply border rounded;
+@mixin rounded-box($border-color: '') {
+  @include box($border-color);
+  border-radius: get-size-var(small-2);
+  border-width: 1px;
 }
 
-@mixin fab-rounded-box-md($border-color: '') {
-  @include fab-box($border-color);
-  @apply border rounded-md;
+@mixin rounded-box-md($border-color: '') {
+  @include box($border-color);
+  border-radius: get-size-var(small-3);
+  border-width: 1px;
 }
 
-@mixin fab-rounded-box-lg($border-color: '') {
-  @include fab-box($border-color);
-  @apply border rounded-lg;
+@mixin rounded-box-lg($border-color: '') {
+  @include box($border-color);
+  border-radius: get-size-var(small-4);
+  border-width: 1px;
 }
 
-@mixin fab-rounded-borderless-box {
-  @include fab-box;
-  @apply rounded;
+@mixin rounded-borderless-box {
+  @include box;
+  border-radius: get-size-var(small-2);
 }
 
-@mixin fab-rounded-borderless-box-md {
-  @include fab-box;
-  @apply rounded-md;
+@mixin rounded-borderless-box-md {
+  @include box;
+  border-radius: get-size-var(small-3);
 }
 
-@mixin fab-rounded-borderless-box-lg {
-  @include fab-box;
-  @apply rounded-lg;
+@mixin rounded-borderless-box-lg {
+  @include box;
+  border-radius: get-size-var(small-4);
 }

@@ -1,50 +1,34 @@
+@use 'libs/fabric/src/lib/external/styles/funcs/_index.scss' as fab-func;
 @use 'sass:map';
+@use 'libs/fabric/src/lib/external/styles/funcs/_color.func.scss' as color;
 
-$colors: ['basic', 'danger', 'info', 'primary', 'success', 'warning'];
-$color-hovers: (
-  theme('colors.transparent'): theme('colors.transparent-hover'),
-  theme('colors.basic'): theme('colors.basic-hover'),
-  theme('colors.danger'): theme('colors.danger-hover'),
-  theme('colors.info'): theme('colors.info-hover'),
-  theme('colors.primary'): theme('colors.primary-hover'),
-  theme('colors.success'): theme('colors.success-hover'),
-  theme('colors.surface'): theme('colors.surface-hover'),
-  theme('colors.surface-input'): theme('colors.surface-input-hover'),
-  theme('colors.warning'): theme('colors.warning-hover'),
-);
-$color-actives: (
-  theme('colors.transparent'): theme('colors.transparent-active'),
-  theme('colors.basic'): theme('colors.basic-active'),
-  theme('colors.danger'): theme('colors.danger-active'),
-  theme('colors.info'): theme('colors.info-active'),
-  theme('colors.primary'): theme('colors.primary-active'),
-  theme('colors.success'): theme('colors.success-active'),
-  theme('colors.surface'): theme('colors.surface-active'),
-  theme('colors.surface-input'): theme('colors.surface-input-active'),
-  theme('colors.warning'): theme('colors.warning-active'),
-);
-$default-color: theme('colors.basic');
-$white-color: theme('colors.white');
-$black-color: theme('colors.black');
-$surface-color: theme('colors.surface');
-$transparent-color: theme('colors.transparent');
+$default-color: fab-func.get-color-var(neutral);
+$white-color: fab-func.get-color-var(label);
+$black-color: fab-func.get-color-var(text);
+$surface-color: fab-func.get-color-var(surface-card);
+$transparent-color: transparent;
 
-@mixin fab-bg($bg-color, $has-active: true) {
-  background-color: $bg-color;
+@mixin bg($bg-color, $has-darkest: true) {
+  background-color: color.get-color-var($bg-color);
+
+  @debug $bg-color;
 
   &:hover {
-    background-color: map.get($color-hovers, $bg-color);
+    background-color: color.get-color-var(#{$bg-color}-darker);
   }
 
-  @if ($has-active) {
+  @if ($has-darkest) {
     &:active {
-      @apply shadow-inner;
-      background-color: map.get($color-actives, $bg-color);
+      box-shadow:
+        0 0 #0000,
+        0 0 #0000,
+        inset 0 2px 4px 0 rgb(0 0 0 / 0.05);
+      background-color: color.get-color-var(#{$bg-color}-darkest);
     }
   }
 }
 
-@mixin fab-svg($color) {
+@mixin svg($color) {
   svg-icon {
     path {
       fill: $color;
@@ -52,49 +36,49 @@ $transparent-color: theme('colors.transparent');
   }
 }
 
-@mixin fab-text($text-color, $has-active: true, $hover-mode: false) {
+@mixin text($text-color, $has-darkest: true, $hover-mode: false) {
   @if ($hover-mode) {
     @if ($text-color == $white-color) {
-      @include fab-svg($white-color);
-      @apply text-white;
+      @include svg($white-color);
+      color: rgb(255 255 255 / 1);
     } @else {
-      @include fab-svg($default-color);
-      @apply text-basic;
+      @include svg($default-color);
+      color: rgb(107 114 128 / 1);
     }
   } @else {
-    @include fab-svg($text-color);
+    @include svg($text-color);
     color: $text-color;
   }
 
   &:hover {
-    @include fab-svg(map.get($color-hovers, $text-color));
-    color: map.get($color-hovers, $text-color);
+    @include svg(color.get-color-var(#{$text-color}-darker));
+    color: color.get-color-var(#{$text-color}-darker);
   }
 
-  @if ($has-active) {
+  @if ($has-darkest) {
     &:active {
-      @include fab-svg(map.get($color-actives, $text-color));
-      color: map.get($color-actives, $text-color);
+      @include svg(color.get-color-var(#{$text-color}-darkest));
+      color: color.get-color-var(#{$text-color}-darkest);
     }
   }
 }
 
-@mixin fab-bg-filled($bg-color: $default-color, $text-color: $white-color,$has-active: true) {
-  @include fab-bg($bg-color, $has-active);
-  @include fab-text($text-color, $has-active);
+@mixin bg-filled($bg-color: $default-color, $text-color: $white-color, $has-darkest: true) {
+  @include bg($bg-color, $has-darkest);
+  @include text($text-color, $has-darkest);
 }
 
-@mixin fab-bg-transparent($text-color: $default-color, $has-active: true) {
-  @include fab-bg($transparent-color, $has-active);
-  @include fab-text($text-color, $has-active);
+@mixin bg-transparent($text-color: $default-color, $has-darkest: true) {
+  @include bg($transparent-color, $has-darkest);
+  @include text($text-color, $has-darkest);
 }
 
-@mixin fab-bg-transparent-hover($text-color: $default-color, $has-active: true) {
-  @include fab-bg($transparent-color, $has-active);
-  @include fab-text($text-color, $has-active, true);
+@mixin bg-transparent-darker($text-color: $default-color, $has-darkest: true) {
+  @include bg($transparent-color, $has-darkest);
+  @include text($text-color, $has-darkest, true);
 }
 
-@mixin fab-bg-surface($text-color: $default-color, $has-active: true) {
-  @include fab-bg($surface-color, $has-active);
-  @include fab-text($text-color, $has-active);
+@mixin bg-surface($text-color: $default-color, $has-darkest: true) {
+  @include bg($surface-color, $has-darkest);
+  @include text($text-color, $has-darkest);
 }

@@ -1,8 +1,8 @@
 @use '../variables';
-@use '../functions/utils.function';
+@use '../funcs' as *;
 
 @mixin color($color) {
-  $color-value: utils.getColorValue($color);
+  $color-value: get-color-var($color);
 
   > * {
     &[fill] {
@@ -17,11 +17,14 @@
 
 @mixin size($size) {
   @if $size == small {
-    @apply h-4 w-4;
+    height: get-size-var(medium-1);
+    width: get-size-var(medium-1);
   } @else if $size == medium {
-    @apply h-5 w-5;
+    height: get-size-var(medium-3);
+    width: get-size-var(medium-3);
   } @else {
-    @apply h-6 w-6;
+    height: get-size-var(medium-5);
+    width: get-size-var(medium-5);
   }
 }
 

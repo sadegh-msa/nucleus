@@ -1,46 +1,140 @@
+@use 'libs/fabric/src/lib/external/styles/mixins/_index.scss' as fab-mixin;
+@use 'libs/fabric/src/lib/external/styles/funcs/_index.scss' as fab-func;
+
 body {
-  @apply text-base;
+  font-size: fab-func.get-size-var(medium-1);
+  line-height: fab-func.get-size-var(medium-5);
 }
 
 *:not(h1, h2, h3, h4, h5, h6) {
   font-family: var(--font-family-default), sans-serif;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-family: var(--font-family-heading), serif;
-  @apply text-black;
+  color: rgb(17 24 39 / 1);
 }
 
 h1 {
-  @apply font-black;
-  @apply handset:text-3xl tablet:text-3xl web:text-4xl;
+  font-weight: 900;
+
+  @include fab-mixin.bp-screens(handset) {
+    font-size: fab-func.get-size-var(large-1);
+    line-height: fab-func.get-size-var(large-4);
+  }
+
+  @include fab-mixin.bp-screens(tablet) {
+    font-size: fab-func.get-size-var(large-1);
+    line-height: fab-func.get-size-var(large-4);
+  }
+
+  @include fab-mixin.bp-screens(web) {
+    font-size: fab-func.get-size-var(large-4);
+    line-height: fab-func.get-size-var(large-6);
+  }
 }
 
 h2 {
-  @apply font-black;
-  @apply handset:text-2xl tablet:text-2xl web:text-3xl;
+  font-weight: 900;
+
+  @include fab-mixin.bp-screens(handset) {
+    font-size: fab-func.get-size-var(medium-5);
+    line-height: fab-func.get-size-var(large-2);
+  }
+
+  @include fab-mixin.bp-screens(tablet) {
+    font-size: fab-func.get-size-var(medium-5);
+    line-height: fab-func.get-size-var(large-2);
+  }
+
+  @include fab-mixin.bp-screens(web) {
+    font-size: fab-func.get-size-var(large-1);
+    line-height: fab-func.get-size-var(large-4);
+  }
 }
 
 h3 {
-  @apply font-extrabold;
-  @apply handset:text-xl tablet:text-xl web:text-2xl;
+  font-weight: 800;
+
+  @include fab-mixin.bp-screens(handset) {
+    font-size: fab-func.get-size-var(medium-3);
+    line-height: fab-func.get-size-var(medium-7);
+  }
+
+  @include fab-mixin.bp-screens(tablet) {
+    font-size: fab-func.get-size-var(medium-3);
+    line-height: fab-func.get-size-var(medium-7);
+  }
+
+  @include fab-mixin.bp-screens(web) {
+    font-size: fab-func.get-size-var(medium-5);
+    line-height: fab-func.get-size-var(large-2);
+  }
 }
 
 h4 {
-  @apply font-extrabold;
-  @apply handset:text-lg tablet:text-lg web:text-xl;
+  font-weight: 800;
+
+  @include fab-mixin.bp-screens(handset) {
+    font-size: fab-func.get-size-var(medium-2);
+    line-height: fab-func.get-size-var(medium-7);
+  }
+
+  @include fab-mixin.bp-screens(tablet) {
+    font-size: fab-func.get-size-var(medium-2);
+    line-height: fab-func.get-size-var(medium-7);
+  }
+
+  @include fab-mixin.bp-screens(web) {
+    font-size: fab-func.get-size-var(medium-3);
+    line-height: fab-func.get-size-var(medium-7);
+  }
 }
 
 h5 {
-  @apply font-extrabold;
-  @apply handset:text-base tablet:text-base web:text-lg;
+  font-weight: 800;
+
+  @include fab-mixin.bp-screens(handset) {
+    font-size: fab-func.get-size-var(medium-1);
+    line-height: fab-func.get-size-var(medium-5);
+  }
+
+  @include fab-mixin.bp-screens(tablet) {
+    font-size: fab-func.get-size-var(medium-1);
+    line-height: fab-func.get-size-var(medium-5);
+  }
+
+  @include fab-mixin.bp-screens(web) {
+    font-size: fab-func.get-size-var(medium-2);
+    line-height: fab-func.get-size-var(medium-7);
+  }
 }
 
 h6 {
-  @apply font-extrabold;
-  @apply handset:text-sm tablet:text-sm web:text-base;
+  font-weight: 800;
+
+  @include fab-mixin.bp-screens(handset) {
+    font-size: fab-func.get-size-var(small-7);
+    line-height: fab-func.get-size-var(medium-3);
+  }
+
+  @include fab-mixin.bp-screens(tablet) {
+    font-size: fab-func.get-size-var(small-7);
+    line-height: fab-func.get-size-var(medium-3);
+  }
+
+  @include fab-mixin.bp-screens(web) {
+    font-size: fab-func.get-size-var(medium-1);
+    line-height: fab-func.get-size-var(medium-5);
+  }
 }
 
 hgroup {
-  @apply flex flex-col;
+  display: flex;
+  flex-direction: column;
 }

@@ -1,43 +1,63 @@
-@import './color';
+@use './funcs' as *;
 
-@mixin fab-checkmark-base($size, $thickness, $color) {
-  @apply relative bg-transparent ltr:rotate-45 rtl:-rotate-135 z-20;
-  height: calc($size * 2);
+@mixin checkmark-base($size, $thickness, $color) {
+  position: relative;
+  z-index: 20;
+  background-color: transparent;
+
+  &:dir(ltr) {
+    transform: rotate(45deg);
+  }
+
+  &:dir(rtl) {
+    transform: rotate(-135deg);
+  }
+  height: calc(#{$size} * 2);
   width: $size;
-  margin-bottom: calc($thickness / 1.5);
-  margin-left: calc($thickness / 2.5);
+  margin-block-end: calc(#{$thickness} / 1.5);
+  margin-inline-start: calc(#{$thickness} / 2.5);
 
   &:before,
   &:after {
-    @include fab-bg($color, false);
-    @apply absolute content-[''] rounded transition-all;
-    @apply ltr:bottom-0 rtl:top-0;
+    @include bg($color, false);
+    position: absolute;
+    border-radius: get-size-var(small-2);
+    transition-property: all;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 150ms;
+    content: '';
+    inset-block-end: 0;
   }
 
   &:before {
-    @apply w-0 delay-150;
+    width: 0;
+    transition-delay: 150ms;
     height: $thickness;
   }
 
   &:after {
-    @apply h-0 ltr:right-0 rtl:left-0 delay-75;
+    height: 0;
+    transition-delay: 75ms;
+    inset-inline-end: 0;
     width: $thickness;
   }
 }
 
-@mixin fab-checkmark-active {
+@mixin checkmark-darkest {
   &:before {
-    @apply w-full delay-75;
+    width: 100%;
+    transition-delay: 75ms;
   }
 
   &:after {
-    @apply h-full delay-150;
+    height: 100%;
+    transition-delay: 150ms;
   }
 }
 
-@mixin fab-checkmark-disabled {
+@mixin checkmark-disabled {
   &:before,
   &:after {
-    @apply bg-disabled;
+    background-color: rgb(156 163 175 / 1);
   }
 }

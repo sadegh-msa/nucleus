@@ -1,13 +1,17 @@
+@use '../funcs' as *;
 @use '../variables';
 @use './text.mixin';
 
 @mixin link-icon-size($size) {
   @if $size == small {
-    @apply h-3.5 w-3.5;
+    height: get-size-var(small-7);
+    width: get-size-var(small-7);
   } @else if $size == medium {
-    @apply h-4 w-4;
+    height: get-size-var(medium-1);
+    width: get-size-var(medium-1);
   } @else {
-    @apply h-4.5 w-4.5;
+    height: get-size-var(medium-2);
+    width: get-size-var(medium-2);
   }
 }
 
@@ -19,11 +23,16 @@
 
 @mixin generic() {
   @include text.generic(true, true);
-  @apply flex items-center gap-2;
-  @apply font-medium w-max;
+  display: flex;
+  align-items: center;
+  gap: get-size-var(small-4);
+  width: max-content;
+  font-weight: 500;
+  text-decoration: none;
 
   &.disabled {
-    @apply opacity-50 pointer-events-none;
+    pointer-events: none;
+    opacity: 0.5;
   }
 
   @each $size in variables.$sizes {
