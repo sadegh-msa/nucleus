@@ -1,0 +1,38 @@
+@if (!isUserAuthenticated()) {
+
+  <fab-card>
+    <header>
+      <ng-container
+        *ngTemplateOutlet="logo; context: {brand: branding.organization, type: 'organization'}">
+      </ng-container>
+
+      <!--
+      <h1 class="page-title">
+        <ng-content select="[title]"></ng-content>
+      </h1>
+      -->
+    </header>
+
+    <ng-content select="[form]"></ng-content>
+
+    <footer>
+      <ng-content select="[actions]"></ng-content>
+    </footer>
+  </fab-card>
+
+  <ng-container
+    *ngTemplateOutlet="logo; context: {brand: branding.manufacturer, type: 'manufacturer'}">
+  </ng-container>
+}
+
+<ng-template #logo let-brand="brand" let-type="type">
+  <a [href]="brand.homePage" [class]="type + '-logo'" target="_blank">
+    <img
+      [alt]="brand.title"
+      [height]="brand.logo.hTitle.height"
+      [ngSrc]="brand.logo.hTitle.path"
+      [ngStyle]="{ 'min-height.px': brand.logo.hTitle.height, 'min-width.px': brand.logo.hTitle.width }"
+      [width]="brand.logo.hTitle.width"
+      priority>
+  </a>
+</ng-template>

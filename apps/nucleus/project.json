@@ -29,6 +29,11 @@
           {
             "glob": "**/*",
             "input": "apps/nucleus/public"
+          },
+          {
+            "input": "libs/core/src/assets",
+            "glob": "**/*",
+            "output": "assets/core"
           }
         ],
         "styles": [

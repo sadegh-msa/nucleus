@@ -1,4 +1,6 @@
 import { Route } from '@angular/router';
+import { authCanActivateChild } from '@nucleus/core';
+import { sampleConfig, sampleRoutes } from './pages/sample';
 
 export const appRoutes: Route[] = [
   {
@@ -26,6 +28,9 @@ export const appRoutes: Route[] = [
         title: $localize`Typography`,
         loadComponent: () => import('./blocks/components').then((m) => m.TypographyComponent),
       },
+      {
+        path: sampleConfig.path.base, canActivateChild: [authCanActivateChild], children: sampleRoutes
+      }
     ],
   },
 ];

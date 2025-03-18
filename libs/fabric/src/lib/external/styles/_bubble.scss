@@ -122,8 +122,8 @@
 }
 
 .fab-bubble {
-  @include rounded-borderless-box-lg;
-  @include bg-filled($has-darkest: false);
+  @include box-rounded-borderless-lg;
+  @include color-bg-filled($has-darkest: false);
   z-index: 40;
   width: max-content;
   box-shadow:
@@ -221,7 +221,7 @@
   }
 
   > .fab-bubble-close {
-    @include bg-surface;
+    @include color-bg-surface;
     position: absolute;
     height: get-size-var(medium-5);
     width: get-size-var(medium-5);

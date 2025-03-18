@@ -17,7 +17,7 @@ import { PasswordStrength } from '../../models';
 
 @Directive({
   selector: '[fabInputPassword]',
-  standalone: true
+
 })
 export class InputPasswordDirective implements OnInit {
   readonly #destroyRef = inject(DestroyRef);

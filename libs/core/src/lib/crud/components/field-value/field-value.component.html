@@ -1,0 +1,40 @@
+@switch (type()) {
+  @case (DataType.Index) {
+    {{ value() + 1 }}
+  }
+  @case (DataType.Boolean) {
+    <ng-container *ngTemplateOutlet="handleBoolean"></ng-container>
+  }
+  @case (DataType.Datetime) {
+    {{ value() | date: format() || 'medium' }}
+  }
+  @case (DataType.Currency) {
+    {{ value() | currency: format() || 'CAD' }}
+  }
+  @default {
+    {{ value() }}
+  }
+}
+
+<ng-template #handleBoolean>
+  @switch (format()) {
+    @case ('icon') {
+      @if (value()) {
+        <i class="pi pi-check boolean-true"></i>
+      } @else {
+        <i class="pi pi-times boolean-false"></i>
+      }
+    }
+    @case ('yes,no') {
+      @if (value()) {
+        <span class="boolean-true">Yes</span>
+      } @else {
+        <span class="boolean-false">No</span>
+      }
+    }
+    @default {
+      {{ value() }}
+    }
+  }
+</ng-template>
+

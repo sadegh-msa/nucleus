@@ -3,7 +3,7 @@ import { componentStyleClass } from '../../configs';
 
 @Directive({
   selector: '[fabStyleClass]',
-  standalone: true
+
 })
 export class StyleClassDirective {
   readonly #changeDetectorRef = inject(ChangeDetectorRef);

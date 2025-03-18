@@ -1,0 +1,19 @@
+<scr-generic-toolbar [toolbar]="toolbar()"></scr-generic-toolbar>
+
+<menu class="toolbar-end">
+  @if (infoFields.length && (data() | keyvalue).length) {
+    <li>
+      <button fabStyleClass="button-info-text-hover"
+              (click)="infoOverlay.toggle($event)">
+        <svg-icon src="solid/circle-info"></svg-icon>
+        <span i18n>Info</span>
+      </button>
+
+      <p-overlayPanel #infoOverlay
+                      styleClass="info-fields-overlay">
+        <scr-info-fields [infoFields]="infoFields" [data]="data()"></scr-info-fields>
+      </p-overlayPanel>
+    </li>
+  }
+</menu>
+

@@ -1,0 +1,81 @@
+@use '../funcs' as *;
+@use 'sass:map';
+
+$default-color: neutral;
+$white-color: white;
+$black-color: black;
+$surface-color: surface-card;
+$transparent-color: transparent;
+
+@mixin bg($bg-color, $has-darkest: true) {
+  background-color: get-color-var($bg-color);
+
+  &:hover {
+    background-color: get-color-var(#{$bg-color}-darker);
+  }
+
+  @if ($has-darkest) {
+    &:active {
+      box-shadow:
+        0 0 #0000,
+        0 0 #0000,
+        inset 0 2px 4px 0 rgb(0 0 0 / 0.05);
+      background-color: get-color-var(#{$bg-color}-darkest);
+    }
+  }
+}
+
+@mixin svg($color) {
+  svg-icon {
+    path {
+      fill: get-color-var($color);
+    }
+  }
+}
+
+@mixin text($text-color, $has-darkest: true, $hover-mode: false) {
+  @if ($hover-mode) {
+    @if ($text-color == $white-color) {
+      @include svg($white-color);
+      color: rgb(255 255 255 / 1);
+    } @else {
+      @include svg($default-color);
+      color: rgb(107 114 128 / 1);
+    }
+  } @else {
+    @include svg($text-color);
+    color: get-color-var($text-color);
+  }
+
+  &:hover {
+    @include svg(get-color-var(#{$text-color}-darker));
+    color: get-color-var(#{$text-color}-darker);
+  }
+
+  @if ($has-darkest) {
+    &:active {
+      @include svg(get-color-var(#{$text-color}-darkest));
+      color: get-color-var(#{$text-color}-darkest);
+    }
+  }
+}
+
+@mixin bg-filled($bg-color: $default-color, $text-color: $white-color, $has-darkest: true) {
+  @include bg($bg-color, $has-darkest);
+  @include text($text-color, $has-darkest);
+}
+
+@mixin bg-transparent($text-color: $default-color, $has-darkest: true) {
+  @include bg($transparent-color, $has-darkest);
+  @include text($text-color, $has-darkest);
+}
+
+@mixin bg-transparent-darker($text-color: $default-color, $has-darkest: true) {
+  @include bg($transparent-color, $has-darkest);
+  @include text($text-color, $has-darkest, true);
+}
+
+@mixin bg-surface($text-color: $default-color, $has-darkest: true) {
+  @include bg($surface-color, $has-darkest);
+  @include text($text-color, $has-darkest);
+}

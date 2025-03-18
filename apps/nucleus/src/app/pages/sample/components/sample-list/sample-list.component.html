@@ -1,0 +1,19 @@
+<div class="page page-list">
+  <scr-generic-list-toolbar [toolbar]="toolbar"
+                                     [selectedRecords]="selectedRecords().length"
+                                     [(pagination)]="pagination"
+                                     class="page-toolbar page-list-toolbar">
+  </scr-generic-list-toolbar>
+
+  <scr-generic-list [data]="filteredData"
+                             [idField]="config.field.id"
+                             [table]="table"
+                             [firstRow]="pagination().first"
+                             [showLoading]="isDataLoading()"
+                             [isActivatable]="true"
+                             selectionMode="multiple"
+                             (selection)="changeSelection($event)"
+                             (activation)="activate($event)"
+                             class="page-content page-list-content">
+  </scr-generic-list>
+</div>

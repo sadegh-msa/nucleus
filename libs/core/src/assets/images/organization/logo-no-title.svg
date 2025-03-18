@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   width="34"
+   height="34"
+   viewBox="0 0 34 34"
+   version="1.1"
+   preserveAspectRatio="xMidYMid"
+   id="svg30"
+   sodipodi:docname="logo-no-title.svg"
+   inkscape:version="1.2.2 (b0a8486541, 2022-12-01)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <sodipodi:namedview
+     id="namedview32"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     showgrid="false"
+     inkscape:zoom="11.542435"
+     inkscape:cx="18.496964"
+     inkscape:cy="22.005755"
+     inkscape:window-width="1920"
+     inkscape:window-height="1011"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg30" />
+  <title
+     id="title2">Angular</title>
+  <defs
+     id="defs22">
+    <linearGradient
+       x1="66.034309"
+       y1="239.49306"
+       x2="253.1969"
+       y2="145.34511"
+       id="linearGradient-1"
+       gradientTransform="scale(0.97196453,1.0288441)"
+       gradientUnits="userSpaceOnUse">
+      <stop
+         stop-color="#E40035"
+         offset="0%"
+         id="stop4" />
+      <stop
+         stop-color="#F60A48"
+         offset="24%"
+         id="stop6" />
+      <stop
+         stop-color="#F20755"
+         offset="35.2%"
+         id="stop8" />
+      <stop
+         stop-color="#DC087D"
+         offset="49.4%"
+         id="stop10" />
+      <stop
+         stop-color="#9717E7"
+         offset="74.5%"
+         id="stop12" />
+      <stop
+         stop-color="#6C00F5"
+         offset="100%"
+         id="stop14" />
+    </linearGradient>
+    <linearGradient
+       x1="57.583313"
+       y1="31.757622"
+       x2="180.06776"
+       y2="179.65509"
+       id="linearGradient-2"
+       gradientTransform="scale(0.97196453,1.0288441)"
+       gradientUnits="userSpaceOnUse">
+      <stop
+         stop-color="#FF31D9"
+         offset="0%"
+         id="stop17" />
+      <stop
+         stop-color="#FF5BE1"
+         stop-opacity="0"
+         offset="100%"
+         id="stop19" />
+    </linearGradient>
+  </defs>
+  <g
+     id="g28"
+     transform="matrix(0.12546997,0,0,0.12546997,0.93984384,-2.625823e-7)">
+    <path
+       d="M 256,45.178708 246.75607,190.33686 158.37332,0 Z M 194.78303,232.87577 128.00058,270.98118 61.216965,232.87577 74.799858,199.95774 H 181.20014 Z M 128.00058,72.248815 162.99471,157.32547 H 93.005291 Z M 9.1494031,190.33686 0,45.178708 97.626679,0 Z"
+       fill="url(#linearGradient-1)"
+       id="path24"
+       style="fill:url(#linearGradient-1)" />
+    <path
+       d="M 256,45.178708 246.75607,190.33686 158.37332,0 Z M 194.78303,232.87577 128.00058,270.98118 61.216965,232.87577 74.799858,199.95774 H 181.20014 Z M 128.00058,72.248815 162.99471,157.32547 H 93.005291 Z M 9.1494031,190.33686 0,45.178708 97.626679,0 Z"
+       fill="url(#linearGradient-2)"
+       id="path26"
+       style="fill:url(#linearGradient-2)" />
+  </g>
+  <metadata
+     id="metadata315">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:title>Angular</dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+</svg>

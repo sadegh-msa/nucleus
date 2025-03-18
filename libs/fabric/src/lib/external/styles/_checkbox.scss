@@ -2,7 +2,7 @@
 @use './mixins' as *;
 
 fab-checkbox {
-  @include flex-cross-center;
+  @include align-flex-cross-center;
   position: relative;
   gap: get-size-var(small-4);
 
@@ -12,9 +12,9 @@ fab-checkbox {
 
   > .fab-checkbox-box {
     @include align-flex;
-    @include rounded-box-md;
-    @include rect(medium-5);
-    @include bg(get-color-var(surface-input));
+    @include box-rounded-md;
+    @include size-rect(medium-5);
+    @include color-bg(get-color-var(surface-input));
     transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
     transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
     transition-duration: 500ms;
@@ -35,7 +35,7 @@ fab-checkbox {
 
     &.checked {
       &:not(.disabled) {
-        @include bg(get-color-var(primary));
+        @include color-bg(get-color-var(primary));
       }
 
       &.disabled {

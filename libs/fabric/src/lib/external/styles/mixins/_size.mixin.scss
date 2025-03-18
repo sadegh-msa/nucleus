@@ -2,5 +2,5 @@
 
 @mixin rect($width, $height: null) {
   width: get-size-var($width);
-  height: get-size-var(if($height > -1, $height, $width));
+  height: get-size-var(if($height not null, $height, $width));
 }

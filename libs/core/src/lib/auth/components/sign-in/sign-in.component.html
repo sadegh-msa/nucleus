@@ -1,0 +1,78 @@
+<scr-sign-layout>
+  <ng-container title i18n>Sign in</ng-container>
+
+  <ng-container form>
+    <form id="sign-in-form" [formGroup]="form" (ngSubmit)="submit()" autocomplete="off">
+      <fab-form-field id="email-form-field"
+                      label="Email" i18n-label
+                      inputId="email"
+                      help="Your email address"
+                      [inputFormControl]="form.get('email')"
+                      [messages]="{ required: 'Required', email: 'Invalid' }">
+        <input fabStyleClass="input-text"
+               id="email"
+               placeholder="user@example.com"
+               aria-describedby="email-help"
+               spellcheck="false"
+               formControlName="email" />
+      </fab-form-field>
+
+      <!--
+      <fab-form-field id="password-form-field"
+                      label="Password" i18n-label
+                      inputId="password"
+                      [inputFormControl]="form.get('password')"
+                      [messages]="{ required: 'Password is required' }">
+        <input fabInputPassword
+               id="password"
+               placeholder="************"
+               aria-describedby="password-help"
+               spellcheck="false"
+               formControlName="password" />
+      </fab-form-field>
+
+      <div id="remember-me-form-field" class="fab-form-field">
+        <fab-checkbox label="Remember me" i18n-label
+                      aria-describedby="remember-me-help"
+                      formControlName="rememberMe" />
+      </div>
+      -->
+    </form>
+  </ng-container>
+
+  <ng-container actions>
+    <div class="scr-form-actions">
+      <a fabStyleClass="button-dim-text"
+         id="sign-up-button"
+         class="scr-form-action"
+         [routerLink]="['/', config.path.signUp]">
+        <span i18n>Create account</span>
+      </a>
+
+      <!--
+      <a fabStyleClass="button-dim-text"
+         id="forgot-password-button"
+         class="scr-form-action"
+         [routerLink]="['/', config.path.forgotPassword]">
+        <span i18n>Forgot password?</span>
+      </a>
+      -->
+
+      <button fabStyleClass="button-primary"
+              id="next-button"
+              class="scr-form-action"
+              form="sign-in-form">
+        <span i18n>Next</span>
+        <!--        [showLoading]="isSubmitting()"-->
+      </button>
+      <!--
+      <button fabStyleClass="button-primary"
+              id="sign-in-button"
+              class="scr-form-action"
+              form="sign-in-form">
+        <span i18n>Sign in</span>
+      </button>
+      -->
+    </div>
+  </ng-container>
+</scr-sign-layout>

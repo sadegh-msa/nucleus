@@ -1,0 +1,64 @@
+@use '../funcs' as *;
+@use '../mixins/color.mixin' as color;
+
+@mixin base($size, $thickness, $color) {
+  position: relative;
+  z-index: 20;
+  background-color: transparent;
+
+  &:dir(ltr) {
+    transform: rotate(45deg);
+  }
+
+  &:dir(rtl) {
+    transform: rotate(-135deg);
+  }
+  height: calc(#{$size} * 2);
+  width: $size;
+  margin-block-end: calc(#{$thickness} / 1.5);
+  margin-inline-start: calc(#{$thickness} / 2.5);
+
+  &:before,
+  &:after {
+    @include color.bg($color, false);
+    position: absolute;
+    border-radius: get-size-var(small-2);
+    transition-property: all;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 150ms;
+    content: '';
+    inset-block-end: 0;
+  }
+
+  &:before {
+    width: 0;
+    transition-delay: 150ms;
+    height: $thickness;
+  }
+
+  &:after {
+    height: 0;
+    transition-delay: 75ms;
+    inset-inline-end: 0;
+    width: $thickness;
+  }
+}
+
+@mixin darkest {
+  &:before {
+    width: 100%;
+    transition-delay: 75ms;
+  }
+
+  &:after {
+    height: 100%;
+    transition-delay: 150ms;
+  }
+}
+
+@mixin disabled {
+  &:before,
+  &:after {
+    background-color: rgb(156 163 175 / 1);
+  }
+}

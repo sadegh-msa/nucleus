@@ -2,7 +2,7 @@
 @use './mixins' as *;
 
 fab-toggle {
-  @include flex-cross-center;
+  @include align-flex-cross-center;
   position: relative;
   gap: get-size-var(small-4);
 
@@ -11,8 +11,8 @@ fab-toggle {
   }
 
   > .fab-toggle-chassis {
-    @include rounded-box-lg;
-    @include flex-cross-center;
+    @include box-rounded-lg;
+    @include align-flex-cross-center;
     width: get-size-var(huge-3);
     position: relative;
     z-index: 10;
@@ -76,10 +76,10 @@ fab-toggle {
     }
 
     > .fab-toggle-switch {
-      @include rounded-box-md;
+      @include box-rounded-md;
       @include align-flex;
-      @include rect(medium-5);
-      @include bg(get-color-var(surface-input), false);
+      @include size-rect(medium-5);
+      @include color-bg(get-color-var(surface-input), false);
       position: relative;
       box-shadow:
         0 0 #0000,

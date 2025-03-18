@@ -3,7 +3,7 @@ import { NuDateService } from '../services';
 
 @Pipe({
   name: 'nuDate',
-  standalone: true,
+
 })
 export class NuDatePipe implements PipeTransform {
   readonly #dateTimeService = inject(NuDateService);

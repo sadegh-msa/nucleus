@@ -1,0 +1,47 @@
+@use './variables' as *;
+
+scr-layout {
+  & > main {
+    grid-area: main;
+    height: calc(100vh - calc(10 * $gap));
+    width: 100%;
+
+    & > .fab-card {
+      height: 100%;
+      width: 100%;
+
+      .fab-card-header,
+      .fab-card-footer {
+        height: $minCardHeaderHeight;
+      }
+
+      .fab-card-body {
+        height: 100%;
+        padding: 0;
+        width: 100%;
+
+        .p-card-content {
+          height: calc(
+            100vh -
+            $topbarHeight - calc(2 * $minCardHeaderHeight) - calc(4 * $gap)
+          );
+          overflow: auto;
+          padding: 0;
+          transition: width ease-in-out $transitionTime;
+        }
+      }
+    }
+  }
+
+  &.layout-nav-compact {
+    main fab-card.layout-main p-card .p-card .p-card-body .p-card-content {
+      width: calc(100vw - $minNavWidth - calc(3 * $gap));
+    }
+  }
+
+  &.layout-nav-wide {
+    main fab-card.layout-main p-card .p-card .p-card-body .p-card-content {
+      width: calc(100vw - $maxNavWidth - calc(3 * $gap));
+    }
+  }
+}

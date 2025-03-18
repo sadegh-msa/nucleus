@@ -2,7 +2,7 @@
 @use './mixins' as *;
 
 .fab-input-box {
-  @include rounded-box-lg;
+  @include box-rounded-lg;
   height: get-size-var(huge-3);
   padding: get-size-var(small-4);
 }
@@ -16,7 +16,7 @@
   transition-duration: 150ms;
 
   &:not([disabled]) {
-    @include bg(get-color-var(surface-input), false);
+    @include color-bg(surface-input, false);
     color: rgb(17 24 39 / 1);
 
     &:focus-visible {

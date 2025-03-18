@@ -1,0 +1,21 @@
+@use './variables' as *;
+
+scr-layout {
+  scr-layout-topbar {
+    grid-area: topbar;
+
+    .fab-card {
+      display: flex;
+      width: 100%;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+
+      scr-layout-breadcrumb {
+      }
+
+      scr-layout-toolbar {
+      }
+    }
+  }
+}

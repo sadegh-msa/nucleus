@@ -1,1 +1,51 @@
-<router-outlet />
+@if (isUserAuthenticated()) {
+  <div [showLoading]="showLoading()" showLoadingMode="fullscreen">
+    <scr-layout @fade>
+      <ng-container toolbar>
+        <button fabStyleClass="button-dim-text"
+                (click)="menu.toggle($event)">
+          <svg-icon src="solid/bell"></svg-icon>
+        </button>
+        <button fabStyleClass="button-dim-text"
+                (click)="menu.toggle($event)">
+          <svg-icon src="solid/calendar"></svg-icon>
+        </button>
+        <button fabStyleClass="button-dim-text"
+                (click)="userMenu.toggle($event)">
+          <svg-icon src="solid/user"></svg-icon>
+        </button>
+        <p-menu #menu [model]="items" [popup]="true"></p-menu>
+        <p-menu #userMenu [model]="userMenuItems" [popup]="true"></p-menu>
+      </ng-container>
+
+      <ng-container nav-header>
+        <p-dropdown [(ngModel)]="selectedCity"
+                    [options]="cities"
+                    optionLabel="name"
+                    styleClass="w-full"></p-dropdown>
+      </ng-container>
+
+      <ng-container main>
+        <ng-container *ngTemplateOutlet="routerOutlet"></ng-container>
+      </ng-container>
+    </scr-layout>
+  </div>
+} @else {
+  <div @fade>
+    <ng-container *ngTemplateOutlet="routerOutlet"></ng-container>
+  </div>
+}
+
+<div style="position:absolute;top: 0; right: 0;">
+  @if (htmlDir() === 'ltr') {
+    <button (click)="htmlDir.set('rtl')" style="width: 100px; border: 1px solid gray;">RTL</button>
+  } @else {
+    <button (click)="htmlDir.set('ltr')" style="width: 100px; border: 1px solid gray;">LTR</button>
+  }
+</div>
+<p-toast></p-toast>
+<p-confirmDialog></p-confirmDialog>
+
+<ng-template #routerOutlet>
+  <router-outlet></router-outlet>
+</ng-template>

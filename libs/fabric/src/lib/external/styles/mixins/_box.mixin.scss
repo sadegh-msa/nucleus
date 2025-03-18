@@ -1,0 +1,40 @@
+@use '../funcs' as *;
+
+@mixin common($border-color: '') {
+  @if ($border-color != '') {
+    border-color: $border-color;
+  }
+}
+
+@mixin rounded($border-color: '') {
+  @include common($border-color);
+  border-radius: get-size-var(small-2);
+  border-width: 1px;
+}
+
+@mixin rounded-md($border-color: '') {
+  @include common($border-color);
+  border-radius: get-size-var(small-3);
+  border-width: 1px;
+}
+
+@mixin rounded-lg($border-color: '') {
+  @include common($border-color);
+  border-radius: get-size-var(small-4);
+  border-width: 1px;
+}
+
+@mixin rounded-borderless {
+  @include common;
+  border-radius: get-size-var(small-2);
+}
+
+@mixin rounded-borderless-md {
+  @include common;
+  border-radius: get-size-var(small-3);
+}
+
+@mixin rounded-borderless-lg {
+  @include common;
+  border-radius: get-size-var(small-4);
+}

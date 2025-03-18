@@ -1,0 +1,35 @@
+<scr-generic-toolbar [toolbar]="toolbar()"></scr-generic-toolbar>
+
+<menu class="toolbar-end">
+  @if (showPaginator) {
+    <li>
+      <button fabStyleClass="button-dim-text"
+              (click)="paginatorOverlay.toggle($event)">
+        <span>{{ paginatorLabel() }}</span>
+      </button>
+
+      <p-overlayPanel #paginatorOverlay
+                      styleClass="generic-list-toolbar-paginator-overlay">
+        <p-paginator (onPageChange)="paginate($event)"
+                     [first]="pagination().first"
+                     [rows]="pagination().rows"
+                     [showJumpToPageDropdown]="true"
+                     [showPageLinks]="false"
+                     [totalRecords]="pagination().total"></p-paginator>
+        <p-divider></p-divider>
+        <div class="paginator-rows-per-page">
+          <span class="p-buttonset">
+            @for (option of rowsPerPageOptions; track option) {
+              <button
+                [fabStyleClass]="option === pagination().rows ? 'button-primary-text' : 'button-dim-text'"
+                (click)="paginate({rows: option, first: 0})">
+                <span>{{ option }}</span>
+              </button>
+            }
+          </span>
+        </div>
+      </p-overlayPanel>
+    </li>
+  }
+</menu>
+

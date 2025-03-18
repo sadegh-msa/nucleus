@@ -1,0 +1,34 @@
+@use "libs/fabric/src/lib/external/styles/funcs/_index.scss" as fab-func;
+
+:host {
+  &.scr-loading {
+    position: relative;
+    z-index: 40;
+    max-height: 100%;
+    max-width: 100%;
+    overflow: hidden;
+
+    &.scr-loading-fullscreen {
+      height: 100vh;
+      width: 100vw;
+    }
+
+    > .scr-loading-container {
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 50;
+      height: 100%;
+      width: 100%;
+      background-color: rgb(255 255 255 / 0.5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      > i {
+        font-size: fab-func.get-size-var(large-4);
+        line-height: fab-func.get-size-var(large-6);
+      }
+    }
+  }
+}

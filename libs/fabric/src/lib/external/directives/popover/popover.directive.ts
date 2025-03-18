@@ -18,7 +18,7 @@ import { FabPosition } from '../../types';
 
 @Directive({
   selector: '[fabPopover]',
-  standalone: true
+
 })
 export class PopoverDirective implements OnInit, OnDestroy {
   readonly #injector = inject(Injector);

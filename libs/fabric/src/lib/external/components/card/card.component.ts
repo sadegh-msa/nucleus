@@ -5,7 +5,6 @@ import { componentStyleClass } from '../../configs';
     selector: 'fab-card',
     templateUrl: './card.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
 })
 export class CardComponent {
   @HostBinding('class') styleClass = componentStyleClass.card;

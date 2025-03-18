@@ -1,0 +1,75 @@
+@use './funcs' as *;
+@use './mixins' as *;
+@use './variables';
+
+.fab-button {
+  @include align-flex;
+  @include box-rounded-borderless-lg;
+  cursor: pointer;
+  gap: get-size-var(small-4);
+  font-weight: 600;
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+  border-width: 1px;
+
+  &.fab-button-text,
+  &.fab-button-text-darker,
+  &.fab-button-filled {
+    border-color: transparent;
+    background-clip: padding-box;
+  }
+
+  &.fab-button-text {
+    @each $color in variables.$colors {
+      &.fab-button-#{'' + $color} {
+        @include color-bg-transparent($color);
+      }
+    }
+  }
+
+  &.fab-button-text-darker {
+    @each $color in variables.$colors {
+      &.fab-button-#{'' + $color} {
+        @include color-bg-transparent-darker($color);
+      }
+    }
+  }
+
+  &.fab-button-filled {
+    @each $color in variables.$colors {
+      &.fab-button-#{'' + $color} {
+        @include color-bg-filled($color);
+      }
+    }
+  }
+
+  &:not(.fab-button-sm, .fab-button-lg) {
+    padding-top: get-size-var(small-4);
+    padding-bottom: get-size-var(small-4);
+
+    &:not(:has(span)) {
+      padding-left: get-size-var(small-4);
+      padding-right: get-size-var(small-4);
+    }
+
+    &:has(span) {
+      padding-left: get-size-var(medium-1);
+      padding-right: get-size-var(medium-1);
+    }
+  }
+
+  &.fab-button-sm {
+    height: get-size-var(small-4);
+    padding: get-size-var(small-4);
+  }
+
+  &.fab-button-md {
+    height: get-size-var(small-7);
+  }
+
+  &.fab-button-lg {
+    height: get-size-var(medium-1);
+    padding: get-size-var(medium-1);
+  }
+}

@@ -1,6 +1,49 @@
 @use 'libs/fabric/src/lib/external/styles/funcs/_index.scss' as fab-func;
 @use 'libs/theme/src/lib/styles/_panel-theme.scss';
 
+/****************/
+@use '../../../libs/fabric/src/lib/external/styles/variables';
+@use '../../../libs/fabric/src/lib/external/styles/base';
+@use '../../../libs/fabric/src/lib/external/styles/button-old';
+@use '../../../libs/fabric/src/lib/external/styles/card';
+@use '../../../libs/fabric/src/lib/external/styles/bubble';
+@use '../../../libs/fabric/src/lib/external/styles/input';
+@use '../../../libs/fabric/src/lib/external/styles/checkbox';
+@use '../../../libs/fabric/src/lib/external/styles/toggle';
+@use '../../../libs/fabric/src/lib/external/styles/form-field';
+@use '../../../libs/core/src/lib/styles/theme';
+
+
+html {
+  --font-size: 16px;
+
+  @apply font-sans text-basic;
+  font-size: var(--font-size);
+
+  body {
+    svg-icon {
+      @apply rtl:scale-x-[-1];
+      height: var(--font-size);
+      width: var(--font-size);
+
+      svg {
+        height: inherit;
+        width: inherit;
+      }
+    }
+  }
+}
+
+a {
+  text-decoration: none;
+
+  &:visited {
+    color: inherit;
+    //text-decoration-color: inherit;
+  }
+}
+/****************/
+
 body {
 }
 

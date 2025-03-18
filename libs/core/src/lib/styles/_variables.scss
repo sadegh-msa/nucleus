@@ -1,0 +1,9 @@
+@use "libs/fabric/src/lib/external/styles/funcs/_index.scss" as fab-func;
+
+$gap: fab-func.get-size-var(small-4);
+$topbarHeight: 56px;
+$minNavWidth: 56px;
+$maxNavWidth: 256px;
+$minCardHeaderHeight: 6px;
+$transitionTime: 400ms;
+$input-border-color: #ced4da;

@@ -1,0 +1,53 @@
+@use "./variables" as *;
+
+scr-layout {
+  background-color: var(--surface-ground);
+  display: grid;
+  gap: $gap;
+  grid-template-areas:
+    "nav topbar topbar topbar"
+    "nav main main main";
+  height: 100dvh;
+  left: 0;
+  margin: 0;
+  overflow: hidden;
+  padding: $gap;
+  position: fixed;
+  top: 0;
+  transition: grid-template-columns ease-in-out $transitionTime;
+  width: 100dvw;
+
+  &.scr-layout-nav-compact {
+    grid-template-columns: 1fr calc(100% - $minNavWidth - calc(3 * $gap));
+
+    nav {
+      width: $minNavWidth;
+    }
+  }
+
+  &.scr-layout-nav-wide {
+    grid-template-columns: 1fr calc(100% - $maxNavWidth - calc(3 * $gap));
+
+    nav {
+      width: $maxNavWidth;
+    }
+  }
+
+  p-progressbar {
+    height: 4px;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100vw;
+
+    .p-progressbar {
+      background-color: transparent;
+      height: inherit;
+      width: inherit;
+
+      &.p-progressbar--1 {
+        visibility: hidden;
+      }
+    }
+  }
+}

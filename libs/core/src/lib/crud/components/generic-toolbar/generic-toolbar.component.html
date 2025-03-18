@@ -1,0 +1,41 @@
+<menu class="toolbar-start">
+  @for (tool of toolbar().tools; track tool.key) {
+    <li>
+      @if (tool.element === ToolElement.Button) {
+        <button (click)="runCommand($event, tool)"
+                [pTooltip]="tool.tooltip || ''" tooltipPosition="bottom"
+                [ngClass]="tool.styleClass || []"
+                [disabled]="!!(tool.disabled && tool.disabled())"
+                *permission="tool.permission">
+          @if (tool.icon) {
+            <svg-icon [src]="tool.icon"></svg-icon>
+          }
+          @if (tool.label) {
+            <span>{{ tool.label }}</span>
+          }
+          <!--          [showLoading]="!!(tool.showLoading && tool.showLoading())"-->
+        </button>
+
+        @if (tool.confirm) {
+          <p-confirmPopup [key]="tool.key"></p-confirmPopup>
+        }
+      } @else if (tool.element === ToolElement.Link) {
+        <a [ngClass]="tool.styleClass || []"
+           [title]="tool.tooltip || ''"
+           [routerLink]="tool.command()"
+           [state]="tool.routerStates ? tool.routerStates() : {}"
+           [queryParams]="tool.routerQueryParams ? tool.routerQueryParams(): {}"
+           *permission="tool.permission">
+          @if (tool.icon) {
+            <svg-icon [src]="tool.icon"></svg-icon>
+          }
+          @if (tool.label) {
+            <span>{{ tool.label }}</span>
+          }
+          <!--          [showLoading]="!!(tool.showLoading && tool.showLoading())"-->
+          <!--          [disabled]="!!(tool.disabled && tool.disabled())"-->
+        </a>
+      }
+    </li>
+  }
+</menu>

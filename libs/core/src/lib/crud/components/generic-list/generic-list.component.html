@@ -1,0 +1,132 @@
+<p-table [value]="data().length ? data() : (showLoading() ? altData() : [])"
+         [loading]="!!data().length && showLoading()"
+         loadingIcon="pi pi-spin pi-spinner"
+         [selectionMode]="selectionMode || 'multiple'"
+         [styleClass]="isActivatable ? 'table-activatable': ''"
+         (selectionChange)="changeSelection($event)">
+  <ng-template pTemplate="header">
+    <tr>
+      @if (selectionMode) {
+        <th class="table-selection-header">
+          @if (selectionMode === 'single') {
+            <!--          <i class="pi pi-circle" style="font-size: 1.4rem"></i>-->
+          } @else if (selectionMode === 'multiple') {
+            <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+          }
+        </th>
+      }
+
+      @for (column of table.columns; track column.field) {
+        <th [pTooltip]="column.tooltip || ''" tooltipPosition="bottom">
+          {{ column.label }}
+        </th>
+      }
+
+      @if (table.tools.length) {
+        <th class="table-tools-header">Actions</th>
+      }
+    </tr>
+  </ng-template>
+  <ng-template let-i="rowIndex" let-row pTemplate="body">
+    <tr
+      [ngClass]="{'table-activation': activated() && (activated() || {})[idField] === (row || {})[idField]}">
+      @if (!data().length && showLoading()) {
+        @if (selectionMode) {
+          <td>
+            <p-skeleton></p-skeleton>
+          </td>
+        }
+
+        @for (column of table.columns; track column.field) {
+          <td>
+            <p-skeleton></p-skeleton>
+          </td>
+        }
+
+        <td>
+          <p-skeleton></p-skeleton>
+        </td>
+      } @else if (data().length) {
+        @if (selectionMode) {
+          <td class="table-selection">
+            @if (selectionMode === 'single') {
+              <p-tableRadioButton [value]="row"></p-tableRadioButton>
+            } @else if (selectionMode === 'multiple') {
+              <p-tableCheckbox [value]="row"></p-tableCheckbox>
+            }
+          </td>
+        }
+
+        @for (column of table.columns; track column.field) {
+          <td (click)="activateRow(row)" [ngClass]="column.styleClass || []">
+            <scr-field-value
+              [value]="column.type === DataType.Index ?  firstRow() + i : row[column.field]"
+              [type]="column.type"
+              [format]="column.format">
+            </scr-field-value>
+          </td>
+        }
+
+        <td class="table-tools">
+          @for (tool of table.tools; track tool.key) {
+            @if (tool.element === ToolElement.Button) {
+              <button (click)="runCommand($event, tool, row)"
+                      [title]="tool.tooltip"
+                      [ngClass]="tool.styleClass || []"
+                      [disabled]="!!(tool.disabled && tool.disabled())"
+                      *permission="tool.permission">
+                @if (tool.icon) {
+                  <svg-icon [src]="tool.icon"></svg-icon>
+                }
+                @if (tool.label) {
+                  <span>{{ tool.label }}</span>
+                }
+                <!--                [showLoading]="!!(tool.showLoading && tool.showLoading() === row[idField])"-->
+              </button>
+
+              @if (tool.confirm) {
+                <p-confirmPopup [key]="tool.key + row[idField]"></p-confirmPopup>
+              }
+
+            } @else if (tool.element === ToolElement.Link) {
+              <a [ngClass]="tool.styleClass || []"
+                 [title]="tool.tooltip"
+                 [routerLink]="tool.command(row)"
+                 [state]="(tool.createRouterStates && tool.createRouterStates(row)) || {}"
+                 [queryParams]="(tool.createRouterQueryParams && tool.createRouterQueryParams(row)) || {}"
+                 *permission="tool.permission">
+                @if (tool.icon) {
+                  <svg-icon [src]="tool.icon"></svg-icon>
+                }
+                @if (tool.label) {
+                  <span>{{ tool.label }}</span>
+                }
+                <!--                [showLoading]="!!(tool.showLoading && tool.showLoading() === row[idField])"-->
+                <!--                [disabled]="!!(tool.disabled && tool.disabled())"-->
+              </a>
+            }
+          }
+
+          <button fabStyleClass="button-info-text-hover"
+                  (click)="infoOverlay.toggle($event)"
+                  title="Info">
+            <svg-icon src="solid/circle-info"></svg-icon>
+          </button>
+
+          <p-overlayPanel #infoOverlay
+                          styleClass="info-fields-overlay">
+            <scr-info-fields [infoFields]="infoFields"
+                             [data]="row">
+            </scr-info-fields>
+          </p-overlayPanel>
+        </td>
+      }
+    </tr>
+  </ng-template>
+
+  <ng-template pTemplate="emptymessage">
+    <tr>
+      <td colspan="4">No results found.</td>
+    </tr>
+  </ng-template>
+</p-table>

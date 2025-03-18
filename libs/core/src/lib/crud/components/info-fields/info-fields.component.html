@@ -1,0 +1,17 @@
+@for (infoGroup of infoFields; track infoGroup) {
+  <div class="info-fields-row">
+    @for (infoField of infoGroup; track infoField.field) {
+      <span>
+        @if (![null, undefined, ''].includes(data()[infoField.field])) {
+          <span class="info-fields-label">{{ infoField.label }}</span>
+          <span class="info-fields-value">
+            <scr-field-value [value]="data()[infoField.field]"
+                                      [type]="infoField.type"
+                                      [format]="infoField.format">
+            </scr-field-value>
+          </span>
+        }
+      </span>
+    }
+  </div>
+}
