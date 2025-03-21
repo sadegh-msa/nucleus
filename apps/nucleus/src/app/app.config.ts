@@ -11,7 +11,7 @@ import {
   ScrCommonModule,
   signOutMetaReducer,
 } from '@nucleus/core';
-import { FabricModule, fabricProviders } from '@nucleus/fabric';
+import { provideFabric } from '@nucleus/fabric';
 import Aura from '@primeng/themes/aura';
 import { provideAngularSvgIcon } from 'angular-svg-icon';
 import { MessageService } from 'primeng/api';
@@ -30,9 +30,9 @@ export const appConfig: ApplicationConfig = {
     provideAngularSvgIcon(),
     provideEffects(appEffects),
     provideStore(appReducers, { metaReducers: [signOutMetaReducer] }),
+    provideFabric({ ui: environment.ui, icons: appIcons }),
     importProvidersFrom(RouterModule.forRoot(appRoutes, { bindToComponentInputs: true })),
     importProvidersFrom(ScrCommonModule.forRoot({ rest: environment.rest })),
-    importProvidersFrom(FabricModule.forRoot({ ui: environment.ui, icons: appIcons })),
     importProvidersFrom(LayoutModule.forRoot({ branding: environment.branding, navMenuItems })),
     importProvidersFrom(
       AuthModule.forRoot({
@@ -48,7 +48,6 @@ export const appConfig: ApplicationConfig = {
     provideHttpClient(withFetch()),
     provideAnimationsAsync(),
     provideAngularSvgIcon(),
-    ...fabricProviders,
     providePrimeNG({
       theme: {
         preset: Aura,

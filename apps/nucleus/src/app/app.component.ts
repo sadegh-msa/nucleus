@@ -6,10 +6,11 @@ import { select, Store } from '@ngrx/store';
 import {
   authActions,
   authSelectors,
-  createFadeAnimation, LayoutComponent,
+  createFadeAnimation,
+  LayoutComponent,
   LayoutModule,
   OperationStatus,
-  ShowLoadingComponent
+  ShowLoadingComponent,
 } from '@nucleus/core';
 import { MenuItem as FabMenuItem, StyleClassDirective } from '@nucleus/fabric';
 import { NuPanelService } from '@nucleus/panel';
