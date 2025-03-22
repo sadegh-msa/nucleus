@@ -4,7 +4,7 @@ import { FieldValueComponent } from '../field-value/field-value.component';
 
 @Component({
 
-  selector: 'scr-info-fields',
+  selector: 'nu-info-fields',
   templateUrl: './info-fields.component.html',
   imports: [
     FieldValueComponent

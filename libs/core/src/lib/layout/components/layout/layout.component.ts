@@ -14,7 +14,7 @@ import { LayoutNavService } from '../../services/layout-nav.service';
 import { LayoutProgressbarService } from '../../services/layout-progressbar.service';
 
 @Component({
-  selector: 'scr-layout',
+  selector: 'nu-layout',
   templateUrl: './layout.component.html',
   imports: [ProgressBar, LayoutTopbarComponent, LayoutNavComponent, Card, PrimeTemplate],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -36,6 +36,6 @@ export class LayoutComponent {
   }
 
   #createStyleClass(mode: LayoutNavMode) {
-    return `scr-layout-nav-${mode.toLowerCase()}`;
+    return `nu-layout-nav-${mode.toLowerCase()}`;
   }
 }

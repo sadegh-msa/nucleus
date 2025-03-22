@@ -1,11 +1,11 @@
 <div class="page page-list">
-  <scr-generic-list-toolbar [toolbar]="toolbar"
+  <nu-generic-list-toolbar [toolbar]="toolbar"
                                      [selectedRecords]="selectedRecords().length"
                                      [(pagination)]="pagination"
                                      class="page-toolbar page-list-toolbar">
-  </scr-generic-list-toolbar>
+  </nu-generic-list-toolbar>
 
-  <scr-generic-list [data]="filteredData"
+  <nu-generic-list [data]="filteredData"
                              [idField]="config.field.id"
                              [table]="table"
                              [firstRow]="pagination().first"
@@ -15,5 +15,5 @@
                              (selection)="changeSelection($event)"
                              (activation)="activate($event)"
                              class="page-content page-list-content">
-  </scr-generic-list>
+  </nu-generic-list>
 </div>

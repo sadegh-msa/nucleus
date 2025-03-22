@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { ScrMessageService } from './scr-message.service';
+import { NuMessageService } from './nu-message.service';
 
-describe('ScrMessageService', () => {
-  let service: ScrMessageService;
+describe('NuMessageService', () => {
+  let service: NuMessageService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(ScrMessageService);
+    service = TestBed.inject(NuMessageService);
   });
 
   it('should be created', () => {

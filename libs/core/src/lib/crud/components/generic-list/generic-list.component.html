@@ -59,11 +59,11 @@
 
         @for (column of table.columns; track column.field) {
           <td (click)="activateRow(row)" [ngClass]="column.styleClass || []">
-            <scr-field-value
+            <nu-field-value
               [value]="column.type === DataType.Index ?  firstRow() + i : row[column.field]"
               [type]="column.type"
               [format]="column.format">
-            </scr-field-value>
+            </nu-field-value>
           </td>
         }
 
@@ -115,9 +115,9 @@
 
           <p-overlayPanel #infoOverlay
                           styleClass="info-fields-overlay">
-            <scr-info-fields [infoFields]="infoFields"
+            <nu-info-fields [infoFields]="infoFields"
                              [data]="row">
-            </scr-info-fields>
+            </nu-info-fields>
           </p-overlayPanel>
         </td>
       }

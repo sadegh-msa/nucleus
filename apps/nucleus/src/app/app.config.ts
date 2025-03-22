@@ -8,7 +8,7 @@ import {
   AuthModule,
   AuthOnRunEffect,
   LayoutModule,
-  ScrCommonModule,
+  NuCommonModule,
   signOutMetaReducer,
 } from '@nucleus/core';
 import { provideFabric } from '@nucleus/fabric';
@@ -32,7 +32,7 @@ export const appConfig: ApplicationConfig = {
     provideStore(appReducers, { metaReducers: [signOutMetaReducer] }),
     provideFabric({ ui: environment.ui, icons: appIcons }),
     importProvidersFrom(RouterModule.forRoot(appRoutes, { bindToComponentInputs: true })),
-    importProvidersFrom(ScrCommonModule.forRoot({ rest: environment.rest })),
+    importProvidersFrom(NuCommonModule.forRoot({ rest: environment.rest })),
     importProvidersFrom(LayoutModule.forRoot({ branding: environment.branding, navMenuItems })),
     importProvidersFrom(
       AuthModule.forRoot({

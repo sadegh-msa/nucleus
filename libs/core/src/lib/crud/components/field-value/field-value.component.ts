@@ -4,7 +4,7 @@ import { DataType } from '../../../common';
 
 @Component({
 
-  selector: 'scr-field-value',
+  selector: 'nu-field-value',
   templateUrl: './field-value.component.html',
   imports: [
     CurrencyPipe,

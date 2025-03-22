@@ -5,7 +5,7 @@ import { debounceTime, distinctUntilChanged, distinctUntilKeyChanged, filter, ma
 import { CookieService, OperationStatus } from '../../common';
 import { authDefaultConfig } from '../auth-default.config';
 import { AuthToken } from '../models/auth.model';
-import { SCR_AUTH_CONFIG } from '../providers/auth-config.provider';
+import { NU_AUTH_CONFIG } from '../providers/auth-config.provider';
 import { authActions, authSelectors, AuthStates } from '../store';
 
 /*
@@ -24,7 +24,7 @@ enum Field {
 })
 export class AuthTokenService {
   readonly #router = inject(Router);
-  readonly #authConfig = inject(SCR_AUTH_CONFIG);
+  readonly #authConfig = inject(NU_AUTH_CONFIG);
   readonly #authStore$ = inject(Store<AuthStates>);
   readonly #cookieService = inject(CookieService);
 

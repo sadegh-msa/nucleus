@@ -7,12 +7,12 @@ import { PaginatorModule, PaginatorState } from 'primeng/paginator';
 import { RippleModule } from 'primeng/ripple';
 import { PaginationCreator } from '../../creators/pagination.creator';
 import { Pagination } from '../../models/pagination.model';
-import { ScrToolbar } from '../../models/toolbar.model';
+import { NuToolbar } from '../../models/toolbar.model';
 import { GenericToolbarComponent } from '../generic-toolbar/generic-toolbar.component';
 
 @Component({
 
-  selector: 'scr-generic-list-toolbar',
+  selector: 'nu-generic-list-toolbar',
   templateUrl: './generic-list-toolbar.component.html',
   imports: [
     DividerModule,
@@ -29,7 +29,7 @@ export class GenericListToolbarComponent {
 
   @Input() showPaginator = true;
   @Input() rowsPerPageOptions = PaginationCreator.createRowsPerPageOptions();
-  toolbar = input.required<ScrToolbar>();
+  toolbar = input.required<NuToolbar>();
   selectedRecords = input(0);
   pagination = model.required<Pagination>();
 

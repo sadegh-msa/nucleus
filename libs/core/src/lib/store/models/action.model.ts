@@ -5,11 +5,11 @@ import {
   RestGetResponse,
   RestListResponse,
   RestUpdateResponse,
-  ScrTool
+  NuTool
 } from '../../crud';
 
 export interface ActionCommon {
-  tool?: ScrTool;
+  tool?: NuTool;
 }
 
 export interface ActionFailure extends ActionCommon {

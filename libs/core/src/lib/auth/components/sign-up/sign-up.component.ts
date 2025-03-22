@@ -20,7 +20,7 @@ import { SignLayoutComponent } from '../sign-layout/sign-layout.component';
 
 @Component({
 
-  selector: 'scr-sign-up',
+  selector: 'nu-sign-up',
   templateUrl: './sign-up.component.html',
   imports: [
     RouterLink,

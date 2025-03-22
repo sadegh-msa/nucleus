@@ -1,7 +1,7 @@
 @use './toolbar' as *;
 @use './variables' as *;
 
-scr-generic-form-toolbar {
+nu-generic-form-toolbar {
   @include toolbar();
 }
 

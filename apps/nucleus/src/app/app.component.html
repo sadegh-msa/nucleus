@@ -1,6 +1,6 @@
 @if (isUserAuthenticated()) {
   <div [showLoading]="showLoading()" showLoadingMode="fullscreen">
-    <scr-layout @fade>
+    <nu-layout @fade>
       <ng-container toolbar>
         <button fabStyleClass="button-dim-text"
                 (click)="menu.toggle($event)">
@@ -28,7 +28,7 @@
       <ng-container main>
         <ng-container *ngTemplateOutlet="routerOutlet"></ng-container>
       </ng-container>
-    </scr-layout>
+    </nu-layout>
   </div>
 } @else {
   <div @fade>

@@ -1,18 +1,18 @@
 import { inject, Injectable } from '@angular/core';
-import { ScrMessageService, OperationStatus } from '../../common';
+import { NuMessageService, OperationStatus } from '../../common';
 import { CommonState } from '../models/state.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class StoreMessageService {
-  readonly #scrMessageService = inject(ScrMessageService);
+  readonly #nuMessageService = inject(NuMessageService);
 
   commonObserver({ status, message }: CommonState) {
     if (status === OperationStatus.Failure) {
-      this.#scrMessageService.showError(message);
+      this.#nuMessageService.showError(message);
     } else if (status === OperationStatus.Success) {
-      this.#scrMessageService.showSuccess(message);
+      this.#nuMessageService.showSuccess(message);
     }
   };
 
@@ -22,7 +22,7 @@ export class StoreMessageService {
     }
 
     if (status === OperationStatus.Failure) {
-      this.#scrMessageService.showError(message);
+      this.#nuMessageService.showError(message);
     }
   };
 }

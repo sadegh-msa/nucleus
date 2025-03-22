@@ -1,4 +1,4 @@
 import { InjectionToken } from '@angular/core';
-import { ScrCommonConfig } from '../models/common-config.model';
+import { NuCommonConfig } from '../models/common-config.model';
 
-export const SCR_COMMON_CONFIG = new InjectionToken<ScrCommonConfig>('scr.common.config');
+export const NU_COMMON_CONFIG = new InjectionToken<NuCommonConfig>('nu.common.config');

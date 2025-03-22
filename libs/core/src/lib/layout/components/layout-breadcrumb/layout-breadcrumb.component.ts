@@ -4,7 +4,7 @@ import { Breadcrumb } from 'primeng/breadcrumb';
 import { LayoutBreadcrumbService } from '../../services/layout-breadcrumb.service';
 
 @Component({
-  selector: 'scr-layout-breadcrumb',
+  selector: 'nu-layout-breadcrumb',
   templateUrl: './layout-breadcrumb.component.html',
   imports: [Breadcrumb],
   changeDetection: ChangeDetectionStrategy.OnPush,

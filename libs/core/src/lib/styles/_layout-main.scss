@@ -1,6 +1,6 @@
 @use './variables' as *;
 
-scr-layout {
+nu-layout {
   & > main {
     grid-area: main;
     height: calc(100vh - calc(10 * $gap));

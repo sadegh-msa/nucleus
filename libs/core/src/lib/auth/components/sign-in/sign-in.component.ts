@@ -30,7 +30,7 @@ import { SignLayoutComponent } from '../sign-layout/sign-layout.component';
 
 @Component({
 
-  selector: 'scr-sign-in',
+  selector: 'nu-sign-in',
   templateUrl: './sign-in.component.html',
   imports: [
     ReactiveFormsModule,

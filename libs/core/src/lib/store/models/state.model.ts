@@ -1,11 +1,11 @@
 import { OperationStatus } from '../../common';
-import { RestListResponse, ScrTool } from '../../crud';
+import { RestListResponse, NuTool } from '../../crud';
 
 export interface CommonState {
   type: string;
   message: string;
   status: OperationStatus;
-  tool?: ScrTool;
+  tool?: NuTool;
 }
 
 export interface ListState<Query, Response> extends CommonState {

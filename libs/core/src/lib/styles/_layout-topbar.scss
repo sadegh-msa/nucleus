@@ -1,7 +1,7 @@
 @use './variables' as *;
 
-scr-layout {
-  scr-layout-topbar {
+nu-layout {
+  nu-layout-topbar {
     grid-area: topbar;
 
     .fab-card {
@@ -11,10 +11,10 @@ scr-layout {
       align-items: center;
       justify-content: space-between;
 
-      scr-layout-breadcrumb {
+      nu-layout-breadcrumb {
       }
 
-      scr-layout-toolbar {
+      nu-layout-toolbar {
       }
     }
   }

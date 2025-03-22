@@ -26,14 +26,14 @@ import { AuthPermissionDirective } from '../../../auth';
 import { DataType } from '../../../common';
 import { infoFieldsDefault } from '../../defaults/info-fields.default';
 import { ToolElement } from '../../enums/toolbar.enum';
-import { ScrTable } from '../../models/table.model';
-import { ScrTool } from '../../models/toolbar.model';
+import { NuTable } from '../../models/table.model';
+import { NuTool } from '../../models/toolbar.model';
 import { FieldValueComponent } from '../field-value/field-value.component';
 import { InfoFieldsComponent } from '../info-fields/info-fields.component';
 
 @Component({
 
-  selector: 'scr-generic-list',
+  selector: 'nu-generic-list',
   templateUrl: './generic-list.component.html',
   imports: [
     AuthPermissionDirective,
@@ -65,7 +65,7 @@ export class GenericListComponent {
   @Input() idField = 'id';
   @Input() selectionMode?: 'single' | 'multiple' | null;
   @Input() isActivatable = false;
-  @Input() table: ScrTable = { columns: [], tools: [] };
+  @Input() table: NuTable = { columns: [], tools: [] };
   showLoading = input(false);
   firstRow = input(0);
   activatedRow = input<any>();
@@ -95,7 +95,7 @@ export class GenericListComponent {
       .subscribe(row => this.activated.set(row));
   }
 
-  runCommand(event: MouseEvent, tool: ScrTool, row: any) {
+  runCommand(event: MouseEvent, tool: NuTool, row: any) {
     if (!tool.confirm) {
       tool.command(row);
       return;

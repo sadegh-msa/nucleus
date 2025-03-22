@@ -12,7 +12,7 @@ import {
   GenericListComponent,
   GenericListService,
   GenericListToolbarComponent,
-  ScrTable,
+  NuTable,
   ToolbarCreator
 } from '@nucleus/core';
 import { GenericSampleList, SampleGeneric } from '../../models/sample-generic.model';
@@ -42,7 +42,7 @@ export class SampleListComponent implements OnInit, GenericSampleList {
     actions: sampleActions,
     selectors: sampleSelectors
   };
-  readonly table: ScrTable = {
+  readonly table: NuTable = {
     columns: [
       { field: 'index', label: '#', tooltip: 'Index', type: DataType.Index },
       {

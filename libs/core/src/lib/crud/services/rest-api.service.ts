@@ -1,6 +1,6 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { SCR_COMMON_CONFIG } from '../../common';
+import { NU_COMMON_CONFIG } from '../../common';
 import { RestListQuery } from '../models/rest.model';
 
 @Injectable({
@@ -8,7 +8,7 @@ import { RestListQuery } from '../models/rest.model';
 })
 export class RestApiService {
   readonly httpClient = inject(HttpClient);
-  readonly commonConfig = inject(SCR_COMMON_CONFIG);
+  readonly commonConfig = inject(NU_COMMON_CONFIG);
 
   createUrl(...paths: string[]) {
     return [this.commonConfig.rest.url, ...paths].filter((p) => !!p).join('/');

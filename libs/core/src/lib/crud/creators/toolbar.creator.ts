@@ -5,19 +5,19 @@ import { mergeObjects } from '../../common';
 import { RouterStateKey } from '../enums/router-state.enum';
 import { ToolElement, ToolType } from '../enums/toolbar.enum';
 import { GenericEntity } from '../models/generic.model';
-import { ScrTool, ScrToolbar, ScrToolEvent } from '../models/toolbar.model';
+import { NuTool, NuToolbar, NuToolEvent } from '../models/toolbar.model';
 
-type AddTools = Partial<Record<ToolType.Save | ToolType.Cancel, Partial<ScrTool>>>
-type ViewEditRequired = Required<Pick<Partial<ScrTool>, 'id' | 'routerStates'>>
-type EditTools = Partial<Record<ToolType.Save, Partial<ScrTool>>>
+type AddTools = Partial<Record<ToolType.Save | ToolType.Cancel, Partial<NuTool>>>
+type ViewEditRequired = Required<Pick<Partial<NuTool>, 'id' | 'routerStates'>>
+type EditTools = Partial<Record<ToolType.Save, Partial<NuTool>>>
   & Record<ToolType.Cancel, ViewEditRequired>
 type ViewTools =
-  Partial<Record<ToolType.Delete | ToolType.Refresh | ToolType.Back, Partial<ScrTool>>>
+  Partial<Record<ToolType.Delete | ToolType.Refresh | ToolType.Back, Partial<NuTool>>>
   & Record<ToolType.Edit, ViewEditRequired>
-type ListTools = Partial<Record<ToolType.Add | ToolType.Refresh, Partial<ScrTool>>>
-type TableTools = Partial<Record<ToolType.View | ToolType.Delete, Partial<ScrTool>>>
+type ListTools = Partial<Record<ToolType.Add | ToolType.Refresh, Partial<NuTool>>>
+type TableTools = Partial<Record<ToolType.View | ToolType.Delete, Partial<NuTool>>>
 
-const commonStyleClass = ['scr-tool'];
+const commonStyleClass = ['nu-tool'];
 const basicTextStyleClass = new Set([...componentStyleClass['button-dim-text-hover'], ...commonStyleClass]);
 const dangerTextStyleClass = new Set([...componentStyleClass['button-danger-text-hover'], ...commonStyleClass]);
 const infoTextStyleClass = new Set([...componentStyleClass['button-info-text-hover'], ...commonStyleClass]);
@@ -119,8 +119,8 @@ const createTableDeleteTool = (toOverride = {}, toMerge = {}) => (mergeObjects({
 }, toMerge));
 
 export class ToolbarCreator {
-  static createAddTools<T extends GenericEntity>(config: T['config'], tools?: AddTools): ScrToolbar {
-    const subject$ = new Subject<ScrToolEvent>();
+  static createAddTools<T extends GenericEntity>(config: T['config'], tools?: AddTools): NuToolbar {
+    const subject$ = new Subject<NuToolEvent>();
     const saveTool = createSaveTool({
       command: () => subject$.next({ tool: saveTool }),
       permission: config.permission.action.add
@@ -136,8 +136,8 @@ export class ToolbarCreator {
     };
   }
 
-  static createEditTools<T extends GenericEntity>(config: T['config'], tools: EditTools): ScrToolbar {
-    const subject$ = new Subject<ScrToolEvent>();
+  static createEditTools<T extends GenericEntity>(config: T['config'], tools: EditTools): NuToolbar {
+    const subject$ = new Subject<NuToolEvent>();
     const saveTool = createSaveTool({
       command: () => subject$.next({ tool: saveTool }),
       permission: config.permission.action.edit
@@ -153,8 +153,8 @@ export class ToolbarCreator {
     };
   }
 
-  static createViewTools<T extends GenericEntity>(config: T['config'], tools: ViewTools): ScrToolbar {
-    const subject$ = new Subject<ScrToolEvent>();
+  static createViewTools<T extends GenericEntity>(config: T['config'], tools: ViewTools): NuToolbar {
+    const subject$ = new Subject<NuToolEvent>();
     const editTool = createEditTool({
       command: () => config.path.page.edit(editTool.id()),
       permission: config.permission.action.edit
@@ -178,8 +178,8 @@ export class ToolbarCreator {
     };
   }
 
-  static createListTools<T extends GenericEntity>(config: T['config'], tools?: ListTools): ScrToolbar {
-    const subject$ = new Subject<ScrToolEvent>();
+  static createListTools<T extends GenericEntity>(config: T['config'], tools?: ListTools): NuToolbar {
+    const subject$ = new Subject<NuToolEvent>();
     const addTool = createAddTool({
       command: () => config.path.page.add(),
       permission: config.permission.action.add
@@ -196,10 +196,10 @@ export class ToolbarCreator {
   }
 
   static createTableTools<T extends GenericEntity>(config: T['config'], tools?: TableTools):
-    { tools: ScrTool[], events$: Observable<ScrToolEvent> } {
+    { tools: NuTool[], events$: Observable<NuToolEvent> } {
     type Row = T['list'][0];
 
-    const subject$ = new Subject<ScrToolEvent>();
+    const subject$ = new Subject<NuToolEvent>();
     const getId = (row: Row) => row[config.field.id as keyof Row] as string;
     const viewAction = createTableViewTool({
       command: (row: Row) => config.path.page.view(getId(row)),

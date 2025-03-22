@@ -5,10 +5,10 @@
         @if (![null, undefined, ''].includes(data()[infoField.field])) {
           <span class="info-fields-label">{{ infoField.label }}</span>
           <span class="info-fields-value">
-            <scr-field-value [value]="data()[infoField.field]"
+            <nu-field-value [value]="data()[infoField.field]"
                                       [type]="infoField.type"
                                       [format]="infoField.format">
-            </scr-field-value>
+            </nu-field-value>
           </span>
         }
       </span>

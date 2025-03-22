@@ -5,7 +5,7 @@ import { MessageSeverity, MessageSummery } from '../enums/message.enum';
 @Injectable({
   providedIn: 'root'
 })
-export class ScrMessageService {
+export class NuMessageService {
   readonly #messageService = inject(MessageService);
 
   showSuccess(detail: string) {

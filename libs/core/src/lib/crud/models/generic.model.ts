@@ -13,8 +13,8 @@ import { PageType } from '../enums/page.enum';
 import { CrudConfig } from './crud-config.model';
 import { Pagination } from './pagination.model';
 import { RestListQuery } from './rest.model';
-import { ScrTable } from './table.model';
-import { ScrToolbar } from './toolbar.model';
+import { NuTable } from './table.model';
+import { NuToolbar } from './toolbar.model';
 
 // eslint-disable-next-line
 type GenericTypedForm = any
@@ -70,8 +70,8 @@ export interface GenericListConsumer<T extends GenericEntity> {
   },
   config: Readonly<T['config']>;
   isEmbedded: boolean;
-  toolbar: ScrToolbar;
-  table: ScrTable;
+  toolbar: NuToolbar;
+  table: NuTable;
   data: WritableSignal<T['list']>;
   isDataLoading: WritableSignal<boolean>;
   pagination: WritableSignal<Pagination>;
@@ -87,7 +87,7 @@ export interface GenericFormConsumer<T extends GenericEntity> {
   id: string;
   config: Readonly<T['config']>;
   isEmbedded: boolean;
-  toolbar: ScrToolbar;
+  toolbar: NuToolbar;
   pageType: PageType;
   form: FormGroup<T['typedForm']>;
   navigationState?: Record<string, unknown>;

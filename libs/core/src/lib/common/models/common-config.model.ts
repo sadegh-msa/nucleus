@@ -1,4 +1,4 @@
-export interface ScrCommonConfig {
+export interface NuCommonConfig {
   rest: {
     url: string;
   },

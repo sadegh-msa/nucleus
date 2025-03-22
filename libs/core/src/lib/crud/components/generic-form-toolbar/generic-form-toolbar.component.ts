@@ -5,12 +5,12 @@ import { SvgIconComponent } from 'angular-svg-icon';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { GenericToolbarComponent } from '../..';
 import { infoFieldsDefault } from '../../defaults/info-fields.default';
-import { ScrToolbar } from '../../models/toolbar.model';
+import { NuToolbar } from '../../models/toolbar.model';
 import { InfoFieldsComponent } from '../info-fields/info-fields.component';
 
 @Component({
 
-  selector: 'scr-generic-form-toolbar',
+  selector: 'nu-generic-form-toolbar',
   templateUrl: './generic-form-toolbar.component.html',
   imports: [
     GenericToolbarComponent,
@@ -25,5 +25,5 @@ import { InfoFieldsComponent } from '../info-fields/info-fields.component';
 export class GenericFormToolbarComponent {
   @Input() infoFields = infoFieldsDefault;
   data = input<any>(null);
-  toolbar = input.required<ScrToolbar>();
+  toolbar = input.required<NuToolbar>();
 }

@@ -9,7 +9,7 @@ import { ToolbarCreator } from '../creators/toolbar.creator';
 import { ToolType } from '../enums/toolbar.enum';
 import { GenericEntity, GenericListConsumer } from '../models/generic.model';
 import { RestListResponse } from '../models/rest.model';
-import { ScrTool } from '../models/toolbar.model';
+import { NuTool } from '../models/toolbar.model';
 
 const DEFAULT_PAGE = 0;
 const DEFAULT_ROWS = 10;
@@ -152,14 +152,14 @@ export class GenericListService<T extends GenericEntity> {
     return toolbar;
   }
 
-  loadData(tool?: ScrTool) {
+  loadData(tool?: NuTool) {
     this.#store$.dispatch(this.#consumer.store.actions.list({
       tool,
       query: { ...this.#lastQuery }
     }));
   }
 
-  delete(tool: ScrTool, id: string) {
+  delete(tool: NuTool, id: string) {
     if (!tool.showLoading) {
       tool.showLoading = signal(false);
     }

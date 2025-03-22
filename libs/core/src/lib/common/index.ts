@@ -1,6 +1,6 @@
 export * from './animations/fade-animation.creator';
 export * from './components/show-loading/show-loading.component';
-export * from './scr-common.module';
+export * from './nu-common.module';
 export * from './enums/data-type.enum';
 export * from './enums/message.enum';
 export * from './enums/operation-status.enum';
@@ -14,4 +14,4 @@ export * from './models/utility.model';
 export * from './operators/convert-date-strings.operator';
 export * from './providers/common-config.provider';
 export * from './services/cookie.service';
-export * from './services/scr-message.service';
+export * from './services/nu-message.service';

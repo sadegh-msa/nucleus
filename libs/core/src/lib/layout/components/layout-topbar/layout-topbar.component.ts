@@ -9,7 +9,7 @@ import { PrimeTemplate } from 'primeng/api';
 import { Card } from 'primeng/card';
 
 @Component({
-  selector: 'scr-layout-topbar',
+  selector: 'nu-layout-topbar',
   templateUrl: './layout-topbar.component.html',
   imports: [Card, LayoutBreadcrumbComponent, LayoutToolbarComponent, PrimeTemplate],
   changeDetection: ChangeDetectionStrategy.OnPush,

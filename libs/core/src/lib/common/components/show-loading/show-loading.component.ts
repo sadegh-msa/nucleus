@@ -10,12 +10,12 @@ export class ShowLoadingComponent {
   showLoading = input<boolean>(false);
   showLoadingMode = input<'box' | 'fullscreen'>('box');
 
-  @HostBinding('class.scr-loading')
+  @HostBinding('class.nu-loading')
   get hasLoadingStyleClass() {
     return this.showLoading();
   }
 
-  @HostBinding('class.scr-loading-fullscreen')
+  @HostBinding('class.nu-loading-fullscreen')
   get hasFullscreenStyleClass() {
     return this.showLoadingMode() === 'fullscreen';
   }

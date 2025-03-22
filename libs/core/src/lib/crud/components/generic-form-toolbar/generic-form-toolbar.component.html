@@ -1,4 +1,4 @@
-<scr-generic-toolbar [toolbar]="toolbar()"></scr-generic-toolbar>
+<nu-generic-toolbar [toolbar]="toolbar()"></nu-generic-toolbar>
 
 <menu class="toolbar-end">
   @if (infoFields.length && (data() | keyvalue).length) {
@@ -11,7 +11,7 @@
 
       <p-overlayPanel #infoOverlay
                       styleClass="info-fields-overlay">
-        <scr-info-fields [infoFields]="infoFields" [data]="data()"></scr-info-fields>
+        <nu-info-fields [infoFields]="infoFields" [data]="data()"></nu-info-fields>
       </p-overlayPanel>
     </li>
   }

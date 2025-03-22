@@ -3,7 +3,7 @@ import { Params } from '@angular/router';
 import { Observable } from 'rxjs';
 import { ToolElement, ToolType } from '../enums/toolbar.enum';
 
-export interface ScrTool {
+export interface NuTool {
   command: ($event?: unknown) => string | unknown[];
   permission: string;
   element: ToolElement;
@@ -23,12 +23,12 @@ export interface ScrTool {
   id?: Signal<string>;
 }
 
-export interface ScrToolEvent {
-  tool: ScrTool;
+export interface NuToolEvent {
+  tool: NuTool;
   payload?: unknown;
 }
 
-export interface ScrToolbar {
-  tools: ScrTool[];
-  events$?: Observable<ScrToolEvent>;
+export interface NuToolbar {
+  tools: NuTool[];
+  events$?: Observable<NuToolEvent>;
 }

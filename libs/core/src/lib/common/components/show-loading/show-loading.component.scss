@@ -1,19 +1,19 @@
 @use "libs/fabric/src/lib/external/styles/funcs/_index.scss" as fab-func;
 
 :host {
-  &.scr-loading {
+  &.nu-loading {
     position: relative;
     z-index: 40;
     max-height: 100%;
     max-width: 100%;
     overflow: hidden;
 
-    &.scr-loading-fullscreen {
+    &.nu-loading-fullscreen {
       height: 100vh;
       width: 100vw;
     }
 
-    > .scr-loading-container {
+    > .nu-loading-container {
       position: absolute;
       top: 0;
       left: 0;

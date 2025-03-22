@@ -9,7 +9,7 @@ import { PageType } from '../enums/page.enum';
 import { RouterStateKey } from '../enums/router-state.enum';
 import { ToolType } from '../enums/toolbar.enum';
 import { GenericEntity, GenericFormConsumer } from '../models/generic.model';
-import { ScrTool, ScrToolbar } from '../models/toolbar.model';
+import { NuTool, NuToolbar } from '../models/toolbar.model';
 
 
 @Injectable()
@@ -165,7 +165,7 @@ export class GenericFormService<T extends GenericEntity> {
         return { [RouterStateKey.Title]: data()[config.field.title as keyof T['full']] };
       })
     };
-    let toolbar: ScrToolbar = { tools: [] };
+    let toolbar: NuToolbar = { tools: [] };
 
     switch (pageType) {
       case PageType.Add:
@@ -208,7 +208,7 @@ export class GenericFormService<T extends GenericEntity> {
     return toolbar;
   }
 
-  loadData(tool?: ScrTool) {
+  loadData(tool?: NuTool) {
     const { pageType, store, id, navigationState } = this.#consumer;
 
     if (pageType === PageType.Add) {
@@ -224,27 +224,27 @@ export class GenericFormService<T extends GenericEntity> {
     this.#store$.dispatch(store.actions.get({ query: id, tool }));
   }
 
-  add(tool?: ScrTool) {
+  add(tool?: NuTool) {
     const { form, config, store } = this.#consumer;
     const request = { ...form.value, [config.field.id]: undefined } as T['add'];
 
     this.#store$.dispatch(store.actions.add({ request, tool }));
   }
 
-  update(tool?: ScrTool) {
+  update(tool?: NuTool) {
     const { form, store, id } = this.#consumer;
     const request = form.value as T['update'];
 
     this.#store$.dispatch(store.actions.update({ query: id, request, tool }));
   }
 
-  delete(tool?: ScrTool) {
+  delete(tool?: NuTool) {
     const { store, id } = this.#consumer;
 
     this.#store$.dispatch(store.actions.delete({ query: id, tool }));
   }
 
-  save(tool?: ScrTool) {
+  save(tool?: NuTool) {
     const { isSubmitted, form, pageType } = this.#consumer;
 
     isSubmitted.set(true);

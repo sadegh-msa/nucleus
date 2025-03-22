@@ -1,6 +1,6 @@
-import { ScrCommonConfig } from '../../common';
+import { NuCommonConfig } from '../../common';
 import { LayoutConfig } from '../../layout';
 
-export interface AuthConfig extends Pick<ScrCommonConfig, 'rest'>, Pick<LayoutConfig, 'branding'> {
+export interface AuthConfig extends Pick<NuCommonConfig, 'rest'>, Pick<LayoutConfig, 'branding'> {
   rememberMeExpiry: number;
 }

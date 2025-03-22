@@ -1,6 +1,6 @@
 @use "libs/fabric/src/lib/external/styles/funcs/_index.scss" as fab-func;
 
-scr-sign-layout {
+nu-sign-layout {
   position: relative;
   height: 100vh;
   width: 100vw;
@@ -45,10 +45,10 @@ scr-sign-layout {
     }
 
     > footer {
-      > .scr-form-actions {
+      > .nu-form-actions {
         grid-template-columns: repeat(2, minmax(0, 1fr));
 
-        > .scr-form-action {
+        > .nu-form-action {
           height: fab-func.get-size-var(huge-1);
         }
       }

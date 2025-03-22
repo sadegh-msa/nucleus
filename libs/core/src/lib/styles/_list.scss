@@ -1,7 +1,7 @@
 @use "libs/fabric/src/lib/external/styles/funcs/_index.scss" as fab-func;
 @use './variables' as *;
 
-scr-generic-list {
+nu-generic-list {
   .boolean {
     .boolean-true {
       //@include styleclass('text-green-700');

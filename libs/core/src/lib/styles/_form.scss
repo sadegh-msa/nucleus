@@ -1,21 +1,21 @@
 @use "libs/fabric/src/lib/external/styles/funcs/_index.scss" as fab-func;
 
 form,
-.scr-form-group {
+.nu-form-group {
   display: grid;
   grid-template-columns: repeat(6, minmax(0, 1fr));
   gap: fab-func.get-size-var(medium-5);
 
-  &.scr-form-view {
+  &.nu-form-view {
   }
 }
 
-.scr-form-actions {
+.nu-form-actions {
   display: grid;
   grid-template-columns: repeat(6, minmax(0, 1fr));
   gap: fab-func.get-size-var(small-4);
 
-  .scr-form-action {
+  .nu-form-action {
     width: 100%;
   }
 }

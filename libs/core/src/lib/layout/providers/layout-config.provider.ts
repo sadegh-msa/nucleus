@@ -1,4 +1,4 @@
 import { InjectionToken } from '@angular/core';
 import { LayoutConfig } from '../models/layout-config.model';
 
-export const SCR_LAYOUT_CONFIG = new InjectionToken<LayoutConfig>('scr.layout.config');
+export const NU_LAYOUT_CONFIG = new InjectionToken<LayoutConfig>('nu.layout.config');

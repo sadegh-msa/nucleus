@@ -1,8 +1,8 @@
 import { Observable } from 'rxjs';
 import { DataType } from '../../common';
-import { ScrTool, ScrToolEvent } from './toolbar.model';
+import { NuTool, NuToolEvent } from './toolbar.model';
 
-export interface ScrTableColumn {
+export interface NuTableColumn {
   field: string;
   label: string;
   tooltip?: string;
@@ -12,8 +12,8 @@ export interface ScrTableColumn {
   styleClass?: string;
 }
 
-export interface ScrTable {
-  columns: ScrTableColumn[];
-  tools: ScrTool[];
-  events$?: Observable<ScrToolEvent>;
+export interface NuTable {
+  columns: NuTableColumn[];
+  tools: NuTool[];
+  events$?: Observable<NuToolEvent>;
 }

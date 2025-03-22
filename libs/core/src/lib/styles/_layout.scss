@@ -1,6 +1,6 @@
 @use "./variables" as *;
 
-scr-layout {
+nu-layout {
   background-color: var(--surface-ground);
   display: grid;
   gap: $gap;
@@ -17,7 +17,7 @@ scr-layout {
   transition: grid-template-columns ease-in-out $transitionTime;
   width: 100dvw;
 
-  &.scr-layout-nav-compact {
+  &.nu-layout-nav-compact {
     grid-template-columns: 1fr calc(100% - $minNavWidth - calc(3 * $gap));
 
     nav {
@@ -25,7 +25,7 @@ scr-layout {
     }
   }
 
-  &.scr-layout-nav-wide {
+  &.nu-layout-nav-wide {
     grid-template-columns: 1fr calc(100% - $maxNavWidth - calc(3 * $gap));
 
     nav {

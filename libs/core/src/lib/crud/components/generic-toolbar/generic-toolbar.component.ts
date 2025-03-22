@@ -7,11 +7,11 @@ import { ConfirmPopupModule } from 'primeng/confirmpopup';
 import { TooltipModule } from 'primeng/tooltip';
 import { AuthPermissionDirective } from '../../../auth';
 import { ToolElement } from '../../enums/toolbar.enum';
-import { ScrTool, ScrToolbar } from '../../models/toolbar.model';
+import { NuTool, NuToolbar } from '../../models/toolbar.model';
 
 @Component({
 
-  selector: 'scr-generic-toolbar',
+  selector: 'nu-generic-toolbar',
   templateUrl: './generic-toolbar.component.html',
   imports: [
     AuthPermissionDirective,
@@ -28,9 +28,9 @@ export class GenericToolbarComponent {
 
   readonly ToolElement = ToolElement;
 
-  toolbar = input.required<ScrToolbar>();
+  toolbar = input.required<NuToolbar>();
 
-  runCommand(event: MouseEvent, tool: ScrTool) {
+  runCommand(event: MouseEvent, tool: NuTool) {
     if (!tool.confirm) {
       tool.command();
       return;

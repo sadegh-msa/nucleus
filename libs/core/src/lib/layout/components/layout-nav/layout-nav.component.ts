@@ -10,11 +10,11 @@ import { PanelMenu } from 'primeng/panelmenu';
 import { Tooltip } from 'primeng/tooltip';
 import { createFadeAnimation } from '../../../common';
 import { LayoutNavMode } from '../../enums/layout.enum';
-import { SCR_LAYOUT_CONFIG } from '../../providers/layout-config.provider';
+import { NU_LAYOUT_CONFIG } from '../../providers/layout-config.provider';
 import { LayoutNavService } from '../../services/layout-nav.service';
 
 @Component({
-  selector: 'scr-layout-nav',
+  selector: 'nu-layout-nav',
   templateUrl: './layout-nav.component.html',
   animations: [createFadeAnimation()],
   imports: [
@@ -32,7 +32,7 @@ import { LayoutNavService } from '../../services/layout-nav.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LayoutNavComponent {
-  readonly #layoutConfig = inject(SCR_LAYOUT_CONFIG);
+  readonly #layoutConfig = inject(NU_LAYOUT_CONFIG);
   readonly #navService = inject(LayoutNavService);
 
   readonly mode = this.#navService.mode.asReadonly();
