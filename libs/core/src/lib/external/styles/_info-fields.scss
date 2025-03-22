@@ -1,0 +1,22 @@
+@use 'variables' as *;
+
+.info-fields-overlay {
+  display: flex;
+  flex-direction: column;
+}
+
+nu-info-fields {
+  .info-fields-row {
+    display: flex;
+    padding-block: $gap;
+
+    .info-fields-label {
+      //@include styleclass('text-color-basic');
+    }
+
+    .info-fields-value {
+      //@include styleclass('text-primary');
+      padding-inline: calc($gap / 2);
+    }
+  }
+}

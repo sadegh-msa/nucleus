@@ -11,12 +11,11 @@
   }
 
   &:dir(rtl) {
-    transform: rotate(-135deg);
+    transform: rotate(45deg) scaleX(-1);
   }
-  height: calc(#{$size} * 2);
+  height: calc(#{$size} * 1.7);
   width: $size;
-  margin-block-end: calc(#{$thickness} / 1.5);
-  margin-inline-start: calc(#{$thickness} / 2.5);
+  margin-block-end: calc(#{$thickness} / 1.1);
 
   &:before,
   &:after {
@@ -59,6 +58,6 @@
 @mixin disabled {
   &:before,
   &:after {
-    background-color: rgb(156 163 175 / 1);
+    background-color: get-color-var(neutral);
   }
 }

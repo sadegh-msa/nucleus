@@ -1,16 +1,11 @@
 import { provideHttpClient, withFetch } from '@angular/common/http';
-import { ApplicationConfig, importProvidersFrom, provideZoneChangeDetection } from '@angular/core';
+import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
-import { provideRouter, RouterModule } from '@angular/router';
+import { provideRouter, withComponentInputBinding } from '@angular/router';
 import { provideEffects } from '@ngrx/effects';
 import { provideStore } from '@ngrx/store';
-import {
-  AuthModule,
-  AuthOnRunEffect,
-  LayoutModule,
-  NuCommonModule,
-  signOutMetaReducer,
-} from '@nucleus/core';
+import { provideNuCommon } from '@nucleus/common';
+import { AuthOnRunEffect, provideNuAuth, provideNuLayout, signOutMetaReducer } from '@nucleus/core';
 import { provideFabric } from '@nucleus/fabric';
 import Aura from '@primeng/themes/aura';
 import { provideAngularSvgIcon } from 'angular-svg-icon';
@@ -26,27 +21,19 @@ import { appReducers } from './store/app.reducers';
 export const appConfig: ApplicationConfig = {
   providers: [
     provideAnimationsAsync(),
-    provideHttpClient(),
-    provideAngularSvgIcon(),
+    provideZoneChangeDetection({ eventCoalescing: true }),
+    provideRouter(appRoutes, withComponentInputBinding()),
+    provideHttpClient(withFetch()),
     provideEffects(appEffects),
     provideStore(appReducers, { metaReducers: [signOutMetaReducer] }),
+    provideNuCommon({ rest: environment.rest }),
     provideFabric({ ui: environment.ui, icons: appIcons }),
-    importProvidersFrom(RouterModule.forRoot(appRoutes, { bindToComponentInputs: true })),
-    importProvidersFrom(NuCommonModule.forRoot({ rest: environment.rest })),
-    importProvidersFrom(LayoutModule.forRoot({ branding: environment.branding, navMenuItems })),
-    importProvidersFrom(
-      AuthModule.forRoot({
-        rest: environment.rest,
-        branding: environment.branding,
-        ...environment.auth,
-      }),
-    ),
-    MessageService,
-    AuthOnRunEffect,
-    provideZoneChangeDetection({ eventCoalescing: true }),
-    provideRouter(appRoutes),
-    provideHttpClient(withFetch()),
-    provideAnimationsAsync(),
+    provideNuAuth({
+      rest: environment.rest,
+      branding: environment.branding,
+      ...environment.auth,
+    }),
+    provideNuLayout({ branding: environment.branding, navMenuItems }),
     provideAngularSvgIcon(),
     providePrimeNG({
       theme: {
@@ -56,5 +43,7 @@ export const appConfig: ApplicationConfig = {
         },
       },
     }),
+    MessageService,
+    AuthOnRunEffect,
   ],
 };

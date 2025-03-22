@@ -1,40 +1,37 @@
 @use '../funcs' as *;
 
-@mixin common($border-color: '') {
+@mixin box($border-radius, $border-width: none, $border-color: '') {
+  border-radius: get-size-var($border-radius);
+
   @if ($border-color != '') {
-    border-color: $border-color;
+    border-color: get-color-var($border-color);
+  }
+
+  @if ($border-width != none) {
+    border-width: get-border-width($border-width);
   }
 }
 
 @mixin rounded($border-color: '') {
-  @include common($border-color);
-  border-radius: get-size-var(small-2);
-  border-width: 1px;
+  @include box(small-2, thin, $border-color);
 }
 
 @mixin rounded-md($border-color: '') {
-  @include common($border-color);
-  border-radius: get-size-var(small-3);
-  border-width: 1px;
+  @include box(small-3, thin, $border-color);
 }
 
 @mixin rounded-lg($border-color: '') {
-  @include common($border-color);
-  border-radius: get-size-var(small-4);
-  border-width: 1px;
+  @include box(small-4, thin, $border-color);
 }
 
 @mixin rounded-borderless {
-  @include common;
-  border-radius: get-size-var(small-2);
+  @include box(small-2);
 }
 
 @mixin rounded-borderless-md {
-  @include common;
-  border-radius: get-size-var(small-3);
+  @include box(small-3);
 }
 
 @mixin rounded-borderless-lg {
-  @include common;
-  border-radius: get-size-var(small-4);
+  @include box(small-4);
 }

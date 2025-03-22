@@ -1,11 +1,11 @@
 import { NgClass } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { ShowLoadingComponent } from '@nucleus/common';
 import {
   GenericFormService,
   GenericFormToolbarComponent,
   PageType,
-  ShowLoadingComponent
 } from '@nucleus/core';
 import { CalendarComponent } from '@nucleus/fabric';
 import { CalendarModule } from 'primeng/calendar';
@@ -19,7 +19,7 @@ import { sampleActions, sampleSelectors } from '../../store';
 
 @Component({
 
-  selector: 'nucleus-sample-form',
+  selector: 'app-sample-form',
   templateUrl: './sample-form.component.html',
   imports: [
     ReactiveFormsModule,

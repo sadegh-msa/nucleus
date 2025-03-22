@@ -1,10 +1,11 @@
 import { Route } from '@angular/router';
-import { authCanActivateChild } from '@nucleus/core';
+import { authCanActivate } from '@nucleus/core';
 import { sampleConfig, sampleRoutes } from './pages/sample';
 
 export const appRoutes: Route[] = [
   {
     path: '',
+    canActivate: [authCanActivate],
     loadComponent: () =>
       import('@nucleus/panel').then(({ components }) => components.NuPanelComponent),
     children: [
@@ -29,7 +30,9 @@ export const appRoutes: Route[] = [
         loadComponent: () => import('./blocks/components').then((m) => m.TypographyComponent),
       },
       {
-        path: sampleConfig.path.base, canActivateChild: [authCanActivateChild], children: sampleRoutes
+        path: sampleConfig.path.base,
+        canActivate: [authCanActivate],
+        children: sampleRoutes
       }
     ],
   },

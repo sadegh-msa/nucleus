@@ -39,19 +39,19 @@ fab-toggle {
 
     &.checked {
       &:not(.disabled) {
-        border-color: rgb(7 89 133 / 1);
-        background-color: rgb(6 76 113 / 1);
+        border-color: get-color-var(primary);
+        background-color: get-color-var(primary-dark);
 
         > .fab-toggle-switch {
           &:before,
           &:after {
-            background-color: rgb(7 89 133 / 1);
+            background-color: get-color-var(primary);
           }
         }
       }
 
       &.disabled {
-        background-color: rgb(243 244 246 / 1);
+        background-color: get-color-var(surface-card);
 
         > .fab-toggle-switch {
           > .fab-toggle-checkmark {
@@ -79,7 +79,7 @@ fab-toggle {
       @include box-rounded-md;
       @include align-flex;
       @include size-rect(medium-5);
-      @include color-bg(get-color-var(surface-input), false);
+      @include color-bg(surface-input, false);
       position: relative;
       box-shadow:
         0 0 #0000,

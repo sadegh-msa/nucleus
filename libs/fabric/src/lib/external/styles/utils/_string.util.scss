@@ -1,3 +1,4 @@
+@use 'sass:meta';
 @use 'sass:list';
 @use 'sass:map';
 @use 'sass:math';
@@ -15,7 +16,7 @@
 }
 
 @function string-to-integer($value) {
-  @if type-of($value) == 'number' {
+  @if meta.type-of($value) == 'number' {
     @return $value;
   }
 
@@ -31,7 +32,7 @@
     '8': 8,
     '9': 9,
   );
-  $string: nth(string.split($value, '.'), 1);
+  $string: list.nth(string.split($value, '.'), 1);
   $length: string.length($string);
   $result: 0;
 
@@ -52,7 +53,7 @@
 }
 
 @function string-to-number($value) {
-  @if type-of($value) == 'number' {
+  @if meta.type-of($value) == 'number' {
     @return $value;
   }
 

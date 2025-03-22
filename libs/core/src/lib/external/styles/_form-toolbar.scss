@@ -1,0 +1,22 @@
+@use 'toolbar' as *;
+@use 'variables' as *;
+
+nu-generic-form-toolbar {
+  @include toolbar();
+}
+
+.generic-form-toolbar-info-overlay {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: max-content;
+
+  .p-paginator {
+    padding: 0;
+  }
+
+  .p-divider {
+    margin: calc(2 * $gap) 0;
+  }
+}

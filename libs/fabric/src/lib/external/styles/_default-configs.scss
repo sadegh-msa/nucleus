@@ -4,7 +4,7 @@
   $weight: 50%,
   $alpha: 100%,
   $light: lch(100% 0 0),
-  $dark: lch(0% 0 0),
+  $dark: oklch(0% 0.005 285.823),
   $method: oklch longer hue
 ) {
   $color: color.mix($light, $dark, $weight, $method);
@@ -56,21 +56,21 @@ $fab-default-configs: (
       white-inverse: get-light-dark(generate-grayscale-color(15%), generate-grayscale-color(75%)),
     ),
     variants: (
-      light: 5%,
-      lighter: 15%,
-      lightest: -25%,
-      dark: -5%,
-      darker: -15%,
-      darkest: -25%
+      light: 4%,
+      lighter: 8%,
+      lightest: 16%,
+      dark: -4%,
+      darker: -8%,
+      darkest: -16%
     ),
     palette: (
-      surface-card: css-get-light-dark(generate-grayscale-color(99%), generate-grayscale-color(15%)),
-      surface-ground: css-get-light-dark(generate-grayscale-color(95%), generate-grayscale-color(10%)),
+      surface-card: css-get-light-dark(generate-grayscale-color(98%), generate-grayscale-color(15%)),
+      surface-ground: css-get-light-dark(generate-grayscale-color(94%), generate-grayscale-color(10%)),
       surface-misty: css-get-light-dark(oklch(0% 0 0 / 2%), oklch(100% 0 0 / 2%)),
       surface-input: css-get-light-dark(generate-grayscale-color(100%), generate-grayscale-color(0%)),
       surface-input-dark: css-get-light-dark(generate-grayscale-color(100%), generate-grayscale-color(0%)),
-      surface-input-darker: css-get-light-dark(generate-grayscale-color(99%), generate-grayscale-color(1%)),
-      surface-input-darkest: css-get-light-dark(generate-grayscale-color(98%), generate-grayscale-color(2%)),
+      surface-input-darker: css-get-light-dark(generate-grayscale-color(98%), generate-grayscale-color(1%)),
+      surface-input-darkest: css-get-light-dark(generate-grayscale-color(96%), generate-grayscale-color(2%)),
       shadow: css-get-light-dark(oklch(0% 0 0 / 2%), oklch(100% 0 0 / 2%)),
       transparent: oklch(0% 0 0 / 0%),
       transparent-dark: css-get-light-dark(oklch(0% 0 0 / 4%), oklch(100% 0 0 / 4%)),
@@ -80,6 +80,7 @@ $fab-default-configs: (
   ),
   border: (
     width: (
+      none: 0,
       thin: 1px,
       medium: 2px,
       thick: 3px

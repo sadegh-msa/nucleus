@@ -1,11 +1,41 @@
 {
-  "name": "@nucleus/panel",
+  "name": "panel",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/panel/src",
   "prefix": "nu",
   "projectType": "library",
+  "release": {
+    "version": {
+      "generatorOptions": {
+        "packageRoot": "dist/{projectRoot}",
+        "currentVersionResolver": "git-tag",
+        "fallbackCurrentVersionResolver": "disk"
+      }
+    }
+  },
   "tags": [],
   "targets": {
+    "build": {
+      "executor": "@nx/angular:package",
+      "outputs": ["{workspaceRoot}/dist/{projectRoot}"],
+      "options": {
+        "project": "libs/panel/ng-package.json"
+      },
+      "configurations": {
+        "production": {
+          "tsConfig": "libs/panel/tsconfig.lib.prod.json"
+        },
+        "development": {
+          "tsConfig": "libs/panel/tsconfig.lib.json"
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "nx-release-publish": {
+      "options": {
+        "packageRoot": "dist/{projectRoot}"
+      }
+    },
     "test": {
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],

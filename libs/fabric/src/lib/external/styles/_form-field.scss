@@ -12,7 +12,7 @@
     & > {
       .fab-form-field-header {
         .fab-form-field-message {
-          color: rgb(107 114 128 / 1);
+          color: get-color-var(neutral-lighter);
         }
       }
     }
@@ -22,12 +22,12 @@
     & > {
       .fab-form-field-header {
         .fab-form-field-message {
-          color: rgb(220 38 38 / 1);
+          color: get-color-var(danger);
         }
       }
 
       .fab-input-box {
-        border-color: rgb(220 38 38 / 1);
+        border-color: get-color-var(danger);
       }
     }
   }

@@ -64,35 +64,30 @@
   }
 }
 
+@mixin variant-color($bg-color, $text-color) {
+  &:hover {
+    @include text.color('#{$text-color}-dark');
+    background-color: get-color-var('#{$bg-color}-dark');
+  }
+
+  &:active {
+    @include text.color('#{$text-color}-darker');
+    @include shadow.inset();
+    background-color: get-color-var('#{$bg-color}-darker');
+  }
+}
+
 @mixin variant-properties($bg-color, $text-color, $is-second: false) {
   @if $is-second {
     &[class*='second-'] {
-      &:hover {
-        @include text.color('#{$text-color}-dark');
-        background-color: get-color-var('#{$bg-color}-dark');
-      }
-
-      &:active {
-        @include text.color('#{$text-color}-darker');
-        @include shadow.inset();
-        background-color: get-color-var('#{$bg-color}-darker');
-      }
+      @include variant-color($bg-color, $text-color);
     }
   } @else {
     @include text.color($text-color);
     background-color: get-color-var('#{$bg-color}');
 
     &:not([class*='second-']) {
-      &:hover {
-        @include text.color('#{$text-color}-dark');
-        background-color: get-color-var('#{$bg-color}-dark');
-      }
-
-      &:active {
-        @include text.color('#{$text-color}-darker');
-        @include shadow.inset();
-        background-color: get-color-var('#{$bg-color}-darker');
-      }
+      @include variant-color($bg-color, $text-color);
     }
   }
 }

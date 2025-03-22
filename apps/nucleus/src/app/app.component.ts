@@ -3,15 +3,8 @@ import { ChangeDetectionStrategy, Component, effect, inject, OnInit, signal } fr
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { select, Store } from '@ngrx/store';
-import {
-  authActions,
-  authSelectors,
-  createFadeAnimation,
-  LayoutComponent,
-  LayoutModule,
-  OperationStatus,
-  ShowLoadingComponent,
-} from '@nucleus/core';
+import { createFadeAnimation, OperationStatus, ShowLoadingComponent } from '@nucleus/common';
+import { authActions, authSelectors, LayoutComponent } from '@nucleus/core';
 import { MenuItem as FabMenuItem, StyleClassDirective } from '@nucleus/fabric';
 import { NuPanelService } from '@nucleus/panel';
 import { SvgIconComponent } from 'angular-svg-icon';
@@ -44,7 +37,6 @@ interface City {
     ConfirmDialogModule,
     ConfirmPopupModule,
     NgTemplateOutlet,
-    LayoutModule,
     ShowLoadingComponent,
     StyleClassDirective,
     SvgIconComponent,

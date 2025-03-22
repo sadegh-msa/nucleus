@@ -1,0 +1,29 @@
+@use 'toolbar' as *;
+@use 'variables' as *;
+
+nu-generic-list-toolbar {
+  @include toolbar;
+}
+
+.generic-list-toolbar-paginator-overlay {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: max-content;
+
+  .p-paginator {
+    padding: 0;
+  }
+
+  .p-divider {
+    margin: calc(2 * $gap) 0;
+  }
+
+  .paginator-rows-per-page {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+}

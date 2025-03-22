@@ -3,14 +3,14 @@
 
 .tippy-variation-tooltip {
   .tippy-box {
-    background-color: rgb(243 244 246 / 1);
+    background-color: get-color-var(surface-card);
     font-weight: 600;
-    color: rgb(7 89 133 / 1);
+    color: get-color-var(primary);
 
     @include shadow.medium();
 
     .tippy-arrow::before {
-      color: rgb(243 244 246 / 1);
+      color: get-color-var(surface-card);
     }
   }
 }

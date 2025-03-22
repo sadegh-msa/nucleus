@@ -1,0 +1,48 @@
+@use 'variables' as *;
+
+@mixin toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 30;
+  //@include styleclass('surface-overlay');
+
+  menu {
+    &.toolbar-start,
+    &.toolbar-end {
+      list-style-type: none;
+      display: flex;
+      gap: $gap;
+      //padding: calc($gap / 2) $gap $gap;
+      margin: 0;
+
+      li {
+        .fab-button {
+          //min-width: 5rem;
+        }
+
+        a,
+        .fab-button {
+          &.fab-button-basic {
+            &:hover {
+              //color: var(--text-color-primary);
+            }
+          }
+
+          &:not(&.fab-button-primary) {
+            &:not(:hover) {
+              //color: var(--text-color-basic);
+            }
+          }
+        }
+      }
+    }
+
+    &.toolbar-end {
+      margin-inline-start: auto;
+      float: right;
+    }
+  }
+}

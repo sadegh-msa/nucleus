@@ -1,5 +1,5 @@
 @use 'libs/fabric/src/lib/external/styles/funcs/_index.scss' as fab-func;
-@use 'libs/theme/src/lib/styles/_panel-theme.scss';
+@use 'libs/theme/src/lib/external/styles/_panel-theme.scss';
 
 /****************/
 @use '../../../libs/fabric/src/lib/external/styles/variables';
@@ -11,7 +11,7 @@
 @use '../../../libs/fabric/src/lib/external/styles/checkbox';
 @use '../../../libs/fabric/src/lib/external/styles/toggle';
 @use '../../../libs/fabric/src/lib/external/styles/form-field';
-@use '../../../libs/core/src/lib/styles/theme';
+@use '../../../libs/core/src/lib/external/styles/theme';
 
 
 html {
@@ -60,7 +60,7 @@ table {
 
   th {
     text-align: start;
-    color: rgb(107 114 128 / 1);
+    color: get-color-var(neutral-lighter);
   }
 
   > thead {

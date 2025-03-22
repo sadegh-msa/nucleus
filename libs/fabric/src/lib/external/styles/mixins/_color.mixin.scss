@@ -7,20 +7,20 @@ $black-color: black;
 $surface-color: surface-card;
 $transparent-color: transparent;
 
-@mixin bg($bg-color, $has-darkest: true) {
+@mixin bg($bg-color, $has-darker: true) {
   background-color: get-color-var($bg-color);
 
   &:hover {
-    background-color: get-color-var(#{$bg-color}-darker);
+    background-color: get-color-var(#{$bg-color}-dark);
   }
 
-  @if ($has-darkest) {
+  @if ($has-darker) {
     &:active {
       box-shadow:
         0 0 #0000,
         0 0 #0000,
         inset 0 2px 4px 0 rgb(0 0 0 / 0.05);
-      background-color: get-color-var(#{$bg-color}-darkest);
+      background-color: get-color-var(#{$bg-color}-darker);
     }
   }
 }
@@ -33,14 +33,14 @@ $transparent-color: transparent;
   }
 }
 
-@mixin text($text-color, $has-darkest: true, $hover-mode: false) {
+@mixin text($text-color, $has-darker: true, $hover-mode: false) {
   @if ($hover-mode) {
     @if ($text-color == $white-color) {
       @include svg($white-color);
       color: rgb(255 255 255 / 1);
     } @else {
       @include svg($default-color);
-      color: rgb(107 114 128 / 1);
+      color: get-color-var(neutral-light);
     }
   } @else {
     @include svg($text-color);
@@ -48,14 +48,14 @@ $transparent-color: transparent;
   }
 
   &:hover {
-    @include svg(get-color-var(#{$text-color}-darker));
-    color: get-color-var(#{$text-color}-darker);
+    @include svg(#{$text-color}-dark);
+    color: get-color-var(#{$text-color}-dark);
   }
 
-  @if ($has-darkest) {
+  @if ($has-darker) {
     &:active {
-      @include svg(get-color-var(#{$text-color}-darkest));
-      color: get-color-var(#{$text-color}-darkest);
+      @include svg(#{$text-color}-darker);
+      color: get-color-var(#{$text-color}-darker);
     }
   }
 }

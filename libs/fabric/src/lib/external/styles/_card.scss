@@ -4,7 +4,7 @@
   display: flex;
   border-radius: get-size-var(small-4);
   border-width: 1px;
-  background-color: rgb(243 244 246 / 1);
+  background-color: get-color-var(surface-card);
   padding: get-size-var(small-4);
   box-shadow:
     0 0 #0000,

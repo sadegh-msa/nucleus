@@ -48,7 +48,7 @@ $panel-nav-wide-width: 260px;
   height: 100%;
   width: 100%;
   overflow: hidden;
-  background-color: rgb(229 231 235 / 1);
+  background-color: fab-func.get-color-var(surface-ground);
 
   @include fab-mixin.bp-screens('handset', 'tablet') {
     @include handset();
@@ -62,7 +62,7 @@ $panel-nav-wide-width: 260px;
     @include fab-mixin.shadow-large();
     border-radius: fab-func.get-size-var(small-4);
     border-width: 1px;
-    background-color: rgb(243 244 246 / 1);
+    background-color: fab-func.get-color-var(surface-card);
     padding: fab-func.get-size-var(medium-1);
   }
 

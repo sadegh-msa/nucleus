@@ -12,9 +12,9 @@ fab-checkbox {
 
   > .fab-checkbox-box {
     @include align-flex;
-    @include box-rounded-md;
-    @include size-rect(medium-5);
-    @include color-bg(get-color-var(surface-input));
+    @include box-rounded-md(neutral-inverse);
+    @include size-rect(medium-4);
+    @include color-bg(surface-input);
     transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
     transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
     transition-duration: 500ms;
@@ -35,11 +35,11 @@ fab-checkbox {
 
     &.checked {
       &:not(.disabled) {
-        @include color-bg(get-color-var(primary));
+        @include color-bg(primary);
       }
 
       &.disabled {
-        background-color: rgb(243 244 246 / 1);
+        background-color: get-color-var(surface-card);
 
         > .fab-checkbox-checkmark {
           @include checkmark-disabled;
@@ -52,7 +52,7 @@ fab-checkbox {
     }
 
     > .fab-checkbox-checkmark {
-      @include checkmark-base(0.43rem, 0.16rem, get-color-var(white));
+      @include checkmark-base(0.43rem, 0.16rem, white);
     }
   }
 }

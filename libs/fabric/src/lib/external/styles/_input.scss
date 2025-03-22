@@ -2,7 +2,7 @@
 @use './mixins' as *;
 
 .fab-input-box {
-  @include box-rounded-lg;
+  @include box-rounded-lg(neutral-inverse);
   height: get-size-var(huge-3);
   padding: get-size-var(small-4);
 }
@@ -17,22 +17,22 @@
 
   &:not([disabled]) {
     @include color-bg(surface-input, false);
-    color: rgb(17 24 39 / 1);
+    color: get-color-var(black);
 
     &:focus-visible {
-      border-color: rgb(7 89 133 / 1);
+      border-color: get-color-var(primary);
     }
   }
 
   &:disabled {
-    background-color: rgb(243 244 246 / 1);
-    color: rgb(156 163 175 / 1);
+    background-color: get-color-var(surface-input-darkest);
+    color: get-color-var(neutral);
   }
 
   &::placeholder {
     vertical-align: middle;
     font-size: get-size-var(medium-2);
     line-height: get-size-var(medium-7);
-    color: rgb(107 114 128 / 1);
+    color: get-color-var(neutral-lighter);
   }
 }

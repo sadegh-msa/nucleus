@@ -10,7 +10,7 @@ import {
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { componentStyleClass } from '../../configs';
 import { GenericToggleConsumer, ToggleValue } from '../../models/toggle.model';
-import { ToggleService } from '../../services/toggle.service';
+import { ToggleService } from '../../services';
 
 type Value = boolean | string | null | undefined;
 

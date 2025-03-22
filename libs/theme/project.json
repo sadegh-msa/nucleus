@@ -1,13 +1,25 @@
 {
-  "name": "@nucleus/theme",
+  "name": "theme",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/theme/src",
   "prefix": "nu",
   "projectType": "library",
+  "release": {
+    "version": {
+      "generatorOptions": {
+        "packageRoot": "dist/{projectRoot}",
+        "currentVersionResolver": "git-tag",
+        "fallbackCurrentVersionResolver": "disk"
+      }
+    }
+  },
   "tags": [],
   "targets": {
     "build": {
+      "executor": "@nx/angular:package",
+      "outputs": ["{workspaceRoot}/dist/{projectRoot}"],
       "options": {
+        "project": "libs/theme/ng-package.json",
         "assets": [
           {
             "input": "src/lib/styles",
@@ -20,6 +32,20 @@
             "output": "assets"
           }
         ]
+      },
+      "configurations": {
+        "production": {
+          "tsConfig": "libs/theme/tsconfig.lib.prod.json"
+        },
+        "development": {
+          "tsConfig": "libs/theme/tsconfig.lib.json"
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "nx-release-publish": {
+      "options": {
+        "packageRoot": "dist/{projectRoot}"
       }
     },
     "test": {
