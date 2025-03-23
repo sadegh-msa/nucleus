@@ -2,9 +2,9 @@
 @use 'sass:map';
 
 $default-color: neutral;
-$white-color: white;
-$black-color: black;
-$surface-color: surface-card;
+$ink-color: ink;
+$paper-color: paper;
+$surface-color: paper-dark;
 $transparent-color: transparent;
 
 @mixin bg($bg-color, $has-darker: true) {
@@ -35,8 +35,8 @@ $transparent-color: transparent;
 
 @mixin text($text-color, $has-darker: true, $hover-mode: false) {
   @if ($hover-mode) {
-    @if ($text-color == $white-color) {
-      @include svg($white-color);
+    @if ($text-color == $paper-color) {
+      @include svg($paper-color);
       color: rgb(255 255 255 / 1);
     } @else {
       @include svg($default-color);
@@ -60,7 +60,7 @@ $transparent-color: transparent;
   }
 }
 
-@mixin bg-filled($bg-color: $default-color, $text-color: $white-color, $has-darkest: true) {
+@mixin bg-filled($bg-color: $default-color, $text-color: $paper-color, $has-darkest: true) {
   @include bg($bg-color, $has-darkest);
   @include text($text-color, $has-darkest);
 }

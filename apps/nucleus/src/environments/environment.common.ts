@@ -11,17 +11,17 @@ export const environment = {
       homePage: 'https://example.com',
       logo: {
         noTitle: {
-          path: 'images/manufacturer/logo-no-title.svg',
+          path: 'logo/manufacturer/logo-no-title.svg',
           height: 30,
           width: 30
         },
         hTitle: {
-          path: 'images/manufacturer/logo-h-title.svg',
+          path: 'logo/manufacturer/logo-h-title.svg',
           height: 30,
           width: 124
         },
         vTitle: {
-          path: 'images/manufacturer/logo-v-title.svg',
+          path: 'logo/manufacturer/logo-v-title.svg',
           height: 60,
           width: 96
         }
@@ -29,22 +29,22 @@ export const environment = {
     },
     organization: {
       title: 'Manufacturer Inc.',
-      homePage: 'https://example.com',
+      homePage: '/',
       logo: {
         noTitle: {
-          path: 'images/organization/logo-no-title.svg',
-          height: 34,
-          width: 34
+          path: 'logo/organization/logo-no-title.svg',
+          height: 30,
+          width: 30
         },
         hTitle: {
-          path: 'images/organization/logo-h-title.svg',
-          height: 34,
-          width: 140
+          path: 'logo/organization/logo-h-title.svg',
+          height: 30,
+          width: 124
         },
         vTitle: {
-          path: 'images/organization/logo-v-title.svg',
-          height: 80,
-          width: 126
+          path: 'logo/organization/logo-v-title.svg',
+          height: 60,
+          width: 96
         }
       }
     }

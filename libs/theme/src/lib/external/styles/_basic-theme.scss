@@ -1,0 +1,17 @@
+@use 'libs/fabric/src/lib/external/styles/mixins/_index.scss' as fab-mixin;
+@use 'normalize.css/normalize.css';
+@use './varibales';
+@use './fonts/iransansx-fanum.font';
+@use './fonts/kalameh-fanum.font';
+@use './typography';
+@use 'libs/fabric/src/lib/external/styles/_button.scss';
+@use 'libs/fabric/src/lib/external/styles/_icon.scss';
+@use 'libs/fabric/src/lib/external/styles/_link.scss';
+@use 'libs/fabric/src/lib/external/styles/_text.scss';
+@use 'libs/fabric/src/lib/external/styles/_tooltip.scss';
+
+@include fab-mixin.theme-attach();
+
+html {
+  font-size: 11pt;
+}

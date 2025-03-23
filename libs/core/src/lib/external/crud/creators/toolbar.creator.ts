@@ -18,7 +18,7 @@ type ListTools = Partial<Record<ToolType.Add | ToolType.Refresh, Partial<NuTool>
 type TableTools = Partial<Record<ToolType.View | ToolType.Delete, Partial<NuTool>>>
 
 const commonStyleClass = ['nu-tool'];
-const basicTextStyleClass = new Set([...componentStyleClass['button-dim-text-hover'], ...commonStyleClass]);
+const stampTextStyleClass = new Set([...componentStyleClass['button-stamp-text-hover'], ...commonStyleClass]);
 const dangerTextStyleClass = new Set([...componentStyleClass['button-danger-text-hover'], ...commonStyleClass]);
 const infoTextStyleClass = new Set([...componentStyleClass['button-info-text-hover'], ...commonStyleClass]);
 const primaryTextStyleClass = new Set([...componentStyleClass['button-primary-text-hover'], ...commonStyleClass]);
@@ -40,7 +40,7 @@ const createCancelTool = (toOverride = {}, toMerge = {}) => (mergeObjects({
   label: 'Cancel',
   icon: 'solid/xmark',
   element: ToolElement.Link,
-  styleClass: basicTextStyleClass,
+  styleClass: stampTextStyleClass,
   ...toOverride
 }, toMerge));
 
@@ -49,7 +49,7 @@ const createAddTool = (toOverride = {}, toMerge = {}) => (mergeObjects({
   label: 'Add',
   icon: 'solid/plus',
   element: ToolElement.Link,
-  styleClass: basicTextStyleClass,
+  styleClass: stampTextStyleClass,
   key: self.crypto.randomUUID(),
   ...toOverride
 }, toMerge));
@@ -81,7 +81,7 @@ const createRefreshTool = (toOverride = {}, toMerge = {}) => (mergeObjects({
   label: 'Refresh',
   icon: 'solid/rotate',
   element: ToolElement.Button,
-  styleClass: basicTextStyleClass,
+  styleClass: stampTextStyleClass,
   key: self.crypto.randomUUID(),
   showLoading: signal(false),
   ...toOverride
@@ -92,7 +92,7 @@ const createBackTool = (toOverride = {}, toMerge = {}) => (mergeObjects({
   label: 'Back to List',
   icon: 'solid/arrow-up',
   element: ToolElement.Link,
-  styleClass: basicTextStyleClass,
+  styleClass: stampTextStyleClass,
   key: self.crypto.randomUUID(),
   ...toOverride
 }, toMerge));

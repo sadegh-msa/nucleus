@@ -1,5 +1,5 @@
-@use "libs/fabric/src/lib/external/styles/funcs/_index.scss" as fab-func;
-@use 'variables' as *;
+@use 'libs/fabric/src/lib/external/styles/funcs/_index.scss' as fab-func;
+@use './variables' as *;
 
 nu-generic-list {
   .boolean {

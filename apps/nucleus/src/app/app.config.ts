@@ -5,16 +5,17 @@ import { provideRouter, withComponentInputBinding } from '@angular/router';
 import { provideEffects } from '@ngrx/effects';
 import { provideStore } from '@ngrx/store';
 import { provideNuCommon } from '@nucleus/common';
-import { AuthOnRunEffect, provideNuAuth, provideNuLayout, signOutMetaReducer } from '@nucleus/core';
-import { provideFabric } from '@nucleus/fabric';
+import { AuthOnRunEffect, provideNuAuth, signOutMetaReducer } from '@nucleus/core';
+import { type MenuItem, provideFabric } from '@nucleus/fabric';
+import { provideNuPanel } from '@nucleus/panel';
 import Aura from '@primeng/themes/aura';
 import { provideAngularSvgIcon } from 'angular-svg-icon';
 import { MessageService } from 'primeng/api';
 import { providePrimeNG } from 'primeng/config';
 import { environment } from '../environments/environment';
 import { appIcons } from './app.icons';
+import { navMainMenuItems } from './app.menu';
 import { appRoutes } from './app.routes';
-import { navMenuItems } from './nav-menu-items';
 import { appEffects } from './store/app.effects';
 import { appReducers } from './store/app.reducers';
 
@@ -26,14 +27,15 @@ export const appConfig: ApplicationConfig = {
     provideHttpClient(withFetch()),
     provideEffects(appEffects),
     provideStore(appReducers, { metaReducers: [signOutMetaReducer] }),
-    provideNuCommon({ rest: environment.rest }),
+    provideNuCommon({ rest: environment.rest, branding: environment.branding }),
     provideFabric({ ui: environment.ui, icons: appIcons }),
-    provideNuAuth({
-      rest: environment.rest,
-      branding: environment.branding,
-      ...environment.auth,
+    provideNuAuth({ ...environment.auth }),
+    provideNuPanel({
+      nav: {
+        mainMenu: structuredClone(navMainMenuItems) as MenuItem[],
+        footerMenu: [],
+      },
     }),
-    provideNuLayout({ branding: environment.branding, navMenuItems }),
     provideAngularSvgIcon(),
     providePrimeNG({
       theme: {

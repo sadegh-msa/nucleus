@@ -32,8 +32,8 @@ export const appRoutes: Route[] = [
       {
         path: sampleConfig.path.base,
         canActivate: [authCanActivate],
-        children: sampleRoutes
-      }
+        children: sampleRoutes,
+      },
     ],
   },
 ];

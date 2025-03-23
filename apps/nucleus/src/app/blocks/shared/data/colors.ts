@@ -4,8 +4,8 @@ export const colors = Object.freeze([
   'success',
   'warning',
   'danger',
-  'black',
-  'dim',
+  'ink',
+  'stamp',
   'neutral',
-  'white',
+  'paper',
 ]);

@@ -103,7 +103,7 @@
         @include transition.generic(max-height, colors);
         @include shadow.inset();
         overflow: hidden;
-        background-color: get-color-var(surface-misty);
+        background-color: get-color-var(transparent-dark);
 
         &:not(.expanded) {
           max-height: 0;
@@ -141,7 +141,7 @@
     }
 
     :is(a, button) {
-      @include button.variant(text, black);
+      @include button.variant(text, ink);
       @include menu-item-size(default);
       @include transition.generic(border-radius, color, background-color, box-shadow, width, gap);
       display: flex;

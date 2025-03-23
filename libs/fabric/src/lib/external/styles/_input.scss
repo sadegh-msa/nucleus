@@ -16,8 +16,8 @@
   transition-duration: 150ms;
 
   &:not([disabled]) {
-    @include color-bg(surface-input, false);
-    color: get-color-var(black);
+    background-color: get-color-var(paper);
+    color: get-color-var(ink);
 
     &:focus-visible {
       border-color: get-color-var(primary);
@@ -25,7 +25,7 @@
   }
 
   &:disabled {
-    background-color: get-color-var(surface-input-darkest);
+    background-color: get-color-var(neutral-inverse);
     color: get-color-var(neutral);
   }
 

@@ -1,3 +1,7 @@
+<progress max="100"
+          [value]="progressValue()"
+          [class]="'progress-' + progressValue()"></progress>
+
 <nav nu-panel-nav>
   <ng-container subheader>
     <ng-content select="[nu-nav-subheader]">
@@ -6,7 +10,11 @@
   </ng-container>
 </nav>
 
-<header nu-panel-header></header>
+<header nu-panel-header>
+  <ng-container toolbar>
+    <ng-content select="[toolbar]"></ng-content>
+  </ng-container>
+</header>
 
 <main>
   <router-outlet />

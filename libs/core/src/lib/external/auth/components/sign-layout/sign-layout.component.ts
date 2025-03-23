@@ -1,25 +1,19 @@
 import { NgOptimizedImage, NgStyle, NgTemplateOutlet } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { NU_COMMON_CONFIG } from '@nucleus/common';
 import { CardComponent } from '@nucleus/fabric';
-import { NU_AUTH_CONFIG } from '../../providers/auth-config.provider';
 import { AuthTokenService } from '../../services/auth-token.service';
 
 @Component({
-
   selector: 'nu-sign-layout',
   templateUrl: './sign-layout.component.html',
-  imports: [
-    NgOptimizedImage,
-    NgStyle,
-    NgTemplateOutlet,
-    CardComponent
-],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  imports: [NgOptimizedImage, NgStyle, NgTemplateOutlet, CardComponent],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SignLayoutComponent {
   readonly #authTokenService = inject(AuthTokenService);
-  readonly #authConfig = inject(NU_AUTH_CONFIG);
+  readonly #nuCommonConfig = inject(NU_COMMON_CONFIG);
 
-  readonly branding = this.#authConfig.branding;
+  readonly branding = this.#nuCommonConfig.branding;
   readonly isUserAuthenticated = this.#authTokenService.isUserAuthenticated;
 }

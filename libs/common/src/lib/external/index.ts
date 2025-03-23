@@ -8,6 +8,7 @@ export * from './helpers/apply-mixins.helper';
 export * from './helpers/deep-set.helper';
 export * from './helpers/merge-objects.helper';
 export * from './helpers/uuid.helper';
+export * from './models/branding-config.model';
 export * from './models/common-config.model';
 export * from './models/utility.model';
 export * from './operators/convert-date-strings.operator';

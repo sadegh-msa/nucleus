@@ -12,7 +12,6 @@ export const authCanActivateSelf: CanActivateFn = async (route, state) => {
   const signInPath = '/' + path.signIn;
   const signUpPath = '/' + path.signUp;
   const forgotPath = '/' + path.forgotPassword;
-  console.log(state.url);
 
   if (isUserAuthenticated()) {
     if ([signInPath, signUpPath, forgotPath].includes(state.url)) {

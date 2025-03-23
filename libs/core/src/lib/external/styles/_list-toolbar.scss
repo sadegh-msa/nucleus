@@ -1,5 +1,5 @@
-@use 'toolbar' as *;
-@use 'variables' as *;
+@use './toolbar' as *;
+@use './variables' as *;
 
 nu-generic-list-toolbar {
   @include toolbar;

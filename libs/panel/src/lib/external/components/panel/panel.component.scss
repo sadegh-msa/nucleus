@@ -1,5 +1,6 @@
 @use 'libs/fabric/src/lib/external/styles/funcs/_index.scss' as fab-func;
 @use 'libs/fabric/src/lib/external/styles/mixins/_index.scss' as fab-mixin;
+@use 'libs/theme/src/lib/external/styles/_panel-theme.scss';
 
 $panel-nav-compact-width: 76px;
 $panel-nav-wide-width: 260px;
@@ -31,53 +32,77 @@ $panel-nav-wide-width: 260px;
   }
 }
 
-::ng-deep {
-  body {
-    overflow: hidden;
-    margin: 0;
-    height: 100dvh;
-    width: 100dvw;
-    padding: 0;
-  }
-}
-
-:host {
-  display: grid;
-  gap: fab-func.get-size-var(small-6);
-  padding: fab-func.get-size-var(small-6);
-  height: 100%;
-  width: 100%;
+body {
   overflow: hidden;
-  background-color: fab-func.get-color-var(surface-ground);
+  margin: 0;
+  height: 100dvh;
+  width: 100dvw;
+  padding: 0;
 
-  @include fab-mixin.bp-screens('handset', 'tablet') {
-    @include handset();
-  }
+  nu-panel {
+    display: grid;
+    gap: fab-func.get-size-var(small-6);
+    padding: fab-func.get-size-var(small-6);
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+    background-color: fab-func.get-color-var(paper-darker);
 
-  @include fab-mixin.bp-screens('web') {
-    @include web();
-  }
+    @include fab-mixin.bp-screens('handset', 'tablet') {
+      @include handset();
+    }
 
-  > :is(header, nav, main) {
-    @include fab-mixin.shadow-large();
-    border-radius: fab-func.get-size-var(small-4);
-    border-width: 1px;
-    background-color: fab-func.get-color-var(surface-card);
-    padding: fab-func.get-size-var(medium-1);
-  }
+    @include fab-mixin.bp-screens('web') {
+      @include web();
+    }
 
-  > nav {
-    grid-area: nav;
-  }
+    > :is(header, nav, main) {
+      @include fab-mixin.shadow-large();
+      border-radius: fab-func.get-size-var(small-4);
+      border-width: 1px;
+      background-color: fab-func.get-color-var(paper-dark);
+      padding: fab-func.get-size-var(medium-1);
+    }
 
-  > header {
-    grid-area: header;
-  }
+    > progress {
+      position: absolute;
+      inset-block-start: 0;
+      inset-inline-start: 0;
+      height: fab-func.get-size-var(small-2);
+      width: 100dvw;
+      background-color: fab-func.get-color-var(transparent);
+      -webkit-appearance: none;
 
-  > main {
-    grid-area: main;
-    height: auto;
-    width: auto;
-    overflow: auto;
+      &::-moz-progress-bar {
+        background-color: fab-func.get-color-var(primary);
+      }
+
+      &::-webkit-progress-bar {
+        background-color: fab-func.get-color-var(transparent-darkest);
+      }
+
+      &::-webkit-progress-value {
+        background-color: fab-func.get-color-var(primary);
+      }
+
+      &.progress--1 {
+        visibility: hidden;
+      }
+    }
+
+    > nav {
+      grid-area: nav;
+    }
+
+    > header {
+      grid-area: header;
+    }
+
+    > main {
+      grid-area: main;
+      height: auto;
+      width: auto;
+      overflow: auto;
+    }
   }
 }

@@ -1,8 +1,8 @@
 const colors = [
-  'dim',
+  'ink',
+  'stamp',
   'neutral',
-  'black',
-  'white',
+  'paper',
   'accent',
   'danger',
   'info',

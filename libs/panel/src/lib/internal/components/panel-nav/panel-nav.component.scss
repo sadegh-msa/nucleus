@@ -14,18 +14,6 @@
     margin-block-start: fab-func.get-size-var(large-2);
     height: fab-func.get-size-var(huge-3);
     width: 100%;
-
-    > a > {
-      .logo {
-        min-width: 140px;
-        min-height: 55px;
-      }
-
-      .logo-small {
-        min-width: 30px;
-        min-height: 30px;
-      }
-    }
   }
 
   .subheader {

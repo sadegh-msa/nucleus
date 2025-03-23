@@ -1,25 +1,7 @@
 <header>
-  <a routerLink="/">
-    @if (navMode() === 'compact') {
-      <img alt="Nucleus"
-           ngSrc="logo/logo-no-title.svg"
-           height="40"
-           width="40"
-           class="logo-small"
-           priority
-           @fadeDelayEnter
-      >
-    } @else if (navMode() === 'wide') {
-      <img alt="Nucleus"
-           ngSrc="logo/logo-h-title.svg"
-           class="logo"
-           height="55"
-           width="140"
-           priority
-           @fadeDelayEnter
-      >
-    }
-  </a>
+  <ng-container
+    *ngTemplateOutlet="logo; context: {brand: branding.organization, type: 'organization'}">
+  </ng-container>
 </header>
 
 <section class="subheader">
@@ -48,3 +30,26 @@
   <svg-icon src="icons/outline/arrow-left-1.svg" svgClass="bidi" />
 </button>
 
+<ng-template #logo let-brand="brand" let-type="type">
+  <a [href]="brand.homePage" [class]="'nu panel-nav-' + type + '-logo'" target="_blank">
+    @if (navMode() === 'wide') {
+      <img @fadeDelayEnter
+           [alt]="brand.title"
+           [height]="brand.logo.hTitle.height"
+           [width]="brand.logo.hTitle.width"
+           [ngSrc]="brand.logo.hTitle.path"
+           [style.minHeight]="brand.logo.hTitle.height"
+           [style.minWidth]="brand.logo.hTitle.width"
+           priority>
+    } @else if (navMode() === 'compact') {
+      <img @fadeDelayEnter
+           [alt]="brand.title"
+           [height]="brand.logo.noTitle.height"
+           [width]="brand.logo.noTitle.width"
+           [ngSrc]="brand.logo.noTitle.path"
+           [style.minHeight]="brand.logo.noTitle.height"
+           [style.minWidth]="brand.logo.noTitle.width"
+           priority>
+    }
+  </a>
+</ng-template>

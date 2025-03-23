@@ -1,6 +1,3 @@
-import { NuCommonConfig } from '@nucleus/common';
-import { LayoutConfig } from '../../layout';
-
-export interface AuthConfig extends Pick<NuCommonConfig, 'rest'>, Pick<LayoutConfig, 'branding'> {
+export interface AuthConfig {
   rememberMeExpiry: number;
 }

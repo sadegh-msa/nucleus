@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { MenuItem, MenuItemsComponent } from '@nucleus/fabric';
-import { appMenuItems } from '../../../app.menu';
+import { navMainMenuItems } from '../../../app.menu';
 
 @Component({
     selector: 'app-menu',
@@ -10,7 +10,7 @@ import { appMenuItems } from '../../../app.menu';
     styleUrl: './menu.component.scss'
 })
 export class MenuComponent {
-  readonly compactMenuItems = structuredClone(appMenuItems) as MenuItem[];
-  readonly floatingMenuItems = structuredClone(appMenuItems) as MenuItem[];
-  readonly slidingMenuItems = structuredClone(appMenuItems) as MenuItem[];
+  readonly compactMenuItems = structuredClone(navMainMenuItems) as MenuItem[];
+  readonly floatingMenuItems = structuredClone(navMainMenuItems) as MenuItem[];
+  readonly slidingMenuItems = structuredClone(navMainMenuItems) as MenuItem[];
 }

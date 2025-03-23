@@ -51,7 +51,7 @@ fab-toggle {
       }
 
       &.disabled {
-        background-color: get-color-var(surface-card);
+        background-color: get-color-var(paper-dark);
 
         > .fab-toggle-switch {
           > .fab-toggle-checkmark {
@@ -79,7 +79,7 @@ fab-toggle {
       @include box-rounded-md;
       @include align-flex;
       @include size-rect(medium-5);
-      @include color-bg(surface-input, false);
+      @include color-bg(paper, false);
       position: relative;
       box-shadow:
         0 0 #0000,

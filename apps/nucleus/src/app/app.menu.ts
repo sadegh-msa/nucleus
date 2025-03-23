@@ -1,6 +1,6 @@
 import { MenuItem } from '@nucleus/fabric';
 
-export const appMenuItems = Object.freeze([
+export const navMainMenuItems = Object.freeze([
   {
     id: 'nucleus-menu-link-button',
     label: $localize`Button`,
@@ -117,3 +117,4 @@ export const appMenuItems = Object.freeze([
     ],
   },
 ] as MenuItem[]);
+

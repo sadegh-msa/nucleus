@@ -14,7 +14,7 @@ fab-checkbox {
     @include align-flex;
     @include box-rounded-md(neutral-inverse);
     @include size-rect(medium-4);
-    @include color-bg(surface-input);
+    @include color-bg(paper);
     transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
     transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
     transition-duration: 500ms;
@@ -39,7 +39,7 @@ fab-checkbox {
       }
 
       &.disabled {
-        background-color: get-color-var(surface-card);
+        background-color: get-color-var(paper-dark);
 
         > .fab-checkbox-checkmark {
           @include checkmark-disabled;
@@ -52,7 +52,7 @@ fab-checkbox {
     }
 
     > .fab-checkbox-checkmark {
-      @include checkmark-base(0.43rem, 0.16rem, white);
+      @include checkmark-base(0.43rem, 0.16rem, paper);
     }
   }
 }
