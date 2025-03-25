@@ -1,5 +1,5 @@
+@use "libs/fabric/src/lib/external/styles/funcs/index.scss" as *;
 @use './toolbar' as *;
-@use './variables' as *;
 
 nu-generic-form-toolbar {
   @include toolbar();
@@ -17,6 +17,6 @@ nu-generic-form-toolbar {
   }
 
   .p-divider {
-    margin: calc(2 * $gap) 0;
+    margin: get-size-var(tiny-6) 0;
   }
 }

@@ -1,14 +1,14 @@
 @use 'libs/fabric/src/lib/external/styles/funcs/index.scss' as *;
-@use './variables' as *;
+@use 'libs/fabric/src/lib/external/styles/mixins/index.scss' as *;
 
 nu-generic-list {
   .boolean {
-    .boolean-true {
-      //@include styleclass('text-green-700');
+    .true {
+      @include text-color(success);
     }
 
-    .boolean-false {
-      //@include styleclass('text-red-600');
+    .false {
+      @include text-color(danger);
     }
   }
 
@@ -30,22 +30,23 @@ nu-generic-list {
       }
 
       .p-datatable-loading-overlay {
-        margin-block-start: calc(2 * $gap);
+        margin-block-start: get-size-var(tiny-6);
       }
 
       .p-datatable-thead > tr > th {
-        padding: $gap;
+        background-color: get-color-var(paper-darkest);
+        padding: get-size-var(tiny-6);
         position: sticky;
-        top: 50px;
+        top: 0;
         z-index: 20;
 
         &:first-child {
-          padding-inline-start: get-size-var(medium-1);
+          padding-inline-start: get-size-var(small-1);
         }
 
         &.table-selection-header {
           display: table-cell;
-          width: calc(4 * $gap);
+          width: get-size-var(small-2);
 
           & > span {
             background-color: transparent;
@@ -55,7 +56,7 @@ nu-generic-list {
         }
 
         &.table-tools-header {
-          padding-inline-end: get-size-var(large-2);
+          padding-inline-end: get-size-var(medium-2);
           position: sticky;
           right: 0;
           text-align: right;
@@ -64,24 +65,28 @@ nu-generic-list {
 
       .p-datatable-tbody {
         > tr {
+          &:nth-child(odd) {
+            background-color: get-color-var(paper-dark);
+          }
+
           &:nth-child(even) {
-            //@include styleclass('surface-50');
+            background-color: get-color-var(paper-darker);
           }
 
           &:hover {
-            //@include styleclass('surface-200');
+            background-color: get-color-var(paper-darkest) !important;
 
             .table-tools {
               a,
               .p-button {
                 &:not(.fab-button-danger) {
                   &:hover {
-                    color: var(--text-color-primary);
+                    color: get-color-var(primary);
                   }
                 }
 
                 &:not(:hover) {
-                  color: var(--text-color-basic);
+                  color: get-color-var(stamp);
                 }
               }
             }
@@ -89,50 +94,41 @@ nu-generic-list {
 
           &.table-activation {
             > td {
-              //@include styleclass('bg-primary-100');
+              background-color: get-color-var(primary-inverse);
 
               &:not(.table-tools) {
-                //@include styleclass('text-primary');
+                color: get-color-var(primary);
               }
             }
           }
 
           > td {
             border: 0;
-            padding: $gap;
+            padding: get-size-var(tiny-6);
             white-space: nowrap;
 
             &:first-child {
-              padding-inline-start: get-size-var(medium-1);
+              padding-inline-start: get-size-var(small-1);
             }
 
             &.table-tools {
-              background-color: inherit;
               display: flex;
               flex-direction: row;
               justify-content: flex-end;
               position: sticky;
               right: 0;
-
-              a,
-              .p-button {
-                //@include styleclass('hcalc(-1 * #{get-size-var(large-2)}) wcalc(-1 * #{get-size-var(large-2)})');
-
-                &:not(:hover) {
-                  //@include styleclass('text-400');
-                }
-              }
+              gap: get-size-var(tiny-2);
             }
 
             .p-skeleton {
-              margin-block: $gap;
+              margin-block: get-size-var(tiny-6);
             }
           }
         }
       }
 
       .p-datatable-loading-overlay {
-        //@include styleclass('bg-white-alpha-60');
+        background-color: get-color-var(overlay);
       }
 
       &.table-activatable {

@@ -1,14 +1,6 @@
 import { NgClass, TitleCasePipe } from '@angular/common';
-import {
-  ChangeDetectionStrategy,
-  Component,
-  forwardRef,
-  HostBinding,
-  inject,
-  input,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, forwardRef, inject, input } from '@angular/core';
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { componentStyleClass } from '../../configs';
 import { GenericToggleConsumer, ToggleValue } from '../../models/toggle.model';
 import { ToggleService } from '../../services';
 
@@ -23,13 +15,11 @@ import { ToggleService } from '../../services';
       useExisting: forwardRef(() => ToggleComponent),
       multi: true,
     },
-    ToggleService
+    ToggleService,
   ],
 })
 export class ToggleComponent implements ControlValueAccessor, GenericToggleConsumer {
   readonly #toggleService = inject(ToggleService);
-
-  @HostBinding('class') styleClass = componentStyleClass.toggle;
 
   value = input<ToggleValue>();
   label = input<string>();

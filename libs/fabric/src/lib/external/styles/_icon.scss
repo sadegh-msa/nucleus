@@ -4,12 +4,12 @@
 @use './mixins/transition.mixin';
 
 svg-icon {
-  display: contents;
+  display: flex;
 
   svg {
     &.fab.icon {
       @include icon.generic();
-      @include transition.intermediate(color, background-color);
+      @include transition.normal(color, background-color);
     }
 
     &.bidi {
@@ -19,8 +19,8 @@ svg-icon {
     }
 
     // Fix the issue of iconsax
-    @each $variant in get-config(old, icon, variants) {
-      @if not list.index(get-config(old, icon, bordered), $variant) {
+    @each $variant in get-config(icon, variants) {
+      @if not list.index(get-config(icon, bordered), $variant) {
         &.#{$variant} {
           border-width: get-border-width(thin);
           border-color: transparent;

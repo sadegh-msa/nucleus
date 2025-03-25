@@ -1,5 +1,4 @@
 @use '../funcs' as *;
-@use '../mixins/color.mixin';
 @use '../mixins/transition.mixin';
 @use '../mixins/box.mixin';
 
@@ -9,7 +8,8 @@
   background-color: transparent;
   height: calc(#{$size} * 1.7);
   width: $size;
-  margin-block-end: calc(#{$thickness} / 1.1);
+  margin-block-end: calc(#{$size} / 3);
+  margin-inline-start: calc(#{get-size-var(tiny-2)} / 3);
 
   &:dir(ltr) {
     transform: rotate(45deg);
@@ -21,12 +21,12 @@
 
   &:before,
   &:after {
-    @include color.bg($color, false);
-    @include transition.intermediate(all);
-    @include box.rounded-small($border-width: null);
+    @include transition.normal(all);
+    @include box.rounded-mini($border-width: null);
     content: '';
     position: absolute;
     inset-block-end: 0;
+    background-color: get-color-var($color);
   }
 
   &:before {

@@ -9,11 +9,11 @@ import {
   input,
   Input,
   Output,
-  signal
+  signal,
 } from '@angular/core';
 import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop';
 import { RouterModule } from '@angular/router';
-import { StyleClassDirective } from '@nucleus/fabric';
+import { DataType } from '@nucleus/common';
 import { SvgIconComponent } from 'angular-svg-icon';
 import { ConfirmationService } from 'primeng/api';
 import { ConfirmPopupModule } from 'primeng/confirmpopup';
@@ -23,7 +23,6 @@ import { TableModule } from 'primeng/table';
 import { TooltipModule } from 'primeng/tooltip';
 import { filter } from 'rxjs';
 import { AuthPermissionDirective } from '../../../auth';
-import { DataType } from '@nucleus/common';
 import { infoFieldsDefault } from '../../defaults/info-fields.default';
 import { ToolElement } from '../../enums/toolbar.enum';
 import { NuTable } from '../../models/table.model';
@@ -32,7 +31,6 @@ import { FieldValueComponent } from '../field-value/field-value.component';
 import { InfoFieldsComponent } from '../info-fields/info-fields.component';
 
 @Component({
-
   selector: 'nu-generic-list',
   templateUrl: './generic-list.component.html',
   imports: [
@@ -47,10 +45,9 @@ import { InfoFieldsComponent } from '../info-fields/info-fields.component';
     TableModule,
     TooltipModule,
     SvgIconComponent,
-    StyleClassDirective
   ],
   providers: [ConfirmationService],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class GenericListComponent {
   readonly #destroyRef = inject(DestroyRef);
@@ -77,12 +74,12 @@ export class GenericListComponent {
   constructor() {
     toObservable(this.activated)
       .pipe(takeUntilDestroyed(this.#destroyRef))
-      .subscribe(row => this.activation.emit(row));
+      .subscribe((row) => this.activation.emit(row));
 
     toObservable(this.activatedRow)
       .pipe(
         takeUntilDestroyed(this.#destroyRef),
-        filter(row => {
+        filter((row) => {
           const activated = this.activated();
 
           if (!row || !activated) {
@@ -90,12 +87,12 @@ export class GenericListComponent {
           }
 
           return row[this.idField] !== activated[this.idField];
-        })
+        }),
       )
-      .subscribe(row => this.activated.set(row));
+      .subscribe((row) => this.activated.set(row));
   }
 
-  runCommand(event: MouseEvent, tool: NuTool, row: any) {
+  runCommand(targetElement: HTMLButtonElement, tool: NuTool, row: any) {
     if (!tool.confirm) {
       tool.command(row);
       return;
@@ -103,12 +100,14 @@ export class GenericListComponent {
 
     this.#confirmationService.confirm({
       key: tool.key + row[this.idField],
-      target: event.target as EventTarget,
+      target: targetElement as EventTarget,
       message: tool.confirm,
       icon: 'pi pi-exclamation-triangle',
-      acceptButtonStyleClass: 'fab-button-text fab-button-danger',
-      rejectButtonStyleClass: 'fab-button-text fab-button-basic',
-      accept: () => tool.command(row)
+      acceptLabel: $localize`Yes`,
+      acceptButtonStyleClass: 'fab button danger text',
+      rejectLabel: $localize`No`,
+      rejectButtonStyleClass: 'fab button stamp text',
+      accept: () => tool.command(row),
     });
   }
 
@@ -121,9 +120,8 @@ export class GenericListComponent {
       return;
     }
 
-    const activated = (this.activated() || {})[this.idField] !== (row || {})[this.idField]
-      ? row
-      : null;
+    const activated =
+      (this.activated() || {})[this.idField] !== (row || {})[this.idField] ? row : null;
 
     this.activated.set(activated);
   }

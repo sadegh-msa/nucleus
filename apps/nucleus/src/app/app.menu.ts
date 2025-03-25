@@ -2,6 +2,15 @@ import { MenuItem } from '@nucleus/fabric';
 
 export const navMainMenuItems = Object.freeze([
   {
+    id: 'nucleus-menu-link-sample-list',
+    label: $localize`Sample list`,
+    icon: 'icons/outline/tick-circle.svg',
+    iconNgClass: 'outline',
+    routerLink: '/sample/list',
+    routerLinkActive: 'active',
+    permission: 'nucleus.menu.link.sample.list',
+  },
+  {
     id: 'nucleus-menu-link-button',
     label: $localize`Button`,
     // labelNgStyle: { 'background-color': 'red' },

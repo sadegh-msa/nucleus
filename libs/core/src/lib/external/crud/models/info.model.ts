@@ -5,4 +5,5 @@ export interface InfoField {
   label: string;
   type?: DataType;
   format?: string;
+  separator?: string;
 }

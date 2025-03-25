@@ -1,26 +1,6 @@
 @mixin screens($screens...) {
   @each $screen in $screens {
-    @if $screen == xsmall {
-      @media only screen and (max-width: 599.98px) {
-        @content;
-      }
-    } @else if $screen == small {
-      @media only screen and (min-width: 600px) and (max-width: 959.98px) {
-        @content;
-      }
-    } @else if $screen == medium {
-      @media only screen and (min-width: 960px) and (max-width: 1279.98px) {
-        @content;
-      }
-    } @else if $screen == large {
-      @media only screen and (min-width: 1280px) and (max-width: 1919.98px) {
-        @content;
-      }
-    } @else if $screen == xlarge {
-      @media only screen and (min-width: 1920px) {
-        @content;
-      }
-    } @else if $screen == handset {
+    @if $screen == handset {
       @media only screen and (max-width: 599.98px) and (orientation: portrait),
         (max-width: 959.98px) and (orientation: landscape) {
         @content;

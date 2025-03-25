@@ -1,3 +1,6 @@
+@use 'sass:list';
+@use 'sass:map';
+@use 'sass:string';
 @use './config.func' as *;
 
 @function get-color($color) {
@@ -10,4 +13,17 @@
 
 @function get-color-var($color) {
   @return var(create-color-var-name($color));
+}
+
+@function get-color-list() {
+  $allColors: map.keys(get-config(color, pigments));
+  $colors: ();
+
+  @each $color in $allColors {
+    @if string.index($color, '-inverse') == null {
+      $colors: list.append($colors, $color);
+    }
+  }
+
+  @return $colors;
 }

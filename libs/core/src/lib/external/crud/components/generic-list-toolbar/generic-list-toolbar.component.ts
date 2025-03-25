@@ -1,6 +1,4 @@
-
 import { ChangeDetectionStrategy, Component, computed, input, Input, model } from '@angular/core';
-import { StyleClassDirective } from '@nucleus/fabric';
 import { DividerModule } from 'primeng/divider';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { PaginatorModule, PaginatorState } from 'primeng/paginator';
@@ -11,7 +9,6 @@ import { NuToolbar } from '../../models/toolbar.model';
 import { GenericToolbarComponent } from '../generic-toolbar/generic-toolbar.component';
 
 @Component({
-
   selector: 'nu-generic-list-toolbar',
   templateUrl: './generic-list-toolbar.component.html',
   imports: [
@@ -20,9 +17,8 @@ import { GenericToolbarComponent } from '../generic-toolbar/generic-toolbar.comp
     OverlayPanelModule,
     PaginatorModule,
     RippleModule,
-    StyleClassDirective
-],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class GenericListToolbarComponent {
   readonly paginatorLabel = computed(() => this.createPaginatorLabel());
@@ -34,18 +30,18 @@ export class GenericListToolbarComponent {
   pagination = model.required<Pagination>();
 
   paginate(paginator: PaginatorState) {
-    this.pagination.update(current => ({
+    this.pagination.update((current) => ({
       ...current,
       first: paginator.first || 0,
       page: paginator.page || 0,
-      rows: paginator.rows || current.rows
+      rows: paginator.rows || current.rows,
     }));
   }
 
   createPaginatorLabel() {
     const { total, page, first, pages, rows } = this.pagination();
     const selected = this.selectedRecords();
-    const last = (first + rows) > total ? total : (first + rows);
+    const last = first + rows > total ? total : first + rows;
 
     let label = selected ? `${selected} Selected | ` : '';
     label += `Rows ${first + 1} - ${last} of ${total}`;

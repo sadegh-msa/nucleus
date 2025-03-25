@@ -4,10 +4,13 @@
       <span>
         @if (![null, undefined, ''].includes(data()[infoField.field])) {
           <span class="info-fields-label">{{ infoField.label }}</span>
+          @if (infoField.separator) {
+            <span>{{ infoField.separator }}</span>
+          }
           <span class="info-fields-value">
             <nu-field-value [value]="data()[infoField.field]"
-                                      [type]="infoField.type"
-                                      [format]="infoField.format">
+                            [type]="infoField.type"
+                            [format]="infoField.format">
             </nu-field-value>
           </span>
         }

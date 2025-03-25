@@ -7,7 +7,7 @@ const full = ['/', base];
 export const sampleConfig = Object.freeze({
   info: {
     title: 'Sample',
-    icon: 'solid/list'
+    icon: 'icons/outline/grid-1.svg'
   },
   field: {
     id: 'id',

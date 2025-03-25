@@ -30,9 +30,10 @@ $fab-default-configs: (
       max: 100,
     ),
     alias: (
-      names: small medium large huge vast,
+      names: tiny small medium large huge vast,
       step: 7,
     ),
+    variants: mini moderate regular,
   ),
   color: (
     pigments: (
@@ -40,6 +41,8 @@ $fab-default-configs: (
       primary-inverse: oklch(94% 0.015 250deg),
       accent: oklch(55% 0.25 360),
       accent-inverse: oklch(94% 0.015 360),
+      info: oklch(60% 0.2 200),
+      info-inverse: oklch(94% 0.015 200),
       success: oklch(50% 0.2 145),
       success-inverse: oklch(94% 0.015 145),
       warning: oklch(65% 0.15 70),
@@ -66,7 +69,7 @@ $fab-default-configs: (
       darkest: -8%
     ),
     palette: (
-      shadow: css-get-light-dark(generate-grayscale-color(0%, 10%), generate-grayscale-color(100%, 10%)),
+      shadow: css-get-light-dark(generate-grayscale-color(0%, 20%), generate-grayscale-color(100%, 20%)),
       overlay: css-get-light-dark(oklch(0% 0 0 / 50%), oklch(100% 0 0 / 50%)),
       transparent: oklch(0% 0 0 / 0%),
       transparent-dark: css-get-light-dark(oklch(0% 0 0 / 2%), oklch(100% 0 0 / 2%)),
@@ -81,19 +84,16 @@ $fab-default-configs: (
       thick: 3px
     )
   ),
-  /* FIXME */
-  old: (
-    button: (
-      variants: bulk default icon outline text,
-    ),
-    icon: (
-      variants: bold broken bulk linear outline twotone,
-      bordered: bold bulk,
-    ),
-    sizes: small medium default,
-    colors: primary accent success warning danger ink stamp neutral watermark paper,
+  typography: (
     font: (
-      weights: light default semibold bold extrabold,
+      weights: normal semibold bold bolder,
     )
-  )
+  ),
+  button: (
+    variants: bulk emphasis icon outline text,
+  ),
+  icon: (
+    variants: bold broken bulk linear outline twotone,
+    bordered: bold bulk,
+  ),
 ) !default;

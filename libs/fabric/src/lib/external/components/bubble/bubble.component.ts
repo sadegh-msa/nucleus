@@ -7,17 +7,16 @@ import {
   inject,
   Injector,
   Input,
-  signal
+  signal,
 } from '@angular/core';
 import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop';
 import { pairwise, startWith } from 'rxjs';
-import { componentStyleClass } from '../../configs';
 import { FabPosition } from '../../types';
 
 @Component({
-    selector: 'fab-bubble',
-    imports: [CommonModule],
-    templateUrl: './bubble.component.html'
+  selector: 'fab-bubble',
+  imports: [CommonModule],
+  templateUrl: './bubble.component.html',
 })
 export class BubbleComponent {
   readonly #destroyRef = inject(DestroyRef);
@@ -26,8 +25,6 @@ export class BubbleComponent {
 
   readonly #isVisible = signal(true);
   readonly #isFloated = signal(false);
-
-  @HostBinding('class') styleClass = componentStyleClass.bubble;
 
   @HostBinding('class.fab-bubble-hidden')
   get hiddenStyleClass() {
@@ -56,11 +53,7 @@ export class BubbleComponent {
 
   #handleEvents() {
     toObservable(this.position, { injector: this.#injector })
-      .pipe(
-        startWith(this.position()),
-        pairwise(),
-        takeUntilDestroyed(this.#destroyRef)
-      )
+      .pipe(startWith(this.position()), pairwise(), takeUntilDestroyed(this.#destroyRef))
       .subscribe(([previousPosition, newPosition]) => {
         this.hostElement.classList.remove(`fab-bubble-${previousPosition}`);
         this.hostElement.classList.add(`fab-bubble-${newPosition}`);

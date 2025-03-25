@@ -1,8 +1,7 @@
-import { inject, makeEnvironmentProviders, provideAppInitializer } from '@angular/core';
+import { makeEnvironmentProviders } from '@angular/core';
 import { popperVariation, provideTippyConfig, tooltipVariation } from '@ngneat/helipopper';
 import { FabricConfig } from '../models';
 import { provideFabricConfig } from './index';
-import { IconService } from '../services';
 
 export function provideFabric(config: FabricConfig) {
   return makeEnvironmentProviders([
@@ -17,11 +16,6 @@ export function provideFabric(config: FabricConfig) {
         },
         popper: popperVariation,
       },
-    }),
-    provideAppInitializer(() => {
-      const iconService = inject(IconService);
-
-      iconService.loadIcons();
     }),
   ]);
 }

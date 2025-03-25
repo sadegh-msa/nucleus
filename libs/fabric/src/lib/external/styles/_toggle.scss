@@ -4,17 +4,17 @@
 fab-toggle {
   @include align-flex-cross-center;
   position: relative;
-  gap: get-size-var(small-4);
+  gap: get-size-var(tiny-4);
 
   > label {
     user-select: none;
   }
 
   > .fab-toggle-chassis {
-    @include box-rounded-large;
+    @include box-rounded-big;
     @include align-flex-cross-center;
     @include shadow-inset;
-    width: get-size-var(huge-3);
+    width: get-size-var(large-3);
     position: relative;
     z-index: 10;
     background-color: get-color-var(paper-darkest);
@@ -59,11 +59,11 @@ fab-toggle {
 
       > .fab-toggle-switch {
         &:dir(ltr) {
-          transform: translate(get-size-var(medium-4), 0);
+          transform: translate(get-size-var(small-4), 0);
         }
 
         &:dir(rtl) {
-          transform: translate(calc(-1 * #{get-size-var(medium-4)}), 0);
+          transform: translate(calc(-1 * #{get-size-var(small-4)}), 0);
         }
 
         > .fab-toggle-checkmark {
@@ -73,14 +73,14 @@ fab-toggle {
     }
 
     > .fab-toggle-switch {
-      @include box-rounded-medium;
+      @include box-rounded-moderate;
       @include align-flex;
       @include shadow-medium;
-      @include size-rect(medium-4);
-      @include color-bg(paper, false);
-      @include transition-intermediate(all);
+      @include size-rect(small-4);
+      @include transition-normal(all);
       position: relative;
       z-index: 20;
+      background-color: get-color-var(paper);
 
       > .fab-toggle-checkmark {
         @include checkmark-base(0.43rem, 0.16rem, primary);

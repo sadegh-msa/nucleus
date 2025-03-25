@@ -8,16 +8,14 @@ import {
   input,
   OnInit,
   output,
-  Renderer2
+  Renderer2,
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { NgControl } from '@angular/forms';
-import { componentStyleClass } from '../../configs';
 import { PasswordStrength } from '../../models';
 
 @Directive({
   selector: '[fabInputPassword]',
-
 })
 export class InputPasswordDirective implements OnInit {
   readonly #destroyRef = inject(DestroyRef);
@@ -25,9 +23,10 @@ export class InputPasswordDirective implements OnInit {
   readonly #elementRef = inject(ElementRef);
   readonly #ngControl = inject(NgControl);
 
-  @HostBinding('class') styleClass = componentStyleClass['input-password'];
+  @HostBinding('class') styleClass = ['fab', 'input', 'password'];
 
-  @Input() mediumPattern = /^(((?=.*[a-z])(?=.*[A-Z]))|((?=.*[a-z])(?=.*[0-9]))|((?=.*[A-Z])(?=.*[0-9])))(?=.{6,})/;
+  @Input() mediumPattern =
+    /^(((?=.*[a-z])(?=.*[A-Z]))|((?=.*[a-z])(?=.*[0-9]))|((?=.*[A-Z])(?=.*[0-9])))(?=.{6,})/;
   @Input() strongPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,})/;
   passwordToConfirm = input<string | null>();
 
@@ -49,12 +48,10 @@ export class InputPasswordDirective implements OnInit {
       return;
     }
 
-    formControl.valueChanges.pipe(
-      takeUntilDestroyed(this.#destroyRef)
-    ).subscribe(value => {
+    formControl.valueChanges.pipe(takeUntilDestroyed(this.#destroyRef)).subscribe((value) => {
       this.strength.emit({
         medium: this.mediumPattern.test(value),
-        strong: this.strongPattern.test(value)
+        strong: this.strongPattern.test(value),
       });
 
       if (this.passwordToConfirm()) {

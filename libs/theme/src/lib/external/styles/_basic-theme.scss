@@ -11,7 +11,3 @@
 @use 'libs/fabric/src/lib/external/styles/_tooltip.scss';
 
 @include theme-attach();
-
-html {
-  font-size: 11pt;
-}

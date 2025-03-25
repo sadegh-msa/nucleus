@@ -4,7 +4,7 @@
 fab-checkbox {
   @include align-flex-cross-center;
   position: relative;
-  gap: get-size-var(small-4);
+  gap: get-size-var(tiny-4);
 
   > label {
     user-select: none;
@@ -12,13 +12,21 @@ fab-checkbox {
 
   > .fab-checkbox-box {
     @include align-flex;
-    @include box-rounded-medium(neutral-inverse);
-    @include size-rect(medium-4);
-    @include color-bg(paper);
-    @include transition-intermediate(color, background-color, border-color, text-decoration-color, fill, stroke);
+    @include box-rounded-moderate(neutral-inverse);
+    @include size-rect(small-4);
+    @include transition-normal(color, background-color, border-color, text-decoration-color, fill, stroke);
 
     &:not(.disabled) {
+      background-color: get-color-var(paper);
       cursor: pointer;
+
+      &:hover {
+        background-color: get-color-var(paper-dark);
+      }
+
+      &:active {
+        background-color: get-color-var(paper-darker);
+      }
 
       & + label {
         cursor: pointer;
@@ -33,7 +41,7 @@ fab-checkbox {
 
     &.checked {
       &:not(.disabled) {
-        @include color-bg(primary);
+        background-color: get-color-var(primary);
       }
 
       &.disabled {

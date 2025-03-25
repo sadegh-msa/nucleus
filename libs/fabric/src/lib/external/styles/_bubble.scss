@@ -2,130 +2,131 @@
 @use './mixins' as *;
 
 @mixin bubble-x-top {
-  margin-block-start: calc(-1 * #{get-size-var(small-6)});
+  margin-block-start: calc(-1 * #{get-size-var(tiny-6)});
 
   > .fab-bubble-close {
-    inset-block-start: calc(-1 * #{get-size-var(small-6)});
+    inset-block-start: calc(-1 * #{get-size-var(tiny-6)});
   }
 
   > .fab-bubble-arrow {
-    inset-block-end: calc(-1 * #{get-size-var(small-4)});
+    inset-block-end: calc(-1 * #{get-size-var(tiny-4)});
     transform: rotate(45deg);
   }
 }
 
 @mixin bubble-x-bottom {
-  margin-block-start: get-size-var(small-6);
+  margin-block-start: get-size-var(tiny-6);
 
   > .fab-bubble-close {
-    inset-block-start: calc(-1 * #{get-size-var(small-6)});
+    inset-block-start: calc(-1 * #{get-size-var(tiny-6)});
   }
 
   > .fab-bubble-arrow {
-    inset-block-start: calc(-1 * #{get-size-var(small-4)});
+    inset-block-start: calc(-1 * #{get-size-var(tiny-4)});
     transform: rotate(135deg);
   }
 }
 
 @mixin bubble-x-center {
   > .fab-bubble-close {
-    inset-inline-end: calc(-1 * #{get-size-var(small-6)});
+    inset-inline-end: calc(-1 * #{get-size-var(tiny-6)});
   }
 
   > .fab-bubble-arrow {
-    inset-inline-start: calc(50% - #{get-size-var(small-4)});
+    inset-inline-start: calc(50% - #{get-size-var(tiny-4)});
   }
 }
 
 @mixin bubble-x-start {
-  margin-inline-start: get-size-var(medium-5);
+  margin-inline-start: get-size-var(small-5);
 
   > .fab-bubble-close {
-    inset-inline-start: calc(-1 * #{get-size-var(small-6)});
+    inset-inline-start: calc(-1 * #{get-size-var(tiny-6)});
   }
 
   > .fab-bubble-arrow {
-    inset-inline-end: get-size-var(medium-1);
+    inset-inline-end: get-size-var(small-1);
   }
 }
 
 @mixin bubble-x-end {
-  margin-inline-start: calc(-1 * #{get-size-var(medium-5)});
+  margin-inline-start: calc(-1 * #{get-size-var(small-5)});
 
   > .fab-bubble-close {
-    inset-inline-end: calc(-1 * #{get-size-var(small-6)});
+    inset-inline-end: calc(-1 * #{get-size-var(tiny-6)});
   }
 
   > .fab-bubble-arrow {
-    inset-inline-start: get-size-var(medium-1);
+    inset-inline-start: get-size-var(small-1);
   }
 }
 
 @mixin bubble-y-start {
-  margin-inline-start: calc(-1 * #{get-size-var(small-6)});
+  margin-inline-start: calc(-1 * #{get-size-var(tiny-6)});
 
   > .fab-bubble-close {
-    inset-inline-start: calc(-1 * #{get-size-var(small-6)});
+    inset-inline-start: calc(-1 * #{get-size-var(tiny-6)});
   }
 
   > .fab-bubble-arrow {
     transform: rotate(-45deg);
-    inset-inline-end: calc(-1 * #{get-size-var(small-4)});
+    inset-inline-end: calc(-1 * #{get-size-var(tiny-4)});
   }
 }
 
 @mixin bubble-y-end {
-  margin-inline-start: get-size-var(small-6);
+  margin-inline-start: get-size-var(tiny-6);
 
   > .fab-bubble-close {
-    inset-inline-end: calc(-1 * #{get-size-var(small-6)});
+    inset-inline-end: calc(-1 * #{get-size-var(tiny-6)});
   }
 
   > .fab-bubble-arrow {
     transform: rotate(45deg);
-    inset-inline-start: calc(-1 * #{get-size-var(small-4)});
+    inset-inline-start: calc(-1 * #{get-size-var(tiny-4)});
   }
 }
 
 @mixin bubble-y-center {
   > .fab-bubble-close {
-    inset-block-start: calc(-1 * #{get-size-var(small-6)});
+    inset-block-start: calc(-1 * #{get-size-var(tiny-6)});
   }
 
   > .fab-bubble-arrow {
-    inset-block-start: calc(50% - #{get-size-var(small-4)});
+    inset-block-start: calc(50% - #{get-size-var(tiny-4)});
   }
 }
 
 @mixin bubble-y-top {
-  margin-block-start: get-size-var(medium-5);
+  margin-block-start: get-size-var(small-5);
 
   > .fab-bubble-close {
-    inset-block-start: calc(-1 * #{get-size-var(small-6)});
+    inset-block-start: calc(-1 * #{get-size-var(tiny-6)});
   }
 
   > .fab-bubble-arrow {
-    inset-block-end: get-size-var(medium-1);
+    inset-block-end: get-size-var(small-1);
   }
 }
 
 @mixin bubble-y-bottom {
-  margin-block-start: calc(-1 * #{get-size-var(medium-5)});
+  margin-block-start: calc(-1 * #{get-size-var(small-5)});
 
   > .fab-bubble-close {
-    inset-block-start: calc(-1 * #{get-size-var(small-6)});
+    inset-block-start: calc(-1 * #{get-size-var(tiny-6)});
   }
 
   > .fab-bubble-arrow {
-    inset-block-start: get-size-var(medium-1);
+    inset-block-start: get-size-var(small-1);
   }
 }
 
-.fab-bubble {
-  @include box-rounded-large($border-width: none);
-  @include color-bg-filled($bg-color: stamp,$has-darkest: false);
-  @include shadow-small;
-  @include transition-intermediate(all);
+fab-bubble {
+  @include box-rounded-big($border-width: none);
+  @include text-color(paper);
+  @include shadow-medium;
+  //@include transition-normal(all);
+  background-color: get-color-var(ink);
   z-index: 40;
   width: max-content;
 
@@ -211,15 +212,16 @@
     width: 100%;
     border-radius: inherit;
     background-color: inherit;
-    padding: get-size-var(small-4);
+    padding: get-size-var(tiny-4);
   }
 
   > .fab-bubble-close {
-    @include box-rounded-large;
-    @include color-bg-surface;
+    @include box-rounded-big;
+    @include text-color(paper);
+    background-color: get-color-var(ink);
     position: absolute;
-    height: get-size-var(medium-5);
-    width: get-size-var(medium-5);
+    height: get-size-var(small-5);
+    width: get-size-var(small-5);
     padding-block-end: 1px;
     text-align: center;
     line-height: 1;
@@ -229,8 +231,8 @@
     @include shadow-small;
     position: absolute;
     z-index: -1;
-    height: get-size-var(medium-1);
-    width: get-size-var(medium-1);
+    height: get-size-var(small-1);
+    width: get-size-var(small-1);
     background-color: inherit;
   }
 }

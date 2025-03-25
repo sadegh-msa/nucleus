@@ -13,7 +13,6 @@ import { provideAngularSvgIcon } from 'angular-svg-icon';
 import { MessageService } from 'primeng/api';
 import { providePrimeNG } from 'primeng/config';
 import { environment } from '../environments/environment';
-import { appIcons } from './app.icons';
 import { navMainMenuItems } from './app.menu';
 import { appRoutes } from './app.routes';
 import { appEffects } from './store/app.effects';
@@ -28,7 +27,7 @@ export const appConfig: ApplicationConfig = {
     provideEffects(appEffects),
     provideStore(appReducers, { metaReducers: [signOutMetaReducer] }),
     provideNuCommon({ rest: environment.rest, branding: environment.branding }),
-    provideFabric({ ui: environment.ui, icons: appIcons }),
+    provideFabric({ ui: environment.ui }),
     provideNuAuth({ ...environment.auth }),
     provideNuPanel({
       nav: {

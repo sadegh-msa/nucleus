@@ -16,15 +16,10 @@ import {
 } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { select, Store } from '@ngrx/store';
-import {
-  CheckboxComponent,
-  FormFieldComponent,
-  InputPasswordDirective,
-  StyleClassDirective,
-} from '@nucleus/fabric';
-import { SvgIconComponent } from 'angular-svg-icon';
 
 import { OperationStatus } from '@nucleus/common';
+import { CheckboxComponent, FormFieldComponent, InputPasswordDirective } from '@nucleus/fabric';
+import { SvgIconComponent } from 'angular-svg-icon';
 import { authDefaultConfig } from '../../auth-default.config';
 import { AuthSignIn, AuthSignInForm } from '../../models/auth.model';
 import { authActions, authSelectors, AuthStates } from '../../store';
@@ -37,7 +32,6 @@ import { SignLayoutComponent } from '../sign-layout/sign-layout.component';
     ReactiveFormsModule,
     SignLayoutComponent,
     RouterLink,
-    StyleClassDirective,
     FormsModule,
     FormFieldComponent,
     CheckboxComponent,

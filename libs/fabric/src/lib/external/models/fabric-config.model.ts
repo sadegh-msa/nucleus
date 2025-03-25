@@ -5,6 +5,5 @@ export interface FabricConfig {
         dir: string
       }
     }
-  },
-  icons: string[]
+  }
 }

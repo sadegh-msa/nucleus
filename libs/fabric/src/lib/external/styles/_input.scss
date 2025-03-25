@@ -1,17 +1,15 @@
 @use './funcs' as *;
 @use './mixins' as *;
 
-.fab-input-box {
-  @include box-rounded-large(neutral-inverse);
-  height: get-size-var(huge-3);
-  padding: get-size-var(small-4);
-}
 
-.fab-input {
-  @include transition-intermediate(color, background-color, border-color, text-decoration-color, fill, stroke);
+.fab.input {
+  @include transition-normal(color, background-color, border-color, text-decoration-color, fill, stroke);
+  @include box-rounded-big(neutral-inverse);
+  height: get-size-var(large-3);
+  padding: get-size-var(tiny-4);
   vertical-align: middle;
-  font-size: get-size-var(medium-2);
-  line-height: get-size-var(medium-7);
+  font-size: get-size-var(small-2);
+  line-height: get-size-var(small-7);
 
   &:not([disabled]) {
     background-color: get-color-var(paper);
@@ -29,8 +27,8 @@
 
   &::placeholder {
     vertical-align: middle;
-    font-size: get-size-var(medium-2);
-    line-height: get-size-var(medium-7);
+    font-size: get-size-var(small-2);
+    line-height: get-size-var(small-7);
     color: get-color-var(neutral-lighter);
   }
 }

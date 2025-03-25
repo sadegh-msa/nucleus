@@ -3,7 +3,7 @@
 <menu class="toolbar-end">
   @if (showPaginator) {
     <li>
-      <button fabStyleClass="button-stamp-text"
+      <button class="fab button nu-tool moderate stamp text"
               (click)="paginatorOverlay.toggle($event)">
         <span>{{ paginatorLabel() }}</span>
       </button>
@@ -21,7 +21,7 @@
           <span class="p-buttonset">
             @for (option of rowsPerPageOptions; track option) {
               <button
-                [fabStyleClass]="option === pagination().rows ? 'button-primary-text' : 'button-stamp-text'"
+                class="fab button moderate text {{ (option === pagination().rows ? 'primary' : 'stamp' )}}"
                 (click)="paginate({rows: option, first: 0})">
                 <span>{{ option }}</span>
               </button>

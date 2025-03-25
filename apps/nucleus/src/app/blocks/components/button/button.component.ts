@@ -14,5 +14,5 @@ import { colors, sizes } from '../../shared/data';
 export class ButtonComponent {
   readonly colors = colors;
   readonly sizes = sizes;
-  readonly variants = ['bulk', '', 'outline', 'text', 'second', 'icon'];
+  readonly variants = ['bulk', 'emphasis', 'outline', 'text', 'second', 'icon'];
 }

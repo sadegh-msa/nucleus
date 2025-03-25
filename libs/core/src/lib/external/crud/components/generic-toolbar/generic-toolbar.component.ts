@@ -30,7 +30,7 @@ export class GenericToolbarComponent {
 
   toolbar = input.required<NuToolbar>();
 
-  runCommand(event: MouseEvent, tool: NuTool) {
+  runCommand(targetElement: HTMLButtonElement, tool: NuTool) {
     if (!tool.confirm) {
       tool.command();
       return;
@@ -38,11 +38,13 @@ export class GenericToolbarComponent {
 
     this.#confirmationService.confirm({
       key: tool.key,
-      target: event.target as EventTarget,
+      target: targetElement as EventTarget,
       message: tool.confirm,
       icon: 'pi pi-exclamation-triangle',
-      acceptButtonStyleClass: 'fab-button-text fab-button-danger',
-      rejectButtonStyleClass: 'fab-button-text fab-button-basic',
+      acceptLabel: $localize`Yes`,
+      acceptButtonStyleClass: 'fab button danger text',
+      rejectLabel: $localize`No`,
+      rejectButtonStyleClass: 'fab button stamp text',
       accept: () => tool.command()
     });
   }

@@ -1,5 +1,5 @@
+@use 'libs/fabric/src/lib/external/styles/funcs/index.scss' as *;
 @use './toolbar' as *;
-@use './variables' as *;
 
 nu-generic-list-toolbar {
   @include toolbar;
@@ -17,7 +17,7 @@ nu-generic-list-toolbar {
   }
 
   .p-divider {
-    margin: calc(2 * $gap) 0;
+    margin: get-size-var(tiny-6) 0;
   }
 
   .paginator-rows-per-page {
@@ -25,5 +25,9 @@ nu-generic-list-toolbar {
     display: flex;
     flex-direction: column;
     justify-content: center;
+
+    .p-buttonset {
+      display: flex;
+    }
   }
 }

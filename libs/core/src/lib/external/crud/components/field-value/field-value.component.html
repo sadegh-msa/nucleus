@@ -20,16 +20,16 @@
   @switch (format()) {
     @case ('icon') {
       @if (value()) {
-        <i class="pi pi-check boolean-true"></i>
+        <svg-icon src="icons/outline/tick-square.svg" class="true" />
       } @else {
-        <i class="pi pi-times boolean-false"></i>
+        <svg-icon src="icons/outline/close-square.svg" class="false" />
       }
     }
     @case ('yes,no') {
       @if (value()) {
-        <span class="boolean-true">Yes</span>
+        <span class="true">Yes</span>
       } @else {
-        <span class="boolean-false">No</span>
+        <span class="false">No</span>
       }
     }
     @default {

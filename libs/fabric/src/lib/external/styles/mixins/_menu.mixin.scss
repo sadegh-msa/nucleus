@@ -5,7 +5,9 @@
 @use './transition.mixin';
 
 @mixin menu-item-size($size) {
-  @include text.size($size);
+  span {
+    @include text.size($size);
+  }
 
   svg:not(.fab.icon) {
     @include button.icon-size($size);
@@ -13,7 +15,7 @@
 }
 
 @mixin generic() {
-  @include transition.intermediate(all);
+  @include transition.normal(all);
   z-index: 30;
   display: flex;
   flex-direction: column;
@@ -48,7 +50,7 @@
 
       > menu {
         @include shadow.medium();
-        @include transition.intermediate(opacity);
+        @include transition.normal(opacity);
         position: absolute;
         inset-block-start: 0;
         min-width: 100%;
@@ -74,7 +76,7 @@
     li {
       > :is(a, button) {
         .arrow {
-          @include transition.intermediate(transform);
+          @include transition.normal(transform);
           transform: rotate(0deg);
         }
       }
@@ -99,7 +101,7 @@
       }
 
       > menu {
-        @include transition.intermediate(max-height, colors);
+        @include transition.normal(max-height, colors);
         @include shadow.inset();
         overflow: hidden;
         background-color: get-color-var(transparent-dark);
@@ -113,8 +115,8 @@
           border-top-right-radius: 0;
           border-bottom-left-radius: inherit;
           border-bottom-right-radius: inherit;
-          padding: get-size-var(small-2);
-          max-height: calc(#{get-size-var(huge-7)} * var(--menu-size));
+          padding: get-size-var(tiny-2);
+          max-height: calc(#{get-size-var(large-7)} * var(--menu-size));
         }
       }
     }
@@ -126,7 +128,7 @@
     flex-direction: column;
     width: 100%;
 
-    @include transition.intermediate(color, background-color);
+    @include transition.normal(color, background-color);
 
     &:first-of-type {
       > :is(a, button) {
@@ -143,18 +145,17 @@
     }
 
     :is(a, button) {
-      @include button.variant(text, ink);
-      @include menu-item-size(default);
-      @include transition.intermediate(border-radius, color, background-color, box-shadow, width, gap);
+      @include menu-item-size(regular);
+      @include transition.normal(border-radius, color, background-color, box-shadow, width, gap);
       display: flex;
       align-items: center;
       justify-content: flex-start;
-      gap: get-size-var(small-4);
+      gap: get-size-var(tiny-4);
       width: 100%;
       outline: 2px solid transparent;
       outline-offset: 2px;
-      padding-inline: get-size-var(small-6);
-      padding-block: get-size-var(small-5);
+      padding-inline: get-size-var(tiny-6);
+      padding-block: get-size-var(tiny-5);
       border: unset;
       background: unset;
       cursor: pointer;
@@ -165,28 +166,39 @@
         opacity: 0.5;
       }
 
+      &:not(.active) {
+        @include button.variant(text, stamp);
+
+        &:hover {
+          @include button.variant(text, ink);
+        }
+
+        span {
+          @include text.weight(semibold);
+        }
+      }
+
       &.active {
         @include button.variant(bulk, primary);
 
         span {
-          font-weight: 600;
+          @include text.weight(bold);
         }
       }
 
       > span {
+        @include transition.normal(width, opacity);
         overflow: hidden;
         text-overflow: ellipsis;
         text-wrap: nowrap;
         width: 100%;
         text-align: start;
         opacity: 1;
-
-        @include transition.intermediate(width, opacity);
       }
     }
 
     > menu {
-      @include transition.intermediate(all);
+      @include transition.normal(all);
       border-radius: inherit;
     }
 

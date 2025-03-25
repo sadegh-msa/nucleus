@@ -2,7 +2,12 @@
 @use 'libs/fabric/src/lib/external/styles/mixins/index.scss' as *;
 
 a {
-  text-decoration-thickness: 0;
+  text-decoration: none;
+
+  &:visited {
+    color: inherit;
+    //text-decoration-color: inherit;
+  }
 }
 
 a,
@@ -12,13 +17,13 @@ input {
 }
 
 ::-webkit-scrollbar {
-  height: get-size-var(small-3);
-  width: get-size-var(small-3);
+  height: get-size-var(tiny-3);
+  width: get-size-var(tiny-3);
   background-color: get-color-var(watermark-inverse);
 }
 
 ::-webkit-scrollbar-thumb {
-  @include box-rounded-small;
+  @include box-rounded-mini;
   @include shadow-small;
   background-color: get-color-var(watermark);
 }

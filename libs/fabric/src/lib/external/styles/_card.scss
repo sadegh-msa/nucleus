@@ -1,12 +1,12 @@
 @use './funcs' as *;
 @use './mixins' as *;
 
-.fab-card {
-  @include box-rounded-large;
+fab-card {
+  @include box-rounded-big;
   @include shadow-large;
   display: flex;
   background-color: get-color-var(paper-dark);
-  padding: get-size-var(small-4);
+  padding: get-size-var(tiny-4);
 
   &.fab-card-horizontal {
     flex-direction: row;

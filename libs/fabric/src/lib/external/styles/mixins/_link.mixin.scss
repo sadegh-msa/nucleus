@@ -2,15 +2,15 @@
 @use './text.mixin';
 
 @mixin link-icon-size($size) {
-  @if $size == small {
-    height: get-size-var(small-7);
-    width: get-size-var(small-7);
-  } @else if $size == medium {
-    height: get-size-var(medium-1);
-    width: get-size-var(medium-1);
-  } @else {
-    height: get-size-var(medium-2);
-    width: get-size-var(medium-2);
+  @if $size == mini {
+    height: get-size-var(tiny-7);
+    width: get-size-var(tiny-7);
+  } @else if $size == moderate {
+    height: get-size-var(small-1);
+    width: get-size-var(small-1);
+  } @else if $size == regular {
+    height: get-size-var(small-2);
+    width: get-size-var(small-2);
   }
 }
 
@@ -24,7 +24,7 @@
   @include text.generic(true, true);
   display: flex;
   align-items: center;
-  gap: get-size-var(small-4);
+  gap: get-size-var(tiny-4);
   width: max-content;
   font-weight: 500;
   text-decoration: none;
@@ -34,8 +34,8 @@
     opacity: 0.5;
   }
 
-  @each $size in get-config(old, sizes) {
-    @if $size == default {
+  @each $size in get-size-variants() {
+    @if $size == regular {
       @include link-size($size);
     } @else {
       &.#{$size} {

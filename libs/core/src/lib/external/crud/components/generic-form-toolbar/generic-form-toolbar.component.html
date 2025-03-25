@@ -3,9 +3,9 @@
 <menu class="toolbar-end">
   @if (infoFields.length && (data() | keyvalue).length) {
     <li>
-      <button fabStyleClass="button-info-text-hover"
+      <button class="fab button moderate stamp text second-info"
               (click)="infoOverlay.toggle($event)">
-        <svg-icon src="solid/circle-info"></svg-icon>
+        <svg-icon src="icons/outline/info-circle.svg" />
         <span i18n>Info</span>
       </button>
 

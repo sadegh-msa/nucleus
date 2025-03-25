@@ -5,14 +5,14 @@
   position: relative;
   display: flex;
   flex-direction: column;
-  gap: get-size-var(large-6);
+  gap: get-size-var(medium-6);
 
   > header {
     display: flex;
     align-items: flex-start;
     justify-content: center;
-    margin-block-start: get-size-var(large-2);
-    height: get-size-var(huge-3);
+    margin-block-start: get-size-var(medium-2);
+    height: get-size-var(large-3);
     width: 100%;
   }
 
@@ -23,36 +23,36 @@
   }
 
   menu {
-    @include box-rounded-large($border-width: 0);
+    @include box-rounded-big($border-width: 0);
     width: 100%;
-    gap: get-size-var(small-2);
+    gap: get-size-var(tiny-2);
     overflow-y: auto;
 
     ::ng-deep {
       menu {
         display: flex;
         flex-direction: column;
-        gap: get-size-var(small-2);
+        gap: get-size-var(tiny-2);
         background-color: inherit;
       }
 
       li a,
       li button,
       menu li {
-        @include box-rounded-large($border-width: 0);
+        @include box-rounded-big($border-width: 0);
       }
     }
   }
 
   footer {
     margin-block-start: auto;
-    margin-block-end: get-size-var(large-2);
+    margin-block-end: get-size-var(medium-2);
   }
 
   button.toggle {
     position: absolute;
-    inset-block-end: get-size-var(medium-5);
-    inset-inline-end: get-size-var(medium-4);
+    inset-block-end: get-size-var(small-5);
+    inset-inline-end: get-size-var(small-4);
     z-index: 40;
 
     &.compact {

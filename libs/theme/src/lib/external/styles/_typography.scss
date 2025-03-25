@@ -1,9 +1,10 @@
 @use 'libs/fabric/src/lib/external/styles/mixins/index.scss' as *;
 @use 'libs/fabric/src/lib/external/styles/funcs/index.scss' as *;
 
-body {
-  font-size: get-size-var(medium-1);
-  line-height: get-size-var(medium-5);
+html {
+  font-size: 11.5pt;
+  font-weight: normal;
+  line-height: get-size-var(small-5);
 }
 
 *:not(h1, h2, h3, h4, h5, h6) {
@@ -24,18 +25,18 @@ h1 {
   font-weight: 900;
 
   @include bp-screens(handset) {
-    font-size: get-size-var(large-1);
-    line-height: get-size-var(large-4);
+    font-size: get-size-var(medium-1);
+    line-height: get-size-var(medium-4);
   }
 
   @include bp-screens(tablet) {
-    font-size: get-size-var(large-1);
-    line-height: get-size-var(large-4);
+    font-size: get-size-var(medium-1);
+    line-height: get-size-var(medium-4);
   }
 
   @include bp-screens(web) {
-    font-size: get-size-var(large-4);
-    line-height: get-size-var(large-6);
+    font-size: get-size-var(medium-4);
+    line-height: get-size-var(medium-6);
   }
 }
 
@@ -43,18 +44,18 @@ h2 {
   font-weight: 900;
 
   @include bp-screens(handset) {
-    font-size: get-size-var(medium-5);
-    line-height: get-size-var(large-2);
+    font-size: get-size-var(small-5);
+    line-height: get-size-var(medium-2);
   }
 
   @include bp-screens(tablet) {
-    font-size: get-size-var(medium-5);
-    line-height: get-size-var(large-2);
+    font-size: get-size-var(small-5);
+    line-height: get-size-var(medium-2);
   }
 
   @include bp-screens(web) {
-    font-size: get-size-var(large-1);
-    line-height: get-size-var(large-4);
+    font-size: get-size-var(medium-1);
+    line-height: get-size-var(medium-4);
   }
 }
 
@@ -62,18 +63,18 @@ h3 {
   font-weight: 800;
 
   @include bp-screens(handset) {
-    font-size: get-size-var(medium-3);
-    line-height: get-size-var(medium-7);
+    font-size: get-size-var(small-3);
+    line-height: get-size-var(small-7);
   }
 
   @include bp-screens(tablet) {
-    font-size: get-size-var(medium-3);
-    line-height: get-size-var(medium-7);
+    font-size: get-size-var(small-3);
+    line-height: get-size-var(small-7);
   }
 
   @include bp-screens(web) {
-    font-size: get-size-var(medium-5);
-    line-height: get-size-var(large-2);
+    font-size: get-size-var(small-5);
+    line-height: get-size-var(medium-2);
   }
 }
 
@@ -81,18 +82,18 @@ h4 {
   font-weight: 800;
 
   @include bp-screens(handset) {
-    font-size: get-size-var(medium-2);
-    line-height: get-size-var(medium-7);
+    font-size: get-size-var(small-2);
+    line-height: get-size-var(small-7);
   }
 
   @include bp-screens(tablet) {
-    font-size: get-size-var(medium-2);
-    line-height: get-size-var(medium-7);
+    font-size: get-size-var(small-2);
+    line-height: get-size-var(small-7);
   }
 
   @include bp-screens(web) {
-    font-size: get-size-var(medium-3);
-    line-height: get-size-var(medium-7);
+    font-size: get-size-var(small-3);
+    line-height: get-size-var(small-7);
   }
 }
 
@@ -100,18 +101,18 @@ h5 {
   font-weight: 800;
 
   @include bp-screens(handset) {
-    font-size: get-size-var(medium-1);
-    line-height: get-size-var(medium-5);
+    font-size: get-size-var(small-1);
+    line-height: get-size-var(small-5);
   }
 
   @include bp-screens(tablet) {
-    font-size: get-size-var(medium-1);
-    line-height: get-size-var(medium-5);
+    font-size: get-size-var(small-1);
+    line-height: get-size-var(small-5);
   }
 
   @include bp-screens(web) {
-    font-size: get-size-var(medium-2);
-    line-height: get-size-var(medium-7);
+    font-size: get-size-var(small-2);
+    line-height: get-size-var(small-7);
   }
 }
 
@@ -119,18 +120,18 @@ h6 {
   font-weight: 800;
 
   @include bp-screens(handset) {
-    font-size: get-size-var(small-7);
-    line-height: get-size-var(medium-3);
+    font-size: get-size-var(tiny-7);
+    line-height: get-size-var(small-3);
   }
 
   @include bp-screens(tablet) {
-    font-size: get-size-var(small-7);
-    line-height: get-size-var(medium-3);
+    font-size: get-size-var(tiny-7);
+    line-height: get-size-var(small-3);
   }
 
   @include bp-screens(web) {
-    font-size: get-size-var(medium-1);
-    line-height: get-size-var(medium-5);
+    font-size: get-size-var(small-1);
+    line-height: get-size-var(small-5);
   }
 }
 

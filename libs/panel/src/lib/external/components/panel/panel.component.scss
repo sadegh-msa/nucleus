@@ -13,7 +13,7 @@ $panel-nav-wide-width: 260px;
 }
 
 @mixin web() {
-  @include transition-intermediate(grid-template-columns);
+  @include transition-normal(grid-template-columns);
   grid-template-areas: 'nav header' 'nav main';
   grid-template-rows: auto 1fr;
 
@@ -28,7 +28,7 @@ $panel-nav-wide-width: 260px;
   }
 
   nav {
-    @include transition-intermediate(width);
+    @include transition-normal(width);
   }
 }
 
@@ -41,8 +41,8 @@ body {
 
   nu-panel {
     display: grid;
-    gap: get-size-var(small-6);
-    padding: get-size-var(small-6);
+    gap: get-size-var(tiny-6);
+    padding: get-size-var(tiny-6);
     height: 100%;
     width: 100%;
     overflow: hidden;
@@ -57,17 +57,17 @@ body {
     }
 
     > :is(header, nav, main) {
-      @include box-rounded-large;
+      @include box-rounded-big;
       @include shadow-large;
       background-color: get-color-var(paper-dark);
-      padding: get-size-var(medium-1);
+      padding: get-size-var(small-1);
     }
 
     > progress {
       position: absolute;
       inset-block-start: 0;
       inset-inline-start: 0;
-      height: get-size-var(small-2);
+      height: get-size-var(tiny-2);
       width: 100dvw;
       background-color: get-color-var(transparent);
       -webkit-appearance: none;

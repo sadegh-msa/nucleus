@@ -4,13 +4,13 @@
 :host {
   display: flex;
   flex-direction: column;
-  gap: get-size-var(medium-1);
+  gap: get-size-var(small-1);
 
   section {
-    @include box-rounded-large(neutral-inverse-darker);
+    @include box-rounded-big(neutral-inverse-darker);
     display: flex;
     flex-direction: column;
-    gap: get-size-var(small-4);
-    padding: get-size-var(medium-1);
+    gap: get-size-var(tiny-4);
+    padding: get-size-var(small-1);
   }
 }

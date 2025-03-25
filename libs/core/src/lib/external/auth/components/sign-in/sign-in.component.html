@@ -9,8 +9,8 @@
                       help="Your email address"
                       [inputFormControl]="form.get('email')"
                       [messages]="{ required: 'Required', email: 'Invalid' }">
-        <input fabStyleClass="input-text"
-               id="email"
+        <input id="email"
+               class="fab input"
                placeholder="user@example.com"
                aria-describedby="email-help"
                spellcheck="false"
@@ -40,31 +40,28 @@
 
   <ng-container actions>
     <div class="nu-form-actions">
-      <button fabStyleClass="button-primary"
-              id="sign-in-button"
-              class="nu-form-action"
+      <button id="sign-in-button"
+              class="fab button primary emphasis"
               form="sign-in-form"
       >
-        <svg-icon src="solid/right-to-bracket"></svg-icon>
+        <svg-icon src="icons/outline/login.svg" />
         <span i18n>Sign in</span>
         <!--        [showLoading]="isSubmitting()"-->
       </button>
 
-      <a fabStyleClass="button-stamp-text"
-         id="sign-up-button"
-         class="nu-form-action"
+      <a id="sign-up-button"
+         class="fab button stamp text"
          [routerLink]="['/', config.path.signUp]"
       >
-        <svg-icon src="solid/user"></svg-icon>
+        <svg-icon src="icons/outline/user.svg" />
         <span i18n>Create account</span>
       </a>
 
-      <a fabStyleClass="button-stamp-text"
-         id="forgot-password-button"
-         class="nu-form-action"
+      <a id="forgot-password-button"
+         class="fab button stamp text"
          [routerLink]="['/', config.path.forgotPassword]"
       >
-        <svg-icon src="solid/lock"></svg-icon>
+        <svg-icon src="icons/outline/lock.svg" />
         <span i18n>Forgot password?</span>
       </a>
     </div>

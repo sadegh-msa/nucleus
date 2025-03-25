@@ -1,4 +1,5 @@
-@use './variables' as *;
+@use "libs/fabric/src/lib/external/styles/funcs/index.scss" as *;
+@use "libs/fabric/src/lib/external/styles/mixins/index.scss" as *;
 
 .info-fields-overlay {
   display: flex;
@@ -8,15 +9,15 @@
 nu-info-fields {
   .info-fields-row {
     display: flex;
-    padding-block: $gap;
+    padding-block: get-size-var(tiny-4);
 
     .info-fields-label {
-      //@include styleclass('text-color-basic');
+      @include text-color(neutral);
     }
 
     .info-fields-value {
-      //@include styleclass('text-primary');
-      padding-inline: calc($gap / 2);
+      @include text-color(info);
+      padding-inline: get-size-var(tiny-2);
     }
   }
 }

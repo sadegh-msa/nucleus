@@ -11,10 +11,10 @@
   <tbody>
     @for (size of sizes; track $index) {
       <tr>
-        <td>{{ size || 'default' }}</td>
+        <td>{{ size }}</td>
         @for (color of colors; track $index) {
           <td>
-            <button [class]="['fab', 'button', size, color].join(' ')">
+            <button [class]="['fab', 'button', 'emphasis', size, color].join(' ')">
               <ng-container *ngTemplateOutlet="icon" />
               <span>{{ color | titlecase }}</span>
             </button>
@@ -30,11 +30,11 @@
 
     @for (variant of variants; track $index) {
       <tr>
-        <td>{{ variant || 'default' }}</td>
+        <td>{{ variant }}</td>
         @for (color of colors; track $index) {
           <td>
             @if (variant === 'second') {
-              <button [class]="['fab', 'button', 'text', 'stamp', variant+'-'+color].join(' ')">
+              <button [class]="['fab', 'button', 'text', 'stamp', `second-${color}`].join(' ')">
                 <ng-container *ngTemplateOutlet="icon" />
                 <span>{{ color | titlecase }}</span>
               </button>
@@ -66,7 +66,7 @@
   <tbody>
     @for (size of sizes; track $index) {
       <tr>
-        <td>{{ size || 'default' }}</td>
+        <td>{{ size }}</td>
         @for (color of colors; track $index) {
           <td>
             <a routerLink="/button" [class]="['fab', 'link', size, color].join(' ')">

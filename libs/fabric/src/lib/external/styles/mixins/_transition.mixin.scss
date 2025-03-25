@@ -1,17 +1,17 @@
 @mixin fast($properties...) {
-  transition-duration: 100ms;
+  transition-duration: 150ms;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   transition-property: $properties;
 }
 
-@mixin intermediate($properties...) {
-  transition-duration: 200ms;
+@mixin normal($properties...) {
+  transition-duration: 300ms;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   transition-property: $properties;
 }
 
 @mixin slow($properties...) {
-  transition-duration: 300ms;
+  transition-duration: 600ms;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   transition-property: $properties;
 }

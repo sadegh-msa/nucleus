@@ -20,7 +20,7 @@
   <tbody>
     @for (size of sizes; track $index) {
       <tr>
-        <td>{{ (size || 'default') }}</td>
+        <td>{{ size }}</td>
         @for (color of colors; track $index) {
           <td>
             <span [class]="['fab', 'text', size, color].join(' ')">
@@ -38,7 +38,7 @@
 
     @for (weight of weights; track $index) {
       <tr>
-        <td>{{ (weight || 'default') }}</td>
+        <td>{{ weight }}</td>
         @for (color of colors; track $index) {
           <td>
             <span [class]="['fab', 'text', weight, color].join(' ')">

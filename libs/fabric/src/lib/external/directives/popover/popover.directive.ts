@@ -37,6 +37,7 @@ export class PopoverDirective implements OnInit, OnDestroy {
   }
 
   fabPopoverPosition = input<FabPosition>('top-center');
+  fabPopoverEvent = input<'click' | 'mouseover'>('mouseover');
 
   get hostElement() {
     return this.#elementRef.nativeElement;
@@ -89,13 +90,26 @@ export class PopoverDirective implements OnInit, OnDestroy {
     );
   }
 
-  @HostListener('click', ['$event.target'])
   togglePopover() {
     if (!this.bubbleComponent.isVisible()) {
       this.attachToTrigger();
     }
 
     this.bubbleComponent.toggle();
+  }
+
+  @HostListener('mouseover', ['$event.target'])
+  handleMouseOverEvent() {
+    if (this.fabPopoverEvent() === 'mouseover') {
+      this.togglePopover();
+    }
+  }
+
+  @HostListener('click', ['$event.target'])
+  handleClickEvent() {
+    if (this.fabPopoverEvent() === 'click') {
+      this.togglePopover();
+    }
   }
 
   @HostListener('window:click', ['$event.target'])

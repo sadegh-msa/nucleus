@@ -35,3 +35,7 @@
 @function get-size-var($size) {
   @return var(create-size-var-name(get-size-factor($size)));
 }
+
+@function get-size-variants() {
+  @return get-config(size, variants);
+}
