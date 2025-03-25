@@ -12,8 +12,6 @@ import { componentStyleClass } from '../../configs';
 import { GenericToggleConsumer, ToggleValue } from '../../models/toggle.model';
 import { ToggleService } from '../../services';
 
-type Value = boolean | string | null | undefined;
-
 @Component({
   selector: 'fab-checkbox',
   imports: [FormsModule, NgClass, TitleCasePipe],
@@ -25,6 +23,7 @@ type Value = boolean | string | null | undefined;
       useExisting: forwardRef(() => CheckboxComponent),
       multi: true,
     },
+    ToggleService
   ],
 })
 export class CheckboxComponent implements ControlValueAccessor, GenericToggleConsumer {

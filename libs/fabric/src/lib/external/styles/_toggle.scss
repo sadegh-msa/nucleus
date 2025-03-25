@@ -17,7 +17,7 @@ fab-toggle {
     width: get-size-var(huge-3);
     position: relative;
     z-index: 10;
-    background-color: rgb(204 212 221 / 1);
+    background-color: get-color-var(paper-darkest);
     padding: 1px;
 
     &:not(.disabled) {
@@ -59,11 +59,11 @@ fab-toggle {
 
       > .fab-toggle-switch {
         &:dir(ltr) {
-          transform: translate(get-size-var(medium-3), 0);
+          transform: translate(get-size-var(medium-4), 0);
         }
 
         &:dir(rtl) {
-          transform: translate(calc(-1 * #{get-size-var(medium-3)}), 0);
+          transform: translate(calc(-1 * #{get-size-var(medium-4)}), 0);
         }
 
         > .fab-toggle-checkmark {
@@ -76,7 +76,7 @@ fab-toggle {
       @include box-rounded-md;
       @include align-flex;
       @include shadow-medium;
-      @include size-rect(medium-5);
+      @include size-rect(medium-4);
       @include color-bg(paper, false);
       position: relative;
       z-index: 20;
@@ -86,7 +86,7 @@ fab-toggle {
       transform: translate(0, 0);
 
       > .fab-toggle-checkmark {
-        @include checkmark-base(0.43rem, 0.16rem, get-color-var(primary));
+        @include checkmark-base(0.43rem, 0.16rem, primary);
       }
     }
   }

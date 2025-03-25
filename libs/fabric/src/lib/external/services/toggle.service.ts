@@ -2,9 +2,7 @@ import { computed, effect, Injectable, signal } from '@angular/core';
 import { ControlValueAccessor } from '@angular/forms';
 import { GenericToggleConsumer, ToggleValue } from '../models/toggle.model';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class ToggleService {
   #consumer!: GenericToggleConsumer;
 

@@ -10,7 +10,7 @@ import {
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { componentStyleClass } from '../../configs';
 import { GenericToggleConsumer, ToggleValue } from '../../models/toggle.model';
-import { ToggleService } from '../../services/toggle.service';
+import { ToggleService } from '../../services';
 
 @Component({
   selector: 'fab-toggle',
@@ -23,6 +23,7 @@ import { ToggleService } from '../../services/toggle.service';
       useExisting: forwardRef(() => ToggleComponent),
       multi: true,
     },
+    ToggleService
   ],
 })
 export class ToggleComponent implements ControlValueAccessor, GenericToggleConsumer {
@@ -32,6 +33,7 @@ export class ToggleComponent implements ControlValueAccessor, GenericToggleConsu
 
   value = input<ToggleValue>();
   label = input<string>();
+  hasCheckmark = input<boolean>();
   isChecked!: GenericToggleConsumer['isChecked'];
   isDisabled!: GenericToggleConsumer['isDisabled'];
   isBinary!: GenericToggleConsumer['isBinary'];

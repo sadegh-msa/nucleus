@@ -2,7 +2,9 @@
      [ngClass]="{checked: isChecked(), disabled: isDisabled()}"
      (click)="toggle()">
     <span class="fab-toggle-switch">
-      <span class="fab-toggle-checkmark"></span>
+      @if (hasCheckmark()) {
+        <span class="fab-toggle-checkmark"></span>
+      }
     </span>
 </div>
 
