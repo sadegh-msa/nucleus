@@ -2,10 +2,9 @@
 @use './mixins' as *;
 
 .fab-card {
+  @include box-rounded-large;
   @include shadow-large;
   display: flex;
-  border-radius: get-size-var(small-4);
-  border-width: 1px;
   background-color: get-color-var(paper-dark);
   padding: get-size-var(small-4);
 

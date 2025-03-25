@@ -122,8 +122,8 @@
 }
 
 .fab-bubble {
-  @include box-rounded-borderless-lg;
-  @include color-bg-filled($has-darkest: false);
+  @include box-rounded-large($border-width: none);
+  @include color-bg-filled($bg-color: stamp,$has-darkest: false);
   @include shadow-small;
   @include transition-intermediate(all);
   z-index: 40;
@@ -215,12 +215,11 @@
   }
 
   > .fab-bubble-close {
+    @include box-rounded-large;
     @include color-bg-surface;
     position: absolute;
     height: get-size-var(medium-5);
     width: get-size-var(medium-5);
-    border-radius: get-size-var(medium-1);
-    border-width: 1px;
     padding-block-end: 1px;
     text-align: center;
     line-height: 1;

@@ -110,7 +110,10 @@
         }
 
         &.expanded {
-          border-radius: 0 0 inherit inherit;
+          border-top-left-radius: 0;
+          border-top-right-radius: 0;
+          border-bottom-left-radius: inherit;
+          border-bottom-right-radius: inherit;
           padding: get-size-var(small-2);
           max-height: calc(#{get-size-var(huge-7)} * var(--menu-size));
         }

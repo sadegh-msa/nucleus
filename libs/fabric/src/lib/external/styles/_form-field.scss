@@ -40,7 +40,7 @@
 
     > .fab-form-field-help {
       @include color-bg-transparent;
-      @include box-rounded-md;
+      @include box-rounded-medium;
       @include size-rect(medium-5);
       margin-inline: get-size-var(small-4);
       margin-block-end: get-size-var(small-1);

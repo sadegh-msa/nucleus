@@ -1,4 +1,5 @@
 @use 'libs/fabric/src/lib/external/styles/funcs/index.scss' as *;
+@use 'libs/fabric/src/lib/external/styles/mixins/index.scss' as *;
 
 :host {
   display: flex;
@@ -6,11 +7,10 @@
   gap: get-size-var(medium-1);
 
   section {
+    @include box-rounded-large(neutral-inverse-darker);
     display: flex;
     flex-direction: column;
     gap: get-size-var(small-4);
-    border-radius: get-size-var(small-2);
-    border-width: 1px;
     padding: get-size-var(medium-1);
   }
 }

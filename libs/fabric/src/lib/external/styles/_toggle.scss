@@ -11,7 +11,7 @@ fab-toggle {
   }
 
   > .fab-toggle-chassis {
-    @include box-rounded-lg;
+    @include box-rounded-large;
     @include align-flex-cross-center;
     @include shadow-inset;
     width: get-size-var(huge-3);
@@ -73,7 +73,7 @@ fab-toggle {
     }
 
     > .fab-toggle-switch {
-      @include box-rounded-md;
+      @include box-rounded-medium;
       @include align-flex;
       @include shadow-medium;
       @include size-rect(medium-4);

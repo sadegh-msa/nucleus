@@ -1,6 +1,7 @@
 @use '../funcs' as *;
 @use '../mixins/color.mixin';
 @use '../mixins/transition.mixin';
+@use '../mixins/box.mixin';
 
 @mixin base($size, $thickness, $color) {
   position: relative;
@@ -22,10 +23,10 @@
   &:after {
     @include color.bg($color, false);
     @include transition.intermediate(all);
+    @include box.rounded-small($border-width: null);
     content: '';
     position: absolute;
     inset-block-end: 0;
-    border-radius: get-size-var(small-2);
   }
 
   &:before {

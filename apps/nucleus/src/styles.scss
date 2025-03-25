@@ -1,4 +1,5 @@
 @use 'libs/fabric/src/lib/external/styles/funcs/index.scss' as *;
+@use 'libs/fabric/src/lib/external/styles/mixins/index.scss' as *;
 @use 'libs/theme/src/lib/external/styles/_basic-theme.scss';
 
 /****************/
@@ -47,10 +48,9 @@ body {
 }
 
 table {
+  @include box-rounded-small;
   width: 100%;
   border-collapse: collapse;
-  border-radius: get-size-var(small-2);
-  border-width: 1px;
 
   th,
   td {

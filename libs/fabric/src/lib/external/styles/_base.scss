@@ -18,8 +18,8 @@ input {
 }
 
 ::-webkit-scrollbar-thumb {
+  @include box-rounded-small;
   @include shadow-small;
-  border-radius: get-size-var(small-2);
   background-color: rgb(100 116 139 / 1);
 }
 

@@ -1,37 +1,27 @@
 @use '../funcs' as *;
 
-@mixin box($border-radius, $border-width: none, $border-color: '') {
-  border-radius: get-size-var($border-radius);
+@mixin generic($border-radius, $border-color, $border-width) {
+  @if ($border-radius != null) {
+    border-radius: get-size-var($border-radius);
+  }
 
-  @if ($border-color != '') {
+  @if ($border-color != null) {
     border-color: get-color-var($border-color);
   }
 
-  @if ($border-width != none) {
+  @if ($border-width != null) {
     border-width: get-border-width($border-width);
   }
 }
 
-@mixin rounded($border-color: '') {
-  @include box(small-2, thin, $border-color);
+@mixin rounded-small($border-color: null, $border-width: thin) {
+  @include generic(small-2, $border-color, $border-width);
 }
 
-@mixin rounded-md($border-color: '') {
-  @include box(small-3, thin, $border-color);
+@mixin rounded-medium($border-color: null, $border-width: thin) {
+  @include generic(small-3, $border-color, $border-width);
 }
 
-@mixin rounded-lg($border-color: '') {
-  @include box(small-4, thin, $border-color);
-}
-
-@mixin rounded-borderless {
-  @include box(small-2);
-}
-
-@mixin rounded-borderless-md {
-  @include box(small-3);
-}
-
-@mixin rounded-borderless-lg {
-  @include box(small-4);
+@mixin rounded-large($border-color: null, $border-width: thin) {
+  @include generic(small-4, $border-color, $border-width);
 }

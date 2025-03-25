@@ -2,7 +2,7 @@
 @use './mixins' as *;
 
 .fab-input-box {
-  @include box-rounded-lg(neutral-inverse);
+  @include box-rounded-large(neutral-inverse);
   height: get-size-var(huge-3);
   padding: get-size-var(small-4);
 }

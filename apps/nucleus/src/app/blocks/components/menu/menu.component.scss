@@ -6,19 +6,18 @@
   gap: get-size-var(medium-1);
 
   section {
+    @include box-rounded-small;
     display: flex;
     width: 100%;
     gap: get-size-var(small-4);
-    border-radius: get-size-var(small-2);
-    border-width: 1px;
     padding: get-size-var(medium-1);
 
     > menu {
+      @include box-rounded-large;
       @include shadow-medium;
       height: max-content;
       width: max-content;
       background-color: get-color-var(paper-dark);
-      border-radius: get-size-var(small-4);
 
       &.wide,
       &.compact ::ng-deep menu {

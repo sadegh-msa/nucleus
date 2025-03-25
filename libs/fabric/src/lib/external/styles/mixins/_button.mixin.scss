@@ -4,6 +4,7 @@
 @use './text.mixin';
 @use './shadow.mixin';
 @use './transition.mixin';
+@use './box.mixin';
 
 @mixin icon-size($size) {
   @if $size == small {
@@ -38,7 +39,7 @@
 }
 
 @mixin radius($size) {
-  border-radius: get-size-var(small-3);
+  @include box.rounded-medium($border-width: null);
 }
 
 @mixin size($size) {
