@@ -1,4 +1,4 @@
-@use './mixins/link.mixin' as link;
+@use './mixins/link.mixin';
 
 a.fab.link {
   @include link.generic();

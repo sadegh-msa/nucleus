@@ -1,6 +1,6 @@
 @use 'sass:list';
-@use './mixins/icon.mixin' as icon;
-@use './mixins/transition.mixin' as transition;
+@use './mixins/icon.mixin';
+@use './mixins/transition.mixin';
 @use './variables';
 
 svg-icon {

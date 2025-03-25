@@ -1,6 +1,6 @@
 @use 'sass:map';
 @use '../funcs' as *;
-@use '../mixins/shadow.mixin' as shadow;
+@use '../mixins/shadow.mixin';
 
 $default-color: neutral;
 $ink-color: ink;

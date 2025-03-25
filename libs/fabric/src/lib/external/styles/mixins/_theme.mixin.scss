@@ -1,5 +1,5 @@
 @use 'sass:map';
-@use './root.mixin' as root;
+@use './root.mixin';
 
 @mixin attach() {
   *,

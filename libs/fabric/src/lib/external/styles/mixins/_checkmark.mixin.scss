@@ -1,5 +1,5 @@
 @use '../funcs' as *;
-@use '../mixins/color.mixin' as color;
+@use '../mixins/color.mixin';
 
 @mixin base($size, $thickness, $color) {
   position: relative;
