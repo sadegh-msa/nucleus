@@ -114,7 +114,7 @@
 }
 
 @mixin generic() {
-  @include transition.generic(color, background-color, box-shadow);
+  @include transition.intermediate(color, background-color, box-shadow);
   display: flex;
   align-items: center;
   justify-content: center;

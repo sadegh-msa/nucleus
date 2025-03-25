@@ -14,7 +14,7 @@
 }
 
 @mixin generic() {
-  @include transition.generic(all);
+  @include transition.intermediate(all);
   z-index: 30;
   display: flex;
   flex-direction: column;
@@ -49,7 +49,7 @@
 
       > menu {
         @include shadow.medium();
-        @include transition.generic(opacity);
+        @include transition.intermediate(opacity);
         position: absolute;
         inset-block-start: 0;
         min-width: 100%;
@@ -75,7 +75,7 @@
     li {
       > :is(a, button) {
         .arrow {
-          @include transition.generic(transform);
+          @include transition.intermediate(transform);
           transform: rotate(0deg);
         }
       }
@@ -100,7 +100,7 @@
       }
 
       > menu {
-        @include transition.generic(max-height, colors);
+        @include transition.intermediate(max-height, colors);
         @include shadow.inset();
         overflow: hidden;
         background-color: get-color-var(transparent-dark);
@@ -124,7 +124,7 @@
     flex-direction: column;
     width: 100%;
 
-    @include transition.generic(color, background-color);
+    @include transition.intermediate(color, background-color);
 
     &:first-of-type {
       > :is(a, button) {
@@ -143,7 +143,7 @@
     :is(a, button) {
       @include button.variant(text, ink);
       @include menu-item-size(default);
-      @include transition.generic(border-radius, color, background-color, box-shadow, width, gap);
+      @include transition.intermediate(border-radius, color, background-color, box-shadow, width, gap);
       display: flex;
       align-items: center;
       justify-content: flex-start;
@@ -179,12 +179,12 @@
         text-align: start;
         opacity: 1;
 
-        @include transition.generic(width, opacity);
+        @include transition.intermediate(width, opacity);
       }
     }
 
     > menu {
-      @include transition.generic(all);
+      @include transition.intermediate(all);
       border-radius: inherit;
     }
 

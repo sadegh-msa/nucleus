@@ -13,7 +13,7 @@ $panel-nav-wide-width: 260px;
 }
 
 @mixin web() {
-  @include transition-generic(grid-template-columns);
+  @include transition-intermediate(grid-template-columns);
   grid-template-areas: 'nav header' 'nav main';
   grid-template-rows: auto 1fr;
 
@@ -28,7 +28,7 @@ $panel-nav-wide-width: 260px;
   }
 
   nav {
-    @include transition-generic(width);
+    @include transition-intermediate(width);
   }
 }
 

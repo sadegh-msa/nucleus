@@ -15,9 +15,7 @@ fab-checkbox {
     @include box-rounded-md(neutral-inverse);
     @include size-rect(medium-4);
     @include color-bg(paper);
-    transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
-    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-    transition-duration: 500ms;
+    @include transition-intermediate(color, background-color, border-color, text-decoration-color, fill, stroke);
 
     &:not(.disabled) {
       cursor: pointer;

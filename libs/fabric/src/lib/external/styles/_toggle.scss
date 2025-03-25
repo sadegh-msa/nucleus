@@ -78,12 +78,9 @@ fab-toggle {
       @include shadow-medium;
       @include size-rect(medium-4);
       @include color-bg(paper, false);
+      @include transition-intermediate(all);
       position: relative;
       z-index: 20;
-      transition-property: all;
-      transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-      transition-duration: 150ms;
-      transform: translate(0, 0);
 
       > .fab-toggle-checkmark {
         @include checkmark-base(0.43rem, 0.16rem, primary);

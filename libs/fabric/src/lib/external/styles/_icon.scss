@@ -9,7 +9,7 @@ svg-icon {
   svg {
     &.fab.icon {
       @include icon.generic();
-      @include transition.generic(color, background-color);
+      @include transition.intermediate(color, background-color);
     }
 
     &.bidi {

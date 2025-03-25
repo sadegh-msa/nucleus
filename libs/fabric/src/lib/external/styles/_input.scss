@@ -8,12 +8,10 @@
 }
 
 .fab-input {
+  @include transition-intermediate(color, background-color, border-color, text-decoration-color, fill, stroke);
   vertical-align: middle;
   font-size: get-size-var(medium-2);
   line-height: get-size-var(medium-7);
-  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-  transition-duration: 150ms;
 
   &:not([disabled]) {
     background-color: get-color-var(paper);

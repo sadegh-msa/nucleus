@@ -1,10 +1,14 @@
 @use '../funcs' as *;
 @use '../mixins/color.mixin';
+@use '../mixins/transition.mixin';
 
 @mixin base($size, $thickness, $color) {
   position: relative;
   z-index: 20;
   background-color: transparent;
+  height: calc(#{$size} * 1.7);
+  width: $size;
+  margin-block-end: calc(#{$thickness} / 1.1);
 
   &:dir(ltr) {
     transform: rotate(45deg);
@@ -13,20 +17,15 @@
   &:dir(rtl) {
     transform: rotate(45deg) scaleX(-1);
   }
-  height: calc(#{$size} * 1.7);
-  width: $size;
-  margin-block-end: calc(#{$thickness} / 1.1);
 
   &:before,
   &:after {
     @include color.bg($color, false);
-    position: absolute;
-    border-radius: get-size-var(small-2);
-    transition-property: all;
-    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-    transition-duration: 150ms;
+    @include transition.intermediate(all);
     content: '';
+    position: absolute;
     inset-block-end: 0;
+    border-radius: get-size-var(small-2);
   }
 
   &:before {

@@ -33,7 +33,7 @@
 }
 
 @mixin generic($has-darker: false, $has-darkest: false) {
-  @include transition.generic(color, background-color);
+  @include transition.intermediate(color, background-color);
 
   @each $size in variables.$sizes {
     @if $size == default {
