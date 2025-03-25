@@ -1,4 +1,4 @@
-@use 'libs/fabric/src/lib/external/styles/funcs/_index.scss' as fab-func;
+@use 'libs/fabric/src/lib/external/styles/funcs/index.scss' as *;
 @use './variables' as *;
 
 nu-generic-list {
@@ -40,7 +40,7 @@ nu-generic-list {
         z-index: 20;
 
         &:first-child {
-          padding-inline-start: fab-func.get-size-var(medium-1);
+          padding-inline-start: get-size-var(medium-1);
         }
 
         &.table-selection-header {
@@ -55,7 +55,7 @@ nu-generic-list {
         }
 
         &.table-tools-header {
-          padding-inline-end: fab-func.get-size-var(large-2);
+          padding-inline-end: get-size-var(large-2);
           position: sticky;
           right: 0;
           text-align: right;
@@ -103,7 +103,7 @@ nu-generic-list {
             white-space: nowrap;
 
             &:first-child {
-              padding-inline-start: fab-func.get-size-var(medium-1);
+              padding-inline-start: get-size-var(medium-1);
             }
 
             &.table-tools {
@@ -116,7 +116,7 @@ nu-generic-list {
 
               a,
               .p-button {
-                //@include styleclass('hcalc(-1 * #{fab-func.get-size-var(large-2)}) wcalc(-1 * #{fab-func.get-size-var(large-2)})');
+                //@include styleclass('hcalc(-1 * #{get-size-var(large-2)}) wcalc(-1 * #{get-size-var(large-2)})');
 
                 &:not(:hover) {
                   //@include styleclass('text-400');

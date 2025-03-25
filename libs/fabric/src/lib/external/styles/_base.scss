@@ -1,4 +1,4 @@
-@use 'libs/fabric/src/lib/external/styles/funcs/_index.scss' as fab-func;
+@use 'libs/fabric/src/lib/external/styles/funcs/index.scss' as *;
 
 a {
   text-decoration-thickness: 0;
@@ -11,15 +11,15 @@ input {
 }
 
 ::-webkit-scrollbar {
-  height: fab-func.get-size-var(small-4);
-  width: fab-func.get-size-var(small-4);
+  height: get-size-var(small-4);
+  width: get-size-var(small-4);
   background-color: rgb(203 213 225 / 1);
   //height: 4px;
   //width: 4px;
 }
 
 ::-webkit-scrollbar-thumb {
-  border-radius: fab-func.get-size-var(small-2);
+  border-radius: get-size-var(small-2);
   background-color: rgb(100 116 139 / 1);
   box-shadow:
     0 0 #0000,

@@ -1,5 +1,5 @@
-@use 'libs/fabric/src/lib/external/styles/funcs/_index.scss' as fab-func;
-@use 'libs/fabric/src/lib/external/styles/mixins/_index.scss' as fab-mixin;
+@use 'libs/fabric/src/lib/external/styles/funcs/index.scss' as *;
+@use 'libs/fabric/src/lib/external/styles/mixins/index.scss' as *;
 @use 'libs/theme/src/lib/external/styles/_panel-theme.scss';
 
 $panel-nav-compact-width: 76px;
@@ -13,7 +13,7 @@ $panel-nav-wide-width: 260px;
 }
 
 @mixin web() {
-  @include fab-mixin.transition-generic(grid-template-columns);
+  @include transition-generic(grid-template-columns);
   grid-template-areas: 'nav header' 'nav main';
   grid-template-rows: auto 1fr;
 
@@ -28,7 +28,7 @@ $panel-nav-wide-width: 260px;
   }
 
   nav {
-    @include fab-mixin.transition-generic(width);
+    @include transition-generic(width);
   }
 }
 
@@ -41,48 +41,48 @@ body {
 
   nu-panel {
     display: grid;
-    gap: fab-func.get-size-var(small-6);
-    padding: fab-func.get-size-var(small-6);
+    gap: get-size-var(small-6);
+    padding: get-size-var(small-6);
     height: 100%;
     width: 100%;
     overflow: hidden;
-    background-color: fab-func.get-color-var(paper-darker);
+    background-color: get-color-var(paper-darker);
 
-    @include fab-mixin.bp-screens('handset', 'tablet') {
+    @include bp-screens('handset', 'tablet') {
       @include handset();
     }
 
-    @include fab-mixin.bp-screens('web') {
+    @include bp-screens('web') {
       @include web();
     }
 
     > :is(header, nav, main) {
-      @include fab-mixin.shadow-large();
-      border-radius: fab-func.get-size-var(small-4);
+      @include shadow-large();
+      border-radius: get-size-var(small-4);
       border-width: 1px;
-      background-color: fab-func.get-color-var(paper-dark);
-      padding: fab-func.get-size-var(medium-1);
+      background-color: get-color-var(paper-dark);
+      padding: get-size-var(medium-1);
     }
 
     > progress {
       position: absolute;
       inset-block-start: 0;
       inset-inline-start: 0;
-      height: fab-func.get-size-var(small-2);
+      height: get-size-var(small-2);
       width: 100dvw;
-      background-color: fab-func.get-color-var(transparent);
+      background-color: get-color-var(transparent);
       -webkit-appearance: none;
 
       &::-moz-progress-bar {
-        background-color: fab-func.get-color-var(primary);
+        background-color: get-color-var(primary);
       }
 
       &::-webkit-progress-bar {
-        background-color: fab-func.get-color-var(transparent-darkest);
+        background-color: get-color-var(transparent-darkest);
       }
 
       &::-webkit-progress-value {
-        background-color: fab-func.get-color-var(primary);
+        background-color: get-color-var(primary);
       }
 
       &.progress--1 {

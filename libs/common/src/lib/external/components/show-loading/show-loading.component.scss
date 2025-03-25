@@ -1,4 +1,4 @@
-@use '../../../../../../fabric/src/lib/external/styles/funcs/index' as fab-func;
+@use 'libs/fabric/src/lib/external/styles/funcs/index.scss' as *;
 
 :host {
   &.nu-loading {
@@ -26,8 +26,8 @@
       justify-content: center;
 
       > i {
-        font-size: fab-func.get-size-var(large-4);
-        line-height: fab-func.get-size-var(large-6);
+        font-size: get-size-var(large-4);
+        line-height: get-size-var(large-6);
       }
     }
   }

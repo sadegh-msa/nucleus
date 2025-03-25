@@ -1,4 +1,4 @@
-@use 'libs/fabric/src/lib/external/styles/mixins/_index.scss' as fab-mixin;
+@use 'libs/fabric/src/lib/external/styles/mixins/index.scss' as *;
 @use 'normalize.css/normalize.css';
 @use './varibales';
 @use './fonts/iransansx-fanum.font';
@@ -10,7 +10,7 @@
 @use 'libs/fabric/src/lib/external/styles/_text.scss';
 @use 'libs/fabric/src/lib/external/styles/_tooltip.scss';
 
-@include fab-mixin.theme-attach();
+@include theme-attach();
 
 html {
   font-size: 11pt;

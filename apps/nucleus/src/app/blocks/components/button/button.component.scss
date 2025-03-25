@@ -1,7 +1,7 @@
-@use 'libs/fabric/src/lib/external/styles/funcs/_index.scss' as fab-func;
+@use 'libs/fabric/src/lib/external/styles/funcs/index.scss' as *;
 
 :host {
   display: flex;
   flex-direction: column;
-  gap: fab-func.get-size-var(small-4);
+  gap: get-size-var(small-4);
 }

@@ -1,4 +1,4 @@
-@use 'libs/fabric/src/lib/external/styles/funcs/_index.scss' as fab-func;
+@use 'libs/fabric/src/lib/external/styles/funcs/index.scss' as *;
 @use 'libs/theme/src/lib/external/styles/_basic-theme.scss';
 
 /****************/
@@ -11,10 +11,10 @@
 @use 'libs/fabric/src/lib/external/styles/_checkbox.scss';
 @use 'libs/fabric/src/lib/external/styles/_toggle.scss';
 @use 'libs/fabric/src/lib/external/styles/_form-field.scss';
-@use 'libs/core/src/lib/external/styles/_index.scss';
+@use 'libs/core/src/lib/external/styles/index.scss';
 
 :root {
-  --font-size: #{fab-func.get-size(medium-1)};
+  --font-size: #{get-size(medium-1)};
 }
 
 html {
@@ -49,22 +49,22 @@ body {
 table {
   width: 100%;
   border-collapse: collapse;
-  border-radius: fab-func.get-size-var(small-2);
+  border-radius: get-size-var(small-2);
   border-width: 1px;
 
   th,
   td {
-    padding: fab-func.get-size-var(medium-1);
+    padding: get-size-var(medium-1);
   }
 
   th {
     text-align: start;
-    color: fab-func.get-color-var(neutral-lighter);
+    color: get-color-var(neutral-lighter);
   }
 
   > thead {
     th {
-      width: fab-func.get-size-var(vast-4);
+      width: get-size-var(vast-4);
       border-block-end-width: 1px;
     }
   }
@@ -77,7 +77,7 @@ table {
       td > div {
         display: flex;
         align-items: center;
-        gap: fab-func.get-size-var(small-4);
+        gap: get-size-var(small-4);
       }
     }
   }

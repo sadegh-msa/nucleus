@@ -1,18 +1,18 @@
-@use 'libs/fabric/src/lib/external/styles/funcs/_index.scss' as fab-func;
-@use 'libs/fabric/src/lib/external/styles/mixins/_index.scss' as fab-mixin;
+@use 'libs/fabric/src/lib/external/styles/funcs/index.scss' as *;
+@use 'libs/fabric/src/lib/external/styles/mixins/index.scss' as *;
 
 :host {
   position: relative;
   display: flex;
   flex-direction: column;
-  gap: fab-func.get-size-var(large-6);
+  gap: get-size-var(large-6);
 
   > header {
     display: flex;
     align-items: flex-start;
     justify-content: center;
-    margin-block-start: fab-func.get-size-var(large-2);
-    height: fab-func.get-size-var(huge-3);
+    margin-block-start: get-size-var(large-2);
+    height: get-size-var(huge-3);
     width: 100%;
   }
 
@@ -24,36 +24,36 @@
 
   menu {
     width: 100%;
-    gap: fab-func.get-size-var(small-2);
+    gap: get-size-var(small-2);
     overflow-y: auto;
-    border-radius: fab-func.get-size-var(small-4);
+    border-radius: get-size-var(small-4);
     border-width: 0;
 
     ::ng-deep {
       menu {
         display: flex;
         flex-direction: column;
-        gap: fab-func.get-size-var(small-2);
+        gap: get-size-var(small-2);
         background-color: inherit;
       }
 
       li a,
       li button,
       menu li {
-        border-radius: fab-func.get-size-var(small-4);
+        border-radius: get-size-var(small-4);
       }
     }
   }
 
   footer {
     margin-block-start: auto;
-    margin-block-end: fab-func.get-size-var(large-2);
+    margin-block-end: get-size-var(large-2);
   }
 
   button.toggle {
     position: absolute;
-    inset-block-end: fab-func.get-size-var(medium-5);
-    inset-inline-end: fab-func.get-size-var(medium-4);
+    inset-block-end: get-size-var(medium-5);
+    inset-inline-end: get-size-var(medium-4);
     z-index: 40;
 
     &.compact {

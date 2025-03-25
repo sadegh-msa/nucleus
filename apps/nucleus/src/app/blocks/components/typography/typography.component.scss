@@ -1,16 +1,16 @@
-@use 'libs/fabric/src/lib/external/styles/funcs/_index.scss' as fab-func;
+@use 'libs/fabric/src/lib/external/styles/funcs/index.scss' as *;
 
 :host {
   display: flex;
   flex-direction: column;
-  gap: fab-func.get-size-var(medium-1);
+  gap: get-size-var(medium-1);
 
   section {
     display: flex;
     flex-direction: column;
-    gap: fab-func.get-size-var(small-4);
-    border-radius: fab-func.get-size-var(small-2);
+    gap: get-size-var(small-4);
+    border-radius: get-size-var(small-2);
     border-width: 1px;
-    padding: fab-func.get-size-var(medium-1);
+    padding: get-size-var(medium-1);
   }
 }

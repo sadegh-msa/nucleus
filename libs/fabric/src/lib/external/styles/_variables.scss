@@ -1,4 +1,4 @@
-@use 'libs/fabric/src/lib/external/styles/funcs/_index.scss' as fab-func;
+@use 'libs/fabric/src/lib/external/styles/funcs/index.scss' as *;
 $colors: primary, accent, success, warning, danger, ink, stamp, neutral, paper;
 $sizes: small, medium, default;
 $font-weights: light, default, semibold, bold, extrabold;

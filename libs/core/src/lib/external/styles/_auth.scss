@@ -1,26 +1,26 @@
-@use "libs/fabric/src/lib/external/styles/funcs/_index.scss" as fab-func;
+@use "libs/fabric/src/lib/external/styles/funcs/index.scss" as *;
 
 nu-sign-layout {
   position: relative;
   height: 100vh;
   width: 100vw;
   overflow: hidden;
-  background-color: fab-func.get-color-var(paper-darkest);
+  background-color: get-color-var(paper-darkest);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
 
   > .fab-card {
-    gap: fab-func.get-size-var(medium-1);
-    padding: fab-func.get-size-var(medium-1);
-    width: calc(10 * #{fab-func.get-size-var(huge-7)});
+    gap: get-size-var(medium-1);
+    padding: get-size-var(medium-1);
+    width: calc(10 * #{get-size-var(huge-7)});
 
     > {
       header,
       form,
       footer {
-        padding: fab-func.get-size-var(small-4);
+        padding: get-size-var(small-4);
       }
     }
 
@@ -35,7 +35,7 @@ nu-sign-layout {
       }
 
       > .page-title {
-        margin-top: fab-func.get-size-var(medium-5);
+        margin-top: get-size-var(medium-5);
         width: auto;
       }
     }
@@ -49,7 +49,7 @@ nu-sign-layout {
         grid-template-columns: repeat(2, minmax(0, 1fr));
 
         > .nu-form-action {
-          height: fab-func.get-size-var(huge-1);
+          height: get-size-var(huge-1);
 
           &.fab-button-primary {
             grid-column: 1 / span 2;
@@ -60,7 +60,7 @@ nu-sign-layout {
   }
 
   > .manufacturer-logo {
-    margin-top: fab-func.get-size-var(medium-1);
+    margin-top: get-size-var(medium-1);
     width: auto;
   }
 }

@@ -1,10 +1,10 @@
-@use 'libs/fabric/src/lib/external/styles/funcs/_index.scss' as fab-func;
+@use 'libs/fabric/src/lib/external/styles/funcs/index.scss' as *;
 
 form,
 .nu-form-group {
   display: grid;
   grid-template-columns: repeat(6, minmax(0, 1fr));
-  gap: fab-func.get-size-var(medium-5);
+  gap: get-size-var(medium-5);
 
   &.nu-form-view {
   }
@@ -13,7 +13,7 @@ form,
 .nu-form-actions {
   display: grid;
   grid-template-columns: repeat(6, minmax(0, 1fr));
-  gap: fab-func.get-size-var(small-4);
+  gap: get-size-var(small-4);
 
   .nu-form-action {
     width: 100%;

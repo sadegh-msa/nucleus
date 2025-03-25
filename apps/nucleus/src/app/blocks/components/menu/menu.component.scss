@@ -1,16 +1,16 @@
-@use 'libs/fabric/src/lib/external/styles/funcs/_index.scss' as fab-func;
+@use 'libs/fabric/src/lib/external/styles/funcs/index.scss' as *;
 
 :host {
   display: flex;
-  gap: fab-func.get-size-var(medium-1);
+  gap: get-size-var(medium-1);
 
   section {
     display: flex;
     width: 100%;
-    gap: fab-func.get-size-var(small-4);
-    border-radius: fab-func.get-size-var(small-2);
+    gap: get-size-var(small-4);
+    border-radius: get-size-var(small-2);
     border-width: 1px;
-    padding: fab-func.get-size-var(medium-1);
+    padding: get-size-var(medium-1);
 
     > menu {
       height: max-content;
@@ -21,11 +21,11 @@
         0 0 #0000,
         0 4px 6px -1px rgb(0 0 0 / 0.1),
         0 2px 4px -2px rgb(0 0 0 / 0.1);
-      border-radius: fab-func.get-size-var(small-4);
+      border-radius: get-size-var(small-4);
 
       &.wide,
       &.compact ::ng-deep menu {
-        width: fab-func.get-size-var(100);
+        width: get-size-var(100);
       }
     }
   }
