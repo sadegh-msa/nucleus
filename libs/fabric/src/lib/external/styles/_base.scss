@@ -1,4 +1,5 @@
 @use 'libs/fabric/src/lib/external/styles/funcs/index.scss' as *;
+@use 'libs/fabric/src/lib/external/styles/mixins/index.scss' as *;
 
 a {
   text-decoration-thickness: 0;
@@ -14,20 +15,12 @@ input {
   height: get-size-var(small-4);
   width: get-size-var(small-4);
   background-color: rgb(203 213 225 / 1);
-  //height: 4px;
-  //width: 4px;
 }
 
 ::-webkit-scrollbar-thumb {
+  @include shadow-small;
   border-radius: get-size-var(small-2);
   background-color: rgb(100 116 139 / 1);
-  box-shadow:
-    0 0 #0000,
-    0 0 #0000,
-    0 1px 3px 0 rgb(0 0 0 / 0.1),
-    0 1px 2px -1px rgb(0 0 0 / 0.1);
-  //border-radius: 1px;
-  //box-shadow: 0 1px 2px rgba(0, 0, 0, 0.75);
 }
 
 ::-webkit-scrollbar-corner {

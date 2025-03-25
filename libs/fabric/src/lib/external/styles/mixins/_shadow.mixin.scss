@@ -1,21 +1,32 @@
 @use '../funcs' as *;
 
 @mixin inset($color: get-color-var(shadow)) {
-  box-shadow: inset 0 0 get-size-var(small-4) $color;
+  box-shadow:
+    0 0 $color,
+    0 0 $color,
+    inset 0 2px 4px 0 $color;
 }
 
-@mixin medium() {
+@mixin small($color: get-color-var(shadow)) {
   box-shadow:
-    0 0 #0000,
-    0 0 #0000,
-    0 4px 6px -1px rgb(0 0 0 / 0.1),
-    0 2px 4px -2px rgb(0 0 0 / 0.1);
+    0 0 $color,
+    0 0 $color,
+    0 1px 3px 0 $color,
+    0 1px 2px -1px $color;
 }
 
-@mixin large() {
+@mixin medium($color: get-color-var(shadow)) {
   box-shadow:
-    0 0 #0000,
-    0 0 #0000,
-    0 10px 15px -3px rgb(0 0 0 / 0.1),
-    0 4px 6px -4px rgb(0 0 0 / 0.1);
+    0 0 $color,
+    0 0 $color,
+    0 4px 6px -1px $color,
+    0 2px 4px -2px $color;
+}
+
+@mixin large($color: get-color-var(shadow)) {
+  box-shadow:
+    0 0 $color,
+    0 0 $color,
+    0 10px 15px -3px $color,
+    0 4px 6px -4px $color;
 }

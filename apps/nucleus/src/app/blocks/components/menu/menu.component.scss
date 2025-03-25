@@ -1,4 +1,5 @@
 @use 'libs/fabric/src/lib/external/styles/funcs/index.scss' as *;
+@use 'libs/fabric/src/lib/external/styles/mixins/index.scss' as *;
 
 :host {
   display: flex;
@@ -13,14 +14,10 @@
     padding: get-size-var(medium-1);
 
     > menu {
+      @include shadow-medium;
       height: max-content;
       width: max-content;
       background-color: get-color-var(paper-dark);
-      box-shadow:
-        0 0 #0000,
-        0 0 #0000,
-        0 4px 6px -1px rgb(0 0 0 / 0.1),
-        0 2px 4px -2px rgb(0 0 0 / 0.1);
       border-radius: get-size-var(small-4);
 
       &.wide,

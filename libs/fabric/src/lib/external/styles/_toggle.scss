@@ -13,15 +13,12 @@ fab-toggle {
   > .fab-toggle-chassis {
     @include box-rounded-lg;
     @include align-flex-cross-center;
+    @include shadow-inset;
     width: get-size-var(huge-3);
     position: relative;
     z-index: 10;
     background-color: rgb(204 212 221 / 1);
     padding: 1px;
-    box-shadow:
-      0 0 #0000,
-      0 0 #0000,
-      inset 0 2px 4px 0 rgb(0 0 0 / 0.05);
 
     &:not(.disabled) {
       cursor: pointer;
@@ -78,19 +75,15 @@ fab-toggle {
     > .fab-toggle-switch {
       @include box-rounded-md;
       @include align-flex;
+      @include shadow-medium;
       @include size-rect(medium-5);
       @include color-bg(paper, false);
       position: relative;
-      box-shadow:
-        0 0 #0000,
-        0 0 #0000,
-        0 4px 6px -1px rgb(0 0 0 / 0.1),
-        0 2px 4px -2px rgb(0 0 0 / 0.1);
+      z-index: 20;
       transition-property: all;
       transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
       transition-duration: 150ms;
-      z-index: 20;
-      transform: translate(0, 0) rotate(0) skewX(0) skewY(0) scaleX(1) scaleY(1);
+      transform: translate(0, 0);
 
       > .fab-toggle-checkmark {
         @include checkmark-base(0.43rem, 0.16rem, get-color-var(primary));

@@ -124,13 +124,9 @@
 .fab-bubble {
   @include box-rounded-borderless-lg;
   @include color-bg-filled($has-darkest: false);
+  @include shadow-small;
   z-index: 40;
   width: max-content;
-  box-shadow:
-    0 0 #0000,
-    0 0 #0000,
-    0 1px 3px 0 rgb(0 0 0 / 0.1),
-    0 1px 2px -1px rgb(0 0 0 / 0.1);
   transition-property: all;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   transition-duration: 150ms;
@@ -233,15 +229,11 @@
   }
 
   > .fab-bubble-arrow {
+    @include shadow-small;
     position: absolute;
     z-index: -1;
     height: get-size-var(medium-1);
     width: get-size-var(medium-1);
     background-color: inherit;
-    box-shadow:
-      0 0 #0000,
-      0 0 #0000,
-      0 1px 3px 0 rgb(0 0 0 / 0.1),
-      0 1px 2px -1px rgb(0 0 0 / 0.1);
   }
 }

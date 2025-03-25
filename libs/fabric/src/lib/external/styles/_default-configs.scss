@@ -64,7 +64,7 @@ $fab-default-configs: (
       darkest: -8%
     ),
     palette: (
-      shadow: css-get-light-dark(oklch(0% 0 0 / 2%), oklch(100% 0 0 / 2%)),
+      shadow: css-get-light-dark(generate-grayscale-color(0%, 10%), generate-grayscale-color(100%, 10%)),
       transparent: oklch(0% 0 0 / 0%),
       transparent-dark: css-get-light-dark(oklch(0% 0 0 / 2%), oklch(100% 0 0 / 2%)),
       transparent-darker: css-get-light-dark(oklch(0% 0 0 / 4%), oklch(100% 0 0 / 4%)),

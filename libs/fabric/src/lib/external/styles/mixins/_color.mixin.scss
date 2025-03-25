@@ -1,5 +1,6 @@
-@use '../funcs' as *;
 @use 'sass:map';
+@use '../funcs' as *;
+@use '../mixins/shadow.mixin' as shadow;
 
 $default-color: neutral;
 $ink-color: ink;
@@ -16,10 +17,7 @@ $transparent-color: transparent;
 
   @if ($has-darker) {
     &:active {
-      box-shadow:
-        0 0 #0000,
-        0 0 #0000,
-        inset 0 2px 4px 0 rgb(0 0 0 / 0.05);
+      @include shadow.inset;
       background-color: get-color-var(#{$bg-color}-darker);
     }
   }
