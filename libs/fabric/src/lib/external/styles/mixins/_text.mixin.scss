@@ -1,5 +1,4 @@
 @use '../funcs' as *;
-@use '../variables';
 @use './icon.mixin';
 @use './transition.mixin';
 
@@ -35,7 +34,7 @@
 @mixin generic($has-darker: false, $has-darkest: false) {
   @include transition.intermediate(color, background-color);
 
-  @each $size in variables.$sizes {
+  @each $size in get-config(old, sizes) {
     @if $size == default {
       @include size($size);
     } @else {
@@ -45,7 +44,7 @@
     }
   }
 
-  @each $weight in variables.$font-weights {
+  @each $weight in get-config(old, font, weights) {
     @if $weight == default {
       @include weight($weight);
     } @else {
@@ -55,7 +54,7 @@
     }
   }
 
-  @each $color in variables.$colors {
+  @each $color in get-config(old, colors) {
     &.#{$color} {
       @include color($color);
 

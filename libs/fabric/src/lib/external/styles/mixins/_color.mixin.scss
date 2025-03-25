@@ -3,7 +3,6 @@
 @use '../mixins/shadow.mixin';
 
 $default-color: neutral;
-$ink-color: ink;
 $paper-color: paper;
 $surface-color: paper-dark;
 $transparent-color: transparent;
@@ -35,10 +34,10 @@ $transparent-color: transparent;
   @if ($hover-mode) {
     @if ($text-color == $paper-color) {
       @include svg($paper-color);
-      color: rgb(255 255 255 / 1);
+      color: get-color-var($paper-color);
     } @else {
       @include svg($default-color);
-      color: get-color-var(neutral-light);
+      color: get-color-var($default-color);
     }
   } @else {
     @include svg($text-color);

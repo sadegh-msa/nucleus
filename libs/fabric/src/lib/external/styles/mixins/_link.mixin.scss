@@ -1,5 +1,4 @@
 @use '../funcs' as *;
-@use '../variables';
 @use './text.mixin';
 
 @mixin link-icon-size($size) {
@@ -35,7 +34,7 @@
     opacity: 0.5;
   }
 
-  @each $size in variables.$sizes {
+  @each $size in get-config(old, sizes) {
     @if $size == default {
       @include link-size($size);
     } @else {

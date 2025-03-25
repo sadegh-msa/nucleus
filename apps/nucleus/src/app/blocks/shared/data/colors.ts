@@ -7,5 +7,6 @@ export const colors = Object.freeze([
   'ink',
   'stamp',
   'neutral',
+  'watermark',
   'paper',
 ]);

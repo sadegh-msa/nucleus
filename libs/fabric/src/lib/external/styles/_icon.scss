@@ -1,7 +1,7 @@
 @use 'sass:list';
+@use './funcs' as *;
 @use './mixins/icon.mixin';
 @use './mixins/transition.mixin';
-@use './variables';
 
 svg-icon {
   display: contents;
@@ -19,10 +19,10 @@ svg-icon {
     }
 
     // Fix the issue of iconsax
-    @each $variant in variables.$icon-variants {
-      @if not list.index(variables.$icon-bordered, $variant) {
+    @each $variant in get-config(old, icon, variants) {
+      @if not list.index(get-config(old, icon, bordered), $variant) {
         &.#{$variant} {
-          border-width: 1px;
+          border-width: get-border-width(thin);
           border-color: transparent;
           outline: 2px solid transparent;
           outline-offset: 2px;

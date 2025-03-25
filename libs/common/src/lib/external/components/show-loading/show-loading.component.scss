@@ -20,7 +20,7 @@
       z-index: 50;
       height: 100%;
       width: 100%;
-      background-color: rgb(255 255 255 / 0.5);
+      background-color: get-color-var(overlay);
       display: flex;
       align-items: center;
       justify-content: center;

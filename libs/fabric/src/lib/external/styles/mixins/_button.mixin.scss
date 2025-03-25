@@ -1,5 +1,4 @@
 @use '../funcs' as *;
-@use '../variables';
 @use './icon.mixin';
 @use './text.mixin';
 @use './shadow.mixin';
@@ -136,7 +135,7 @@
     font-weight: 500;
   }
 
-  @each $size in variables.$sizes {
+  @each $size in get-config(old, sizes) {
     @if $size == default {
       @include size($size);
     } @else {
@@ -146,9 +145,9 @@
     }
   }
 
-  @each $color in variables.$colors {
+  @each $color in get-config(old, colors) {
     &.#{$color} {
-      @each $variant in variables.$button-variants {
+      @each $variant in get-config(old, button, variants) {
         @if $variant == default {
           @include variant($variant, $color);
         } @else {
@@ -160,7 +159,7 @@
     }
 
     &.second-#{$color} {
-      @each $variant in variables.$button-variants {
+      @each $variant in get-config(old, button, variants) {
         @if $variant == default {
           @include variant($variant, $color, true);
         } @else {

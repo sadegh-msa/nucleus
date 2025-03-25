@@ -12,17 +12,17 @@ input {
 }
 
 ::-webkit-scrollbar {
-  height: get-size-var(small-4);
-  width: get-size-var(small-4);
-  background-color: rgb(203 213 225 / 1);
+  height: get-size-var(small-3);
+  width: get-size-var(small-3);
+  background-color: get-color-var(watermark-inverse);
 }
 
 ::-webkit-scrollbar-thumb {
   @include box-rounded-small;
   @include shadow-small;
-  background-color: rgb(100 116 139 / 1);
+  background-color: get-color-var(watermark);
 }
 
 ::-webkit-scrollbar-corner {
-  background-color: rgb(203 213 225 / 1);
+  background-color: get-color-var(watermark-inverse);
 }

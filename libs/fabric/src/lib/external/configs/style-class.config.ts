@@ -2,6 +2,7 @@ const colors = [
   'ink',
   'stamp',
   'neutral',
+  'watermark',
   'paper',
   'accent',
   'danger',

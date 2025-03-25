@@ -52,6 +52,8 @@ $fab-default-configs: (
       stamp-inverse: get-light-dark(generate-grayscale-color(85%), generate-grayscale-color(35%)),
       neutral: get-light-dark(generate-grayscale-color(50%), generate-grayscale-color(50%)),
       neutral-inverse: get-light-dark(generate-grayscale-color(90%), generate-grayscale-color(90%)),
+      watermark: get-light-dark(generate-grayscale-color(70%), generate-grayscale-color(30%)),
+      watermark-inverse: get-light-dark(generate-grayscale-color(90%), generate-grayscale-color(25%)),
       paper: get-light-dark(generate-grayscale-color(98%), generate-grayscale-color(3%)),
       paper-inverse: get-light-dark(generate-grayscale-color(15%), generate-grayscale-color(75%)),
     ),
@@ -65,6 +67,7 @@ $fab-default-configs: (
     ),
     palette: (
       shadow: css-get-light-dark(generate-grayscale-color(0%, 10%), generate-grayscale-color(100%, 10%)),
+      overlay: css-get-light-dark(oklch(0% 0 0 / 50%), oklch(100% 0 0 / 50%)),
       transparent: oklch(0% 0 0 / 0%),
       transparent-dark: css-get-light-dark(oklch(0% 0 0 / 2%), oklch(100% 0 0 / 2%)),
       transparent-darker: css-get-light-dark(oklch(0% 0 0 / 4%), oklch(100% 0 0 / 4%)),
@@ -76,6 +79,21 @@ $fab-default-configs: (
       thin: 1px,
       medium: 2px,
       thick: 3px
+    )
+  ),
+  /* FIXME */
+  old: (
+    button: (
+      variants: bulk default icon outline text,
+    ),
+    icon: (
+      variants: bold broken bulk linear outline twotone,
+      bordered: bold bulk,
+    ),
+    sizes: small medium default,
+    colors: primary accent success warning danger ink stamp neutral watermark paper,
+    font: (
+      weights: light default semibold bold extrabold,
     )
   )
 ) !default;
