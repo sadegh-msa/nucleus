@@ -7,7 +7,6 @@ import {
   EventEmitter,
   inject,
   input,
-  Input,
   Output,
   signal,
 } from '@angular/core';
@@ -25,6 +24,7 @@ import { filter } from 'rxjs';
 import { AuthPermissionDirective } from '../../../auth';
 import { infoFieldsDefault } from '../../defaults/info-fields.default';
 import { ToolElement } from '../../enums/toolbar.enum';
+import type { InfoField } from '../../models/info.model';
 import { NuTable } from '../../models/table.model';
 import { NuTool } from '../../models/toolbar.model';
 import { FieldValueComponent } from '../field-value/field-value.component';
@@ -58,11 +58,11 @@ export class GenericListComponent {
   readonly altData = computed(() => [...Array(10).keys()]);
   readonly activated = signal<any>(null);
 
-  @Input() infoFields = infoFieldsDefault;
-  @Input() idField = 'id';
-  @Input() selectionMode?: 'single' | 'multiple' | null;
-  @Input() isActivatable = false;
-  @Input() table: NuTable = { columns: [], tools: [] };
+  infoFields = input<InfoField[][]>(infoFieldsDefault);
+  idField = input<string>('id');
+  selectionMode = input<'single' | 'multiple' | null>(null);
+  isActivatable = input(false);
+  table = input<NuTable>({ columns: [], tools: [] });
   showLoading = input(false);
   firstRow = input(0);
   activatedRow = input<any>();
@@ -86,7 +86,7 @@ export class GenericListComponent {
             return false;
           }
 
-          return row[this.idField] !== activated[this.idField];
+          return row[this.idField()] !== activated[this.idField()];
         }),
       )
       .subscribe((row) => this.activated.set(row));
@@ -99,7 +99,7 @@ export class GenericListComponent {
     }
 
     this.#confirmationService.confirm({
-      key: tool.key + row[this.idField],
+      key: tool.key + row[this.idField()],
       target: targetElement as EventTarget,
       message: tool.confirm,
       icon: 'pi pi-exclamation-triangle',
@@ -121,7 +121,7 @@ export class GenericListComponent {
     }
 
     const activated =
-      (this.activated() || {})[this.idField] !== (row || {})[this.idField] ? row : null;
+      (this.activated() || {})[this.idField()] !== (row || {})[this.idField()] ? row : null;
 
     this.activated.set(activated);
   }

@@ -1,18 +1,33 @@
-import { Directive, inject, Input, TemplateRef, ViewContainerRef } from '@angular/core';
+import {
+  Directive,
+  effect,
+  inject,
+  input,
+  TemplateRef,
+  untracked,
+  ViewContainerRef,
+} from '@angular/core';
 
 @Directive({
-
-  selector: '[permission]'
+  selector: '[permission]',
 })
 export class AuthPermissionDirective {
   readonly #templateRef = inject(TemplateRef<any>);
   readonly #viewContainer = inject(ViewContainerRef);
 
-  @Input() set permission(permissions: string) {
-    if (permissions) {
-      this.#viewContainer.createEmbeddedView(this.#templateRef);
-    } else {
-      this.#viewContainer.clear();
-    }
+  permission = input.required<string>();
+
+  constructor() {
+    effect(() => {
+      const permission = this.permission();
+
+      untracked(() => {
+        if (permission) {
+          this.#viewContainer.createEmbeddedView(this.#templateRef);
+        } else {
+          this.#viewContainer.clear();
+        }
+      });
+    });
   }
 }

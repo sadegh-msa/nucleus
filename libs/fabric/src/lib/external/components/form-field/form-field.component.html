@@ -1,14 +1,16 @@
 <div class="fab-form-field-header">
-  @if (label) {
-    <label [for]="inputId">{{ label }}</label>
+  @if (label()) {
+    <label [for]="inputId()">{{ label() }}</label>
   }
 
-  @if (inputFormControl && messages()) {
+  @let formControl = inputFormControl();
+
+  @if (formControl && messages()) {
     <span class="fab-form-field-message">
-      @if (!inputFormControl.errors || inputFormControl.pristine) {
+      @if (!formControl.errors || formControl.pristine) {
         {{ messages()['hint'] }}
-      } @else if (inputFormControl.errors && inputFormControl.dirty) {
-        {{ messages()[(inputFormControl.errors | keyvalue)[0].key] }}
+      } @else if (formControl.errors && formControl.dirty) {
+        {{ messages()[(formControl.errors | keyvalue)[0].key] }}
       }
       </span>
   }

@@ -1,7 +1,7 @@
 <nu-generic-toolbar [toolbar]="toolbar()"></nu-generic-toolbar>
 
 <menu class="toolbar-end">
-  @if (showPaginator) {
+  @if (showPaginator()) {
     <li>
       <button class="fab button nu-tool moderate stamp text"
               (click)="paginatorOverlay.toggle($event)">
@@ -19,7 +19,7 @@
         <p-divider></p-divider>
         <div class="paginator-rows-per-page">
           <span class="p-buttonset">
-            @for (option of rowsPerPageOptions; track option) {
+            @for (option of rowsPerPageOptions(); track option) {
               <button
                 class="fab button moderate text {{ (option === pagination().rows ? 'primary' : 'stamp' )}}"
                 (click)="paginate({rows: option, first: 0})">

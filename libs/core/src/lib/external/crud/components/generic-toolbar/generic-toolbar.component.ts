@@ -10,7 +10,6 @@ import { ToolElement } from '../../enums/toolbar.enum';
 import { NuTool, NuToolbar } from '../../models/toolbar.model';
 
 @Component({
-
   selector: 'nu-generic-toolbar',
   templateUrl: './generic-toolbar.component.html',
   imports: [
@@ -19,9 +18,9 @@ import { NuTool, NuToolbar } from '../../models/toolbar.model';
     RouterModule,
     TooltipModule,
     NgClass,
-    SvgIconComponent
+    SvgIconComponent,
   ],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class GenericToolbarComponent {
   readonly #confirmationService = inject(ConfirmationService);
@@ -45,7 +44,7 @@ export class GenericToolbarComponent {
       acceptButtonStyleClass: 'fab button danger text',
       rejectLabel: $localize`No`,
       rejectButtonStyleClass: 'fab button stamp text',
-      accept: () => tool.command()
+      accept: () => tool.command(),
     });
   }
 }

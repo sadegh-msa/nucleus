@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, HostBinding, input, Input } from '@angular/core';
+import { Component, HostBinding, input } from '@angular/core';
 import { AbstractControl } from '@angular/forms';
 import { FabPosition } from '../../types';
 
@@ -9,16 +9,16 @@ import { FabPosition } from '../../types';
   templateUrl: './form-field.component.html',
 })
 export class FormFieldComponent {
-  @Input() inputId = '';
-  @Input() label?: string;
-  @Input() help?: string;
-  @Input() helpPosition: FabPosition = 'top-end';
-  @Input() inputFormControl: AbstractControl<any> | null = null;
+  inputId = input('');
+  label = input<string>();
+  help = input<string>();
+  helpPosition = input<FabPosition>('top-end');
+  inputFormControl = input<AbstractControl<any> | null>(null);
   messages = input<Record<string, string>>({});
 
   @HostBinding('class')
   get styleClass() {
-    const hasError = this.inputFormControl?.dirty && this.inputFormControl?.errors;
+    const hasError = this.inputFormControl()?.dirty && this.inputFormControl()?.errors;
     return hasError ? 'fab-error' : '';
   }
 }

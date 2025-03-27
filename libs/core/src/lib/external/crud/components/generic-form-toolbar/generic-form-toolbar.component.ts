@@ -1,9 +1,9 @@
 import { KeyValuePipe } from '@angular/common';
-import { ChangeDetectionStrategy, Component, Input, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { SvgIconComponent } from 'angular-svg-icon';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { infoFieldsDefault } from '../../defaults/info-fields.default';
-import { GenericToolbarComponent } from '../../index';
+import { GenericToolbarComponent, type InfoField } from '../../index';
 import { NuToolbar } from '../../models/toolbar.model';
 import { InfoFieldsComponent } from '../info-fields/info-fields.component';
 
@@ -20,7 +20,7 @@ import { InfoFieldsComponent } from '../info-fields/info-fields.component';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class GenericFormToolbarComponent {
-  @Input() infoFields = infoFieldsDefault;
+  infoFields = input<InfoField[][]>(infoFieldsDefault);
   data = input<any>(null);
   toolbar = input.required<NuToolbar>();
 }

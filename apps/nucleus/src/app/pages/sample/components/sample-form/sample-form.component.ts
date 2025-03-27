@@ -1,5 +1,5 @@
 import { NgClass } from '@angular/common';
-import { ChangeDetectionStrategy, Component, inject, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, input, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ShowLoadingComponent } from '@nucleus/common';
 import {
@@ -36,9 +36,9 @@ import { sampleActions, sampleSelectors } from '../../store';
 export class SampleFormComponent implements OnInit, GenericSampleForm {
   readonly #genericFormService = inject(GenericFormService<SampleGeneric>);
 
-  @Input() pageType = PageType.View;
-  @Input() id = '';
-  @Input() isEmbedded = false;
+  pageType = input(PageType.View);
+  id = input('');
+  isEmbedded = input(false);
 
   readonly PageType = PageType;
   readonly config = sampleConfig;

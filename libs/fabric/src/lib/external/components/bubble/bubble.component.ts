@@ -6,8 +6,8 @@ import {
   HostBinding,
   inject,
   Injector,
-  Input,
-  signal,
+  input, model,
+  signal
 } from '@angular/core';
 import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop';
 import { pairwise, startWith } from 'rxjs';
@@ -36,7 +36,7 @@ export class BubbleComponent {
     return this.#isFloated();
   }
 
-  @Input() showCloseButton = false;
+  showCloseButton = model(false);
   position = signal<FabPosition>('top-center');
 
   get hostElement() {

@@ -6,7 +6,7 @@
 
   <div class="page-content page-form-content">
     <form class="form-view" [formGroup]="form" (ngSubmit)="save()" autocomplete="off"
-          [ngClass]="{'form-view': pageType === PageType.View}">
+          [ngClass]="{'form-view': pageType() === PageType.View}">
       <div class="form-field-2">
         <label for="title">Title *</label>
         <input id="title"

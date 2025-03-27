@@ -6,19 +6,16 @@ import {
   inject,
   Injector,
   input,
-  Input,
   OnDestroy,
   OnInit,
-  untracked
+  untracked,
 } from '@angular/core';
 import { BubbleComponent } from '../../components';
 import { HtmlService, PopoverService } from '../../services';
 import { FabPosition } from '../../types';
 
-
 @Directive({
   selector: '[fabPopover]',
-
 })
 export class PopoverDirective implements OnInit, OnDestroy {
   readonly #injector = inject(Injector);
@@ -28,14 +25,9 @@ export class PopoverDirective implements OnInit, OnDestroy {
 
   #htmlObserver!: MutationObserver;
 
-  @Input({ alias: 'fabPopover', required: true }) bubbleComponent!: BubbleComponent;
-  @Input({ alias: 'fabPopoverIsDismissible' }) isDismissible = true;
-
-  @Input({ alias: 'fabPopoverShowCloseButton' })
-  set showCloseButton(showCloseButton: boolean) {
-    this.bubbleComponent.showCloseButton = showCloseButton;
-  }
-
+  bubbleComponent = input.required<BubbleComponent>({ alias: 'fabPopover' });
+  isDismissible = input(true, { alias: 'fabPopoverIsDismissible' });
+  showCloseButton = input(false, { alias: 'fabPopoverShowCloseButton' });
   fabPopoverPosition = input<FabPosition>('top-center');
   fabPopoverEvent = input<'click' | 'mouseover'>('mouseover');
 
@@ -44,16 +36,24 @@ export class PopoverDirective implements OnInit, OnDestroy {
   }
 
   get bubbleElement() {
-    return this.bubbleComponent.hostElement;
+    return this.bubbleComponent().hostElement;
   }
 
   constructor() {
+    effect(() => {
+      const showCloseButton = this.showCloseButton();
+
+      untracked(() => {
+        this.bubbleComponent().showCloseButton.set(showCloseButton);
+      });
+    });
+
     this.#handleEvents();
   }
 
   ngOnInit() {
-    this.bubbleComponent.hide();
-    this.bubbleComponent.float();
+    this.bubbleComponent().hide();
+    this.bubbleComponent().float();
   }
 
   ngOnDestroy() {
@@ -61,41 +61,46 @@ export class PopoverDirective implements OnInit, OnDestroy {
   }
 
   #handleEvents() {
-    effect(() => {
-      const position = this.fabPopoverPosition();
+    effect(
+      () => {
+        const position = this.fabPopoverPosition();
 
-      untracked(() => {
-        this.bubbleComponent.position.set(position);
-        this.attachToTrigger();
-      });
-    }, { injector: this.#injector });
+        untracked(() => {
+          this.bubbleComponent().position.set(position);
+          this.attachToTrigger();
+        });
+      },
+      { injector: this.#injector },
+    );
 
-    this.#htmlObserver = new MutationObserver(list => {
+    this.#htmlObserver = new MutationObserver((list) => {
       if (list.length && list[0].attributeName === 'dir') {
         this.attachToTrigger();
       }
     });
 
-    this.#htmlObserver.observe(
-      document.getElementsByTagName('html')[0],
-      { attributes: true, childList: false, subtree: false, attributeFilter: ['dir'] }
-    );
+    this.#htmlObserver.observe(document.getElementsByTagName('html')[0], {
+      attributes: true,
+      childList: false,
+      subtree: false,
+      attributeFilter: ['dir'],
+    });
   }
 
   attachToTrigger() {
     this.#popoverService.attachToTrigger(
       this.bubbleElement,
       this.hostElement,
-      this.fabPopoverPosition()
+      this.fabPopoverPosition(),
     );
   }
 
   togglePopover() {
-    if (!this.bubbleComponent.isVisible()) {
+    if (!this.bubbleComponent().isVisible()) {
       this.attachToTrigger();
     }
 
-    this.bubbleComponent.toggle();
+    this.bubbleComponent().toggle();
   }
 
   @HostListener('mouseover', ['$event.target'])
@@ -114,13 +119,15 @@ export class PopoverDirective implements OnInit, OnDestroy {
 
   @HostListener('window:click', ['$event.target'])
   onWindowClick(target: HTMLElement) {
-    if (!this.isDismissible
-      || this.#htmlService.areElementsOverlapped(target, this.bubbleElement)
-      || this.#htmlService.areElementsOverlapped(target, this.hostElement)) {
+    if (
+      !this.isDismissible ||
+      this.#htmlService.areElementsOverlapped(target, this.bubbleElement) ||
+      this.#htmlService.areElementsOverlapped(target, this.hostElement)
+    ) {
       return;
     }
 
-    this.bubbleComponent.hide();
+    this.bubbleComponent().hide();
   }
 
   @HostListener('window:resize')

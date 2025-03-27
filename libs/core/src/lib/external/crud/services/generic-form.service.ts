@@ -44,8 +44,8 @@ export class GenericFormService<T extends GenericEntity> {
     this.#handleSaveEvents();
     this.#handleDeleteEvents();
 
-    if (pageType !== PageType.Add) {
-      if (pageType === PageType.View) {
+    if (pageType() !== PageType.Add) {
+      if (pageType() === PageType.View) {
         form.disable();
       }
 
@@ -62,7 +62,7 @@ export class GenericFormService<T extends GenericEntity> {
     const { config, pageType, title, data, form } = this.#consumer;
     const toObservableOptions = { injector: this.#injector };
 
-    if (pageType !== PageType.Add) {
+    if (pageType() !== PageType.Add) {
       toObservable(title, toObservableOptions)
         .pipe(takeUntilDestroyed(this.#destroyRef))
         .subscribe(() => this.#updateNavigationState());
@@ -144,7 +144,7 @@ export class GenericFormService<T extends GenericEntity> {
   #updateNavigationState() {
     const { isEmbedded, title } = this.#consumer;
 
-    if (isEmbedded) {
+    if (isEmbedded()) {
       return;
     }
 
@@ -160,14 +160,14 @@ export class GenericFormService<T extends GenericEntity> {
   createToolbar(attachEventHandler: boolean) {
     const { pageType, config, id, data } = this.#consumer;
     const viewExtra = {
-      id: computed(() => id),
+      id: computed(() => id()),
       routerStates: computed(() => {
         return { [RouterStateKey.Title]: data()[config.field.title as keyof T['full']] };
       })
     };
     let toolbar: NuToolbar = { tools: [] };
 
-    switch (pageType) {
+    switch (pageType()) {
       case PageType.Add:
         toolbar = ToolbarCreator.createAddTools<T>(config);
         break;
@@ -211,7 +211,7 @@ export class GenericFormService<T extends GenericEntity> {
   loadData(tool?: NuTool) {
     const { pageType, store, id, navigationState } = this.#consumer;
 
-    if (pageType === PageType.Add) {
+    if (pageType() === PageType.Add) {
       return;
     }
 
@@ -221,7 +221,7 @@ export class GenericFormService<T extends GenericEntity> {
     }
 
     this.#store$.dispatch(store.actions.getReset());
-    this.#store$.dispatch(store.actions.get({ query: id, tool }));
+    this.#store$.dispatch(store.actions.get({ query: id(), tool }));
   }
 
   add(tool?: NuTool) {
@@ -235,13 +235,13 @@ export class GenericFormService<T extends GenericEntity> {
     const { form, store, id } = this.#consumer;
     const request = form.value as T['update'];
 
-    this.#store$.dispatch(store.actions.update({ query: id, request, tool }));
+    this.#store$.dispatch(store.actions.update({ query: id(), request, tool }));
   }
 
   delete(tool?: NuTool) {
     const { store, id } = this.#consumer;
 
-    this.#store$.dispatch(store.actions.delete({ query: id, tool }));
+    this.#store$.dispatch(store.actions.delete({ query: id(), tool }));
   }
 
   save(tool?: NuTool) {
@@ -254,9 +254,9 @@ export class GenericFormService<T extends GenericEntity> {
       return;
     }
 
-    if (pageType === PageType.Add) {
+    if (pageType() === PageType.Add) {
       this.add(tool);
-    } else if (pageType === PageType.Edit) {
+    } else if (pageType() === PageType.Edit) {
       this.update(tool);
     }
   }
@@ -269,7 +269,7 @@ export class GenericFormService<T extends GenericEntity> {
     const { config, id, title } = this.#consumer;
 
     this.#router.navigate(
-      config.path.page.view(id),
+      config.path.page.view(id()),
       { state: { [RouterStateKey.Title]: title(), ...(state && { ...state }) } }
     ).then();
   }

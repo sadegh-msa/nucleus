@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, computed, input, Input, model } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, input, model } from '@angular/core';
 import { DividerModule } from 'primeng/divider';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { PaginatorModule, PaginatorState } from 'primeng/paginator';
@@ -23,8 +23,8 @@ import { GenericToolbarComponent } from '../generic-toolbar/generic-toolbar.comp
 export class GenericListToolbarComponent {
   readonly paginatorLabel = computed(() => this.createPaginatorLabel());
 
-  @Input() showPaginator = true;
-  @Input() rowsPerPageOptions = PaginationCreator.createRowsPerPageOptions();
+  showPaginator = input(true);
+  rowsPerPageOptions = input(PaginationCreator.createRowsPerPageOptions());
   toolbar = input.required<NuToolbar>();
   selectedRecords = input(0);
   pagination = model.required<Pagination>();

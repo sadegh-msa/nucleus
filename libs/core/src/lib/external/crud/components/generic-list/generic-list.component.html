@@ -1,43 +1,43 @@
 <p-table [value]="data().length ? data() : (showLoading() ? altData() : [])"
          [loading]="!!data().length && showLoading()"
          loadingIcon="pi pi-spin pi-spinner"
-         [selectionMode]="selectionMode || 'multiple'"
-         [styleClass]="isActivatable ? 'table-activatable': ''"
+         [selectionMode]="selectionMode() || 'multiple'"
+         [styleClass]="isActivatable() ? 'table-activatable': ''"
          (selectionChange)="changeSelection($event)">
   <ng-template pTemplate="header">
     <tr>
-      @if (selectionMode) {
+      @if (selectionMode()) {
         <th class="table-selection-header">
-          @if (selectionMode === 'single') {
+          @if (selectionMode() === 'single') {
             <!--          <i class="pi pi-circle" style="font-size: 1.4rem"></i>-->
-          } @else if (selectionMode === 'multiple') {
+          } @else if (selectionMode() === 'multiple') {
             <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
           }
         </th>
       }
 
-      @for (column of table.columns; track column.field) {
+      @for (column of table().columns; track column.field) {
         <th [pTooltip]="column.tooltip || ''" tooltipPosition="bottom">
           {{ column.label }}
         </th>
       }
 
-      @if (table.tools.length) {
+      @if (table().tools.length) {
         <th class="table-tools-header">Actions</th>
       }
     </tr>
   </ng-template>
   <ng-template let-i="rowIndex" let-row pTemplate="body">
     <tr
-      [ngClass]="{'table-activation': activated() && (activated() || {})[idField] === (row || {})[idField]}">
+      [ngClass]="{'table-activation': activated() && (activated() || {})[idField()] === (row || {})[idField()]}">
       @if (!data().length && showLoading()) {
-        @if (selectionMode) {
+        @if (selectionMode()) {
           <td>
             <p-skeleton></p-skeleton>
           </td>
         }
 
-        @for (column of table.columns; track column.field) {
+        @for (column of table().columns; track column.field) {
           <td>
             <p-skeleton></p-skeleton>
           </td>
@@ -47,17 +47,17 @@
           <p-skeleton></p-skeleton>
         </td>
       } @else if (data().length) {
-        @if (selectionMode) {
+        @if (selectionMode()) {
           <td class="table-selection">
-            @if (selectionMode === 'single') {
+            @if (selectionMode() === 'single') {
               <p-tableRadioButton [value]="row"></p-tableRadioButton>
-            } @else if (selectionMode === 'multiple') {
+            } @else if (selectionMode() === 'multiple') {
               <p-tableCheckbox [value]="row"></p-tableCheckbox>
             }
           </td>
         }
 
-        @for (column of table.columns; track column.field) {
+        @for (column of table().columns; track column.field) {
           <td (click)="activateRow(row)" [ngClass]="column.styleClass || []">
             <nu-field-value
               [value]="column.type === DataType.Index ?  firstRow() + i : row[column.field]"
@@ -68,7 +68,7 @@
         }
 
         <td class="table-tools">
-          @for (tool of table.tools; track tool.key) {
+          @for (tool of table().tools; track tool.key) {
             @if (tool.element === ToolElement.Button) {
               <button #toolElement
                       (click)="runCommand(toolElement, tool, row)"
@@ -87,7 +87,7 @@
               </button>
 
               @if (tool.confirm) {
-                <p-confirmPopup [key]="tool.key + row[idField]"></p-confirmPopup>
+                <p-confirmPopup [key]="tool.key + row[idField()]"></p-confirmPopup>
               }
 
             } @else if (tool.element === ToolElement.Link) {
@@ -118,7 +118,7 @@
 
           <p-overlayPanel #infoOverlay
                           styleClass="info-fields-overlay">
-            <nu-info-fields [infoFields]="infoFields"
+            <nu-info-fields [infoFields]="infoFields()"
                             [data]="row">
             </nu-info-fields>
           </p-overlayPanel>

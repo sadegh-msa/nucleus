@@ -4,7 +4,6 @@ import {
   ElementRef,
   HostBinding,
   inject,
-  Input,
   input,
   OnInit,
   output,
@@ -25,9 +24,10 @@ export class InputPasswordDirective implements OnInit {
 
   @HostBinding('class') styleClass = ['fab', 'input', 'password'];
 
-  @Input() mediumPattern =
-    /^(((?=.*[a-z])(?=.*[A-Z]))|((?=.*[a-z])(?=.*[0-9]))|((?=.*[A-Z])(?=.*[0-9])))(?=.{6,})/;
-  @Input() strongPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,})/;
+  mediumPattern = input(
+    /^(((?=.*[a-z])(?=.*[A-Z]))|((?=.*[a-z])(?=.*[0-9]))|((?=.*[A-Z])(?=.*[0-9])))(?=.{6,})/,
+  );
+  strongPattern = input(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,})/);
   passwordToConfirm = input<string | null>();
 
   strength = output<PasswordStrength>();
@@ -50,8 +50,8 @@ export class InputPasswordDirective implements OnInit {
 
     formControl.valueChanges.pipe(takeUntilDestroyed(this.#destroyRef)).subscribe((value) => {
       this.strength.emit({
-        medium: this.mediumPattern.test(value),
-        strong: this.strongPattern.test(value),
+        medium: this.mediumPattern().test(value),
+        strong: this.strongPattern().test(value),
       });
 
       if (this.passwordToConfirm()) {

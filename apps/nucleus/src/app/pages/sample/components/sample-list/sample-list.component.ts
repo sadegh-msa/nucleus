@@ -2,9 +2,9 @@ import {
   ChangeDetectionStrategy,
   Component,
   DestroyRef,
-  inject,
+  inject, input,
   Input,
-  OnInit,
+  OnInit
 } from '@angular/core';
 import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop';
 import { DataType } from '@nucleus/common';
@@ -31,7 +31,7 @@ export class SampleListComponent implements OnInit, GenericSampleList {
   readonly #destroyRef = inject(DestroyRef);
   readonly #genericListService = inject(GenericListService<SampleGeneric>);
 
-  @Input() isEmbedded = false;
+  isEmbedded = input(false);
 
   readonly config = sampleConfig;
   readonly store = {

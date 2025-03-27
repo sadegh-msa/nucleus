@@ -1,4 +1,4 @@
-@for (infoGroup of infoFields; track infoGroup) {
+@for (infoGroup of infoFields(); track infoGroup) {
   <div class="info-fields-row">
     @for (infoField of infoGroup; track infoField.field) {
       <span>

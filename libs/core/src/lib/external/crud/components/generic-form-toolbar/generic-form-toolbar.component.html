@@ -1,7 +1,9 @@
 <nu-generic-toolbar [toolbar]="toolbar()"></nu-generic-toolbar>
+@let hasInfoFields = infoFields().length > 0;
+@let hasData = (data() | keyvalue).length > 0;
 
 <menu class="toolbar-end">
-  @if (infoFields.length && (data() | keyvalue).length) {
+  @if (hasInfoFields && hasData) {
     <li>
       <button class="fab button moderate stamp text second-info"
               (click)="infoOverlay.toggle($event)">
@@ -11,7 +13,7 @@
 
       <p-overlayPanel #infoOverlay
                       styleClass="info-fields-overlay">
-        <nu-info-fields [infoFields]="infoFields" [data]="data()"></nu-info-fields>
+        <nu-info-fields [infoFields]="infoFields()" [data]="data()"></nu-info-fields>
       </p-overlayPanel>
     </li>
   }
