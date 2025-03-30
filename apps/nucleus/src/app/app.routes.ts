@@ -11,22 +11,22 @@ export const appRoutes: Route[] = [
     children: [
       {
         path: 'button',
-        title: $localize`Button`,
+        title: 'Button',
         loadComponent: () => import('./blocks/components').then((m) => m.ButtonComponent),
       },
       {
         path: 'icon',
-        title: $localize`Icon`,
+        title: 'Icon',
         loadComponent: () => import('./blocks/components').then((m) => m.IconComponent),
       },
       {
         path: 'menu',
-        title: $localize`Menu`,
+        title: 'Menu',
         loadComponent: () => import('./blocks/components').then((m) => m.MenuComponent),
       },
       {
         path: 'typography',
-        title: $localize`Typography`,
+        title: 'Typography',
         loadComponent: () => import('./blocks/components').then((m) => m.TypographyComponent),
       },
       {

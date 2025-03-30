@@ -2,62 +2,68 @@
 
 <ng-template #children let-items="items" let-isSubMenu="isSubMenu">
   @for (item of items; track $index) {
-    <li #li
-        (pointerdown)="pointerdownItem(item)"
-        (pointerenter)="pointerenterItem(item, li)"
-        (pointerleave)="pointerleaveItem(item, li)">
-      @let tooltip = item.tooltip || (!isSubMenu && !item.children?.length && isCompact() ? item.label : '');
-      @let tooltipPosition = item.tooltipPlacement || tooltipPlacement();
-      @if (item.routerLink) {
-        <a
-          [id]="item.id"
-          [tp]="tooltip"
-          [tpIsEnabled]="!!tooltip"
-          [tpPlacement]="tooltipPosition"
-          [tpIsLazy]="true"
-          [ngStyle]="item.ngStyle"
-          [ngClass]="item.ngClass"
-          [class.disabled]="item.disabled"
-          [hidden]="item.hidden"
-          [href]="item.href"
-          [routerLink]="item.routerLink"
-          [routerLinkActive]="item.routerLinkActive ?? ''"
-          (click)="clickItem(item)"
-        >
-          <ng-container *ngTemplateOutlet="content; context:{item, isSubMenu}" />
-        </a>
-      } @else {
-        <button
-          [id]="item.id"
-          [tp]="tooltip"
-          [tpIsEnabled]="!!tooltip"
-          [tpPlacement]="tooltipPosition"
-          [tpIsLazy]="true"
-          [ngStyle]="item.ngStyle"
-          [ngClass]="item.ngClass"
-          [disabled]="item.disabled"
-          [hidden]="item.hidden"
-          (click)="clickItem(item)"
-        >
-          <ng-container *ngTemplateOutlet="content; context:{item}" />
-        </button>
-      }
+    @if (!item.hidden) {
+      <li #li
+          (pointerdown)="onPointerDownItem(item)"
+          (pointerenter)="onPointerEnterItem(item, li)"
+          (pointerleave)="onPointerLeaveItem(item, li)"
+      >
+        @let tooltip = item.tooltip || (!isSubMenu && !item.children?.length && isCompact() ? item.label : '');
+        @let tooltipPosition = item.tooltipPlacement || tooltipPlacement();
+        @if (item.routerLink) {
+          <a
+            [id]="item.id"
+            [tp]="tooltip"
+            [tpIsEnabled]="!!tooltip"
+            [tpPlacement]="tooltipPosition"
+            [tpIsLazy]="true"
+            [ngStyle]="item.ngStyle"
+            [ngClass]="item.ngClass"
+            [class.disabled]="item.disabled"
+            [href]="item.href"
+            [routerLink]="item.routerLink"
+            [routerLinkActive]="item.routerLinkActive ?? ''"
+            (isActiveChange)="onRouterLinkIsActiveChange(item, $event)"
+            (click)="clickItem(item)"
+          >
+            <ng-container *ngTemplateOutlet="content; context:{item, isSubMenu}" />
+          </a>
+        } @else {
+          <button
+            [id]="item.id"
+            [tp]="tooltip"
+            [tpIsEnabled]="!!tooltip"
+            [tpPlacement]="tooltipPosition"
+            [tpIsLazy]="true"
+            [ngStyle]="item.ngStyle"
+            [ngClass]="item.ngClass"
+            [disabled]="item.disabled"
+            (click)="clickItem(item)"
+          >
+            <ng-container *ngTemplateOutlet="content; context:{item}" />
+          </button>
+        }
 
-      @if (item.children?.length) {
-        <menu class="submenu"
-              [class.expanded]="item.expanded"
-              [style]="'--menu-size:' + (item.size || item.children.length)"
-        >
-          @if (isCompact()) {
-            <li>
-              <button><strong>{{ item.label }}</strong></button>
-            </li>
-          }
-          <ng-container
-            *ngTemplateOutlet="children; context:{items: item.children, isSubMenu: true}" />
-        </menu>
-      }
-    </li>
+        @if (item.children?.length) {
+          <menu [class.expanded]="item.expanded"
+                [style]="'--menu-size:' + (item.size || item.children.length)"
+          >
+            @defer (when item.expanded) {
+              @if (isCompact()) {
+                <li>
+                  <button>
+                    <span><strong>{{ item.label }}</strong></span>
+                  </button>
+                </li>
+              }
+
+              <ng-container
+                *ngTemplateOutlet="children; context:{items: item.children, isSubMenu: true}" />
+            }
+          </menu>
+        }
+      </li>
+    }
   }
 </ng-template>
 

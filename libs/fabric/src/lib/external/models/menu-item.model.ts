@@ -23,6 +23,8 @@ export interface MenuItem {
   expanded?: boolean;
   children?: MenuItem[];
   size?: number;
+  active?: MenuItem;
+  original?: MenuItem;
 
   command?(...args: unknown[]): unknown;
 }

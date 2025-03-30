@@ -20,7 +20,7 @@ svg-icon {
 
     // Fix the issue of iconsax
     @each $variant in get-config(icon, variants) {
-      @if not list.index(get-config(icon, bordered), $variant) {
+      @if not list.index(get-config(icon, filled), $variant) {
         &.#{$variant} {
           border-width: get-border-width(thin);
           border-color: transparent;

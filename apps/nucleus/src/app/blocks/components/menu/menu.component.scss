@@ -3,14 +3,18 @@
 
 :host {
   display: flex;
-  gap: get-size-var(small-1);
 
   section {
     @include box-rounded-mini;
     display: flex;
+    flex-direction: column;
     width: 100%;
-    gap: get-size-var(tiny-4);
+    gap: get-size-var(small-1);
     padding: get-size-var(small-1);
+
+    &:first-of-type {
+      width: max-content;
+    }
 
     > menu {
       @include box-rounded-big;

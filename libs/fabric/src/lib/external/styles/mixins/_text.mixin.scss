@@ -3,18 +3,14 @@
 @use './transition.mixin';
 
 @mixin size($size) {
+  line-height: normal;
+
   @if $size == mini {
     font-size: get-size-var(tiny-6);
-    line-height: get-size-var(tiny-6);
-    height: get-size-var(tiny-7);
   } @else if $size == moderate {
     font-size: get-size-var(tiny-7);
-    line-height: get-size-var(tiny-7);
-    height: get-size-var(small-1);
   } @else if $size == regular {
     font-size: get-size-var(small-1);
-    line-height: get-size-var(small-1);
-    height: get-size-var(small-2);
   }
 }
 

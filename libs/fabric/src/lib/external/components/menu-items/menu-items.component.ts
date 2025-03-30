@@ -15,18 +15,18 @@ import { MenuItem } from '../../models';
 type TooltipPlacement = NonNullable<MenuItem['tooltipPlacement']>;
 
 @Component({
-    selector: 'menu[fabMenuItems]',
-    imports: [
-        NgTemplateOutlet,
-        SvgIconComponent,
-        TippyDirective,
-        NgStyle,
-        NgClass,
-        RouterLink,
-        RouterLinkActive,
-    ],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    templateUrl: './menu-items.component.html'
+  selector: 'menu[fabMenuItems]',
+  imports: [
+    NgTemplateOutlet,
+    SvgIconComponent,
+    TippyDirective,
+    NgStyle,
+    NgClass,
+    RouterLink,
+    RouterLinkActive,
+  ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  templateUrl: './menu-items.component.html',
 })
 export class MenuItemsComponent {
   items = input.required<MenuItem[]>({ alias: 'fabMenuItems' });
@@ -97,7 +97,7 @@ export class MenuItemsComponent {
     }
   }
 
-  pointerdownItem(item: MenuItem) {
+  onPointerDownItem(item: MenuItem) {
     if (this.submenuMode() === 'floating') {
       if (!item.children?.length) {
         item.expanded = false;
@@ -105,17 +105,26 @@ export class MenuItemsComponent {
     }
   }
 
-  pointerenterItem(item: MenuItem, liElement: HTMLLIElement) {
+  onPointerEnterItem(item: MenuItem, liElement: HTMLLIElement) {
     if (this.submenuMode() === 'floating') {
       this.placeSubmenu(liElement);
       item.expanded = true;
     }
   }
 
-  pointerleaveItem(item: MenuItem, liElement: HTMLLIElement) {
+  onPointerLeaveItem(item: MenuItem, liElement: HTMLLIElement) {
     if (this.submenuMode() === 'floating') {
       item.expanded = false;
       this.resetSubmenuPlacement(liElement);
+    }
+  }
+
+  onRouterLinkIsActiveChange(item: MenuItem, isActive: boolean) {
+    if (isActive) {
+      item.original = Object.assign({}, { ...item, original: undefined });
+      Object.assign(item, item.active);
+    } else {
+      Object.assign(item, {...item.original, original: undefined});
     }
   }
 

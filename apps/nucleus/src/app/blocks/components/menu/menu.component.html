@@ -1,19 +1,22 @@
 <section>
-  <menu [fabMenuItems]="compactMenuItems"
+  <h4>Sliding</h4>
+  <menu [fabMenuItems]="slidingMenuItems"
         [fabMenuSetStyleClass]="true"
-        fabMenuMode="compact"
+        fabMenuSubmenuMode="sliding"
   ></menu>
 </section>
 
 <section>
+  <h4>Floating</h4>
   <menu [fabMenuItems]="floatingMenuItems"
         [fabMenuSetStyleClass]="true"
   ></menu>
 </section>
 
 <section>
-  <menu [fabMenuItems]="slidingMenuItems"
+  <h4>Compact</h4>
+  <menu [fabMenuItems]="compactMenuItems"
         [fabMenuSetStyleClass]="true"
-        fabMenuSubmenuMode="sliding"
+        fabMenuMode="compact"
   ></menu>
 </section>
