@@ -50,4 +50,28 @@ fab-form-field,
   label {
     font-weight: 600;
   }
+
+  &:has(input[type='checkbox']) {
+    flex-direction: row-reverse;
+    gap: get-size-var(tiny-4);
+    justify-content: flex-end;
+    align-items: center;
+    margin-inline-start: get-border-width(thin);
+
+    label {
+      cursor: pointer;
+      user-select: none;
+    }
+  }
+
+  &:has(input[type='checkbox']:focus) {
+    margin-inline-start: 0;
+    gap: calc(#{get-size-var(tiny-4)} - #{get-border-width(thin)});
+  }
+
+  &:has(input[type='checkbox']:disabled) {
+    label {
+      cursor: not-allowed;
+    }
+  }
 }

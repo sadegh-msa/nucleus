@@ -1,3 +1,5 @@
+@use '../funcs' as *;
+
 @mixin flex-center {
   display: flex;
   align-items: center;
@@ -14,9 +16,13 @@
   align-items: center;
 }
 
-@mixin flex($main: center, $cross: center, $direction: row) {
+@mixin flex($main: center, $cross: center, $direction: row, $gap: null) {
   display: flex;
   flex-direction: $direction;
   align-items: $cross;
   justify-content: $main;
+
+  @if ($gap) {
+    gap: get-size-var($gap);
+  }
 }

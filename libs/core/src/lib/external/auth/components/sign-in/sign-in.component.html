@@ -30,11 +30,12 @@
                formControlName="password" />
       </fab-form-field>
 
-      <div id="remember-me-form-field" class="fab-form-field">
-        <fab-checkbox label="Remember me" i18n-label
-                      aria-describedby="remember-me-help"
-                      formControlName="rememberMe" />
-      </div>
+      <fab-form-field id="remember-me-form-field"
+                      label="Remember me" i18n-label
+                      inputId="remember-me"
+                      [inputFormControl]="form.get('rememberMe')">
+        <input id="remember-me" type="checkbox" fabCheckbox formControlName="rememberMe">
+      </fab-form-field>
     </form>
   </ng-container>
 

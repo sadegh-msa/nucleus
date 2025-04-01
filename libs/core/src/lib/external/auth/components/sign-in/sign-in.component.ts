@@ -18,7 +18,7 @@ import { RouterLink } from '@angular/router';
 import { select, Store } from '@ngrx/store';
 
 import { OperationStatus } from '@nucleus/common';
-import { CheckboxComponent, FormFieldComponent, InputPasswordDirective } from '@nucleus/fabric';
+import { CheckboxDirective, FormFieldComponent, InputPasswordDirective } from '@nucleus/fabric';
 import { SvgIconComponent } from 'angular-svg-icon';
 import { authDefaultConfig } from '../../auth-default.config';
 import { AuthSignIn, AuthSignInForm } from '../../models/auth.model';
@@ -34,7 +34,7 @@ import { SignLayoutComponent } from '../sign-layout/sign-layout.component';
     RouterLink,
     FormsModule,
     FormFieldComponent,
-    CheckboxComponent,
+    CheckboxDirective,
     InputPasswordDirective,
     SvgIconComponent,
   ],
@@ -52,7 +52,7 @@ export class SignInComponent implements OnInit {
       Validators.minLength(3),
       Validators.maxLength(100),
     ]),
-    rememberMe: new FormControl({ value: true, disabled: false }),
+    rememberMe: new FormControl({ value: false, disabled: false }),
   });
 
   readonly isSubmitting = signal(false);

@@ -7,21 +7,22 @@
   z-index: 20;
   background-color: transparent;
   height: calc(#{$size} * 1.7);
-  width: $size;
   margin-block-end: calc(#{$size} / 3);
-  margin-inline-start: calc(#{get-size-var(tiny-2)} / 3);
 
   &:dir(ltr) {
     transform: rotate(45deg);
+    width: calc(#{$size} * 1.06);
   }
 
   &:dir(rtl) {
     transform: rotate(45deg) scaleX(-1);
+    width: $size;
+    margin-inline-start: calc(#{get-size-var(tiny-2)} / 3);
   }
 
   &:before,
   &:after {
-    @include transition.normal(all);
+    @include transition.normal(height, width);
     @include box.rounded-mini($border-width: null);
     content: '';
     position: absolute;

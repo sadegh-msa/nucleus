@@ -1,64 +1,63 @@
 @use './funcs' as *;
 @use './mixins' as *;
 
-fab-checkbox {
-  @include align-flex-cross-center;
-  position: relative;
-  gap: get-size-var(tiny-4);
+input[type='checkbox'].fab.checkbox {
+  --checkmark-svg-path: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#{get-color(primary-inverse)}" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><style> %23check-first, %23check-second { height: 0; animation-timing-function: ease-in-out; animation-duration: 150ms; animation-direction: normal; animation-fill-mode: both; } %23check-first { transform: rotate(-45deg); animation-name: firstAnimation; } %23check-second { transform: rotate(-135deg); animation-name: secondAnimation; animation-delay: 150ms; } @keyframes firstAnimation { 0% { height: 0; } 100% { height: 34%; } } @keyframes secondAnimation { 0% { height: 0; } 100% { height: 67%; } } </style><rect x="-27%" y="49%" width="1%" height="34%" id="check-first" /><rect x="-84%" y="-27%" width="1%" height="67%" id="check-second" /></svg>');
+  appearance: none;
+  background-color: get-color-var(paper);
+  margin: 0;
+  display: flex;
+  place-content: center;
 
-  > label {
-    user-select: none;
+  &::before {
+    content: '';
+    @include size-rect(small-4);
+    @include box-rounded-moderate(neutral-inverse);
   }
 
-  > .fab-checkbox-box {
-    @include align-flex;
+  &:not(:checked) {
+    &:hover {
+      background-color: get-color-var(paper-dark);
+    }
+
+    &:active {
+      background-color: get-color-var(paper-darker);
+    }
+  }
+
+  &:checked {
+    background-color: transparent;
+
+    &::before {
+      content: '';
+      background-image: var(--checkmark-svg-path);
+      background-position: center;
+      background-size: 14px;
+      background-repeat: no-repeat;
+    }
+  }
+
+  &:not(:disabled) {
+    cursor: pointer;
+
+    &:checked::before {
+      @include box-rounded-moderate(primary);
+      background-color: get-color-var(primary);
+    }
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+
+    &:checked::before {
+      @include box-rounded-moderate(watermark);
+      background-color: get-color-var(watermark);
+    }
+  }
+
+  &:focus {
     @include box-rounded-moderate(neutral-inverse);
-    @include size-rect(small-4);
-    @include transition-normal(color, background-color, border-color, text-decoration-color, fill, stroke);
-
-    &:not(.disabled) {
-      background-color: get-color-var(paper);
-      cursor: pointer;
-
-      &:hover {
-        background-color: get-color-var(paper-dark);
-      }
-
-      &:active {
-        background-color: get-color-var(paper-darker);
-      }
-
-      & + label {
-        cursor: pointer;
-      }
-    }
-
-    &.disabled {
-      & + label {
-        cursor: default;
-      }
-    }
-
-    &.checked {
-      &:not(.disabled) {
-        background-color: get-color-var(primary);
-      }
-
-      &.disabled {
-        background-color: get-color-var(paper-dark);
-
-        > .fab-checkbox-checkmark {
-          @include checkmark-disabled;
-        }
-      }
-
-      > .fab-checkbox-checkmark {
-        @include checkmark-darkest;
-      }
-    }
-
-    > .fab-checkbox-checkmark {
-      @include checkmark-base(0.43rem, 0.16rem, paper);
-    }
+    outline: get-border-width-var(medium) solid get-color-var(watermark);
+    outline-offset: get-border-width-var(medium);
   }
 }
