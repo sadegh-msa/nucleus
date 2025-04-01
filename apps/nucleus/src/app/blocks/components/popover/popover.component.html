@@ -1,0 +1,162 @@
+<article class="popovers">
+  <h4 class="title">Popovers</h4>
+
+  <section>
+    @for (position of positions; track $index) {
+      <button class="fab button bulk neutral second-stamp arrow"
+              [ngClass]="position"
+              [fabPopover]="bubble"
+              [fabPopoverEvent]="popoverEvent()"
+              [fabPopoverPosition]="position"
+      >
+        <svg-icon src="icons/outline/arrow-up-3.svg" />
+      </button>
+      <fab-bubble #bubble>{{ position }}</fab-bubble>
+    }
+
+    <button class="fab button bulk primary moderate event" (click)="togglePopoverEvent()" >
+      <span>{{ popoverEvent() | titlecase }}</span>
+    </button>
+  </section>
+</article>
+
+<article class="bubbles">
+  <h4 class="title">Bubbles</h4>
+
+  <section class="corner">
+    <div class="block-start">
+      <fab-bubble position="block-start-corner-start" [isVisible]="true">
+        block-start-corner-start
+        block-start-corner-start
+        block-start-corner-start
+      </fab-bubble>
+      <fab-bubble position="block-start-corner-end" [isVisible]="true">
+        block-start-corner-end
+        block-start-corner-end
+        block-start-corner-end
+      </fab-bubble>
+    </div>
+
+    <div class="block-center">
+      <button class="fab button outline neutral">
+        <span>Corner</span>
+      </button>
+    </div>
+
+    <div class="block-end">
+      <fab-bubble position="block-end-corner-start" [isVisible]="true">
+        block-end-corner-start
+        block-start-corner-end
+        block-start-corner-end
+      </fab-bubble>
+      <fab-bubble position="block-end-corner-end" [isVisible]="true">
+        block-end-corner-end
+        block-end-corner-end
+        block-end-corner-end
+      </fab-bubble>
+    </div>
+  </section>
+
+  <section class="center">
+    <div class="block-start">
+      <fab-bubble position="block-start-inline-center" [isVisible]="true">
+        block-start-inline-center
+        block-start-inline-center
+        block-start-inline-center
+      </fab-bubble>
+    </div>
+
+    <div class="block-center">
+      <button class="fab button outline neutral">
+        <span>Center</span>
+      </button>
+    </div>
+
+    <div class="block-end">
+      <fab-bubble position="block-end-inline-center" [isVisible]="true">
+        block-end-inline-center
+        block-end-inline-center
+        block-end-inline-center
+      </fab-bubble>
+    </div>
+  </section>
+
+  <section class="horizontal-edge">
+    <div class="block-start">
+      <fab-bubble position="block-start-inline-start" [isVisible]="true">
+        block-start-inline-start
+        block-start-inline-start
+        block-start-inline-start
+      </fab-bubble>
+      <fab-bubble position="block-start-inline-end" [isVisible]="true">
+        block-start-inline-end
+        block-start-inline-end
+        block-start-inline-end
+      </fab-bubble>
+    </div>
+
+    <div class="block-center">
+      <button class="fab button outline neutral">
+        <span>Horizontal Edge</span>
+      </button>
+    </div>
+
+    <div class="block-end">
+      <fab-bubble position="block-end-inline-start" [isVisible]="true">
+        block-end-inline-start
+        block-end-inline-start
+        block-end-inline-start
+      </fab-bubble>
+      <fab-bubble position="block-end-inline-end" [isVisible]="true">
+        block-end-inline-end
+        block-end-inline-start
+        block-end-inline-start
+      </fab-bubble>
+    </div>
+  </section>
+
+  <section class="vertical-edge">
+    <div class="inline-start">
+      <fab-bubble position="inline-start-block-start" [isVisible]="true">
+        inline-start-block-start
+        inline-start-block-start
+        inline-start-block-start
+      </fab-bubble>
+      <fab-bubble position="inline-start-block-center" [isVisible]="true">
+        inline-start-block-center
+        inline-start-block-center
+        inline-start-block-center
+      </fab-bubble>
+      <fab-bubble position="inline-start-block-end" [isVisible]="true">
+        inline-start-block-end
+        inline-start-block-end
+        inline-start-block-end
+      </fab-bubble>
+    </div>
+
+    <div class="inline-center">
+      <button class="fab button outline neutral">
+        <span>Vertical Edge</span>
+      </button>
+    </div>
+
+    <div class="inline-end">
+      <fab-bubble position="inline-end-block-start" [isVisible]="true">
+        inline-end-block-start
+        inline-end-block-start
+        inline-end-block-start
+      </fab-bubble>
+      <fab-bubble position="inline-end-block-center" [isVisible]="true">
+        inline-end-block-center
+        inline-end-block-center
+        inline-end-block-center
+      </fab-bubble>
+      <fab-bubble position="inline-end-block-end" [isVisible]="true">
+        inline-end-block-end
+        inline-end-block-end
+        inline-end-block-end
+      </fab-bubble>
+    </div>
+  </section>
+</article>
+

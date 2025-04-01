@@ -1,0 +1,73 @@
+@use '../funcs' as *;
+
+$arrow-size: small-1;
+
+@mixin close($block-position, $inline-position, $offset: tiny-6) {
+  > .close {
+    inset-block-#{$block-position}: calc(-1 * #{get-size-var($offset)});
+    inset-inline-#{$inline-position}: calc(-1 * #{get-size-var($offset)});
+  }
+}
+
+@mixin arrow($block-position, $block-offset, $inline-position, $inline-offset, $is-rotate-reversed: false) {
+  $rotate-value: if($is-rotate-reversed, -45deg, 45deg);
+
+  > .arrow {
+    inset-block-#{$block-position}: $block-offset;
+    inset-inline-#{$inline-position}: $inline-offset;
+    transform: rotate(var(--arrow-transform-rotate));
+
+    &:dir(ltr) {
+      --arrow-transform-rotate: #{$rotate-value};
+    }
+
+    &:dir(rtl) {
+      --arrow-transform-rotate: #{-1 * $rotate-value};
+    }
+  }
+}
+
+@mixin block-arrow($block-position, $inline-position) {
+  $block-offset: calc(-1 * #{get-size-var($arrow-size)} / 2);
+  $inline-offset: var(--bubble-arrow-offset, #{get-size-var($arrow-size)});
+
+  @if ($inline-position == center) {
+    $inline-position: start;
+    $inline-offset: calc(50% - #{get-size-var($arrow-size)} / 2);
+  }
+
+  @include arrow($block-position, $block-offset, $inline-position, $inline-offset);
+}
+
+@mixin inline-arrow($inline-position, $block-position) {
+  $inline-offset: calc(-1 * #{get-size-var($arrow-size)} / 2);
+  $block-offset: var(--bubble-arrow-offset, #{get-size-var($arrow-size)});
+
+  @if ($block-position == center) {
+    $block-position: start;
+    $block-offset: calc(50% - #{get-size-var($arrow-size)} / 2);
+  }
+
+  @include arrow($block-position, $block-offset, $inline-position, $inline-offset, true);
+}
+
+@mixin corner-arrow($block-position, $inline-position) {
+  $is-reversed: $block-position != $inline-position;
+  $offset: calc(-0.7 * #{get-size-var(tiny-1)});
+  $rotate-value: -90deg;
+  $skew-value: if($is-reversed, -11deg, 11deg);
+
+  > .arrow {
+    inset-block-#{$block-position}: $offset;
+    inset-inline-#{$inline-position}: $offset;
+    transform: skew(var(--arrow-transform-skew), var(--arrow-transform-skew)) rotate(if($is-reversed, $rotate-value, 0));
+
+    &:dir(ltr) {
+      --arrow-transform-skew: #{$skew-value};
+    }
+
+    &:dir(rtl) {
+      --arrow-transform-skew: #{-1 * $skew-value};
+    }
+  }
+}

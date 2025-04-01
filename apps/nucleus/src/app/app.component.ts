@@ -43,7 +43,7 @@ export class AppComponent implements OnInit {
 
   readonly isUserAuthenticated = signal(false);
   readonly showLoading = signal(false);
-  readonly htmlDir = signal<'ltr' | 'rtl'>('rtl');
+  readonly htmlDir = signal<'ltr' | 'rtl'>('ltr');
 
   constructor() {
     effect(() => {

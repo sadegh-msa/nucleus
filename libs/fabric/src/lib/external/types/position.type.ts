@@ -1,5 +1,27 @@
-export type FabPosition = 'auto'
-  | 'top' | 'top-start' | 'top-center' | 'top-end'
-  | 'bottom' | 'bottom-start' | 'bottom-center' | 'bottom-end'
-  | 'start' | 'start-top' | 'start-center' | 'start-bottom'
-  | 'end' | 'end-top' | 'end-center' | 'end-bottom'
+export const fabPositions = [
+  'auto',
+  'block-auto-corner-auto',
+  'block-start-corner-auto',
+  'block-start-corner-start',
+  'block-start-inline-auto',
+  'block-start-inline-start',
+  'block-start-inline-center',
+  'block-start-inline-end',
+  'block-start-corner-end',
+  'inline-start-block-auto',
+  'inline-start-block-start',
+  'inline-start-block-center',
+  'inline-start-block-end',
+  'inline-end-block-auto',
+  'inline-end-block-start',
+  'inline-end-block-center',
+  'inline-end-block-end',
+  'block-end-corner-auto',
+  'block-end-corner-start',
+  'block-end-inline-auto',
+  'block-end-inline-start',
+  'block-end-inline-center',
+  'block-end-inline-end',
+  'block-end-corner-end',
+] as const;
+export type FabPosition = (typeof fabPositions)[number];

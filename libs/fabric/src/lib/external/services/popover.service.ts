@@ -3,100 +3,123 @@ import { ElementRect } from '../models';
 import { FabPosition } from '../types';
 import { HtmlService } from './html.service';
 
-
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class PopoverService {
   readonly #htmlService = inject(HtmlService);
+  readonly ARROW_SIZE = 10;
 
-  #calculateTop(bubble: ElementRect, trigger: ElementRect, position: FabPosition) {
-    let top = trigger.top;
+  #calculateBlockStart(bubble: ElementRect, trigger: ElementRect, position: FabPosition) {
+    let blockStart = trigger.top;
 
     switch (position) {
-      case 'top-start':
-      case 'top-center':
-      case 'top-end':
-        top -= bubble.height;
+      case 'block-auto-corner-auto':
+      case 'block-start-corner-auto':
+      case 'block-start-corner-start':
+      case 'block-start-corner-end':
+        blockStart -= bubble.height;
         break;
 
-      case 'bottom-start':
-      case 'bottom-center':
-      case 'bottom-end':
-        top += trigger.height;
+      case 'block-start-inline-start':
+      case 'block-start-inline-center':
+      case 'block-start-inline-end':
+        blockStart -= bubble.height + this.ARROW_SIZE;
         break;
 
-      case 'start-top':
-      case 'end-top':
-        top += trigger.height / 2 - bubble.height;
+      case 'block-end-corner-auto':
+      case 'block-end-corner-start':
+      case 'block-end-corner-end':
+        blockStart += trigger.height;
         break;
 
-      case 'start-center':
-      case 'end-center':
-        top += trigger.height / 2 - bubble.height / 2;
+      case 'block-end-inline-auto':
+      case 'block-end-inline-start':
+      case 'block-end-inline-center':
+      case 'block-end-inline-end':
+        blockStart += trigger.height + this.ARROW_SIZE;
         break;
 
-      case 'start-bottom':
-      case 'end-bottom':
-        top += trigger.height / 2;
+      case 'inline-start-block-start':
+      case 'inline-end-block-start':
+        blockStart -= trigger.height + 0.25 * trigger.height - 2 * this.ARROW_SIZE;
+        break;
+
+      case 'inline-start-block-auto':
+      case 'inline-start-block-center':
+      case 'inline-end-block-auto':
+      case 'inline-end-block-center':
+        blockStart -= bubble.height / 2 - trigger.height / 2;
+        break;
+
+      case 'inline-start-block-end':
+      case 'inline-end-block-end':
+        blockStart += 0.75 * trigger.height - 2 * this.ARROW_SIZE;
         break;
     }
 
-    return top;
+    return blockStart;
   }
 
-  #calculateLeft(bubble: ElementRect, trigger: ElementRect, position: FabPosition) {
-    let left = trigger.left;
+  #calculateInlineStart(bubble: ElementRect, trigger: ElementRect, position: FabPosition) {
+    let inlineStart = trigger.left;
 
     switch (position) {
-      case 'top-start':
-      case 'bottom-start':
-        left += trigger.width - trigger.width / 2 - bubble.width;
+      case 'block-start-corner-auto':
+      case 'block-start-corner-start':
+      case 'block-end-corner-auto':
+      case 'block-end-corner-start':
+        inlineStart -= bubble.width;
         break;
 
-      case 'top-center':
-      case 'bottom-center':
-        left += trigger.width / 2 - bubble.width / 2;
+      case 'block-start-inline-start':
+      case 'block-end-inline-start':
+        inlineStart -= bubble.width - trigger.width / 4 - 2 * this.ARROW_SIZE;
         break;
 
-      case 'top-end':
-      case 'bottom-end':
-        left += trigger.width / 2;
+      case 'block-auto-corner-auto':
+      case 'block-start-inline-center':
+      case 'block-end-inline-auto':
+      case 'block-end-inline-center':
+        inlineStart -= bubble.width / 2 - trigger.width / 2;
         break;
 
-      case 'start-top':
-      case 'start-center':
-      case 'start-bottom':
-        left -= bubble.width;
+      case 'block-start-inline-end':
+      case 'block-end-inline-end':
+        inlineStart += 0.75 * trigger.width - 2 * this.ARROW_SIZE;
         break;
 
-      case 'end-top':
-      case 'end-center':
-      case 'end-bottom':
-        left += trigger.width;
+      case 'block-start-corner-end':
+      case 'block-end-corner-end':
+        inlineStart += trigger.width;
+        break;
+
+      case 'inline-start-block-start':
+      case 'inline-start-block-auto':
+      case 'inline-start-block-center':
+      case 'inline-start-block-end':
+        inlineStart -= bubble.width + this.ARROW_SIZE;
+        break;
+
+      case 'inline-end-block-start':
+      case 'inline-end-block-auto':
+      case 'inline-end-block-center':
+      case 'inline-end-block-end':
+        inlineStart += trigger.width + this.ARROW_SIZE;
         break;
     }
 
-    return left;
+    return inlineStart;
   }
 
   attachToTrigger(bubbleElement: HTMLElement, triggerElement: HTMLElement, position: FabPosition) {
-    const bubble = this.#htmlService.getElementRect(bubbleElement);
-    const trigger = this.#htmlService.getElementRect(triggerElement);
-    let bidiPosition = position;
+    const bubbleRect = this.#htmlService.getElementRect(bubbleElement);
+    const triggerRect = this.#htmlService.getElementRect(triggerElement);
+    const blockStart = this.#calculateBlockStart(bubbleRect, triggerRect, position);
+    const inlineStart = this.#calculateInlineStart(bubbleRect, triggerRect, position);
 
-    if (this.#htmlService.isRtl) {
-      if (position.includes('start')) {
-        bidiPosition = position.replace('start', 'end') as FabPosition;
-      } else if (position.includes('end')) {
-        bidiPosition = position.replace('end', 'start') as FabPosition;
-      }
-    }
-
-    const top = this.#calculateTop(bubble, trigger, bidiPosition);
-    const left = this.#calculateLeft(bubble, trigger, bidiPosition);
-    const style = `left: ${left}px; top: ${top}px;`;
-
-    bubbleElement.setAttribute('style', style);
+    triggerElement.style.position = 'relative';
+    bubbleElement.style.insetBlockStart = `${blockStart}px`;
+    bubbleElement.style.insetInlineStart = `${inlineStart}px`;
   }
 }

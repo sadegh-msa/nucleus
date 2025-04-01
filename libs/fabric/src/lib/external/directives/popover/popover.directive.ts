@@ -24,12 +24,13 @@ export class PopoverDirective implements OnInit, OnDestroy {
   readonly #htmlService = inject(HtmlService);
 
   #htmlObserver!: MutationObserver;
+  #mainElement = document.getElementsByTagName('main')[0];
 
   bubbleComponent = input.required<BubbleComponent>({ alias: 'fabPopover' });
   isDismissible = input(true, { alias: 'fabPopoverIsDismissible' });
-  showCloseButton = input(false, { alias: 'fabPopoverShowCloseButton' });
-  fabPopoverPosition = input<FabPosition>('top-center');
-  fabPopoverEvent = input<'click' | 'mouseover'>('mouseover');
+  showCloseButton = input(true, { alias: 'fabPopoverShowCloseButton' });
+  fabPopoverPosition = input<FabPosition>('auto');
+  fabPopoverEvent = input<'click' | 'hover'>('hover');
 
   get hostElement() {
     return this.#elementRef.nativeElement;
@@ -40,6 +41,8 @@ export class PopoverDirective implements OnInit, OnDestroy {
   }
 
   constructor() {
+    this.#mainElement.addEventListener('scroll', this.onMainScroll.bind(this));
+
     effect(() => {
       const showCloseButton = this.showCloseButton();
 
@@ -57,6 +60,7 @@ export class PopoverDirective implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
+    this.#mainElement.removeEventListener('scroll', this.onMainScroll.bind(this));
     this.#htmlObserver.disconnect();
   }
 
@@ -103,11 +107,34 @@ export class PopoverDirective implements OnInit, OnDestroy {
     this.bubbleComponent().toggle();
   }
 
-  @HostListener('mouseover', ['$event.target'])
+  showPopover() {
+    this.attachToTrigger();
+    this.bubbleComponent().show();
+  }
+
+  hidePopover() {
+    this.bubbleComponent().hide();
+  }
+
+  @HostListener('pointerenter', ['$event.target'])
   handleMouseOverEvent() {
-    if (this.fabPopoverEvent() === 'mouseover') {
-      this.togglePopover();
+    if (this.fabPopoverEvent() === 'hover') {
+      this.showPopover();
     }
+  }
+
+  @HostListener('pointerleave', ['$event.target'])
+  onPointerLeave(target: HTMLElement) {
+    if (
+      this.fabPopoverEvent() !== 'hover' ||
+      !this.isDismissible ||
+      target.isEqualNode(this.bubbleElement) ||
+      this.#htmlService.areElementsOverlapped(target, this.bubbleElement)
+    ) {
+      return;
+    }
+
+    this.hidePopover();
   }
 
   @HostListener('click', ['$event.target'])
@@ -120,18 +147,25 @@ export class PopoverDirective implements OnInit, OnDestroy {
   @HostListener('window:click', ['$event.target'])
   onWindowClick(target: HTMLElement) {
     if (
+      this.fabPopoverEvent() !== 'click' ||
       !this.isDismissible ||
+      target.isEqualNode(this.bubbleElement) ||
+      target.isEqualNode(this.hostElement) ||
       this.#htmlService.areElementsOverlapped(target, this.bubbleElement) ||
       this.#htmlService.areElementsOverlapped(target, this.hostElement)
     ) {
       return;
     }
 
-    this.bubbleComponent().hide();
+    this.hidePopover();
   }
 
   @HostListener('window:resize')
   onWindowResize() {
     this.attachToTrigger();
+  }
+
+  onMainScroll() {
+    this.hidePopover();
   }
 }

@@ -12,7 +12,7 @@ export class FormFieldComponent {
   inputId = input('');
   label = input<string>();
   help = input<string>();
-  helpPosition = input<FabPosition>('top-end');
+  helpPosition = input<FabPosition>('auto');
   inputFormControl = input<AbstractControl<any> | null>(null);
   messages = input<Record<string, string>>({});
 

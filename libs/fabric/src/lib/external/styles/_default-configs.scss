@@ -27,7 +27,7 @@ $fab-default-configs: (
     base: 0.125rem,
     factor: (
       min: 1,
-      max: 100,
+      max: 200,
     ),
     alias: (
       names: tiny small medium large huge vast,
@@ -90,7 +90,7 @@ $fab-default-configs: (
     )
   ),
   button: (
-    variants: bulk emphasis icon outline text,
+    variants: bulk emphasis outline text,
   ),
   icon: (
     variants: bold broken bulk linear outline twotone,

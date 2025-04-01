@@ -25,6 +25,11 @@ export const appRoutes: Route[] = [
         loadComponent: () => import('./blocks/components').then((m) => m.MenuComponent),
       },
       {
+        path: 'popover',
+        title: 'Popover',
+        loadComponent: () => import('./blocks/components').then((m) => m.PopoverComponent),
+      },
+      {
         path: 'typography',
         title: 'Typography',
         loadComponent: () => import('./blocks/components').then((m) => m.TypographyComponent),

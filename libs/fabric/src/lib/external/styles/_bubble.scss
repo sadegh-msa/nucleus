@@ -1,238 +1,168 @@
 @use './funcs' as *;
 @use './mixins' as *;
 
-@mixin bubble-x-top {
-  margin-block-start: calc(-1 * #{get-size-var(tiny-6)});
-
-  > .fab-bubble-close {
-    inset-block-start: calc(-1 * #{get-size-var(tiny-6)});
-  }
-
-  > .fab-bubble-arrow {
-    inset-block-end: calc(-1 * #{get-size-var(tiny-4)});
-    transform: rotate(45deg);
-  }
-}
-
-@mixin bubble-x-bottom {
-  margin-block-start: get-size-var(tiny-6);
-
-  > .fab-bubble-close {
-    inset-block-start: calc(-1 * #{get-size-var(tiny-6)});
-  }
-
-  > .fab-bubble-arrow {
-    inset-block-start: calc(-1 * #{get-size-var(tiny-4)});
-    transform: rotate(135deg);
-  }
-}
-
-@mixin bubble-x-center {
-  > .fab-bubble-close {
-    inset-inline-end: calc(-1 * #{get-size-var(tiny-6)});
-  }
-
-  > .fab-bubble-arrow {
-    inset-inline-start: calc(50% - #{get-size-var(tiny-4)});
-  }
-}
-
-@mixin bubble-x-start {
-  margin-inline-start: get-size-var(small-5);
-
-  > .fab-bubble-close {
-    inset-inline-start: calc(-1 * #{get-size-var(tiny-6)});
-  }
-
-  > .fab-bubble-arrow {
-    inset-inline-end: get-size-var(small-1);
-  }
-}
-
-@mixin bubble-x-end {
-  margin-inline-start: calc(-1 * #{get-size-var(small-5)});
-
-  > .fab-bubble-close {
-    inset-inline-end: calc(-1 * #{get-size-var(tiny-6)});
-  }
-
-  > .fab-bubble-arrow {
-    inset-inline-start: get-size-var(small-1);
-  }
-}
-
-@mixin bubble-y-start {
-  margin-inline-start: calc(-1 * #{get-size-var(tiny-6)});
-
-  > .fab-bubble-close {
-    inset-inline-start: calc(-1 * #{get-size-var(tiny-6)});
-  }
-
-  > .fab-bubble-arrow {
-    transform: rotate(-45deg);
-    inset-inline-end: calc(-1 * #{get-size-var(tiny-4)});
-  }
-}
-
-@mixin bubble-y-end {
-  margin-inline-start: get-size-var(tiny-6);
-
-  > .fab-bubble-close {
-    inset-inline-end: calc(-1 * #{get-size-var(tiny-6)});
-  }
-
-  > .fab-bubble-arrow {
-    transform: rotate(45deg);
-    inset-inline-start: calc(-1 * #{get-size-var(tiny-4)});
-  }
-}
-
-@mixin bubble-y-center {
-  > .fab-bubble-close {
-    inset-block-start: calc(-1 * #{get-size-var(tiny-6)});
-  }
-
-  > .fab-bubble-arrow {
-    inset-block-start: calc(50% - #{get-size-var(tiny-4)});
-  }
-}
-
-@mixin bubble-y-top {
-  margin-block-start: get-size-var(small-5);
-
-  > .fab-bubble-close {
-    inset-block-start: calc(-1 * #{get-size-var(tiny-6)});
-  }
-
-  > .fab-bubble-arrow {
-    inset-block-end: get-size-var(small-1);
-  }
-}
-
-@mixin bubble-y-bottom {
-  margin-block-start: calc(-1 * #{get-size-var(small-5)});
-
-  > .fab-bubble-close {
-    inset-block-start: calc(-1 * #{get-size-var(tiny-6)});
-  }
-
-  > .fab-bubble-arrow {
-    inset-block-start: get-size-var(small-1);
-  }
-}
-
 fab-bubble {
   @include box-rounded-big($border-width: none);
   @include text-color(paper);
   @include shadow-medium;
-  //@include transition-normal(all);
+  @include transition-normal(visibility);
   background-color: get-color-var(ink);
   z-index: 40;
   width: max-content;
+  max-width: get-size-var(100);
+  //--bubble-arrow-offset: 50px;
 
-  &:not(.fab-bubble-floated) {
+  &:not(.floated) {
     position: relative;
 
-    &.fab-bubble-hidden {
+    &.invisible {
       display: none;
     }
   }
 
-  &.fab-bubble-floated {
+  &.floated {
     position: absolute;
 
-    &.fab-bubble-hidden {
+    &.invisible {
       visibility: hidden;
       opacity: 0;
     }
   }
 
-  &.fab-bubble-top-start {
-    @include bubble-x-top;
-    @include bubble-x-start;
+  &.block {
+    &-start-corner {
+      &-start {
+        @include bubble-close(start, start);
+        @include bubble-corner-arrow(end, end);
+      }
+
+      &-end {
+        @include bubble-close(start, end);
+        @include bubble-corner-arrow(end, start);
+      }
+    }
+
+    &-end-corner {
+      &-start {
+        @include bubble-close(end, start);
+        @include bubble-corner-arrow(start, end);
+      }
+
+      &-end {
+        @include bubble-close(end, end);
+        @include bubble-corner-arrow(start, start);
+      }
+    }
+
+    &-start-inline {
+      &-start {
+        @include bubble-close(start, start);
+        @include bubble-block-arrow(end, end);
+      }
+
+      &-center {
+        @include bubble-close(start, start);
+        @include bubble-block-arrow(end, center);
+      }
+
+      &-end {
+        @include bubble-close(start, end);
+        @include bubble-block-arrow(end, start);
+      }
+    }
+
+    &-end-inline {
+      &-start {
+        @include bubble-close(end, start);
+        @include bubble-block-arrow(start, end);
+      }
+
+      &-center {
+        @include bubble-close(end, start);
+        @include bubble-block-arrow(start, center);
+      }
+
+      &-end {
+        @include bubble-close(end, end);
+        @include bubble-block-arrow(start, start);
+      }
+    }
   }
 
-  &.fab-bubble-top-center {
-    @include bubble-x-top;
-    @include bubble-x-center;
+  &.inline {
+    &-start-block {
+      &-start {
+        @include bubble-close(start, start);
+        @include bubble-inline-arrow(end, end);
+      }
+
+      &-center {
+        @include bubble-close(start, start);
+        @include bubble-inline-arrow(end, center);
+      }
+
+      &-end {
+        @include bubble-close(start, start);
+        @include bubble-inline-arrow(end, start);
+      }
+    }
+
+    &-end-block {
+      &-start {
+        @include bubble-close(start, end);
+        @include bubble-inline-arrow(start, end);
+      }
+
+      &-center {
+        @include bubble-close(start, end);
+        @include bubble-inline-arrow(start, center);
+      }
+
+      &-end {
+        @include bubble-close(start, end);
+        @include bubble-inline-arrow(start, start);
+      }
+    }
   }
 
-  &.fab-bubble-top-end {
-    @include bubble-x-top;
-    @include bubble-x-end;
-  }
-
-  &.fab-bubble-bottom-start {
-    @include bubble-x-bottom;
-    @include bubble-x-start;
-  }
-
-  &.fab-bubble-bottom-center {
-    @include bubble-x-bottom;
-    @include bubble-x-center;
-  }
-
-  &.fab-bubble-bottom-end {
-    @include bubble-x-bottom;
-    @include bubble-x-end;
-  }
-
-  &.fab-bubble-start-top {
-    @include bubble-y-start;
-    @include bubble-y-top;
-  }
-
-  &.fab-bubble-start-center {
-    @include bubble-y-start;
-    @include bubble-y-center;
-  }
-
-  &.fab-bubble-start-bottom {
-    @include bubble-y-start;
-    @include bubble-y-bottom;
-  }
-
-  &.fab-bubble-end-top {
-    @include bubble-y-end;
-    @include bubble-y-top;
-  }
-
-  &.fab-bubble-end-center {
-    @include bubble-y-end;
-    @include bubble-y-center;
-  }
-
-  &.fab-bubble-end-bottom {
-    @include bubble-y-end;
-    @include bubble-y-bottom;
-  }
-
-  > .fab-bubble-content {
+  > p {
     height: 100%;
     width: 100%;
     border-radius: inherit;
     background-color: inherit;
-    padding: get-size-var(tiny-4);
+    padding: get-size-var(tiny-6);
   }
 
-  > .fab-bubble-close {
+  > .close {
     @include box-rounded-big;
     @include text-color(paper);
-    background-color: get-color-var(ink);
+    background-color: get-color-var(neutral);
     position: absolute;
-    height: get-size-var(small-5);
-    width: get-size-var(small-5);
-    padding-block-end: 1px;
+    height: get-size-var(small-4);
+    width: get-size-var(small-4);
     text-align: center;
-    line-height: 1;
+    border-radius: 50%;
+    vertical-align: middle;
+    cursor: pointer;
+    padding: 2px;
+
+    &:hover {
+      background-color: get-color-var(neutral-dark);
+    }
+
+    &:active {
+      @include shadow-inset;
+      background-color: get-color-var(neutral-dark);
+    }
   }
 
-  > .fab-bubble-arrow {
+  > .arrow {
     @include shadow-small;
+    @include size-rect($bubble-arrow-size);
     position: absolute;
     z-index: -1;
-    height: get-size-var(small-1);
-    width: get-size-var(small-1);
     background-color: inherit;
+    border-end-start-radius: get-size-var(tiny-2);
+    border-start-end-radius: get-size-var(tiny-2);
   }
 }

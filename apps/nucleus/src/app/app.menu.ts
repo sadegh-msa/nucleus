@@ -90,6 +90,19 @@ export const navMainMenuItems = Object.freeze([
             },
           },
           {
+            id: 'nucleus-nav-link-popover',
+            label: 'Popover',
+            icon: 'icons/outline/message.svg',
+            iconNgClass: 'outline',
+            routerLink: '/popover',
+            routerLinkActive: 'active',
+            permission: 'nucleus.popover',
+            active: {
+              icon: 'icons/bold/message.svg',
+              iconNgClass: 'bold',
+            },
+          },
+          {
             id: 'nucleus-nav-link-typography',
             label: 'Typography',
             icon: 'icons/outline/text.svg',

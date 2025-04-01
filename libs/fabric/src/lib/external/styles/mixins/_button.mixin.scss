@@ -123,8 +123,6 @@
   @if $variant == bulk {
     @include variant-properties($inverse-color, $color, $is-second);
     $border-color: $inverse-color;
-  } @else if $variant == icon {
-    @include variant-properties(transparent, $color, $is-second);
   } @else if $variant == outline {
     @include variant-properties(transparent, $color, $is-second);
     $border-color: $color;
@@ -149,6 +147,10 @@
   cursor: pointer;
   text-decoration: none;
   border: get-border-width-var(thin) transparent solid;
+
+  * {
+    pointer-events: none;
+  }
 
   &:is(:disabled, .disabled) {
     pointer-events: none;
