@@ -45,6 +45,7 @@
     "@angular/compiler-cli": "19.2.2",
     "@angular/language-service": "19.2.2",
     "@angular/localize": "19.2.2",
+    "@biomejs/biome": "1.9.4",
     "@eslint/js": "^9.20.0",
     "@nx/angular": "20.6.1",
     "@nx/devkit": "20.6.1",
