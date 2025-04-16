@@ -128,25 +128,25 @@
     $border-color: $color;
   } @else if $variant == text {
     @include variant-properties(transparent, $color, $is-second);
-  } @else {
+  } @else if $variant == emphasis {
     @include variant-properties($color, $inverse-color, $is-second);
     $border-color: $color;
   }
   border-color: get-color-var($border-color);
 }
 
-@mixin generic() {
+@mixin generic($variants, $colors, $sizes) {
   @include transition.normal(color, background-color, box-shadow);
-  display: flex;
   align-items: center;
-  justify-content: center;
+  border: get-border-width-var(thin) transparent solid;
+  display: flex;
   gap: get-size-var(tiny-3);
+  justify-content: center;
   outline: 2px solid transparent;
   outline-offset: 2px;
   background: unset;
   cursor: pointer;
   text-decoration: none;
-  border: get-border-width-var(thin) transparent solid;
 
   * {
     pointer-events: none;
@@ -162,7 +162,7 @@
     vertical-align: middle;
   }
 
-  @each $size in get-size-variants() {
+  @each $size in $sizes {
     @if $size == regular {
       @include size($size);
     } @else {
@@ -172,9 +172,9 @@
     }
   }
 
-  @each $color in get-color-list() {
+  @each $color in $colors {
     &.#{$color} {
-      @each $variant in get-config(button, variants) {
+      @each $variant in $variants {
         &.#{$variant} {
           @include variant($variant, $color);
         }
@@ -182,7 +182,7 @@
     }
 
     &.second-#{$color} {
-      @each $variant in get-config(button, variants) {
+      @each $variant in $variants {
         &.#{$variant} {
           @include variant($variant, $color, true);
         }
