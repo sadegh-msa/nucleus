@@ -1,5 +1,10 @@
+@use './funcs' as *;
 @use './mixins/link.mixin';
 
 a.fab.link {
-  @include link.generic();
+  @include link.generic(
+      get-color-list(),
+      get-size-variants(),
+      get-config(typography, font, weights)
+  );
 }

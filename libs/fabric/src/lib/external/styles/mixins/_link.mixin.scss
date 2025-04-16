@@ -1,7 +1,7 @@
 @use '../funcs' as *;
 @use './text.mixin';
 
-@mixin link-icon-size($size) {
+@mixin icon-size($size) {
   @if $size == mini {
     height: get-size-var(tiny-7);
     width: get-size-var(tiny-7);
@@ -14,14 +14,27 @@
   }
 }
 
-@mixin link-size($size) {
+@mixin size($size) {
   svg:not(.fab.icon) {
-    @include link-icon-size($size);
+    @include icon-size($size);
   }
 }
 
-@mixin generic() {
-  @include text.generic(true, true);
+@mixin sizes($sizes) {
+  @each $size in $sizes {
+    @if $size == regular {
+      @include size($size);
+    } @else {
+      &.#{$size} {
+        @include size($size);
+      }
+    }
+  }
+}
+
+@mixin generic($colors, $sizes, $weights) {
+  @include text.generic($colors, $sizes, $weights, true, true);
+  @include sizes($sizes);
   display: flex;
   align-items: center;
   gap: get-size-var(tiny-4);
@@ -32,15 +45,5 @@
   &.disabled {
     pointer-events: none;
     opacity: 0.5;
-  }
-
-  @each $size in get-size-variants() {
-    @if $size == regular {
-      @include link-size($size);
-    } @else {
-      &.#{$size} {
-        @include link-size($size);
-      }
-    }
   }
 }

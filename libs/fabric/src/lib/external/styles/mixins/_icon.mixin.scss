@@ -27,8 +27,16 @@
   }
 }
 
-@mixin generic() {
-  @each $size in get-size-variants() {
+@mixin colors($colors) {
+  @each $color in $colors {
+    &.#{$color} {
+      @include color($color);
+    }
+  }
+}
+
+@mixin sizes($sizes) {
+  @each $size in  $sizes {
     @if $size == regular {
       @include size($size);
     } @else {
@@ -37,10 +45,9 @@
       }
     }
   }
+}
 
-  @each $color in get-color-list() {
-    &.#{$color} {
-      @include color($color);
-    }
-  }
+@mixin generic($colors, $sizes) {
+  @include colors($colors);
+  @include sizes($sizes);
 }

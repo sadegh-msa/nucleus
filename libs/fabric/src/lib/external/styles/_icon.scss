@@ -8,7 +8,7 @@ svg-icon {
 
   svg {
     &.fab.icon {
-      @include icon.generic();
+      @include icon.generic(get-color-list(), get-size-variants());
       @include transition.normal(color, background-color);
     }
 

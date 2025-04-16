@@ -34,10 +34,8 @@
   }
 }
 
-@mixin generic($has-hover: false, $has-active: false) {
-  @include transition.normal(color, background-color);
-
-  @each $size in get-size-variants() {
+@mixin sizes($sizes) {
+  @each $size in $sizes {
     @if $size == regular {
       @include size($size);
     } @else {
@@ -46,18 +44,10 @@
       }
     }
   }
+}
 
-  @each $weight in get-config(typography, font, weights) {
-    @if $weight == normal {
-      @include weight($weight);
-    } @else {
-      &.#{$weight} {
-        @include weight($weight);
-      }
-    }
-  }
-
-  @each $color in get-color-list() {
+@mixin colors($colors, $has-hover, $has-active) {
+  @each $color in $colors {
     &.#{$color} {
       @include color($color);
 
@@ -74,4 +64,23 @@
       }
     }
   }
+}
+
+@mixin weights($weights) {
+  @each $weight in $weights {
+    @if $weight == normal {
+      @include weight($weight);
+    } @else {
+      &.#{$weight} {
+        @include weight($weight);
+      }
+    }
+  }
+}
+
+@mixin generic($colors, $sizes, $weights, $has-hover: false, $has-active: false) {
+  @include transition.normal(color, background-color);
+  @include colors($colors, $has-hover, $has-active);
+  @include sizes($sizes);
+  @include weights($weights);
 }

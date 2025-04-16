@@ -88,55 +88,94 @@
   }
 }
 
-@mixin variant-color($bg-color, $text-color) {
+@mixin variant-color($bg-color, $text-color, $border-color) {
   &:hover {
     @include text.color('#{$text-color}-dark');
     background-color: get-color-var('#{$bg-color}-dark');
+
+    @if ($border-color != transparent) {
+      border-color: get-color-var('#{$border-color}-dark');
+    }
   }
 
   &:active {
     @include text.color('#{$text-color}-darker');
     @include shadow.inset();
     background-color: get-color-var('#{$bg-color}-darker');
+
+    @if ($border-color != transparent) {
+      border-color: get-color-var('#{$border-color}-darker');
+    }
   }
 }
 
-@mixin variant-properties($bg-color, $text-color, $is-second: false) {
+@mixin variant-properties($bg-color, $text-color, $border-color, $is-second: false) {
   @if $is-second {
     &[class*='second-'] {
-      @include variant-color($bg-color, $text-color);
+      @include variant-color($bg-color, $text-color, $border-color);
     }
   } @else {
     @include text.color($text-color);
-    background-color: get-color-var('#{$bg-color}');
+    background-color: get-color-var($bg-color);
 
     &:not([class*='second-']) {
-      @include variant-color($bg-color, $text-color);
+      @include variant-color($bg-color, $text-color, $border-color);
     }
   }
+
+  border-color: get-color-var($border-color);
 }
 
 @mixin variant($variant, $color, $is-second: false) {
   $inverse-color: '#{$color}-inverse';
-  $border-color: transparent;
 
   @if $variant == bulk {
-    @include variant-properties($inverse-color, $color, $is-second);
-    $border-color: $inverse-color;
+    @include variant-properties($inverse-color, $color, $inverse-color, $is-second);
   } @else if $variant == outline {
-    @include variant-properties(transparent, $color, $is-second);
-    $border-color: $color;
+    @include variant-properties(transparent, $color, $color, $is-second);
   } @else if $variant == text {
-    @include variant-properties(transparent, $color, $is-second);
+    @include variant-properties(transparent, $color, transparent, $is-second);
   } @else if $variant == emphasis {
-    @include variant-properties($color, $inverse-color, $is-second);
-    $border-color: $color;
+    @include variant-properties($color, $inverse-color, $color, $is-second);
   }
-  border-color: get-color-var($border-color);
+}
+
+@mixin colors($variants, $colors) {
+  @each $color in $colors {
+    &.#{$color} {
+      @each $variant in $variants {
+        &.#{$variant} {
+          @include variant($variant, $color);
+        }
+      }
+    }
+
+    &.second-#{$color} {
+      @each $variant in $variants {
+        &.#{$variant} {
+          @include variant($variant, $color, true);
+        }
+      }
+    }
+  }
+}
+
+@mixin sizes($sizes) {
+  @each $size in $sizes {
+    @if $size == regular {
+      @include size($size);
+    } @else {
+      &.#{$size} {
+        @include size($size);
+      }
+    }
+  }
 }
 
 @mixin generic($variants, $colors, $sizes) {
   @include transition.normal(color, background-color, box-shadow);
+  @include colors($variants, $colors);
+  @include sizes($sizes);
   align-items: center;
   border: get-border-width-var(thin) transparent solid;
   display: flex;
@@ -160,33 +199,5 @@
   span {
     display: block;
     vertical-align: middle;
-  }
-
-  @each $size in $sizes {
-    @if $size == regular {
-      @include size($size);
-    } @else {
-      &.#{$size} {
-        @include size($size);
-      }
-    }
-  }
-
-  @each $color in $colors {
-    &.#{$color} {
-      @each $variant in $variants {
-        &.#{$variant} {
-          @include variant($variant, $color);
-        }
-      }
-    }
-
-    &.second-#{$color} {
-      @each $variant in $variants {
-        &.#{$variant} {
-          @include variant($variant, $color, true);
-        }
-      }
-    }
   }
 }
