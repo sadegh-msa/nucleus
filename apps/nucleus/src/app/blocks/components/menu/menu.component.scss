@@ -5,12 +5,12 @@
   display: flex;
 
   section {
-    @include box-rounded-mini;
+    @include box-rounded-small;
     display: flex;
     flex-direction: column;
     width: 100%;
-    gap: get-size-var(small-1);
-    padding: get-size-var(small-1);
+    gap: get-size-var(sm-1);
+    padding: get-size-var(sm-1);
 
     &:first-of-type {
       width: max-content;

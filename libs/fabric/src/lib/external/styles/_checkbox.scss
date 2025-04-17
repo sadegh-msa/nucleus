@@ -11,8 +11,8 @@ input[type='checkbox'].fab.checkbox {
 
   &::before {
     content: '';
-    @include size-rect(small-4);
-    @include box-rounded-moderate(neutral-inverse);
+    @include size-rect(sm-4);
+    @include box-rounded-medium(neutral-inverse);
   }
 
   &:not(:checked) {
@@ -41,7 +41,7 @@ input[type='checkbox'].fab.checkbox {
     cursor: pointer;
 
     &:checked::before {
-      @include box-rounded-moderate(primary);
+      @include box-rounded-medium(primary);
       background-color: get-color-var(primary);
     }
   }
@@ -50,13 +50,13 @@ input[type='checkbox'].fab.checkbox {
     cursor: not-allowed;
 
     &:checked::before {
-      @include box-rounded-moderate(watermark);
+      @include box-rounded-medium(watermark);
       background-color: get-color-var(watermark);
     }
   }
 
   &:focus {
-    @include box-rounded-moderate(neutral-inverse);
+    @include box-rounded-medium(neutral-inverse);
     outline: get-border-width-var(medium) solid get-color-var(watermark);
     outline-offset: get-border-width-var(medium);
   }

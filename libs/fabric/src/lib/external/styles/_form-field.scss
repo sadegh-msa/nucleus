@@ -34,16 +34,16 @@ fab-form-field,
   }
 
   > .fab-form-field-header {
-    margin-block-end: get-size-var(tiny-1);
+    margin-block-end: get-size-var(xs-1);
     display: flex;
     align-items: flex-end;
-    padding-inline: get-size-var(tiny-1);
+    padding-inline: get-size-var(xs-1);
 
     > .fab-form-field-message {
       flex-grow: 1;
       text-align: end;
-      font-size: get-size-var(tiny-7);
-      line-height: get-size-var(small-3);
+      font-size: get-size-var(xs-7);
+      line-height: get-size-var(sm-3);
     }
   }
 
@@ -53,7 +53,7 @@ fab-form-field,
 
   &:has(input[type='checkbox']) {
     flex-direction: row-reverse;
-    gap: get-size-var(tiny-4);
+    gap: get-size-var(xs-4);
     justify-content: flex-end;
     align-items: center;
     margin-inline-start: get-border-width(thin);
@@ -66,7 +66,7 @@ fab-form-field,
 
   &:has(input[type='checkbox']:focus) {
     margin-inline-start: 0;
-    gap: calc(#{get-size-var(tiny-4)} - #{get-border-width(thin)});
+    gap: calc(#{get-size-var(xs-4)} - #{get-border-width(thin)});
   }
 
   &:has(input[type='checkbox']:disabled) {

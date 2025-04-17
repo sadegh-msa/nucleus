@@ -9,7 +9,7 @@
 nu-info-fields {
   .info-fields-row {
     display: flex;
-    padding-block: get-size-var(tiny-4);
+    padding-block: get-size-var(xs-4);
 
     .info-fields-label {
       @include text-color(neutral);
@@ -17,7 +17,7 @@ nu-info-fields {
 
     .info-fields-value {
       @include text-color(info);
-      padding-inline: get-size-var(tiny-2);
+      padding-inline: get-size-var(xs-2);
     }
   }
 }

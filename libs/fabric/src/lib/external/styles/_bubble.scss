@@ -130,7 +130,7 @@ fab-bubble {
     width: 100%;
     border-radius: inherit;
     background-color: inherit;
-    padding: get-size-var(tiny-6);
+    padding: get-size-var(xs-6);
   }
 
   > .close {
@@ -138,8 +138,8 @@ fab-bubble {
     @include text-color(paper);
     background-color: get-color-var(neutral);
     position: absolute;
-    height: get-size-var(small-4);
-    width: get-size-var(small-4);
+    height: get-size-var(sm-4);
+    width: get-size-var(sm-4);
     text-align: center;
     border-radius: 50%;
     vertical-align: middle;
@@ -162,7 +162,7 @@ fab-bubble {
     position: absolute;
     z-index: -1;
     background-color: inherit;
-    border-end-start-radius: get-size-var(tiny-2);
-    border-start-end-radius: get-size-var(tiny-2);
+    border-end-start-radius: get-size-var(xs-2);
+    border-start-end-radius: get-size-var(xs-2);
   }
 }

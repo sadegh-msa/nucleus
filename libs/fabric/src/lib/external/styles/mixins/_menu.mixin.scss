@@ -115,8 +115,8 @@
           border-top-right-radius: 0;
           border-bottom-left-radius: inherit;
           border-bottom-right-radius: inherit;
-          padding: get-size-var(tiny-2);
-          max-height: calc(#{get-size-var(large-7)} * var(--menu-size));
+          padding: get-size-var(xs-2);
+          max-height: calc(#{get-size-var(lg-7)} * var(--menu-size));
         }
       }
     }
@@ -145,17 +145,17 @@
     }
 
     :is(a, button) {
-      @include menu-item-size(regular);
+      @include menu-item-size(normal);
       @include transition.normal(border-radius, color, background-color, box-shadow, width, gap);
       display: flex;
       align-items: center;
       justify-content: flex-start;
-      gap: get-size-var(tiny-4);
+      gap: get-size-var(xs-4);
       width: 100%;
       outline: 2px solid transparent;
       outline-offset: 2px;
-      padding-inline: get-size-var(tiny-6);
-      padding-block: get-size-var(tiny-5);
+      padding-inline: get-size-var(xs-6);
+      padding-block: get-size-var(xs-5);
       border: unset;
       background: unset;
       cursor: pointer;

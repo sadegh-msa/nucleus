@@ -14,14 +14,14 @@
   }
 }
 
-@mixin rounded-mini($border-color: null, $border-width: thin) {
-  @include generic(tiny-2, $border-color, $border-width);
+@mixin rounded-small($border-color: null, $border-width: thin) {
+  @include generic(xs-2, $border-color, $border-width);
 }
 
-@mixin rounded-moderate($border-color: null, $border-width: thin) {
-  @include generic(tiny-3, $border-color, $border-width);
+@mixin rounded-medium($border-color: null, $border-width: thin) {
+  @include generic(xs-3, $border-color, $border-width);
 }
 
 @mixin rounded-big($border-color: null, $border-width: thin) {
-  @include generic(tiny-4, $border-color, $border-width);
+  @include generic(xs-4, $border-color, $border-width);
 }

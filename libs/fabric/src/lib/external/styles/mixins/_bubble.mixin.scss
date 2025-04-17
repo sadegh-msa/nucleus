@@ -1,8 +1,8 @@
 @use '../funcs' as *;
 
-$arrow-size: small-1;
+$arrow-size: sm-1;
 
-@mixin close($block-position, $inline-position, $offset: tiny-6) {
+@mixin close($block-position, $inline-position, $offset: xs-6) {
   > .close {
     inset-block-#{$block-position}: calc(-1 * #{get-size-var($offset)});
     inset-inline-#{$inline-position}: calc(-1 * #{get-size-var($offset)});
@@ -53,7 +53,7 @@ $arrow-size: small-1;
 
 @mixin corner-arrow($block-position, $inline-position) {
   $is-reversed: $block-position != $inline-position;
-  $offset: calc(-0.7 * #{get-size-var(tiny-1)});
+  $offset: calc(-0.7 * #{get-size-var(xs-1)});
   $rotate-value: -90deg;
   $skew-value: if($is-reversed, -11deg, 11deg);
 

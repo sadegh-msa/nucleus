@@ -5,12 +5,12 @@
 @mixin size($size) {
   line-height: normal;
 
-  @if $size == mini {
-    font-size: get-size-var(tiny-6);
-  } @else if $size == moderate {
-    font-size: get-size-var(tiny-7);
-  } @else if $size == regular {
-    font-size: get-size-var(small-1);
+  @if $size == small {
+    font-size: get-size-var(xs-6);
+  } @else if $size == medium {
+    font-size: get-size-var(xs-7);
+  } @else if $size == normal {
+    font-size: get-size-var(sm-1);
   }
 }
 
@@ -36,7 +36,7 @@
 
 @mixin sizes($sizes) {
   @each $size in $sizes {
-    @if $size == regular {
+    @if $size == normal {
       @include size($size);
     } @else {
       &.#{$size} {

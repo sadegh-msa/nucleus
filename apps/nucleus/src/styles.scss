@@ -14,13 +14,13 @@
 
 
 table {
-  @include box-rounded-mini;
+  @include box-rounded-small;
   width: 100%;
   border-collapse: collapse;
 
   th,
   td {
-    padding: get-size-var(small-1);
+    padding: get-size-var(sm-1);
   }
 
   th {
@@ -30,7 +30,7 @@ table {
 
   > thead {
     th {
-      width: get-size-var(huge-4);
+      width: get-size-var(xl-4);
       border-block-end-width: get-border-width-var(thin);
     }
   }
@@ -43,7 +43,7 @@ table {
       td > div {
         display: flex;
         align-items: center;
-        gap: get-size-var(tiny-4);
+        gap: get-size-var(xs-4);
       }
     }
   }

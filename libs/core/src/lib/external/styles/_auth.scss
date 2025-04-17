@@ -12,15 +12,15 @@ nu-sign-layout {
   justify-content: center;
 
   > fab-card {
-    gap: get-size-var(small-1);
-    padding: get-size-var(small-1);
-    width: calc(10 * #{get-size-var(large-7)});
+    gap: get-size-var(sm-1);
+    padding: get-size-var(sm-1);
+    width: calc(10 * #{get-size-var(lg-7)});
 
     > {
       header,
       form,
       footer {
-        padding: get-size-var(tiny-4);
+        padding: get-size-var(xs-4);
       }
     }
 
@@ -35,7 +35,7 @@ nu-sign-layout {
       }
 
       > .page-title {
-        margin-top: get-size-var(small-5);
+        margin-top: get-size-var(sm-5);
         width: auto;
       }
     }
@@ -49,7 +49,7 @@ nu-sign-layout {
         grid-template-columns: repeat(2, minmax(0, 1fr));
 
         > :is(a, button) {
-          height: get-size-var(large-1);
+          height: get-size-var(lg-1);
 
           &:first-child {
             grid-column: 1 / span 2;
@@ -60,7 +60,7 @@ nu-sign-layout {
   }
 
   > .manufacturer-logo {
-    margin-top: get-size-var(small-5);
+    margin-top: get-size-var(sm-5);
     width: auto;
   }
 }

@@ -17,13 +17,13 @@
   &:dir(rtl) {
     transform: rotate(45deg) scaleX(-1);
     width: $size;
-    margin-inline-start: calc(#{get-size-var(tiny-2)} / 3);
+    margin-inline-start: calc(#{get-size-var(xs-2)} / 3);
   }
 
   &:before,
   &:after {
     @include transition.normal(height, width);
-    @include box.rounded-mini($border-width: null);
+    @include box.rounded-small($border-width: null);
     content: '';
     position: absolute;
     inset-block-end: 0;

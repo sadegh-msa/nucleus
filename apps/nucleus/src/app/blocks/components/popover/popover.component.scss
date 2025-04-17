@@ -29,13 +29,13 @@
     &.popovers {
       display: flex;
       flex-direction: column;
-      gap: get-size-var(medium-1);
+      gap: get-size-var(md-1);
 
       > section {
         display: grid;
         grid-template-rows: repeat(5, min-content);
         grid-template-columns: repeat(5, min-content);
-        gap: get-size-var(small-1);
+        gap: get-size-var(sm-1);
         height: get-size-var(100);
         place-self: center;
 
@@ -148,8 +148,8 @@
       grid-template-columns: repeat(2, 1fr);
 
       > section {
-        padding-block-end: get-size-var(medium-4);
-        padding-inline-start: get-size-var(medium-4);
+        padding-block-end: get-size-var(md-4);
+        padding-inline-start: get-size-var(md-4);
 
         button {
           width: get-size-var(100);
@@ -185,7 +185,7 @@
 
         .block-center {
           button {
-            margin: get-size-var(tiny-1);
+            margin: get-size-var(xs-1);
           }
         }
       }
@@ -200,7 +200,7 @@
 
         .block-center {
           button {
-            margin: get-size-var(tiny-6);
+            margin: get-size-var(xs-6);
           }
         }
       }
@@ -216,7 +216,7 @@
 
         .block-center {
           button {
-            margin: get-size-var(tiny-6);
+            margin: get-size-var(xs-6);
           }
         }
       }
@@ -231,12 +231,12 @@
           align-items: center;
           flex-direction: column;
           justify-content: space-between;
-          gap: get-size-var(small-1);
+          gap: get-size-var(sm-1);
         }
 
         .inline-center {
           button {
-            margin: get-size-var(tiny-5);
+            margin: get-size-var(xs-5);
             height: get-size-var(100);
           }
         }

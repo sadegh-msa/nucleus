@@ -4,7 +4,7 @@
   display: flex;
   flex-direction: column;
   min-height: 100%;
-  gap: get-size-var(small-1);
+  gap: get-size-var(sm-1);
 
   &.page-form {
   }
@@ -33,7 +33,7 @@
     flex-grow: 0.5;
 
     &.page-form-content {
-      padding: get-size-var(tiny-4);
+      padding: get-size-var(xs-4);
     }
 
     &.page-list-content {

@@ -30,23 +30,23 @@ nu-generic-list {
       }
 
       .p-datatable-loading-overlay {
-        margin-block-start: get-size-var(tiny-6);
+        margin-block-start: get-size-var(xs-6);
       }
 
       .p-datatable-thead > tr > th {
         background-color: get-color-var(paper-darkest);
-        padding: get-size-var(tiny-6);
+        padding: get-size-var(xs-6);
         position: sticky;
         top: 0;
         z-index: 20;
 
         &:first-child {
-          padding-inline-start: get-size-var(small-1);
+          padding-inline-start: get-size-var(sm-1);
         }
 
         &.table-selection-header {
           display: table-cell;
-          width: get-size-var(small-2);
+          width: get-size-var(sm-2);
 
           & > span {
             background-color: transparent;
@@ -56,7 +56,7 @@ nu-generic-list {
         }
 
         &.table-tools-header {
-          padding-inline-end: get-size-var(medium-2);
+          padding-inline-end: get-size-var(md-2);
           position: sticky;
           right: 0;
           text-align: right;
@@ -104,11 +104,11 @@ nu-generic-list {
 
           > td {
             border: 0;
-            padding: get-size-var(tiny-6);
+            padding: get-size-var(xs-6);
             white-space: nowrap;
 
             &:first-child {
-              padding-inline-start: get-size-var(small-1);
+              padding-inline-start: get-size-var(sm-1);
             }
 
             &.table-tools {
@@ -117,11 +117,11 @@ nu-generic-list {
               justify-content: flex-end;
               position: sticky;
               right: 0;
-              gap: get-size-var(tiny-2);
+              gap: get-size-var(xs-2);
             }
 
             .p-skeleton {
-              margin-block: get-size-var(tiny-6);
+              margin-block: get-size-var(xs-6);
             }
           }
         }

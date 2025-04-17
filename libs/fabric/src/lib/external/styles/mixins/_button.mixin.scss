@@ -7,59 +7,59 @@
 @use './size.mixin';
 
 @mixin dimension($size) {
-  @if $size == mini {
-    height: get-size-var(medium-1);
-  } @else if $size == moderate {
-    height: get-size-var(medium-5);
-  } @else if $size == regular {
-    height: get-size-var(large-2);
+  @if $size == small {
+    height: get-size-var(md-1);
+  } @else if $size == medium {
+    height: get-size-var(md-5);
+  } @else if $size == normal {
+    height: get-size-var(lg-2);
   }
 }
 
 @mixin icon-dimension($size) {
-  @if $size == mini {
-    @include size.rect(medium-1);
-  } @else if $size == moderate {
-    @include size.rect(medium-2);
-  } @else if $size == regular {
-    @include size.rect(medium-3);
+  @if $size == small {
+    @include size.rect(md-1);
+  } @else if $size == medium {
+    @include size.rect(md-2);
+  } @else if $size == normal {
+    @include size.rect(md-3);
   }
 }
 
 @mixin icon-size($size) {
-  @if $size == mini {
-    height: get-size-var(small-2);
-    width: get-size-var(small-2);
-  } @else if $size == moderate {
-    height: get-size-var(small-3);
-    width: get-size-var(small-3);
-  } @else if $size == regular {
-    height: get-size-var(small-5);
-    width: get-size-var(small-5);
+  @if $size == small {
+    height: get-size-var(sm-2);
+    width: get-size-var(sm-2);
+  } @else if $size == medium {
+    height: get-size-var(sm-3);
+    width: get-size-var(sm-3);
+  } @else if $size == normal {
+    height: get-size-var(sm-5);
+    width: get-size-var(sm-5);
   }
 }
 
 @mixin padding($size) {
   &:has(span) {
-    @if $size == mini {
-      padding-inline: get-size-var(tiny-6);
-      padding-block: get-size-var(tiny-2);
-    } @else if $size == moderate {
-      padding-inline: get-size-var(small-1);
-      padding-block: get-size-var(tiny-4);
-    } @else if $size == regular {
-      padding-inline: get-size-var(small-3);
-      padding-block: get-size-var(tiny-5);
+    @if $size == small {
+      padding-inline: get-size-var(xs-6);
+      padding-block: get-size-var(xs-2);
+    } @else if $size == medium {
+      padding-inline: get-size-var(sm-1);
+      padding-block: get-size-var(xs-4);
+    } @else if $size == normal {
+      padding-inline: get-size-var(sm-3);
+      padding-block: get-size-var(xs-5);
     }
   }
 
   &:not(:has(span)) {
-    padding-block: calc(#{get-size-var(tiny-2)} + 1px) get-size-var(tiny-2);
+    padding-block: calc(#{get-size-var(xs-2)} + 1px) get-size-var(xs-2);
   }
 }
 
 @mixin size($size) {
-  @include box.rounded-moderate($border-width: null);
+  @include box.rounded-medium($border-width: null);
 
   &:has(span) {
     @include dimension($size);
@@ -162,7 +162,7 @@
 
 @mixin sizes($sizes) {
   @each $size in $sizes {
-    @if $size == regular {
+    @if $size == normal {
       @include size($size);
     } @else {
       &.#{$size} {
@@ -179,7 +179,7 @@
   align-items: center;
   border: get-border-width-var(thin) transparent solid;
   display: flex;
-  gap: get-size-var(tiny-3);
+  gap: get-size-var(xs-3);
   justify-content: center;
   outline: 2px solid transparent;
   outline-offset: 2px;

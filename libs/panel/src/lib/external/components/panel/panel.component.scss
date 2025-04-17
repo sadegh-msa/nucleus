@@ -41,8 +41,8 @@ body {
 
   nu-panel {
     display: grid;
-    gap: get-size-var(tiny-6);
-    padding: get-size-var(tiny-6);
+    gap: get-size-var(xs-6);
+    padding: get-size-var(xs-6);
     height: 100%;
     width: 100%;
     overflow: hidden;
@@ -60,14 +60,14 @@ body {
       @include box-rounded-big;
       @include shadow-large;
       background-color: get-color-var(paper-dark);
-      padding: get-size-var(small-1);
+      padding: get-size-var(sm-1);
     }
 
     > progress {
       position: absolute;
       inset-block-start: 0;
       inset-inline-start: 0;
-      height: get-size-var(tiny-2);
+      height: get-size-var(xs-2);
       width: 100dvw;
       background-color: get-color-var(transparent);
       -webkit-appearance: none;
