@@ -1,0 +1,23 @@
+@use "libs/fabric/src/lib/ext/styles/funcs/index.scss" as *;
+@use "libs/fabric/src/lib/ext/styles/mixins/index.scss" as *;
+
+.info-fields-overlay {
+  display: flex;
+  flex-direction: column;
+}
+
+nu-info-fields {
+  .info-fields-row {
+    display: flex;
+    padding-block: get-size-var(xs-4);
+
+    .info-fields-label {
+      @include text-color(neutral);
+    }
+
+    .info-fields-value {
+      @include text-color(info);
+      padding-inline: get-size-var(xs-2);
+    }
+  }
+}

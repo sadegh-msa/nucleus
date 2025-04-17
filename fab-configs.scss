@@ -1,6 +1,6 @@
 @use 'sass:color';
-@use './libs/fabric/src/lib/external/styles/utils/_config.util.scss' as *;
-@use './libs/fabric/src/lib/external/styles/_default-configs.scss' as *;
+@use './libs/fabric/src/lib/ext/styles/utils/_config.util.scss' as *;
+@use './libs/fabric/src/lib/ext/styles/_default-configs.scss' as *;
 
 $new-color-pigments: (
   primary: green,

@@ -1,0 +1,21 @@
+@use 'libs/fabric/src/lib/ext/styles/funcs/index.scss' as *;
+
+form,
+.nu-form-group {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: get-size-var(sm-5);
+
+  &.nu-form-view {
+  }
+}
+
+.nu-form-actions {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: get-size-var(xs-4);
+
+  .nu-form-action {
+    width: 100%;
+  }
+}

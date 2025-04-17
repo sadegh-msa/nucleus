@@ -1,16 +1,16 @@
-@use 'libs/fabric/src/lib/external/styles/funcs/index.scss' as *;
-@use 'libs/fabric/src/lib/external/styles/mixins/index.scss' as *;
-@use 'libs/theme/src/lib/external/styles/_basic-theme.scss';
+@use 'libs/fabric/src/lib/ext/styles/funcs/index.scss' as *;
+@use 'libs/fabric/src/lib/ext/styles/mixins/index.scss' as *;
+@use 'libs/theme/src/lib/ext/styles/_basic-theme.scss';
 
 /****************/
-@use 'libs/fabric/src/lib/external/styles/_base.scss';
-@use 'libs/fabric/src/lib/external/styles/_card.scss';
-@use 'libs/fabric/src/lib/external/styles/_bubble.scss';
-@use 'libs/fabric/src/lib/external/styles/_input.scss';
-@use 'libs/fabric/src/lib/external/styles/_checkbox.scss';
-@use 'libs/fabric/src/lib/external/styles/_toggle.scss';
-@use 'libs/fabric/src/lib/external/styles/_form-field.scss';
-@use 'libs/core/src/lib/external/styles/index.scss';
+@use 'libs/fabric/src/lib/ext/styles/_base.scss';
+@use 'libs/fabric/src/lib/ext/styles/_card.scss';
+@use 'libs/fabric/src/lib/ext/styles/_bubble.scss';
+@use 'libs/fabric/src/lib/ext/styles/_input.scss';
+@use 'libs/fabric/src/lib/ext/styles/_checkbox.scss';
+@use 'libs/fabric/src/lib/ext/styles/_toggle.scss';
+@use 'libs/fabric/src/lib/ext/styles/_form-field.scss';
+@use 'libs/core/src/lib/ext/styles/index.scss';
 
 
 table {
