@@ -1,18 +1,18 @@
 import {
   Directive,
-  effect,
   ElementRef,
   HostListener,
-  inject,
   Injector,
-  input,
   OnDestroy,
   OnInit,
+  effect,
+  inject,
+  input,
   untracked,
 } from '@angular/core';
-import { BubbleComponent } from '../../components';
+import type { BubbleComponent } from '../../components';
 import { HtmlService, PopoverService } from '../../services';
-import { FabPosition } from '../../types';
+import type { FabPosition } from '../../types';
 
 @Directive({
   selector: '[fabPopover]',
@@ -28,7 +28,7 @@ export class PopoverDirective implements OnInit, OnDestroy {
 
   bubbleComponent = input.required<BubbleComponent>({ alias: 'fabPopover' });
   isDismissible = input(true, { alias: 'fabPopoverIsDismissible' });
-  showCloseButton = input(true, { alias: 'fabPopoverShowCloseButton' });
+  showCloseButton = input(false, { alias: 'fabPopoverShowCloseButton' });
   fabPopoverPosition = input<FabPosition>('auto');
   fabPopoverEvent = input<'click' | 'hover'>('hover');
 
@@ -44,7 +44,7 @@ export class PopoverDirective implements OnInit, OnDestroy {
     this.#mainElement.addEventListener('scroll', this.onMainScroll.bind(this));
 
     effect(() => {
-      const showCloseButton = this.showCloseButton();
+      const showCloseButton = this.fabPopoverEvent() === 'click' && this.showCloseButton();
 
       untracked(() => {
         this.bubbleComponent().showCloseButton.set(showCloseButton);

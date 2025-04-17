@@ -5,13 +5,13 @@ import {
   DestroyRef,
   ElementRef,
   HostBinding,
-  inject,
   Injector,
+  inject,
   model,
 } from '@angular/core';
 import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop';
 import { pairwise, startWith } from 'rxjs';
-import { FabPosition } from '../../types';
+import type { FabPosition } from '../../types';
 
 @Component({
   selector: 'fab-bubble',
@@ -36,7 +36,7 @@ export class BubbleComponent {
 
   isVisible = model(false);
   isFloated = model(false);
-  showCloseButton = model(true);
+  showCloseButton = model(false);
   position = model<FabPosition>('auto');
 
   get hostElement() {
