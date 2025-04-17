@@ -23,7 +23,7 @@
   }
 
   menu {
-    @include box-rounded-big($border-width: 0);
+    @include box-rounded($border-width: 0);
     width: 100%;
     gap: get-size-var(xs-2);
     overflow-y: auto;
@@ -39,7 +39,7 @@
       li a,
       li button,
       menu li {
-        @include box-rounded-big($border-width: 0);
+        @include box-rounded($border-width: 0);
       }
     }
   }

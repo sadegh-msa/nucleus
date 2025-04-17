@@ -2,7 +2,7 @@
 @use './mixins' as *;
 
 fab-card {
-  @include box-rounded-big;
+  @include box-rounded;
   @include shadow-large;
   display: flex;
   background-color: get-color-var(paper-dark);

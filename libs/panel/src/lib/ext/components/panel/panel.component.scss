@@ -57,7 +57,7 @@ body {
     }
 
     > :is(header, nav, main) {
-      @include box-rounded-big;
+      @include box-rounded;
       @include shadow-large;
       background-color: get-color-var(paper-dark);
       padding: get-size-var(sm-1);

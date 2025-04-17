@@ -7,7 +7,7 @@
   gap: get-size-var(sm-1);
 
   section {
-    @include box-rounded-big(neutral-inverse-darker);
+    @include box-rounded(neutral-inverse-darker);
     display: flex;
     flex-direction: column;
     gap: get-size-var(xs-4);

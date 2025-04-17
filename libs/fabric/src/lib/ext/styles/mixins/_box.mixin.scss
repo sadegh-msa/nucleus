@@ -1,6 +1,8 @@
 @use '../funcs' as *;
 
-@mixin generic($border-radius, $border-color, $border-width) {
+@mixin generic($border-radius, $border-color, $border-width, $border-style) {
+  border-style: $border-style;
+
   @if ($border-radius != null) {
     border-radius: get-size-var($border-radius);
   }
@@ -14,14 +16,14 @@
   }
 }
 
-@mixin rounded-small($border-color: null, $border-width: thin) {
-  @include generic(xs-2, $border-color, $border-width);
+@mixin rounded-small($border-color: null, $border-width: thin, $border-style: solid) {
+  @include generic(xs-2, $border-color, $border-width, $border-style);
 }
 
-@mixin rounded-medium($border-color: null, $border-width: thin) {
-  @include generic(xs-3, $border-color, $border-width);
+@mixin rounded-medium($border-color: null, $border-width: thin, $border-style: solid) {
+  @include generic(xs-3, $border-color, $border-width, $border-style);
 }
 
-@mixin rounded-big($border-color: null, $border-width: thin) {
-  @include generic(xs-4, $border-color, $border-width);
+@mixin rounded($border-color: null, $border-width: thin, $border-style: solid) {
+  @include generic(xs-4, $border-color, $border-width, $border-style);
 }

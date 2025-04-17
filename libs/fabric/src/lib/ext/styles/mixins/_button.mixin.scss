@@ -59,8 +59,6 @@
 }
 
 @mixin size($size) {
-  @include box.rounded-medium($border-width: null);
-
   &:has(span) {
     @include dimension($size);
 
@@ -174,10 +172,10 @@
 
 @mixin generic($variants, $colors, $sizes) {
   @include transition.normal(color, background-color, box-shadow);
+  @include box.rounded(transparent);
   @include colors($variants, $colors);
   @include sizes($sizes);
   align-items: center;
-  border: get-border-width-var(thin) transparent solid;
   display: flex;
   gap: get-size-var(xs-3);
   justify-content: center;

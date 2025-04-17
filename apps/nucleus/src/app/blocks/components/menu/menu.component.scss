@@ -17,7 +17,7 @@
     }
 
     > menu {
-      @include box-rounded-big;
+      @include box-rounded;
       @include shadow-medium;
       height: max-content;
       width: max-content;

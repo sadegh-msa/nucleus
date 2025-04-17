@@ -2,7 +2,7 @@
 @use './mixins' as *;
 
 fab-bubble {
-  @include box-rounded-big($border-width: none);
+  @include box-rounded($border-width: none);
   @include text-color(paper);
   @include shadow-medium;
   @include transition-normal(visibility);
@@ -134,7 +134,7 @@ fab-bubble {
   }
 
   > .close {
-    @include box-rounded-big;
+    @include box-rounded;
     @include text-color(paper);
     background-color: get-color-var(neutral);
     position: absolute;
