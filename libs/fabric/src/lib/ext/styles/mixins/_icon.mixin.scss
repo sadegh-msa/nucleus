@@ -1,9 +1,12 @@
 @use '../funcs' as *;
+@use '../mixins/transition.mixin';
 
 @mixin color($color) {
   $color-value: get-color-var($color);
 
   > * {
+    @include transition.normal(fill, stroke);
+
     &[fill] {
       fill: $color-value;
     }
