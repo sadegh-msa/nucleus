@@ -1,13 +1,13 @@
-@use 'libs/fabric/src/lib/ext/styles/mixins/index.scss' as *;
+@use 'mixins/theme.mixin';
 @use 'normalize.css/normalize.css';
 @use './varibales';
 @use './fonts/iransansx-fanum.font';
 @use './fonts/kalameh-fanum.font';
 @use './typography';
-@use 'libs/fabric/src/lib/ext/styles/_button.scss';
-@use 'libs/fabric/src/lib/ext/styles/_icon.scss';
-@use 'libs/fabric/src/lib/ext/styles/_link.scss';
-@use 'libs/fabric/src/lib/ext/styles/_text.scss';
-@use 'libs/fabric/src/lib/ext/styles/_tooltip.scss';
+@use 'components/button';
+@use 'components/icon';
+@use 'components/link';
+@use 'components/text';
+@use 'components/tooltip';
 
-@include theme-attach();
+@include theme.attach();

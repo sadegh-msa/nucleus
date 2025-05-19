@@ -1,4 +1,5 @@
-@use '../funcs' as *;
+@use '../funcs/color.func' as *;
+@use '../funcs/size.func' as *;
 @use './icon.mixin';
 @use './transition.mixin';
 

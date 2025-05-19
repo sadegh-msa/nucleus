@@ -1,14 +1,15 @@
-@use 'libs/fabric/src/lib/ext/styles/funcs/index.scss' as *;
-@use 'libs/fabric/src/lib/ext/styles/mixins/index.scss' as *;
+@use 'funcs/color.func' as *;
+@use 'funcs/size.func' as *;
+@use 'mixins/text.mixin';
 
 nu-generic-list {
   .boolean {
     .true {
-      @include text-color(success);
+      @include text.color(success);
     }
 
     .false {
-      @include text-color(danger);
+      @include text.color(danger);
     }
   }
 
@@ -94,7 +95,7 @@ nu-generic-list {
 
           &.table-activation {
             > td {
-              background-color: get-color-var(primary-inverse);
+              background-color: get-color-var(primary-surface);
 
               &:not(.table-tools) {
                 color: get-color-var(primary);

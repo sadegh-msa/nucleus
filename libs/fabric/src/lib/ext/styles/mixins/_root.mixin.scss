@@ -1,4 +1,7 @@
-@use '../funcs' as *;
+@use '../funcs/config.func' as *;
+@use '../funcs/color.func' as *;
+@use '../funcs/border.func' as *;
+@use '../funcs/size.func' as *;
 
 @mixin define-css-border-vars() {
   @each $width, $value in get-config(border, width) {
@@ -13,12 +16,7 @@
 }
 
 @mixin define-css-size-vars() {
-  $start: get-config(size, factor, min);
-  $end: get-config(size, factor, max);
-
-  @for $i from $start through $end {
-    #{create-size-var-name($i)}: #{get-size($i)};
-  }
+  #{get-base-size-var-name()}: get-config(size, base);
 }
 
 @mixin define-css-vars() {

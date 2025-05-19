@@ -1,6 +1,6 @@
 import { makeEnvironmentProviders } from '@angular/core';
 import { popperVariation, provideTippyConfig, tooltipVariation } from '@ngneat/helipopper';
-import { FabricConfig } from '../models';
+import type { FabricConfig } from '../models';
 import { provideFabricConfig } from './index';
 
 export function provideFabric(config: FabricConfig) {

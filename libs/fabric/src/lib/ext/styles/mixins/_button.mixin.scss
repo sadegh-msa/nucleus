@@ -1,4 +1,5 @@
-@use '../funcs' as *;
+@use '../funcs/size.func' as *;
+@use '../funcs/color.func' as *;
 @use './icon.mixin';
 @use './text.mixin';
 @use './shadow.mixin';
@@ -9,10 +10,13 @@
 @mixin dimension($size) {
   @if $size == small {
     height: get-size-var(md-1);
+    @include box.rounded-small(transparent);
   } @else if $size == medium {
     height: get-size-var(md-5);
+    @include box.rounded-medium(transparent);
   } @else if $size == normal {
     height: get-size-var(lg-2);
+    @include box.rounded(transparent);
   }
 }
 
@@ -89,7 +93,12 @@
 @mixin variant-color($bg-color, $text-color, $border-color) {
   &:hover {
     @include text.color('#{$text-color}-dark');
-    background-color: get-color-var('#{$bg-color}-dark');
+
+    @if ($bg-color != transparent) {
+      background-color: get-color-var('#{$bg-color}-dark');
+    } @else {
+      background-color: get-color-var('transparent-dark');
+    }
 
     @if ($border-color != transparent) {
       border-color: get-color-var('#{$border-color}-dark');
@@ -99,7 +108,12 @@
   &:active {
     @include text.color('#{$text-color}-darker');
     @include shadow.inset();
-    background-color: get-color-var('#{$bg-color}-darker');
+
+    @if ($bg-color != transparent) {
+      background-color: get-color-var('#{$bg-color}-darker');
+    } @else {
+      background-color: get-color-var('transparent-darker');
+    }
 
     @if ($border-color != transparent) {
       border-color: get-color-var('#{$border-color}-darker');
@@ -125,16 +139,16 @@
 }
 
 @mixin variant($variant, $color, $is-second: false) {
-  $inverse-color: '#{$color}-inverse';
+  $surface-color: '#{$color}-surface';
 
   @if $variant == bulk {
-    @include variant-properties($inverse-color, $color, $inverse-color, $is-second);
+    @include variant-properties($surface-color, $color, $surface-color, $is-second);
   } @else if $variant == outline {
     @include variant-properties(transparent, $color, $color, $is-second);
   } @else if $variant == text {
     @include variant-properties(transparent, $color, transparent, $is-second);
   } @else if $variant == emphasis {
-    @include variant-properties($color, $inverse-color, $color, $is-second);
+    @include variant-properties($color, $surface-color, $color, $is-second);
   }
 }
 
@@ -172,7 +186,6 @@
 
 @mixin generic($variants, $colors, $sizes) {
   @include transition.normal(color, background-color, box-shadow);
-  @include box.rounded(transparent);
   @include colors($variants, $colors);
   @include sizes($sizes);
   align-items: center;

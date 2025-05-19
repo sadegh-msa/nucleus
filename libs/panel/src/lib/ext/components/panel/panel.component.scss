@@ -1,5 +1,9 @@
-@use 'libs/fabric/src/lib/ext/styles/funcs/index.scss' as *;
-@use 'libs/fabric/src/lib/ext/styles/mixins/index.scss' as *;
+@use 'funcs/size.func' as *;
+@use 'funcs/color.func' as *;
+@use 'mixins/transition.mixin';
+@use 'mixins/breakpoint.mixin';
+@use 'mixins/shadow.mixin';
+@use 'mixins/box.mixin';
 @use 'libs/theme/src/lib/ext/styles/_panel-theme.scss';
 
 $panel-nav-compact-width: 76px;
@@ -13,7 +17,7 @@ $panel-nav-wide-width: 260px;
 }
 
 @mixin web() {
-  @include transition-normal(grid-template-columns);
+  @include transition.normal(grid-template-columns);
   grid-template-areas: 'nav header' 'nav main';
   grid-template-rows: auto 1fr;
 
@@ -28,7 +32,7 @@ $panel-nav-wide-width: 260px;
   }
 
   nav {
-    @include transition-normal(width);
+    @include transition.normal(width);
   }
 }
 
@@ -48,17 +52,17 @@ body {
     overflow: hidden;
     background-color: get-color-var(paper-darker);
 
-    @include bp-screens('handset', 'tablet') {
+    @include breakpoint.screens('handset', 'tablet') {
       @include handset();
     }
 
-    @include bp-screens('web') {
+    @include breakpoint.screens('web') {
       @include web();
     }
 
     > :is(header, nav, main) {
-      @include box-rounded;
-      @include shadow-large;
+      @include box.rounded;
+      @include shadow.large;
       background-color: get-color-var(paper-dark);
       padding: get-size-var(sm-1);
     }

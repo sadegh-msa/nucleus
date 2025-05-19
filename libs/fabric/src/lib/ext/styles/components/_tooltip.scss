@@ -1,5 +1,6 @@
 @use 'tippy.js/dist/tippy.css';
-@use './mixins/shadow.mixin';
+@use '../funcs/color.func' as *;
+@use '../mixins/shadow.mixin';
 
 .tippy-variation-tooltip {
   .tippy-box {

@@ -1,4 +1,5 @@
-@use '../funcs' as *;
+@use '../funcs/color.func' as *;
+@use '../funcs/size.func' as *;
 @use './text.mixin';
 @use './button.mixin';
 @use './shadow.mixin';
@@ -115,8 +116,8 @@
           border-top-right-radius: 0;
           border-bottom-left-radius: inherit;
           border-bottom-right-radius: inherit;
+          max-height: calc(#{get-size-var(xl-7)} * var(--menu-size));
           padding: get-size-var(xs-2);
-          max-height: calc(#{get-size-var(lg-7)} * var(--menu-size));
         }
       }
     }

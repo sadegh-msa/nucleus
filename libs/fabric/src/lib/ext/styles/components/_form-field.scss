@@ -1,5 +1,6 @@
-@use './funcs' as *;
-@use './mixins' as *;
+@use '../funcs/color.func' as *;
+@use '../funcs/size.func' as *;
+@use '../funcs/border.func' as *;
 
 fab-form-field,
 .fab-form-field {

@@ -1,10 +1,11 @@
 @use 'sass:map';
 @use 'sass:list';
 @use 'sass:color';
+@use 'sass:meta';
 
 @function generate-color-variants($color, $color-value, $variants) {
   $palette: ();
-  $is-map: type-of($color-value) == 'map';
+  $is-map: meta.type-of($color-value) == 'map';
   $light-value: if($is-map == true, map.get($color-value, light), $color-value);
   $dark-value: if($is-map == true, map.get($color-value, dark), $color-value);
   $palette: map.set($palette, $color, light-dark($light-value, $dark-value));
@@ -15,7 +16,7 @@
       $color + '-' + $variant,
       light-dark(
         color.adjust($light-value, $space: oklch, $lightness: $variant-value),
-        color.adjust($dark-value, $space: oklch, $lightness: -1 * $variant-value)
+        color.adjust($dark-value, $space: oklch, $lightness: -1 * $variant-value),
       )
     );
   }

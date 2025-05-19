@@ -34,6 +34,11 @@
         "styles": [
           "apps/nucleus/src/styles.scss"
         ],
+        "stylePreprocessorOptions": {
+          "includePaths": [
+            "libs/fabric/src/lib/ext/styles"
+          ]
+        },
         "scripts": [],
         "localize": false,
         "i18nMissingTranslation": "warning"

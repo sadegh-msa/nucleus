@@ -1,4 +1,4 @@
-@use '../funcs' as *;
+@use '../funcs/size.func' as *;
 @use './text.mixin';
 
 @mixin icon-size($size) {

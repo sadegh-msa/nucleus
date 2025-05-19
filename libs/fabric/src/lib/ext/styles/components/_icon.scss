@@ -1,7 +1,10 @@
 @use 'sass:list';
-@use './funcs' as *;
-@use './mixins/icon.mixin';
-@use './mixins/transition.mixin';
+@use '../funcs/config.func' as *;
+@use '../funcs/border.func' as *;
+@use '../funcs/color.func' as *;
+@use '../funcs/size.func' as *;
+@use '../mixins/icon.mixin';
+@use '../mixins/transition.mixin';
 
 svg-icon {
   display: flex;

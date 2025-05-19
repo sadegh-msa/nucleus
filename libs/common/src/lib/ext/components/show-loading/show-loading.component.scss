@@ -1,4 +1,5 @@
-@use 'libs/fabric/src/lib/ext/styles/funcs/index.scss' as *;
+@use 'funcs/color.func' as *;
+@use 'funcs/size.func' as *;
 
 :host {
   &.nu-loading {

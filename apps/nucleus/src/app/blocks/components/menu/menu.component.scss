@@ -1,11 +1,13 @@
-@use 'libs/fabric/src/lib/ext/styles/funcs/index.scss' as *;
-@use 'libs/fabric/src/lib/ext/styles/mixins/index.scss' as *;
+@use 'funcs/size.func' as *;
+@use 'funcs/color.func' as *;
+@use 'mixins/box.mixin';
+@use 'mixins/shadow.mixin';
 
 :host {
   display: flex;
 
   section {
-    @include box-rounded-small;
+    @include box.rounded-small;
     display: flex;
     flex-direction: column;
     width: 100%;
@@ -17,8 +19,8 @@
     }
 
     > menu {
-      @include box-rounded;
-      @include shadow-medium;
+      @include box.rounded;
+      @include shadow.medium;
       height: max-content;
       width: max-content;
       background-color: get-color-var(paper-dark);

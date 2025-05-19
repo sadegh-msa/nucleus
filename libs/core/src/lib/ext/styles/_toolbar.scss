@@ -1,4 +1,4 @@
-@use 'libs/fabric/src/lib/ext/styles/funcs/index.scss' as *;
+@use 'funcs/size.func' as *;
 
 @mixin toolbar {
   display: flex;

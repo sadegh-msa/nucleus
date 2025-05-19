@@ -3,7 +3,7 @@
 @function generate-grayscale-color(
   $weight: 50%,
   $alpha: 100%,
-  $light: lch(100% 0 0),
+  $light: oklch(100% 0 0),
   $dark: oklch(0% 0.005 285.823),
   $method: oklch longer hue
 ) {
@@ -20,6 +20,8 @@
 @function css-get-light-dark($light, $dark) {
   @return light-dark($light, $dark);
 }
+
+$grayscale-surface: get-light-dark(generate-grayscale-color(92%), generate-grayscale-color(92%));
 
 $fab-default-configs: (
   prefix: fab,
@@ -38,35 +40,35 @@ $fab-default-configs: (
   color: (
     pigments: (
       primary: oklch(50% 0.2 250),
-      primary-inverse: oklch(94% 0.015 250deg),
+      primary-surface: oklch(92% 0.015 250deg),
       accent: oklch(55% 0.25 360),
-      accent-inverse: oklch(94% 0.015 360),
+      accent-surface: oklch(92% 0.015 360),
       info: oklch(60% 0.2 200),
-      info-inverse: oklch(94% 0.015 200),
+      info-surface: oklch(92% 0.015 200),
       success: oklch(50% 0.2 145),
-      success-inverse: oklch(94% 0.015 145),
+      success-surface: oklch(92% 0.015 145),
       warning: oklch(65% 0.15 70),
-      warning-inverse: oklch(94% 0.015 70),
+      warning-surface: oklch(92% 0.015 70),
       danger: oklch(50% 0.25 30),
-      danger-inverse: oklch(94% 0.015 30),
+      danger-surface: oklch(92% 0.015 30),
       ink: get-light-dark(generate-grayscale-color(2%), generate-grayscale-color(98%)),
-      ink-inverse: get-light-dark(generate-grayscale-color(75%), generate-grayscale-color(15%)),
+      ink-surface: $grayscale-surface,
       stamp: get-light-dark(generate-grayscale-color(40%), generate-grayscale-color(60%)),
-      stamp-inverse: get-light-dark(generate-grayscale-color(85%), generate-grayscale-color(35%)),
+      stamp-surface: $grayscale-surface,
       neutral: get-light-dark(generate-grayscale-color(50%), generate-grayscale-color(50%)),
-      neutral-inverse: get-light-dark(generate-grayscale-color(90%), generate-grayscale-color(90%)),
+      neutral-surface: $grayscale-surface,
       watermark: get-light-dark(generate-grayscale-color(70%), generate-grayscale-color(30%)),
-      watermark-inverse: get-light-dark(generate-grayscale-color(90%), generate-grayscale-color(25%)),
+      watermark-surface: $grayscale-surface,
       paper: get-light-dark(generate-grayscale-color(98%), generate-grayscale-color(3%)),
-      paper-inverse: get-light-dark(generate-grayscale-color(15%), generate-grayscale-color(75%)),
+      paper-surface: $grayscale-surface,
     ),
     variants: (
-      light: 2%,
-      lighter: 4%,
-      lightest: 8%,
-      dark: -2%,
-      darker: -4%,
-      darkest: -8%
+      light: 2.5%,
+      lighter: 5%,
+      lightest: 10%,
+      dark: -2.5%,
+      darker: -5%,
+      darkest: -10%
     ),
     palette: (
       shadow: css-get-light-dark(generate-grayscale-color(0%, 20%), generate-grayscale-color(100%, 20%)),
@@ -82,6 +84,14 @@ $fab-default-configs: (
       thin: 1px,
       medium: 2px,
       thick: 3px
+    ),
+    radius: (
+      tiny: xs-2,
+      small: xs-3,
+      medium: xs-4,
+      normal: xs-5,
+      large: xs-6,
+      full: 100%
     )
   ),
   typography: (

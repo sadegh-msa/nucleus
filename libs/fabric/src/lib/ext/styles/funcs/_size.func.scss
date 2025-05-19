@@ -24,18 +24,18 @@
   @return $value;
 }
 
+@function get-size-variants() {
+  @return get-config(size, variants);
+}
+
+@function get-base-size-var-name() {
+  @return --#{get-config(prefix)}-base-size;
+}
+
 @function get-size($size) {
   @return get-size-factor($size) * get-config(size, base);
 }
 
-@function create-size-var-name($size) {
-  @return create-css-var-name(size, string-replace('#{$size}', '.', '_'));
-}
-
 @function get-size-var($size) {
-  @return var(create-size-var-name(get-size-factor($size)));
-}
-
-@function get-size-variants() {
-  @return get-config(size, variants);
+  @return calc(var(#{get-base-size-var-name()}) * #{get-size-factor($size)});
 }

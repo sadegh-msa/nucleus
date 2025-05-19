@@ -1,0 +1,174 @@
+@use '../funcs/color.func' as *;
+@use '../funcs/size.func' as *;
+@use '../mixins/box.mixin';
+@use '../mixins/text.mixin';
+@use '../mixins/shadow.mixin';
+@use '../mixins/transition.mixin';
+@use '../mixins/bubble.mixin';
+@use '../mixins/size.mixin';
+
+fab-bubble {
+  @include box.rounded($border-width: none);
+  @include text.color(paper);
+  @include shadow.medium;
+  @include transition.normal(visibility);
+  background-color: get-color-var(ink);
+  z-index: 40;
+  width: max-content;
+  max-width: get-size-var(100);
+  //--bubble-arrow-offset: 50px;
+
+  &:not(.floated) {
+    position: relative;
+
+    &.invisible {
+      display: none;
+    }
+  }
+
+  &.floated {
+    position: absolute;
+
+    &.invisible {
+      visibility: hidden;
+      opacity: 0;
+    }
+  }
+
+  &.block {
+    &-start-corner {
+      &-start {
+        @include bubble.close(start, start);
+        @include bubble.corner-arrow(end, end);
+      }
+
+      &-end {
+        @include bubble.close(start, end);
+        @include bubble.corner-arrow(end, start);
+      }
+    }
+
+    &-end-corner {
+      &-start {
+        @include bubble.close(end, start);
+        @include bubble.corner-arrow(start, end);
+      }
+
+      &-end {
+        @include bubble.close(end, end);
+        @include bubble.corner-arrow(start, start);
+      }
+    }
+
+    &-start-inline {
+      &-start {
+        @include bubble.close(start, start);
+        @include bubble.block-arrow(end, end);
+      }
+
+      &-center {
+        @include bubble.close(start, start);
+        @include bubble.block-arrow(end, center);
+      }
+
+      &-end {
+        @include bubble.close(start, end);
+        @include bubble.block-arrow(end, start);
+      }
+    }
+
+    &-end-inline {
+      &-start {
+        @include bubble.close(end, start);
+        @include bubble.block-arrow(start, end);
+      }
+
+      &-center {
+        @include bubble.close(end, start);
+        @include bubble.block-arrow(start, center);
+      }
+
+      &-end {
+        @include bubble.close(end, end);
+        @include bubble.block-arrow(start, start);
+      }
+    }
+  }
+
+  &.inline {
+    &-start-block {
+      &-start {
+        @include bubble.close(start, start);
+        @include bubble.inline-arrow(end, end);
+      }
+
+      &-center {
+        @include bubble.close(start, start);
+        @include bubble.inline-arrow(end, center);
+      }
+
+      &-end {
+        @include bubble.close(start, start);
+        @include bubble.inline-arrow(end, start);
+      }
+    }
+
+    &-end-block {
+      &-start {
+        @include bubble.close(start, end);
+        @include bubble.inline-arrow(start, end);
+      }
+
+      &-center {
+        @include bubble.close(start, end);
+        @include bubble.inline-arrow(start, center);
+      }
+
+      &-end {
+        @include bubble.close(start, end);
+        @include bubble.inline-arrow(start, start);
+      }
+    }
+  }
+
+  > p {
+    height: 100%;
+    width: 100%;
+    border-radius: inherit;
+    background-color: inherit;
+    padding: get-size-var(xs-6);
+  }
+
+  > .close {
+    @include box.rounded;
+    @include text.color(paper);
+    background-color: get-color-var(neutral);
+    position: absolute;
+    height: get-size-var(sm-4);
+    width: get-size-var(sm-4);
+    text-align: center;
+    border-radius: 50%;
+    vertical-align: middle;
+    cursor: pointer;
+    padding: 2px;
+
+    &:hover {
+      background-color: get-color-var(neutral-dark);
+    }
+
+    &:active {
+      @include shadow.inset;
+      background-color: get-color-var(neutral-dark);
+    }
+  }
+
+  > .arrow {
+    @include shadow.small;
+    @include size.rect(bubble.$arrow-size);
+    position: absolute;
+    z-index: -1;
+    background-color: inherit;
+    border-end-start-radius: get-size-var(xs-2);
+    border-start-end-radius: get-size-var(xs-2);
+  }
+}

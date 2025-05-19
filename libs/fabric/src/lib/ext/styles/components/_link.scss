@@ -1,5 +1,7 @@
-@use './funcs' as *;
-@use './mixins/link.mixin';
+@use '../funcs/color.func' as *;
+@use '../funcs/size.func' as *;
+@use '../funcs/config.func' as *;
+@use '../mixins/link.mixin';
 
 a.fab.link {
   @include link.generic(
