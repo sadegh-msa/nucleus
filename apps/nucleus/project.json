@@ -4,6 +4,18 @@
   "projectType": "application",
   "prefix": "app",
   "sourceRoot": "apps/nucleus/src",
+  "i18n": {
+    "sourceLocale": {
+      "code": "en-US",
+      "baseHref": "en-US/"
+    },
+    "locales": {
+      "fa": {
+        "translation": "apps/nucleus/src/locales/messages.fa.json",
+        "baseHref": "fa/"
+      }
+    }
+  },
   "tags": [],
   "targets": {
     "build": {
@@ -135,17 +147,18 @@
         "staticFilePath": "dist/apps/nucleus/browser",
         "spa": true
       }
-    }
-  },
-  "i18n": {
-    "sourceLocale": {
-      "code": "en-US",
-      "baseHref": "en-US/"
     },
-    "locales": {
-      "fa": {
-        "translation": "apps/nucleus/src/locales/messages.fa.json",
-        "baseHref": "fa/"
+    "biome-lint": {
+      "executor": "@gitopslovers/nx-biome:biome-lint",
+      "outputs": [
+        "{options.outputFile}"
+      ],
+      "options": {
+        "lintFilePatterns": [
+          "apps/nucleus/**/*.ts"
+        ],
+        "write": false,
+        "unsafe": false
       }
     }
   }
