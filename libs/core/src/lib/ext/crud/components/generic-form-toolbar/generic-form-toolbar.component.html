@@ -5,9 +5,9 @@
 <menu class="toolbar-end">
   @if (hasInfoFields && hasData) {
     <li>
-      <button class="fab button medium stamp text second-info"
+      <button class="fab button medium stamp basic second-info"
               (click)="infoOverlay.toggle($event)">
-        <svg-icon src="icons/outline/info-circle.svg" />
+        <svg fabSvgIcon="info-circle" />
         <span i18n>Info</span>
       </button>
 

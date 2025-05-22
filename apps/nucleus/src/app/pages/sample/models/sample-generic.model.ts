@@ -7,14 +7,19 @@ import {
   SampleForm,
   SampleList,
   SampleTypedForm,
-  SampleUpdate
+  SampleUpdate,
 } from './sample.model';
 
 export type SampleGeneric = GenericEntity<
-  Sample, SampleList, SampleAdd,
-  SampleUpdate, SampleForm, SampleTypedForm,
-  SampleStates, SampleConfig
->
+  Sample,
+  SampleList,
+  SampleAdd,
+  SampleUpdate,
+  SampleForm,
+  SampleTypedForm,
+  SampleStates,
+  SampleConfig
+>;
 
 export type GenericSampleList = GenericListConsumer<SampleGeneric>;
 export type GenericSampleForm = GenericFormConsumer<SampleGeneric>;

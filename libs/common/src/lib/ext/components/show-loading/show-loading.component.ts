@@ -4,7 +4,7 @@ import { ChangeDetectionStrategy, Component, HostBinding, input } from '@angular
   selector: '[showLoading]',
   templateUrl: './show-loading.component.html',
   styleUrl: './show-loading.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ShowLoadingComponent {
   showLoading = input<boolean>(false);

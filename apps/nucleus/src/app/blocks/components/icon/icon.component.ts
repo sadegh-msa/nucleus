@@ -1,23 +1,17 @@
+import { NgClass } from '@angular/common';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { SvgIconComponent } from 'angular-svg-icon';
+import { iconVariants, SvgIconDirective } from '@nucleus/fabric';
 import { colors, sizes } from '../../shared/data';
 
 @Component({
-    selector: 'app-icon',
-    imports: [SvgIconComponent],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    templateUrl: './icon.component.html',
-    styleUrl: './icon.component.scss'
+  selector: 'app-icon',
+  imports: [SvgIconDirective, NgClass],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  templateUrl: './icon.component.html',
+  styleUrl: './icon.component.scss',
 })
 export class IconComponent {
   readonly colors = colors;
   readonly sizes = sizes;
-  readonly variants = [
-    'bold',
-    'broken',
-    'bulk',
-    'linear',
-    'outline',
-    'twotone',
-  ];
+  readonly variants = iconVariants;
 }

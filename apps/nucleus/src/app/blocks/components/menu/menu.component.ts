@@ -1,16 +1,16 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { MenuItem, MenuItemsComponent } from '@nucleus/fabric';
-import { navMainMenuItems } from '../../../app.menu';
+import { type MenuItem, MenuItemsComponent } from '@nucleus/fabric';
+import { navMainMenu } from '../../../app.menu';
 
 @Component({
-    selector: 'app-menu',
-    imports: [MenuItemsComponent],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    templateUrl: './menu.component.html',
-    styleUrl: './menu.component.scss'
+  selector: 'app-menu',
+  imports: [MenuItemsComponent],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  templateUrl: './menu.component.html',
+  styleUrl: './menu.component.scss',
 })
 export class MenuComponent {
-  readonly compactMenuItems = structuredClone(navMainMenuItems) as MenuItem[];
-  readonly floatingMenuItems = structuredClone(navMainMenuItems) as MenuItem[];
-  readonly slidingMenuItems = structuredClone(navMainMenuItems) as MenuItem[];
+  readonly compactMenuItems = structuredClone(navMainMenu) as MenuItem[];
+  readonly floatingMenuItems = structuredClone(navMainMenu) as MenuItem[];
+  readonly slidingMenuItems = structuredClone(navMainMenu) as MenuItem[];
 }

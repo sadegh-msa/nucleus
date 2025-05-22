@@ -1,17 +1,40 @@
-@mixin fast($properties...) {
-  transition-duration: 150ms;
+@use 'sass:map';
+@use '../utils/list.util' as *;
+
+$speed-map: (fast: 150ms, normal: 300ms, slow: 600ms, prolonged: 1000ms);
+
+@mixin duration($speed) {
+  transition-duration: map.get($speed-map, $speed);
+}
+
+@mixin timing-function() {
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-  transition-property: $properties;
+}
+
+@mixin properties($properties...) {
+  transition-property: remove-duplicates($properties);
+}
+
+@mixin fast($properties...) {
+  @include duration(fast);
+  @include timing-function();
+  @include properties($properties);
 }
 
 @mixin normal($properties...) {
-  transition-duration: 300ms;
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-  transition-property: $properties;
+  @include duration(normal);
+  @include timing-function();
+  @include properties($properties);
 }
 
 @mixin slow($properties...) {
-  transition-duration: 600ms;
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-  transition-property: $properties;
+  @include duration(slow);
+  @include timing-function();
+  @include properties($properties);
+}
+
+@mixin prolonged($properties...) {
+  @include duration(prolonged);
+  @include timing-function();
+  @include properties($properties);
 }

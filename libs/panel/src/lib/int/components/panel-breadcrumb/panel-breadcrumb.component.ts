@@ -1,17 +1,17 @@
-import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
-import { MenuItem } from 'primeng/api';
-import { Breadcrumb } from 'primeng/breadcrumb';
-import { PanelBreadcrumbService } from '../../services/panel-breadcrumb.service';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { RouterLink } from '@angular/router';
+import { RippleDirective, SvgIconDirective } from '@nucleus/fabric';
+import { PanelBreadcrumbService } from '../../services';
 
 @Component({
   selector: 'nu-panel-breadcrumb',
   templateUrl: './panel-breadcrumb.component.html',
-  imports: [Breadcrumb],
+  styleUrl: './panel-breadcrumb.component.scss',
+  imports: [SvgIconDirective, RippleDirective, RouterLink],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PanelBreadcrumbComponent {
   readonly #breadcrumbService = inject(PanelBreadcrumbService);
 
-  readonly home: MenuItem = { icon: 'pi pi-home', routerLink: '/' };
-  readonly items = computed(() => this.#breadcrumbService.items());
+  readonly items = this.#breadcrumbService.items;
 }

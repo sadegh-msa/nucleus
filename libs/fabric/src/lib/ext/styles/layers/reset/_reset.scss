@@ -1,0 +1,20 @@
+@layer reset {
+  a {
+    text-decoration: none;
+
+    &:visited {
+      color: inherit;
+      //text-decoration-color: inherit;
+    }
+  }
+
+  *,
+  ::after,
+  ::before,
+  ::backdrop {
+    box-sizing: border-box;
+    border: 0 transparent solid;
+    margin: 0;
+    padding: 0;
+  }
+}

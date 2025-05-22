@@ -32,4 +32,4 @@ export interface ActionAuthSignUpSuccess extends ActionSuccess {
   response: AuthSignUpResponse;
 }
 
-export type AuthCheckState = CommonState
+export type AuthCheckState = CommonState;

@@ -1,20 +1,25 @@
 import { CommonModule } from '@angular/common';
 import { Component, signal } from '@angular/core';
-import { BubbleComponent, type FabPosition, fabPositions, PopoverDirective } from '@nucleus/fabric';
-import { SvgIconComponent } from 'angular-svg-icon';
+import {
+  BubbleComponent,
+  type FabPosition,
+  fabPositions,
+  PopoverDirective,
+  SvgIconDirective,
+} from '@nucleus/fabric';
 
 @Component({
   selector: 'app-popover',
-  imports: [CommonModule, BubbleComponent, PopoverDirective, SvgIconComponent],
+  imports: [CommonModule, BubbleComponent, PopoverDirective, SvgIconDirective],
   templateUrl: './popover.component.html',
   styleUrl: './popover.component.scss',
 })
 export class PopoverComponent {
-  readonly positions = fabPositions.filter(i => !i.includes('auto')).map((i) => i as FabPosition);
+  readonly positions = fabPositions.filter((i) => !i.includes('auto')).map((i) => i as FabPosition);
   popoverEvent = signal<'click' | 'hover'>('click');
 
   togglePopoverEvent() {
-    const event = this.popoverEvent() == 'hover' ? 'click' : 'hover';
+    const event = this.popoverEvent() === 'hover' ? 'click' : 'hover';
     this.popoverEvent.set(event);
   }
 }

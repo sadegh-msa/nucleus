@@ -1,20 +1,24 @@
-import { map, Observable } from 'rxjs';
-import { deepSet } from '../helpers/deep-set.helper';
+import { map, type Observable } from 'rxjs';
+import { deepSet } from '../utils/object.util';
 
-export function convertDateStrings<T>(...fieldPaths: string[]): (source$: Observable<T>) => Observable<T> {
+export function convertDateStrings<T>(
+  ...fieldPaths: string[]
+): (source$: Observable<T>) => Observable<T> {
   return (source$) => {
-    return source$.pipe(map(payload => {
-      if (!Object.keys(payload || {}).length) {
-        return payload;
-      }
+    return source$.pipe(
+      map((payload) => {
+        if (!Object.keys(payload || {}).length) {
+          return payload;
+        }
 
-      const result = structuredClone(payload || {}) as Record<string, any>;
+        const result = structuredClone(payload || {}) as Record<string, any>;
 
-      for (const fieldPath of fieldPaths) {
-        deepSet(result, fieldPath, (v) => new Date(v));
-      }
+        for (const fieldPath of fieldPaths) {
+          deepSet(result, fieldPath, (v) => new Date(v));
+        }
 
-      return result as T;
-    }));
+        return result as T;
+      }),
+    );
   };
 }

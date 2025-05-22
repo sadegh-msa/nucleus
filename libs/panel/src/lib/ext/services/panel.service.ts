@@ -1,36 +1,42 @@
-import { effect, inject, Injectable, signal } from '@angular/core';
-import { MenuItem } from '@nucleus/fabric';
-import { type PanelNavMode } from '../unions/panel.union';
-import { NU_PANEL_CONFIG } from '../../int/providers/panel-config.provider';
+import { computed, effect, inject, Injectable, signal } from '@angular/core';
+import { type Extent, extents, PermanentStorageService } from '@nucleus/common';
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
-export class NuPanelService {
-  readonly #nuPanelConfig = inject(NU_PANEL_CONFIG);
-  readonly navMode = signal<PanelNavMode>('wide');
-  readonly mainMenu = signal<MenuItem[]>(this.#nuPanelConfig.nav.mainMenu || []);
-  readonly footerMenu = signal<MenuItem[]>(this.#nuPanelConfig.nav.footerMenu || []);
-  readonly storeModeKey = 'panel.nav.mode';
+export class PanelService {
+  readonly #permanentStorageService = inject(PermanentStorageService);
+
+  readonly #STORAGE_NAV_KEY = 'panelNavExtent';
+
+  readonly navExtent = signal<Extent>('wide');
+  readonly isNavCompact = computed(() => this.navExtent() === 'compact');
+  readonly isNavWide = computed(() => this.navExtent() === 'wide');
+  readonly isNavVisible = signal(true);
 
   constructor() {
-    this.#restoreMode();
+    this.#restoreExtent();
 
     effect(() => {
-      this.#storeMode(this.navMode());
+      this.#storeExtent();
     });
   }
 
-  #storeMode(mode: PanelNavMode) {
-    localStorage.setItem(this.storeModeKey, mode);
+  #storeExtent() {
+    this.#permanentStorageService.setItem(this.#STORAGE_NAV_KEY, this.navExtent());
   }
 
-  #restoreMode() {
-    const restoredMode = localStorage.getItem(this.storeModeKey);
-    this.navMode.set((restoredMode || 'wide') as PanelNavMode);
+  #restoreExtent() {
+    let extent = this.#permanentStorageService.getItem<Extent>(this.#STORAGE_NAV_KEY);
+
+    if (!extents?.includes(extent)) {
+      extent = 'wide' as Extent;
+    }
+
+    this.navExtent.set(extent);
   }
 
-  toggleNavMode() {
-    this.navMode.update((v) => (v === 'wide' ? 'compact' : 'wide'));
+  toggleNavExtent() {
+    this.navExtent.set(this.navExtent() === 'compact' ? 'wide' : 'compact');
   }
 }

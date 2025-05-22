@@ -40,9 +40,7 @@ async function mergeTranslations(messages, locale, localePath) {
   const newData = { ...messages, locale };
 
   if (fs.existsSync(localePath)) {
-    const oldData = JSON.parse(
-      (await fsPromises.readFile(localePath)).toString(),
-    );
+    const oldData = JSON.parse((await fsPromises.readFile(localePath)).toString());
 
     for (const [key, value] of Object.entries(newData.translations)) {
       if (!oldData.translations[key]) {
@@ -71,10 +69,7 @@ async function writeDataToFile(filePath, data) {
     const localeEntries = await getLocaleEntries(project);
 
     for (const [locale, localePath] of localeEntries) {
-      await writeDataToFile(
-        localePath,
-        await mergeTranslations(messages, locale, localePath),
-      );
+      await writeDataToFile(localePath, await mergeTranslations(messages, locale, localePath));
     }
   } catch (err) {
     console.error('Unable to merge locales: ' + err);

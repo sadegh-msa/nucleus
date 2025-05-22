@@ -1,11 +1,11 @@
 :root {
   :lang(en-US) {
-    --font-family-default: Arial;
-    --font-family-heading: Arial;
+    --font-family-default: Inter, Arial, sans-serif;
+    --font-family-heading: Inter, Arial, sans-serif;
   }
 
   :lang(fa) {
-    --font-family-default: IRANSansXFaNum;
-    --font-family-heading: KalamehWebFaNum;
+    --font-family-default: IRANSansXFaNum, Vazirmatn, Tahoma;
+    --font-family-heading: KalamehWebFaNum, Vazirmatn, Tahoma;
   }
 }

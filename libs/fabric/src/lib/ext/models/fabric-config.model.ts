@@ -1,9 +1,12 @@
 export interface FabricConfig {
-  ui: {
-    icon: {
-      svg: {
-        dir: string
-      }
-    }
+  icon: {
+    dir: string;
+  };
+  message: {
+    duration: number;
+  },
+  verification: {
+    duration: number;
+    length: number;
   }
 }

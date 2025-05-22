@@ -1,10 +1,10 @@
 import { signal } from '@angular/core';
 import { mergeObjects } from '@nucleus/common';
-import { Observable, Subject } from 'rxjs';
+import { type Observable, Subject } from 'rxjs';
 import { RouterStateKey } from '../enums/router-state.enum';
 import { ToolElement, ToolType } from '../enums/toolbar.enum';
-import { GenericEntity } from '../models/generic.model';
-import { NuTool, NuToolbar, NuToolEvent } from '../models/toolbar.model';
+import type { GenericEntity } from '../models/generic.model';
+import type { NuTool, NuToolbar, NuToolEvent } from '../models/toolbar.model';
 
 type AddTools = Partial<Record<ToolType.Save | ToolType.Cancel, Partial<NuTool>>>;
 type ViewEditRequired = Required<Pick<Partial<NuTool>, 'id' | 'routerStates'>>;
@@ -19,23 +19,22 @@ type TableTools = Partial<Record<ToolType.View | ToolType.Delete, Partial<NuTool
 
 const commonStyleClass = ['nu-tool', 'fab', 'button', 'medium'];
 const buttonStyleClass = {
-  text: {
-    stamp: new Set([...commonStyleClass, 'stamp', 'text', 'second-ink']),
-    danger: new Set([...commonStyleClass, 'stamp', 'text', 'second-danger']),
-    primary: new Set([...commonStyleClass, 'stamp', 'text', 'second-primary']),
+  basic: {
+    stamp: new Set([...commonStyleClass, 'stamp', 'basic', 'second-ink']),
+    danger: new Set([...commonStyleClass, 'stamp', 'basic', 'second-danger']),
+    primary: new Set([...commonStyleClass, 'stamp', 'basic', 'second-primary']),
   },
   emphasis: {
     primary: new Set([...commonStyleClass, 'primary', 'emphasis']),
   },
   table: {
-    text: {
-      primary: new Set([...commonStyleClass, 'watermark', 'text', 'second-primary']),
-      danger: new Set([...commonStyleClass, 'watermark', 'text', 'second-danger']),
-    }
+    basic: {
+      primary: new Set([...commonStyleClass, 'watermark', 'basic', 'second-primary']),
+      danger: new Set([...commonStyleClass, 'watermark', 'basic', 'second-danger']),
+    },
   },
 };
 
-const createIconPath = (icon: string, family = 'outline') => `icons/${family}/${icon}.svg`;
 const deleteConfirmMessage = $localize`Are you sure that you want to delete this item?`;
 
 const createSaveTool = (toOverride = {}, toMerge = {}) =>
@@ -43,9 +42,9 @@ const createSaveTool = (toOverride = {}, toMerge = {}) =>
     {
       type: ToolType.Save,
       label: $localize`Save`,
-      icon: createIconPath('save-2'),
+      icon: 'save-2',
       element: ToolElement.Button,
-      styleClass: buttonStyleClass.emphasis.primary,
+      ngClass: buttonStyleClass.emphasis.primary,
       key: self.crypto.randomUUID(),
       showLoading: signal(false),
       ...toOverride,
@@ -58,9 +57,9 @@ const createCancelTool = (toOverride = {}, toMerge = {}) =>
     {
       type: ToolType.Cancel,
       label: $localize`Cancel`,
-      icon: createIconPath('close-square'),
+      icon: 'close-square',
       element: ToolElement.Link,
-      styleClass: buttonStyleClass.text.stamp,
+      ngClass: buttonStyleClass.basic.stamp,
       ...toOverride,
     },
     toMerge,
@@ -71,9 +70,9 @@ const createAddTool = (toOverride = {}, toMerge = {}) =>
     {
       type: ToolType.Add,
       label: $localize`Add`,
-      icon: createIconPath('add-square'),
+      icon: 'add-square',
       element: ToolElement.Link,
-      styleClass: buttonStyleClass.text.stamp,
+      ngClass: buttonStyleClass.basic.stamp,
       key: self.crypto.randomUUID(),
       ...toOverride,
     },
@@ -85,9 +84,9 @@ const createEditTool = (toOverride = {}, toMerge = {}) =>
     {
       type: ToolType.Edit,
       label: $localize`Edit`,
-      icon: createIconPath('edit'),
+      icon: 'edit',
       element: ToolElement.Link,
-      styleClass: buttonStyleClass.text.primary,
+      ngClass: buttonStyleClass.basic.primary,
       key: self.crypto.randomUUID(),
       ...toOverride,
     },
@@ -99,10 +98,10 @@ const createDeleteTool = (toOverride = {}, toMerge = {}) =>
     {
       type: ToolType.Delete,
       label: $localize`Delete`,
-      icon: createIconPath('trash'),
+      icon: 'trash',
       element: ToolElement.Button,
       confirm: deleteConfirmMessage,
-      styleClass: buttonStyleClass.text.danger,
+      ngClass: buttonStyleClass.basic.danger,
       key: self.crypto.randomUUID(),
       showLoading: signal(false),
       ...toOverride,
@@ -115,9 +114,9 @@ const createRefreshTool = (toOverride = {}, toMerge = {}) =>
     {
       type: ToolType.Refresh,
       label: $localize`Refresh`,
-      icon: createIconPath('refresh-square-2'),
+      icon: 'refresh-square-2',
       element: ToolElement.Button,
-      styleClass: buttonStyleClass.text.stamp,
+      ngClass: buttonStyleClass.basic.stamp,
       key: self.crypto.randomUUID(),
       showLoading: signal(false),
       ...toOverride,
@@ -130,9 +129,9 @@ const createBackTool = (toOverride = {}, toMerge = {}) =>
     {
       type: ToolType.Back,
       label: $localize`Back to List`,
-      icon: createIconPath('arrow-up-3'),
+      icon: 'arrow-up-3',
       element: ToolElement.Link,
-      styleClass: buttonStyleClass.text.stamp,
+      ngClass: buttonStyleClass.basic.stamp,
       key: self.crypto.randomUUID(),
       ...toOverride,
     },
@@ -144,9 +143,10 @@ const createTableViewTool = (toOverride = {}, toMerge = {}) =>
     {
       type: ToolType.View,
       tooltip: $localize`View`,
-      icon: createIconPath('book', 'bulk'),
+      icon: 'book',
+      iconVariant: 'bulk',
       element: ToolElement.Link,
-      styleClass: buttonStyleClass.table.text.primary,
+      ngClass: buttonStyleClass.table.basic.primary,
       key: self.crypto.randomUUID(),
       ...toOverride,
     },
@@ -158,10 +158,11 @@ const createTableDeleteTool = (toOverride = {}, toMerge = {}) =>
     {
       type: ToolType.Delete,
       tooltip: $localize`Delete`,
-      icon: createIconPath('trash', 'bulk'),
+      icon: 'trash',
+      iconVariant: 'bulk',
       element: ToolElement.Button,
       confirm: deleteConfirmMessage,
-      styleClass: buttonStyleClass.table.text.danger,
+      ngClass: buttonStyleClass.table.basic.danger,
       key: self.crypto.randomUUID(),
       ...toOverride,
     },
@@ -175,7 +176,7 @@ export class ToolbarCreator {
       {
         command: () => subject$.next({ tool: saveTool }),
         permission: config.permission.action.add,
-        icon: createIconPath('save-add'),
+        icon: 'save-add',
       },
       tools?.[ToolType.Save],
     );

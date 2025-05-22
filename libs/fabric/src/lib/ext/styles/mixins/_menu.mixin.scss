@@ -2,72 +2,84 @@
 @use '../funcs/size.func' as *;
 @use './text.mixin';
 @use './button.mixin';
+@use './box.mixin';
 @use './shadow.mixin';
 @use './transition.mixin';
 
-@mixin menu-item-size($size) {
-  span {
-    @include text.size($size);
-  }
-
-  svg:not(.fab.icon) {
-    @include button.icon-size($size);
-  }
-}
-
 @mixin generic() {
-  @include transition.normal(all);
-  z-index: 30;
+  @include transition.normal(opacity);
   display: flex;
   flex-direction: column;
-  border-width: 1px;
+  overflow: hidden;
+  z-index: 50;
+  background-color: get-color-var(paper-dark);
 
   &,
   menu {
-    list-style: none;
+    list-style-type: none;
+    flex-shrink: 0;
   }
 
-  &.compact {
-    > li {
-      > :is(a, button) {
-        gap: 0;
+  hr {
+    margin: get-size-var(xs-4) auto;
+    width: calc(100% - calc(var(--spacing) * 6));
+  }
 
-        span {
-          width: 0;
-          opacity: 0;
-        }
+  &.submenu,
+  &.popup {
+    @include box.rounded-small(paper-darkest);
+    @include shadow.medium();
+    padding-block: get-size-var(xs-6);
 
-        .arrow {
-          display: none;
+    li {
+      &:first-of-type {
+        > .fab.button {
+          border-top-left-radius: inherit;
+          border-top-right-radius: inherit;
         }
+      }
+
+      &:last-of-type {
+        > .fab.button {
+          border-bottom-left-radius: inherit;
+          border-bottom-right-radius: inherit;
+        }
+      }
+
+      .fab.button:not(.standalone) {
+        border-radius: 0;
       }
     }
   }
 
-  &.floating {
-    li {
-      border-radius: inherit;
-      background-color: inherit;
+  &.submenu {
+    min-width: 15rem;
+  }
 
-      > menu {
-        @include shadow.medium();
-        @include transition.normal(opacity);
-        position: absolute;
-        inset-block-start: 0;
-        min-width: 100%;
-        border-radius: inherit;
-        border-width: 1px;
-        background-color: inherit;
-        inset-inline-start: 100%;
+  &.popup {
+    position: absolute;
+  }
 
-        &:not(.expanded) {
-          visibility: hidden;
+  &.compact {
+    > li {
+      > .fab.button:not(.standalone) {
+        gap: 0;
+
+        &:not(.multiline) {
+          padding: get-size-var(xs-6) get-size-var(xs-5);
+        }
+
+        .multiline {
+          width: 100%;
+        }
+
+        > :not(.fab.icon, .fab.ripple) {
+          max-width: 0;
           opacity: 0;
         }
 
-        &.expanded {
-          visibility: visible;
-          opacity: 1;
+        > .arrow {
+          display: none;
         }
       }
     }
@@ -75,7 +87,7 @@
 
   &.sliding {
     li {
-      > :is(a, button) {
+      > .fab.button:not(.standalone) {
         .arrow {
           @include transition.normal(transform);
           transform: rotate(0deg);
@@ -83,7 +95,7 @@
       }
 
       &:has(.expanded) {
-        > :is(a, button) {
+        > .fab.button:not(.standalone) {
           &:has(.arrow) {
             border-bottom-left-radius: 0;
             border-bottom-right-radius: 0;
@@ -102,105 +114,69 @@
       }
 
       > menu {
-        @include transition.normal(max-height, colors);
-        @include shadow.inset();
-        overflow: hidden;
+        @include transition.normal(max-height, colors, grid-template-rows);
         background-color: get-color-var(transparent-dark);
+        overflow: hidden;
+        position: relative;
+
+        &::after {
+          @include shadow.inset();
+          content: '';
+          position: absolute;
+          height: 100%;
+          width: 100%;
+          pointer-events: none;
+        }
 
         &:not(.expanded) {
           max-height: 0;
         }
 
-        &.expanded {
-          border-top-left-radius: 0;
-          border-top-right-radius: 0;
-          border-bottom-left-radius: inherit;
-          border-bottom-right-radius: inherit;
-          max-height: calc(#{get-size-var(xl-7)} * var(--menu-size));
-          padding: get-size-var(xs-2);
+        @supports not (max-height: calc-size(max-content, size)) {
+          &.expanded {
+            max-height: calc(#{get-size-var(md-7)} * var(--menu-size));
+          }
+        }
+
+        @supports (max-height: calc-size(max-content, size)) {
+          &.expanded {
+            max-height: calc-size(max-content, size);
+          }
         }
       }
     }
   }
 
   li {
+    @include transition.normal(padding, color, background-color);
     position: relative;
     display: flex;
-    flex-direction: column;
     width: 100%;
+    flex-direction: column;
 
-    @include transition.normal(color, background-color);
-
-    &:first-of-type {
-      > :is(a, button) {
-        border-top-left-radius: inherit;
-        border-top-right-radius: inherit;
-      }
-    }
-
-    &:last-of-type {
-      > :is(a, button) {
-        border-bottom-left-radius: inherit;
-        border-bottom-right-radius: inherit;
-      }
-    }
-
-    :is(a, button) {
-      @include menu-item-size(normal);
-      @include transition.normal(border-radius, color, background-color, box-shadow, width, gap);
-      display: flex;
-      align-items: center;
+    .fab.button:not(.standalone) {
+      @include transition.normal(padding, gap, min-height);
+      @include text.icon-size(normal);
       justify-content: flex-start;
-      gap: get-size-var(xs-4);
-      width: 100%;
-      outline: 2px solid transparent;
-      outline-offset: 2px;
-      padding-inline: get-size-var(xs-6);
-      padding-block: get-size-var(xs-5);
-      border: unset;
-      background: unset;
-      cursor: pointer;
-      text-decoration: none;
+      gap: get-size-var(xs-6);
+      font-size: get-size-var(xs-7);
+      line-height: get-size-var(sm-3);
+      padding: get-size-var(xs-4) get-size-var(sm-1);
 
-      &:is(:disabled, .disabled) {
-        pointer-events: none;
-        opacity: 0.5;
-      }
-
-      &:not(.active) {
-        @include button.variant(text, stamp);
-
-        &:hover {
-          @include button.variant(text, ink);
-        }
-
-        span {
-          @include text.weight(semibold);
-        }
-      }
-
-      &.active {
-        @include button.variant(bulk, primary);
-
-        span {
-          @include text.weight(bold);
-        }
-      }
-
-      > span {
-        @include transition.normal(width, opacity);
+      > :not(.fab.icon, .fab.ripple) {
+        @include transition.normal(max-width, opacity);
+        width: 100%;
+        max-width: 100%;
+        opacity: 1;
         overflow: hidden;
         text-overflow: ellipsis;
         text-wrap: nowrap;
-        width: 100%;
         text-align: start;
-        opacity: 1;
       }
     }
 
     > menu {
-      @include transition.normal(all);
-      border-radius: inherit;
+      @include transition.normal(opacity);
     }
 
     .arrow {

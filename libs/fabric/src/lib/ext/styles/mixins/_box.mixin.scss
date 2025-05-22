@@ -2,18 +2,20 @@
 @use '../funcs/border.func' as *;
 
 @mixin generic($border-radius, $border-color, $border-width, $border-style) {
-  border-style: $border-style;
-
   @if ($border-radius != null) {
     border-radius: get-border-radius-var($border-radius);
   }
 
   @if ($border-color != null) {
     border-color: get-color-var($border-color);
-  }
 
-  @if ($border-width != null) {
-    border-width: get-border-width($border-width);
+    @if ($border-width != null) {
+      border-width: get-border-width($border-width);
+    }
+
+    @if ($border-style != null) {
+      border-style: $border-style;
+    }
   }
 }
 
@@ -35,4 +37,8 @@
 
 @mixin rounded-large($border-color: null, $border-width: thin, $border-style: solid) {
   @include generic(large, $border-color, $border-width, $border-style);
+}
+
+@mixin rounded-full($border-color: null, $border-width: thin, $border-style: solid) {
+  @include generic(full, $border-color, $border-width, $border-style);
 }

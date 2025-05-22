@@ -1,9 +1,9 @@
-import { TypedForm } from '../../crud';
+import type { TypedForm } from '../../crud';
 
 export interface AuthToken {
-  access_token: string | null;
-  refresh_token: string | null;
-  remember_me?: boolean;
+  accessToken: string | null;
+  refreshToken: string | null;
+  rememberMe?: boolean;
 }
 
 export interface AuthSignIn {
@@ -25,5 +25,5 @@ export interface AuthSignUpResponse {
   token: AuthToken;
 }
 
-export type AuthSignInForm = TypedForm<AuthSignIn>
-export type AuthSignUpForm = TypedForm<AuthSignUp & { confirmPassword: string }>
+export type AuthSignInForm = TypedForm<AuthSignIn>;
+export type AuthSignUpForm = TypedForm<AuthSignUp & { confirmPassword: string }>;

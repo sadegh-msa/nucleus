@@ -5,11 +5,11 @@
         <button #buttonElement
                 (click)="runCommand(buttonElement, tool)"
                 [pTooltip]="tool.tooltip || ''" tooltipPosition="bottom"
-                [ngClass]="tool.styleClass || []"
+                [ngClass]="tool.ngClass || []"
                 [disabled]="!!(tool.disabled && tool.disabled())"
                 *permission="tool.permission">
           @if (tool.icon) {
-            <svg-icon [src]="tool.icon" />
+            <svg [fabSvgIcon]="tool.icon" [variant]="tool.iconVariant" />
           }
           @if (tool.label) {
             <span>{{ tool.label }}</span>
@@ -21,14 +21,14 @@
           <p-confirmPopup [key]="tool.key"></p-confirmPopup>
         }
       } @else if (tool.element === ToolElement.Link) {
-        <a [ngClass]="tool.styleClass || []"
+        <a [ngClass]="tool.ngClass || []"
            [title]="tool.tooltip || ''"
            [routerLink]="tool.command()"
            [state]="tool.routerStates ? tool.routerStates() : {}"
            [queryParams]="tool.routerQueryParams ? tool.routerQueryParams(): {}"
            *permission="tool.permission">
           @if (tool.icon) {
-            <svg-icon [src]="tool.icon" />
+            <svg [fabSvgIcon]="tool.icon" [variant]="tool.iconVariant" />
           }
           @if (tool.label) {
             <span>{{ tool.label }}</span>

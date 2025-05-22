@@ -8,7 +8,7 @@ describe('FormatFieldValueComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [FieldValueComponent]
+      declarations: [FieldValueComponent],
     });
     fixture = TestBed.createComponent(FieldValueComponent);
     component = fixture.componentInstance;

@@ -1,0 +1,14 @@
+@use '../../funcs/size.func' as *;
+@use '../../mixins/link.mixin';
+
+@layer components {
+  a.fab.link {
+    @include link.generic();
+
+    .blended {
+      display: flex;
+      align-items: center;
+      gap: get-size-var(xs-4);
+    }
+  }
+}

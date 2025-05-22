@@ -3,7 +3,7 @@ import { MessageService } from 'primeng/api';
 import { MessageSeverity, MessageSummery } from '../enums/message.enum';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class NuMessageService {
   readonly #messageService = inject(MessageService);
@@ -12,7 +12,7 @@ export class NuMessageService {
     this.#messageService.add({
       severity: MessageSeverity.Success,
       summary: MessageSummery.Success,
-      detail
+      detail,
     });
   }
 
@@ -20,7 +20,7 @@ export class NuMessageService {
     this.#messageService.add({
       severity: MessageSeverity.Info,
       summary: MessageSummery.Info,
-      detail
+      detail,
     });
   }
 
@@ -28,7 +28,7 @@ export class NuMessageService {
     this.#messageService.add({
       severity: MessageSeverity.Warn,
       summary: MessageSummery.Warning,
-      detail
+      detail,
     });
   }
 
@@ -36,7 +36,7 @@ export class NuMessageService {
     this.#messageService.add({
       severity: MessageSeverity.Error,
       summary: MessageSummery.Error,
-      detail
+      detail,
     });
   }
 }

@@ -5,12 +5,12 @@ import {
   NavigationError,
   NavigationSkipped,
   NavigationStart,
-  Router
+  Router,
 } from '@angular/router';
 import { filter, interval, Subscription, takeWhile } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class PanelProgressbarService {
   readonly #router = inject(Router);
@@ -27,18 +27,22 @@ export class PanelProgressbarService {
   intervalSub?: Subscription;
 
   constructor() {
-    this.#router.events.pipe(
-      filter(v => v instanceof NavigationStart)
-    ).subscribe(() => this.startProgress());
+    this.#router.events
+      .pipe(filter((v) => v instanceof NavigationStart))
+      .subscribe(() => this.startProgress());
 
-    this.#router.events.pipe(
-      filter(v => {
-        return v instanceof NavigationEnd
-          || v instanceof NavigationCancel
-          || v instanceof NavigationError
-          || v instanceof NavigationSkipped;
-      })
-    ).subscribe(() => this.endProgress());
+    this.#router.events
+      .pipe(
+        filter((v) => {
+          return (
+            v instanceof NavigationEnd ||
+            v instanceof NavigationCancel ||
+            v instanceof NavigationError ||
+            v instanceof NavigationSkipped
+          );
+        }),
+      )
+      .subscribe(() => this.endProgress());
   }
 
   startProgress() {
@@ -48,7 +52,7 @@ export class PanelProgressbarService {
     this.#value.set(this.startValue);
     this.intervalSub = interval(this.intervalValue)
       .pipe(takeWhile(() => this.#value() <= topValue))
-      .subscribe(() => this.#value.update(v => v + this.progressStep));
+      .subscribe(() => this.#value.update((v) => v + this.progressStep));
   }
 
   endProgress() {

@@ -34,12 +34,16 @@
         @for (color of colors; track $index) {
           <td>
             @if (variant === 'second') {
-              <button [class]="['fab', 'button', 'text', 'stamp', `second-${color}`].join(' ')">
+              <button fabRipple
+                      [class]="['fab', 'button', 'basic', 'stamp', `second-${color}`].join(' ')"
+              >
                 <ng-container *ngTemplateOutlet="icon" />
                 <span>{{ color | titlecase }}</span>
               </button>
             } @else {
-              <button [class]="['fab', 'button', variant, color].join(' ')">
+              <button fabRipple
+                      [class]="['fab', 'button', variant, color].join(' ')"
+              >
                 <ng-container *ngTemplateOutlet="icon" />
                 @if (variant !== 'icon') {
                   <span>{{ color | titlecase }}</span>
@@ -81,5 +85,5 @@
 </table>
 
 <ng-template #icon>
-  <svg-icon src="icons/outline/tick-circle.svg" svgClass="outline" />
+  <svg fabSvgIcon="demo" />
 </ng-template>

@@ -1,18 +1,18 @@
 import { NgTemplateOutlet, TitleCasePipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { SvgIconComponent } from 'angular-svg-icon';
+import { RippleDirective, SvgIconDirective } from '@nucleus/fabric';
 import { colors, sizes } from '../../shared/data';
 
 @Component({
-    selector: 'app-button',
-    imports: [RouterLink, SvgIconComponent, NgTemplateOutlet, TitleCasePipe],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    templateUrl: './button.component.html',
-    styleUrl: './button.component.scss'
+  selector: 'app-button',
+  imports: [RouterLink, NgTemplateOutlet, TitleCasePipe, SvgIconDirective, RippleDirective],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  templateUrl: './button.component.html',
+  styleUrl: './button.component.scss',
 })
 export class ButtonComponent {
   readonly colors = colors;
   readonly sizes = sizes;
-  readonly variants = ['bulk', 'emphasis', 'outline', 'text', 'second'];
+  readonly variants = ['basic', 'bordered', 'bulk', 'emphasis', 'outline', 'second'];
 }

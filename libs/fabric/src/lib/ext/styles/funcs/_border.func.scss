@@ -1,3 +1,4 @@
+@use 'sass:map';
 @use './config.func' as *;
 @use './size.func' as *;
 
@@ -15,4 +16,8 @@
 
 @function get-border-radius-var($size) {
   @return get-size-var(get-config(border, radius, $size));
+}
+
+@function get-border-radius-list() {
+  @return map.keys(get-config(border, radius));
 }

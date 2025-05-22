@@ -7,7 +7,7 @@ export class StoreStateCreator {
       query: {},
       response: { control: {}, data: [] },
       message: '',
-      status: OperationStatus.Pending
+      status: OperationStatus.Pending,
     } as State;
   }
 
@@ -17,7 +17,7 @@ export class StoreStateCreator {
       query: '',
       response: { control: {}, data: {} },
       message: '',
-      status: OperationStatus.Pending
+      status: OperationStatus.Pending,
     } as State;
   }
 
@@ -27,7 +27,7 @@ export class StoreStateCreator {
       request: {},
       response: { control: {}, data: {} },
       message: '',
-      status: OperationStatus.Pending
+      status: OperationStatus.Pending,
     } as State;
   }
 
@@ -38,7 +38,7 @@ export class StoreStateCreator {
       request: {},
       response: { control: {}, data: {} },
       message: '',
-      status: OperationStatus.Pending
+      status: OperationStatus.Pending,
     } as State;
   }
 
@@ -48,7 +48,7 @@ export class StoreStateCreator {
       query: '',
       response: { control: {}, data: '' },
       message: '',
-      status: OperationStatus.Pending
+      status: OperationStatus.Pending,
     } as State;
   }
 }

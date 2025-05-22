@@ -23,9 +23,9 @@ export interface SampleForm {
   divisionId: string;
 }
 
-export type Sample = CommonFields & SampleForm
-export type SampleList = Sample[]
-export type SampleAdd = Omit<SampleForm, 'id'>
-export type SampleUpdate = SampleForm
-export type SampleTypedForm = TypedForm<SampleForm>
-export type SampleConfig = CrudConfig<Sample, 'id', 'code', 'title'>
+export type Sample = CommonFields & SampleForm;
+export type SampleList = Sample[];
+export type SampleAdd = Omit<SampleForm, 'id'>;
+export type SampleUpdate = SampleForm;
+export type SampleTypedForm = TypedForm<SampleForm>;
+export type SampleConfig = CrudConfig<Sample, 'id', 'code', 'title'>;

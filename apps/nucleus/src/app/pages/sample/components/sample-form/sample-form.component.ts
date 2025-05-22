@@ -1,12 +1,8 @@
 import { NgClass } from '@angular/common';
-import { ChangeDetectionStrategy, Component, inject, input, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, input, OnInit } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ShowLoadingComponent } from '@nucleus/common';
-import {
-  GenericFormService,
-  GenericFormToolbarComponent,
-  PageType,
-} from '@nucleus/core';
+import { GenericFormService, GenericFormToolbarComponent, PageType } from '@nucleus/core';
 import { CalendarComponent } from '@nucleus/fabric';
 import { CalendarModule } from 'primeng/calendar';
 import { DropdownModule } from 'primeng/dropdown';
@@ -16,9 +12,7 @@ import { SampleTypedForm } from '../../models/sample.model';
 import { sampleConfig } from '../../sample.config';
 import { sampleActions, sampleSelectors } from '../../store';
 
-
 @Component({
-
   selector: 'app-sample-form',
   templateUrl: './sample-form.component.html',
   imports: [
@@ -28,10 +22,10 @@ import { sampleActions, sampleSelectors } from '../../store';
     ShowLoadingComponent,
     GenericFormToolbarComponent,
     CalendarModule,
-    CalendarComponent
+    CalendarComponent,
   ],
   providers: [GenericFormService],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SampleFormComponent implements OnInit, GenericSampleForm {
   readonly #genericFormService = inject(GenericFormService<SampleGeneric>);
@@ -44,7 +38,7 @@ export class SampleFormComponent implements OnInit, GenericSampleForm {
   readonly config = sampleConfig;
   readonly store = {
     actions: sampleActions,
-    selectors: sampleSelectors
+    selectors: sampleSelectors,
   };
   readonly form = new FormGroup<SampleTypedForm>({
     id: new FormControl(null),
@@ -55,7 +49,7 @@ export class SampleFormComponent implements OnInit, GenericSampleForm {
     date: new FormControl(new Date()),
     status: new FormControl(SampleStatus.Draft),
     divisionId: new FormControl(null),
-    details: new FormControl([])
+    details: new FormControl([]),
   });
 
   data!: GenericSampleForm['data'];

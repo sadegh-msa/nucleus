@@ -2,8 +2,8 @@ import { DestroyRef, inject, Injectable, Injector, signal } from '@angular/core'
 import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, Router } from '@angular/router';
 import { select, Store } from '@ngrx/store';
-import { filter, pairwise } from 'rxjs';
 import { mergeObjects, OperationStatus } from '@nucleus/common';
+import { filter, pairwise } from 'rxjs';
 import { PaginationCreator } from '../creators/pagination.creator';
 import { ToolbarCreator } from '../creators/toolbar.creator';
 import { ToolType } from '../enums/toolbar.enum';
@@ -57,7 +57,7 @@ export class GenericListService<T extends GenericEntity> {
         const { page, rows } = queryParams;
         this.#lastQuery = mergeObjects(this.#lastQuery, {
           page: page > 0 ? page - 1 : DEFAULT_PAGE,
-          rows: rows > 0 ? rows : DEFAULT_ROWS
+          rows: rows > 0 ? rows : DEFAULT_ROWS,
         });
 
         this.loadData();
@@ -67,15 +67,15 @@ export class GenericListService<T extends GenericEntity> {
   #handleConsumerEvents() {
     const { table, pagination } = this.#consumer;
 
-    toObservable(pagination, { injector: this.#injector }).pipe(
-      takeUntilDestroyed(this.#destroyRef),
-      pairwise(),
-      filter(([p, c]) => p.page !== c.page || p.rows !== c.rows || p.pages !== c.pages)
-    ).subscribe(() => this.#updateUrl());
+    toObservable(pagination, { injector: this.#injector })
+      .pipe(
+        takeUntilDestroyed(this.#destroyRef),
+        pairwise(),
+        filter(([p, c]) => p.page !== c.page || p.rows !== c.rows || p.pages !== c.pages),
+      )
+      .subscribe(() => this.#updateUrl());
 
-    table.events$?.pipe(
-      takeUntilDestroyed(this.#destroyRef)
-    ).subscribe(({ tool, payload }) => {
+    table.events$?.pipe(takeUntilDestroyed(this.#destroyRef)).subscribe(({ tool, payload }) => {
       if (tool.type === ToolType.Delete) {
         this.delete(tool, payload as string);
       }
@@ -83,48 +83,51 @@ export class GenericListService<T extends GenericEntity> {
   }
 
   #handleLoadDataEvents() {
-    this.#store$.pipe(
-      select(this.#consumer.store.selectors.list.state),
-      takeUntilDestroyed(this.#destroyRef)
-    ).subscribe(({ response, status, tool }) => {
-      tool?.showLoading?.set(status === OperationStatus.InProgress);
-      this.#consumer.isDataLoading.set(status === OperationStatus.InProgress);
+    this.#store$
+      .pipe(select(this.#consumer.store.selectors.list.state), takeUntilDestroyed(this.#destroyRef))
+      .subscribe(({ response, status, tool }) => {
+        tool?.showLoading?.set(status === OperationStatus.InProgress);
+        this.#consumer.isDataLoading.set(status === OperationStatus.InProgress);
 
-      if (status === OperationStatus.Success) {
-        this.#handleLoadDataResponse(response);
-      }
-    });
+        if (status === OperationStatus.Success) {
+          this.#handleLoadDataResponse(response);
+        }
+      });
   }
 
   #handleDeleteEvents() {
-    this.#store$.pipe(
-      select(this.#consumer.store.selectors.delete.state),
-      takeUntilDestroyed(this.#destroyRef)
-    ).subscribe(({ status, tool, query }) => {
-      tool?.showLoading?.set(status === OperationStatus.InProgress ? query : false);
+    this.#store$
+      .pipe(
+        select(this.#consumer.store.selectors.delete.state),
+        takeUntilDestroyed(this.#destroyRef),
+      )
+      .subscribe(({ status, tool, query }) => {
+        tool?.showLoading?.set(status === OperationStatus.InProgress ? query : false);
 
-      if (status === OperationStatus.Success) {
-        this.loadData();
-      }
-    });
+        if (status === OperationStatus.Success) {
+          this.loadData();
+        }
+      });
   }
 
   #selectionChanged(selectedItems: T['list'] | T['list'][0]) {
     this.#consumer.selectedRecords.set(
-      Array.isArray(selectedItems) ? [...selectedItems] : [selectedItems]
+      Array.isArray(selectedItems) ? [...selectedItems] : [selectedItems],
     );
   }
 
   #updateUrl() {
     const { page, rows } = this.#consumer.pagination();
 
-    this.#router.navigate([], {
-      relativeTo: this.#activatedRoute,
-      queryParams: { rows, page: page + 1 },
-      queryParamsHandling: 'merge',
-      preserveFragment: true,
-      replaceUrl: true
-    }).then();
+    this.#router
+      .navigate([], {
+        relativeTo: this.#activatedRoute,
+        queryParams: { rows, page: page + 1 },
+        queryParamsHandling: 'merge',
+        preserveFragment: true,
+        replaceUrl: true,
+      })
+      .then();
   }
 
   #handleLoadDataResponse(response: RestListResponse<T['list']>) {
@@ -136,13 +139,11 @@ export class GenericListService<T extends GenericEntity> {
 
   createToolbar(attachEventHandler: boolean) {
     const toolbar = ToolbarCreator.createListTools<T>(this.#consumer.config, {
-      [ToolType.Refresh]: { showLoading: signal(false) }
+      [ToolType.Refresh]: { showLoading: signal(false) },
     });
 
     if (attachEventHandler) {
-      toolbar.events$?.pipe(
-        takeUntilDestroyed(this.#destroyRef)
-      ).subscribe(({ tool }) => {
+      toolbar.events$?.pipe(takeUntilDestroyed(this.#destroyRef)).subscribe(({ tool }) => {
         if (tool.type === ToolType.Refresh) {
           this.loadData(tool);
         }
@@ -153,10 +154,12 @@ export class GenericListService<T extends GenericEntity> {
   }
 
   loadData(tool?: NuTool) {
-    this.#store$.dispatch(this.#consumer.store.actions.list({
-      tool,
-      query: { ...this.#lastQuery }
-    }));
+    this.#store$.dispatch(
+      this.#consumer.store.actions.list({
+        tool,
+        query: { ...this.#lastQuery },
+      }),
+    );
   }
 
   delete(tool: NuTool, id: string) {
@@ -164,9 +167,11 @@ export class GenericListService<T extends GenericEntity> {
       tool.showLoading = signal(false);
     }
 
-    this.#store$.dispatch(this.#consumer.store.actions.delete({
-      tool,
-      query: id
-    }));
+    this.#store$.dispatch(
+      this.#consumer.store.actions.delete({
+        tool,
+        query: id,
+      }),
+    );
   }
 }

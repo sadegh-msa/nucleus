@@ -1,8 +1,6 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import {
-  PanelToolbarComponent
-} from '../panel-toolbar/panel-toolbar.component';
 import { PanelBreadcrumbComponent } from '../panel-breadcrumb/panel-breadcrumb.component';
+import { PanelToolbarComponent } from '../panel-toolbar/panel-toolbar.component';
 
 @Component({
   selector: 'header[nu-panel-header]',

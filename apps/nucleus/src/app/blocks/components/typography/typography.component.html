@@ -41,7 +41,7 @@
         <td>{{ weight }}</td>
         @for (color of colors; track $index) {
           <td>
-            <span [class]="['fab', 'text', weight, color].join(' ')">
+            <span [class]="['fab', 'text', `font-${weight}`, color].join(' ')">
               {{ color }}
             </span>
           </td>

@@ -1,6 +1,6 @@
 import { DOCUMENT } from '@angular/common';
 import { computed, inject, Injectable } from '@angular/core';
-import { NuLang } from '../models';
+import type { NuLang } from '../models';
 
 @Injectable({
   providedIn: 'root',

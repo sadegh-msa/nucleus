@@ -1,7 +1,7 @@
 import { inject, Injectable } from '@angular/core';
-import { authActions } from './auth.actions';
 import { Actions, EffectNotification, ofType, OnRunEffects } from '@ngrx/effects';
 import { exhaustMap, Observable, takeUntil } from 'rxjs';
+import { authActions } from './auth.actions';
 
 @Injectable()
 export class AuthOnRunEffect implements OnRunEffects {
@@ -11,10 +11,8 @@ export class AuthOnRunEffect implements OnRunEffects {
     return this.#actions$.pipe(
       ofType(authActions.checkSuccess),
       exhaustMap(() =>
-        resolvedEffects$.pipe(
-          takeUntil(this.#actions$.pipe(ofType(authActions.checkFailure)))
-        )
-      )
+        resolvedEffects$.pipe(takeUntil(this.#actions$.pipe(ofType(authActions.checkFailure)))),
+      ),
     );
   }
 }

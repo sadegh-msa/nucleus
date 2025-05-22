@@ -2,13 +2,17 @@
           [value]="progressValue()"
           [class]="'progress-' + progressValue()"></progress>
 
-<nav nu-panel-nav>
-  <ng-container subheader>
-    <ng-content select="[nu-nav-subheader]">
-      <div class="empty"></div>
-    </ng-content>
-  </ng-container>
-</nav>
+@defer (when isNavVisible()) {
+  @if (isNavVisible()) {
+    <nav nu-panel-nav>
+      <ng-content select="[nav-body]" />
+
+      <ng-container nav-footer>
+        <ng-content select="[nav-footer]" />
+      </ng-container>
+    </nav>
+  }
+}
 
 <header nu-panel-header>
   <ng-container toolbar>
@@ -17,5 +21,5 @@
 </header>
 
 <main>
-  <router-outlet />
+  <ng-content />
 </main>

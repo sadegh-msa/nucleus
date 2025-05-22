@@ -5,8 +5,8 @@ import {
   DestroyRef,
   ElementRef,
   HostBinding,
-  Injector,
   inject,
+  Injector,
   model,
 } from '@angular/core';
 import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop';

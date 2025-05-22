@@ -2,9 +2,9 @@ import {
   ChangeDetectionStrategy,
   Component,
   DestroyRef,
-  inject, input,
-  Input,
-  OnInit
+  inject,
+  input,
+  OnInit,
 } from '@angular/core';
 import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop';
 import { DataType } from '@nucleus/common';
@@ -47,7 +47,7 @@ export class SampleListComponent implements OnInit, GenericSampleList {
         tooltip: 'is Active',
         type: DataType.Boolean,
         format: 'icon',
-        styleClass: 'boolean',
+        ngClass: 'boolean',
       },
       { field: 'code', label: 'Code' },
       { field: 'title', label: 'Title' },

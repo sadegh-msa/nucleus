@@ -1,10 +1,8 @@
 @use 'funcs/size.func' as *;
 
 @mixin rotate-icon($rotate-value) {
-  svg-icon {
-    svg {
-      transform: rotate(var(--icon-transform-rotate));
-    }
+  .fab.icon {
+    transform: rotate(var(--icon-transform-rotate));
   }
 
   &:dir(ltr) {

@@ -2,15 +2,14 @@ import { computed, DestroyRef, inject, Injectable, Injector, signal } from '@ang
 import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop';
 import { Router } from '@angular/router';
 import { select, Store } from '@ngrx/store';
-import { combineLatest, debounceTime, mergeAll } from 'rxjs';
 import { OperationStatus } from '@nucleus/common';
+import { combineLatest, debounceTime, mergeAll } from 'rxjs';
 import { ToolbarCreator } from '../creators/toolbar.creator';
 import { PageType } from '../enums/page.enum';
 import { RouterStateKey } from '../enums/router-state.enum';
 import { ToolType } from '../enums/toolbar.enum';
 import { GenericEntity, GenericFormConsumer } from '../models/generic.model';
 import { NuTool, NuToolbar } from '../models/toolbar.model';
-
 
 @Injectable()
 export class GenericFormService<T extends GenericEntity> {
@@ -79,16 +78,18 @@ export class GenericFormService<T extends GenericEntity> {
   #handleLoadDataEvents() {
     const { store, data, isSubmitting } = this.#consumer;
 
-    this.#store$.pipe(
-      select(store.selectors.get.state),
-      debounceTime(0),
-      takeUntilDestroyed(this.#destroyRef)
-    ).subscribe(({ status, response, tool }) => {
-      isSubmitting.set(status === OperationStatus.InProgress);
-      tool?.showLoading?.set(status === OperationStatus.InProgress);
+    this.#store$
+      .pipe(
+        select(store.selectors.get.state),
+        debounceTime(0),
+        takeUntilDestroyed(this.#destroyRef),
+      )
+      .subscribe(({ status, response, tool }) => {
+        isSubmitting.set(status === OperationStatus.InProgress);
+        tool?.showLoading?.set(status === OperationStatus.InProgress);
 
-      data.set(response.data);
-    });
+        data.set(response.data);
+      });
   }
 
   #handleSaveEvents() {
@@ -99,19 +100,18 @@ export class GenericFormService<T extends GenericEntity> {
 
     combineLatest([
       this.#store$.pipe(select(store.selectors.add.state)),
-      this.#store$.pipe(select(store.selectors.update.state))
-    ]).pipe(
-      mergeAll(1),
-      takeUntilDestroyed(this.#destroyRef)
-    ).subscribe(({ status, response, tool }) => {
-      isSubmitting.set(status === OperationStatus.InProgress);
-      tool?.showLoading?.set(status === OperationStatus.InProgress);
+      this.#store$.pipe(select(store.selectors.update.state)),
+    ])
+      .pipe(mergeAll(1), takeUntilDestroyed(this.#destroyRef))
+      .subscribe(({ status, response, tool }) => {
+        isSubmitting.set(status === OperationStatus.InProgress);
+        tool?.showLoading?.set(status === OperationStatus.InProgress);
 
-      if (!isEmbedded && status === OperationStatus.Success) {
-        this.#store$.dispatch(store.actions.getMutate({ request: response }));
-        this.navigateToViewPage({ [RouterStateKey.Saved]: true });
-      }
-    });
+        if (!isEmbedded && status === OperationStatus.Success) {
+          this.#store$.dispatch(store.actions.getMutate({ request: response }));
+          this.navigateToViewPage({ [RouterStateKey.Saved]: true });
+        }
+      });
   }
 
   #handleDeleteEvents() {
@@ -119,17 +119,16 @@ export class GenericFormService<T extends GenericEntity> {
 
     this.#store$.dispatch(store.actions.deleteReset());
 
-    this.#store$.pipe(
-      select(store.selectors.delete.state),
-      takeUntilDestroyed(this.#destroyRef)
-    ).subscribe(({ status, tool }) => {
-      isSubmitting.set(status === OperationStatus.InProgress);
-      tool?.showLoading?.set(status === OperationStatus.InProgress);
+    this.#store$
+      .pipe(select(store.selectors.delete.state), takeUntilDestroyed(this.#destroyRef))
+      .subscribe(({ status, tool }) => {
+        isSubmitting.set(status === OperationStatus.InProgress);
+        tool?.showLoading?.set(status === OperationStatus.InProgress);
 
-      if (!isEmbedded && status === OperationStatus.Success) {
-        this.navigateToListPage();
-      }
-    });
+        if (!isEmbedded && status === OperationStatus.Success) {
+          this.navigateToListPage();
+        }
+      });
   }
 
   #loadNavigationState() {
@@ -163,7 +162,7 @@ export class GenericFormService<T extends GenericEntity> {
       id: computed(() => id()),
       routerStates: computed(() => {
         return { [RouterStateKey.Title]: data()[config.field.title as keyof T['full']] };
-      })
+      }),
     };
     let toolbar: NuToolbar = { tools: [] };
 
@@ -174,21 +173,19 @@ export class GenericFormService<T extends GenericEntity> {
 
       case PageType.Edit:
         toolbar = ToolbarCreator.createEditTools<T>(config, {
-          [ToolType.Cancel]: viewExtra
+          [ToolType.Cancel]: viewExtra,
         });
         break;
 
       case PageType.View:
         toolbar = ToolbarCreator.createViewTools<T>(config, {
-          [ToolType.Edit]: viewExtra
+          [ToolType.Edit]: viewExtra,
         });
         break;
     }
 
     if (attachEventHandler) {
-      toolbar?.events$?.pipe(
-        takeUntilDestroyed(this.#destroyRef)
-      ).subscribe(({ tool }) => {
+      toolbar?.events$?.pipe(takeUntilDestroyed(this.#destroyRef)).subscribe(({ tool }) => {
         switch (tool.type) {
           case ToolType.Save:
             this.save(tool);
@@ -268,10 +265,11 @@ export class GenericFormService<T extends GenericEntity> {
   navigateToViewPage(state?: Record<string, unknown>) {
     const { config, id, title } = this.#consumer;
 
-    this.#router.navigate(
-      config.path.page.view(id()),
-      { state: { [RouterStateKey.Title]: title(), ...(state && { ...state }) } }
-    ).then();
+    this.#router
+      .navigate(config.path.page.view(id()), {
+        state: { [RouterStateKey.Title]: title(), ...(state && { ...state }) },
+      })
+      .then();
   }
 
   formControlHasError(controlName: string, error: string) {

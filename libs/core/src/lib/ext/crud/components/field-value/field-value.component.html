@@ -20,9 +20,9 @@
   @switch (format()) {
     @case ('icon') {
       @if (value()) {
-        <svg-icon src="icons/outline/tick-square.svg" class="true" />
+        <svg fabSvgIcon="tick-square" class="true" />
       } @else {
-        <svg-icon src="icons/outline/close-square.svg" class="false" />
+        <svg fabSvgIcon="close-square" class="false" />
       }
     }
     @case ('yes,no') {

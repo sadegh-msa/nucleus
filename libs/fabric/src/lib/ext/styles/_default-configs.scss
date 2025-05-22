@@ -35,7 +35,7 @@ $fab-default-configs: (
       names: xs sm md lg xl 2xl 3xl 4xl 5xl 6xl 7xl 8xl 9xl 10xl,
       step: 7,
     ),
-    variants: small medium normal,
+    indicators: small medium normal nosize,
   ),
   color: (
     pigments: (
@@ -71,7 +71,7 @@ $fab-default-configs: (
       darkest: -10%
     ),
     palette: (
-      shadow: css-get-light-dark(generate-grayscale-color(0%, 20%), generate-grayscale-color(100%, 20%)),
+      shadow: css-get-light-dark(generate-grayscale-color(0%, 15%), generate-grayscale-color(100%, 15%)),
       overlay: css-get-light-dark(oklch(0% 0 0 / 50%), oklch(100% 0 0 / 50%)),
       transparent: oklch(0% 0 0 / 0%),
       transparent-dark: css-get-light-dark(oklch(0% 0 0 / 2%), oklch(100% 0 0 / 2%)),
@@ -86,6 +86,7 @@ $fab-default-configs: (
       thick: 3px
     ),
     radius: (
+      none: null,
       tiny: xs-2,
       small: xs-3,
       medium: xs-4,
@@ -100,10 +101,13 @@ $fab-default-configs: (
     )
   ),
   button: (
-    variants: bulk emphasis outline text,
+    variants: basic bordered bulk emphasis outline,
   ),
   icon: (
-    variants: bold broken bulk linear outline twotone,
+    variants: animation bold brand broken bulk colored linear outline twotone,
     filled: bold bulk,
+  ),
+  message: (
+    variants: info success warning danger,
   ),
 ) !default;

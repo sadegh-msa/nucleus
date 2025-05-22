@@ -1,37 +1,73 @@
-import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { computed, inject, Injectable } from '@angular/core';
-import { toSignal } from '@angular/core/rxjs-interop';
+import { computed, Injectable, signal } from '@angular/core';
+
+const sizes = ['sm', 'md', 'lg', 'xl', 'xxl', 'tablet', 'web'] as const;
+type Size = typeof sizes[number];
+type Window = { height: number, width: number, fontSize: number }
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class ScreenService {
-  readonly #breakpointObserver = inject(BreakpointObserver);
+  readonly #breakpointsRem = {
+    sm: 40,
+    md: 48,
+    lg: 64,
+    xl: 80,
+    xxl: 96,
+    tablet: 40,
+    web: 64
+  } as Readonly<Record<Size, number>>;
 
-  readonly handsetBreakpoint = toSignal(this.#breakpointObserver.observe(Breakpoints.Handset));
-  readonly isHandset = computed(() => this.handsetBreakpoint()?.matches);
+  readonly #window = signal<Window>(this.#getWindow());
+  readonly breakpoints = computed(() => {
+    const { width, height, fontSize } = this.#window();
+    const { sm, md, lg, xl, xxl, tablet, web } = Object.fromEntries(
+      Object.entries(this.#breakpointsRem).map(([s, v]) => [s, v * fontSize])
+    ) as Record<Size, number>;
 
-  readonly handsetPortraitBreakpoint = toSignal(this.#breakpointObserver.observe(Breakpoints.HandsetPortrait));
-  readonly isHandsetPortrait = computed(() => this.handsetPortraitBreakpoint()?.matches);
+    return {
+      isXs: width <= sm,
+      isSm: width >= sm && width < md,
+      isGtSm: width >= sm,
+      isMd: width >= md && width < lg,
+      isGtMd: width >= md,
+      isLg: width >= lg && width < xl,
+      isGtLg: width >= lg,
+      isXl: width >= xl && width < xxl,
+      isGtXl: width >= xl,
+      isGtXxl: width >= xxl,
+      isHandset: width <= tablet,
+      isGtHandset: width >= tablet,
+      isTablet: width >= tablet && width < web,
+      isWeb: width >= web,
+      isPortrait: width < height,
+      isLandscape: width > height
+    };
+  });
 
-  readonly handsetLandscapeBreakpoint = toSignal(this.#breakpointObserver.observe(Breakpoints.HandsetLandscape));
-  readonly isHandsetLandscape = computed(() => this.handsetLandscapeBreakpoint()?.matches);
+  #windowTimer?: number;
 
-  readonly tabletBreakpoint = toSignal(this.#breakpointObserver.observe(Breakpoints.Tablet));
-  readonly isTablet = computed(() => this.tabletBreakpoint()?.matches);
+  constructor() {
+    (new ResizeObserver(() => {
+      clearTimeout(this.#windowTimer);
+      this.#windowTimer = setTimeout(() => {
+        if (!this.#windowTimer) {
+          return;
+        }
 
-  readonly tabletPortraitBreakpoint = toSignal(this.#breakpointObserver.observe(Breakpoints.TabletPortrait));
-  readonly isTabletPortrait = computed(() => this.tabletPortraitBreakpoint()?.matches);
+        this.#window.set(this.#getWindow());
+      }, 100);
+    })).observe(document.body);
+  }
 
-  readonly tabletLandscapeBreakpoint = toSignal(this.#breakpointObserver.observe(Breakpoints.TabletLandscape));
-  readonly isTabletLandscape = computed(() => this.tabletLandscapeBreakpoint()?.matches);
+  #getWindow() {
+    const computedStyle = window.getComputedStyle(document.body, null)
+      .getPropertyValue('font-size');
 
-  readonly webBreakpoint = toSignal(this.#breakpointObserver.observe(Breakpoints.Web));
-  readonly isWeb = computed(() => this.webBreakpoint()?.matches);
-
-  readonly webPortraitBreakpoint = toSignal(this.#breakpointObserver.observe(Breakpoints.WebPortrait));
-  readonly isWebPortrait = computed(() => this.webPortraitBreakpoint()?.matches);
-
-  readonly webLandscapeBreakpoint = toSignal(this.#breakpointObserver.observe(Breakpoints.WebLandscape));
-  readonly isWebLandscape = computed(() => this.webLandscapeBreakpoint()?.matches);
+    return {
+      height: window.screen.availHeight,
+      width: window.screen.availWidth,
+      fontSize: Number.parseFloat(computedStyle)
+    };
+  }
 }

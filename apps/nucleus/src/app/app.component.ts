@@ -1,11 +1,12 @@
-import { ChangeDetectionStrategy, Component, effect, inject, OnInit, signal } from '@angular/core';
+import { NgClass, NgTemplateOutlet } from '@angular/common';
+import { ChangeDetectionStrategy, Component, effect, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { select, Store } from '@ngrx/store';
 import { createFadeAnimation, OperationStatus } from '@nucleus/common';
 import { authActions, authSelectors } from '@nucleus/core';
-import { MenuItem } from '@nucleus/fabric';
-import { NuPanelService } from '@nucleus/panel';
+import { type MenuItem, MenuItemsComponent, MessageComponent } from '@nucleus/fabric';
+import { PanelService } from '@nucleus/panel';
 import { ConfirmationService } from 'primeng/api';
 import { BadgeModule } from 'primeng/badge';
 import { ButtonModule } from 'primeng/button';
@@ -14,8 +15,10 @@ import { ConfirmPopupModule } from 'primeng/confirmpopup';
 import { DropdownModule } from 'primeng/dropdown';
 import { MenuModule } from 'primeng/menu';
 import { ToastModule } from 'primeng/toast';
+import { PanelComponent } from '../../../../libs/panel/src/lib/ext/components';
+import { navMainMenu } from './app.menu';
 import { SampleEventHandlerService } from './pages/sample';
-import { AppStates } from './store/app.state';
+import type { AppStates } from './store/app.state';
 
 @Component({
   imports: [
@@ -28,6 +31,11 @@ import { AppStates } from './store/app.state';
     BadgeModule,
     ConfirmDialogModule,
     ConfirmPopupModule,
+    MessageComponent,
+    NgTemplateOutlet,
+    MenuItemsComponent,
+    NgClass,
+    PanelComponent
   ],
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -35,34 +43,34 @@ import { AppStates } from './store/app.state';
   animations: [createFadeAnimation()],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AppComponent implements OnInit {
+export class AppComponent {
   readonly #appStore$ = inject(Store<AppStates>);
   readonly #confirmationService = inject(ConfirmationService);
   readonly #sampleEventHandlerService = inject(SampleEventHandlerService);
-  readonly #panelService = inject(NuPanelService);
+  readonly #panelService = inject(PanelService);
+
+  readonly navMainMenu = navMainMenu;
+  readonly navFooterMenu = [
+    {
+      id: 'nucleus-menu-sign-out',
+      label: $localize`Sign out`,
+      icon: 'logout',
+      command: () => this.confirmSignOut(),
+      permission: 'nucleus.menu.button.sign-out',
+    },
+  ] as MenuItem[];
 
   readonly isUserAuthenticated = signal(false);
   readonly showLoading = signal(false);
   readonly htmlDir = signal<'ltr' | 'rtl'>('ltr');
+  readonly navExtent = this.#panelService.navExtent;
 
   constructor() {
+    this.#handleEvents();
+
     effect(() => {
       document.dir = this.htmlDir();
     });
-  }
-
-  ngOnInit() {
-    this.#handleEvents();
-    this.#panelService.footerMenu.set([
-      {
-        id: 'nucleus-menu-sign-out',
-        label: $localize`Sign out`,
-        icon: 'icons/outline/logout.svg',
-        iconNgClass: 'outline',
-        command: () => this.confirmSignOut(),
-        permission: 'nucleus.menu.button.sign-out',
-      },
-    ] as MenuItem[]);
   }
 
   #handleEvents() {

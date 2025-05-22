@@ -58,7 +58,7 @@
         }
 
         @for (column of table().columns; track column.field) {
-          <td (click)="activateRow(row)" [ngClass]="column.styleClass || []">
+          <td (click)="activateRow(row)" [ngClass]="column.ngClass || []">
             <nu-field-value
               [value]="column.type === DataType.Index ?  firstRow() + i : row[column.field]"
               [type]="column.type"
@@ -73,12 +73,12 @@
               <button #toolElement
                       (click)="runCommand(toolElement, tool, row)"
                       [title]="tool.tooltip"
-                      [ngClass]="tool.styleClass || []"
+                      [ngClass]="tool.ngClass || []"
                       [disabled]="!!(tool.disabled && tool.disabled())"
                       *permission="tool.permission"
               >
                 @if (tool.icon) {
-                  <svg-icon [src]="tool.icon" />
+                  <svg [fabSvgIcon]="tool.icon" [variant]="tool.iconVariant" />
                 }
                 @if (tool.label) {
                   <span>{{ tool.label }}</span>
@@ -91,7 +91,7 @@
               }
 
             } @else if (tool.element === ToolElement.Link) {
-              <a [ngClass]="tool.styleClass || []"
+              <a [ngClass]="tool.ngClass || []"
                  [title]="tool.tooltip"
                  [routerLink]="tool.command(row)"
                  [state]="(tool.createRouterStates && tool.createRouterStates(row)) || {}"
@@ -99,7 +99,7 @@
                  *permission="tool.permission"
               >
                 @if (tool.icon) {
-                  <svg-icon [src]="tool.icon" />
+                  <svg [fabSvgIcon]="tool.icon" [variant]="tool.iconVariant" />
                 }
                 @if (tool.label) {
                   <span>{{ tool.label }}</span>
@@ -110,10 +110,10 @@
             }
           }
 
-          <button class="fab button nu-tool watermark text second-info"
+          <button class="fab button nu-tool watermark basic medium second-info"
                   (click)="infoOverlay.toggle($event)"
                   title="Info">
-            <svg-icon src="icons/bulk/info-circle.svg" />
+            <svg fabSvgIcon="info-circle" variant="bulk" />
           </button>
 
           <p-overlayPanel #infoOverlay

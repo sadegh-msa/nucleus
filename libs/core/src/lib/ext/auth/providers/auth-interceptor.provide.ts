@@ -4,5 +4,5 @@ import { AuthInterceptor } from '../interceptors/auth.interceptor';
 export const provideNuAuthInterceptor = () => ({
   provide: HTTP_INTERCEPTORS,
   useClass: AuthInterceptor,
-  multi: true
+  multi: true,
 });

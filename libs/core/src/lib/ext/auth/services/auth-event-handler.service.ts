@@ -5,7 +5,7 @@ import { authSelectors, AuthStates } from '../store';
 import { AuthTokenService } from './auth-token.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthEventHandlerService {
   readonly #storeMessageService = inject(StoreMessageService);
@@ -23,15 +23,15 @@ export class AuthEventHandlerService {
   #handleEvents() {
     this.#authStore$
       .pipe(select(authSelectors.signIn.state))
-      .subscribe(s => this.#storeMessageService.failureObserver(s));
+      .subscribe((s) => this.#storeMessageService.failureObserver(s));
 
     this.#authStore$
       .pipe(select(authSelectors.signUp.state))
-      .subscribe(s => this.#storeMessageService.commonObserver(s));
+      .subscribe((s) => this.#storeMessageService.commonObserver(s));
 
     this.#authStore$
       .pipe(select(authSelectors.signOut.state))
-      .subscribe(s => this.#storeMessageService.failureObserver(s));
+      .subscribe((s) => this.#storeMessageService.failureObserver(s));
   }
 
   register() {

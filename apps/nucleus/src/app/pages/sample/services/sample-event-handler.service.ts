@@ -1,10 +1,10 @@
 import { inject, Injectable } from '@angular/core';
-import { StoreMessageService } from '@nucleus/core';
 import { select, Store } from '@ngrx/store';
+import { StoreMessageService } from '@nucleus/core';
 import { sampleSelectors, SampleStates } from '../store';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class SampleEventHandlerService {
   readonly #storeMessageService = inject(StoreMessageService);
@@ -35,5 +35,4 @@ export class SampleEventHandlerService {
   register() {
     this.#handleEvents();
   }
-
 }

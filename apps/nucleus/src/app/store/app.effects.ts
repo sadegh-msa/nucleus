@@ -1,7 +1,4 @@
 import { AuthEffects } from '@nucleus/core';
 import { SampleEffects } from '../pages/sample';
 
-export const appEffects = [
-  AuthEffects,
-  SampleEffects
-];
+export const appEffects = [AuthEffects, SampleEffects];

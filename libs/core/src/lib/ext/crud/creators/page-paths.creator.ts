@@ -14,7 +14,7 @@ export function createPagePaths(fullPath?: string[]): PagePath {
     [List]: () => [...paths, list],
     [View]: (id: string) => [...paths, view, id],
     [Add]: () => [...paths, add],
-    [Edit]: (id: string) => [...paths, edit, id]
+    [Edit]: (id: string) => [...paths, edit, id],
   };
 }
 
@@ -22,5 +22,5 @@ export const pagePathPattern = Object.freeze({
   [List]: list,
   [View]: `${view}/:id`,
   [Add]: add,
-  [Edit]: `${edit}/:id`
+  [Edit]: `${edit}/:id`,
 });

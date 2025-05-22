@@ -1,5 +1,0 @@
-@use '../mixins/menu.mixin';
-
-menu.fab.menu {
-  @include menu.generic();
-}

@@ -1,0 +1,6 @@
+@use './layers/reset/reset';
+@use './mixins/root.mixin';
+
+@layer reset, defaults, components, libraries, theme, application, utilities;
+
+@include root.define-css-vars();

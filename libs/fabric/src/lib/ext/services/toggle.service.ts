@@ -6,10 +6,8 @@ import { GenericToggleConsumer, ToggleValue } from '../models/toggle.model';
 export class ToggleService {
   #consumer!: GenericToggleConsumer;
 
-  #onChange: any = () => {
-  };
-  #onTouch: any = () => {
-  };
+  #onChange: any = () => {};
+  #onTouch: any = () => {};
 
   constructor() {
     effect(() => {
@@ -18,8 +16,10 @@ export class ToggleService {
       }
 
       const value = this.#consumer.isBinary()
-        ? this.#consumer.isChecked() :
-        (this.#consumer.isChecked() ? this.#consumer.value() : undefined);
+        ? this.#consumer.isChecked()
+        : this.#consumer.isChecked()
+          ? this.#consumer.value()
+          : undefined;
       this.#onChange(value);
     });
   }
@@ -40,7 +40,7 @@ export class ToggleService {
 
   #writeValue(value: ToggleValue) {
     this.#consumer.isChecked.set(
-      this.#consumer.isBinary() ? !!value : value === this.#consumer.value()
+      this.#consumer.isBinary() ? !!value : value === this.#consumer.value(),
     );
   }
 

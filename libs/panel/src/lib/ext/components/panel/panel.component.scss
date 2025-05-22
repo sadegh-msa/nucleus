@@ -1,12 +1,12 @@
 @use 'funcs/size.func' as *;
 @use 'funcs/color.func' as *;
 @use 'mixins/transition.mixin';
-@use 'mixins/breakpoint.mixin';
+@use 'mixins/screens.mixin' as *;
 @use 'mixins/shadow.mixin';
 @use 'mixins/box.mixin';
 @use 'libs/theme/src/lib/ext/styles/_panel-theme.scss';
 
-$panel-nav-compact-width: 76px;
+$panel-nav-compact-width: 69px;
 $panel-nav-wide-width: 260px;
 
 @mixin panel-nav-width($width) {
@@ -52,17 +52,17 @@ body {
     overflow: hidden;
     background-color: get-color-var(paper-darker);
 
-    @include breakpoint.screens('handset', 'tablet') {
+    @include screens('handset', 'tablet') {
       @include handset();
     }
 
-    @include breakpoint.screens('web') {
+    @include screens('web') {
       @include web();
     }
 
     > :is(header, nav, main) {
-      @include box.rounded;
-      @include shadow.large;
+      @include box.rounded();
+      @include shadow.large();
       background-color: get-color-var(paper-dark);
       padding: get-size-var(sm-1);
     }

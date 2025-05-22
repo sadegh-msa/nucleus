@@ -8,7 +8,7 @@ describe('GenericToolbarComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [GenericToolbarComponent]
+      declarations: [GenericToolbarComponent],
     });
     fixture = TestBed.createComponent(GenericToolbarComponent);
     component = fixture.componentInstance;

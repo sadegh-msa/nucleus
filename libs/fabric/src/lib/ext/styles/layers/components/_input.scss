@@ -1,0 +1,36 @@
+@use '../../funcs/color.func' as *;
+@use '../../funcs/size.func' as *;
+@use '../../mixins/box.mixin';
+@use '../../mixins/transition.mixin';
+
+
+.fab.input {
+  @include transition.normal(color, background-color, border-color, text-decoration-color, fill, stroke);
+  @include box.rounded(neutral-surface);
+  height: get-size-var(lg-3);
+  padding: get-size-var(xs-4);
+  vertical-align: middle;
+  font-size: get-size-var(sm-2);
+  line-height: get-size-var(sm-7);
+
+  &:not([disabled]) {
+    background-color: get-color-var(paper);
+    color: get-color-var(ink);
+
+    &:focus-visible {
+      border-color: get-color-var(primary);
+    }
+  }
+
+  &:disabled {
+    background-color: get-color-var(neutral-surface);
+    color: get-color-var(neutral);
+  }
+
+  &::placeholder {
+    vertical-align: middle;
+    font-size: get-size-var(sm-2);
+    line-height: get-size-var(sm-7);
+    color: get-color-var(neutral-lighter);
+  }
+}

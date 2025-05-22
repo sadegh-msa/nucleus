@@ -1,13 +1,13 @@
 import {
   Directive,
+  effect,
   ElementRef,
   HostListener,
+  inject,
   Injector,
+  input,
   OnDestroy,
   OnInit,
-  effect,
-  inject,
-  input,
   untracked,
 } from '@angular/core';
 import type { BubbleComponent } from '../../components';

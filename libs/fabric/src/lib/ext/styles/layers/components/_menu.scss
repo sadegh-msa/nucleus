@@ -1,0 +1,7 @@
+@use '../../mixins/menu.mixin';
+
+@layer components {
+  menu.fab.menu {
+    @include menu.generic();
+  }
+}

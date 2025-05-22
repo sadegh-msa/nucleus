@@ -1,0 +1,32 @@
+@use '../funcs/config.func' as *;
+@use '../funcs/size.func' as *;
+@use '../funcs/color.func' as *;
+@use '../mixins/box.mixin';
+@use '../mixins/shadow.mixin';
+
+$variants: get-config(message, variants);
+
+@mixin generic() {
+  @each $variant in $variants {
+    &.#{$variant} {
+      @include box.rounded-large(#{$variant}-surface);
+      @include shadow.large();
+      padding: get-size-var(sm-1);
+      background-color: get-color-var(#{$variant}-surface);
+      color: get-color-var($variant);
+      width: calc(var(--spacing) * 100);
+
+      > hgroup {
+        display: flex;
+        flex-direction: row;
+        align-items: baseline;
+        gap: get-size-var(xs-4);
+
+        > h4,
+        h6 {
+          color: get-color-var($variant);
+        }
+      }
+    }
+  }
+}

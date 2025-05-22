@@ -1,0 +1,24 @@
+@use "sass:list";
+
+@function list-to-classes($list, $prefix: null) {
+  $classes: ();
+  $prefix-class: if($prefix, "#{$prefix}", "");
+
+  @each $item in $list {
+    $classes: list.append($classes, ".#{$prefix-class}#{$item}");
+  }
+
+  @return list.join((), $classes, $separator: comma);
+}
+
+@function remove-duplicates($list) {
+  $unique-list: ();
+
+  @each $item in $list {
+    @if not list.index($unique-list, $item) {
+      $unique-list: list.append($unique-list, $item);
+    }
+  }
+
+  @return $unique-list;
+}

@@ -8,7 +8,7 @@ describe('ToolbarComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [PanelToolbarComponent]
+      declarations: [PanelToolbarComponent],
     });
     fixture = TestBed.createComponent(PanelToolbarComponent);
     component = fixture.componentInstance;

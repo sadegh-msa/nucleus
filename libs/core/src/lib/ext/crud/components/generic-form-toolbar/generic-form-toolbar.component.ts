@@ -1,10 +1,10 @@
 import { KeyValuePipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
-import { SvgIconComponent } from 'angular-svg-icon';
+import { SvgIconDirective } from '@nucleus/fabric';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { infoFieldsDefault } from '../../defaults/info-fields.default';
 import { GenericToolbarComponent, type InfoField } from '../../index';
-import { NuToolbar } from '../../models/toolbar.model';
+import type { NuToolbar } from '../../models/toolbar.model';
 import { InfoFieldsComponent } from '../info-fields/info-fields.component';
 
 @Component({
@@ -15,7 +15,7 @@ import { InfoFieldsComponent } from '../info-fields/info-fields.component';
     InfoFieldsComponent,
     KeyValuePipe,
     OverlayPanelModule,
-    SvgIconComponent,
+    SvgIconDirective,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

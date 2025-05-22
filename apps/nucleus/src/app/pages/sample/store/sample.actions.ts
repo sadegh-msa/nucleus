@@ -3,10 +3,14 @@ import { Sample, SampleAdd, SampleList, SampleUpdate } from '../models/sample.mo
 
 const SOURCE = 'Sample';
 
-export const sampleListActions = StoreActionCreator.createListGroup<RestListQuery, SampleList>(SOURCE);
+export const sampleListActions = StoreActionCreator.createListGroup<RestListQuery, SampleList>(
+  SOURCE,
+);
 export const sampleGetActions = StoreActionCreator.createGetGroup<Sample>(SOURCE);
 export const sampleAddActions = StoreActionCreator.createAddGroup<SampleAdd, Sample>(SOURCE);
-export const sampleUpdateActions = StoreActionCreator.createUpdateGroup<SampleUpdate, Sample>(SOURCE);
+export const sampleUpdateActions = StoreActionCreator.createUpdateGroup<SampleUpdate, Sample>(
+  SOURCE,
+);
 export const sampleDeleteActions = StoreActionCreator.createDeleteGroup(SOURCE);
 
 export const sampleActions = {
@@ -14,5 +18,5 @@ export const sampleActions = {
   ...sampleGetActions,
   ...sampleAddActions,
   ...sampleUpdateActions,
-  ...sampleDeleteActions
+  ...sampleDeleteActions,
 };

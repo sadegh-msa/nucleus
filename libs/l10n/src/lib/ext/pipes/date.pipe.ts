@@ -1,9 +1,8 @@
-import { inject, Pipe, PipeTransform } from '@angular/core';
+import { inject, Pipe, type PipeTransform } from '@angular/core';
 import { NuDateService } from '../services';
 
 @Pipe({
   name: 'nuDate',
-
 })
 export class NuDatePipe implements PipeTransform {
   readonly #dateTimeService = inject(NuDateService);

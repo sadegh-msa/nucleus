@@ -1,11 +1,11 @@
 import { inject, Injectable, signal } from '@angular/core';
 import { NavigationEnd, Router, Scroll } from '@angular/router';
-import { MenuItem } from 'primeng/api';
-import { filter, map } from 'rxjs';
 import { isUUID } from '@nucleus/common';
+import type { MenuItem } from '@nucleus/fabric';
+import { filter, map } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class PanelBreadcrumbService {
   readonly #router = inject(Router);
@@ -29,39 +29,43 @@ export class PanelBreadcrumbService {
         }
 
         return target.apply(thisArg, argArray as any);
-      }
+      },
     });
     const routeObserver = (route: NavigationEnd) => {
-      // console.log(route)
       this.#update(route.urlAfterRedirects, this.#router.getCurrentNavigation()?.extras.state);
     };
 
-    this.#router.events.pipe(
-      filter(v => v instanceof Scroll),
-      map(v => (v as Scroll).routerEvent as NavigationEnd),
-      filter(r => r.url === '/')
-    ).subscribe(routeObserver);
+    this.#router.events
+      .pipe(
+        filter((v) => v instanceof Scroll),
+        map((v) => (v as Scroll).routerEvent as NavigationEnd),
+        filter((r) => r.url === '/'),
+      )
+      .subscribe(routeObserver);
 
-    this.#router.events.pipe(
-      filter(v => v instanceof NavigationEnd),
-      map(v => v as NavigationEnd)
-    ).subscribe(routeObserver);
+    this.#router.events
+      .pipe(
+        filter((v) => v instanceof NavigationEnd),
+        map((v) => v as NavigationEnd),
+      )
+      .subscribe(routeObserver);
   }
 
   #update(routeUrl: string, routeState?: Record<string, string>) {
     const url = new URL(routeUrl, location.origin);
-    const urlSegments = url.pathname.split('/').filter(v => v?.length);
+    const urlSegments = url.pathname.split('/').filter((v) => v?.length);
 
     if (!urlSegments.length) {
       return;
     }
 
     const hasId = isUUID(urlSegments[urlSegments.length - 1]);
-    const labels = urlSegments.slice(0, urlSegments.length - (hasId ? 1 : 0))
-      .map(v => v.toLowerCase()
+    const labels = urlSegments.slice(0, urlSegments.length - (hasId ? 1 : 0)).map((v) =>
+      v
+        .toLowerCase()
         .replace(/(?:^|\s|\/|-)\w/g, (match) => match.toUpperCase())
-        .replaceAll('-', ' ')
-      );
+        .replaceAll('-', ' '),
+    );
     const items = [];
 
     for (let i = 0; i < urlSegments.length; i++) {
@@ -73,7 +77,7 @@ export class PanelBreadcrumbService {
       let label = labels[i];
 
       if (i === urlSegments.length - 1 && hasId) {
-        label = (routeState && routeState['title']) || '...';
+        label = routeState?.['title'] || '...';
       }
 
       items.push({ label, routerLink });
@@ -93,7 +97,7 @@ export class PanelBreadcrumbService {
       return;
     }
 
-    this.#items.update(items => {
+    this.#items.update((items) => {
       items[items.length - 1].label = title;
       return [...items];
     });

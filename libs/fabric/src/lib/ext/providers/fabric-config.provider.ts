@@ -1,5 +1,5 @@
 import { InjectionToken } from '@angular/core';
-import { FabricConfig } from '../models';
+import type { FabricConfig } from '../models';
 
 export const FABRIC_CONFIG = new InjectionToken<FabricConfig>('fabric.config');
 

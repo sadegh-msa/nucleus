@@ -1,27 +1,42 @@
-import { NgClass, NgOptimizedImage, NgTemplateOutlet } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { NgClass, NgOptimizedImage } from '@angular/common';
+import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
 import { NU_COMMON_CONFIG } from '@nucleus/common';
-import { getFadeDelayEnterAnimation, MenuItemsComponent } from '@nucleus/fabric';
-import { SvgIconComponent } from 'angular-svg-icon';
-import { NuPanelService } from '../../../ext';
+import { fadeAnimation, RippleDirective, ScreenService, SvgIconDirective } from '@nucleus/fabric';
+import { PanelService } from '../../../ext';
 
 @Component({
   selector: 'nav[nu-panel-nav]',
-  imports: [SvgIconComponent, NgClass, NgOptimizedImage, MenuItemsComponent, NgTemplateOutlet],
-  animations: [getFadeDelayEnterAnimation()],
+  imports: [NgOptimizedImage, RippleDirective, NgClass, SvgIconDirective],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  animations: [fadeAnimation],
   templateUrl: './panel-nav.component.html',
   styleUrl: './panel-nav.component.scss',
 })
 export class NuPanelNavComponent {
-  readonly #panelService = inject(NuPanelService);
+  readonly #screenService = inject(ScreenService);
+  readonly #panelService = inject(PanelService);
   readonly #nuCommonConfig = inject(NU_COMMON_CONFIG);
 
-  readonly branding = this.#nuCommonConfig.branding;
-  readonly navMode = this.#panelService.navMode;
-  readonly mainMenu = this.#panelService.mainMenu;
-  readonly footerMenu = this.#panelService.footerMenu;
+  readonly branding = this.#nuCommonConfig.branding.organization;
+
+  readonly breakpoints = this.#screenService.breakpoints;
+  readonly navExtent = this.#panelService.navExtent;
+  readonly isNavWide = this.#panelService.isNavWide;
+  readonly isNavCompact = this.#panelService.isNavCompact;
+
+  readonly logo = computed(() => {
+    const { logo, title } = this.branding;
+    const isNavWide = this.isNavWide();
+
+    return {
+      alt: title,
+      height: isNavWide ? logo.hTitle.height : logo.noTitle.height,
+      width: isNavWide ? logo.hTitle.width : logo.noTitle.width,
+      src: isNavWide ? logo.hTitle.path : logo.noTitle.path,
+    };
+  });
 
   toggleNavMode() {
-    this.#panelService.toggleNavMode();
+    this.#panelService.toggleNavExtent();
   }
 }

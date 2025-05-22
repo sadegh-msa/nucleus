@@ -1,13 +1,13 @@
 import { NgClass } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject, input } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { SvgIconComponent } from 'angular-svg-icon';
+import { SvgIconDirective } from '@nucleus/fabric';
 import { ConfirmationService } from 'primeng/api';
 import { ConfirmPopupModule } from 'primeng/confirmpopup';
 import { TooltipModule } from 'primeng/tooltip';
 import { AuthPermissionDirective } from '../../../auth';
 import { ToolElement } from '../../enums/toolbar.enum';
-import { NuTool, NuToolbar } from '../../models/toolbar.model';
+import type { NuTool, NuToolbar } from '../../models/toolbar.model';
 
 @Component({
   selector: 'nu-generic-toolbar',
@@ -18,7 +18,7 @@ import { NuTool, NuToolbar } from '../../models/toolbar.model';
     RouterModule,
     TooltipModule,
     NgClass,
-    SvgIconComponent,
+    SvgIconDirective,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
@@ -41,9 +41,9 @@ export class GenericToolbarComponent {
       message: tool.confirm,
       icon: 'pi pi-exclamation-triangle',
       acceptLabel: $localize`Yes`,
-      acceptButtonStyleClass: 'fab button danger text',
+      acceptButtonStyleClass: 'fab button danger basic',
       rejectLabel: $localize`No`,
-      rejectButtonStyleClass: 'fab button stamp text',
+      rejectButtonStyleClass: 'fab button stamp basic',
       accept: () => tool.command(),
     });
   }

@@ -1,0 +1,40 @@
+@use '../../funcs/color.func' as *;
+@use '../../funcs/size.func' as *;
+@use '../../funcs/border.func' as *;
+@use '../../mixins/box.mixin';
+@use '../../mixins/shadow.mixin';
+
+@layer defaults {
+  body {
+    scrollbar-width: thin;
+    scroll-behavior: smooth;
+  }
+
+  a, button {
+    outline-offset: -1px;
+    outline-color: get-color-var(neutral);
+  }
+
+  hr {
+    height: 0;
+    width: 100%;
+    border-top-width: get-border-width-var(thin);
+    border-color: get-color-var(watermark);
+  }
+
+  ::-webkit-scrollbar {
+    height: get-size-var(xs-2);
+    width: get-size-var(xs-2);
+    background-color: get-color-var(watermark-surface);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @include box.rounded-small(watermark);
+    @include shadow.small;
+    background-color: get-color-var(watermark);
+  }
+
+  ::-webkit-scrollbar-corner {
+    background-color: get-color-var(watermark-surface);
+  }
+}

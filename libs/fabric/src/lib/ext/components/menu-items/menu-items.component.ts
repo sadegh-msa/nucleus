@@ -5,69 +5,142 @@ import {
   computed,
   effect,
   HostBinding,
+  inject,
   input,
+  linkedSignal,
+  untracked
 } from '@angular/core';
-import { RouterLink, RouterLinkActive } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { TippyDirective } from '@ngneat/helipopper';
-import { SvgIconComponent } from 'angular-svg-icon';
-import { MenuItem } from '../../models';
+import { CssSupportService, type Extent, SafeHtml } from '@nucleus/common';
+import * as R from 'ramda';
+import { RippleDirective, SvgIconDirective } from '../../directives';
+import type { MenuItem } from '../../models';
+import { HtmlService } from '../../services';
 
-type TooltipPlacement = NonNullable<MenuItem['tooltipPlacement']>;
+type PopoverPlacement = NonNullable<MenuItem['tooltipPlacement']>;
 
 @Component({
   selector: 'menu[fabMenuItems]',
   imports: [
     NgTemplateOutlet,
-    SvgIconComponent,
     TippyDirective,
     NgStyle,
     NgClass,
     RouterLink,
     RouterLinkActive,
+    SafeHtml,
+    SvgIconDirective,
+    RippleDirective,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './menu-items.component.html',
 })
 export class MenuItemsComponent {
-  items = input.required<MenuItem[]>({ alias: 'fabMenuItems' });
-  setStyleClass = input(true, { alias: 'fabMenuSetStyleClass' });
-  tooltipPlacement = input<TooltipPlacement>('auto-end', {
-    alias: 'fabMenuTooltipPlacement',
+  readonly #router = inject(Router);
+  readonly #cssSupport = inject(CssSupportService);
+  readonly #htmlService = inject(HtmlService);
+
+  fabMenuItems = input.required<MenuItem[]>();
+  popoverPlacement = input<PopoverPlacement>(this.#htmlService.isRtl ? 'left-end' : 'right-end');
+  extent = input<Extent>('wide');
+  mode = input<'popup' | 'still'>('still');
+  submenuMode = input<'floating' | 'sliding'>('sliding');
+  common = input<MenuItem>({
+    iconVariant: 'outline',
+    ngClass: {
+      'fab button medium rounded-none': true,
+      'basic stamp second-ink': true,
+      'bulk primary': false,
+    },
   });
-  mode = input<'compact' | 'wide'>('wide', { alias: 'fabMenuMode' });
-  submenuMode = input<'floating' | 'sliding'>('floating', {
-    alias: 'fabMenuSubmenuMode',
+  active = input<MenuItem>({
+    iconVariant: 'bold',
+    ngClass: {
+      ...((this.common().ngClass as object) ?? {}),
+      'basic stamp second-ink': false,
+      'bulk primary': true,
+    },
   });
 
-  readonly isCompact = computed(() => this.mode() === 'compact');
-  readonly isWide = computed(() => this.mode() === 'wide');
+  readonly isCompact = computed(() => this.extent() === 'compact');
+  readonly isWide = computed(() => this.extent() === 'wide');
+  readonly isSubmenuFloating = computed(
+    () => this.isCompact() || this.submenuMode() === 'floating',
+  );
+  readonly isSubmenuSliding = computed(() => !this.isCompact() && this.submenuMode() === 'sliding');
+  readonly items = linkedSignal<MenuItem[], MenuItem[]>({
+    source: this.fabMenuItems,
+    computation: (newItems) => {
+      return this.#computeItems(R.clone(newItems));
+    },
+  });
 
   @HostBinding('class')
   get styleClass() {
-    return [
-      this.setStyleClass() ? 'fab menu' : '',
-      this.mode(),
-      this.isCompact() ? 'floating' : this.submenuMode(),
-    ].join(' ');
+    return Array.from(
+      new Set([
+        'fab menu',
+        this.extent(),
+        this.mode(),
+        this.isSubmenuFloating() ? 'floating' : this.submenuMode(),
+      ]),
+    ).join(' ');
   }
 
   constructor() {
+    if (!this.#cssSupport.calcSize()) {
+      effect(() => {
+        const items = this.items();
+
+        untracked(() => {
+          items
+            .filter((i) => i.expanded) //
+            .forEach((item) => this.#calculateSize(item));
+        });
+      });
+    }
+
     effect(() => {
-      this.items()
-        .filter((i) => i.expanded)
-        .forEach((item) => this.calculateSize(item));
+      const isSubmenuFloating = this.isSubmenuFloating();
+
+      untracked(() => {
+        if (isSubmenuFloating && this.isWide()) {
+          this.items().forEach((i) => this.collapseItem(i));
+        }
+      });
     });
   }
 
-  calculateSize(item: MenuItem) {
+  #computeItems(items: MenuItem[]) {
+    items.forEach((item) => {
+      Object.assign(item, R.mergeDeepRight({ ...(this.common() ?? {}) }, item) as MenuItem);
+      item.active = R.mergeDeepLeft({ ...(this.active() ?? {}) }, item.active ?? {}) as MenuItem;
+      item.isActive = item.routerLink === this.#router.url;
+
+      if (item.children?.length) {
+        this.#computeItems(item.children);
+
+        if (this.isSubmenuSliding()) {
+          item.expanded = item.children?.some((i) => i.expanded || i.isActive);
+        }
+      }
+    });
+
+    return items;
+  }
+
+  #calculateSize(item: MenuItem) {
     if (!item.expanded) {
       return 0;
     }
 
-    item.size = 0;
-    item.children?.forEach((i) => (item.size! += this.calculateSize(i) + 1));
+    item.children?.forEach((i) => {
+      item.size ??= 0;
+      item.size += this.#calculateSize(i) + 1;
+    });
 
-    return item.size;
+    return item.size ?? 0;
   }
 
   collapseItem(item: MenuItem) {
@@ -76,20 +149,20 @@ export class MenuItemsComponent {
   }
 
   clickItem(item: MenuItem) {
-    const submenuMode = this.submenuMode();
+    const isSubmenuFloating = this.isSubmenuFloating();
 
     if (item.children?.length) {
-      item.expanded = submenuMode === 'floating' || !item.expanded;
+      item.expanded = isSubmenuFloating || !item.expanded;
 
       if (!item.expanded) {
         this.collapseItem(item);
       }
-    } else if (submenuMode === 'floating') {
+    } else if (isSubmenuFloating) {
       this.items().forEach((i) => this.collapseItem(i));
-    }
-
-    if (submenuMode === 'sliding') {
-      this.items().forEach((i) => this.calculateSize(i));
+    } else if (this.isSubmenuSliding()) {
+      if (!this.#cssSupport.calcSize()) {
+        this.items().forEach((i) => this.#calculateSize(i));
+      }
     }
 
     if (item.command) {
@@ -97,58 +170,18 @@ export class MenuItemsComponent {
     }
   }
 
-  onPointerDownItem(item: MenuItem) {
-    if (this.submenuMode() === 'floating') {
-      if (!item.children?.length) {
-        item.expanded = false;
-      }
-    }
-  }
-
-  onPointerEnterItem(item: MenuItem, liElement: HTMLLIElement) {
-    if (this.submenuMode() === 'floating') {
-      this.placeSubmenu(liElement);
-      item.expanded = true;
-    }
-  }
-
-  onPointerLeaveItem(item: MenuItem, liElement: HTMLLIElement) {
-    if (this.submenuMode() === 'floating') {
-      item.expanded = false;
-      this.resetSubmenuPlacement(liElement);
-    }
-  }
-
   onRouterLinkIsActiveChange(item: MenuItem, isActive: boolean) {
+    item.isActive = isActive;
+
     if (isActive) {
       item.original = Object.assign({}, { ...item, original: undefined });
-      Object.assign(item, item.active);
+      Object.assign(item, { ...item.active });
     } else {
-      Object.assign(item, {...item.original, original: undefined});
-    }
-  }
+      for (const key of Object.keys(item.active || {})) {
+        item[key as keyof MenuItem] = undefined;
+      }
 
-  placeSubmenu(liElement: HTMLLIElement) {
-    const menuElements = liElement.getElementsByTagName('menu');
-    const menuElement = menuElements[0];
-
-    if (menuElement) {
-      const rect = menuElement.getBoundingClientRect();
-      const heightDiff = window.innerHeight - (rect.y + rect.height);
-      const margin = 12;
-      const top = heightDiff <= margin ? Math.abs(heightDiff) + margin : 0;
-
-      menuElement.style['top'] = `-${top}px`;
-    }
-  }
-
-  resetSubmenuPlacement(liElement: HTMLLIElement) {
-    const menuElements = liElement.getElementsByTagName('menu');
-    const elementsLength = menuElements.length;
-
-    for (let i = 0; i < elementsLength; i++) {
-      const menuElement = menuElements[i];
-      menuElement.style['top'] = `0`;
+      Object.assign(item, { ...item.original, original: undefined });
     }
   }
 }

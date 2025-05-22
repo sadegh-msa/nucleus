@@ -24,7 +24,7 @@
   &:before,
   &:after {
     @include transition.normal(height, width);
-    @include box.rounded-small($border-width: null);
+    @include box.rounded-small(null);
     content: '';
     position: absolute;
     inset-block-end: 0;

@@ -4,13 +4,13 @@ import { SampleGeneric } from '../models/sample-generic.model';
 import { sampleConfig } from '../sample.config';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class SampleRestService {
   readonly #args: RestServiceParams = {
     service: inject(RestApiService),
     endpoint: sampleConfig.rest.endpoint,
-    dateFields: sampleConfig.field.dates
+    dateFields: sampleConfig.field.dates,
   };
 
   list = RestServiceCreator.createList<SampleGeneric>(this.#args);

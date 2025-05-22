@@ -8,7 +8,7 @@ describe('ListToolbarComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [GenericListToolbarComponent]
+      declarations: [GenericListToolbarComponent],
     });
     fixture = TestBed.createComponent(GenericListToolbarComponent);
     component = fixture.componentInstance;

@@ -1,6 +1,7 @@
-import { Observable } from 'rxjs';
-import { DataType } from '@nucleus/common';
-import { NuTool, NuToolEvent } from './toolbar.model';
+import type { NgClass } from '@angular/common';
+import type { DataType } from '@nucleus/common';
+import type { Observable } from 'rxjs';
+import type { NuTool, NuToolEvent } from './toolbar.model';
 
 export interface NuTableColumn {
   field: string;
@@ -9,7 +10,7 @@ export interface NuTableColumn {
   type?: DataType;
   format?: string;
   isHidden?: boolean;
-  styleClass?: string;
+  ngClass?: NgClass['ngClass'];
 }
 
 export interface NuTable {

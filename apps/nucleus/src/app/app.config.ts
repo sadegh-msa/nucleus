@@ -1,41 +1,42 @@
 import { provideHttpClient, withFetch } from '@angular/common/http';
-import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
+import {
+  type ApplicationConfig,
+  provideExperimentalZonelessChangeDetection,
+  provideZoneChangeDetection
+} from '@angular/core';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { provideRouter, withComponentInputBinding } from '@angular/router';
 import { provideEffects } from '@ngrx/effects';
 import { provideStore } from '@ngrx/store';
-import { provideNuCommon } from '@nucleus/common';
+import { type NuCommonConfig, provideNuCommon } from '@nucleus/common';
 import { AuthOnRunEffect, provideNuAuth, signOutMetaReducer } from '@nucleus/core';
-import { type MenuItem, provideFabric } from '@nucleus/fabric';
-import { provideNuPanel } from '@nucleus/panel';
+import { provideFabric } from '@nucleus/fabric';
 import Aura from '@primeng/themes/aura';
-import { provideAngularSvgIcon } from 'angular-svg-icon';
 import { MessageService } from 'primeng/api';
 import { providePrimeNG } from 'primeng/config';
+import { provideNuL10n } from '../../../../libs/l10n/src/lib/ext/providers/l10n.provider';
 import { environment } from '../environments/environment';
-import { navMainMenuItems } from './app.menu';
 import { appRoutes } from './app.routes';
 import { appEffects } from './store/app.effects';
 import { appReducers } from './store/app.reducers';
 
 export const appConfig: ApplicationConfig = {
   providers: [
-    provideAnimationsAsync(),
-    provideZoneChangeDetection({ eventCoalescing: true }),
+    provideExperimentalZonelessChangeDetection(),
     provideRouter(appRoutes, withComponentInputBinding()),
+    provideAnimationsAsync(),
     provideHttpClient(withFetch()),
     provideEffects(appEffects),
     provideStore(appReducers, { metaReducers: [signOutMetaReducer] }),
-    provideNuCommon({ rest: environment.rest, branding: environment.branding }),
-    provideFabric({ ui: environment.ui }),
-    provideNuAuth({ ...environment.auth }),
-    provideNuPanel({
-      nav: {
-        mainMenu: structuredClone(navMainMenuItems) as MenuItem[],
-        footerMenu: [],
-      },
+    provideNuCommon({
+      api: environment.api,
+      branding: environment.branding,
+      crypto: environment.crypto as NuCommonConfig['crypto'],
+      links: environment.links,
     }),
-    provideAngularSvgIcon(),
+    provideNuL10n({ languages: environment.languages }),
+    provideFabric(environment.ui),
+    provideNuAuth({ ...environment.auth }),
     providePrimeNG({
       theme: {
         preset: Aura,

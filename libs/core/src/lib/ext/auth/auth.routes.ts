@@ -1,24 +1,20 @@
-import { Route } from '@angular/router';
+import type { Route } from '@angular/router';
+import { authCanActivateSelf } from '../../int/auth/guards/auth-self.guard';
 import { authDefaultConfig } from './auth-default.config';
-import { authCanActivateSelf } from './guards/auth-self.guard';
+
+const routesInfo = authDefaultConfig.routes;
 
 export const authRoutes: Route[] = [
   {
-    path: '',
+    path: routesInfo.signIn.path,
+    title: routesInfo.signIn.title,
     canActivate: [authCanActivateSelf],
-    canActivateChild: [authCanActivateSelf],
-    loadComponent: () => import('./components/auth/auth.component').then((m) => m.AuthComponent),
-    children: [
-      {
-        path: authDefaultConfig.path.signIn,
-        loadComponent: () =>
-          import('./components/sign-in/sign-in.component').then((m) => m.SignInComponent),
-      },
-      {
-        path: authDefaultConfig.path.signUp,
-        loadComponent: () =>
-          import('./components/sign-up/sign-up.component').then((m) => m.SignUpComponent),
-      },
-    ],
+    loadComponent: () => import('../../int/auth/components').then((m) => m.SignInComponent),
+  },
+  {
+    path: routesInfo.signUp.path,
+    title: routesInfo.signUp.title,
+    canActivate: [authCanActivateSelf],
+    loadComponent: () => import('../../int/auth/components').then((m) => m.SignUpComponent),
   },
 ];

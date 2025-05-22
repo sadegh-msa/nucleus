@@ -1,0 +1,36 @@
+@use 'sass:list';
+@use '../../funcs/config.func' as *;
+@use '../../funcs/border.func' as *;
+@use '../../funcs/color.func' as *;
+@use '../../funcs/size.func' as *;
+@use '../../mixins/icon.mixin';
+@use '../../mixins/transition.mixin';
+@use '../../mixins/size.mixin';
+
+@layer components {
+  svg {
+    &.fab.icon {
+      @include icon.generic();
+      @include transition.normal(color, background-color);
+      @include size.max-rect(sm-5)
+    }
+
+    &.bidi {
+      &:dir(rtl) {
+        transform: scaleX(-1);
+      }
+    }
+
+    // Fix the issue of iconsax
+    @each $variant in get-config(icon, variants) {
+      @if not list.index(get-config(icon, filled), $variant) {
+        &.#{$variant} {
+          border-width: get-border-width(thin);
+          border-color: transparent;
+          outline: 2px solid transparent;
+          outline-offset: 2px;
+        }
+      }
+    }
+  }
+}

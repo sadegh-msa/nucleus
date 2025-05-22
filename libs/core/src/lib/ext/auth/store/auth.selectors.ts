@@ -1,17 +1,16 @@
 import { createSelector } from '@ngrx/store';
-import {
+import type {
   AuthCheckState,
   AuthSignInState,
   AuthSignOutState,
-  AuthSignUpState
+  AuthSignUpState,
 } from '../models/auth-state.model';
-import { AuthStates } from './auth.states';
+import type { AuthStates } from './auth.states';
 
 const selectSignIn = (state: AuthStates) => state.authSignIn;
 const selectSignUp = (state: AuthStates) => state.authSignUp;
 const selectSignOut = (state: AuthStates) => state.authSignOut;
 const selectCheck = (state: AuthStates) => state.authCheck;
-
 
 export const authSelectors = {
   signIn: {

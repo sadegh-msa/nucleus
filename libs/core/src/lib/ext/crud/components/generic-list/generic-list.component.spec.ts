@@ -8,7 +8,7 @@ describe('GenericListComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [GenericListComponent]
+      declarations: [GenericListComponent],
     });
     fixture = TestBed.createComponent(GenericListComponent);
     component = fixture.componentInstance;

@@ -1,0 +1,11 @@
+@use '../../mixins/button.mixin';
+
+@layer components {
+  :is(a, button).fab.button {
+    @include button.generic();
+
+    &.multiline {
+      @include button.multiline();
+    }
+  }
+}

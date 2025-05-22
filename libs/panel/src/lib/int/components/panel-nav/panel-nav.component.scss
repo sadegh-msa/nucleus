@@ -1,58 +1,57 @@
 @use 'funcs/size.func' as *;
-@use 'mixins/box.mixin';
+@use 'mixins/transition.mixin';
 
 :host {
   position: relative;
   display: flex;
   flex-direction: column;
-  gap: get-size-var(md-6);
+  gap: get-size-var(md-2);
 
   > header {
     display: flex;
     align-items: flex-start;
-    justify-content: center;
-    margin-block-start: get-size-var(md-2);
-    height: get-size-var(lg-3);
     width: 100%;
-  }
+    overflow: hidden;
+    margin-block-start: get-size-var(xs-3);
 
-  .subheader {
-    &:has(.empty) {
-      display: none;
-    }
-  }
+    .panel-nav-logo {
+      @include transition.normal(margin);
+      display: flex;
 
-  menu {
-    @include box.rounded($border-width: 0);
-    width: 100%;
-    gap: 0;
-    overflow-y: auto;
-
-    ::ng-deep {
-      menu {
-        display: flex;
-        flex-direction: column;
-        gap: 0;
-        background-color: inherit;
+      &.compact {
+        margin-inline-start: get-size-var(xs-3);
       }
 
-      li a,
-      li button,
-      menu li {
-        @include box.rounded($border-width: 0);
+      &.wide {
+        margin-inline-start: get-size-var(sm-2);
+      }
+
+      figure {
+        height: var(--nav-logo-height);
+        width: var(--nav-logo-width);
+        z-index: 19;
+
+        img {
+          min-height: var(--nav-logo-height);
+          min-width: var(--nav-logo-width);
+        }
       }
     }
+  }
+
+  section.content {
+    width: 100%;
   }
 
   footer {
     margin-block-start: auto;
-    margin-block-end: get-size-var(md-2);
+    margin-block-end: get-size-var(md-7);
   }
 
   button.toggle {
     position: absolute;
-    inset-block-end: get-size-var(sm-5);
-    inset-inline-end: get-size-var(sm-4);
+    inset-block-end: get-size-var(sm-2);
+    inset-inline-end: get-size-var(sm-2);
     z-index: 40;
 
     &.compact {

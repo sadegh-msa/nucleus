@@ -2,13 +2,7 @@
 @use 'fab-configs.scss' as *;
 
 @function get-config($keys...) {
-  $result: $fab-configs;
-
-  @each $key in $keys {
-    $result: map.get($result, $key);
-  }
-
-  @return $result;
+  @return map.get($fab-configs, $keys...);
 }
 
 @function create-css-var-name($property, $value) {

@@ -1,30 +1,55 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
+import { CryptoService } from './crypto.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class CookieService {
+  readonly #cryptoService = inject(CryptoService);
 
-  setCookie(key: string, value: unknown, exMinutes?: number) {
+  async setItem(key: string, value: boolean | number | string | null, exMinutes?: number) {
     let expires = '';
 
     if (exMinutes) {
       const date = new Date();
-      date.setTime(date.getTime() + (exMinutes * 60 * 1000));
-      expires = 'expires=' + date.toUTCString();
+      date.setTime(date.getTime() + exMinutes * 60 * 1000);
+      expires = `expires=${date.toUTCString()}`;
     }
 
-    document.cookie = `${key}=${value};${expires};path=/`;
+    try {
+      const encryptedValue = value ? await this.#cryptoService.encrypt(value.toString()) : value;
+      document.cookie = `${key}=${encryptedValue};${expires};path=/`;
+    } catch (error) {
+      console.error(error);
+      return false;
+    }
+
+    return true;
   }
 
-  getCookie(key: string) {
+  async getItem(key: string) {
     const decodedCookie = decodeURIComponent(document.cookie);
-    const pairs = decodedCookie.split(';').map(i => i.trim().split('=').map(v => v.trim()));
+    const pairs = decodedCookie.split(';').map((i) =>
+      i
+        .trim()
+        .split('=')
+        .map((v) => v.trim()),
+    );
+    const encryptedValue = (pairs.find(([k, v]) => k === key) || [])[1] || '';
 
-    return (pairs.find(([k, v]) => k === key) || [])[1] || '';
+    let value: boolean | string | number | undefined = undefined;
+
+    try {
+      value = await this.#cryptoService.decrypt(encryptedValue);
+    } catch (error) {
+      console.error(error);
+      value = undefined;
+    }
+
+    return value;
   }
 
-  deleteCookie(key: string) {
-    this.setCookie(key, '', -1);
+  deleteItem(key: string) {
+    return this.setItem(key, '', -1);
   }
 }

@@ -12,14 +12,14 @@
     @for (variant of variants; track $index) {
       <tr>
         <td>{{ variant }}</td>
-        @let icon = 'icons/' + variant + '/tick-circle.svg';
         @for (color of colors; track $index) {
           <td>
             <div>
               @for (size of sizes; track $index) {
-                <svg-icon
-                  [src]="icon"
-                  [svgClass]="['fab', 'icon', variant, size, color].join(' ')"
+                <svg
+                  fabSvgIcon="demo"
+                  [variant]="variant"
+                  [ngClass]="[size, color]"
                 />
               }
             </div>

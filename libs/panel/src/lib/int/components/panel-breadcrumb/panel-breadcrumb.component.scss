@@ -1,0 +1,10 @@
+@use 'funcs/size.func' as *;
+
+:host {
+  display: flex;
+  align-items: center;
+
+  .fab.button {
+    padding: get-size-var(xs-4);
+  }
+}

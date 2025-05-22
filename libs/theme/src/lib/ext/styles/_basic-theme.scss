@@ -1,13 +1,16 @@
-@use 'mixins/theme.mixin';
-@use 'normalize.css/normalize.css';
+@use 'fabric';
+@use 'funcs/size.func' as *;
 @use './varibales';
 @use './fonts/iransansx-fanum.font';
 @use './fonts/kalameh-fanum.font';
-@use './typography';
-@use 'components/button';
-@use 'components/icon';
-@use 'components/link';
-@use 'components/text';
-@use 'components/tooltip';
-
-@include theme.attach();
+@use 'layers/defaults/generic';
+@use 'layers/defaults/typography';
+@use 'layers/components/button';
+@use 'layers/components/icon';
+@use 'layers/components/link';
+@use 'layers/components/message';
+@use 'layers/components/ripple';
+@use 'layers/components/text';
+@use 'layers/components/tooltip';
+@use 'layers/utilities/box';
+@use 'layers/utilities/event';

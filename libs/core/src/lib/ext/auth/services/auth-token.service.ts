@@ -1,194 +1,194 @@
-import { computed, inject, Injectable, signal } from '@angular/core';
+import { computed, effect, inject, Injectable, resource } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { select, Store } from '@ngrx/store';
-import { debounceTime, distinctUntilChanged, distinctUntilKeyChanged, filter, map } from 'rxjs';
-import { CookieService, OperationStatus } from '@nucleus/common';
+import { CookieService, OperationStatus, PermanentStorageService, sleep } from '@nucleus/common';
+import {
+  debounceTime,
+  distinctUntilChanged,
+  distinctUntilKeyChanged,
+  filter,
+  fromEvent,
+  map,
+  skipWhile
+} from 'rxjs';
 import { authDefaultConfig } from '../auth-default.config';
-import { AuthToken } from '../models/auth.model';
 import { NU_AUTH_CONFIG } from '../providers/auth-config.provider';
-import { authActions, authSelectors, AuthStates } from '../store';
-
-/*
-* The blocks that marked will be deleted
-*  when the refresh token start working
-* */
-
-enum Field {
-  AccessToken = 'access_token',
-  RefreshToken = 'refresh_token',
-  RememberMe = 'remember_me' /* Will be deleted */
-}
+import { authActions, authSelectors, type AuthStates } from '../store';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthTokenService {
   readonly #router = inject(Router);
-  readonly #authConfig = inject(NU_AUTH_CONFIG);
-  readonly #authStore$ = inject(Store<AuthStates>);
   readonly #cookieService = inject(CookieService);
+  readonly #permanentStorageService = inject(PermanentStorageService);
+  readonly #authStore$ = inject(Store<AuthStates>);
+  readonly #authConfig = inject(NU_AUTH_CONFIG);
 
-  readonly #token = signal<AuthToken>(this.#fetchToken());
-  readonly isUserAuthenticated = computed(() => !!(this.#token().access_token && this.#token().refresh_token));
-  readonly defaultExpiry = 7 * 24 * 60;
-  readonly storeLastUrlKey = 'auth.lastUrl';
+  readonly #COOKIE_ACCESS_TOKEN_KEY = 'aat';
+  readonly #LAST_URL_KEY = 'lastUrl';
+  readonly #REMEMBER_ME_EXPIRY_MINUTES = this.#authConfig.rememberMeExpiry || 7 * 24 * 60;
+  readonly #DEADLINE_EXTENDER_TIME = 60 * 1000;
+  readonly #AUTH_PATHS = Object.values(authDefaultConfig.routes).map((i) => i.path);
 
-  lastUrlApplied = false;
+  readonly #accessTokenResource = resource({
+    loader: () => this.#fetchAccessToken(),
+    defaultValue: OperationStatus.Pending,
+  });
+  readonly isAuthenticated = computed(async () => !!(await this.getAccessToken()));
+
+  #lastUrlApplied = false;
 
   constructor() {
     this.#handleEvents();
+    this.#settleAccessTokenDeadlineExtender();
+
+    effect(() => this.#checkToken());
   }
 
   #handleEvents() {
     const { Success, Failure } = OperationStatus;
-    this.lastUrlApplied = false;
+    this.#lastUrlApplied = false;
 
-    this.#router.events.pipe(
-      filter(v => v instanceof NavigationEnd),
-      map(v => v as NavigationEnd)
-    ).subscribe((route) => {
-      if (!this.#hasUrlAuthPath(route.url)) {
-        this.#storeLastUrl(route.url);
-      }
-    });
-
-    this.#authStore$.pipe(
-      select(authSelectors.check.status),
-      debounceTime(1),
-      distinctUntilChanged()
-    ).subscribe((status) => {
-      if (status === Success) {
-        /**/
-      } else if (status === Failure) {
-        if (!this.#hasUrlAuthPath(location.pathname)) {
-          this.#redirectToApp(false, ['/', authDefaultConfig.path.signIn]);
+    this.#router.events
+      .pipe(
+        filter((v) => v instanceof NavigationEnd),
+        map((v) => v as NavigationEnd),
+      )
+      .subscribe((route) => {
+        if (!this.isAuthRouteActivated(route.url)) {
+          this.#storeLastUrl(route.url);
         }
-      }
-    });
+      });
 
-    this.#authStore$.pipe(
-      select(authSelectors.signIn.state),
-      debounceTime(1),
-      distinctUntilKeyChanged('status')
-    ).subscribe(({ status, request, response }) => {
-      if (status === Success) {
-        this.#setToken({ ...response.token, remember_me: request.rememberMe });
-        this.#redirectToApp(true);
-      } else if (status === Failure) {
-        this.#deleteToken();
-      }
+    this.#authStore$
+      .pipe(select(authSelectors.check.status), debounceTime(1), distinctUntilChanged())
+      .subscribe((status) => {
+        if (status === Success) {
+          this.#redirectToApp(!this.isAuthRouteActivated(this.#restoreLastUrl()));
+        } else if (status === Failure) {
+          if (!this.isAuthRouteActivated(location.pathname)) {
+            this.#redirectToApp(false, ['/', authDefaultConfig.routes.signIn.path]);
+          }
+        }
+      });
 
-      this.#checkToken();
-    });
+    this.#authStore$
+      .pipe(select(authSelectors.signIn.state), debounceTime(1), distinctUntilKeyChanged('status'))
+      .subscribe(async ({ status, request, response }) => {
+        if (status === Success) {
+          await this.setAccessToken(response.token.accessToken);
+          this.#redirectToApp(true);
+        } else if (status === Failure) {
+          await this.deleteAccessToken();
+        }
 
-    this.#authStore$.pipe(
-      select(authSelectors.signUp.state),
-      debounceTime(1),
-      distinctUntilKeyChanged('status')
-    ).subscribe(({ status, response }) => {
-      if (status === Success) {
-        this.#setToken(response.token);
-        this.#redirectToApp();
-      } else if (status === Failure) {
-        this.#deleteToken();
-      }
+        await this.#checkToken();
+      });
 
-      this.#checkToken();
-    });
+    this.#authStore$
+      .pipe(select(authSelectors.signUp.state), debounceTime(1), distinctUntilKeyChanged('status'))
+      .subscribe(async ({ status, response }) => {
+        if (status === Success) {
+          await this.setAccessToken(response.token.accessToken);
+          this.#redirectToApp();
+        } else if (status === Failure) {
+          await this.deleteAccessToken();
+        }
 
-    this.#authStore$.pipe(
-      select(authSelectors.signOut.state),
-      debounceTime(1),
-      distinctUntilKeyChanged('status'),
-      filter(s => s.status === Success)
-    ).subscribe(() => {
-      this.#storeLastUrl('');
-      this.#deleteToken();
-      this.#checkToken();
-    });
-  }
+        await this.#checkToken();
+      });
 
-  #reloadToken() {
-    this.#token.set(this.#fetchToken());
+    this.#authStore$
+      .pipe(
+        select(authSelectors.signOut.state),
+        debounceTime(1),
+        distinctUntilKeyChanged('status'),
+        filter((s) => s.status === Success),
+      )
+      .subscribe(async () => {
+        this.#storeLastUrl('');
+        await this.deleteAccessToken();
+        await this.#checkToken();
+      });
   }
 
   #storeLastUrl(url: string) {
-    localStorage.setItem(this.storeLastUrlKey, url);
+    this.#permanentStorageService.setItem(this.#LAST_URL_KEY, url);
   }
 
   #restoreLastUrl() {
-    return localStorage.getItem(this.storeLastUrlKey) || '/';
-  }
-
-  #deleteToken() {
-    this.#cookieService.deleteCookie(Field.AccessToken);
-    this.#cookieService.deleteCookie(Field.RefreshToken);
-    this.#cookieService.deleteCookie(Field.RememberMe); /* Will be deleted */
-    this.#reloadToken();
-  }
-
-  #hasUrlAuthPath(url: string) {
-    const { path } = authDefaultConfig;
-    const signInPath = '/' + path.signIn;
-    const signUpPath = '/' + path.signUp;
-    const forgotPath = '/' + path.forgotPassword;
-
-    return [signInPath, signUpPath, forgotPath].includes(url);
+    return this.#permanentStorageService.getItem(this.#LAST_URL_KEY) || '/';
   }
 
   #redirectToApp(toLastUrl = false, path = ['/']) {
-    if (toLastUrl && !this.lastUrlApplied) {
+    if (toLastUrl && !this.#lastUrlApplied) {
       path.splice(0, path.length);
       path.push(this.#restoreLastUrl());
     }
 
-    this.#router.navigate(path)
-      .then(() => this.lastUrlApplied = toLastUrl)
+    this.#router
+      .navigate(path)
+      .then(() => {
+        this.#lastUrlApplied = toLastUrl;
+      })
       .catch(() => this.#router.navigate(['/']).then());
   }
 
-  #fetchToken() {
-    return {
-      access_token: this.#cookieService.getCookie(Field.AccessToken),
-      refresh_token: this.#cookieService.getCookie(Field.RefreshToken),
-      remember_me: !!this.#cookieService.getCookie(Field.RememberMe)
-    } as AuthToken;
+  #settleAccessTokenDeadlineExtender() {
+    fromEvent(document, 'click')
+      .pipe(
+        skipWhile(() => !this.isAuthenticated()),
+        debounceTime(this.#DEADLINE_EXTENDER_TIME),
+      )
+      .subscribe(async () => {
+        await this.setAccessToken((await this.getAccessToken()) || null);
+      });
   }
 
-  #setToken(token: AuthToken) {
-    const { access_token, refresh_token, remember_me } = token;
-    const exMinutes = remember_me ? (this.#authConfig.rememberMeExpiry || this.defaultExpiry) : 0;
-
-    this.#cookieService.setCookie(Field.AccessToken, access_token, exMinutes /* Will be deleted */);
-    this.#cookieService.setCookie(Field.RefreshToken, refresh_token, exMinutes);
-
-    if (remember_me) { /* Will be deleted */
-      this.#cookieService.setCookie(Field.RememberMe, remember_me, exMinutes);
-    }
-
-    this.#reloadToken();
+  #reloadAccessToken() {
+    return this.#accessTokenResource.reload();
   }
 
-  #checkToken() {
+  async #fetchAccessToken() {
+    return (await this.#cookieService.getItem(this.#COOKIE_ACCESS_TOKEN_KEY)) || null;
+  }
+
+  async #checkToken() {
+    const isAuthenticated = await this.isAuthenticated();
+
     this.#authStore$.dispatch(
-      this.isUserAuthenticated() ? authActions.checkSuccess() : authActions.checkFailure()
+      isAuthenticated ? authActions.checkSuccess() : authActions.checkFailure(),
     );
   }
 
-  getToken() {
-    return this.#token();
+  async setAccessToken(accessToken: string | null) {
+    await this.#cookieService.setItem(
+      this.#COOKIE_ACCESS_TOKEN_KEY,
+      accessToken,
+      this.#REMEMBER_ME_EXPIRY_MINUTES,
+    );
+    this.#reloadAccessToken();
   }
 
-  setUserUnauthenticated() {
-    this.#deleteToken();
-    this.#checkToken();
-  }
+  async getAccessToken() {
+    let accessToken = this.#accessTokenResource.value();
 
-  extendTokenExpiry() {
-    if (!this.isUserAuthenticated()) {
-      return;
+    while (accessToken === OperationStatus.Pending) {
+      accessToken = this.#accessTokenResource.value();
+      await sleep(10);
     }
 
-    this.#setToken(this.getToken());
+    return accessToken;
+  }
+
+  async deleteAccessToken() {
+    await this.#cookieService.deleteItem(this.#COOKIE_ACCESS_TOKEN_KEY);
+    this.#reloadAccessToken();
+  }
+
+  isAuthRouteActivated(url: string) {
+    const path = url.split('/')?.at(-1)?.split('#')[0];
+    return !!path && this.#AUTH_PATHS.includes(path);
   }
 }

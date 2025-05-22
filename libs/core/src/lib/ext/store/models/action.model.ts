@@ -1,11 +1,11 @@
 import { OperationStatus } from '@nucleus/common';
 import {
+  NuTool,
   RestAddResponse,
   RestDeleteResponse,
   RestGetResponse,
   RestListResponse,
   RestUpdateResponse,
-  NuTool
 } from '../../crud';
 
 export interface ActionCommon {

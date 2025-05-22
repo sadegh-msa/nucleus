@@ -14,6 +14,6 @@ export function createActionPermissions(fullPath: string[]): Partial<Record<Tool
     [View]: [...fullPath, view].join('.').replace('/.', ''),
     [Add]: [...fullPath, add].join('.').replace('/.', ''),
     [Edit]: [...fullPath, edit].join('.').replace('/.', ''),
-    [Delete]: [...fullPath, pDelete].join('.').replace('/.', '')
+    [Delete]: [...fullPath, pDelete].join('.').replace('/.', ''),
   };
 }

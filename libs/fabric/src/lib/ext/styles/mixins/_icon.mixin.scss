@@ -1,37 +1,26 @@
 @use '../funcs/color.func' as *;
 @use '../funcs/size.func' as *;
 @use '../mixins/transition.mixin';
+@use '../mixins/size.mixin';
+
+$colors: get-color-list();
+$sizes: get-size-list();
 
 @mixin color($color) {
-  $color-value: get-color-var($color);
-
-  > * {
-    @include transition.normal(fill, stroke);
-
-    &[fill] {
-      fill: $color-value;
-    }
-
-    &[stroke] {
-      stroke: $color-value;
-    }
-  }
+  color: get-color-var($color);
 }
 
 @mixin size($size) {
   @if $size == small {
-    height: get-size-var(sm-1);
-    width: get-size-var(sm-1);
+    @include size.strict-rect(sm-3);
   } @else if $size == medium {
-    height: get-size-var(sm-3);
-    width: get-size-var(sm-3);
+    @include size.strict-rect(sm-4);
   } @else if $size == normal {
-    height: get-size-var(sm-5);
-    width: get-size-var(sm-5);
+    @include size.strict-rect(sm-6);
   }
 }
 
-@mixin colors($colors) {
+@mixin colors() {
   @each $color in $colors {
     &.#{$color} {
       @include color($color);
@@ -39,8 +28,8 @@
   }
 }
 
-@mixin sizes($sizes) {
-  @each $size in  $sizes {
+@mixin sizes() {
+  @each $size in $sizes {
     @if $size == normal {
       @include size($size);
     } @else {
@@ -51,7 +40,25 @@
   }
 }
 
-@mixin generic($colors, $sizes) {
-  @include colors($colors);
-  @include sizes($sizes);
+@mixin generic() {
+  @include colors();
+  @include sizes();
+
+  * {
+    @include transition.normal(fill, stroke);
+  }
+
+  &:not(.colored, .brand) * {
+    &[fill]:not([fill^='url']) {
+      fill: currentColor;
+    }
+
+    &[stroke]:not([stroke^='url']) {
+      stroke: currentColor;
+    }
+  }
+
+  &:is(.outline, .bulk, .bold) * {
+    fill: currentColor;
+  }
 }

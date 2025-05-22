@@ -6,6 +6,49 @@
   }
 </div>
 
-<router-outlet></router-outlet>
+@let isAuthenticated = isUserAuthenticated();
+
+@defer (on timer(100ms)) {
+  @if (!isAuthenticated) {
+    @defer (on timer(100ms)) {
+      <ng-container *ngTemplateOutlet="routerOutletTemplate" />
+    }
+  }
+
+  @defer (when isAuthenticated) {
+    @if (isAuthenticated) {
+      @defer (on timer(100ms)) {
+        <nu-panel>
+          <ng-container nav-body>
+            <menu [fabMenuItems]="navMainMenu"
+                  [ngClass]="navExtent()"
+                  [extent]="navExtent()"
+                  [submenuMode]="navExtent() === 'compact' ? 'floating' : 'sliding'"
+                  class="rounded-medium"
+            ></menu>
+          </ng-container>
+
+          <ng-container nav-footer>
+            <menu [fabMenuItems]="navFooterMenu"
+                  [ngClass]="navExtent()"
+                  [extent]="navExtent()"
+                  [submenuMode]="navExtent() === 'compact' ? 'floating' : 'sliding'"
+                  class="rounded-medium"
+            ></menu>
+          </ng-container>
+
+          <ng-container *ngTemplateOutlet="routerOutletTemplate" />
+        </nu-panel>
+      }
+    }
+  }
+}
+
+
+<ng-template #routerOutletTemplate>
+  <router-outlet />
+</ng-template>
+
+<fab-message />
 <p-toast></p-toast>
 <p-confirmDialog></p-confirmDialog>

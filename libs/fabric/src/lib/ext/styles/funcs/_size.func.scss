@@ -24,8 +24,8 @@
   @return $value;
 }
 
-@function get-size-variants() {
-  @return get-config(size, variants);
+@function get-size-list() {
+  @return get-config(size, indicators);
 }
 
 @function get-base-size-var-name() {

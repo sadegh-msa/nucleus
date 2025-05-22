@@ -8,7 +8,7 @@ describe('ListToolbarComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [GenericFormToolbarComponent]
+      declarations: [GenericFormToolbarComponent],
     });
     fixture = TestBed.createComponent(GenericFormToolbarComponent);
     component = fixture.componentInstance;

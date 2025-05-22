@@ -3,15 +3,15 @@ import { inject, Injectable } from '@angular/core';
 import { map } from 'rxjs';
 import { RestApiService } from '../../crud';
 import { authDefaultConfig } from '../auth-default.config';
-import {
+import type {
   AuthSignIn,
   AuthSignInResponse,
   AuthSignUp,
-  AuthSignUpResponse
+  AuthSignUpResponse,
 } from '../models/auth.model';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthRestService {
   readonly #httpClient = inject(HttpClient);
@@ -26,12 +26,13 @@ export class AuthRestService {
   signIn(data: AuthSignIn) {
     return this.#httpClient
       .post(this.createUrl('signin'), data)
-      .pipe(map(v => ({ token: v }) as AuthSignInResponse));
+      .pipe(map((v) => ({ token: v }) as AuthSignInResponse));
   }
 
   signUp(data: AuthSignUp) {
-    return this.#httpClient.post(this.createUrl('signup'), data)
-      .pipe(map(v => ({ token: v }) as AuthSignUpResponse));
+    return this.#httpClient
+      .post(this.createUrl('signup'), data)
+      .pipe(map((v) => ({ token: v }) as AuthSignUpResponse));
   }
 
   signOut() {

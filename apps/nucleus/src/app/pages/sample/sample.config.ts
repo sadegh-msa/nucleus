@@ -7,23 +7,23 @@ const full = ['/', base];
 export const sampleConfig = Object.freeze({
   info: {
     title: 'Sample',
-    icon: 'icons/outline/grid-1.svg'
+    icon: 'grid-1',
   },
   field: {
     id: 'id',
     code: 'code',
     title: 'title',
-    dates: ['date', 'createdAt', 'updatedAt']
+    dates: ['date', 'createdAt', 'updatedAt'],
   },
   path: {
     base,
     full,
-    page: createPagePaths(full)
+    page: createPagePaths(full),
   },
   permission: {
-    action: createActionPermissions(full)
+    action: createActionPermissions(full),
   },
   rest: {
-    endpoint: 'samples'
-  }
+    endpoint: 'samples',
+  },
 } as SampleConfig);

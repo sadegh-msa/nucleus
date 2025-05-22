@@ -1,14 +1,14 @@
 import { computed, inject, Injectable, signal } from '@angular/core';
 import {
-  DateArg,
+  type DateArg,
   format,
   formatDistance,
-  FormatDistanceOptions,
-  FormatOptions,
+  type FormatDistanceOptions,
+  type FormatOptions,
   isValid,
-  Locale,
+  type Locale,
   parse,
-  ParseOptions,
+  type ParseOptions,
 } from 'date-fns';
 import {
   format as jFormat,
@@ -17,7 +17,7 @@ import {
 } from 'date-fns-jalali';
 import { enUS } from 'date-fns/locale/en-US';
 import { faIR } from 'date-fns/locale/fa-IR';
-import { NuLang } from '../models';
+import type { NuLang } from '../models';
 import { NuLocaleService } from './locale.service';
 
 @Injectable({
@@ -27,17 +27,16 @@ export class NuDateService {
   readonly #localeService = inject(NuLocaleService);
 
   readonly #DISTANCE_LIMIT = 2 * 24 * 60 * 60;
-  readonly #defaultFormatStr: Record<NuLang, Record<'input' | 'output', string>> =
-    {
-      'en-US': {
-        input: 'MM/dd/yyyy HH:mm',
-        output: 'MMM d, yyyy HH:mm',
-      },
-      fa: {
-        input: 'yyyy/MM/dd HH:mm',
-        output: 'd MMMM yyyy HH:mm',
-      },
-    };
+  readonly #defaultFormatStr: Record<NuLang, Record<'input' | 'output', string>> = {
+    'en-US': {
+      input: 'MM/dd/yyyy HH:mm',
+      output: 'MMM d, yyyy HH:mm',
+    },
+    fa: {
+      input: 'yyyy/MM/dd HH:mm',
+      output: 'd MMMM yyyy HH:mm',
+    },
+  };
   readonly #locales: Record<NuLang, Locale> = {
     'en-US': enUS,
     fa: faIR,
@@ -88,11 +87,7 @@ export class NuDateService {
       : parse(dateStr, formatStr, referenceDate, options);
   }
 
-  format(
-    date: DateArg<Date>,
-    formatStr = this.defaultOutputFormatStr,
-    options?: FormatOptions,
-  ) {
+  format(date: DateArg<Date>, formatStr = this.defaultOutputFormatStr, options?: FormatOptions) {
     return this.#localeService.isPersian()
       ? jFormat(date, formatStr, options)
       : format(date, formatStr, options);

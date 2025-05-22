@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { ElementRect } from '../models';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class HtmlService {
   get isRtl() {
@@ -14,7 +14,7 @@ export class HtmlService {
       top: element.offsetTop,
       left: element.offsetLeft,
       height: element.offsetHeight,
-      width: element.offsetWidth
+      width: element.offsetWidth,
     };
   }
 
@@ -22,10 +22,11 @@ export class HtmlService {
     const firstRect = firstElement.getBoundingClientRect();
     const secondRect = secondElement.getBoundingClientRect();
 
-    return firstRect.left >= secondRect.left
-      && firstRect.right <= secondRect.right
-      && firstRect.top >= secondRect.top
-      && firstRect.bottom <= secondRect.bottom;
+    return (
+      firstRect.left >= secondRect.left &&
+      firstRect.right <= secondRect.right &&
+      firstRect.top >= secondRect.top &&
+      firstRect.bottom <= secondRect.bottom
+    );
   }
-
 }

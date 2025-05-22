@@ -1,0 +1,37 @@
+@mixin screens($screens...) {
+  @each $screen in $screens {
+    @if $screen == sm {
+      @media (width >= 40rem) {
+        @content;
+      }
+    } @else if $screen == md {
+      @media (width >= 48rem) {
+        @content;
+      }
+    } @else if $screen == lg {
+      @media (width >= 64rem) {
+        @content;
+      }
+    } @else if $screen == xl {
+      @media (width >= 80rem) {
+        @content;
+      }
+    } @else if $screen == 2xl {
+      @media (width >= 96rem) {
+        @content;
+      }
+    } @else if $screen == handset {
+      @media (width < 40rem) {
+        @content;
+      }
+    } @else if $screen == tablet {
+      @media (width >= 40rem) {
+        @content;
+      }
+    } @else if $screen == web {
+      @media (width >= 64rem) {
+        @content;
+      }
+    }
+  }
+}

@@ -8,12 +8,12 @@ import {
   inject,
   input,
   Output,
-  signal,
+  signal
 } from '@angular/core';
 import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop';
 import { RouterModule } from '@angular/router';
 import { DataType } from '@nucleus/common';
-import { SvgIconComponent } from 'angular-svg-icon';
+import { SvgIconDirective } from '@nucleus/fabric';
 import { ConfirmationService } from 'primeng/api';
 import { ConfirmPopupModule } from 'primeng/confirmpopup';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
@@ -25,8 +25,8 @@ import { AuthPermissionDirective } from '../../../auth';
 import { infoFieldsDefault } from '../../defaults/info-fields.default';
 import { ToolElement } from '../../enums/toolbar.enum';
 import type { InfoField } from '../../models/info.model';
-import { NuTable } from '../../models/table.model';
-import { NuTool } from '../../models/toolbar.model';
+import type { NuTable } from '../../models/table.model';
+import type { NuTool } from '../../models/toolbar.model';
 import { FieldValueComponent } from '../field-value/field-value.component';
 import { InfoFieldsComponent } from '../info-fields/info-fields.component';
 
@@ -44,7 +44,7 @@ import { InfoFieldsComponent } from '../info-fields/info-fields.component';
     SkeletonModule,
     TableModule,
     TooltipModule,
-    SvgIconComponent,
+    SvgIconDirective,
   ],
   providers: [ConfirmationService],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -104,9 +104,9 @@ export class GenericListComponent {
       message: tool.confirm,
       icon: 'pi pi-exclamation-triangle',
       acceptLabel: $localize`Yes`,
-      acceptButtonStyleClass: 'fab button danger text',
+      acceptButtonStyleClass: 'fab button danger basic',
       rejectLabel: $localize`No`,
-      rejectButtonStyleClass: 'fab button stamp text',
+      rejectButtonStyleClass: 'fab button stamp basic',
       accept: () => tool.command(row),
     });
   }
