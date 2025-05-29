@@ -41,17 +41,17 @@ export class SvgIconDirective implements OnInit, OnDestroy {
   });
 
   readonly #resource = resource({
-    request: () => ({
+    params: () => ({
       variant: this.variant(),
       icon: this.icon(),
       isInViewport: this.#isInViewport(),
     }),
-    loader: async ({ request }) => {
-      if (!request.isInViewport) {
+    loader: async ({ params }) => {
+      if (!params.isInViewport) {
         return null;
       }
 
-      const storageKey = `${this.#STORAGE_KEY}.${request.variant}.${request.icon}`;
+      const storageKey = `${this.#STORAGE_KEY}.${params.variant}.${params.icon}`;
       let cachedSvg = this.#temporaryStorageService.getItem(storageKey)?.trim();
 
       while (cachedSvg === OperationStatus.Pending) {
@@ -64,7 +64,7 @@ export class SvgIconDirective implements OnInit, OnDestroy {
       }
 
       this.#temporaryStorageService.setItem(storageKey, OperationStatus.Pending);
-      const url = this.#createIconUrl(request.variant, request.icon);
+      const url = this.#createIconUrl(params.variant, params.icon);
       const response = await fetch(url);
 
       if (response.ok) {

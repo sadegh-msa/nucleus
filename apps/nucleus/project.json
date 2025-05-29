@@ -28,7 +28,6 @@
         "index": "apps/nucleus/src/index.html",
         "browser": "apps/nucleus/src/main.ts",
         "polyfills": [
-          "zone.js",
           "@angular/localize/init"
         ],
         "tsConfig": "apps/nucleus/tsconfig.app.json",

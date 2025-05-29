@@ -1,8 +1,6 @@
 import { provideHttpClient, withFetch } from '@angular/common/http';
 import {
-  type ApplicationConfig,
-  provideExperimentalZonelessChangeDetection,
-  provideZoneChangeDetection
+  type ApplicationConfig, provideBrowserGlobalErrorListeners, provideZonelessChangeDetection
 } from '@angular/core';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { provideRouter, withComponentInputBinding } from '@angular/router';
@@ -22,7 +20,8 @@ import { appReducers } from './store/app.reducers';
 
 export const appConfig: ApplicationConfig = {
   providers: [
-    provideExperimentalZonelessChangeDetection(),
+    provideZonelessChangeDetection(),
+    provideBrowserGlobalErrorListeners(),
     provideRouter(appRoutes, withComponentInputBinding()),
     provideAnimationsAsync(),
     provideHttpClient(withFetch()),
