@@ -1,6 +1,6 @@
 import { inject, Injectable } from '@angular/core';
-import { ElementRect } from '../models';
-import { FabPosition } from '../types';
+import type { ElementRect } from '../models';
+import type { FabPosition } from '../types';
 import { HtmlService } from './html.service';
 
 @Injectable({
@@ -42,7 +42,7 @@ export class PopoverService {
 
       case 'inline-start-block-start':
       case 'inline-end-block-start':
-        blockStart -= trigger.height + 0.25 * trigger.height - 2 * this.ARROW_SIZE;
+        blockStart -= bubble.height / 2 - trigger.height / 4;
         break;
 
       case 'inline-start-block-auto':
@@ -54,7 +54,7 @@ export class PopoverService {
 
       case 'inline-start-block-end':
       case 'inline-end-block-end':
-        blockStart += 0.75 * trigger.height - 2 * this.ARROW_SIZE;
+        blockStart += trigger.height / 2 - bubble.height / 4;
         break;
     }
 

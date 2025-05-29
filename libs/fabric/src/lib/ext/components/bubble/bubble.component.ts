@@ -16,7 +16,6 @@ import type { FabPosition } from '../../types';
 @Component({
   selector: 'fab-bubble',
   templateUrl: './bubble.component.html',
-  imports: [CommonModule],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BubbleComponent {
@@ -49,7 +48,11 @@ export class BubbleComponent {
 
   #handleEvents() {
     toObservable(this.position, { injector: this.#injector })
-      .pipe(startWith(this.position()), pairwise(), takeUntilDestroyed(this.#destroyRef))
+      .pipe(
+        startWith(this.position()),
+        pairwise(),
+        takeUntilDestroyed(this.#destroyRef)
+      )
       .subscribe(([previousPosition, newPosition]) => {
         this.hostElement.classList.remove(previousPosition);
         this.hostElement.classList.add(newPosition);

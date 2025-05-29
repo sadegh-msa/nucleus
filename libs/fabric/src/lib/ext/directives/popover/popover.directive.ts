@@ -6,8 +6,8 @@ import {
   inject,
   Injector,
   input,
-  OnDestroy,
-  OnInit,
+  type OnDestroy,
+  type OnInit,
   untracked,
 } from '@angular/core';
 import type { BubbleComponent } from '../../components';
