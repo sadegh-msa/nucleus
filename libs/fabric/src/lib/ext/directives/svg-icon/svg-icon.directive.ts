@@ -12,10 +12,10 @@ import {
   Renderer2,
   resource,
   signal,
-  untracked,
+  untracked
 } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
-import { OperationStatus, sleep, TemporaryStorageService } from '@nucleus/common';
+import { OperationStatus, sleep, sleepRandom, TemporaryStorageService } from '@nucleus/common';
 import { FABRIC_CONFIG } from '../../providers';
 import type { IconVariant } from '../../types';
 
@@ -29,8 +29,9 @@ export class SvgIconDirective implements OnInit, OnDestroy {
   readonly #fabricConfig = inject(FABRIC_CONFIG);
   readonly #temporaryStorageService = inject(TemporaryStorageService);
 
-  #DEFAULT_VARIANT: IconVariant = 'outline';
-  #STORAGE_KEY = 'fabSvgIcon';
+  readonly #DEFAULT_VARIANT: IconVariant = 'outline';
+  readonly #STORAGE_KEY = 'fabSvgIcon';
+  readonly #RETRYING_TIMES = 10;
 
   readonly #intersectionObserver = new IntersectionObserver(([entries], observer) => {
     if (entries.isIntersecting) {
@@ -54,9 +55,12 @@ export class SvgIconDirective implements OnInit, OnDestroy {
       const storageKey = `${this.#STORAGE_KEY}.${params.variant}.${params.icon}`;
       let cachedSvg = this.#temporaryStorageService.getItem(storageKey)?.trim();
 
-      while (cachedSvg === OperationStatus.Pending) {
+      let retrying = 0;
+
+      while (cachedSvg === OperationStatus.Pending && retrying <= this.#RETRYING_TIMES ) {
         cachedSvg = this.#temporaryStorageService.getItem(storageKey)?.trim();
-        await sleep(10);
+        await sleepRandom();
+        retrying++;
       }
 
       if (cachedSvg?.startsWith('<svg')) {
@@ -78,8 +82,8 @@ export class SvgIconDirective implements OnInit, OnDestroy {
     },
   });
 
-  icon = input.required<string>({alias: 'fabSvgIcon'});
-  inputVariant = input<IconVariant | undefined>(undefined, {alias: 'variant'});
+  icon = input.required<string>({ alias: 'fabSvgIcon' });
+  inputVariant = input<IconVariant | undefined>(undefined, { alias: 'variant' });
   generateId = input(false, { transform: booleanAttribute });
 
   readonly #isInViewport = signal(false);
