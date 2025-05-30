@@ -15,7 +15,7 @@ import {
   untracked
 } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
-import { OperationStatus, sleep, sleepRandom, TemporaryStorageService } from '@nucleus/common';
+import { OperationStatus, sleepRandom, TemporaryStorageService } from '@nucleus/common';
 import { FABRIC_CONFIG } from '../../providers';
 import type { IconVariant } from '../../types';
 
@@ -57,7 +57,7 @@ export class SvgIconDirective implements OnInit, OnDestroy {
 
       let retrying = 0;
 
-      while (cachedSvg === OperationStatus.Pending && retrying <= this.#RETRYING_TIMES ) {
+      while (cachedSvg === OperationStatus.Pending && retrying <= this.#RETRYING_TIMES) {
         cachedSvg = this.#temporaryStorageService.getItem(storageKey)?.trim();
         await sleepRandom();
         retrying++;
@@ -131,13 +131,10 @@ export class SvgIconDirective implements OnInit, OnDestroy {
     let svg = rawSvg;
 
     const svgIdSet = new Set<string>(svg.match(/<id-\d+>/g) || []);
-    const svgSetIter = svgIdSet.values();
-    let svgId = svgSetIter.next();
 
-    while (!svgId.done) {
-      svg = svg.replaceAll(svgId.value, crypto.randomUUID());
-      svgId = svgSetIter.next();
-    }
+    svgIdSet.forEach((svgId) => {
+      svg = svg.replaceAll(svgId, crypto.randomUUID());
+    });
 
     return svg;
   }
@@ -161,18 +158,14 @@ export class SvgIconDirective implements OnInit, OnDestroy {
       return;
     }
 
-    const svgAttributes = svgElement.getAttributeNames();
-    const svgAttributesLength = svgAttributes.length;
-
-    for (let i = 0; i < svgAttributesLength; i++) {
-      const attribute = svgAttributes[i];
+    svgElement.getAttributeNames().forEach((attribute) => {
       this.#renderer.setAttribute(
         hostElement,
         attribute,
         svgElement.getAttribute(attribute) || '',
         '',
       );
-    }
+    });
 
     this.#renderer.setProperty(hostElement, 'innerHTML', svgElement.innerHTML);
   }

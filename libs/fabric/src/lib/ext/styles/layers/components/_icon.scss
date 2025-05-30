@@ -4,14 +4,12 @@
 @use '../../funcs/color.func' as *;
 @use '../../funcs/size.func' as *;
 @use '../../mixins/icon.mixin';
-@use '../../mixins/transition.mixin';
 @use '../../mixins/size.mixin';
 
 @layer components {
   svg {
     &.fab.icon {
       @include icon.generic();
-      @include transition.normal(color, background-color);
       @include size.max-rect(sm-5)
     }
 

@@ -15,6 +15,10 @@
     outline-color: get-color-var(neutral);
   }
 
+  svg {
+    color: inherit;
+  }
+
   hr {
     height: 0;
     width: 100%;

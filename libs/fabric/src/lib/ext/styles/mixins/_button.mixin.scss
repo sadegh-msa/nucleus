@@ -255,10 +255,6 @@ $border-radius-list: get-border-radius-list();
     vertical-align: middle;
     font-size: inherit;
   }
-
-  .fab.icon > * {
-    @include transition.normal(fill, stroke);
-  }
 }
 
 @mixin multiline() {
