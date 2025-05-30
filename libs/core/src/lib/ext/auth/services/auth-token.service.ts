@@ -1,7 +1,13 @@
 import { computed, effect, inject, Injectable, resource } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { select, Store } from '@ngrx/store';
-import { CookieService, OperationStatus, PermanentStorageService, sleep } from '@nucleus/common';
+import {
+  CookieService,
+  OperationStatus,
+  PermanentStorageService,
+  sleep,
+  sleepRandom
+} from '@nucleus/common';
 import {
   debounceTime,
   distinctUntilChanged,
@@ -176,7 +182,7 @@ export class AuthTokenService {
 
     while (accessToken === OperationStatus.Pending) {
       accessToken = this.#accessTokenResource.value();
-      await sleep(10);
+      await sleepRandom();
     }
 
     return accessToken;
