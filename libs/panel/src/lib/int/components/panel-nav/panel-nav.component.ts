@@ -1,14 +1,19 @@
 import { NgClass, NgOptimizedImage } from '@angular/common';
 import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
 import { NU_COMMON_CONFIG } from '@nucleus/common';
-import { fadeAnimation, RippleDirective, ScreenService, SvgIconDirective } from '@nucleus/fabric';
+import {
+  delayLeaveAnimation,
+  RippleDirective,
+  ScreenService,
+  SvgIconDirective
+} from '@nucleus/fabric';
 import { PanelService } from '../../../ext';
 
 @Component({
   selector: 'nav[nu-panel-nav]',
   imports: [NgOptimizedImage, RippleDirective, NgClass, SvgIconDirective],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  animations: [fadeAnimation],
+  animations: [delayLeaveAnimation],
   templateUrl: './panel-nav.component.html',
   styleUrl: './panel-nav.component.scss',
 })
