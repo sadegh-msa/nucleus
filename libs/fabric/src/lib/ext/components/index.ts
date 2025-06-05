@@ -5,4 +5,5 @@ export * from './dropdown/dropdown.component';
 export * from './form-field/form-field.component';
 export * from './menu-items/menu-items.component';
 export * from './message/message.component';
+export * from './show-loading/show-loading.component';
 export * from './toggle/toggle.component';

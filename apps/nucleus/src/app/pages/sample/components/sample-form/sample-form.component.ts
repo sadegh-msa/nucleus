@@ -1,14 +1,14 @@
 import { NgClass } from '@angular/common';
-import { ChangeDetectionStrategy, Component, inject, input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, input, type OnInit } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { ShowLoadingComponent } from '@nucleus/common';
+import { ShowLoadingComponent } from '@nucleus/fabric';
 import { GenericFormService, GenericFormToolbarComponent, PageType } from '@nucleus/core';
 import { CalendarComponent } from '@nucleus/fabric';
 import { CalendarModule } from 'primeng/calendar';
 import { DropdownModule } from 'primeng/dropdown';
 import { SampleStatus } from '../../enums/sample-status.enum';
-import { GenericSampleForm, SampleGeneric } from '../../models/sample-generic.model';
-import { SampleTypedForm } from '../../models/sample.model';
+import type { GenericSampleForm, SampleGeneric } from '../../models/sample-generic.model';
+import type { SampleTypedForm } from '../../models/sample.model';
 import { sampleConfig } from '../../sample.config';
 import { sampleActions, sampleSelectors } from '../../store';
 

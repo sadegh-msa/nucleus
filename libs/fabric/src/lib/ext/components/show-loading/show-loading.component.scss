@@ -1,5 +1,5 @@
-@use 'funcs/color.func' as *;
-@use 'funcs/size.func' as *;
+@use '../../styles/funcs/color.func' as *;
+@use '../../styles/funcs/size.func' as *;
 
 :host {
   &.nu-loading {
