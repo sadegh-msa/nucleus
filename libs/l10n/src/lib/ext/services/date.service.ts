@@ -8,16 +8,16 @@ import {
   isValid,
   type Locale,
   parse,
-  type ParseOptions,
+  type ParseOptions
 } from 'date-fns';
 import {
   format as jFormat,
   formatDistance as jFormatDistance,
-  parse as jParse,
+  parse as jParse
 } from 'date-fns-jalali';
 import { enUS } from 'date-fns/locale/en-US';
 import { faIR } from 'date-fns/locale/fa-IR';
-import type { NuLang } from '../models';
+import type { NuLang } from '../types/lang.type';
 import { NuLocaleService } from './locale.service';
 
 @Injectable({

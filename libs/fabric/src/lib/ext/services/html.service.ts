@@ -1,14 +1,10 @@
-import { Injectable } from '@angular/core';
-import { ElementRect } from '../models';
+import { Injectable, signal } from '@angular/core';
+import type { ElementRect } from '../models';
 
 @Injectable({
   providedIn: 'root',
 })
 export class HtmlService {
-  get isRtl() {
-    return document.dir === 'rtl';
-  }
-
   getElementRect(element: HTMLElement): ElementRect {
     return {
       top: element.offsetTop,

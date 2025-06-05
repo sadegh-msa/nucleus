@@ -1,11 +1,19 @@
 import { NgClass, NgTemplateOutlet } from '@angular/common';
-import { ChangeDetectionStrategy, Component, effect, inject, signal } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  effect,
+  inject,
+  signal,
+  untracked
+} from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { select, Store } from '@ngrx/store';
 import { createFadeAnimation, OperationStatus } from '@nucleus/common';
 import { authActions, authSelectors } from '@nucleus/core';
 import { type MenuItem, MenuItemsComponent, MessageComponent } from '@nucleus/fabric';
+import { type NuLangDir, NuLocaleService } from '@nucleus/l10n';
 import { PanelService } from '@nucleus/panel';
 import { ConfirmationService } from 'primeng/api';
 import { BadgeModule } from 'primeng/badge';
@@ -35,7 +43,7 @@ import type { AppStates } from './store/app.state';
     NgTemplateOutlet,
     MenuItemsComponent,
     NgClass,
-    PanelComponent
+    PanelComponent,
   ],
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -48,6 +56,7 @@ export class AppComponent {
   readonly #confirmationService = inject(ConfirmationService);
   readonly #sampleEventHandlerService = inject(SampleEventHandlerService);
   readonly #panelService = inject(PanelService);
+  readonly #localeService = inject(NuLocaleService);
 
   readonly navMainMenu = navMainMenu;
   readonly navFooterMenu = [
@@ -62,14 +71,16 @@ export class AppComponent {
 
   readonly isUserAuthenticated = signal(false);
   readonly showLoading = signal(false);
-  readonly htmlDir = signal<'ltr' | 'rtl'>('ltr');
+  readonly htmlDir = signal<NuLangDir>('ltr');
   readonly navExtent = this.#panelService.navExtent;
 
   constructor() {
     this.#handleEvents();
 
     effect(() => {
-      document.dir = this.htmlDir();
+      const dir = this.htmlDir();
+
+      untracked(() => this.#localeService.setDir(dir));
     });
   }
 
