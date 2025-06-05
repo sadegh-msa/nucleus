@@ -1,0 +1,29 @@
+@use 'sass:string';
+@use '../funcs/color.func' as *;
+@use './text.mixin';
+
+@mixin box($bg-color, $border-color: null, $variant: null) {
+  @if ($variant) {
+    background-color: get-color-var('#{$bg-color}-#{$variant}');
+
+    @if ($border-color) {
+      border-color: get-color-var('#{$border-color}-#{$variant}');
+    }
+  } @else {
+    background-color: get-color-var($bg-color);
+
+    @if ($border-color) {
+      border-color: get-color-var($border-color);
+    }
+  }
+}
+
+@mixin generic($bg-color, $text-color, $border-color: null, $variant: null) {
+  @if ($variant) {
+    @include text.color('#{$text-color}-#{$variant}');
+    @include box($bg-color, $border-color);
+  } @else {
+    @include text.color($text-color);
+    @include box($bg-color, $border-color);
+  }
+}

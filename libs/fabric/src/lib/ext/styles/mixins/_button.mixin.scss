@@ -10,6 +10,7 @@
 @use './transition.mixin';
 @use './box.mixin';
 @use './size.mixin';
+@use './color.mixin';
 
 $colors: get-color-list();
 $sizes: get-size-list();
@@ -32,7 +33,9 @@ $border-radius-list: get-border-radius-list();
 @mixin radius($size, $type) {
   &:not(#{list-to-classes($border-radius-list, 'rounded-')}) {
     @if $type == text-button {
-      @if $size == small {
+      @if $size == tiny {
+        @include box.rounded-tiny();
+      } @else if $size == small {
         @include box.rounded-small();
       } @else if $size == medium {
         @include box.rounded-small();
@@ -49,7 +52,9 @@ $border-radius-list: get-border-radius-list();
   $size-value: 0;
 
   @if $type == text-button {
-    @if $size == small {
+    @if $size == tiny {
+      $size-value: sm-5;
+    } @else if $size == small {
       $size-value: md-3;
     } @else if $size == medium {
       $size-value: md-6;
@@ -59,7 +64,9 @@ $border-radius-list: get-border-radius-list();
 
     @include size.semistrict-height($size-value);
   } @else if $type == icon-button {
-    @if $size == small {
+    @if $size == tiny {
+      $size-value: sm-4;
+    } @else if $size == small {
       $size-value: md-3;
     } @else if $size == medium {
       $size-value: md-4;
@@ -73,7 +80,9 @@ $border-radius-list: get-border-radius-list();
 
 @mixin padding($size, $type) {
   @if $type == text-button {
-    @if $size == small {
+    @if $size == tiny {
+      padding: get-size-var(xs-4) get-size-var(xs-6);
+    } @else if $size == small {
       padding: get-size-var(xs-4) get-size-var(sm-1);
     } @else if $size == medium {
       padding: get-size-var(xs-4) get-size-var(sm-1);
@@ -102,7 +111,7 @@ $border-radius-list: get-border-radius-list();
   }
 }
 
-@mixin variant-color($bg-color, $text-color, $border-color, $is-second: false) {
+@mixin variant-color($bg-color, $text-color, $border-color: null, $is-second: false) {
   $is-bg-transparent: if(
       string.index(#{$bg-color}, 'transparent'),
       true,
@@ -113,35 +122,18 @@ $border-radius-list: get-border-radius-list();
 
   &:hover {
     @if ($is-second) {
-      @include text.color($text-color);
-      background-color: get-color-var($bg-color);
-
-      @if ($border-color != transparent) {
-        border-color: get-color-var($border-color);
-      }
+      @include color.generic($bg-color, $text-color, $border-color);
     } @else {
       $hover-variant: if($is-bg-bright, 'dark', 'light');
-
-      @include text.color('#{$text-color}-#{$hover-variant}');
-      background-color: get-color-var('#{$bg-color}-#{$hover-variant}');
-
-      @if ($border-color != transparent) {
-        border-color: get-color-var('#{$border-color}-#{$hover-variant}');
-      }
+      @include color.generic($bg-color, $text-color, $border-color, $hover-variant);
     }
   }
 
   &:not(.rippler) {
     &:active {
       $active-variant: if($is-bg-bright, 'darker', 'dark');
-
-      @include text.color('#{$text-color}-#{$active-variant}');
+      @include color.generic($bg-color, $text-color, $border-color, $active-variant);
       @include shadow.inset();
-      background-color: get-color-var('#{$bg-color}-#{$active-variant}');
-
-      @if ($border-color != transparent) {
-        border-color: get-color-var('#{$border-color}-#{$active-variant}');
-      }
     }
   }
 
@@ -162,15 +154,13 @@ $border-radius-list: get-border-radius-list();
       @include variant-color($bg-color, $text-color, $border-color, true);
     }
   } @else {
-    @include text.color($text-color);
-    background-color: get-color-var($bg-color);
+    @include color.generic($bg-color, $text-color, $border-color);
 
     &:not([class*='second-']) {
       @include variant-color($bg-color, $text-color, $border-color);
     }
   }
 
-  border-color: get-color-var($border-color);
   border-width: get-border-width-var(thin);
 }
 
@@ -212,12 +202,8 @@ $border-radius-list: get-border-radius-list();
 
 @mixin sizes() {
   @each $size in $sizes {
-    @if $size == normal {
+    &.#{$size} {
       @include size($size);
-    } @else {
-      &.#{$size} {
-        @include size($size);
-      }
     }
   }
 }
@@ -243,6 +229,7 @@ $border-radius-list: get-border-radius-list();
 
   > * {
     &:not(.fab.ripple) {
+      @include transition.normal(color);
       pointer-events: none;
       user-select: none;
       z-index: 2;
@@ -250,7 +237,6 @@ $border-radius-list: get-border-radius-list();
   }
 
   span {
-    @include transition.normal(color);
     display: block;
     vertical-align: middle;
     font-size: inherit;

@@ -1,1 +1,1 @@
-export const sizes = Object.freeze(['small', 'medium', 'normal']);
+export const sizes = Object.freeze(['tiny', 'small', 'medium', 'normal']);

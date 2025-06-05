@@ -35,14 +35,14 @@
           <td>
             @if (variant === 'second') {
               <button fabRipple
-                      [class]="['fab', 'button', 'basic', 'stamp', `second-${color}`].join(' ')"
+                      [class]="['fab', 'button', 'basic', 'stamp', 'normal', `second-${color}`].join(' ')"
               >
                 <ng-container *ngTemplateOutlet="icon" />
                 <span>{{ color | titlecase }}</span>
               </button>
             } @else {
               <button fabRipple
-                      [class]="['fab', 'button', variant, color].join(' ')"
+                      [class]="['fab', 'button', 'normal', variant, color].join(' ')"
               >
                 <ng-container *ngTemplateOutlet="icon" />
                 @if (variant !== 'icon') {

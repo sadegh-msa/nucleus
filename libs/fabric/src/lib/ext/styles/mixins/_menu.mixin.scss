@@ -66,7 +66,7 @@
         gap: 0;
 
         &:not(.multiline) {
-          padding: get-size-var(xs-6) get-size-var(xs-5);
+          padding: get-size-var(xs-6) get-size-var(xs-4);
         }
 
         .multiline {
@@ -172,6 +172,10 @@
         text-overflow: ellipsis;
         text-wrap: nowrap;
         text-align: start;
+      }
+
+      > .fab.icon {
+        transition: none;
       }
     }
 

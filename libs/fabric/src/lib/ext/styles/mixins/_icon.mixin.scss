@@ -11,7 +11,9 @@ $sizes: get-size-list();
 }
 
 @mixin size($size) {
-  @if $size == small {
+  @if $size == tiny {
+    @include size.strict-rect(sm-1);
+  } @else if $size == small {
     @include size.strict-rect(sm-3);
   } @else if $size == medium {
     @include size.strict-rect(sm-4);
@@ -30,12 +32,8 @@ $sizes: get-size-list();
 
 @mixin sizes() {
   @each $size in $sizes {
-    @if $size == normal {
+    &.#{$size} {
       @include size($size);
-    } @else {
-      &.#{$size} {
-        @include size($size);
-      }
     }
   }
 }

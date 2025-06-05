@@ -16,7 +16,9 @@ $weights: get-config(typography, font, weights);
 
 @mixin icon-size($size) {
   .fab.icon:not(#{list-to-classes($sizes)}) {
-    @if $size == small {
+    @if $size == tiny {
+      @include size.strict-rect(sm-1);
+    } @else if $size == small {
       @include size.strict-rect(sm-2);
     } @else if $size == medium {
       @include size.strict-rect(sm-3);
@@ -29,7 +31,10 @@ $weights: get-config(typography, font, weights);
 @mixin size($size) {
   line-height: normal;
 
-  @if $size == small {
+  @if $size == tiny {
+    font-size: get-size-var(xs-5);
+    line-height: get-size-var(xs-7);
+  } @else if $size == small {
     font-size: get-size-var(xs-6);
     line-height: get-size-var(sm-1);
   } @else if $size == medium {
@@ -61,12 +66,8 @@ $weights: get-config(typography, font, weights);
 
 @mixin sizes() {
   @each $size in $sizes {
-    @if $size == normal {
+    &.#{$size} {
       @include size($size);
-    } @else {
-      &.#{$size} {
-        @include size($size);
-      }
     }
   }
 }
@@ -105,12 +106,8 @@ $weights: get-config(typography, font, weights);
 
 @mixin weights() {
   @each $weight in $weights {
-    @if $weight == normal {
+    &.font-#{$weight} {
       @include weight($weight);
-    } @else {
-      &.font-#{$weight} {
-        @include weight($weight);
-      }
     }
   }
 }

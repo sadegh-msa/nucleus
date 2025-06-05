@@ -3,7 +3,7 @@
 
 @mixin generic($border-radius, $border-color, $border-width, $border-style) {
   @if ($border-radius != null) {
-    border-radius: get-border-radius-var($border-radius);
+    border-radius: if($border-radius == full, 100%, get-border-radius-var($border-radius));
   }
 
   @if ($border-color != null) {
