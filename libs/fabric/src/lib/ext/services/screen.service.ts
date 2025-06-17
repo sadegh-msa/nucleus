@@ -1,11 +1,11 @@
 import { computed, Injectable, signal } from '@angular/core';
 
 const sizes = ['sm', 'md', 'lg', 'xl', 'xxl', 'tablet', 'web'] as const;
-type Size = typeof sizes[number];
-type Window = { height: number, width: number, fontSize: number }
+type Size = (typeof sizes)[number];
+type Window = { height: number; width: number; fontSize: number };
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ScreenService {
   readonly #breakpointsRem = {
@@ -15,14 +15,14 @@ export class ScreenService {
     xl: 80,
     xxl: 96,
     tablet: 40,
-    web: 64
+    web: 64,
   } as Readonly<Record<Size, number>>;
 
   readonly #window = signal<Window>(this.#getWindow());
   readonly breakpoints = computed(() => {
     const { width, height, fontSize } = this.#window();
     const { sm, md, lg, xl, xxl, tablet, web } = Object.fromEntries(
-      Object.entries(this.#breakpointsRem).map(([s, v]) => [s, v * fontSize])
+      Object.entries(this.#breakpointsRem).map(([s, v]) => [s, v * fontSize]),
     ) as Record<Size, number>;
 
     return {
@@ -41,14 +41,14 @@ export class ScreenService {
       isTablet: width >= tablet && width < web,
       isWeb: width >= web,
       isPortrait: width < height,
-      isLandscape: width > height
+      isLandscape: width > height,
     };
   });
 
   #windowTimer?: number;
 
   constructor() {
-    (new ResizeObserver(() => {
+    new ResizeObserver(() => {
       clearTimeout(this.#windowTimer);
       this.#windowTimer = setTimeout(() => {
         if (!this.#windowTimer) {
@@ -57,17 +57,17 @@ export class ScreenService {
 
         this.#window.set(this.#getWindow());
       }, 100);
-    })).observe(document.body);
+    }).observe(document.body);
   }
 
   #getWindow() {
-    const computedStyle = window.getComputedStyle(document.body, null)
-      .getPropertyValue('font-size');
+    const computedStyle = window.getComputedStyle(document.body, null);
+    const fontSize = Number.parseFloat(computedStyle.getPropertyValue('font-size'));
 
     return {
+      fontSize,
       height: window.screen.availHeight,
       width: window.screen.availWidth,
-      fontSize: Number.parseFloat(computedStyle)
     };
   }
 }
