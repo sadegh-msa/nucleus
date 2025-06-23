@@ -12,7 +12,7 @@ $sizes: get-size-list();
 
 @mixin size($size) {
   @if $size == tiny {
-    @include size.strict-rect(sm-1);
+    @include size.strict-rect(xs-7);
   } @else if $size == small {
     @include size.strict-rect(sm-3);
   } @else if $size == medium {

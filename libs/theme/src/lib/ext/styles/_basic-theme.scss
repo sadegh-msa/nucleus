@@ -3,7 +3,7 @@
 @use './varibales';
 @use './fonts/iransansx-fanum.font';
 @use './fonts/kalameh-fanum.font';
-@use 'layers/defaults/generic';
+@use 'layers/defaults/defaults';
 @use 'layers/defaults/typography';
 @use 'layers/components/button';
 @use 'layers/components/icon';
@@ -11,6 +11,5 @@
 @use 'layers/components/message';
 @use 'layers/components/ripple';
 @use 'layers/components/text';
-@use 'layers/components/tooltip';
+@use 'layers/utilities/utilities';
 @use 'layers/utilities/box';
-@use 'layers/utilities/event';

@@ -11,7 +11,7 @@ $sizes: get-size-list();
 $weights: get-config(typography, font, weights);
 
 @mixin transition() {
-  @include transition.normal(color, background-color);
+  @include transition.normal(opacity, color, background-color);
 }
 
 @mixin icon-size($size) {
