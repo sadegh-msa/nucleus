@@ -77,7 +77,7 @@ export class RippleDirective {
     this.#clearHostElement();
 
     const hostElement = this.#elementRef.nativeElement;
-    const ripple = document.createElement(this.#TAG);
+    const ripple = this.#renderer.createElement(this.#TAG);
     ripple.classList.add(this.#UI_STYLE_CLASS);
     ripple.classList.add(this.#RIPPLE_STYLE_CLASS);
     ripple.classList.add(pointer);

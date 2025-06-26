@@ -1,3 +1,4 @@
+import { DOCUMENT } from '@angular/common';
 import { inject, Injectable } from '@angular/core';
 import { CryptoService } from './crypto.service';
 
@@ -5,6 +6,7 @@ import { CryptoService } from './crypto.service';
   providedIn: 'root',
 })
 export class CookieService {
+  readonly #document = inject(DOCUMENT);
   readonly #cryptoService = inject(CryptoService);
 
   async setItem(key: string, value: boolean | number | string | null, exMinutes?: number) {
@@ -18,7 +20,7 @@ export class CookieService {
 
     try {
       const encryptedValue = value ? await this.#cryptoService.encrypt(value.toString()) : value;
-      document.cookie = `${key}=${encryptedValue};${expires};path=/`;
+      this.#document.cookie = `${key}=${encryptedValue};${expires};path=/`;
     } catch (error) {
       console.error(error);
       return false;
@@ -28,7 +30,7 @@ export class CookieService {
   }
 
   async getItem(key: string) {
-    const decodedCookie = decodeURIComponent(document.cookie);
+    const decodedCookie = decodeURIComponent(this.#document.cookie);
     const pairs = decodedCookie.split(';').map((i) =>
       i
         .trim()

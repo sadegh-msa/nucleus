@@ -1,4 +1,4 @@
-import { computed, Injectable, signal } from '@angular/core';
+import { computed, DOCUMENT, inject, Injectable, signal } from '@angular/core';
 
 const sizes = ['sm', 'md', 'lg', 'xl', 'xxl', 'tablet', 'web'] as const;
 type Size = (typeof sizes)[number];
@@ -8,6 +8,8 @@ type Window = { height: number; width: number; fontSize: number };
   providedIn: 'root',
 })
 export class ScreenService {
+  readonly #document = inject(DOCUMENT);
+
   readonly #breakpointsRem = {
     sm: 40,
     md: 48,
@@ -57,11 +59,11 @@ export class ScreenService {
 
         this.#window.set(this.#getWindow());
       }, 100);
-    }).observe(document.body);
+    }).observe(this.#document.body);
   }
 
   #getWindow() {
-    const computedStyle = window.getComputedStyle(document.body, null);
+    const computedStyle = window.getComputedStyle(this.#document.body, null);
     const fontSize = Number.parseFloat(computedStyle.getPropertyValue('font-size'));
 
     return {

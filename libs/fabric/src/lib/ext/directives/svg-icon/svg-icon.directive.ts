@@ -150,7 +150,7 @@ export class SvgIconDirective implements OnInit, OnDestroy {
   }
 
   #insertIcon(hostElement: HTMLElement, rawSvg: string) {
-    const tempElement = document.createElement('div');
+    const tempElement = this.#renderer.createElement('div');
     tempElement.innerHTML = this.#normalizeSvg(rawSvg);
     const svgElement = tempElement.children[0];
 
@@ -158,7 +158,7 @@ export class SvgIconDirective implements OnInit, OnDestroy {
       return;
     }
 
-    svgElement.getAttributeNames().forEach((attribute) => {
+    svgElement.getAttributeNames().forEach((attribute: string) => {
       this.#renderer.setAttribute(
         hostElement,
         attribute,
