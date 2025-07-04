@@ -21,7 +21,7 @@
 @mixin generic($bg-color, $text-color, $border-color: null, $variant: null) {
   @if ($variant) {
     @include text.color('#{$text-color}-#{$variant}');
-    @include box($bg-color, $border-color);
+    @include box($bg-color, $border-color, $variant);
   } @else {
     @include text.color($text-color);
     @include box($bg-color, $border-color);

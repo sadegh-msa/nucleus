@@ -111,7 +111,7 @@ $border-radius-list: get-border-radius-list();
   }
 }
 
-@mixin variant-color($bg-color, $text-color, $border-color: null, $is-second: false) {
+@mixin variant-color($bg-color, $text-color, $border-color: null) {
   $is-bg-transparent: if(
       string.index(#{$bg-color}, 'transparent'),
       true,
@@ -121,12 +121,8 @@ $border-radius-list: get-border-radius-list();
   $is-bg-bright: $is-bg-transparent or $is-bg-surface;
 
   &:hover {
-    @if ($is-second) {
-      @include color.generic($bg-color, $text-color, $border-color);
-    } @else {
-      $hover-variant: if($is-bg-bright, 'dark', 'light');
-      @include color.generic($bg-color, $text-color, $border-color, $hover-variant);
-    }
+    $hover-variant: if($is-bg-bright, 'dark', 'light');
+    @include color.generic($bg-color, $text-color, $border-color, $hover-variant);
   }
 
   &:not(.rippler) {
@@ -151,7 +147,7 @@ $border-radius-list: get-border-radius-list();
 @mixin variant-properties($bg-color, $text-color, $border-color, $is-second: false) {
   @if $is-second {
     &[class*='second-'] {
-      @include variant-color($bg-color, $text-color, $border-color, true);
+      @include variant-color($bg-color, $text-color, $border-color);
     }
   } @else {
     @include color.generic($bg-color, $text-color, $border-color);
