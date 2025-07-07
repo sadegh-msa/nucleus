@@ -16,10 +16,6 @@
   &:not([disabled]) {
     background-color: get-color-var(paper);
     color: get-color-var(ink);
-
-    &:focus-visible {
-      border-color: get-color-var(primary);
-    }
   }
 
   &:disabled {

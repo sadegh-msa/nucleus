@@ -10,9 +10,12 @@
     scroll-behavior: smooth;
   }
 
-  a, button {
+  * {
+    outline-color: get-color-var(ink);
+  }
+
+  a, button, input {
     outline-offset: -1px;
-    outline-color: get-color-var(neutral);
   }
 
   svg {

@@ -6,7 +6,7 @@
 input[type='checkbox'].fab.checkbox {
   appearance: none;
   background-color: get-color-var(paper);
-  margin: 0;
+  margin: get-border-width-var(medium);
   display: flex;
   place-content: center;
 
@@ -58,7 +58,7 @@ input[type='checkbox'].fab.checkbox {
 
   &:focus {
     @include box.rounded-medium(neutral-surface);
-    outline: get-border-width-var(medium) solid get-color-var(watermark);
-    outline-offset: get-border-width-var(medium);
+    outline-offset: get-border-width-var(thin);
+    margin-block: get-border-width-var(thin) ;
   }
 }
