@@ -39,7 +39,11 @@ export class CookieService {
     );
     const encryptedValue = (pairs.find(([k, v]) => k === key) || [])[1] || '';
 
-    let value: boolean | string | number | undefined = undefined;
+    if(['null', 'undefined'].includes(encryptedValue)) {
+      return null;
+    }
+
+    let value: boolean | string | number | undefined;
 
     try {
       value = await this.#cryptoService.decrypt(encryptedValue);
