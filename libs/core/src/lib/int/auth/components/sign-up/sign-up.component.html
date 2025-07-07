@@ -55,7 +55,7 @@
   <ng-container actions>
     <div class="nu-form-actions">
       <button id="sign-up-button"
-              class="fab button primary emphasis"
+              class="fab button normal primary emphasis"
               form="sign-up-form">
         <svg fabSvgIcon="user" />
         <span i18n>Sign up</span>
@@ -63,14 +63,14 @@
       </button>
 
       <a id="sign-in-button"
-         class="fab button stamp basic"
+         class="fab button normal stamp basic"
          [routerLink]="['/', config.routes.signIn.path]">
         <svg fabSvgIcon="login" />
         <span i18n>Sign in</span>
       </a>
 
       <a id="reset-password-button"
-         class="fab button stamp basic"
+         class="fab button normal stamp basic"
          [routerLink]="['/', config.routes.resetPassword.path]">
         <svg fabSvgIcon="lock" />
         <span i18n>Forgot password?</span>
