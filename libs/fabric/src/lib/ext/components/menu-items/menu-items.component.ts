@@ -4,27 +4,29 @@ import {
   Component,
   computed,
   effect,
+  ElementRef,
   HostBinding,
   inject,
   input,
   linkedSignal,
   untracked
 } from '@angular/core';
-import { ActivatedRoute, Router, RouterLink, RouterLinkActive } from '@angular/router';
-import { TippyDirective } from '@ngneat/helipopper';
+import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { CssSupportService, type Extent, SafeHtml } from '@nucleus/common';
 import * as R from 'ramda';
-import { RippleDirective, SvgIconDirective } from '../../directives';
+import {
+  PopoverDirective,
+  RippleDirective,
+  SvgIconDirective,
+  TooltipDirective
+} from '../../directives';
 import type { MenuItem } from '../../models';
-import { HtmlService } from '../../services';
-
-type PopoverPlacement = NonNullable<MenuItem['tooltipPlacement']>;
+import type { FabPlacement } from '../../types';
 
 @Component({
   selector: 'menu[fabMenuItems]',
   imports: [
     NgTemplateOutlet,
-    TippyDirective,
     NgStyle,
     NgClass,
     RouterLink,
@@ -32,17 +34,20 @@ type PopoverPlacement = NonNullable<MenuItem['tooltipPlacement']>;
     SafeHtml,
     SvgIconDirective,
     RippleDirective,
+    TooltipDirective,
+    PopoverDirective,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './menu-items.component.html',
 })
 export class MenuItemsComponent {
   readonly #router = inject(Router);
+  readonly #elementRef = inject(ElementRef);
   readonly #cssSupport = inject(CssSupportService);
-  readonly #htmlService = inject(HtmlService);
 
   fabMenuItems = input.required<MenuItem[]>();
-  popoverPlacement = input<PopoverPlacement>(this.#htmlService.isRtl ? 'left-end' : 'right-end');
+  popoverPlacement = input<FabPlacement>('inline-end-edge-end');
+  tooltipPlacement = input<FabPlacement>('inline-end-block-center');
   extent = input<Extent>('wide');
   mode = input<'popup' | 'still'>('still');
   submenuMode = input<'floating' | 'sliding'>('sliding');
@@ -86,6 +91,10 @@ export class MenuItemsComponent {
         this.isSubmenuFloating() ? 'floating' : this.submenuMode(),
       ]),
     ).join(' ');
+  }
+
+  get menuElement() {
+    return this.#elementRef.nativeElement as HTMLElement;
   }
 
   constructor() {
@@ -149,15 +158,13 @@ export class MenuItemsComponent {
   }
 
   clickItem(item: MenuItem) {
-    const isSubmenuFloating = this.isSubmenuFloating();
-
     if (item.children?.length) {
-      item.expanded = isSubmenuFloating || !item.expanded;
-
       if (!item.expanded) {
+        item.expanded = true;
+      } else {
         this.collapseItem(item);
       }
-    } else if (isSubmenuFloating) {
+    } else if (this.isSubmenuFloating()) {
       this.items().forEach((i) => this.collapseItem(i));
     } else if (this.isSubmenuSliding()) {
       if (!this.#cssSupport.calcSize()) {

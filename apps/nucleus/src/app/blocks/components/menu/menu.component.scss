@@ -19,7 +19,7 @@
     }
 
     > menu {
-      @include box.rounded;
+      @include box.rounded-small(paper-darkest);
       @include shadow.medium;
       height: max-content;
       width: max-content;

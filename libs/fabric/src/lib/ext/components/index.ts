@@ -1,4 +1,3 @@
-export * from './bubble/bubble.component';
 export * from './calendar/calendar.component';
 export * from './card/card.component';
 export * from './dropdown/dropdown.component';

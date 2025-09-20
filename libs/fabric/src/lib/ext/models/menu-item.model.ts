@@ -1,7 +1,6 @@
 import type { NgClass, NgStyle } from '@angular/common';
 import type { RouterLink } from '@angular/router';
-import type { TippyProps } from '@ngneat/helipopper/config';
-import type { IconVariant } from '../types';
+import type { FabPlacement, IconVariant } from '../types';
 
 export interface MenuItem {
   id?: string;
@@ -10,8 +9,8 @@ export interface MenuItem {
   labelNgStyle?: NgStyle['ngStyle'];
   labelNgClass?: NgClass['ngClass'];
   tooltip?: string;
-  tooltipPlacement?: TippyProps['placement'];
-  submenuPlacement?: TippyProps['placement'];
+  tooltipPlacement?: FabPlacement;
+  submenuPlacement?: FabPlacement;
   icon?: string;
   iconVariant?: IconVariant;
   iconGenerateId?: boolean;

@@ -5,7 +5,9 @@
 @use './fonts/kalameh-fanum.font';
 @use 'layers/defaults/defaults';
 @use 'layers/defaults/typography';
+@use 'layers/components/bubble';
 @use 'layers/components/button';
+@use 'layers/components/popover';
 @use 'layers/components/icon';
 @use 'layers/components/link';
 @use 'layers/components/message';

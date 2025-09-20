@@ -9,26 +9,16 @@
         />
       </li>
     } @else if (!item.hidden) {
-      <li [tp]="submenu"
-          [tpData]="item"
-          [tpIsEnabled]="isSubmenuFloating() && !!item.children?.length"
-          [tpPlacement]="item.submenuPlacement || popoverPlacement()"
-          [tpIsVisible]="isSubmenuFloating() && item.expanded"
-          (tpIsVisibleChange)="item.expanded = $event"
-          [tpIsLazy]="true"
-          tpVariation="popper"
-      >
-        @let tooltipPlacement = item.tooltipPlacement || popoverPlacement();
-        @let isTooltipEnabled = isCompact() && !item.expanded && !isSubMenu;
+      <li>
+        @let itemTooltipPlacement = item.tooltipPlacement || tooltipPlacement();
+        @let isTooltipDisabled = !isCompact() || item.expanded || isSubMenu;
+        @let itemPopoverPlacement = item.popoverPlacement || popoverPlacement();
+        @let isPopoverVisible = isSubmenuFloating() && item.expanded;
+        @let isFloatingSubmenuDisabled = !isSubmenuFloating() || !item.children?.length;
 
         @if (item.routerLink) {
           <a [fabRipple]="!item.disabled"
              [id]="item.id"
-             [tp]="tooltip"
-             [tpData]="item"
-             [tpIsEnabled]="isTooltipEnabled"
-             [tpPlacement]="tooltipPlacement"
-             [tpIsLazy]="true"
              [ngStyle]="item.ngStyle"
              [ngClass]="item.ngClass"
              [class.disabled]="item.disabled"
@@ -37,21 +27,34 @@
              routerLinkActive
              (isActiveChange)="onRouterLinkIsActiveChange(item, $event)"
              (click)="clickItem(item)"
+             [fabTooltip]="tooltip"
+             [fabTooltipData]="item"
+             [fabTooltipPlacement]="itemTooltipPlacement"
+             [fabTooltipDisabled]="isTooltipDisabled"
+             [fabTooltipAttachTo]="menuElement"
           >
             <ng-container *ngTemplateOutlet="content; context:{item, isSubMenu}" />
           </a>
         } @else {
           <button [fabRipple]="!item.disabled"
                   [id]="item.id"
-                  [tp]="tooltip"
-                  [tpData]="item"
-                  [tpIsEnabled]="isTooltipEnabled"
-                  [tpPlacement]="tooltipPlacement"
-                  [tpIsLazy]="true"
                   [ngStyle]="item.ngStyle"
                   [ngClass]="item.ngClass"
                   [disabled]="item.disabled"
                   (click)="clickItem(item)"
+                  [fabTooltip]="tooltip"
+                  [fabTooltipData]="item"
+                  [fabTooltipPlacement]="itemTooltipPlacement"
+                  [fabTooltipDisabled]="isTooltipDisabled"
+                  [fabTooltipAttachTo]="menuElement"
+                  [fabPopover]="submenu"
+                  [fabPopoverData]="item"
+                  [fabPopoverPlacement]="itemPopoverPlacement"
+                  [fabPopoverDisabled]="isFloatingSubmenuDisabled"
+                  [fabPopoverAttachTo]="menuElement"
+                  [fabPopoverHasBubble]="false"
+                  [fabPopoverVisible]="isPopoverVisible"
+                  (fabPopoverVisibility)="!$event && collapseItem(item)"
           >
             <ng-container *ngTemplateOutlet="content; context:{item}" />
           </button>
@@ -72,7 +75,7 @@
           [class.submenu]="isSubmenuFloating()"
           [style]="'--menu-size:' + (item.size || item.children.length)"
     >
-      @if (isSubmenuFloating()) {
+     <!-- @if (isSubmenuFloating()) {
         <li>
           <button class="pointer-events-none" [ngClass]="item.ngClass">
             @if (item.htmlLabel) {
@@ -82,7 +85,7 @@
             }
           </button>
         </li>
-      }
+      }-->
 
       @defer (when item.expanded) {
         <ng-container

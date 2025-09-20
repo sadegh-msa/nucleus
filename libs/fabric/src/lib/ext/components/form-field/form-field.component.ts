@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, HostBinding, input } from '@angular/core';
 import { AbstractControl } from '@angular/forms';
-import { FabPosition } from '../../types';
+import { FabPlacement } from '../../types';
 
 @Component({
   selector: 'fab-form-field',
@@ -12,7 +12,7 @@ export class FormFieldComponent {
   inputId = input('');
   label = input<string>();
   help = input<string>();
-  helpPosition = input<FabPosition>('auto');
+  helpPlacement = input<FabPlacement>('auto');
   inputFormControl = input<AbstractControl<any> | null>(null);
   messages = input<Record<string, string>>({});
 

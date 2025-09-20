@@ -1,73 +1,240 @@
 @use '../funcs/size.func' as *;
+@use '../funcs/color.func' as *;
+@use '../utils/list.util' as *;
+@use '../mixins/color.mixin';
+@use '../mixins/box.mixin';
+@use '../mixins/shadow.mixin';
+@use '../mixins/transition.mixin';
 
-$arrow-size: sm-1;
+$colors: get-color-list();
 
-@mixin close($block-position, $inline-position, $offset: xs-6) {
-  > .close {
-    inset-block-#{$block-position}: calc(-1 * #{get-size-var($offset)});
-    inset-inline-#{$inline-position}: calc(-1 * #{get-size-var($offset)});
+@mixin close($block-placement, $inline-placement, $offset: xs-6) {
+  > .bubble-close {
+    inset-block-#{$block-placement}: calc(-1 * #{get-size-var($offset)});
+    inset-inline-#{$inline-placement}: calc(-1 * #{get-size-var($offset)});
   }
 }
 
-@mixin arrow($block-position, $block-offset, $inline-position, $inline-offset, $is-rotate-reversed: false) {
-  $rotate-value: if($is-rotate-reversed, -45deg, 45deg);
+@mixin arrow($block-placement, $block-offset, $inline-placement, $inline-offset, $is-rotate-reversed: false) {
+  $rotate-value: if($block-placement == $inline-placement, 45deg, -45deg);
 
-  > .arrow {
-    inset-block-#{$block-position}: $block-offset;
-    inset-inline-#{$inline-position}: $inline-offset;
-    transform: rotate(var(--arrow-transform-rotate));
+  @if ($is-rotate-reversed) {
+    $rotate-value: -1 * $rotate-value;
+  }
+
+  > .bubble-arrow {
+    inset-block-#{$block-placement}: $block-offset;
+    inset-inline-#{$inline-placement}: $inline-offset;
+    border-block-#{$block-placement}: inherit;
+    border-inline-#{$inline-placement}: inherit;
+    transform: rotate(var(--fab-bubble-arrow-transform-rotate));
 
     &:dir(ltr) {
-      --arrow-transform-rotate: #{$rotate-value};
+      --fab-bubble-arrow-transform-rotate: #{$rotate-value};
     }
 
     &:dir(rtl) {
-      --arrow-transform-rotate: #{-1 * $rotate-value};
+      --fab-bubble-arrow-transform-rotate: #{-1 * $rotate-value};
     }
   }
 }
 
-@mixin block-arrow($block-position, $inline-position) {
-  $block-offset: calc(-1 * #{get-size-var($arrow-size)} / 2);
-  $inline-offset: var(--bubble-arrow-offset, #{get-size-var($arrow-size)});
+@mixin block-arrow($block-placement, $inline-placement) {
+  $block-offset: calc(-1 * var(--fab-bubble-arrow-size-half));
+  $inline-offset: var(--fab-bubble-arrow-offset, var(--fab-bubble-arrow-size));
 
-  @if ($inline-position == center) {
-    $inline-position: start;
-    $inline-offset: calc(50% - #{get-size-var($arrow-size)} / 2);
+  @if ($inline-placement == center) {
+    $inline-placement: start;
+    $inline-offset: calc(50% - var(--fab-bubble-arrow-size-half) + 1px);
   }
 
-  @include arrow($block-position, $block-offset, $inline-position, $inline-offset);
+  @include arrow($block-placement, $block-offset, $inline-placement, $inline-offset);
 }
 
-@mixin inline-arrow($inline-position, $block-position) {
-  $inline-offset: calc(-1 * #{get-size-var($arrow-size)} / 2);
-  $block-offset: var(--bubble-arrow-offset, #{get-size-var($arrow-size)});
+@mixin inline-arrow($inline-placement, $block-placement) {
+  $inline-offset: calc(-1 * var(--fab-bubble-arrow-size-half));
+  $block-offset: var(--fab-bubble-arrow-offset, var(--fab-bubble-arrow-size));
 
-  @if ($block-position == center) {
-    $block-position: start;
-    $block-offset: calc(50% - #{get-size-var($arrow-size)} / 2);
+  @if ($block-placement == center) {
+    $block-placement: start;
+    $block-offset: calc(50% - var(--fab-bubble-arrow-size-half) + 1px);
   }
 
-  @include arrow($block-position, $block-offset, $inline-position, $inline-offset, true);
+  @include arrow($block-placement, $block-offset, $inline-placement, $inline-offset, true);
 }
 
-@mixin corner-arrow($block-position, $inline-position) {
-  $is-reversed: $block-position != $inline-position;
-  $offset: calc(-0.7 * #{get-size-var(xs-1)});
-  $rotate-value: -90deg;
-  $skew-value: if($is-reversed, -11deg, 11deg);
+@mixin corner-arrow($block-placement, $inline-placement) {
+  $offset: calc(-1.2 * #{get-size-var(xs-1)});
+  $skew-value: if($block-placement == $inline-placement, 11deg, -11deg);
 
-  > .arrow {
-    inset-block-#{$block-position}: $offset;
-    inset-inline-#{$inline-position}: $offset;
-    transform: skew(var(--arrow-transform-skew), var(--arrow-transform-skew)) rotate(if($is-reversed, $rotate-value, 0));
+  > .bubble-arrow {
+    inset-block-#{$block-placement}: $offset;
+    inset-inline-#{$inline-placement}: $offset;
+    border-block-#{$block-placement}: inherit;
+    border-inline-#{$inline-placement}: inherit;
+    transform: skew(var(--fab-bubble-arrow-transform-skew), var(--fab-bubble-arrow-transform-skew));
 
     &:dir(ltr) {
-      --arrow-transform-skew: #{$skew-value};
+      --fab-bubble-arrow-transform-skew: #{$skew-value};
     }
 
     &:dir(rtl) {
-      --arrow-transform-skew: #{-1 * $skew-value};
+      --fab-bubble-arrow-transform-skew: #{-1 * $skew-value};
+    }
+  }
+}
+
+@mixin colors() {
+  @each $color in $colors {
+    $bg-color: $color;
+    $text-color: '#{$color}-surface';
+    $border-color: $color;
+
+    @if ($color == paper) {
+      $text-color: ink;
+      $border-color: paper-darker;
+    } @else if ($color == watermark) {
+      $text-color: ink;
+    }
+
+    &.#{$color} {
+      &:not(.text) {
+        @include color.generic($bg-color, $text-color, $border-color);
+      }
+
+      &.text {
+        @include color.box(paper, paper-darker);
+      }
+    }
+  }
+
+  &:not(#{list-to-classes($colors)}) {
+    @include color.generic(ink, ink-surface, ink);
+  }
+}
+
+@mixin generic() {
+  @include transition.normal(opacity);
+  @include shadow.large();
+  @include box.rounded(transparent);
+  @include colors();
+  position: relative;
+  z-index: 40;
+  //--fab-bubble-arrow-offset: 50px;
+  --fab-bubble-arrow-size: #{get-size-var(xs-7)};
+  --fab-bubble-arrow-size-half: calc(var(--fab-bubble-arrow-size) / 2);
+  --fab-bubble-arrow-diagonal: calc(sqrt(2) * var(--fab-bubble-arrow-size));
+  --fab-bubble-arrow-diagonal-half: calc(var(--fab-bubble-arrow-diagonal) / 2);
+
+  &:not(.tooltip) {
+    padding: get-size-var(xs-6);
+  }
+
+  &.tooltip {
+    padding: get-size-var(xs-4) get-size-var(xs-6);
+  }
+
+  &.block {
+    &-start-corner {
+      &-start {
+        @include close(start, start);
+        @include corner-arrow(end, end);
+      }
+
+      &-end {
+        @include close(start, end);
+        @include corner-arrow(end, start);
+      }
+    }
+
+    &-end-corner {
+      &-start {
+        @include close(end, start);
+        @include corner-arrow(start, end);
+      }
+
+      &-end {
+        @include close(end, end);
+        @include corner-arrow(start, start);
+      }
+    }
+
+    &-start {
+      &-edge-start,
+      &-inline-start {
+        @include close(start, start);
+        @include block-arrow(end, end);
+      }
+
+      &-inline-center {
+        @include close(start, start);
+        @include block-arrow(end, center);
+      }
+
+      &-edge-end,
+      &-inline-end {
+        @include close(start, end);
+        @include block-arrow(end, start);
+      }
+    }
+
+    &-end {
+      &-edge-start,
+      &-inline-start {
+        @include close(end, start);
+        @include block-arrow(start, end);
+      }
+
+      &-inline-center {
+        @include close(end, start);
+        @include block-arrow(start, center);
+      }
+
+      &-edge-end,
+      &-inline-end {
+        @include close(end, end);
+        @include block-arrow(start, start);
+      }
+    }
+  }
+
+  &.inline {
+    &-start {
+      &-edge-start,
+      &-block-start {
+        @include close(start, start);
+        @include inline-arrow(end, end);
+      }
+
+      &-block-center {
+        @include close(start, start);
+        @include inline-arrow(end, center);
+      }
+
+      &-edge-end,
+      &-block-end {
+        @include close(start, start);
+        @include inline-arrow(end, start);
+      }
+    }
+
+    &-end {
+      &-edge-start,
+      &-block-start {
+        @include close(start, end);
+        @include inline-arrow(start, end);
+      }
+
+      &-block-center {
+        @include close(start, end);
+        @include inline-arrow(start, center);
+      }
+
+      &-edge-end,
+      &-block-end {
+        @include close(start, end);
+        @include inline-arrow(start, start);
+      }
     }
   }
 }

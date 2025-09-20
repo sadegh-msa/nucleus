@@ -29,7 +29,6 @@
   &.popup {
     @include box.rounded-small(paper-darkest);
     @include shadow.medium();
-    padding-block: get-size-var(xs-6);
 
     li {
       &:first-of-type {

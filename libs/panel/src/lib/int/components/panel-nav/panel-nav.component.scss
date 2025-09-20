@@ -2,16 +2,16 @@
 @use 'mixins/transition.mixin';
 
 :host {
-  position: relative;
   display: flex;
   flex-direction: column;
-  gap: get-size-var(md-2);
+  gap: get-size-var(sm-6);
 
   > header {
     display: flex;
     align-items: flex-start;
     width: 100%;
-    overflow: hidden;
+    height: fit-content;
+    overflow: clip;
     margin-block-start: get-size-var(xs-3);
 
     .panel-nav-logo {
@@ -19,11 +19,11 @@
       display: flex;
 
       &.compact {
-        margin-inline-start: get-size-var(xs-3);
+        margin-inline-start: get-size-var(xs-2);
       }
 
       &.wide {
-        margin-inline-start: get-size-var(sm-2);
+        margin-inline-start: get-size-var(xs-6);
       }
 
       figure {
@@ -41,21 +41,22 @@
 
   section.content {
     width: 100%;
+    height: 100%;
   }
 
   footer {
-    margin-block-start: auto;
-    margin-block-end: get-size-var(md-7);
   }
 
   button.toggle {
-    position: absolute;
-    inset-block-end: get-size-var(sm-2);
-    inset-inline-end: get-size-var(sm-2);
-    z-index: 40;
+    @include transition.normal(align-self);
 
     &.compact {
+      align-self: center;
       transform: scaleX(-1);
+    }
+
+    &.wide {
+      align-self: flex-end;
     }
   }
 }
