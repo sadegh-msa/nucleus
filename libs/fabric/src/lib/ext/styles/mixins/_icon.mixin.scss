@@ -56,7 +56,7 @@ $sizes: get-size-list();
     }
   }
 
-  &:is(.outline, .bulk, .bold) * {
-    fill: currentColor;
+  &:is(.outline, .bulk, .bold) g {
+      fill: currentColor;
   }
 }
