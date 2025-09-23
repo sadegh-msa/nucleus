@@ -4,6 +4,7 @@
 @use '../../mixins/size.mixin';
 
 input[type='checkbox'].fab.checkbox {
+  @include box.rounded-medium();
   appearance: none;
   background-color: get-color-var(paper);
   margin: get-border-width-var(medium);
@@ -17,9 +18,9 @@ input[type='checkbox'].fab.checkbox {
   }
 
   &:not(:checked) {
-    &:hover {
-      background-color: get-color-var(paper-dark);
-    }
+    // &:hover {
+      // background-color: get-color-var(paper-dark);
+    // }
 
     &:active {
       background-color: get-color-var(paper-darker);
@@ -57,8 +58,7 @@ input[type='checkbox'].fab.checkbox {
   }
 
   &:focus {
-    @include box.rounded-medium(neutral-surface);
     outline-offset: get-border-width-var(thin);
-    margin-block: get-border-width-var(thin) ;
+    margin-inline: get-border-width-var(thick);
   }
 }
