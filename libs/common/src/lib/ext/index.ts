@@ -10,7 +10,6 @@ export * from './providers/common-config.provider';
 export * from './providers/common.provider';
 export * from './services/cookie.service';
 export * from './services/crypto.service';
-export * from './services/css-support.service';
 export * from './services/nu-message.service';
 export * from './services/permanent-storage.service';
 export * from './services/temporary-storage.service';

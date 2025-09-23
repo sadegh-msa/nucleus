@@ -3,24 +3,25 @@ import {
   ChangeDetectionStrategy,
   Component,
   computed,
-  effect,
   ElementRef,
+  effect,
   HostBinding,
   inject,
   input,
   linkedSignal,
-  untracked
+  untracked,
 } from '@angular/core';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
-import { CssSupportService, type Extent, SafeHtml } from '@nucleus/common';
+import { type Extent, SafeHtml } from '@nucleus/common';
 import * as R from 'ramda';
 import {
   PopoverDirective,
   RippleDirective,
   SvgIconDirective,
-  TooltipDirective
+  TooltipDirective,
 } from '../../directives';
 import type { MenuItem } from '../../models';
+import { CssSupportService } from '../../services';
 import type { FabPlacement } from '../../types';
 
 @Component({
