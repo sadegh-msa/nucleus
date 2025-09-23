@@ -1,4 +1,4 @@
-import { InputSignal, Signal, WritableSignal } from '@angular/core';
+import type { InputSignal, Signal, WritableSignal } from '@angular/core';
 
 export type ToggleValue = boolean | string | null | undefined;
 

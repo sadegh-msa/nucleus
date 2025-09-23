@@ -1,7 +1,13 @@
 import { NgClass, TitleCasePipe } from '@angular/common';
-import { ChangeDetectionStrategy, Component, forwardRef, inject, input } from '@angular/core';
-import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { GenericToggleConsumer, ToggleValue } from '../../models/toggle.model';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  forwardRef,
+  inject,
+  input,
+} from '@angular/core';
+import { type ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
+import type { GenericToggleConsumer, ToggleValue } from '../../models/toggle.model';
 import { ToggleService } from '../../services';
 
 @Component({

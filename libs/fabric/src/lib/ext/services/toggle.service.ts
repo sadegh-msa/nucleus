@@ -1,9 +1,18 @@
-import { computed, effect, Injectable, signal } from '@angular/core';
-import { ControlValueAccessor } from '@angular/forms';
-import { GenericToggleConsumer, ToggleValue } from '../models/toggle.model';
+import {
+  ChangeDetectorRef,
+  computed,
+  effect,
+  Injectable,
+  inject,
+  signal,
+} from '@angular/core';
+import type { ControlValueAccessor } from '@angular/forms';
+import type { GenericToggleConsumer, ToggleValue } from '../models/toggle.model';
 
 @Injectable()
 export class ToggleService {
+  #changeDetectorRef = inject(ChangeDetectorRef);
+
   #consumer!: GenericToggleConsumer;
 
   #onChange: any = () => {};
@@ -20,7 +29,9 @@ export class ToggleService {
         : this.#consumer.isChecked()
           ? this.#consumer.value()
           : undefined;
+
       this.#onChange(value);
+      this.#changeDetectorRef.markForCheck();
     });
   }
 
