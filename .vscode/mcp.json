@@ -1,0 +1,12 @@
+{
+  "servers": {
+    "angular-cli": {
+      "command": "bunx",
+      "args": ["-y", "@angular/cli", "mcp"]
+    },
+    "nx": {
+      "command": "bunx",
+      "args": ["-y", "nx", "mcp"]
+    }
+  }
+}
