@@ -32,7 +32,7 @@ export class PanelBreadcrumbService {
       },
     });
     const routeObserver = (route: NavigationEnd) => {
-      this.#update(route.urlAfterRedirects, this.#router.getCurrentNavigation()?.extras.state);
+      this.#update(route.urlAfterRedirects, this.#router.currentNavigation()?.extras.state);
     };
 
     this.#router.events
