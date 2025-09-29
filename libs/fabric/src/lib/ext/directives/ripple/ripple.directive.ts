@@ -63,10 +63,8 @@ export class RippleDirective {
       clearTimeout(this.#timeoutHandler);
 
       const ripple = this.#ripple;
-      ripple.classList.remove(this.#lastEvent);
-      ripple.classList.remove(this.#FINISH_STYLE_CLASS);
-      ripple.classList.add(pointer);
-      ripple.classList.add(this.#FINISH_STYLE_CLASS);
+      ripple.classList.remove(this.#lastEvent, this.#FINISH_STYLE_CLASS);
+      ripple.classList.add(pointer, this.#FINISH_STYLE_CLASS);
 
       this.#timeoutHandler = setTimeout(() => {
         ripple.remove();
@@ -80,9 +78,7 @@ export class RippleDirective {
 
     const hostElement = this.#elementRef.nativeElement;
     const ripple = this.#renderer.createElement(this.#TAG);
-    ripple.classList.add(this.#UI_STYLE_CLASS);
-    ripple.classList.add(this.#RIPPLE_STYLE_CLASS);
-    ripple.classList.add(pointer);
+    ripple.classList.add(this.#UI_STYLE_CLASS, this.#RIPPLE_STYLE_CLASS, pointer);
 
     this.#renderer.appendChild(hostElement, ripple);
 
