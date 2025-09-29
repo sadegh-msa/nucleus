@@ -2,7 +2,6 @@ import {
   booleanAttribute,
   Directive,
   ElementRef,
-  HostListener,
   inject,
   input,
   Renderer2
@@ -12,8 +11,12 @@ type Pointer = 'pointer-down' | 'pointer-up';
 
 @Directive({
   selector: '[fabRipple]',
-  host:{
-    class: 'rippler'
+  host: {
+    class: 'rippler',
+    '(pointerleave)': 'onPointerleave()',
+    '(pointerdown)': 'onPointerdown($event)',
+    '(pointerup)': 'onPointerup($event)',
+    '(keydown)': 'onKeydown($event)',
   },
 })
 export class RippleDirective {
@@ -94,24 +97,20 @@ export class RippleDirective {
     this.#ripple = ripple;
   }
 
-  @HostListener('pointerleave')
   onPointerleave() {
     if (this.#lastEvent === 'pointer-down') {
       this.#clearHostElement();
     }
   }
 
-  @HostListener('pointerdown', ['$event'])
   onPointerdown(event: PointerEvent) {
     this.#attachRipple(event.layerX, event.layerY, 'pointer-down');
   }
 
-  @HostListener('pointerup', ['$event'])
   onPointerup(event: PointerEvent) {
     this.#attachRipple(event.layerX, event.layerY);
   }
 
-  @HostListener('keydown', ['$event'])
   onKeydown(event: KeyboardEvent) {
     if (event.key === 'Enter') {
       this.#attachRipple(-1, -1);

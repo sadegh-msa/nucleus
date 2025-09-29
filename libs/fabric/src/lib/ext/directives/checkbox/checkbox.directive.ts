@@ -11,6 +11,7 @@ import {
   selector: 'input[type="checkbox"][fabCheckbox]',
   host: {
     'class': 'fab checkbox',
+    '(click)': 'handleClickEvent()'
   },
 })
 export class CheckboxDirective implements OnInit {
@@ -67,7 +68,6 @@ export class CheckboxDirective implements OnInit {
     this.#renderer.setAttribute(this.#elementRef.nativeElement, 'style', this.#checkmarkSvgPath);
   }
 
-  @HostListener('click')
   handleClickEvent() {
     this.#setCssVariable();
   }
