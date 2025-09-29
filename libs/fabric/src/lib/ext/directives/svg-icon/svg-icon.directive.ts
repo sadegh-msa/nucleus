@@ -2,9 +2,8 @@ import {
   booleanAttribute,
   computed,
   Directive,
-  effect,
   ElementRef,
-  HostBinding,
+  effect,
   inject,
   input,
   type OnDestroy,
@@ -12,7 +11,7 @@ import {
   Renderer2,
   resource,
   signal,
-  untracked
+  untracked,
 } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { OperationStatus, sleepRandom, TemporaryStorageService } from '@nucleus/common';
@@ -21,6 +20,9 @@ import type { IconVariant } from '../../types';
 
 @Directive({
   selector: 'svg[fabSvgIcon]',
+  host: {
+    '[class]': 'styleClass'
+  }
 })
 export class SvgIconDirective implements OnInit, OnDestroy {
   readonly #domSanitizer = inject(DomSanitizer);
@@ -91,7 +93,6 @@ export class SvgIconDirective implements OnInit, OnDestroy {
   readonly rawSvg = computed(() => this.#resource.value());
   readonly variant = computed(() => this.inputVariant() || this.#DEFAULT_VARIANT);
 
-  @HostBinding('class')
   get styleClass() {
     return `fab icon ${this.variant()}`;
   }

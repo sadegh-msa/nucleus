@@ -2,7 +2,6 @@ import {
   booleanAttribute,
   Directive,
   ElementRef,
-  HostBinding,
   HostListener,
   inject,
   input,
@@ -13,7 +12,9 @@ type Pointer = 'pointer-down' | 'pointer-up';
 
 @Directive({
   selector: '[fabRipple]',
-  standalone: true,
+  host:{
+    class: 'rippler'
+  },
 })
 export class RippleDirective {
   readonly #elementRef = inject(ElementRef);
@@ -29,8 +30,6 @@ export class RippleDirective {
   #timeoutHandler?: number;
   #lastEvent: Pointer | null = null;
   #ripple?: HTMLElement;
-
-  @HostBinding('class') styleClass = 'rippler';
 
   #setRippleVar(element: HTMLElement, name: string, value: string) {
     element.style.setProperty(

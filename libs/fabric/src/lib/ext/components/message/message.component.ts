@@ -1,5 +1,5 @@
 import { KeyValuePipe } from '@angular/common';
-import { ChangeDetectionStrategy, Component, HostBinding, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { MessageService } from '../../services';
 
 @Component({
@@ -7,11 +7,12 @@ import { MessageService } from '../../services';
   imports: [KeyValuePipe],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './message.component.html',
+  host: {
+    class: 'fab messages',
+  },
 })
 export class MessageComponent {
   readonly #messageService = inject(MessageService);
 
   readonly messages = this.#messageService.messages;
-
-  @HostBinding('class') styleClass = 'fab messages';
 }

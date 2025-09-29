@@ -1,5 +1,5 @@
 @if (!(isUserAuthenticated() | async)) {
-  <fab-card>
+  <article class="fab card">
     <header>
       <ng-container
         *ngTemplateOutlet="logo; context: {brand: branding.organization, type: 'organization'}">
@@ -17,7 +17,7 @@
     <footer>
       <ng-content select="[actions]"></ng-content>
     </footer>
-  </fab-card>
+  </article>
 
   <ng-container
     *ngTemplateOutlet="logo; context: {brand: branding.manufacturer, type: 'manufacturer'}">

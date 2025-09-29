@@ -2,27 +2,27 @@ import {
   DestroyRef,
   Directive,
   ElementRef,
-  HostBinding,
   inject,
   input,
-  OnInit,
+  type OnInit,
   output,
   Renderer2,
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { NgControl } from '@angular/forms';
-import { PasswordStrength } from '../../models';
+import type { PasswordStrength } from '../../models';
 
 @Directive({
   selector: '[fabInputPassword]',
+  host: {
+    'class': 'fab input password',
+  },
 })
 export class InputPasswordDirective implements OnInit {
   readonly #destroyRef = inject(DestroyRef);
   readonly #renderer = inject(Renderer2);
   readonly #elementRef = inject(ElementRef);
   readonly #ngControl = inject(NgControl);
-
-  @HostBinding('class') styleClass = ['fab', 'input', 'password'];
 
   mediumPattern = input(
     /^(((?=.*[a-z])(?=.*[A-Z]))|((?=.*[a-z])(?=.*[0-9]))|((?=.*[A-Z])(?=.*[0-9])))(?=.{6,})/,

@@ -1,7 +1,6 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  HostBinding,
   inject,
   ViewEncapsulation
 } from '@angular/core';
@@ -12,6 +11,9 @@ import { PanelService } from '../../services/panel.service';
   selector: 'nu-panel',
   imports: [NuPanelHeaderComponent, NuPanelNavComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  host: {
+    '[class]': 'styleClass',
+  },
   templateUrl: './panel.component.html',
   styleUrl: './panel.component.scss',
   encapsulation: ViewEncapsulation.None,
@@ -24,7 +26,6 @@ export class PanelComponent {
   readonly isNavVisible = this.#panelService.isNavVisible;
   readonly progressValue = this.#progressbarService.value;
 
-  @HostBinding('class')
   get styleClass() {
     return `nu nav-${this.navExtent()}`;
   }

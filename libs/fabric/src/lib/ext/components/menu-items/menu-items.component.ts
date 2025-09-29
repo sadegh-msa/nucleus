@@ -5,7 +5,6 @@ import {
   computed,
   ElementRef,
   effect,
-  HostBinding,
   inject,
   input,
   linkedSignal,
@@ -40,6 +39,9 @@ import type { FabPlacement } from '../../types';
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './menu-items.component.html',
+  host: {
+    '[class]': 'styleClass',
+  },
 })
 export class MenuItemsComponent {
   readonly #router = inject(Router);
@@ -82,7 +84,6 @@ export class MenuItemsComponent {
     },
   });
 
-  @HostBinding('class')
   get styleClass() {
     return Array.from(
       new Set([

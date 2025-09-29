@@ -1,5 +1,4 @@
 export * from './calendar/calendar.component';
-export * from './card/card.component';
 export * from './dropdown/dropdown.component';
 export * from './form-field/form-field.component';
 export * from './menu-items/menu-items.component';

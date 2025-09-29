@@ -1,7 +1,6 @@
 import {
   Directive,
   ElementRef,
-  HostBinding,
   HostListener,
   inject,
   type OnInit,
@@ -10,6 +9,9 @@ import {
 
 @Directive({
   selector: 'input[type="checkbox"][fabCheckbox]',
+  host: {
+    'class': 'fab checkbox',
+  },
 })
 export class CheckboxDirective implements OnInit {
   readonly #renderer = inject(Renderer2);
@@ -56,8 +58,6 @@ export class CheckboxDirective implements OnInit {
       .replaceAll('\n', ' ')
       .replaceAll(/\s+/g, ' ');
   }
-
-  @HostBinding('class') styleClass = ['fab', 'checkbox'];
 
   ngOnInit() {
     this.#setCssVariable();
