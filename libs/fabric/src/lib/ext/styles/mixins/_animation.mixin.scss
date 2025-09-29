@@ -1,0 +1,36 @@
+@use 'sass:map';
+@use '../helpers/list.helper' as *;
+
+$speed-map: (fast: 150ms, normal: 300ms, slow: 600ms, prolonged: 1000ms);
+
+@mixin duration($speed) {
+  animation-duration: map.get($speed-map, $speed);
+}
+
+@mixin delay($speed) {
+  animation-delay: map.get($speed-map, $speed);
+}
+
+@mixin timing-function() {
+  animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@mixin fast() {
+  @include duration(fast);
+  @include timing-function();
+}
+
+@mixin normal() {
+  @include duration(normal);
+  @include timing-function();
+}
+
+@mixin slow() {
+  @include duration(slow);
+  @include timing-function();
+}
+
+@mixin prolonged() {
+  @include duration(prolonged);
+  @include timing-function();
+}

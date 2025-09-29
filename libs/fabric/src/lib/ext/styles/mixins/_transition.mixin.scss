@@ -1,10 +1,15 @@
 @use 'sass:map';
 @use '../helpers/list.helper' as *;
+@use './animation.mixin';
 
-$speed-map: (fast: 150ms, normal: 300ms, slow: 600ms, prolonged: 1000ms);
+$speed-map: animation.$speed-map;
 
 @mixin duration($speed) {
   transition-duration: map.get($speed-map, $speed);
+}
+
+@mixin delay($speed) {
+  transition-delay: map.get($speed-map, $speed);
 }
 
 @mixin timing-function() {

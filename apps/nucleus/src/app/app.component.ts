@@ -5,14 +5,19 @@ import {
   effect,
   inject,
   signal,
-  untracked
+  untracked,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { select, Store } from '@ngrx/store';
-import { createFadeAnimation, OperationStatus } from '@nucleus/common';
+import { Store, select } from '@ngrx/store';
+import { OperationStatus } from '@nucleus/common';
 import { authActions, authSelectors } from '@nucleus/core';
-import { type MenuItem, MenuItemsComponent, MessageComponent } from '@nucleus/fabric';
+import {
+  type MenuItem,
+  MenuItemsComponent,
+  MessageComponent,
+  MessageService,
+} from '@nucleus/fabric';
 import { type NuLangDir, NuLocaleService } from '@nucleus/l10n';
 import { PanelService } from '@nucleus/panel';
 import { ConfirmationService } from 'primeng/api';
@@ -48,7 +53,6 @@ import type { AppStates } from './store/app.state';
   selector: 'app-root',
   templateUrl: './app.component.html',
   providers: [ConfirmationService],
-  animations: [createFadeAnimation()],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppComponent {
@@ -57,6 +61,7 @@ export class AppComponent {
   readonly #sampleEventHandlerService = inject(SampleEventHandlerService);
   readonly #panelService = inject(PanelService);
   readonly #localeService = inject(NuLocaleService);
+  readonly #messageService = inject(MessageService);
 
   readonly navMainMenu = navMainMenu;
   readonly navFooterMenu = [
@@ -80,7 +85,15 @@ export class AppComponent {
     effect(() => {
       const dir = this.htmlDir();
 
-      untracked(() => this.#localeService.setDir(dir));
+      untracked(() => {
+        this.#localeService.setDir(dir);
+
+        this.#messageService.add({
+          variant: 'info',
+          title: 'Direction',
+          content: dir.toUpperCase(),
+        });
+      });
     });
   }
 

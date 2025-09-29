@@ -1,4 +1,4 @@
-import { inject, Injectable, signal } from '@angular/core';
+import { Injectable, inject, signal } from '@angular/core';
 import type { Message } from '../models';
 import { FABRIC_CONFIG } from '../providers';
 
@@ -42,6 +42,8 @@ export class MessageService {
     setTimeout(() => {
       this.remove(key);
     }, message.duration || this.#DEFAULT_DURATION);
+
+    return key;
   }
 
   remove(key: number) {

@@ -2,7 +2,6 @@ import { NgClass, NgOptimizedImage } from '@angular/common';
 import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
 import { NU_COMMON_CONFIG } from '@nucleus/common';
 import {
-  delayLeaveAnimation,
   RippleDirective,
   ScreenService,
   SvgIconDirective
@@ -13,7 +12,6 @@ import { PanelService } from '../../../ext';
   selector: 'nav[nu-panel-nav]',
   imports: [NgOptimizedImage, RippleDirective, NgClass, SvgIconDirective],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  animations: [delayLeaveAnimation],
   templateUrl: './panel-nav.component.html',
   styleUrl: './panel-nav.component.scss',
 })
@@ -29,7 +27,7 @@ export class NuPanelNavComponent {
   readonly isNavWide = this.#panelService.isNavWide;
   readonly isNavCompact = this.#panelService.isNavCompact;
 
-  readonly logo = computed(() => {
+  readonly logoInfo = computed(() => {
     const { logo, title } = this.branding;
     const isNavWide = this.isNavWide();
 

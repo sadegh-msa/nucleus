@@ -1,15 +1,17 @@
 @for (message of messages() | keyvalue; track message.key) {
   @let msg = message.value;
 
-  <section [class]="`fab message ${msg.variant}`" @fade>
+  <section
+    [class]="`fab message ${msg.variant}`"
+    animate.enter="fade-in-normal"
+    animate.leave="fade-out-normal"
+  >
     <hgroup>
       <h4>
         {{ msg.title }}
       </h4>
       @if (msg.code) {
-        <h6>
-          ({{ msg.code }})
-        </h6>
+        <h6>({{ msg.code }})</h6>
       }
     </hgroup>
     <p>{{ msg.content }}</p>

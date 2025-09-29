@@ -10,6 +10,7 @@
     position: fixed;
     bottom: get-size-var(sm-1);
     inset-inline-end: get-size-var(sm-1);
+    z-index: 500;
   }
 
   section.fab.message {
