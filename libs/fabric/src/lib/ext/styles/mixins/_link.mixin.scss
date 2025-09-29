@@ -1,6 +1,6 @@
 @use '../funcs/color.func' as *;
 @use '../funcs/size.func' as *;
-@use '../utils/list.util' as *;
+@use '../helpers/list.helper' as *;
 @use './text.mixin';
 
 $colors: get-color-list();

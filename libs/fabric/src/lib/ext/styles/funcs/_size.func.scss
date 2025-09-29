@@ -4,7 +4,7 @@
 @use 'sass:math';
 @use 'sass:string';
 @use './config.func' as *;
-@use '../utils/string.util' as *;
+@use '../helpers/string.helper' as *;
 
 @function get-size-factor($value) {
   @if meta.type-of($value) == 'number' {

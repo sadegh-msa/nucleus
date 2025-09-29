@@ -1,7 +1,7 @@
 @use '../funcs/color.func' as *;
 @use '../funcs/size.func' as *;
 @use '../funcs/config.func' as *;
-@use '../utils/list.util' as *;
+@use '../helpers/list.helper' as *;
 @use './icon.mixin';
 @use './transition.mixin';
 @use './size.mixin';

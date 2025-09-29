@@ -1,5 +1,5 @@
 @use 'sass:color';
-@use './libs/fabric/src/lib/ext/styles/utils/_config.util.scss' as *;
+@use './libs/fabric/src/lib/ext/styles/helpers/_config.helper.scss' as *;
 @use './libs/fabric/src/lib/ext/styles/_default-configs.scss' as *;
 
 $new-color-pigments: (

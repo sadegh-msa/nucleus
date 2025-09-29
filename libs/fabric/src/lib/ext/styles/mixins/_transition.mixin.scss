@@ -1,5 +1,5 @@
 @use 'sass:map';
-@use '../utils/list.util' as *;
+@use '../helpers/list.helper' as *;
 
 $speed-map: (fast: 150ms, normal: 300ms, slow: 600ms, prolonged: 1000ms);
 

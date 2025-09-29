@@ -3,7 +3,7 @@
 @use '../funcs/config.func' as *;
 @use '../funcs/color.func' as *;
 @use '../funcs/border.func' as *;
-@use '../utils/list.util' as *;
+@use '../helpers/list.helper' as *;
 @use './icon.mixin';
 @use './text.mixin';
 @use './shadow.mixin';
