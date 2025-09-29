@@ -4,7 +4,6 @@
 @use '../mixins/color.mixin';
 @use '../mixins/box.mixin';
 @use '../mixins/shadow.mixin';
-@use '../mixins/transition.mixin';
 
 $colors: get-color-list();
 
@@ -114,7 +113,6 @@ $colors: get-color-list();
 }
 
 @mixin generic() {
-  @include transition.normal(opacity);
   @include shadow.large();
   @include box.rounded(transparent);
   @include colors();

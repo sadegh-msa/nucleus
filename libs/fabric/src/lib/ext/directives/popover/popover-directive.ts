@@ -30,7 +30,7 @@ export class PopoverDirective implements OnDestroy {
   templateData = input<unknown>({}, { alias: 'fabPopoverData' });
   triggerEvent = input<TriggerEvent>('click', { alias: 'fabPopoverEvent' });
   placement = input<FabPlacement>('auto', { alias: 'fabPopoverPlacement' });
-  styleClass = input('text stamp', { alias: 'fabPopoverStyleClass' });
+  styleClass = input('text stamp fade-normal', { alias: 'fabPopoverStyleClass' });
   hasBubble = input(true, { alias: 'fabPopoverHasBubble', transform: booleanAttribute });
   hasArrow = input(true, { alias: 'fabPopoverHasArrow', transform: booleanAttribute });
   hasClose = input(false, { alias: 'fabPopoverHasClose', transform: booleanAttribute });

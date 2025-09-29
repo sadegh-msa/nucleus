@@ -30,7 +30,7 @@ export class TooltipDirective implements OnDestroy {
   content = input.required<Popover['content']>({ alias: 'fabTooltip' });
   templateData = input<unknown>({}, { alias: 'fabTooltipData' });
   placement = input<FabPlacement>('auto', { alias: 'fabTooltipPlacement' });
-  styleClass = input('stamp', { alias: 'fabTooltipStyleClass' });
+  styleClass = input('stamp fade-normal', { alias: 'fabTooltipStyleClass' });
   hasBubble = input(true, { alias: 'fabTooltipHasBubble', transform: booleanAttribute });
   hasArrow = input(true, { alias: 'fabTooltipArrow', transform: booleanAttribute });
   attachTo = input<Popover['attachTo']>('parent', { alias: 'fabTooltipAttachTo' });

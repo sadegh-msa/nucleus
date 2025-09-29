@@ -5,7 +5,7 @@ import {
   type Injector,
   Renderer2,
   TemplateRef,
-  ViewContainerRef
+  ViewContainerRef,
 } from '@angular/core';
 import vizObserver from 'viz-observer';
 import type { Popover, TriggerEvent } from '../models';
@@ -20,7 +20,7 @@ export class PopoverService {
   readonly #CSS_CLASS_BUBBLE = 'bubble';
   readonly #CSS_CLASS_ARROW = 'bubble-arrow';
   readonly #CSS_CLASS_CLOSE = 'fab button emphasis stamp tiny rounded-full bubble-close';
-  readonly #CSS_CLASS_INVISIBLE = 'invisible';
+  readonly #CSS_CLASS_INVISIBLE = 'transparent';
   readonly #CSS_CONTAINER_ID = 'fab-popover-container';
   readonly #SVG_CLOSE =
     '<svg class="fab icon linear" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"> <path d="M 3.150239,3.150239 20.849761,20.849761" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" /> <path d="M 20.99993,3.0000696 3.0000696,20.99993" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" /> </svg>';
@@ -50,8 +50,8 @@ export class PopoverService {
     const elementRef = injector.get(ElementRef);
     const popoverElement = renderer.createElement('div');
     const allStyleClass = [
-      this.#CSS_CLASS_POPOVER,
       this.#CSS_CLASS_INVISIBLE,
+      this.#CSS_CLASS_POPOVER,
       hasBubble ? this.#CSS_CLASS_BUBBLE : '',
       styleClass,
       placement,

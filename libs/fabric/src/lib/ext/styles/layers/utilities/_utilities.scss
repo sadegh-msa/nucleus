@@ -1,7 +1,10 @@
 @layer utilities {
+  .transparent {
+    opacity: 0;
+  }
+
   .invisible {
     visibility: hidden;
-    opacity: 0;
   }
 
   .pointer-events-none {
