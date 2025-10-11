@@ -14,16 +14,27 @@ import type { Popover, TriggerEvent } from '../models';
   providedIn: 'root',
 })
 export class PopoverService {
-  readonly #CSS_VAR_POPOVER = '--fab-popover';
-  readonly #CSS_VAR_TRIGGER = '--fab-trigger';
-  readonly #CSS_CLASS_POPOVER = 'fab popover';
-  readonly #CSS_CLASS_BUBBLE = 'bubble';
-  readonly #CSS_CLASS_ARROW = 'bubble-arrow';
-  readonly #CSS_CLASS_CLOSE = 'fab button emphasis stamp tiny rounded-full bubble-close';
-  readonly #CSS_CLASS_INVISIBLE = 'transparent';
-  readonly #CSS_CONTAINER_ID = 'fab-popover-container';
-  readonly #SVG_CLOSE =
-    '<svg class="fab icon linear" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"> <path d="M 3.150239,3.150239 20.849761,20.849761" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" /> <path d="M 20.99993,3.0000696 3.0000696,20.99993" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" /> </svg>';
+  readonly #CSS = Object.freeze({
+    VAR: {
+      POPOVER: '--fab-popover',
+      TRIGGER: '--fab-trigger',
+    },
+    ID: {
+      CONTAINER: 'fab-popover-container',
+    },
+    CLASS: {
+      POPOVER: 'fab popover',
+      BUBBLE: 'bubble',
+      ARROW: 'bubble-arrow',
+      CLOSE: 'fab button emphasis stamp tiny rounded-full bubble-close',
+      INVISIBLE: 'transparent',
+      NUMB: 'numb',
+    },
+  });
+  readonly #SVG = Object.freeze({
+    CLOSE:
+      '<svg class="fab icon linear" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"> <path d="M 3.150239,3.150239 20.849761,20.849761" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" /> <path d="M 20.99993,3.0000696 3.0000696,20.99993" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" /> </svg>',
+  });
   readonly EVENT_MAP: Record<TriggerEvent, keyof HTMLElementEventMap> = Object.freeze({
     click: 'pointerup',
     hover: 'pointerenter',
@@ -50,9 +61,10 @@ export class PopoverService {
     const elementRef = injector.get(ElementRef);
     const popoverElement = renderer.createElement('div');
     const allStyleClass = [
-      this.#CSS_CLASS_INVISIBLE,
-      this.#CSS_CLASS_POPOVER,
-      hasBubble ? this.#CSS_CLASS_BUBBLE : '',
+      this.#CSS.CLASS.NUMB,
+      this.#CSS.CLASS.INVISIBLE,
+      this.#CSS.CLASS.POPOVER,
+      hasBubble ? this.#CSS.CLASS.BUBBLE : '',
       styleClass,
       placement,
     ].join(' ');
@@ -76,14 +88,14 @@ export class PopoverService {
     if (hasBubble) {
       if (hasArrow) {
         const bubbleArrow = renderer.createElement('i');
-        renderer.setAttribute(bubbleArrow, 'class', this.#CSS_CLASS_ARROW);
+        renderer.setAttribute(bubbleArrow, 'class', this.#CSS.CLASS.ARROW);
         renderer.appendChild(popoverElement, bubbleArrow);
       }
 
       if (triggerEvent === 'click' && hasClose) {
         const bubbleClose = renderer.createElement('button');
-        renderer.setAttribute(bubbleClose, 'class', this.#CSS_CLASS_CLOSE);
-        renderer.setProperty(bubbleClose, 'innerHTML', this.#SVG_CLOSE);
+        renderer.setAttribute(bubbleClose, 'class', this.#CSS.CLASS.CLOSE);
+        renderer.setProperty(bubbleClose, 'innerHTML', this.#SVG.CLOSE);
         renderer.setProperty(bubbleClose, 'onclick', () => visible.set(false));
         renderer.appendChild(popoverElement, bubbleClose);
       }
@@ -93,11 +105,11 @@ export class PopoverService {
     let container = renderer.parentNode(triggerElement);
 
     if (attachTo === 'body') {
-      container = document.getElementById(this.#CSS_CONTAINER_ID);
+      container = document.getElementById(this.#CSS.ID.CONTAINER);
 
       if (!container) {
         container = renderer.createElement('div');
-        container.setAttribute('id', this.#CSS_CONTAINER_ID);
+        container.setAttribute('id', this.#CSS.ID.CONTAINER);
         renderer.appendChild(document.body, container);
       }
 
@@ -136,11 +148,11 @@ export class PopoverService {
     popoverStyle = popoverStyle.at(-1) !== ';' ? `${popoverStyle};` : popoverStyle;
 
     for (const [key, value] of Object.entries(triggerDomRect.toJSON())) {
-      popoverStyle += `${this.#CSS_VAR_TRIGGER}-${key}:${value}px;`;
+      popoverStyle += `${this.#CSS.VAR.TRIGGER}-${key}:${value}px;`;
     }
 
     for (const [key, value] of Object.entries(popoverDomRect.toJSON())) {
-      popoverStyle += `${this.#CSS_VAR_POPOVER}-${key}:${value}px;`;
+      popoverStyle += `${this.#CSS.VAR.POPOVER}-${key}:${value}px;`;
     }
 
     popoverStyle += 'z-index: 200;';
@@ -280,11 +292,13 @@ export class PopoverService {
   }
 
   showPopover(popoverElement: HTMLElement) {
-    popoverElement.classList.remove(this.#CSS_CLASS_INVISIBLE);
+    const { NUMB, INVISIBLE } = this.#CSS.CLASS;
+    popoverElement.classList.remove(NUMB, INVISIBLE);
   }
 
   hidePopover(popoverElement: HTMLElement) {
-    popoverElement.classList.add(this.#CSS_CLASS_INVISIBLE);
+    const { NUMB, INVISIBLE } = this.#CSS.CLASS;
+    popoverElement.classList.add(NUMB, INVISIBLE);
   }
 
   dispatchTriggerEvent(injector: Injector, triggerEvent: TriggerEvent) {
