@@ -211,7 +211,7 @@ $border-radius-list: get-border-radius-list();
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: get-size-var(xs-4);
+  gap: get-size-var(xs-2);
   text-decoration-line: none;
 
   &:not(:disabled, .disabled) {
@@ -234,7 +234,6 @@ $border-radius-list: get-border-radius-list();
 
   span {
     display: block;
-    vertical-align: middle;
     font-size: inherit;
   }
 }
