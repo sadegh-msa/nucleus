@@ -7,7 +7,7 @@ import {
   TemplateRef,
   ViewContainerRef,
 } from '@angular/core';
-import vizObserver from 'viz-observer';
+import { VisualObserver } from '../helpers/viz-observer';
 import type { Popover, TriggerEvent } from '../models';
 
 @Injectable({
@@ -121,18 +121,28 @@ export class PopoverService {
       renderer.appendChild(container, popoverElement);
     }
 
-    const cleanUpTriggerObserver = vizObserver(triggerElement, () => {
+    const isSubPopover = popoverElement.parentElement?.classList.contains(this.#CSS.CLASS.POPOVER);
+    const triggerVisualObserver = isSubPopover
+      ? null
+      : new VisualObserver(() => {
+          const opacity = Number.parseFloat(window.getComputedStyle(popoverElement).opacity);
+
+          if (opacity > 0) {
+            this.defineCssVars(injector, popoverElement);
+          }
+        });
+    const popoverVisualObserver = new VisualObserver(() => {
       this.defineCssVars(injector, popoverElement);
     });
-    const cleanUpPopoverObserver = vizObserver(popoverElement, () => {
-      this.defineCssVars(injector, popoverElement);
-    });
+
+    triggerVisualObserver?.observe(triggerElement);
+    popoverVisualObserver.observe(popoverElement);
 
     return {
       popoverElement,
       cleanUpElementObservers: () => {
-        cleanUpTriggerObserver();
-        cleanUpPopoverObserver();
+        triggerVisualObserver?.disconnect();
+        popoverVisualObserver.disconnect();
       },
     };
   }
@@ -207,21 +217,40 @@ export class PopoverService {
     const triggerElement = elementRef.nativeElement as HTMLElement;
     const eventType = this.EVENT_MAP[triggerEvent];
 
+    const observer = new IntersectionObserver(
+      () => {
+        if (!document.body.contains(triggerElement)) {
+          observer.disconnect();
+          getPopoverElement()?.remove();
+          triggerElement.remove();
+        }
+      },
+      {
+        threshold: 1.0,
+        // @ts-expect-error
+        delay: 500,
+        trackVisibility: true,
+      },
+    );
+    observer.observe(triggerElement);
+
     const triggerAbortController = new AbortController();
     let docPointerupAbortController: AbortController;
     let docPointermoveAbortController: AbortController;
 
-    const removeDocumentListeners = () => {
+    const removeEventListeners = () => {
       docPointerupAbortController?.abort();
       docPointermoveAbortController?.abort();
     };
-    const addDocumentListeners = () => {
+    const addEventListeners = () => {
       const popoverElement = getPopoverElement();
-      removeDocumentListeners();
+      removeEventListeners();
 
       if (!popoverElement) {
         return;
       }
+
+      this.defineCssVars(injector, popoverElement);
 
       if (!popover.hasClose) {
         docPointerupAbortController = new AbortController();
@@ -270,9 +299,9 @@ export class PopoverService {
         const visible = !popover.visible();
 
         if (visible) {
-          addDocumentListeners();
+          addEventListeners();
         } else {
-          removeDocumentListeners();
+          removeEventListeners();
         }
 
         setTimeout(() => {
@@ -283,7 +312,11 @@ export class PopoverService {
     );
 
     triggerAbortController.signal.onabort = () => {
-      removeDocumentListeners();
+      removeEventListeners();
+
+      setTimeout(() => {
+        observer.disconnect();
+      }, 1000);
     };
 
     return () => {
