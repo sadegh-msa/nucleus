@@ -21,13 +21,7 @@ import {
 import { type NuLangDir, NuLocaleService } from '@nucleus/l10n';
 import { PanelService } from '@nucleus/panel';
 import { ConfirmationService } from 'primeng/api';
-import { BadgeModule } from 'primeng/badge';
-import { ButtonModule } from 'primeng/button';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
-import { ConfirmPopupModule } from 'primeng/confirmpopup';
-import { DropdownModule } from 'primeng/dropdown';
-import { MenuModule } from 'primeng/menu';
-import { ToastModule } from 'primeng/toast';
 import { PanelComponent } from '../../../../libs/panel/src/lib/ext/components';
 import { navMainMenu } from './app.menu';
 import { SampleEventHandlerService } from './pages/sample';
@@ -36,14 +30,8 @@ import type { AppStates } from './store/app.state';
 @Component({
   imports: [
     RouterModule,
-    ToastModule,
-    ButtonModule,
-    MenuModule,
-    DropdownModule,
     FormsModule,
-    BadgeModule,
     ConfirmDialogModule,
-    ConfirmPopupModule,
     MessageComponent,
     NgTemplateOutlet,
     MenuItemsComponent,
@@ -91,7 +79,7 @@ export class AppComponent {
         this.#messageService.add({
           variant: 'info',
           title: 'Direction',
-          content: dir.toUpperCase(),
+          content: dir.toUpperCase()
         });
       });
     });

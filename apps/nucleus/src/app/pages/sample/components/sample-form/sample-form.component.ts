@@ -1,14 +1,11 @@
 import { NgClass } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject, input, type OnInit } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { ShowLoadingComponent } from '@nucleus/fabric';
 import { GenericFormService, GenericFormToolbarComponent, PageType } from '@nucleus/core';
-import { CalendarComponent } from '@nucleus/fabric';
-import { CalendarModule } from 'primeng/calendar';
-import { DropdownModule } from 'primeng/dropdown';
+import { CalendarComponent, ShowLoadingComponent } from '@nucleus/fabric';
 import { SampleStatus } from '../../enums/sample-status.enum';
-import type { GenericSampleForm, SampleGeneric } from '../../models/sample-generic.model';
 import type { SampleTypedForm } from '../../models/sample.model';
+import type { GenericSampleForm, SampleGeneric } from '../../models/sample-generic.model';
 import { sampleConfig } from '../../sample.config';
 import { sampleActions, sampleSelectors } from '../../store';
 
@@ -17,11 +14,9 @@ import { sampleActions, sampleSelectors } from '../../store';
   templateUrl: './sample-form.component.html',
   imports: [
     ReactiveFormsModule,
-    DropdownModule,
     NgClass,
     ShowLoadingComponent,
     GenericFormToolbarComponent,
-    CalendarModule,
     CalendarComponent,
   ],
   providers: [GenericFormService],

@@ -1,23 +1,16 @@
 import { ChangeDetectionStrategy, Component, computed, input, model } from '@angular/core';
 import { DividerModule } from 'primeng/divider';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
-import { PaginatorModule, PaginatorState } from 'primeng/paginator';
-import { RippleModule } from 'primeng/ripple';
+import { PaginatorModule, type PaginatorState } from 'primeng/paginator';
 import { PaginationCreator } from '../../creators/pagination.creator';
-import { Pagination } from '../../models/pagination.model';
-import { NuToolbar } from '../../models/toolbar.model';
+import type { Pagination } from '../../models/pagination.model';
+import type { NuToolbar } from '../../models/toolbar.model';
 import { GenericToolbarComponent } from '../generic-toolbar/generic-toolbar.component';
 
 @Component({
   selector: 'nu-generic-list-toolbar',
   templateUrl: './generic-list-toolbar.component.html',
-  imports: [
-    DividerModule,
-    GenericToolbarComponent,
-    OverlayPanelModule,
-    PaginatorModule,
-    RippleModule,
-  ],
+  imports: [DividerModule, GenericToolbarComponent, OverlayPanelModule, PaginatorModule],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class GenericListToolbarComponent {
