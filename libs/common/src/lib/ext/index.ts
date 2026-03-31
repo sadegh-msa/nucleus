@@ -1,5 +1,4 @@
 export * from './enums/data-type.enum';
-export * from './enums/message.enum';
 export * from './enums/operation-status.enum';
 export * from './models/branding-config.model';
 export * from './models/common-config.model';
@@ -10,7 +9,6 @@ export * from './providers/common.provider';
 export * from './providers/common-config.provider';
 export * from './services/cookie.service';
 export * from './services/crypto.service';
-export * from './services/nu-message.service';
 export * from './services/permanent-storage.service';
 export * from './services/temporary-storage.service';
 export * from './types/extent.type';

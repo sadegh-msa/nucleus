@@ -52,4 +52,20 @@ export class MessageService {
       return new Map(messages.entries());
     });
   }
+
+  addSuccess(content: string, title?: string) {
+    this.add({ variant: 'success', title, content });
+  }
+
+  addInfo(content: string, title?: string) {
+    this.add({ variant: 'info', title, content });
+  }
+
+  addWarning(content: string, title?: string) {
+    this.add({ variant: 'warning', title, content });
+  }
+
+  addError(content: string, code?: number | string, title?: string) {
+    this.add({ variant: 'danger', title, content, code });
+  }
 }

@@ -1,18 +1,19 @@
-import { inject, Injectable } from '@angular/core';
-import { NuMessageService, OperationStatus } from '@nucleus/common';
-import { CommonState } from '../models/state.model';
+import { Injectable, inject } from '@angular/core';
+import { OperationStatus } from '@nucleus/common';
+import { MessageService } from '@nucleus/fabric';
+import type { CommonState } from '../models/state.model';
 
 @Injectable({
   providedIn: 'root',
 })
 export class StoreMessageService {
-  readonly #nuMessageService = inject(NuMessageService);
+  readonly #messageService = inject(MessageService);
 
   commonObserver({ status, message }: CommonState) {
     if (status === OperationStatus.Failure) {
-      this.#nuMessageService.showError(message);
+      this.#messageService.addError(message);
     } else if (status === OperationStatus.Success) {
-      this.#nuMessageService.showSuccess(message);
+      this.#messageService.addSuccess(message);
     }
   }
 
@@ -22,7 +23,7 @@ export class StoreMessageService {
     }
 
     if (status === OperationStatus.Failure) {
-      this.#nuMessageService.showError(message);
+      this.#messageService.addError(message);
     }
   }
 }
