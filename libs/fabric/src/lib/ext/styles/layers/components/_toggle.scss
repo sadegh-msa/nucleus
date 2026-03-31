@@ -66,11 +66,11 @@ fab-toggle {
 
       > .fab-toggle-switch {
         &:dir(ltr) {
-          transform: translate(get-size-var(sm-4), 0);
+          translate: get-size-var(sm-5) 0;
         }
 
         &:dir(rtl) {
-          transform: translate(calc(-1 * #{get-size-var(sm-4)}), 0);
+          translate: calc(-1 * #{get-size-var(sm-5)}) 0;
         }
 
         > .fab-toggle-checkmark {

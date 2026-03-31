@@ -15,7 +15,7 @@
 
     &.bidi {
       &:dir(rtl) {
-        transform: scaleX(-1);
+        scale: -1 1;
       }
     }
 

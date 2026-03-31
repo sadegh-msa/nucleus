@@ -52,7 +52,7 @@
 
     &.compact {
       align-self: center;
-      transform: scaleX(-1);
+      scale: -1 1;
     }
 
     &.wide {

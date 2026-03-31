@@ -26,7 +26,7 @@ $colors: get-color-list();
     inset-inline-#{$inline-placement}: $inline-offset;
     border-block-#{$block-placement}: inherit;
     border-inline-#{$inline-placement}: inherit;
-    transform: rotate(var(--fab-bubble-arrow-transform-rotate));
+    rotate: var(--fab-bubble-arrow-transform-rotate);
 
     &:dir(ltr) {
       --fab-bubble-arrow-transform-rotate: #{$rotate-value};

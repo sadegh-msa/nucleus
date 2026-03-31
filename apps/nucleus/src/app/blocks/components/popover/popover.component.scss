@@ -4,7 +4,7 @@
 
 @mixin rotate-icon($rotate-value) {
   .fab.icon {
-    transform: rotate(var(--icon-transform-rotate));
+    rotate: var(--icon-transform-rotate);
   }
 
   &:dir(ltr) {

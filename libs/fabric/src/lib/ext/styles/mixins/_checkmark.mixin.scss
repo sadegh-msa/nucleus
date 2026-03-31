@@ -11,7 +11,7 @@
   margin-block-end: calc(#{$size} / 3);
 
   &:dir(ltr) {
-    transform: rotate(45deg);
+    rotate: 45deg;
     width: calc(#{$size} * 1.06);
   }
 
