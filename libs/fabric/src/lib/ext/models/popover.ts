@@ -2,7 +2,7 @@ import type { TemplateRef, WritableSignal } from '@angular/core';
 import type { FabPlacement } from '../types';
 
 export interface Popover {
-  content: string | TemplateRef<unknown>;
+  content: string | TemplateRef<unknown> | null | undefined;
   templateData?: unknown;
   styleClass: string;
   placement: FabPlacement;

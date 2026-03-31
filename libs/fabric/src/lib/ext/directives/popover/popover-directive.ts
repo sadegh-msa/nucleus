@@ -72,7 +72,12 @@ export class PopoverDirective implements OnDestroy {
         return;
       }
 
-      this.popover();
+      const popover = this.popover();
+
+      if (!popover.content) {
+        return;
+      }
+
       this.triggerEvent();
 
       untracked(() => this.#handleTriggerEvents());
@@ -112,6 +117,7 @@ export class PopoverDirective implements OnDestroy {
   ngOnDestroy() {
     this.#cleanUpTriggerListener();
     this.#cleanUpElementObservers();
+    this.popoverElement?.remove();
   }
 
   #renderPopover() {

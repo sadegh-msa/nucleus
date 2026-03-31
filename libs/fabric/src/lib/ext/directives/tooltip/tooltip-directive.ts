@@ -33,7 +33,7 @@ export class TooltipDirective implements OnDestroy {
   styleClass = input('stamp fade-normal', { alias: 'fabTooltipStyleClass' });
   hasBubble = input(true, { alias: 'fabTooltipHasBubble', transform: booleanAttribute });
   hasArrow = input(true, { alias: 'fabTooltipArrow', transform: booleanAttribute });
-  attachTo = input<Popover['attachTo']>('parent', { alias: 'fabTooltipAttachTo' });
+  attachTo = input<Popover['attachTo']>('body', { alias: 'fabTooltipAttachTo' });
   disabled = input(false, { alias: 'fabTooltipDisabled', transform: booleanAttribute });
 
   visible = model(false, { alias: 'fabTooltipVisible' });
@@ -70,7 +70,11 @@ export class TooltipDirective implements OnDestroy {
         return;
       }
 
-      this.popover();
+      const popover = this.popover();
+
+      if (!popover.content) {
+        return;
+      }
 
       untracked(() => this.#handleTriggerEvents());
     });
@@ -106,6 +110,7 @@ export class TooltipDirective implements OnDestroy {
   ngOnDestroy() {
     this.#cleanUpTriggerListener();
     this.#cleanUpElementObservers();
+    this.tooltipElement?.remove();
   }
 
   #renderTooltip() {
