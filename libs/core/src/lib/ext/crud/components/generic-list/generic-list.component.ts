@@ -13,13 +13,12 @@ import {
 import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop';
 import { RouterModule } from '@angular/router';
 import { DataType } from '@nucleus/common';
-import { SvgIconDirective } from '@nucleus/fabric';
+import { SvgIconDirective, TooltipDirective } from '@nucleus/fabric';
 import { ConfirmationService } from 'primeng/api';
 import { ConfirmPopupModule } from 'primeng/confirmpopup';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { SkeletonModule } from 'primeng/skeleton';
 import { TableModule } from 'primeng/table';
-import { TooltipModule } from 'primeng/tooltip';
 import { filter } from 'rxjs';
 import { AuthPermissionDirective } from '../../../auth';
 import { infoFieldsDefault } from '../../defaults/info-fields.default';
@@ -43,8 +42,8 @@ import { InfoFieldsComponent } from '../info-fields/info-fields.component';
     RouterModule,
     SkeletonModule,
     TableModule,
-    TooltipModule,
     SvgIconDirective,
+    TooltipDirective
   ],
   providers: [ConfirmationService],
   changeDetection: ChangeDetectionStrategy.OnPush,

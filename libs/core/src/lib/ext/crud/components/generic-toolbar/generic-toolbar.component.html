@@ -4,7 +4,7 @@
       @if (tool.element === ToolElement.Button) {
         <button #buttonElement
                 (click)="runCommand(buttonElement, tool)"
-                [pTooltip]="tool.tooltip || ''" tooltipPosition="bottom"
+                [fabTooltip]="tool.tooltip" fabTooltipPlacement="block-end-inline-center"
                 [ngClass]="tool.ngClass || []"
                 [disabled]="!!(tool.disabled && tool.disabled())"
                 *permission="tool.permission">
@@ -22,7 +22,7 @@
         }
       } @else if (tool.element === ToolElement.Link) {
         <a [ngClass]="tool.ngClass || []"
-           [title]="tool.tooltip || ''"
+           [fabTooltip]="tool.tooltip" fabTooltipPlacement="block-end-inline-center"
            [routerLink]="tool.command()"
            [state]="tool.routerStates ? tool.routerStates() : {}"
            [queryParams]="tool.routerQueryParams ? tool.routerQueryParams(): {}"

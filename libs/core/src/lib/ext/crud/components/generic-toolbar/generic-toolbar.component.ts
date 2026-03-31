@@ -1,10 +1,9 @@
 import { NgClass } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject, input } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { SvgIconDirective } from '@nucleus/fabric';
+import { SvgIconDirective, TooltipDirective } from '@nucleus/fabric';
 import { ConfirmationService } from 'primeng/api';
 import { ConfirmPopupModule } from 'primeng/confirmpopup';
-import { TooltipModule } from 'primeng/tooltip';
 import { AuthPermissionDirective } from '../../../auth';
 import { ToolElement } from '../../enums/toolbar.enum';
 import type { NuTool, NuToolbar } from '../../models/toolbar.model';
@@ -16,9 +15,9 @@ import type { NuTool, NuToolbar } from '../../models/toolbar.model';
     AuthPermissionDirective,
     ConfirmPopupModule,
     RouterModule,
-    TooltipModule,
     NgClass,
     SvgIconDirective,
+    TooltipDirective
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
