@@ -1,16 +1,12 @@
 import { NgClass, NgOptimizedImage } from '@angular/common';
 import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
 import { NU_COMMON_CONFIG } from '@nucleus/common';
-import {
-  RippleDirective,
-  ScreenService,
-  SvgIconDirective
-} from '@nucleus/fabric';
+import { ScreenService, SvgIconDirective } from '@nucleus/fabric';
 import { PanelService } from '../../../ext';
 
 @Component({
   selector: 'nav[nu-panel-nav]',
-  imports: [NgOptimizedImage, RippleDirective, NgClass, SvgIconDirective],
+  imports: [NgOptimizedImage, NgClass, SvgIconDirective],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './panel-nav.component.html',
   styleUrl: './panel-nav.component.scss',

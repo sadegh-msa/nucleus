@@ -30,9 +30,8 @@
     <ng-content select="[nav-footer]" />
   </footer>
 
-  <button fabRipple
-          (click)="toggleNavMode()"
-          class="fab button basic neutral second-ink small toggle"
+  <button (click)="toggleNavMode()"
+          class="fab button emphasis stamp tiny toggle"
           [ngClass]="navExtent()">
     <svg fabSvgIcon="arrow-left-1" class="bidi" />
   </button>

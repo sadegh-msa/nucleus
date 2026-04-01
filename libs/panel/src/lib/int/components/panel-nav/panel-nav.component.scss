@@ -2,6 +2,7 @@
 @use 'mixins/transition.mixin';
 
 :host {
+  position: relative;
   display: flex;
   flex-direction: column;
   gap: get-size-var(sm-6);
@@ -48,15 +49,22 @@
   }
 
   button.toggle {
-    @include transition.normal(align-self);
+    @include transition.normal(visibility, opacity);
+    opacity: 0;
+    visibility: hidden;
+    position: absolute;
+    inset-inline-end: calc(-1 * get-size-var(xs-6));
+    inset-block-start: calc(calc(100% - get-size-var(sm-5)) / 2);
 
     &.compact {
-      align-self: center;
       scale: -1 1;
     }
+  }
 
-    &.wide {
-      align-self: flex-end;
+  &:hover {
+    button.toggle {
+      opacity: 1;
+      visibility: visible;
     }
   }
 }
