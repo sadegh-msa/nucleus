@@ -65,7 +65,7 @@ $border-radius-list: get-border-radius-list();
     @include size.semistrict-height($size-value);
   } @else if $type == icon-button {
     @if $size == tiny {
-      $size-value: sm-4;
+      $size-value: sm-5;
     } @else if $size == small {
       $size-value: md-3;
     } @else if $size == medium {
