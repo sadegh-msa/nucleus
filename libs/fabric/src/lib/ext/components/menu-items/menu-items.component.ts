@@ -3,7 +3,6 @@ import {
   ChangeDetectionStrategy,
   Component,
   computed,
-  ElementRef,
   effect,
   inject,
   input,
@@ -45,7 +44,6 @@ import type { FabPlacement } from '../../types';
 })
 export class MenuItemsComponent {
   readonly #router = inject(Router);
-  readonly #elementRef = inject(ElementRef);
   readonly #cssSupport = inject(CssSupportService);
 
   fabMenuItems = input.required<MenuItem[]>();
@@ -93,10 +91,6 @@ export class MenuItemsComponent {
         this.isSubmenuFloating() ? 'floating' : this.submenuMode(),
       ]),
     ).join(' ');
-  }
-
-  get menuElement() {
-    return this.#elementRef.nativeElement as HTMLElement;
   }
 
   constructor() {

@@ -35,7 +35,7 @@ export class PopoverDirective implements OnDestroy {
   hasArrow = input(true, { alias: 'fabPopoverHasArrow', transform: booleanAttribute });
   hasClose = input(false, { alias: 'fabPopoverHasClose', transform: booleanAttribute });
   closeDelay = input(0, { alias: 'fabPopoverCloseDelay' });
-  attachTo = input<Popover['attachTo']>('parent', { alias: 'fabPopoverAttachTo' });
+  attachTo = input<Popover['attachTo']>('body', { alias: 'fabPopoverAttachTo' });
   disabled = input(false, { alias: 'fabPopoverDisabled', transform: booleanAttribute });
 
   visible = model(false, { alias: 'fabPopoverVisible' });

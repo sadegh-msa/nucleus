@@ -63,8 +63,8 @@ $colors: get-color-list();
 }
 
 @mixin corner-arrow($block-placement, $inline-placement) {
-  $offset: calc(-1.2 * #{get-size-var(xs-1)});
-  $skew-value: if($block-placement == $inline-placement, 11deg, -11deg);
+  $offset: calc(-1 * var(--fab-bubble-arrow-size-half) / 3);
+  $skew-value: if($block-placement == $inline-placement, 12deg, -12deg);
 
   > .bubble-arrow {
     inset-block-#{$block-placement}: $offset;

@@ -31,7 +31,6 @@
              [fabTooltipData]="item"
              [fabTooltipPlacement]="itemTooltipPlacement"
              [fabTooltipDisabled]="isTooltipDisabled"
-             [fabTooltipAttachTo]="menuElement"
           >
             <ng-container *ngTemplateOutlet="content; context:{item, isSubMenu}" />
           </a>
@@ -46,12 +45,10 @@
                   [fabTooltipData]="item"
                   [fabTooltipPlacement]="itemTooltipPlacement"
                   [fabTooltipDisabled]="isTooltipDisabled"
-                  [fabTooltipAttachTo]="menuElement"
                   [fabPopover]="submenu"
                   [fabPopoverData]="item"
                   [fabPopoverPlacement]="itemPopoverPlacement"
                   [fabPopoverDisabled]="isFloatingSubmenuDisabled"
-                  [fabPopoverAttachTo]="menuElement"
                   [fabPopoverHasBubble]="false"
                   [fabPopoverVisible]="isPopoverVisible"
                   (fabPopoverVisibility)="!$event && collapseItem(item)"
