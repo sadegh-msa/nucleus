@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { type MenuItem, MenuItemsComponent } from '@nucleus/fabric';
-import { navMainMenu } from '../../../app.menu';
+import { navMainMenu } from '../../../../app.menu';
 
 @Component({
   selector: 'app-menu',

@@ -1,8 +1,9 @@
 import { createActionPermissions, createPagePaths } from '@nucleus/core';
-import { SampleConfig } from './models/sample.model';
+import type { SampleConfig } from './models/sample.model';
 
-const base = 'sample';
-const full = ['/', base];
+const prefix = 'crud';
+const entity = 'sample';
+const full = ['/', prefix, entity];
 
 export const sampleConfig = Object.freeze({
   info: {
@@ -16,7 +17,7 @@ export const sampleConfig = Object.freeze({
     dates: ['date', 'createdAt', 'updatedAt'],
   },
   path: {
-    base,
+    base: `${prefix}/${entity}`,
     full,
     page: createPagePaths(full),
   },

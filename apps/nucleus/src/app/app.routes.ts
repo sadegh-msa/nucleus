@@ -1,43 +1,19 @@
 import type { Route } from '@angular/router';
 import { authCanActivate, authRoutes } from '@nucleus/core';
-import { sampleConfig, sampleRoutes } from './pages/sample';
+import { sampleConfig, sampleRoutes } from './pages/crud/sample';
+import { fabricRoutes } from './pages/fabric/fabric.routes';
 
 export const appRoutes: Route[] = [
   ...authRoutes,
-  {
-    path: 'button',
-    title: 'Button',
-    canActivate: [authCanActivate],
-    loadComponent: () => import('./blocks/components').then((m) => m.ButtonComponent),
-  },
-  {
-    path: 'icon',
-    title: 'Icon',
-    canActivate: [authCanActivate],
-    loadComponent: () => import('./blocks/components').then((m) => m.IconComponent),
-  },
-  {
-    path: 'menu',
-    title: 'Menu',
-    canActivate: [authCanActivate],
-    loadComponent: () => import('./blocks/components').then((m) => m.MenuComponent),
-  },
-  {
-    path: 'popover',
-    title: 'Popover',
-    canActivate: [authCanActivate],
-    loadComponent: () => import('./blocks/components').then((m) => m.PopoverComponent),
-  },
-  {
-    path: 'typography',
-    title: 'Typography',
-    canActivate: [authCanActivate],
-    loadComponent: () => import('./blocks/components').then((m) => m.TypographyComponent),
-  },
   {
     path: sampleConfig.path.base,
     canActivate: [authCanActivate],
     children: sampleRoutes,
   },
-  { path: '**', pathMatch: 'full', redirectTo: 'button' },
+  {
+    path: 'fabric',
+    canActivate: [authCanActivate],
+    children: fabricRoutes,
+  },
+  { path: '**', pathMatch: 'full', redirectTo: 'fabric/button' },
 ];

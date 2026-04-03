@@ -24,7 +24,7 @@ import { ConfirmationService } from 'primeng/api';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { PanelComponent } from '../../../../libs/panel/src/lib/ext/components';
 import { navMainMenu } from './app.menu';
-import { SampleEventHandlerService } from './pages/sample';
+import { SampleEventHandlerService } from './pages/crud/sample';
 import type { AppStates } from './store/app.state';
 
 @Component({

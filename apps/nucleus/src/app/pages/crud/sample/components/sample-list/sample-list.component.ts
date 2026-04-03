@@ -1,10 +1,11 @@
+// biome-ignore assist/source/organizeImports: <explanation>
 import {
   ChangeDetectionStrategy,
   Component,
   DestroyRef,
   inject,
   input,
-  OnInit,
+  type OnInit,
 } from '@angular/core';
 import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop';
 import { DataType } from '@nucleus/common';
@@ -12,11 +13,11 @@ import {
   GenericListComponent,
   GenericListService,
   GenericListToolbarComponent,
-  NuTable,
+  type NuTable,
   ToolbarCreator,
 } from '@nucleus/core';
-import { GenericSampleList, SampleGeneric } from '../../models/sample-generic.model';
-import { Sample, SampleList } from '../../models/sample.model';
+import type { GenericSampleList, SampleGeneric } from '../../models/sample-generic.model';
+import type { Sample, SampleList } from '../../models/sample.model';
 import { sampleConfig } from '../../sample.config';
 import { sampleActions, sampleSelectors } from '../../store';
 
