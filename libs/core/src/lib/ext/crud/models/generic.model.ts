@@ -1,20 +1,28 @@
-import { type InputSignal, WritableSignal } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import type { InputSignal, WritableSignal } from '@angular/core';
+import type { FormGroup } from '@angular/forms';
 import {
-  AddState,
-  DeleteState,
-  GetState,
-  ListState,
-  StoreActionCreator,
-  StoreSelectorCreator,
-  UpdateState,
+  type AddState,
+  createAddStoreActionGroup,
+  type createAddStoreSelector,
+  createDeleteStoreActionGroup,
+  type createDeleteStoreSelector,
+  createGetStoreActionGroup,
+  type createGetStoreSelector,
+  createListStoreActionGroup,
+  type createListStoreSelector,
+  createUpdateStoreActionGroup,
+  type createUpdateStoreSelector,
+  type DeleteState,
+  type GetState,
+  type ListState,
+  type UpdateState,
 } from '../../store';
-import { PageType } from '../enums/page.enum';
-import { CrudConfig } from './crud-config.model';
-import { Pagination } from './pagination.model';
-import { RestListQuery } from './rest.model';
-import { NuTable } from './table.model';
-import { NuToolbar } from './toolbar.model';
+import type { PageType } from '../enums/page.enum';
+import type { CrudConfig } from './crud-config.model';
+import type { Pagination } from './pagination.model';
+import type { RestListQuery } from './rest.model';
+import type { NuTable } from './table.model';
+import type { NuToolbar } from './toolbar.model';
 
 // eslint-disable-next-line
 type GenericTypedForm = any;
@@ -31,11 +39,11 @@ type GenericUpdateState = UpdateState<GenericRequest, GenericResponse>;
 type GenericDeleteState = DeleteState;
 
 const genericActions = {
-  ...StoreActionCreator.createListGroup<RestListQuery, GenericResponse>(''),
-  ...StoreActionCreator.createGetGroup<GenericResponse>(''),
-  ...StoreActionCreator.createAddGroup<GenericRequest, GenericResponse>(''),
-  ...StoreActionCreator.createUpdateGroup<GenericRequest, GenericResponse>(''),
-  ...StoreActionCreator.createDeleteGroup(''),
+  ...createListStoreActionGroup<RestListQuery, GenericResponse>(''),
+  ...createGetStoreActionGroup<GenericResponse>(''),
+  ...createAddStoreActionGroup<GenericRequest, GenericResponse>(''),
+  ...createUpdateStoreActionGroup<GenericRequest, GenericResponse>(''),
+  ...createDeleteStoreActionGroup(''),
 };
 
 export interface GenericEntity<
@@ -58,20 +66,14 @@ export interface GenericEntity<
     states: States;
     actions: typeof genericActions;
     selectors: {
-      list: ReturnType<
-        typeof StoreSelectorCreator.createList<GenericMainState, GenericListState>
-      >['list'];
-      get: ReturnType<
-        typeof StoreSelectorCreator.createGet<GenericMainState, GenericGetState>
-      >['get'];
-      add: ReturnType<
-        typeof StoreSelectorCreator.createAdd<GenericMainState, GenericAddState>
-      >['add'];
+      list: ReturnType<typeof createListStoreSelector<GenericMainState, GenericListState>>['list'];
+      get: ReturnType<typeof createGetStoreSelector<GenericMainState, GenericGetState>>['get'];
+      add: ReturnType<typeof createAddStoreSelector<GenericMainState, GenericAddState>>['add'];
       update: ReturnType<
-        typeof StoreSelectorCreator.createUpdate<GenericMainState, GenericUpdateState>
+        typeof createUpdateStoreSelector<GenericMainState, GenericUpdateState>
       >['update'];
       delete: ReturnType<
-        typeof StoreSelectorCreator.createDelete<GenericMainState, GenericDeleteState>
+        typeof createDeleteStoreSelector<GenericMainState, GenericDeleteState>
       >['delete'];
     };
   };

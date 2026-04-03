@@ -10,11 +10,11 @@ import {
 import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop';
 import { DataType } from '@nucleus/common';
 import {
+  createTableToolbar,
   GenericListComponent,
   GenericListService,
   GenericListToolbarComponent,
   type NuTable,
-  ToolbarCreator,
 } from '@nucleus/core';
 import type { GenericSampleList, SampleGeneric } from '../../models/sample-generic.model';
 import type { Sample, SampleList } from '../../models/sample.model';
@@ -60,7 +60,7 @@ export class SampleListComponent implements OnInit, GenericSampleList {
       },
       { field: 'divisionId', label: 'Division' },
     ],
-    ...ToolbarCreator.createTableTools<SampleGeneric>(this.config),
+    ...createTableToolbar<SampleGeneric>(this.config),
   };
 
   isDataLoading!: GenericSampleList['isDataLoading'];

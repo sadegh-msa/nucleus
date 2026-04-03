@@ -169,152 +169,153 @@ const createTableDeleteTool = (toOverride = {}, toMerge = {}) =>
     toMerge,
   );
 
-export class ToolbarCreator {
-  static createAddTools<T extends GenericEntity>(config: T['config'], tools?: AddTools): NuToolbar {
-    const subject$ = new Subject<NuToolEvent>();
-    const saveTool = createSaveTool(
-      {
-        command: () => subject$.next({ tool: saveTool }),
-        permission: config.permission.action.add,
-        icon: 'save-add',
-      },
-      tools?.[ToolType.Save],
-    );
-    const cancelTool = createCancelTool(
-      {
-        command: () => config.path.page.list(),
-        permission: config.permission.action.list,
-      },
-      tools?.[ToolType.Cancel],
-    );
+export function createAddToolbar<T extends GenericEntity>(
+  config: T['config'],
+  tools?: AddTools,
+): NuToolbar {
+  const subject$ = new Subject<NuToolEvent>();
+  const saveTool = createSaveTool(
+    {
+      command: () => subject$.next({ tool: saveTool }),
+      permission: config.permission.action.add,
+      icon: 'save-add',
+    },
+    tools?.[ToolType.Save],
+  );
+  const cancelTool = createCancelTool(
+    {
+      command: () => config.path.page.list(),
+      permission: config.permission.action.list,
+    },
+    tools?.[ToolType.Cancel],
+  );
 
-    return {
-      events$: subject$.asObservable(),
-      tools: [saveTool, cancelTool],
-    };
-  }
+  return {
+    events$: subject$.asObservable(),
+    tools: [saveTool, cancelTool],
+  };
+}
 
-  static createEditTools<T extends GenericEntity>(
-    config: T['config'],
-    tools: EditTools,
-  ): NuToolbar {
-    const subject$ = new Subject<NuToolEvent>();
-    const saveTool = createSaveTool(
-      {
-        command: () => subject$.next({ tool: saveTool }),
-        permission: config.permission.action.edit,
-      },
-      tools?.[ToolType.Save],
-    );
-    const cancelTool = createCancelTool(
-      {
-        command: () => config.path.page.view(cancelTool.id()),
-        permission: config.permission.action.view,
-      },
-      tools?.[ToolType.Cancel],
-    );
+export function createEditToolbar<T extends GenericEntity>(
+  config: T['config'],
+  tools: EditTools,
+): NuToolbar {
+  const subject$ = new Subject<NuToolEvent>();
+  const saveTool = createSaveTool(
+    {
+      command: () => subject$.next({ tool: saveTool }),
+      permission: config.permission.action.edit,
+    },
+    tools?.[ToolType.Save],
+  );
+  const cancelTool = createCancelTool(
+    {
+      command: () => config.path.page.view(cancelTool.id()),
+      permission: config.permission.action.view,
+    },
+    tools?.[ToolType.Cancel],
+  );
 
-    return {
-      events$: subject$.asObservable(),
-      tools: [saveTool, cancelTool],
-    };
-  }
+  return {
+    events$: subject$.asObservable(),
+    tools: [saveTool, cancelTool],
+  };
+}
 
-  static createViewTools<T extends GenericEntity>(
-    config: T['config'],
-    tools: ViewTools,
-  ): NuToolbar {
-    const subject$ = new Subject<NuToolEvent>();
-    const editTool = createEditTool(
-      {
-        command: () => config.path.page.edit(editTool.id()),
-        permission: config.permission.action.edit,
-      },
-      tools[ToolType.Edit],
-    );
-    const deleteTool = createDeleteTool(
-      {
-        command: () => subject$.next({ tool: deleteTool }),
-        permission: config.permission.action.delete,
-      },
-      tools[ToolType.Delete],
-    );
-    const refreshTool = createRefreshTool(
-      {
-        command: () => subject$.next({ tool: refreshTool }),
-        permission: config.permission.action.view,
-      },
-      tools[ToolType.Refresh],
-    );
-    const backTool = createBackTool(
-      {
-        command: () => config.path.page.list(),
-        permission: config.permission.action.list,
-      },
-      tools[ToolType.Back],
-    );
+export function createViewToolbar<T extends GenericEntity>(
+  config: T['config'],
+  tools: ViewTools,
+): NuToolbar {
+  const subject$ = new Subject<NuToolEvent>();
+  const editTool = createEditTool(
+    {
+      command: () => config.path.page.edit(editTool.id()),
+      permission: config.permission.action.edit,
+    },
+    tools[ToolType.Edit],
+  );
+  const deleteTool = createDeleteTool(
+    {
+      command: () => subject$.next({ tool: deleteTool }),
+      permission: config.permission.action.delete,
+    },
+    tools[ToolType.Delete],
+  );
+  const refreshTool = createRefreshTool(
+    {
+      command: () => subject$.next({ tool: refreshTool }),
+      permission: config.permission.action.view,
+    },
+    tools[ToolType.Refresh],
+  );
+  const backTool = createBackTool(
+    {
+      command: () => config.path.page.list(),
+      permission: config.permission.action.list,
+    },
+    tools[ToolType.Back],
+  );
 
-    return {
-      events$: subject$.asObservable(),
-      tools: [editTool, deleteTool, refreshTool, backTool],
-    };
-  }
+  return {
+    events$: subject$.asObservable(),
+    tools: [editTool, deleteTool, refreshTool, backTool],
+  };
+}
 
-  static createListTools<T extends GenericEntity>(
-    config: T['config'],
-    tools?: ListTools,
-  ): NuToolbar {
-    const subject$ = new Subject<NuToolEvent>();
-    const addTool = createAddTool(
-      {
-        command: () => config.path.page.add(),
-        permission: config.permission.action.add,
+export function createListToolbar<T extends GenericEntity>(
+  config: T['config'],
+  tools?: ListTools,
+): NuToolbar {
+  const subject$ = new Subject<NuToolEvent>();
+  const addTool = createAddTool(
+    {
+      command: () => config.path.page.add(),
+      permission: config.permission.action.add,
+    },
+    tools?.[ToolType.Add],
+  );
+  const refreshTool = createRefreshTool(
+    {
+      command: () => subject$.next({ tool: refreshTool }),
+      permission: config.permission.action.list,
+    },
+    tools?.[ToolType.Refresh],
+  );
+
+  return {
+    events$: subject$.asObservable(),
+    tools: [addTool, refreshTool],
+  };
+}
+
+export function createTableToolbar<T extends GenericEntity>(
+  config: T['config'],
+  tools?: TableTools,
+): { tools: NuTool[]; events$: Observable<NuToolEvent> } {
+  type Row = T['list'][0];
+
+  const subject$ = new Subject<NuToolEvent>();
+  const getId = (row: Row) => row[config.field.id as keyof Row] as string;
+  const viewAction = createTableViewTool(
+    {
+      command: (row: Row) => config.path.page.view(getId(row)),
+      getRouterStates: (row: Row) => {
+        return { [RouterStateKey.Title]: row[config.field.title as keyof Row] };
       },
-      tools?.[ToolType.Add],
-    );
-    const refreshTool = createRefreshTool(
-      {
-        command: () => subject$.next({ tool: refreshTool }),
-        permission: config.permission.action.list,
-      },
-      tools?.[ToolType.Refresh],
-    );
+      permission: config.permission.action.view,
+    },
+    tools?.[ToolType.View],
+  );
+  const deleteAction = createTableDeleteTool(
+    {
+      command: (row: Row) => subject$.next({ tool: deleteAction, payload: getId(row) }),
+      permission: config.permission.action.delete,
+    },
+    tools?.[ToolType.Delete],
+  );
 
-    return {
-      events$: subject$.asObservable(),
-      tools: [addTool, refreshTool],
-    };
-  }
-
-  static createTableTools<T extends GenericEntity>(
-    config: T['config'],
-    tools?: TableTools,
-  ): { tools: NuTool[]; events$: Observable<NuToolEvent> } {
-    type Row = T['list'][0];
-
-    const subject$ = new Subject<NuToolEvent>();
-    const getId = (row: Row) => row[config.field.id as keyof Row] as string;
-    const viewAction = createTableViewTool(
-      {
-        command: (row: Row) => config.path.page.view(getId(row)),
-        getRouterStates: (row: Row) => {
-          return { [RouterStateKey.Title]: row[config.field.title as keyof Row] };
-        },
-        permission: config.permission.action.view,
-      },
-      tools?.[ToolType.View],
-    );
-    const deleteAction = createTableDeleteTool(
-      {
-        command: (row: Row) => subject$.next({ tool: deleteAction, payload: getId(row) }),
-        permission: config.permission.action.delete,
-      },
-      tools?.[ToolType.Delete],
-    );
-
-    return {
-      events$: subject$.asObservable(),
-      tools: [viewAction, deleteAction],
-    };
-  }
+  return {
+    events$: subject$.asObservable(),
+    tools: [viewAction, deleteAction],
+  };
 }

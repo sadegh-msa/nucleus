@@ -1,15 +1,15 @@
-import { DestroyRef, inject, Injectable, Injector, signal } from '@angular/core';
+import { DestroyRef, Injectable, Injector, inject, signal } from '@angular/core';
 import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, Router } from '@angular/router';
-import { select, Store } from '@ngrx/store';
+import { Store, select } from '@ngrx/store';
 import { mergeObjects, OperationStatus } from '@nucleus/common';
 import { filter, pairwise } from 'rxjs';
-import { PaginationCreator } from '../creators/pagination.creator';
-import { ToolbarCreator } from '../creators/toolbar.creator';
+import { createPagination } from '../creators/pagination.creator';
+import { createListToolbar } from '../creators/toolbar.creator';
 import { ToolType } from '../enums/toolbar.enum';
-import { GenericEntity, GenericListConsumer } from '../models/generic.model';
-import { RestListResponse } from '../models/rest.model';
-import { NuTool } from '../models/toolbar.model';
+import type { GenericEntity, GenericListConsumer } from '../models/generic.model';
+import type { RestListResponse } from '../models/rest.model';
+import type { NuTool } from '../models/toolbar.model';
 
 const DEFAULT_PAGE = 0;
 const DEFAULT_ROWS = 10;
@@ -26,7 +26,7 @@ export class GenericListService<T extends GenericEntity> {
   #lastQuery = { page: DEFAULT_PAGE, rows: DEFAULT_ROWS };
 
   init(consumer: GenericListConsumer<T>) {
-    consumer.pagination = signal(PaginationCreator.createPagination());
+    consumer.pagination = signal(createPagination());
     consumer.data = signal<T['list']>([]);
     consumer.isDataLoading = signal(false);
     consumer.selectedRecords = signal([]);
@@ -138,7 +138,7 @@ export class GenericListService<T extends GenericEntity> {
   }
 
   createToolbar(attachEventHandler: boolean) {
-    const toolbar = ToolbarCreator.createListTools<T>(this.#consumer.config, {
+    const toolbar = createListToolbar<T>(this.#consumer.config, {
       [ToolType.Refresh]: { showLoading: signal(false) },
     });
 

@@ -1,5 +1,12 @@
-import { RestListQuery, StoreReducerCreator } from '@nucleus/core';
-import { Sample, SampleAdd, SampleList, SampleUpdate } from '../models/sample.model';
+import {
+  createAddStoreReducer,
+  createDeleteStoreReducer,
+  createGetStoreReducer,
+  createListStoreReducer,
+  createUpdateStoreReducer,
+  type RestListQuery,
+} from '@nucleus/core';
+import type { Sample, SampleAdd, SampleList, SampleUpdate } from '../models/sample.model';
 import {
   sampleAddActions,
   sampleDeleteActions,
@@ -7,21 +14,17 @@ import {
   sampleListActions,
   sampleUpdateActions,
 } from './sample.actions';
-import { SampleStates } from './sample.states';
+import type { SampleStates } from './sample.states';
 
 export const sampleReducers = {
-  sampleList: StoreReducerCreator.createList<SampleStates['sampleList'], RestListQuery, SampleList>(
+  sampleList: createListStoreReducer<SampleStates['sampleList'], RestListQuery, SampleList>(
     sampleListActions,
   ).list,
-  sampleGet: StoreReducerCreator.createGet<SampleStates['sampleGet'], Sample>(sampleGetActions).get,
-  sampleAdd: StoreReducerCreator.createAdd<SampleStates['sampleAdd'], SampleAdd, Sample>(
-    sampleAddActions,
-  ).add,
-  sampleUpdate: StoreReducerCreator.createUpdate<
-    SampleStates['sampleUpdate'],
-    SampleUpdate,
-    Sample
-  >(sampleUpdateActions).update,
-  sampleDelete:
-    StoreReducerCreator.createDelete<SampleStates['sampleDelete']>(sampleDeleteActions).delete,
+  sampleGet: createGetStoreReducer<SampleStates['sampleGet'], Sample>(sampleGetActions).get,
+  sampleAdd: createAddStoreReducer<SampleStates['sampleAdd'], SampleAdd, Sample>(sampleAddActions)
+    .add,
+  sampleUpdate: createUpdateStoreReducer<SampleStates['sampleUpdate'], SampleUpdate, Sample>(
+    sampleUpdateActions,
+  ).update,
+  sampleDelete: createDeleteStoreReducer<SampleStates['sampleDelete']>(sampleDeleteActions).delete,
 };

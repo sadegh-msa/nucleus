@@ -1,8 +1,15 @@
-import { inject, Injectable } from '@angular/core';
-import { EffectNotification, OnRunEffects } from '@ngrx/effects';
-import { AuthOnRunEffect, StoreEffectCreator } from '@nucleus/core';
-import { Observable } from 'rxjs';
-import { SampleGeneric } from '../models/sample-generic.model';
+import { Injectable, inject } from '@angular/core';
+import type { EffectNotification, OnRunEffects } from '@ngrx/effects';
+import {
+  AuthOnRunEffect,
+  createAddStoreEffect,
+  createDeleteStoreEffect,
+  createGetStoreEffect,
+  createListStoreEffect,
+  createUpdateStoreEffect,
+} from '@nucleus/core';
+import type { Observable } from 'rxjs';
+import type { SampleGeneric } from '../models/sample-generic.model';
 import { sampleConfig } from '../sample.config';
 import { SampleRestService } from '../services/sample-rest.service';
 import { sampleActions } from './sample.actions';
@@ -17,25 +24,24 @@ export class SampleEffects implements OnRunEffects {
     return this.#authOnRunEffect.ngrxOnRunEffects(resolvedEffects$);
   }
 
-  list$ = StoreEffectCreator.createList<SampleGeneric>({
+  list$ = createListStoreEffect<SampleGeneric>({
     ...this.#commonArgs,
     method: this.#sampleRestService.list,
   });
-  get$ = StoreEffectCreator.createGet<SampleGeneric>({
+  get$ = createGetStoreEffect<SampleGeneric>({
     ...this.#commonArgs,
     method: this.#sampleRestService.get,
   });
-  add$ = StoreEffectCreator.createAdd<SampleGeneric>({
+  add$ = createAddStoreEffect<SampleGeneric>({
     ...this.#commonArgs,
     method: this.#sampleRestService.add,
   });
-  update$ = StoreEffectCreator.createUpdate<SampleGeneric>({
+  update$ = createUpdateStoreEffect<SampleGeneric>({
     ...this.#commonArgs,
     method: this.#sampleRestService.update,
   });
-  delete$ = StoreEffectCreator.createDelete<SampleGeneric>({
+  delete$ = createDeleteStoreEffect<SampleGeneric>({
     ...this.#commonArgs,
     method: this.#sampleRestService.delete,
   });
 }
-

@@ -1,6 +1,14 @@
-import { inject, Injectable } from '@angular/core';
-import { RestApiService, RestServiceCreator, RestServiceParams } from '@nucleus/core';
-import { SampleGeneric } from '../models/sample-generic.model';
+import { Injectable, inject } from '@angular/core';
+import {
+  createAddRestMethod,
+  createDeleteRestMethod,
+  createGetRestMethod,
+  createListRestMethod,
+  createUpdateRestMethod,
+  RestApiService,
+  type RestServiceParams,
+} from '@nucleus/core';
+import type { SampleGeneric } from '../models/sample-generic.model';
 import { sampleConfig } from '../sample.config';
 
 @Injectable({
@@ -13,9 +21,9 @@ export class SampleRestService {
     dateFields: sampleConfig.field.dates,
   };
 
-  list = RestServiceCreator.createList<SampleGeneric>(this.#args);
-  get = RestServiceCreator.createGet<SampleGeneric>(this.#args);
-  add = RestServiceCreator.createAdd<SampleGeneric>(this.#args);
-  update = RestServiceCreator.createUpdate<SampleGeneric>(this.#args);
-  delete = RestServiceCreator.createDelete<SampleGeneric>(this.#args);
+  list = createListRestMethod<SampleGeneric>(this.#args);
+  get = createGetRestMethod<SampleGeneric>(this.#args);
+  add = createAddRestMethod<SampleGeneric>(this.#args);
+  update = createUpdateRestMethod<SampleGeneric>(this.#args);
+  delete = createDeleteRestMethod<SampleGeneric>(this.#args);
 }

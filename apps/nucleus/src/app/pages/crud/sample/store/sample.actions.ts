@@ -1,17 +1,18 @@
-import { RestListQuery, StoreActionCreator } from '@nucleus/core';
-import { Sample, SampleAdd, SampleList, SampleUpdate } from '../models/sample.model';
+import { createAddStoreActionGroup, createDeleteStoreActionGroup, createGetStoreActionGroup, createListStoreActionGroup, createUpdateStoreActionGroup, type RestListQuery } from '@nucleus/core';
+import type { Sample, SampleAdd, SampleList, SampleUpdate } from '../models/sample.model';
 
 const SOURCE = 'Sample';
 
-export const sampleListActions = StoreActionCreator.createListGroup<RestListQuery, SampleList>(
+export const sampleListActions = createListStoreActionGroup<
+  RestListQuery,
+  SampleList
+>(SOURCE);
+export const sampleGetActions = createGetStoreActionGroup<Sample>(SOURCE);
+export const sampleAddActions = createAddStoreActionGroup<SampleAdd, Sample>(SOURCE);
+export const sampleUpdateActions = createUpdateStoreActionGroup<SampleUpdate, Sample>(
   SOURCE,
 );
-export const sampleGetActions = StoreActionCreator.createGetGroup<Sample>(SOURCE);
-export const sampleAddActions = StoreActionCreator.createAddGroup<SampleAdd, Sample>(SOURCE);
-export const sampleUpdateActions = StoreActionCreator.createUpdateGroup<SampleUpdate, Sample>(
-  SOURCE,
-);
-export const sampleDeleteActions = StoreActionCreator.createDeleteGroup(SOURCE);
+export const sampleDeleteActions = createDeleteStoreActionGroup(SOURCE);
 
 export const sampleActions = {
   ...sampleListActions,

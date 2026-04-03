@@ -1,15 +1,19 @@
-import { computed, DestroyRef, inject, Injectable, Injector, signal } from '@angular/core';
+import { computed, DestroyRef, Injectable, Injector, inject, signal } from '@angular/core';
 import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop';
 import { Router } from '@angular/router';
-import { select, Store } from '@ngrx/store';
+import { Store, select } from '@ngrx/store';
 import { OperationStatus } from '@nucleus/common';
 import { combineLatest, debounceTime, mergeAll } from 'rxjs';
-import { ToolbarCreator } from '../creators/toolbar.creator';
+import {
+  createAddToolbar,
+  createEditToolbar,
+  createViewToolbar,
+} from '../creators/toolbar.creator';
 import { PageType } from '../enums/page.enum';
 import { RouterStateKey } from '../enums/router-state.enum';
 import { ToolType } from '../enums/toolbar.enum';
-import { GenericEntity, GenericFormConsumer } from '../models/generic.model';
-import { NuTool, NuToolbar } from '../models/toolbar.model';
+import type { GenericEntity, GenericFormConsumer } from '../models/generic.model';
+import type { NuTool, NuToolbar } from '../models/toolbar.model';
 
 @Injectable()
 export class GenericFormService<T extends GenericEntity> {
@@ -168,17 +172,17 @@ export class GenericFormService<T extends GenericEntity> {
 
     switch (pageType()) {
       case PageType.Add:
-        toolbar = ToolbarCreator.createAddTools<T>(config);
+        toolbar = createAddToolbar<T>(config);
         break;
 
       case PageType.Edit:
-        toolbar = ToolbarCreator.createEditTools<T>(config, {
+        toolbar = createEditToolbar<T>(config, {
           [ToolType.Cancel]: viewExtra,
         });
         break;
 
       case PageType.View:
-        toolbar = ToolbarCreator.createViewTools<T>(config, {
+        toolbar = createViewToolbar<T>(config, {
           [ToolType.Edit]: viewExtra,
         });
         break;
@@ -212,7 +216,7 @@ export class GenericFormService<T extends GenericEntity> {
       return;
     }
 
-    if (navigationState && navigationState[RouterStateKey.Saved]) {
+    if (navigationState?.[RouterStateKey.Saved]) {
       this.#setNavigationState(RouterStateKey.Saved, false);
       return;
     }

@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, computed, input, model } from '@ang
 import { DividerModule } from 'primeng/divider';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { PaginatorModule, type PaginatorState } from 'primeng/paginator';
-import { PaginationCreator } from '../../creators/pagination.creator';
+import { createRowsPerPageOptions } from '../../creators/pagination.creator';
 import type { Pagination } from '../../models/pagination.model';
 import type { NuToolbar } from '../../models/toolbar.model';
 import { GenericToolbarComponent } from '../generic-toolbar/generic-toolbar.component';
@@ -17,7 +17,7 @@ export class GenericListToolbarComponent {
   readonly paginatorLabel = computed(() => this.createPaginatorLabel());
 
   showPaginator = input(true);
-  rowsPerPageOptions = input(PaginationCreator.createRowsPerPageOptions());
+  rowsPerPageOptions = input(createRowsPerPageOptions());
   toolbar = input.required<NuToolbar>();
   selectedRecords = input(0);
   pagination = model.required<Pagination>();
