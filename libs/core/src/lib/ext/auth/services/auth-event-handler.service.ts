@@ -1,24 +1,14 @@
-import { inject, Injectable } from '@angular/core';
-import { select, Store } from '@ngrx/store';
+import { Injectable, inject } from '@angular/core';
+import { Store, select } from '@ngrx/store';
 import { StoreMessageService } from '../../store';
-import { authSelectors, AuthStates } from '../store';
-import { AuthTokenService } from './auth-token.service';
+import { type AuthStates, authSelectors } from '../store';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthEventHandlerService {
   readonly #storeMessageService = inject(StoreMessageService);
-  readonly #authTokenService = inject(AuthTokenService);
   readonly #authStore$ = inject(Store<AuthStates>);
-
-  constructor() {
-    const callback = (event: Event) => {
-      this.#authTokenService.extendTokenExpiry();
-    };
-    window.removeEventListener('beforeunload', callback);
-    window.addEventListener('beforeunload', callback);
-  }
 
   #handleEvents() {
     this.#authStore$
@@ -36,6 +26,5 @@ export class AuthEventHandlerService {
 
   register() {
     this.#handleEvents();
-    this.#authTokenService.extendTokenExpiry();
   }
 }
