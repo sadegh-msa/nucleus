@@ -4,11 +4,10 @@ import {
   Component,
   computed,
   DestroyRef,
-  EventEmitter,
   inject,
   input,
-  Output,
-  signal
+  output,
+  signal,
 } from '@angular/core';
 import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop';
 import { RouterModule } from '@angular/router';
@@ -43,7 +42,7 @@ import { InfoFieldsComponent } from '../info-fields/info-fields.component';
     SkeletonModule,
     TableModule,
     SvgIconDirective,
-    TooltipDirective
+    TooltipDirective,
   ],
   providers: [ConfirmationService],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -67,8 +66,8 @@ export class GenericListComponent {
   activatedRow = input<any>();
   data = input.required<any[]>();
 
-  @Output() selection = new EventEmitter<any[]>();
-  @Output() activation = new EventEmitter<any>();
+  selection = output<any[]>();
+  activation = output<any>();
 
   constructor() {
     toObservable(this.activated)
