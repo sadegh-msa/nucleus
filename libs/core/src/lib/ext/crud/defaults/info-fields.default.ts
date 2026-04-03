@@ -1,5 +1,5 @@
 import { DataType } from '@nucleus/common';
-import { InfoField } from '../models/info.model';
+import type { InfoField } from '../models/info.model';
 
 export const infoFieldsDefault = Object.freeze([
   [{ field: 'id', label: $localize`ID`, type: DataType.Text, separator: ':' }],

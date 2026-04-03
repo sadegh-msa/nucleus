@@ -1,5 +1,5 @@
-import { ActionSuccess, CommonState } from '../../store';
-import { AuthSignIn, AuthSignInResponse, AuthSignUp, AuthSignUpResponse } from './auth.model';
+import type { ActionSuccess, CommonState } from '../../store';
+import type { AuthSignIn, AuthSignInResponse, AuthSignUp, AuthSignUpResponse } from './auth.model';
 
 export interface AuthSignInState extends CommonState {
   request: AuthSignIn;

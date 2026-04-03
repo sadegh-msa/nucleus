@@ -1,5 +1,5 @@
-import { CommonFields, CrudConfig, TypedForm } from '@nucleus/core';
-import { SampleStatus } from '../enums/sample-status.enum';
+import type { CommonFields, CrudConfig, TypedForm } from '@nucleus/core';
+import type { SampleStatus } from '../enums/sample-status.enum';
 
 export interface SampleDetail {
   id: string;

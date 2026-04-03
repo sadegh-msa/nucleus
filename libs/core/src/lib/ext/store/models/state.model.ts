@@ -1,5 +1,5 @@
-import { OperationStatus } from '@nucleus/common';
-import { NuTool, RestListResponse } from '../../crud';
+import type { OperationStatus } from '@nucleus/common';
+import type { NuTool, RestListResponse } from '../../crud';
 
 export interface CommonState {
   type: string;

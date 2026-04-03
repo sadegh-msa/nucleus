@@ -1,4 +1,3 @@
-// biome-ignore assist/source/organizeImports: <explanation>
 import {
   ChangeDetectionStrategy,
   Component,
@@ -16,8 +15,8 @@ import {
   GenericListToolbarComponent,
   type NuTable,
 } from '@nucleus/core';
-import type { GenericSampleList, SampleGeneric } from '../../models/sample-generic.model';
 import type { Sample, SampleList } from '../../models/sample.model';
+import type { GenericSampleList, SampleGeneric } from '../../models/sample-generic.model';
 import { sampleConfig } from '../../sample.config';
 import { sampleActions, sampleSelectors } from '../../store';
 

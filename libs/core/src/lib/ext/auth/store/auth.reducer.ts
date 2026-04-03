@@ -1,6 +1,6 @@
 import { createReducer, on } from '@ngrx/store';
 import { OperationStatus } from '@nucleus/common';
-import {
+import type {
   AuthCheckState,
   AuthSignInState,
   AuthSignOutState,

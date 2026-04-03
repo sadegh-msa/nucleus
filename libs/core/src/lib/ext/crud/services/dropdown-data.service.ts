@@ -1,9 +1,9 @@
-import { DestroyRef, inject, Injectable, signal } from '@angular/core';
+import { DestroyRef, Injectable, inject, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { select, Store } from '@ngrx/store';
+import { type Store, select } from '@ngrx/store';
 import { OperationStatus } from '@nucleus/common';
-import { DropdownData } from '../models/dropdown.model';
-import { ValueLabel } from '../models/pair.model';
+import type { DropdownData } from '../models/dropdown.model';
+import type { ValueLabel } from '../models/pair.model';
 
 @Injectable({
   providedIn: 'any',

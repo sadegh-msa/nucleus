@@ -1,6 +1,6 @@
-import { GenericEntity, GenericFormConsumer, GenericListConsumer } from '@nucleus/core';
-import { SampleStates } from '../store';
-import {
+import type { GenericEntity, GenericFormConsumer, GenericListConsumer } from '@nucleus/core';
+import type { SampleStates } from '../store';
+import type {
   Sample,
   SampleAdd,
   SampleConfig,

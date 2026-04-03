@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { type ComponentFixture, TestBed } from '@angular/core/testing';
 import { InputPasswordDirective } from './input-password.directive';
 
 describe('InputPasswordComponent', () => {

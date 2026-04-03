@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { type ComponentFixture, TestBed } from '@angular/core/testing';
 import { MessageComponent } from './message.component';
 
 describe('MessageComponent', () => {
@@ -7,7 +7,7 @@ describe('MessageComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [MessageComponent]
+      imports: [MessageComponent],
     }).compileComponents();
 
     fixture = TestBed.createComponent(MessageComponent);

@@ -1,5 +1,5 @@
-import { Pipe, PipeTransform } from '@angular/core';
-import { ValueLabel } from '../models/pair.model';
+import { Pipe, type PipeTransform } from '@angular/core';
+import type { ValueLabel } from '../models/pair.model';
 
 const optionCollection = {
   yesNo: [

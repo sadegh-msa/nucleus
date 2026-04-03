@@ -1,7 +1,7 @@
-import { inject, Injectable } from '@angular/core';
-import { select, Store } from '@ngrx/store';
+import { Injectable, inject } from '@angular/core';
+import { Store, select } from '@ngrx/store';
 import { StoreMessageService } from '@nucleus/core';
-import { sampleSelectors, SampleStates } from '../store';
+import { type SampleStates, sampleSelectors } from '../store';
 
 @Injectable({
   providedIn: 'root',

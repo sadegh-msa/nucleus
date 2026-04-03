@@ -1,17 +1,10 @@
-import {
-  Directive,
-  ElementRef,
-  HostListener,
-  inject,
-  type OnInit,
-  Renderer2
-} from '@angular/core';
+import { Directive, ElementRef, inject, type OnInit, Renderer2 } from '@angular/core';
 
 @Directive({
   selector: 'input[type="checkbox"][fabCheckbox]',
   host: {
-    'class': 'fab checkbox',
-    '(click)': 'handleClickEvent()'
+    class: 'fab checkbox',
+    '(click)': 'handleClickEvent()',
   },
 })
 export class CheckboxDirective implements OnInit {

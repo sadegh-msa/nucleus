@@ -1,6 +1,6 @@
-import { ListOrder } from '../enums/list-order.enum';
-import { RestApiService } from '../services/rest-api.service';
-import { Pagination } from './pagination.model';
+import type { ListOrder } from '../enums/list-order.enum';
+import type { RestApiService } from '../services/rest-api.service';
+import type { Pagination } from './pagination.model';
 
 export interface RestResponse<Data, Control> {
   data: Data;

@@ -1,4 +1,4 @@
-import { DataType } from '@nucleus/common';
+import type { DataType } from '@nucleus/common';
 
 export interface InfoField {
   field: string;

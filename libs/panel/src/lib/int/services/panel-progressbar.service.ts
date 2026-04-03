@@ -1,4 +1,4 @@
-import { inject, Injectable, signal } from '@angular/core';
+import { Injectable, inject, signal } from '@angular/core';
 import {
   NavigationCancel,
   NavigationEnd,
@@ -7,7 +7,7 @@ import {
   NavigationStart,
   Router,
 } from '@angular/router';
-import { filter, interval, Subscription, takeWhile } from 'rxjs';
+import { filter, interval, type Subscription, takeWhile } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',

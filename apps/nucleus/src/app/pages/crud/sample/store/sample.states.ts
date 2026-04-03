@@ -1,4 +1,4 @@
-import {
+import type {
   AddState,
   DeleteState,
   GetState,
@@ -6,7 +6,7 @@ import {
   RestListQuery,
   UpdateState,
 } from '@nucleus/core';
-import { Sample, SampleAdd, SampleList, SampleUpdate } from '../models/sample.model';
+import type { Sample, SampleAdd, SampleList, SampleUpdate } from '../models/sample.model';
 
 export interface SampleStates {
   sampleList: ListState<RestListQuery, SampleList>;

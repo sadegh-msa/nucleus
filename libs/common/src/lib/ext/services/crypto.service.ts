@@ -1,4 +1,4 @@
-import { inject, Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { NU_COMMON_CONFIG } from '../providers/common-config.provider';
 
 @Injectable({

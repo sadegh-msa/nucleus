@@ -1,7 +1,10 @@
 import { provideHttpClient, withFetch } from '@angular/common/http';
 import {
-  type ApplicationConfig, provideBrowserGlobalErrorListeners, provideZonelessChangeDetection
+  type ApplicationConfig,
+  provideBrowserGlobalErrorListeners,
+  provideZonelessChangeDetection,
 } from '@angular/core';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { provideRouter, withComponentInputBinding } from '@angular/router';
 import { provideEffects } from '@ngrx/effects';
 import { provideStore } from '@ngrx/store';
@@ -16,7 +19,6 @@ import { environment } from '../environments/environment';
 import { appRoutes } from './app.routes';
 import { appEffects } from './store/app.effects';
 import { appReducers } from './store/app.reducers';
-import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -45,6 +47,6 @@ export const appConfig: ApplicationConfig = {
     }),
     MessageService,
     AuthOnRunEffect,
-    provideAnimationsAsync()
+    provideAnimationsAsync(),
   ],
 };

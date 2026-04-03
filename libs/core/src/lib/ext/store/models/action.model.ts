@@ -1,5 +1,5 @@
-import { OperationStatus } from '@nucleus/common';
-import {
+import type { OperationStatus } from '@nucleus/common';
+import type {
   NuTool,
   RestAddResponse,
   RestDeleteResponse,

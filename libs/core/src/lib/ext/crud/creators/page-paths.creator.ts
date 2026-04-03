@@ -1,5 +1,5 @@
 import { PageType } from '../enums/page.enum';
-import { PagePath } from '../models/page.model';
+import type { PagePath } from '../models/page.model';
 
 const { List, Edit, Add, View } = PageType;
 const list = List.toLowerCase();

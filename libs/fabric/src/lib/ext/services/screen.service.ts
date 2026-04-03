@@ -1,4 +1,4 @@
-import { computed, DOCUMENT, inject, Injectable, signal } from '@angular/core';
+import { computed, DOCUMENT, Injectable, inject, signal } from '@angular/core';
 
 const sizes = ['sm', 'md', 'lg', 'xl', 'xxl', 'tablet', 'web'] as const;
 type Size = (typeof sizes)[number];

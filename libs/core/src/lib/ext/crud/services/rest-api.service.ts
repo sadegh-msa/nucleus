@@ -1,7 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { inject, Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { NU_COMMON_CONFIG } from '@nucleus/common';
-import { RestListQuery } from '../models/rest.model';
+import type { RestListQuery } from '../models/rest.model';
 
 @Injectable({
   providedIn: 'root',

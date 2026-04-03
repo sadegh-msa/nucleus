@@ -15,7 +15,7 @@ import {
   Validators
 } from '@angular/forms';
 import { RouterLink } from '@angular/router';
-import { select, Store } from '@ngrx/store';
+import { Store, select } from '@ngrx/store';
 
 import { OperationStatus } from '@nucleus/common';
 import {
@@ -24,7 +24,7 @@ import {
   InputPasswordDirective,
   SvgIconDirective
 } from '@nucleus/fabric';
-import { authActions, authSelectors, type AuthStates } from '../../../../ext';
+import { type AuthStates, authActions, authSelectors } from '../../../../ext';
 import { authDefaultConfig } from '../../../../ext/auth/auth-default.config';
 import type { AuthSignIn, AuthSignInForm } from '../../../../ext/auth/models/auth.model';
 import { SignLayoutComponent } from '../sign-layout/sign-layout.component';

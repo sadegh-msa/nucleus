@@ -1,4 +1,4 @@
-import { FormArray, FormControl, FormGroup } from '@angular/forms';
+import type { FormArray, FormControl, FormGroup } from '@angular/forms';
 
 export type TypedForm<T> = {
   [K in keyof T]: FormControl<T[K] | null>;

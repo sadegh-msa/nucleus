@@ -1,5 +1,5 @@
 import { InjectionToken } from '@angular/core';
-import { AuthConfig } from '../models/auth-config.model';
+import type { AuthConfig } from '../models/auth-config.model';
 
 export const NU_AUTH_CONFIG = new InjectionToken<AuthConfig>('nu.auth.config');
 

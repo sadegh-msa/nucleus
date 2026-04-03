@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
-import { InfoField } from '../../models/info.model';
+import type { InfoField } from '../../models/info.model';
 import { FieldValueComponent } from '../field-value/field-value.component';
 
 @Component({

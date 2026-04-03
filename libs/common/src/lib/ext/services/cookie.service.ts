@@ -1,5 +1,5 @@
 import { DOCUMENT } from '@angular/common';
-import { inject, Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { CryptoService } from './crypto.service';
 
 @Injectable({
@@ -39,7 +39,7 @@ export class CookieService {
     );
     const encryptedValue = (pairs.find(([k, v]) => k === key) || [])[1] || '';
 
-    if(['null', 'undefined'].includes(encryptedValue)) {
+    if (['null', 'undefined'].includes(encryptedValue)) {
       return null;
     }
 

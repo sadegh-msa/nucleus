@@ -1,5 +1,5 @@
-import { PagePath } from './page.model';
-import { ActionPermission } from './permission.model';
+import type { PagePath } from './page.model';
+import type { ActionPermission } from './permission.model';
 
 export interface CrudConfig<B, I extends keyof B, C extends keyof B, T extends keyof B> {
   info: {
