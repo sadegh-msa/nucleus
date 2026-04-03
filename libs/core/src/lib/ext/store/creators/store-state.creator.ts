@@ -6,7 +6,7 @@ export function createListStoreState<State>(type: string) {
     query: {},
     response: { control: {}, data: [] },
     message: '',
-    status: OperationStatus.Pending,
+    status: OperationStatus.Initial,
   } as State;
 }
 
@@ -16,7 +16,7 @@ export function createGetStoreState<State>(type: string) {
     query: '',
     response: { control: {}, data: {} },
     message: '',
-    status: OperationStatus.Pending,
+    status: OperationStatus.Initial,
   } as State;
 }
 
@@ -26,7 +26,7 @@ export function createAddStoreState<State>(type: string) {
     request: {},
     response: { control: {}, data: {} },
     message: '',
-    status: OperationStatus.Pending,
+    status: OperationStatus.Initial,
   } as State;
 }
 
@@ -37,7 +37,7 @@ export function createUpdateStoreState<State>(type: string) {
     request: {},
     response: { control: {}, data: {} },
     message: '',
-    status: OperationStatus.Pending,
+    status: OperationStatus.Initial,
   } as State;
 }
 
@@ -47,6 +47,6 @@ export function createDeleteStoreState<State>(type: string) {
     query: '',
     response: { control: {}, data: '' },
     message: '',
-    status: OperationStatus.Pending,
+    status: OperationStatus.Initial,
   } as State;
 }

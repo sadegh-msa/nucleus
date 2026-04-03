@@ -37,7 +37,7 @@ export class AuthTokenService {
 
   readonly #accessTokenResource = resource({
     loader: () => this.#fetchAccessToken(),
-    defaultValue: OperationStatus.Pending,
+    defaultValue: OperationStatus.Initial,
   });
   readonly isAuthenticated = computed(async () => !!(await this.getAccessToken()));
 
@@ -178,7 +178,7 @@ export class AuthTokenService {
   async getAccessToken() {
     let accessToken = this.#accessTokenResource.value();
 
-    while (accessToken === OperationStatus.Pending) {
+    while (accessToken === OperationStatus.Initial) {
       accessToken = this.#accessTokenResource.value();
       await sleepRandom();
     }

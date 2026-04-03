@@ -58,7 +58,7 @@ export function createGetStoreReducer<State, Response>(
       on(actions.getMutate, (state, data) => ({
         ...state,
         ...data,
-        status: OperationStatus.Pending,
+        status: OperationStatus.Initial,
       })),
       on(actions.getSuccess, (state, data) => ({
         ...state,

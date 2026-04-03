@@ -8,7 +8,7 @@ import type {
 } from '../models/auth-state.model';
 import { authActions } from './auth.actions';
 
-const { Pending, InProgress, Success, Failure } = OperationStatus;
+const { Initial, InProgress, Success, Failure } = OperationStatus;
 
 const createInitialState = <T>(type: string) => {
   return {
@@ -16,7 +16,7 @@ const createInitialState = <T>(type: string) => {
     request: {},
     response: {},
     message: '',
-    status: Pending,
+    status: Initial,
   } as T;
 };
 

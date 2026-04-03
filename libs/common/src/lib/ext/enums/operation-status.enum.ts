@@ -1,5 +1,5 @@
 export enum OperationStatus {
-  Pending = 'Pending',
+  Initial = 'Initial',
   InProgress = 'InProgress',
   Failure = 'Failure',
   Success = 'Success'

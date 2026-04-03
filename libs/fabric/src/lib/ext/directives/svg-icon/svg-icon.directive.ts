@@ -59,7 +59,7 @@ export class SvgIconDirective implements OnInit, OnDestroy {
 
       let retrying = 0;
 
-      while (cachedSvg === OperationStatus.Pending && retrying <= this.#RETRYING_TIMES) {
+      while (cachedSvg === OperationStatus.Initial && retrying <= this.#RETRYING_TIMES) {
         cachedSvg = this.#temporaryStorageService.getItem(storageKey)?.trim();
         await sleepRandom();
         retrying++;
@@ -69,7 +69,7 @@ export class SvgIconDirective implements OnInit, OnDestroy {
         return cachedSvg;
       }
 
-      this.#temporaryStorageService.setItem(storageKey, OperationStatus.Pending);
+      this.#temporaryStorageService.setItem(storageKey, OperationStatus.Initial);
       const url = this.#createIconUrl(params.variant, params.icon);
       const response = await fetch(url);
 
