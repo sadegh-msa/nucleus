@@ -25,7 +25,7 @@
 }
 
 <ng-template #logo let-brand="brand" let-type="type">
-  <a [href]="brand.homePage" [class]="type + '-logo'" target="_blank">
+  <a [href]="brand.homePage" [class]="`${type}-logo`" target="_blank">
     <img
       [alt]="brand.title"
       [height]="brand.logo.hTitle.height"

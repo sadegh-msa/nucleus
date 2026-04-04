@@ -1,6 +1,6 @@
 <progress max="100"
           [value]="progressValue()"
-          [class]="'progress-' + progressValue()"></progress>
+          [class]="`progress-${progressValue()}`"></progress>
 
 @defer (when isNavVisible()) {
   @if (isNavVisible()) {
