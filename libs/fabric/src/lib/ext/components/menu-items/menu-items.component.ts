@@ -101,7 +101,9 @@ export class MenuItemsComponent {
         untracked(() => {
           items
             .filter((i) => i.expanded) //
-            .forEach((item) => this.#calculateSize(item));
+            .forEach((item) => {
+              this.#calculateSize(item);
+            });
         });
       });
     }
@@ -111,7 +113,9 @@ export class MenuItemsComponent {
 
       untracked(() => {
         if (isSubmenuFloating && this.isWide()) {
-          this.items().forEach((i) => this.collapseItem(i));
+          this.items().forEach((i) => {
+            this.collapseItem(i);
+          });
         }
       });
     });
@@ -149,7 +153,9 @@ export class MenuItemsComponent {
   }
 
   collapseItem(item: MenuItem) {
-    item.children?.forEach((i) => this.collapseItem(i));
+    item.children?.forEach((i) => {
+      this.collapseItem(i);
+    });
     item.expanded = false;
   }
 
@@ -161,10 +167,16 @@ export class MenuItemsComponent {
         this.collapseItem(item);
       }
     } else if (this.isSubmenuFloating()) {
-      this.items().forEach((i) => this.collapseItem(i));
-    } else if (this.isSubmenuSliding()) {
+      this.items().forEach((i) => {
+        this.collapseItem(i);
+      });
+    }
+
+    if (this.isSubmenuSliding()) {
       if (!this.#cssSupport.calcSize()) {
-        this.items().forEach((i) => this.#calculateSize(i));
+        this.items().forEach((i) => {
+          this.#calculateSize(i);
+        });
       }
     }
 

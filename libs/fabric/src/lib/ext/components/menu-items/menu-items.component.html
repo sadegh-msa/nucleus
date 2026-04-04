@@ -70,7 +70,7 @@
     <menu class="fab menu"
           [class.expanded]="item.expanded"
           [class.submenu]="isSubmenuFloating()"
-          [style]="'--menu-size:' + (item.size || item.children.length)"
+          [style]="`--menu-size: ${(item.size || item.children.length)}`"
     >
      <!-- @if (isSubmenuFloating()) {
         <li>
