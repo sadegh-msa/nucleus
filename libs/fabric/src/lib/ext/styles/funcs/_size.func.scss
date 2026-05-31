@@ -18,7 +18,7 @@
     $alias-step: get-config(size, alias, step);
     $alias-value: (list.index(get-config(size, alias, names), $alias) - 1) * $alias-step;
 
-    @return $alias-value + if($level <=$alias-step, $level, 1);
+    @return $alias-value + if(sass($level <= $alias-step): $level; else: 1);
   }
 
   @return $value;

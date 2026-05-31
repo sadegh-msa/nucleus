@@ -10,6 +10,7 @@ import {
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { NgControl } from '@angular/forms';
+import { map } from 'rxjs';
 import type { PasswordStrength } from '../../models';
 
 @Directive({
@@ -48,10 +49,13 @@ export class InputPasswordDirective implements OnInit {
       return;
     }
 
-    formControl.valueChanges.pipe(takeUntilDestroyed(this.#destroyRef)).subscribe((value) => {
+    formControl.valueChanges.pipe(
+      takeUntilDestroyed(this.#destroyRef),
+      map(String)
+    ).subscribe((value) => {
       this.strength.emit({
         medium: this.mediumPattern().test(value),
-        strong: this.strongPattern().test(value),
+        strong: this.strongPattern().test(value)
       });
 
       if (this.passwordToConfirm()) {

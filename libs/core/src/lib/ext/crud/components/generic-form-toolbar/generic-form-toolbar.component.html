@@ -1,6 +1,6 @@
 <nu-generic-toolbar [toolbar]="toolbar()"></nu-generic-toolbar>
 @let hasInfoFields = infoFields().length > 0;
-@let hasData = (data() | keyvalue).length > 0;
+@let hasData = ((data() | keyvalue) || []).length > 0;
 
 <menu class="toolbar-end">
   @if (hasInfoFields && hasData) {
