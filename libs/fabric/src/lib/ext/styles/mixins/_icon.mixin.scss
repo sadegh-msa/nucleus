@@ -46,7 +46,7 @@ $sizes: get-size-list();
     @include transition.normal(fill, stroke);
   }
 
-  &:not(.colored, .brand) * {
+  &:not(.intact, .brand) * {
     &[fill]:not([fill^='url']) {
       fill: currentColor;
     }

@@ -4,7 +4,7 @@ export const iconVariants = [
   , 'brand'
   , 'broken'
   , 'bulk'
-  , 'colored'
+  , 'intact'
   , 'linear'
   , 'outline'
   , 'twotone'
