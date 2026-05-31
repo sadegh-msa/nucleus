@@ -148,17 +148,7 @@
       }
     },
     "biome-lint": {
-      "executor": "@gitopslovers/nx-biome:biome-lint",
-      "outputs": [
-        "{options.outputFile}"
-      ],
-      "options": {
-        "lintFilePatterns": [
-          "apps/nucleus/**/*.ts"
-        ],
-        "write": false,
-        "unsafe": false
-      }
+      "command": "bunx --bun biome lint --write --unsafe {projectRoot}/**/*.ts"
     }
   }
 }

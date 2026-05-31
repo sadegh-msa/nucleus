@@ -70,12 +70,16 @@
         "^production"
       ]
     },
-    "lint-biome": {
+    "biome-lint": {
+      "cache": true,
       "inputs": [
         "default",
-        "{workspaceRoot}/biome.json"
-      ],
-      "cache": true
+        "^default",
+        "{workspaceRoot}/biome.json",
+        {
+          "externalDependencies": ["@biomejs/biome"]
+        }
+      ]
     }
   },
   "plugins": [
