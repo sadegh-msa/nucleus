@@ -12,7 +12,6 @@ import { type NuCommonConfig, provideNuCommon } from '@nucleus/common';
 import { AuthOnRunEffect, provideNuAuth, signOutMetaReducer } from '@nucleus/core';
 import { provideFabric } from '@nucleus/fabric';
 import Aura from '@primeng/themes/aura';
-import { MessageService } from 'primeng/api';
 import { providePrimeNG } from 'primeng/config';
 import { provideNuL10n } from '../../../../libs/l10n/src/lib/ext/providers/l10n.provider';
 import { environment } from '../environments/environment';
@@ -45,7 +44,6 @@ export const appConfig: ApplicationConfig = {
         },
       },
     }),
-    MessageService,
     AuthOnRunEffect,
     provideAnimationsAsync(),
   ],
