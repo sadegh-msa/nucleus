@@ -1,5 +1,9 @@
 @use 'sass:map';
-@use 'fab-configs.scss' as *;
+@use '@styles/fab-configs.scss' as *;
+@use '../helpers/_config.helper' as *;
+@use '../_default-configs' as *;
+
+$fab-configs: merge-configs($fab-default-configs, $fab-custom-configs);
 
 @function get-config($keys...) {
   @return map.get($fab-configs, $keys...);

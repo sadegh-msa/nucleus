@@ -4,7 +4,7 @@
 @use 'mixins/screens.mixin' as *;
 @use 'mixins/shadow.mixin';
 @use 'mixins/box.mixin';
-@use 'libs/theme/src/lib/ext/styles/_panel-theme.scss';
+@use '@libs/theme/src/lib/ext/styles/_panel-theme.scss';
 
 $panel-nav-compact-width: 69px;
 $panel-nav-wide-width: 260px;

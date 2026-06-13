@@ -2,7 +2,7 @@
 @use 'funcs/border.func' as *;
 @use 'funcs/size.func' as *;
 @use 'mixins/box.mixin';
-@use 'libs/theme/src/lib/ext/styles/_basic-theme.scss';
+@use '@libs/theme/src/lib/ext/styles/_basic-theme.scss';
 
 /****************/
 @use 'layers/components/card';
@@ -11,7 +11,7 @@
 @use 'layers/components/checkbox';
 @use 'layers/components/toggle';
 @use 'layers/components/form-field';
-@use 'libs/core/src/lib/ext/styles/index.scss';
+@use '@libs/core/src/lib/ext/styles/index.scss';
 
 
 table {

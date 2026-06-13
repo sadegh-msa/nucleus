@@ -1,4 +1,4 @@
-$assets-dir: 'libs/theme/src/assets';
+$assets-dir: '@libs/theme/src/assets';
 
 @function font($font-path) {
   @return url('#{$assets-dir}/fonts/#{$font-path}');

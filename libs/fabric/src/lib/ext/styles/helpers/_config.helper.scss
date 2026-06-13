@@ -6,8 +6,8 @@
 @function generate-color-variants($color, $color-value, $variants) {
   $palette: ();
   $is-map: meta.type-of($color-value) == 'map';
-  $light-value: if($is-map == true, map.get($color-value, light), $color-value);
-  $dark-value: if($is-map == true, map.get($color-value, dark), $color-value);
+  $light-value: if(sass($is-map == true): map.get($color-value, light); else: $color-value);
+  $dark-value: if(sass($is-map == true): map.get($color-value, dark); else: $color-value);
   $palette: map.set($palette, $color, light-dark($light-value, $dark-value));
 
   @each $variant, $variant-value in $variants {

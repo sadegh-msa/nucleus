@@ -1,4 +1,5 @@
 @use 'sass:color';
+@use 'sass:list';
 
 @function generate-grayscale-color(
   $weight: 50%,
@@ -8,7 +9,7 @@
   $method: oklch longer hue
 ) {
   $color: color.mix($light, $dark, $weight, $method);
-  $space: nth($method, 1);
+  $space: list.nth($method, 1);
 
   @return color.change($color: $color, $alpha: $alpha, $space: $space);
 }

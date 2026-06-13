@@ -1,8 +1,8 @@
-import { provideHttpClient, withFetch } from '@angular/common/http';
+import { provideHttpClient } from '@angular/common/http';
 import {
   type ApplicationConfig,
   provideBrowserGlobalErrorListeners,
-  provideZonelessChangeDetection,
+  provideZonelessChangeDetection
 } from '@angular/core';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { provideRouter, withComponentInputBinding } from '@angular/router';
@@ -24,14 +24,14 @@ export const appConfig: ApplicationConfig = {
     provideZonelessChangeDetection(),
     provideBrowserGlobalErrorListeners(),
     provideRouter(appRoutes, withComponentInputBinding()),
-    provideHttpClient(withFetch()),
+    provideHttpClient(),
     provideEffects(appEffects),
     provideStore(appReducers, { metaReducers: [signOutMetaReducer] }),
     provideNuCommon({
       api: environment.api,
       branding: environment.branding,
       crypto: environment.crypto as NuCommonConfig['crypto'],
-      links: environment.links,
+      links: environment.links
     }),
     provideNuL10n({ languages: environment.languages }),
     provideFabric(environment.ui),
@@ -40,11 +40,11 @@ export const appConfig: ApplicationConfig = {
       theme: {
         preset: Aura,
         options: {
-          darkModeSelector: '.my-app-dark',
-        },
-      },
+          darkModeSelector: '.my-app-dark'
+        }
+      }
     }),
     AuthOnRunEffect,
-    provideAnimationsAsync(),
-  ],
+    provideAnimationsAsync()
+  ]
 };
