@@ -13,7 +13,7 @@ import { AuthOnRunEffect, provideNuAuth, signOutMetaReducer } from '@nucleus/cor
 import { provideFabric } from '@nucleus/fabric';
 import Aura from '@primeng/themes/aura';
 import { providePrimeNG } from 'primeng/config';
-import { provideNuL10n } from '../../../../libs/l10n/src/lib/ext/providers/l10n.provider';
+import { provideNuL10n } from '@nucleus/l10n';
 import { environment } from '../environments/environment';
 import { appRoutes } from './app.routes';
 import { appEffects } from './store/app.effects';

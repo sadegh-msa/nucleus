@@ -5,24 +5,23 @@ import {
   effect,
   inject,
   signal,
-  untracked,
+  untracked
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { Store, select } from '@ngrx/store';
+import { select, Store } from '@ngrx/store';
 import { OperationStatus } from '@nucleus/common';
 import { authActions, authSelectors } from '@nucleus/core';
 import {
   type MenuItem,
   MenuItemsComponent,
   MessageComponent,
-  MessageService,
+  MessageService
 } from '@nucleus/fabric';
 import { type NuLangDir, NuLocaleService } from '@nucleus/l10n';
-import { PanelService } from '@nucleus/panel';
+import { PanelComponent, PanelService } from '@nucleus/panel';
 import { ConfirmationService } from 'primeng/api';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
-import { PanelComponent } from '../../../../libs/panel/src/lib/ext/components';
 import { navMainMenu } from './app.menu';
 import { SampleEventHandlerService } from './pages/crud/sample';
 import type { AppStates } from './store/app.state';
@@ -36,12 +35,12 @@ import type { AppStates } from './store/app.state';
     NgTemplateOutlet,
     MenuItemsComponent,
     NgClass,
-    PanelComponent,
+    PanelComponent
   ],
   selector: 'app-root',
   templateUrl: './app.component.html',
   providers: [ConfirmationService],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AppComponent {
   readonly #appStore$ = inject(Store<AppStates>);
@@ -58,8 +57,8 @@ export class AppComponent {
       label: $localize`Sign out`,
       icon: 'logout',
       command: () => this.confirmSignOut(),
-      permission: 'nucleus.menu.button.sign-out',
-    },
+      permission: 'nucleus.menu.button.sign-out'
+    }
   ] as MenuItem[];
 
   readonly isUserAuthenticated = signal(false);
@@ -110,7 +109,7 @@ export class AppComponent {
       message: 'Are You sure you want to logout?',
       header: 'Sign Out',
       icon: 'pi pi-exclamation-triangle',
-      accept: () => this.signOut(),
+      accept: () => this.signOut()
     });
   }
 }

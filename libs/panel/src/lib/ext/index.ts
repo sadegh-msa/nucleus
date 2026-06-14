@@ -1,5 +1,2 @@
-import * as components from './components';
-
+export * from './components/panel/panel.component';
 export * from './services/panel.service';
-
-export { components };
