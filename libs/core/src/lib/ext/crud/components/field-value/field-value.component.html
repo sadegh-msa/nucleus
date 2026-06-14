@@ -3,7 +3,7 @@
     {{ value() + 1 }}
   }
   @case (DataType.Boolean) {
-    <ng-container *ngTemplateOutlet="handleBoolean"></ng-container>
+    <ng-container *ngTemplateOutlet="handleBoolean" />
   }
   @case (DataType.Datetime) {
     {{ value() | date: format() || 'medium' }}

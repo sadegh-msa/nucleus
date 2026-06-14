@@ -1,10 +1,8 @@
 import { DOCUMENT } from '@angular/common';
-import { computed, Injectable, inject, signal } from '@angular/core';
+import { computed, inject, Service, signal } from '@angular/core';
 import type { NuLang, NuLangDir } from '../types/lang.type';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Service()
 export class NuLocaleService {
   readonly #document = inject(DOCUMENT);
 

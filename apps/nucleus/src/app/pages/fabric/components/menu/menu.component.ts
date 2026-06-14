@@ -1,11 +1,10 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { Component } from '@angular/core';
 import { type MenuItem, MenuItemsComponent } from '@nucleus/fabric';
 import { navMainMenu } from '../../../../app.menu';
 
 @Component({
   selector: 'app-menu',
   imports: [MenuItemsComponent],
-  changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './menu.component.html',
   styleUrl: './menu.component.scss',
 })

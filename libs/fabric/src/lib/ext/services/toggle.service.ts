@@ -1,15 +1,8 @@
-import {
-  ChangeDetectorRef,
-  computed,
-  effect,
-  Injectable,
-  inject,
-  signal,
-} from '@angular/core';
+import { ChangeDetectorRef, computed, effect, inject, Service, signal } from '@angular/core';
 import type { ControlValueAccessor } from '@angular/forms';
 import type { GenericToggleConsumer, ToggleValue } from '../models/toggle.model';
 
-@Injectable()
+@Service({ autoProvided: false })
 export class ToggleService {
   #changeDetectorRef = inject(ChangeDetectorRef);
 

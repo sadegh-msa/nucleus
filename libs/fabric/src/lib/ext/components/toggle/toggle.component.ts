@@ -1,11 +1,5 @@
 import { NgClass, TitleCasePipe } from '@angular/common';
-import {
-  ChangeDetectionStrategy,
-  Component,
-  forwardRef,
-  inject,
-  input,
-} from '@angular/core';
+import { Component, forwardRef, inject, input } from '@angular/core';
 import { type ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 import type { GenericToggleConsumer, ToggleValue } from '../../models/toggle.model';
 import { ToggleService } from '../../services';
@@ -14,7 +8,6 @@ import { ToggleService } from '../../services';
   selector: 'fab-toggle',
   imports: [FormsModule, NgClass, TitleCasePipe],
   templateUrl: './toggle.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,

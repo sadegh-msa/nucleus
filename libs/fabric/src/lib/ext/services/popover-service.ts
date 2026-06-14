@@ -1,18 +1,16 @@
 import {
   DOCUMENT,
   ElementRef,
-  Injectable,
   type Injector,
   Renderer2,
+  Service,
   TemplateRef,
-  ViewContainerRef,
+  ViewContainerRef
 } from '@angular/core';
 import { VisualObserver } from '../helpers/viz-observer';
 import type { Popover, TriggerEvent } from '../models';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Service()
 export class PopoverService {
   readonly #CSS = Object.freeze({
     VAR: {

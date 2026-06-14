@@ -1,11 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  DestroyRef,
-  inject,
-  type OnInit,
-  signal
-} from '@angular/core';
+import { Component, DestroyRef, inject, type OnInit, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import {
   FormControl,
@@ -15,7 +8,7 @@ import {
   Validators
 } from '@angular/forms';
 import { RouterLink } from '@angular/router';
-import { Store, select } from '@ngrx/store';
+import { select, Store } from '@ngrx/store';
 
 import { OperationStatus } from '@nucleus/common';
 import {
@@ -24,7 +17,7 @@ import {
   InputPasswordDirective,
   SvgIconDirective
 } from '@nucleus/fabric';
-import { type AuthStates, authActions, authSelectors } from '../../../../ext';
+import { authActions, authSelectors, type AuthStates } from '../../../../ext';
 import { authDefaultConfig } from '../../../../ext/auth/auth-default.config';
 import type { AuthSignIn, AuthSignInForm } from '../../../../ext/auth/models/auth.model';
 import { SignLayoutComponent } from '../sign-layout/sign-layout.component';
@@ -42,7 +35,6 @@ import { SignLayoutComponent } from '../sign-layout/sign-layout.component';
     InputPasswordDirective,
     SvgIconDirective,
   ],
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SignInComponent implements OnInit {
   readonly #destroyRef = inject(DestroyRef);

@@ -1,5 +1,5 @@
 import { KeyValuePipe } from '@angular/common';
-import { ChangeDetectionStrategy, Component, input } from '@angular/core';
+import { Component, input } from '@angular/core';
 import { SvgIconDirective } from '@nucleus/fabric';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { infoFieldsDefault } from '../../defaults/info-fields.default';
@@ -17,7 +17,6 @@ import { InfoFieldsComponent } from '../info-fields/info-fields.component';
     OverlayPanelModule,
     SvgIconDirective,
   ],
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class GenericFormToolbarComponent {
   infoFields = input<InfoField[][]>(infoFieldsDefault);

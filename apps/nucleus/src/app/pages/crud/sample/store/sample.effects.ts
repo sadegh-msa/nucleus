@@ -1,4 +1,4 @@
-import { Injectable, inject } from '@angular/core';
+import { inject, Service } from '@angular/core';
 import type { EffectNotification, OnRunEffects } from '@ngrx/effects';
 import {
   AuthOnRunEffect,
@@ -6,7 +6,7 @@ import {
   createDeleteStoreEffect,
   createGetStoreEffect,
   createListStoreEffect,
-  createUpdateStoreEffect,
+  createUpdateStoreEffect
 } from '@nucleus/core';
 import type { Observable } from 'rxjs';
 import type { SampleGeneric } from '../models/sample-generic.model';
@@ -14,7 +14,7 @@ import { sampleConfig } from '../sample.config';
 import { SampleRestService } from '../services/sample-rest.service';
 import { sampleActions } from './sample.actions';
 
-@Injectable()
+@Service({ autoProvided: false })
 export class SampleEffects implements OnRunEffects {
   readonly #sampleRestService = inject(SampleRestService);
   readonly #authOnRunEffect = inject(AuthOnRunEffect);

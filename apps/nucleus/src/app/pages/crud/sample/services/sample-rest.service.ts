@@ -1,4 +1,4 @@
-import { Injectable, inject } from '@angular/core';
+import { inject, Service } from '@angular/core';
 import {
   createAddRestMethod,
   createDeleteRestMethod,
@@ -6,14 +6,12 @@ import {
   createListRestMethod,
   createUpdateRestMethod,
   RestApiService,
-  type RestServiceParams,
+  type RestServiceParams
 } from '@nucleus/core';
 import type { SampleGeneric } from '../models/sample-generic.model';
 import { sampleConfig } from '../sample.config';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Service()
 export class SampleRestService {
   readonly #args: RestServiceParams = {
     service: inject(RestApiService),

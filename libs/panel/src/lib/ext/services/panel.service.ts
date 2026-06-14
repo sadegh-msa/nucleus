@@ -1,9 +1,7 @@
-import { computed, effect, Injectable, inject, signal } from '@angular/core';
+import { computed, effect, inject, Service, signal } from '@angular/core';
 import { type Extent, extents, PermanentStorageService } from '@nucleus/common';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Service()
 export class PanelService {
   readonly #permanentStorageService = inject(PermanentStorageService);
 

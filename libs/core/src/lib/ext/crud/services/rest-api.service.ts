@@ -1,11 +1,9 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { Injectable, inject } from '@angular/core';
+import { inject, Service } from '@angular/core';
 import { NU_COMMON_CONFIG } from '@nucleus/common';
 import type { RestListQuery } from '../models/rest.model';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Service()
 export class RestApiService {
   readonly httpClient = inject(HttpClient);
   readonly commonConfig = inject(NU_COMMON_CONFIG);

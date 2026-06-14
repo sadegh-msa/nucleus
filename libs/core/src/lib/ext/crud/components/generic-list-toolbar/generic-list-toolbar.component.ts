@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, computed, input, model } from '@angular/core';
+import { Component, computed, input, model } from '@angular/core';
 import { DividerModule } from 'primeng/divider';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { PaginatorModule, type PaginatorState } from 'primeng/paginator';
@@ -11,7 +11,6 @@ import { GenericToolbarComponent } from '../generic-toolbar/generic-toolbar.comp
   selector: 'nu-generic-list-toolbar',
   templateUrl: './generic-list-toolbar.component.html',
   imports: [DividerModule, GenericToolbarComponent, OverlayPanelModule, PaginatorModule],
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class GenericListToolbarComponent {
   readonly paginatorLabel = computed(() => this.createPaginatorLabel());

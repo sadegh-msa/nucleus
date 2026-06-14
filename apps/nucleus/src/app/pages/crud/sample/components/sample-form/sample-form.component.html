@@ -1,8 +1,7 @@
 <div class="page page-form" [showLoading]="isSubmitting()">
   <nu-generic-form-toolbar [toolbar]="toolbar"
                             [data]="data()"
-                            class="page-toolbar page-form-toolbar">
-  </nu-generic-form-toolbar>
+                            class="page-toolbar page-form-toolbar" />
 
   <div class="page-content page-form-content">
     <form class="form-view" [formGroup]="form" (ngSubmit)="save()" autocomplete="off"
@@ -28,11 +27,9 @@
 
       <div class="form-field-2">
         <label for="date">Date *</label>
-        <fab-calendar
-               id="date"
+        <fab-calendar id="date"
                aria-describedby="date-help"
-               formControlName="date">
-        </fab-calendar>
+               formControlName="date" />
       </div>
 
       <div class="form-field-6">

@@ -1,4 +1,4 @@
-import { Injectable, inject } from '@angular/core';
+import { inject, Service } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { OperationStatus } from '@nucleus/common';
 import { catchError, map, mergeMap, of } from 'rxjs';
@@ -6,7 +6,7 @@ import { formatErrorMessage } from '../../crud';
 import { AuthRestService } from '../services/auth-rest.service';
 import { authActions } from './auth.actions';
 
-@Injectable()
+@Service({ autoProvided: false })
 export class AuthEffects {
   readonly #actions$ = inject(Actions);
   readonly #authRestService = inject(AuthRestService);

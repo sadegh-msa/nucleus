@@ -1,9 +1,8 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { Component } from '@angular/core';
 import { colors, sizes } from '../../shared/data';
 
 @Component({
   selector: 'app-typography',
-  changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './typography.component.html',
   styleUrl: './typography.component.scss',
 })

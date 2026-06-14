@@ -18,7 +18,7 @@
         </button>
 
         @if (tool.confirm) {
-          <p-confirmPopup [key]="tool.key"></p-confirmPopup>
+          <p-confirmPopup [key]="tool.key" />
         }
       } @else if (tool.element === ToolElement.Link) {
         <a [ngClass]="tool.ngClass || []"

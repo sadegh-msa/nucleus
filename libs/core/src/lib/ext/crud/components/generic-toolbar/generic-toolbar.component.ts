@@ -1,5 +1,5 @@
 import { NgClass } from '@angular/common';
-import { ChangeDetectionStrategy, Component, inject, input } from '@angular/core';
+import { Component, inject, input } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { SvgIconDirective, TooltipDirective } from '@nucleus/fabric';
 import { ConfirmationService } from 'primeng/api';
@@ -19,7 +19,6 @@ import type { NuTool, NuToolbar } from '../../models/toolbar.model';
     SvgIconDirective,
     TooltipDirective
   ],
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class GenericToolbarComponent {
   readonly #confirmationService = inject(ConfirmationService);

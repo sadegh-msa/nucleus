@@ -1,12 +1,10 @@
-import { computed, DOCUMENT, Injectable, inject, signal } from '@angular/core';
+import { computed, DOCUMENT, inject, Service, signal } from '@angular/core';
 
 const sizes = ['sm', 'md', 'lg', 'xl', 'xxl', 'tablet', 'web'] as const;
 type Size = (typeof sizes)[number];
 type Window = { height: number; width: number; fontSize: number };
 
-@Injectable({
-  providedIn: 'root',
-})
+@Service()
 export class ScreenService {
   readonly #document = inject(DOCUMENT);
 

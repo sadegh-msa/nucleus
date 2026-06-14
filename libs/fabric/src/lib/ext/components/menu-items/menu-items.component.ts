@@ -1,14 +1,5 @@
 import { NgClass, NgStyle, NgTemplateOutlet } from '@angular/common';
-import {
-  ChangeDetectionStrategy,
-  Component,
-  computed,
-  effect,
-  inject,
-  input,
-  linkedSignal,
-  untracked,
-} from '@angular/core';
+import { Component, computed, effect, inject, input, linkedSignal, untracked } from '@angular/core';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { type Extent, SafeHtml } from '@nucleus/common';
 import * as R from 'ramda';
@@ -16,7 +7,7 @@ import {
   PopoverDirective,
   RippleDirective,
   SvgIconDirective,
-  TooltipDirective,
+  TooltipDirective
 } from '../../directives';
 import type { MenuItem } from '../../models';
 import { CssSupportService } from '../../services';
@@ -36,7 +27,6 @@ import type { FabPlacement } from '../../types';
     TooltipDirective,
     PopoverDirective,
   ],
-  changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './menu-items.component.html',
   host: {
     '[class]': 'styleClass',

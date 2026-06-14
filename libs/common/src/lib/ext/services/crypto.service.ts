@@ -1,9 +1,7 @@
-import { Injectable, inject } from '@angular/core';
+import { inject, Service } from '@angular/core';
 import { NU_COMMON_CONFIG } from '../providers/common-config.provider';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Service()
 export class CryptoService {
   readonly #commonConfig = inject(NU_COMMON_CONFIG);
   readonly #textEncoder = new TextEncoder();

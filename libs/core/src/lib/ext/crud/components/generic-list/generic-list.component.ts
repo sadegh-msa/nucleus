@@ -1,14 +1,5 @@
 import { NgClass } from '@angular/common';
-import {
-  ChangeDetectionStrategy,
-  Component,
-  computed,
-  DestroyRef,
-  inject,
-  input,
-  output,
-  signal,
-} from '@angular/core';
+import { Component, computed, DestroyRef, inject, input, output, signal } from '@angular/core';
 import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop';
 import { RouterModule } from '@angular/router';
 import { DataType } from '@nucleus/common';
@@ -45,7 +36,6 @@ import { InfoFieldsComponent } from '../info-fields/info-fields.component';
     TooltipDirective,
   ],
   providers: [ConfirmationService],
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class GenericListComponent {
   readonly #destroyRef = inject(DestroyRef);

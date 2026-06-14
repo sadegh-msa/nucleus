@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable, inject } from '@angular/core';
+import { inject, Service } from '@angular/core';
 import { map } from 'rxjs';
 import { RestApiService } from '../../crud';
 import { authDefaultConfig } from '../auth-default.config';
@@ -7,12 +7,10 @@ import type {
   AuthSignIn,
   AuthSignInResponse,
   AuthSignUp,
-  AuthSignUpResponse,
+  AuthSignUpResponse
 } from '../models/auth.model';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Service()
 export class AuthRestService {
   readonly #httpClient = inject(HttpClient);
   readonly #restApiService = inject(RestApiService);

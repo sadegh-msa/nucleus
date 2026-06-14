@@ -1,7 +1,7 @@
-import { DestroyRef, Injectable, Injector, inject, signal } from '@angular/core';
+import { DestroyRef, inject, Injector, Service, signal } from '@angular/core';
 import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Store, select } from '@ngrx/store';
+import { select, Store } from '@ngrx/store';
 import { mergeObjects, OperationStatus } from '@nucleus/common';
 import { filter, pairwise } from 'rxjs';
 import { createPagination } from '../creators/pagination.creator';
@@ -14,7 +14,7 @@ import type { NuTool } from '../models/toolbar.model';
 const DEFAULT_PAGE = 0;
 const DEFAULT_ROWS = 10;
 
-@Injectable()
+@Service({ autoProvided: false })
 export class GenericListService<T extends GenericEntity> {
   readonly #destroyRef = inject(DestroyRef);
   readonly #injector = inject(Injector);

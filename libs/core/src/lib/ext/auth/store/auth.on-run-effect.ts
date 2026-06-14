@@ -1,9 +1,9 @@
-import { Injectable, inject } from '@angular/core';
-import { Actions, type EffectNotification, type OnRunEffects, ofType } from '@ngrx/effects';
+import { inject, Service } from '@angular/core';
+import { Actions, type EffectNotification, ofType, type OnRunEffects } from '@ngrx/effects';
 import { exhaustMap, type Observable, takeUntil } from 'rxjs';
 import { authActions } from './auth.actions';
 
-@Injectable()
+@Service({ autoProvided: false })
 export class AuthOnRunEffect implements OnRunEffects {
   readonly #actions$ = inject(Actions);
 

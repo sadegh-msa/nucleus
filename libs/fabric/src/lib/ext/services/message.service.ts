@@ -1,10 +1,8 @@
-import { Injectable, inject, signal } from '@angular/core';
+import { inject, Service, signal } from '@angular/core';
 import type { Message } from '../models';
 import { FABRIC_CONFIG } from '../providers';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Service()
 export class MessageService {
   readonly #fabricConfig = inject(FABRIC_CONFIG);
 

@@ -1,9 +1,7 @@
-import { Injectable } from '@angular/core';
+import { Service } from '@angular/core';
 import type { ElementRect } from '../models';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Service()
 export class HtmlService {
   getElementRect(element: HTMLElement): ElementRect {
     return {

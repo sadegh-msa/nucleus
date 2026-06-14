@@ -1,5 +1,5 @@
 import { CurrencyPipe, DatePipe, NgTemplateOutlet } from '@angular/common';
-import { ChangeDetectionStrategy, Component, input } from '@angular/core';
+import { Component, input } from '@angular/core';
 import { DataType } from '@nucleus/common';
 import { SvgIconDirective } from '@nucleus/fabric';
 
@@ -7,7 +7,6 @@ import { SvgIconDirective } from '@nucleus/fabric';
   selector: 'nu-field-value',
   templateUrl: './field-value.component.html',
   imports: [CurrencyPipe, DatePipe, NgTemplateOutlet, SvgIconDirective],
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FieldValueComponent {
   readonly DataType = DataType;

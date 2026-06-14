@@ -1,17 +1,15 @@
-import { Injectable, inject, signal } from '@angular/core';
+import { inject, Service, signal } from '@angular/core';
 import {
   NavigationCancel,
   NavigationEnd,
   NavigationError,
   NavigationSkipped,
   NavigationStart,
-  Router,
+  Router
 } from '@angular/router';
 import { filter, interval, type Subscription, takeWhile } from 'rxjs';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Service()
 export class PanelProgressbarService {
   readonly #router = inject(Router);
 

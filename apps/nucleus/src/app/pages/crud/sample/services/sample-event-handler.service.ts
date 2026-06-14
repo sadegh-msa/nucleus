@@ -1,11 +1,9 @@
-import { Injectable, inject } from '@angular/core';
-import { Store, select } from '@ngrx/store';
+import { inject, Service } from '@angular/core';
+import { select, Store } from '@ngrx/store';
 import { StoreMessageService } from '@nucleus/core';
-import { type SampleStates, sampleSelectors } from '../store';
+import { sampleSelectors, type SampleStates } from '../store';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Service()
 export class SampleEventHandlerService {
   readonly #storeMessageService = inject(StoreMessageService);
   readonly #sampleStore$ = inject(Store<SampleStates>);

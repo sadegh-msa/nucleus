@@ -1,11 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  DestroyRef,
-  inject,
-  input,
-  type OnInit,
-} from '@angular/core';
+import { Component, DestroyRef, inject, input, type OnInit } from '@angular/core';
 import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop';
 import { DataType } from '@nucleus/common';
 import {
@@ -13,10 +6,10 @@ import {
   GenericListComponent,
   GenericListService,
   GenericListToolbarComponent,
-  type NuTable,
+  type NuTable
 } from '@nucleus/core';
-import type { Sample, SampleList } from '../../models/sample.model';
 import type { GenericSampleList, SampleGeneric } from '../../models/sample-generic.model';
+import type { Sample, SampleList } from '../../models/sample.model';
 import { sampleConfig } from '../../sample.config';
 import { sampleActions, sampleSelectors } from '../../store';
 
@@ -25,7 +18,6 @@ import { sampleActions, sampleSelectors } from '../../store';
   templateUrl: './sample-list.component.html',
   imports: [GenericListComponent, GenericListToolbarComponent],
   providers: [GenericListService],
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SampleListComponent implements OnInit, GenericSampleList {
   readonly #destroyRef = inject(DestroyRef);

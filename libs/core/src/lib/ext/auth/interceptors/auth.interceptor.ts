@@ -3,14 +3,14 @@ import type {
   HttpEvent,
   HttpHandler,
   HttpInterceptor,
-  HttpRequest,
+  HttpRequest
 } from '@angular/common/http';
-import { Injectable, inject } from '@angular/core';
+import { inject, Service } from '@angular/core';
 import { MessageService } from '@nucleus/fabric';
 import { catchError, type Observable } from 'rxjs';
 import { AuthTokenService } from '../services/auth-token.service';
 
-@Injectable()
+@Service({ autoProvided: false })
 export class AuthInterceptor implements HttpInterceptor {
   readonly #messageService = inject(MessageService);
   readonly #authTokenService = inject(AuthTokenService);

@@ -1,9 +1,7 @@
 @if (!(isUserAuthenticated() | async)) {
   <article class="fab card">
     <header>
-      <ng-container
-        *ngTemplateOutlet="logo; context: {brand: branding.organization, type: 'organization'}">
-      </ng-container>
+      <ng-container *ngTemplateOutlet="logo; context: {brand: branding.organization, type: 'organization'}" />
 
       <!--
       <h1 class="page-title">
@@ -12,16 +10,14 @@
       -->
     </header>
 
-    <ng-content select="[form]"></ng-content>
+    <ng-content select="[form]" />
 
     <footer>
-      <ng-content select="[actions]"></ng-content>
+      <ng-content select="[actions]" />
     </footer>
   </article>
 
-  <ng-container
-    *ngTemplateOutlet="logo; context: {brand: branding.manufacturer, type: 'manufacturer'}">
-  </ng-container>
+  <ng-container *ngTemplateOutlet="logo; context: {brand: branding.manufacturer, type: 'manufacturer'}" />
 }
 
 <ng-template #logo let-brand="brand" let-type="type">

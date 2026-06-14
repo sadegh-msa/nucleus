@@ -13,7 +13,7 @@
           @if (selectionMode() === "single") {
             <!--          <i class="pi pi-circle" style="font-size: 1.4rem"></i>-->
           } @else if (selectionMode() === "multiple") {
-            <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+            <p-tableHeaderCheckbox />
           }
         </th>
       }
@@ -39,38 +39,36 @@
       @if (!data().length && showLoading()) {
         @if (selectionMode()) {
           <td>
-            <p-skeleton></p-skeleton>
+            <p-skeleton />
           </td>
         }
 
         @for (column of table().columns; track column.field) {
           <td>
-            <p-skeleton></p-skeleton>
+            <p-skeleton />
           </td>
         }
 
         <td>
-          <p-skeleton></p-skeleton>
+          <p-skeleton />
         </td>
       } @else if (data().length) {
         @if (selectionMode()) {
           <td class="table-selection">
             @if (selectionMode() === "single") {
-              <p-tableRadioButton [value]="row"></p-tableRadioButton>
+              <p-tableRadioButton [value]="row" />
             } @else if (selectionMode() === "multiple") {
-              <p-tableCheckbox [value]="row"></p-tableCheckbox>
+              <p-tableCheckbox [value]="row" />
             }
           </td>
         }
 
         @for (column of table().columns; track column.field) {
           <td (click)="activateRow(row)" [ngClass]="column.ngClass || []">
-            <nu-field-value
-              [value]="column.type === DataType.Index ? firstRow() + i : row[column.field]"
+            <nu-field-value [value]="column.type === DataType.Index ? firstRow() + i : row[column.field]"
               [type]="column.type"
               [format]="column.format"
-            >
-            </nu-field-value>
+             />
           </td>
         }
 
@@ -95,7 +93,7 @@
               </button>
 
               @if (tool.confirm) {
-                <p-confirmPopup [key]="tool.key + row[idField()]"></p-confirmPopup>
+                <p-confirmPopup [key]="tool.key + row[idField()]" />
               }
             } @else if (tool.element === ToolElement.Link) {
               <a
@@ -129,7 +127,7 @@
           </button>
 
           <p-overlayPanel #infoOverlay styleClass="info-fields-overlay">
-            <nu-info-fields [infoFields]="infoFields()" [data]="row"> </nu-info-fields>
+            <nu-info-fields [infoFields]="infoFields()" [data]="row" />
           </p-overlayPanel>
         </td>
       }

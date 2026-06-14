@@ -1,16 +1,10 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  inject,
-  ViewEncapsulation
-} from '@angular/core';
+import { Component, inject, ViewEncapsulation } from '@angular/core';
 import { NuPanelHeaderComponent, NuPanelNavComponent, PanelProgressbarService } from '../../../int';
 import { PanelService } from '../../services/panel.service';
 
 @Component({
   selector: 'nu-panel',
   imports: [NuPanelHeaderComponent, NuPanelNavComponent],
-  changeDetection: ChangeDetectionStrategy.OnPush,
   host: {
     '[class]': 'styleClass',
   },

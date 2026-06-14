@@ -1,10 +1,11 @@
-import { computed, effect, Injectable, inject, resource } from '@angular/core';
+import { computed, effect, inject, resource, Service } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
-import { Store, select } from '@ngrx/store';
+import { select, Store } from '@ngrx/store';
 import {
   CookieService,
   OperationStatus,
-  PermanentStorageService, sleepRandom
+  PermanentStorageService,
+  sleepRandom
 } from '@nucleus/common';
 import {
   debounceTime,
@@ -13,15 +14,13 @@ import {
   filter,
   fromEvent,
   map,
-  skipWhile,
+  skipWhile
 } from 'rxjs';
 import { authDefaultConfig } from '../auth-default.config';
 import { NU_AUTH_CONFIG } from '../providers/auth-config.provider';
-import { type AuthStates, authActions, authSelectors } from '../store';
+import { authActions, authSelectors, type AuthStates } from '../store';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Service()
 export class AuthTokenService {
   readonly #router = inject(Router);
   readonly #cookieService = inject(CookieService);

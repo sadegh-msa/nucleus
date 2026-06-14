@@ -1,12 +1,5 @@
 import { NgClass, NgTemplateOutlet } from '@angular/common';
-import {
-  ChangeDetectionStrategy,
-  Component,
-  effect,
-  inject,
-  signal,
-  untracked
-} from '@angular/core';
+import { Component, effect, inject, signal, untracked } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { select, Store } from '@ngrx/store';
@@ -40,7 +33,6 @@ import type { AppStates } from './store/app.state';
   selector: 'app-root',
   templateUrl: './app.component.html',
   providers: [ConfirmationService],
-  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AppComponent {
   readonly #appStore$ = inject(Store<AppStates>);

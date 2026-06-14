@@ -1,4 +1,4 @@
-<nu-generic-toolbar [toolbar]="toolbar()"></nu-generic-toolbar>
+<nu-generic-toolbar [toolbar]="toolbar()" />
 
 <menu class="toolbar-end">
   @if (showPaginator()) {
@@ -15,8 +15,8 @@
                      [rows]="pagination().rows"
                      [showJumpToPageDropdown]="true"
                      [showPageLinks]="false"
-                     [totalRecords]="pagination().total"></p-paginator>
-        <p-divider></p-divider>
+                     [totalRecords]="pagination().total" />
+        <p-divider />
         <div class="paginator-rows-per-page">
           <span class="p-buttonset">
             @for (option of rowsPerPageOptions(); track option) {

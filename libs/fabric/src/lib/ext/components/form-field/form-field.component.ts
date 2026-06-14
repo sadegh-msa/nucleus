@@ -1,11 +1,11 @@
-import { CommonModule } from '@angular/common';
+import { KeyValuePipe } from '@angular/common';
 import { Component, input } from '@angular/core';
 import type { AbstractControl } from '@angular/forms';
 import type { FabPlacement } from '../../types';
 
 @Component({
   selector: 'fab-form-field',
-  imports: [CommonModule],
+  imports: [KeyValuePipe],
   templateUrl: './form-field.component.html',
   host: {
     '[class]': 'styleClass',

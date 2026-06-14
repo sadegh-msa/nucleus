@@ -1,28 +1,26 @@
-import { computed, Injectable, inject, signal } from '@angular/core';
+import { computed, inject, Service, signal } from '@angular/core';
 import {
   type DateArg,
-  type FormatDistanceOptions,
-  type FormatOptions,
   format,
   formatDistance,
+  type FormatDistanceOptions,
+  type FormatOptions,
   isValid,
   type Locale,
-  type ParseOptions,
   parse,
+  type ParseOptions
 } from 'date-fns';
-import { enUS } from 'date-fns/locale/en-US';
-import { faIR } from 'date-fns/locale/fa-IR';
 import {
   format as jFormat,
   formatDistance as jFormatDistance,
-  parse as jParse,
+  parse as jParse
 } from 'date-fns-jalali';
+import { enUS } from 'date-fns/locale/en-US';
+import { faIR } from 'date-fns/locale/fa-IR';
 import type { NuLang } from '../types/lang.type';
 import { NuLocaleService } from './locale.service';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Service()
 export class NuDateService {
   readonly #localeService = inject(NuLocaleService);
 

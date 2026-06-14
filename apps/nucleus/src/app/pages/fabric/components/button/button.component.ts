@@ -1,5 +1,5 @@
 import { NgTemplateOutlet, TitleCasePipe } from '@angular/common';
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { RippleDirective, SvgIconDirective } from '@nucleus/fabric';
 import { colors, sizes } from '../../shared/data';
@@ -7,7 +7,6 @@ import { colors, sizes } from '../../shared/data';
 @Component({
   selector: 'app-button',
   imports: [RouterLink, NgTemplateOutlet, TitleCasePipe, SvgIconDirective, RippleDirective],
-  changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './button.component.html',
   styleUrl: './button.component.scss',
 })

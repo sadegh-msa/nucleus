@@ -1,12 +1,10 @@
-import { Injectable, inject, signal } from '@angular/core';
+import { inject, Service, signal } from '@angular/core';
 import { NavigationEnd, Router, Scroll } from '@angular/router';
 import { isUUID } from '@nucleus/common';
 import type { MenuItem } from '@nucleus/fabric';
 import { filter, map } from 'rxjs';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Service()
 export class PanelBreadcrumbService {
   readonly #router = inject(Router);
 

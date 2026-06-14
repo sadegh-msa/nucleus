@@ -1,9 +1,7 @@
-import { Injectable, inject } from '@angular/core';
+import { inject, Service } from '@angular/core';
 import { CryptoService } from './crypto.service';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Service()
 export class TemporaryStorageService {
   readonly #cryptoService = inject(CryptoService);
 

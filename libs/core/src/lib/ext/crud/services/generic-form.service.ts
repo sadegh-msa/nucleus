@@ -1,13 +1,13 @@
-import { computed, DestroyRef, Injectable, Injector, inject, signal } from '@angular/core';
+import { computed, DestroyRef, inject, Injector, Service, signal } from '@angular/core';
 import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop';
 import { Router } from '@angular/router';
-import { Store, select } from '@ngrx/store';
+import { select, Store } from '@ngrx/store';
 import { OperationStatus } from '@nucleus/common';
 import { combineLatest, debounceTime, mergeAll } from 'rxjs';
 import {
   createAddToolbar,
   createEditToolbar,
-  createViewToolbar,
+  createViewToolbar
 } from '../creators/toolbar.creator';
 import { PageType } from '../enums/page.enum';
 import { RouterStateKey } from '../enums/router-state.enum';
@@ -15,7 +15,7 @@ import { ToolType } from '../enums/toolbar.enum';
 import type { GenericEntity, GenericFormConsumer } from '../models/generic.model';
 import type { NuTool, NuToolbar } from '../models/toolbar.model';
 
-@Injectable()
+@Service({ autoProvided: false })
 export class GenericFormService<T extends GenericEntity> {
   readonly #destroyRef = inject(DestroyRef);
   readonly #injector = inject(Injector);

@@ -1,11 +1,11 @@
 import { NgClass } from '@angular/common';
-import { ChangeDetectionStrategy, Component, inject, input, type OnInit } from '@angular/core';
+import { Component, inject, input, type OnInit } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { GenericFormService, GenericFormToolbarComponent, PageType } from '@nucleus/core';
 import { CalendarComponent, ShowLoadingComponent } from '@nucleus/fabric';
 import { SampleStatus } from '../../enums/sample-status.enum';
-import type { SampleTypedForm } from '../../models/sample.model';
 import type { GenericSampleForm, SampleGeneric } from '../../models/sample-generic.model';
+import type { SampleTypedForm } from '../../models/sample.model';
 import { sampleConfig } from '../../sample.config';
 import { sampleActions, sampleSelectors } from '../../store';
 
@@ -20,7 +20,6 @@ import { sampleActions, sampleSelectors } from '../../store';
     CalendarComponent,
   ],
   providers: [GenericFormService],
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SampleFormComponent implements OnInit, GenericSampleForm {
   readonly #genericFormService = inject(GenericFormService<SampleGeneric>);

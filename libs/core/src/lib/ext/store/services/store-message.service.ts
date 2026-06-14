@@ -1,11 +1,9 @@
-import { Injectable, inject } from '@angular/core';
+import { inject, Service } from '@angular/core';
 import { OperationStatus } from '@nucleus/common';
 import { MessageService } from '@nucleus/fabric';
 import type { CommonState } from '../models/state.model';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Service()
 export class StoreMessageService {
   readonly #messageService = inject(MessageService);
 

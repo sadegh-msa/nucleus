@@ -2,8 +2,7 @@
   <nu-generic-list-toolbar [toolbar]="toolbar"
                                      [selectedRecords]="selectedRecords().length"
                                      [(pagination)]="pagination"
-                                     class="page-toolbar page-list-toolbar">
-  </nu-generic-list-toolbar>
+                                     class="page-toolbar page-list-toolbar" />
 
   <nu-generic-list [data]="filteredData"
                              [idField]="config.field.id"
@@ -14,6 +13,5 @@
                              selectionMode="multiple"
                              (selection)="changeSelection($event)"
                              (activation)="activate($event)"
-                             class="page-content page-list-content">
-  </nu-generic-list>
+                             class="page-content page-list-content" />
 </div>
