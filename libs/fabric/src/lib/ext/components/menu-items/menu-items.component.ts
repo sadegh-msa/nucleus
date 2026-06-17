@@ -100,9 +100,10 @@ export class MenuItemsComponent {
 
     effect(() => {
       const isSubmenuFloating = this.isSubmenuFloating();
+      const isWide = this.isWide();
 
       untracked(() => {
-        if (isSubmenuFloating && this.isWide()) {
+        if (isSubmenuFloating && isWide) {
           this.items().forEach((i) => {
             this.collapseItem(i);
           });
@@ -112,10 +113,12 @@ export class MenuItemsComponent {
   }
 
   #computeItems(items: MenuItem[]) {
+    const currentUrl = this.#router.url;
+
     items.forEach((item) => {
       Object.assign(item, R.mergeDeepRight({ ...(this.common() ?? {}) }, item) as MenuItem);
       item.active = R.mergeDeepLeft({ ...(this.active() ?? {}) }, item.active ?? {}) as MenuItem;
-      item.isActive = item.routerLink === this.#router.url;
+      item.isActive = item.routerLink === currentUrl;
 
       if (item.children?.length) {
         this.#computeItems(item.children);
@@ -179,14 +182,15 @@ export class MenuItemsComponent {
     item.isActive = isActive;
 
     if (isActive) {
-      item.original = Object.assign({}, { ...item, original: undefined });
-      Object.assign(item, { ...item.active });
+      item.original = structuredClone({ ...item, original: undefined });
+      Object.assign(item, structuredClone(item.active));
     } else {
       for (const key of Object.keys(item.active || {})) {
         item[key as keyof MenuItem] = undefined;
       }
 
-      Object.assign(item, { ...item.original, original: undefined });
+      Object.assign(item, structuredClone(item.original));
+      item.original = undefined;
     }
   }
 }

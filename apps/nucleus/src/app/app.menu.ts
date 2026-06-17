@@ -19,7 +19,7 @@ export const navMainMenu = [
             id: 'nucleus-nav-link-sample-list',
             label: 'Sample list',
             icon: 'grid-1',
-            routerLink: 'crud/sample/list',
+            routerLink: '/crud/sample/list',
             permission: 'nucleus.sample.list',
           },
         ],
