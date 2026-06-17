@@ -1,5 +1,6 @@
 import type { OperationStatus } from '@nucleus/common';
-import type { NuTool, RestListResponse } from '../../crud';
+import type { RestListResponse } from '../../crud/models/rest.model'; // Possibility of circular dependency
+import type { NuTool } from '../../crud/models/toolbar.model'; // Possibility of circular dependency
 
 export interface CommonState {
   type: string;

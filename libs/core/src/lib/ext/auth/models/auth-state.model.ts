@@ -1,4 +1,5 @@
-import type { ActionSuccess, CommonState } from '../../store';
+import type { ActionSuccess } from '../../store/models/action.model'; // Possibility of circular dependency
+import type { CommonState } from '../../store/models/state.model'; // Possibility of circular dependency
 import type { AuthSignIn, AuthSignInResponse, AuthSignUp, AuthSignUpResponse } from './auth.model';
 
 export interface AuthSignInState extends CommonState {

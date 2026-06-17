@@ -47,3 +47,6 @@ Thumbs.db
 .claude/worktrees
 .nx/polygraph
 .nx/self-healing
+
+apps-circular.svg
+libs-circular.svg

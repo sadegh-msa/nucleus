@@ -17,7 +17,7 @@ import {
   InputPasswordDirective,
   SvgIconDirective
 } from '@nucleus/fabric';
-import { authActions, authSelectors, type AuthStates } from '../../../../ext';
+import { authActions, authSelectors, type AuthStates } from '../../../../ext/auth/store'; // Possibility of circular dependency
 import { authDefaultConfig } from '../../../../ext/auth/auth-default.config';
 import type { AuthSignIn, AuthSignInForm } from '../../../../ext/auth/models/auth.model';
 import { SignLayoutComponent } from '../sign-layout/sign-layout.component';

@@ -1,4 +1,4 @@
-import type { TypedForm } from '../../crud';
+import type { TypedForm } from '../../crud/models/form.model'; // Possibility of circular dependency
 
 export interface AuthToken {
   accessToken: string | null;

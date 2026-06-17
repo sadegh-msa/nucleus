@@ -1,14 +1,14 @@
 import { convertDateStrings } from '@nucleus/common';
+import type { GenericEntity } from '../models/generic.model';
+import type { RestServiceParams } from '../models/rest-service.model';
 import type {
-  GenericEntity,
   RestAddResponse,
   RestDeleteResponse,
   RestGetResponse,
   RestListQuery,
   RestListResponse,
-  RestServiceParams,
-  RestUpdateResponse,
-} from '../index';
+  RestUpdateResponse
+} from '../models/rest.model';
 
 function convertDateOperator<Response>(dateFields: string[]) {
   return convertDateStrings<Response>(...(dateFields || []).map((f: string) => `data.${f}`));

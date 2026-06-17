@@ -3,16 +3,16 @@ import type {
   createDeleteRestMethod,
   createGetRestMethod,
   createListRestMethod,
-  createUpdateRestMethod,
-  GenericEntity,
-  RestListQuery,
-} from '../../crud';
+  createUpdateRestMethod
+} from '../../crud/creators/rest-method.creator'; // Possibility of circular dependency
+import type { GenericEntity } from '../../crud/models/generic.model'; // Possibility of circular dependency
+import type { RestListQuery } from '../../crud/models/rest.model'; // Possibility of circular dependency
 import type {
   createAddStoreActionGroup,
   createDeleteStoreActionGroup,
   createGetStoreActionGroup,
   createListStoreActionGroup,
-  createUpdateStoreActionGroup,
+  createUpdateStoreActionGroup
 } from '../creators/store-action.creator';
 
 export interface EffectListParams<T extends GenericEntity> {

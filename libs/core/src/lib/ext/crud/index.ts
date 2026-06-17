@@ -27,6 +27,7 @@ export * from './models/pagination.model';
 export * from './models/pair.model';
 export * from './models/permission.model';
 export * from './models/rest.model';
+export * from './models/rest-service.model';
 export * from './models/table.model';
 export * from './models/toolbar.model';
 export * from './pipes/dropdown-options.pipe';

@@ -1,12 +1,13 @@
 import type { OperationStatus } from '@nucleus/common';
 import type {
-  NuTool,
   RestAddResponse,
   RestDeleteResponse,
   RestGetResponse,
   RestListResponse,
-  RestUpdateResponse,
-} from '../../crud';
+  RestUpdateResponse
+} from '../../crud/models/rest.model'; // Possibility of circular dependency
+import type { NuTool } from '../../crud/models/toolbar.model'; // Possibility of circular dependency
+
 
 export interface ActionCommon {
   tool?: NuTool;

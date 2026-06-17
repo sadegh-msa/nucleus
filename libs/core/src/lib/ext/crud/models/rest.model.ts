@@ -1,5 +1,4 @@
 import type { ListOrder } from '../enums/list-order.enum';
-import type { RestApiService } from '../services/rest-api.service';
 import type { Pagination } from './pagination.model';
 
 export interface RestResponse<Data, Control> {
@@ -29,12 +28,6 @@ export interface RestListQuery {
 
 export interface RestListResponseControl extends RestResponseControl {
   pagination: Pagination;
-}
-
-export interface RestServiceParams {
-  service: RestApiService;
-  endpoint: string;
-  dateFields: string[];
 }
 
 export type RestListResponse<Response> = RestResponse<Response, RestListResponseControl>;

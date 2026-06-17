@@ -2,7 +2,8 @@ import { inject } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { OperationStatus } from '@nucleus/common';
 import { catchError, concatMap, map, of } from 'rxjs';
-import { formatErrorMessage, type GenericEntity } from '../../crud';
+import { formatErrorMessage } from '../../crud/helpers/format-messages.helper'; // Possibility of circular dependency
+import type { GenericEntity } from '../../crud/models/generic.model'; // Possibility of circular dependency
 import type {
   EffectAddParams,
   EffectDeleteParams,

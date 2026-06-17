@@ -2,7 +2,7 @@ import { inject, Service } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { OperationStatus } from '@nucleus/common';
 import { catchError, map, mergeMap, of } from 'rxjs';
-import { formatErrorMessage } from '../../crud';
+import { formatErrorMessage } from '../../crud/helpers/format-messages.helper'; // Possibility of circular dependency
 import { AuthRestService } from '../services/auth-rest.service';
 import { authActions } from './auth.actions';
 

@@ -2,8 +2,11 @@ import { KeyValuePipe } from '@angular/common';
 import { Component, input } from '@angular/core';
 import { SvgIconDirective } from '@nucleus/fabric';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
+import {
+  GenericToolbarComponent
+} from '../../components/generic-toolbar/generic-toolbar.component'; // Possibility of circular dependency
 import { infoFieldsDefault } from '../../defaults/info-fields.default';
-import { GenericToolbarComponent, type InfoField } from '../../index';
+import type { InfoField } from '../../models/info.model';
 import type { NuToolbar } from '../../models/toolbar.model';
 import { InfoFieldsComponent } from '../info-fields/info-fields.component';
 

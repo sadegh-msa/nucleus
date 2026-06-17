@@ -9,7 +9,9 @@
     "localize": "nx extract-i18n nucleus && node utils/merge-locales.mjs nucleus",
     "lint": "nx biome-lint nucleus",
     "lint:all": "nx run-many --target=biome-lint",
-    "lint:affected": "nx affected --target=biome-lint"
+    "lint:affected": "nx affected --target=biome-lint",
+    "cd:apps": "madge --circular --extensions ts --image apps-circular.svg ./apps",
+    "cd:libs": "madge --circular --extensions ts --image libs-circular.svg ./libs"
   },
   "private": true,
   "dependencies": {
@@ -60,6 +62,7 @@
     "jest": "^30.4.2",
     "jest-environment-jsdom": "^30.4.1",
     "jest-preset-angular": "^17.0.0",
+    "madge": "^8.0.0",
     "ng-packagr": "22.0.0",
     "nx": "23.0.0",
     "stylelint": "^17.13.0",

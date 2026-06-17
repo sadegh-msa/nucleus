@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Service } from '@angular/core';
 import { map } from 'rxjs';
-import { RestApiService } from '../../crud';
+import { RestApiService } from '../../crud/services/rest-api.service'; // Possibility of circular dependency
 import { authDefaultConfig } from '../auth-default.config';
 import type {
   AuthSignIn,

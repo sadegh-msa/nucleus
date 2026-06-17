@@ -5,7 +5,7 @@ import { RouterLink } from '@angular/router';
 import { select, Store } from '@ngrx/store';
 import { OperationStatus } from '@nucleus/common';
 import { InputPasswordDirective, type PasswordStrength, SvgIconDirective } from '@nucleus/fabric';
-import { authActions, authSelectors, type AuthStates } from '../../../../ext';
+import { authActions, authSelectors, type AuthStates } from '../../../../ext/auth/store'; // Possibility of circular dependency
 import { authDefaultConfig } from '../../../../ext/auth/auth-default.config';
 import type { AuthSignIn, AuthSignUpForm } from '../../../../ext/auth/models/auth.model';
 import { SignLayoutComponent } from '../sign-layout/sign-layout.component';

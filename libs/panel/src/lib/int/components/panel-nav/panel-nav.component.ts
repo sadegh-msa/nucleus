@@ -2,7 +2,7 @@ import { NgClass, NgOptimizedImage } from '@angular/common';
 import { Component, computed, inject } from '@angular/core';
 import { NU_COMMON_CONFIG } from '@nucleus/common';
 import { ScreenService, SvgIconDirective } from '@nucleus/fabric';
-import { PanelService } from '../../../ext';
+import { PanelService } from '../../../ext/services/panel.service'; // Possibility of circular dependency
 
 @Component({
   selector: 'nav[nu-panel-nav]',

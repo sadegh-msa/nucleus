@@ -1,22 +1,26 @@
 import type { InputSignal, WritableSignal } from '@angular/core';
 import type { FormGroup } from '@angular/forms';
 import {
-  type AddState,
   createAddStoreActionGroup,
-  type createAddStoreSelector,
   createDeleteStoreActionGroup,
-  type createDeleteStoreSelector,
   createGetStoreActionGroup,
-  type createGetStoreSelector,
   createListStoreActionGroup,
-  type createListStoreSelector,
-  createUpdateStoreActionGroup,
-  type createUpdateStoreSelector,
-  type DeleteState,
-  type GetState,
-  type ListState,
-  type UpdateState,
-} from '../../store';
+  createUpdateStoreActionGroup
+} from '../../store/creators/store-action.creator'; // Possibility of circular dependency
+import type {
+  createAddStoreSelector,
+  createDeleteStoreSelector,
+  createGetStoreSelector,
+  createListStoreSelector,
+  createUpdateStoreSelector
+} from '../../store/creators/store-selector.creator'; // Possibility of circular dependency
+import type {
+  AddState,
+  DeleteState,
+  GetState,
+  ListState,
+  UpdateState
+} from '../../store/models/state.model'; // Possibility of circular dependency
 import type { PageType } from '../enums/page.enum';
 import type { CrudConfig } from './crud-config.model';
 import type { Pagination } from './pagination.model';

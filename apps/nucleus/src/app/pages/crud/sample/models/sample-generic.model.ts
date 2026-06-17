@@ -1,5 +1,5 @@
 import type { GenericEntity, GenericFormConsumer, GenericListConsumer } from '@nucleus/core';
-import type { SampleStates } from '../store';
+import type { SampleStates } from '../store/sample.states'; // Possibility of circular dependency
 import type {
   Sample,
   SampleAdd,
