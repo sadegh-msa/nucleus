@@ -5,21 +5,21 @@ import {
   createDeleteStoreActionGroup,
   createGetStoreActionGroup,
   createListStoreActionGroup,
-  createUpdateStoreActionGroup
+  createUpdateStoreActionGroup,
 } from '../../store/creators/store-action.creator'; // Possibility of circular dependency
 import type {
   createAddStoreSelector,
   createDeleteStoreSelector,
   createGetStoreSelector,
   createListStoreSelector,
-  createUpdateStoreSelector
+  createUpdateStoreSelector,
 } from '../../store/creators/store-selector.creator'; // Possibility of circular dependency
 import type {
   AddState,
   DeleteState,
   GetState,
   ListState,
-  UpdateState
+  UpdateState,
 } from '../../store/models/state.model'; // Possibility of circular dependency
 import type { PageType } from '../enums/page.enum';
 import type { CrudConfig } from './crud-config.model';
@@ -85,10 +85,7 @@ export interface GenericEntity<
 }
 
 export interface GenericListConsumer<T extends GenericEntity> {
-  store: {
-    actions: T['store']['actions'];
-    selectors: T['store']['selectors'];
-  };
+  store: Pick<T['store'], 'actions' | 'selectors'>;
   config: Readonly<T['config']>;
   isEmbedded: InputSignal<boolean>;
   toolbar: NuToolbar;
@@ -101,10 +98,7 @@ export interface GenericListConsumer<T extends GenericEntity> {
 }
 
 export interface GenericFormConsumer<T extends GenericEntity> {
-  store: {
-    actions: T['store']['actions'];
-    selectors: T['store']['selectors'];
-  };
+  store: Pick<T['store'], 'actions' | 'selectors'>;
   id: InputSignal<string>;
   config: Readonly<T['config']>;
   isEmbedded: InputSignal<boolean>;

@@ -1,4 +1,5 @@
 import { inject, Service } from '@angular/core';
+import { MessageService } from '@libs/fabric/src/lib/ext/services/message.service';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { OperationStatus } from '@nucleus/common';
 import { catchError, map, mergeMap, of } from 'rxjs';
@@ -10,6 +11,7 @@ import { authActions } from './auth.actions';
 export class AuthEffects {
   readonly #actions$ = inject(Actions);
   readonly #authRestService = inject(AuthRestService);
+  readonly #messageService = inject(MessageService);
 
   signIn$ = createEffect(() =>
     this.#actions$.pipe(
@@ -19,18 +21,21 @@ export class AuthEffects {
           map((response) =>
             authActions.signInSuccess({
               response,
-              message: 'You signed in successfully',
+              message: $localize`You signed in successfully`,
               status: OperationStatus.Success,
             }),
           ),
-          catchError(({ error }) =>
-            of(
+          catchError(({ error }) => {
+            const message = formatErrorMessage(error);
+            this.#messageService.addError(message);
+
+            return of(
               authActions.signInFailure({
-                message: formatErrorMessage(error),
+                message,
                 status: OperationStatus.Failure,
               }),
-            ),
-          ),
+            );
+          }),
         ),
       ),
     ),
@@ -41,21 +46,27 @@ export class AuthEffects {
       ofType(authActions.signUp),
       mergeMap(({ request }) =>
         this.#authRestService.signUp(request).pipe(
-          map((response) =>
-            authActions.signUpSuccess({
+          map((response) => {
+            const message = $localize`You signed up successfully`;
+            this.#messageService.addSuccess(message);
+
+            return authActions.signUpSuccess({
               response,
-              message: 'You signed up successfully',
+              message,
               status: OperationStatus.Success,
-            }),
-          ),
-          catchError(({ error }) =>
-            of(
+            });
+          }),
+          catchError(({ error }) => {
+            const message = formatErrorMessage(error);
+            this.#messageService.addError(message);
+
+            return of(
               authActions.signUpFailure({
-                message: formatErrorMessage(error),
+                message,
                 status: OperationStatus.Failure,
               }),
-            ),
-          ),
+            );
+          }),
         ),
       ),
     ),
@@ -68,18 +79,21 @@ export class AuthEffects {
         this.#authRestService.signOut().pipe(
           map(() =>
             authActions.signOutSuccess({
-              message: 'You signed out successfully',
+              message: $localize`You signed out successfully`,
               status: OperationStatus.Success,
             }),
           ),
-          catchError(({ error }) =>
-            of(
+          catchError(({ error }) => {
+            const message = formatErrorMessage(error);
+            this.#messageService.addError(message);
+
+            return of(
               authActions.signOutFailure({
-                message: formatErrorMessage(error),
+                message,
                 status: OperationStatus.Failure,
               }),
-            ),
-          ),
+            );
+          }),
         ),
       ),
     ),

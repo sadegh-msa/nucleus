@@ -1,4 +1,5 @@
 import { inject } from '@angular/core';
+import { MessageService } from '@libs/fabric/src/lib/ext/services/message.service';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { OperationStatus } from '@nucleus/common';
 import { catchError, concatMap, map, of } from 'rxjs';
@@ -17,6 +18,7 @@ export function createListStoreEffect<T extends GenericEntity>({
   method,
 }: EffectListParams<T>) {
   const actions$ = inject(Actions);
+  const messageService = inject(MessageService);
 
   return createEffect(() =>
     actions$.pipe(
@@ -29,14 +31,17 @@ export function createListStoreEffect<T extends GenericEntity>({
               status: OperationStatus.Success,
             }),
           ),
-          catchError(({ error }) =>
-            of(
+          catchError(({ error }) => {
+            const message = formatErrorMessage(error);
+            messageService.addError(message);
+
+            return of(
               actions.listFailure({
-                message: formatErrorMessage(error),
+                message,
                 status: OperationStatus.Failure,
               }),
-            ),
-          ),
+            );
+          }),
         ),
       ),
     ),
@@ -49,6 +54,7 @@ export function createGetStoreEffect<T extends GenericEntity>({
   method,
 }: EffectGetParams<T>) {
   const actions$ = inject(Actions);
+  const messageService = inject(MessageService);
   const { title } = config.info;
 
   return createEffect(() =>
@@ -56,9 +62,12 @@ export function createGetStoreEffect<T extends GenericEntity>({
       ofType(actions.get),
       concatMap(({ query }) => {
         if (!query) {
+          const message = $localize`ID of ${title} is required`;
+          messageService.addError(message);
+
           return of(
             actions.getFailure({
-              message: `ID of ${title} is required`,
+              message,
               status: OperationStatus.Failure,
             }),
           );
@@ -71,14 +80,17 @@ export function createGetStoreEffect<T extends GenericEntity>({
               status: OperationStatus.Success,
             }),
           ),
-          catchError(({ error }) =>
-            of(
+          catchError(({ error }) => {
+            const message = formatErrorMessage(error);
+            messageService.addError(message);
+
+            return of(
               actions.getFailure({
-                message: formatErrorMessage(error),
+                message,
                 status: OperationStatus.Failure,
               }),
-            ),
-          ),
+            );
+          }),
         );
       }),
     ),
@@ -91,6 +103,7 @@ export function createAddStoreEffect<T extends GenericEntity>({
   method,
 }: EffectAddParams<T>) {
   const actions$ = inject(Actions);
+  const messageService = inject(MessageService);
   const { title } = config.info;
 
   return createEffect(() =>
@@ -98,21 +111,27 @@ export function createAddStoreEffect<T extends GenericEntity>({
       ofType(actions.add),
       concatMap(({ request }) =>
         method(request).pipe(
-          map((response) =>
-            actions.addSuccess({
+          map((response) => {
+            const message = $localize`${title} added successfully`;
+            messageService.addSuccess(message);
+
+            return actions.addSuccess({
+              message,
               response,
-              message: `${title} added successfully`,
               status: OperationStatus.Success,
-            }),
-          ),
-          catchError(({ error }) =>
-            of(
+            });
+          }),
+          catchError(({ error }) => {
+            const message = formatErrorMessage(error);
+            messageService.addError(message);
+
+            return of(
               actions.addFailure({
-                message: formatErrorMessage(error),
+                message,
                 status: OperationStatus.Failure,
               }),
-            ),
-          ),
+            );
+          }),
         ),
       ),
     ),
@@ -125,6 +144,7 @@ export function createUpdateStoreEffect<T extends GenericEntity>({
   method,
 }: EffectUpdateParams<T>) {
   const actions$ = inject(Actions);
+  const messageService = inject(MessageService);
   const { title } = config.info;
 
   return createEffect(() =>
@@ -132,30 +152,39 @@ export function createUpdateStoreEffect<T extends GenericEntity>({
       ofType(actions.update),
       concatMap(({ query, request }) => {
         if (!query) {
+          const message = $localize`ID of ${title} is required`;
+          messageService.addError(message);
+
           return of(
             actions.updateFailure({
-              message: `ID of ${title} is required`,
+              message,
               status: OperationStatus.Failure,
             }),
           );
         }
 
         return method(query, request).pipe(
-          map((response) =>
-            actions.updateSuccess({
+          map((response) => {
+            const message = $localize`${title} updated successfully`;
+            messageService.addSuccess(message);
+
+            return actions.updateSuccess({
+              message,
               response,
-              message: `${title} updated successfully`,
               status: OperationStatus.Success,
-            }),
-          ),
-          catchError(({ error }) =>
-            of(
+            });
+          }),
+          catchError(({ error }) => {
+            const message = formatErrorMessage(error);
+            messageService.addError(message);
+
+            return of(
               actions.updateFailure({
-                message: formatErrorMessage(error),
+                message,
                 status: OperationStatus.Failure,
               }),
-            ),
-          ),
+            );
+          }),
         );
       }),
     ),
@@ -168,6 +197,7 @@ export function createDeleteStoreEffect<T extends GenericEntity>({
   method,
 }: EffectDeleteParams<T>) {
   const actions$ = inject(Actions);
+  const messageService = inject(MessageService);
   const { title } = config.info;
 
   return createEffect(() =>
@@ -175,30 +205,39 @@ export function createDeleteStoreEffect<T extends GenericEntity>({
       ofType(actions.delete),
       concatMap(({ query }) => {
         if (!query) {
+          const message = $localize`ID of ${title} is required`;
+          messageService.addError(message);
+
           return of(
             actions.deleteFailure({
-              message: `ID of ${title} is required`,
+              message,
               status: OperationStatus.Failure,
             }),
           );
         }
 
         return method(query).pipe(
-          map(() =>
-            actions.deleteSuccess({
+          map(() => {
+            const message = $localize`${title} deleted successfully`;
+            messageService.addSuccess(message);
+
+            return actions.deleteSuccess({
+              message,
               response: { control: {}, data: query },
-              message: `${title} deleted successfully`,
               status: OperationStatus.Success,
-            }),
-          ),
-          catchError(({ error }) =>
-            of(
+            });
+          }),
+          catchError(({ error }) => {
+            const message = formatErrorMessage(error);
+            messageService.addError(message);
+
+            return of(
               actions.deleteFailure({
-                message: formatErrorMessage(error),
+                message,
                 status: OperationStatus.Failure,
               }),
-            ),
-          ),
+            );
+          }),
         );
       }),
     ),

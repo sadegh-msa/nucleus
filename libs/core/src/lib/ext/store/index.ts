@@ -6,4 +6,3 @@ export * from './creators/store-state.creator';
 export * from './models/action.model';
 export * from './models/effect.model';
 export * from './models/state.model';
-export * from './services/store-message.service';

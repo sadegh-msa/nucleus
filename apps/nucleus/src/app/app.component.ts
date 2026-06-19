@@ -2,21 +2,20 @@ import { NgClass, NgTemplateOutlet } from '@angular/common';
 import { Component, effect, inject, signal, untracked } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { select, Store } from '@ngrx/store';
+import { Store, select } from '@ngrx/store';
 import { OperationStatus } from '@nucleus/common';
 import { authActions, authSelectors } from '@nucleus/core';
 import {
   type MenuItem,
   MenuItemsComponent,
   MessageComponent,
-  MessageService
+  MessageService,
 } from '@nucleus/fabric';
 import { type NuLangDir, NuLocaleService } from '@nucleus/l10n';
 import { PanelComponent, PanelService } from '@nucleus/panel';
 import { ConfirmationService } from 'primeng/api';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { navMainMenu } from './app.menu';
-import { SampleEventHandlerService } from './pages/crud/sample';
 import type { AppStates } from './store/app.state';
 
 @Component({
@@ -28,7 +27,7 @@ import type { AppStates } from './store/app.state';
     NgTemplateOutlet,
     MenuItemsComponent,
     NgClass,
-    PanelComponent
+    PanelComponent,
   ],
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -37,7 +36,6 @@ import type { AppStates } from './store/app.state';
 export class AppComponent {
   readonly #appStore$ = inject(Store<AppStates>);
   readonly #confirmationService = inject(ConfirmationService);
-  readonly #sampleEventHandlerService = inject(SampleEventHandlerService);
   readonly #panelService = inject(PanelService);
   readonly #localeService = inject(NuLocaleService);
   readonly #messageService = inject(MessageService);
@@ -49,8 +47,8 @@ export class AppComponent {
       label: $localize`Sign out`,
       icon: 'logout',
       command: () => this.confirmSignOut(),
-      permission: 'nucleus.menu.button.sign-out'
-    }
+      permission: 'nucleus.menu.button.sign-out',
+    },
   ] as MenuItem[];
 
   readonly isUserAuthenticated = signal(false);
@@ -70,7 +68,7 @@ export class AppComponent {
         this.#messageService.add({
           variant: 'info',
           title: 'Direction',
-          content: dir.toUpperCase()
+          content: dir.toUpperCase(),
         });
       });
     });
@@ -88,8 +86,6 @@ export class AppComponent {
     this.#appStore$.pipe(select(authSelectors.signOut.status)).subscribe((status) => {
       this.showLoading.set(status === OperationStatus.InProgress);
     });
-
-    this.#sampleEventHandlerService.register();
   }
 
   signOut() {
@@ -101,7 +97,7 @@ export class AppComponent {
       message: 'Are You sure you want to logout?',
       header: 'Sign Out',
       icon: 'pi pi-exclamation-triangle',
-      accept: () => this.signOut()
+      accept: () => this.signOut(),
     });
   }
 }
