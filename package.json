@@ -7,9 +7,7 @@
     "start": "nx serve nucleus",
     "build": "nx build --configuration=fa nucleus",
     "localize": "nx extract-i18n nucleus && node utils/merge-locales.mjs nucleus",
-    "lint": "nx biome-lint nucleus",
-    "lint:all": "nx run-many --target=biome-lint",
-    "lint:affected": "nx affected --target=biome-lint",
+    "lint": "biome check --write $(git status --porcelain | grep -E '^\\s*[AM?]' | awk '{print $2}')",
     "cd:apps": "madge --circular --extensions ts --image apps-circular.svg ./apps",
     "cd:libs": "madge --circular --extensions ts --image libs-circular.svg ./libs"
   },
