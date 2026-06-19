@@ -1,12 +1,11 @@
-import { inject, Service } from '@angular/core';
+import { Service } from '@angular/core';
 import {
   createAddRestMethod,
   createDeleteRestMethod,
   createGetRestMethod,
   createListRestMethod,
   createUpdateRestMethod,
-  RestApiService,
-  type RestServiceParams
+  type RestServiceParams,
 } from '@nucleus/core';
 import type { SampleGeneric } from '../models/sample-generic.model';
 import { sampleConfig } from '../sample.config';
@@ -14,7 +13,6 @@ import { sampleConfig } from '../sample.config';
 @Service()
 export class SampleRestService {
   readonly #args: RestServiceParams = {
-    service: inject(RestApiService),
     endpoint: sampleConfig.rest.endpoint,
     dateFields: sampleConfig.field.dates,
   };
