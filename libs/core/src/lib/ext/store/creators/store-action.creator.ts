@@ -14,7 +14,7 @@ import type {
   ActionUpdateSuccess,
 } from '../models/action.model';
 
-type Source = typeof createActionGroup.arguments.source;
+type Source = `${any}${string}`;
 
 export function createListStoreActionGroup<Query, Response>(source: Source) {
   return createActionGroup({

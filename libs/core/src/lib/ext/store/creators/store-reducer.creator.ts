@@ -16,7 +16,7 @@ import {
 } from './store-state.creator';
 
 export function createListStoreReducer<State, Query, Response>(
-  actions = createListStoreActionGroup<Query, Response>(''),
+  actions = createListStoreActionGroup<Query, Response>('Init'),
 ) {
   return {
     list: createReducer(
@@ -45,7 +45,7 @@ export function createListStoreReducer<State, Query, Response>(
 }
 
 export function createGetStoreReducer<State, Response>(
-  actions = createGetStoreActionGroup<Response>(''),
+  actions = createGetStoreActionGroup<Response>('Init'),
 ) {
   return {
     get: createReducer(
@@ -79,7 +79,7 @@ export function createGetStoreReducer<State, Response>(
 }
 
 export function createAddStoreReducer<State, Request, Response>(
-  actions = createAddStoreActionGroup<Request, Response>(''),
+  actions = createAddStoreActionGroup<Request, Response>('Init'),
 ) {
   return {
     add: createReducer(
@@ -104,7 +104,7 @@ export function createAddStoreReducer<State, Request, Response>(
 }
 
 export function createUpdateStoreReducer<State, Request, Response>(
-  actions = createUpdateStoreActionGroup<Request, Response>(''),
+  actions = createUpdateStoreActionGroup<Request, Response>('Init'),
 ) {
   return {
     update: createReducer(
@@ -132,7 +132,7 @@ export function createUpdateStoreReducer<State, Request, Response>(
   };
 }
 
-export function createDeleteStoreReducer<State>(actions = createDeleteStoreActionGroup('')) {
+export function createDeleteStoreReducer<State>(actions = createDeleteStoreActionGroup('Init')) {
   return {
     delete: createReducer(
       createDeleteStoreState<State>(actions.delete.type),

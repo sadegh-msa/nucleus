@@ -43,11 +43,11 @@ type GenericUpdateState = UpdateState<GenericRequest, GenericResponse>;
 type GenericDeleteState = DeleteState;
 
 const genericActions = {
-  ...createListStoreActionGroup<RestListQuery, GenericResponse>(''),
-  ...createGetStoreActionGroup<GenericResponse>(''),
-  ...createAddStoreActionGroup<GenericRequest, GenericResponse>(''),
-  ...createUpdateStoreActionGroup<GenericRequest, GenericResponse>(''),
-  ...createDeleteStoreActionGroup(''),
+  ...createListStoreActionGroup<RestListQuery, GenericResponse>('Init'),
+  ...createGetStoreActionGroup<GenericResponse>('Init'),
+  ...createAddStoreActionGroup<GenericRequest, GenericResponse>('Init'),
+  ...createUpdateStoreActionGroup<GenericRequest, GenericResponse>('Init'),
+  ...createDeleteStoreActionGroup('Init'),
 };
 
 export interface GenericEntity<
