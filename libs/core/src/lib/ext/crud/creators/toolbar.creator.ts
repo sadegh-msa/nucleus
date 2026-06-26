@@ -7,7 +7,7 @@ import type { GenericEntity } from '../models/generic.model';
 import type { NuTool, NuToolbar, NuToolEvent } from '../models/toolbar.model';
 
 type AddTools = Partial<Record<ToolType.Save | ToolType.Cancel, Partial<NuTool>>>;
-type ViewEditRequired = Required<Pick<Partial<NuTool>, 'id' | 'routerStates'>>;
+type ViewEditRequired = Required<Pick<NuTool, 'id' | 'routerStates'>>;
 type EditTools = Partial<Record<ToolType.Save, Partial<NuTool>>> &
   Record<ToolType.Cancel, ViewEditRequired>;
 type ViewTools = Partial<
