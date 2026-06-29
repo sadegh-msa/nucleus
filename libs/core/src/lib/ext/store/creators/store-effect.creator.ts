@@ -1,7 +1,7 @@
 import { inject } from '@angular/core';
-import { MessageService } from '@libs/fabric/src/lib/ext/services/message.service';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { OperationStatus } from '@nucleus/common';
+import { MessageService } from '@nucleus/fabric';
 import { catchError, concatMap, map, of } from 'rxjs';
 import { formatErrorMessage } from '../../crud/helpers/format-messages.helper'; // Possibility of circular dependency
 import type { GenericEntity } from '../../crud/models/generic.model'; // Possibility of circular dependency

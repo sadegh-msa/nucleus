@@ -1,7 +1,7 @@
 import { inject, Service } from '@angular/core';
-import { MessageService } from '@libs/fabric/src/lib/ext/services/message.service';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { OperationStatus } from '@nucleus/common';
+import { MessageService } from '@nucleus/fabric';
 import { catchError, map, mergeMap, of } from 'rxjs';
 import { formatErrorMessage } from '../../crud/helpers/format-messages.helper'; // Possibility of circular dependency
 import { AuthRestService } from '../services/auth-rest.service';
