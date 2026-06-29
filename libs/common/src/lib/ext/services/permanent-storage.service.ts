@@ -1,19 +1,22 @@
-import { inject, Service } from '@angular/core';
-import { CryptoService } from './crypto.service';
+import { injectAsync, Service } from '@angular/core';
 
 @Service()
 export class PermanentStorageService {
-  readonly #cryptoService = inject(CryptoService);
+  readonly #loadCryptoService = injectAsync(() =>
+    import('./crypto.service').then((m) => m.CryptoService),
+  );
 
   async setEncryptedItem(key: string, value: unknown) {
-    localStorage.setItem(key, await this.#cryptoService.encrypt(JSON.stringify(value)));
+    const cryptoService = await this.#loadCryptoService();
+    localStorage.setItem(key, await cryptoService.encrypt(JSON.stringify(value)));
   }
 
   async getEncryptedItem<T = string>(key: string) {
     const encryptedValue = localStorage.getItem(key);
+    const cryptoService = await this.#loadCryptoService();
 
     return encryptedValue
-      ? (JSON.parse(await this.#cryptoService.decrypt(encryptedValue)) as unknown as T)
+      ? (JSON.parse(await cryptoService.decrypt(encryptedValue)) as unknown as T)
       : null;
   }
 

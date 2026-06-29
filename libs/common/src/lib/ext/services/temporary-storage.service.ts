@@ -1,19 +1,22 @@
-import { inject, Service } from '@angular/core';
-import { CryptoService } from './crypto.service';
+import { injectAsync, Service } from '@angular/core';
 
 @Service()
 export class TemporaryStorageService {
-  readonly #cryptoService = inject(CryptoService);
+  readonly #loadCryptoService = injectAsync(() =>
+    import('./crypto.service').then((m) => m.CryptoService),
+  );
 
   async setEncryptedItem(key: string, value: unknown) {
-    sessionStorage.setItem(key, await this.#cryptoService.encrypt(JSON.stringify(value)));
+    const cryptoService = await this.#loadCryptoService();
+    sessionStorage.setItem(key, await cryptoService.encrypt(JSON.stringify(value)));
   }
 
   async getEncryptedItem<T>(key: string) {
     const encryptedValue = sessionStorage.getItem(key);
+    const cryptoService = await this.#loadCryptoService();
 
     return encryptedValue
-      ? (JSON.parse(await this.#cryptoService.decrypt(encryptedValue)) as unknown as T)
+      ? (JSON.parse(await cryptoService.decrypt(encryptedValue)) as unknown as T)
       : null;
   }
 
