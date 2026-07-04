@@ -1,6 +1,9 @@
-import { setupZoneTestEnv } from 'jest-preset-angular/setup-env/zone';
+import { setupZonelessTestEnv } from 'jest-preset-angular/setup-env/zoneless';
 
-setupZoneTestEnv({
+(globalThis as any).$localize = (strings: TemplateStringsArray, ...values: any[]) =>
+  strings.reduce((result, str, i) => result + str + (values[i] || ''), '');
+
+setupZonelessTestEnv({
   errorOnUnknownElements: true,
   errorOnUnknownProperties: true,
 });

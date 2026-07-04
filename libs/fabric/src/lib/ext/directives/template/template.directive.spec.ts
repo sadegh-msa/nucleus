@@ -1,8 +1,18 @@
+import { Component } from '@angular/core';
+import { TestBed } from '@angular/core/testing';
 import { TemplateDirective } from './template.directive';
 
-describe('FabComponentDirective', () => {
-  it('should create an instance', () => {
-    const directive = new TemplateDirective();
-    expect(directive).toBeTruthy();
+@Component({
+  template: `<ng-template fabTemplate="testName">Hello</ng-template>`,
+  imports: [TemplateDirective],
+})
+class TestHostComponent {}
+
+describe('TemplateDirective', () => {
+  it('should work with ng-template', async () => {
+    await TestBed.configureTestingModule({ imports: [TestHostComponent] }).compileComponents();
+    const fixture = TestBed.createComponent(TestHostComponent);
+    fixture.detectChanges();
+    expect(fixture.componentInstance).toBeTruthy();
   });
 });

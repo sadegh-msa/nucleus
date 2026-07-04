@@ -5,6 +5,7 @@
   "scripts": {
     "reset": "nx reset",
     "start": "nx serve nucleus",
+    "test": "jest",
     "build": "nx build --configuration=fa nucleus",
     "localize": "nx extract-i18n nucleus && node utils/merge-locales.mjs nucleus",
     "lint": "biome check --write $(git status --porcelain | grep -E '^\\s*[AM?]' | awk '{print $2}')",

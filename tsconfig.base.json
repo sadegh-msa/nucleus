@@ -23,7 +23,8 @@
       "@nucleus/fabric": ["./libs/fabric/src/index.ts"],
       "@nucleus/l10n": ["./libs/l10n/src/index.ts"],
       "@nucleus/panel": ["./libs/panel/src/index.ts"],
-      "@nucleus/theme": ["./libs/theme/src/index.ts"]
+      "@nucleus/theme": ["./libs/theme/src/index.ts"],
+      "@test-mocks": ["./utils/test-mocks.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
