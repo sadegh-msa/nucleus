@@ -1,4 +1,5 @@
 import { computed, DOCUMENT, inject, Service, signal } from '@angular/core';
+import type { SetTimeout } from '@nucleus/common';
 
 const sizes = ['sm', 'md', 'lg', 'xl', 'xxl', 'tablet', 'web'] as const;
 type Size = (typeof sizes)[number];
@@ -45,7 +46,7 @@ export class ScreenService {
     };
   });
 
-  #windowTimer?: number;
+  #windowTimer?: SetTimeout;
 
   constructor() {
     new ResizeObserver(() => {

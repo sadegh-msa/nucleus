@@ -1,11 +1,5 @@
-import {
-  booleanAttribute,
-  Directive,
-  ElementRef,
-  inject,
-  input,
-  Renderer2
-} from '@angular/core';
+import { booleanAttribute, Directive, ElementRef, inject, input, Renderer2 } from '@angular/core';
+import type { SetTimeout } from '@nucleus/common';
 
 type Pointer = 'pointer-down' | 'pointer-up';
 
@@ -30,7 +24,7 @@ export class RippleDirective {
   readonly #FINISH_STYLE_CLASS = 'finish';
 
   isEnabled = input(true, { alias: 'fabRipple', transform: booleanAttribute });
-  #timeoutHandler?: number;
+  #timeoutHandler?: SetTimeout;
   #lastEvent: Pointer | null = null;
   #ripple?: HTMLElement;
 

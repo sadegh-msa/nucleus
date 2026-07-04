@@ -13,6 +13,7 @@ export * from './services/permanent-storage.service';
 export * from './services/temporary-storage.service';
 export * from './types/extent.type';
 export * from './types/form.type';
+export * from './types/global.type';
 export * from './utils/apply-mixins.util';
 export * from './utils/object.util';
 export * from './utils/time.util';

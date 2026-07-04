@@ -5,8 +5,9 @@ import {
   Renderer2,
   Service,
   TemplateRef,
-  ViewContainerRef
+  ViewContainerRef,
 } from '@angular/core';
+import type { SetTimeout } from '@nucleus/common';
 import { VisualObserver } from '../helpers/viz-observer';
 import type { Popover, TriggerEvent } from '../models';
 
@@ -269,7 +270,7 @@ export class PopoverService {
       }
 
       if (triggerEvent === 'hover') {
-        let timeout = 0;
+        let timeout: SetTimeout;
         docPointermoveAbortController = new AbortController();
 
         document.body.addEventListener(
