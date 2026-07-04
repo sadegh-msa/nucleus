@@ -24,6 +24,7 @@
     "@angular/ssr": "22.0.1",
     "@ngrx/effects": "21.1.1",
     "@ngrx/store": "21.1.1",
+    "@primeng/themes": "^19.1.4",
     "@primeuix/themes": "^2.0.3",
     "date-fns": "^4.4.0",
     "date-fns-jalali": "^4.1.0-0",
