@@ -1,11 +1,11 @@
 import { computed, effect, inject, resource, Service } from '@angular/core';
-import { NavigationEnd, Router } from '@angular/router';
-import { select, Store } from '@ngrx/store';
+import { NavigationCancel, Router } from '@angular/router';
+import { Store, select } from '@ngrx/store';
 import {
   CookieService,
   OperationStatus,
   PermanentStorageService,
-  sleepRandom
+  sleepRandom,
 } from '@nucleus/common';
 import {
   debounceTime,
@@ -14,11 +14,11 @@ import {
   filter,
   fromEvent,
   map,
-  skipWhile
+  skipWhile,
 } from 'rxjs';
 import { authDefaultConfig } from '../auth-default.config';
 import { NU_AUTH_CONFIG } from '../providers/auth-config.provider';
-import { authActions, authSelectors, type AuthStates } from '../store';
+import { type AuthStates, authActions, authSelectors } from '../store';
 
 @Service()
 export class AuthTokenService {
@@ -29,7 +29,7 @@ export class AuthTokenService {
   readonly #authConfig = inject(NU_AUTH_CONFIG);
 
   readonly #COOKIE_ACCESS_TOKEN_KEY = 'aat';
-  readonly #LAST_URL_KEY = 'lastUrl';
+  readonly #REQUESTED_URL_KEY = 'requestedUrl';
   readonly #REMEMBER_ME_EXPIRY_MINUTES = this.#authConfig.rememberMeExpiry || 7 * 24 * 60;
   readonly #DEADLINE_EXTENDER_TIME = 60 * 1000;
   readonly #AUTH_PATHS = Object.values(authDefaultConfig.routes).map((i) => i.path);
@@ -40,8 +40,6 @@ export class AuthTokenService {
   });
   readonly isAuthenticated = computed(async () => !!(await this.getAccessToken()));
 
-  #lastUrlApplied = false;
-
   constructor() {
     this.#handleEvents();
     this.#settleAccessTokenDeadlineExtender();
@@ -51,16 +49,15 @@ export class AuthTokenService {
 
   #handleEvents() {
     const { Success, Failure } = OperationStatus;
-    this.#lastUrlApplied = false;
 
     this.#router.events
       .pipe(
-        filter((v) => v instanceof NavigationEnd),
-        map((v) => v as NavigationEnd),
+        filter((v) => v instanceof NavigationCancel),
+        map((v) => v as NavigationCancel),
       )
-      .subscribe((route) => {
-        if (!this.isAuthRouteActivated(route.url)) {
-          this.#storeLastUrl(route.url);
+      .subscribe(async (route) => {
+        if (!(await this.isAuthenticated()) && !this.isAuthRouteActivated(route.url)) {
+          this.#storeRequestedUrl(route.url);
         }
       });
 
@@ -68,7 +65,11 @@ export class AuthTokenService {
       .pipe(select(authSelectors.check.status), debounceTime(1), distinctUntilChanged())
       .subscribe((status) => {
         if (status === Success) {
-          this.#redirectToApp(!this.isAuthRouteActivated(this.#restoreLastUrl()));
+          const requestedUrl = this.#restoreRequestedUrl();
+
+          if (requestedUrl) {
+            this.#redirectToApp(!this.isAuthRouteActivated(requestedUrl));
+          }
         } else if (status === Failure) {
           if (!this.isAuthRouteActivated(location.pathname)) {
             this.#redirectToApp(false, ['/', authDefaultConfig.routes.signIn.path]);
@@ -78,7 +79,7 @@ export class AuthTokenService {
 
     this.#authStore$
       .pipe(select(authSelectors.signIn.state), debounceTime(1), distinctUntilKeyChanged('status'))
-      .subscribe(async ({ status, request, response }) => {
+      .subscribe(async ({ status, response }) => {
         if (status === Success) {
           await this.setAccessToken(response.token.accessToken);
           this.#redirectToApp(true);
@@ -110,31 +111,32 @@ export class AuthTokenService {
         filter((s) => s.status === Success),
       )
       .subscribe(async () => {
-        this.#storeLastUrl('');
+        this.#storeRequestedUrl('');
         await this.deleteAccessToken();
         await this.#checkToken();
       });
   }
 
-  #storeLastUrl(url: string) {
-    this.#permanentStorageService.setItem(this.#LAST_URL_KEY, url);
+  #storeRequestedUrl(url: string) {
+    this.#permanentStorageService.setItem(this.#REQUESTED_URL_KEY, url);
   }
 
-  #restoreLastUrl() {
-    return this.#permanentStorageService.getItem(this.#LAST_URL_KEY) || '/';
+  #restoreRequestedUrl() {
+    return this.#permanentStorageService.getItem(this.#REQUESTED_URL_KEY) || '';
   }
 
-  #redirectToApp(toLastUrl = false, path = ['/']) {
-    if (toLastUrl && !this.#lastUrlApplied) {
+  #redirectToApp(loadRequestedUrl = false, path = ['/']) {
+    const requestedUrl = this.#restoreRequestedUrl();
+
+    if (loadRequestedUrl && requestedUrl) {
       path.splice(0, path.length);
-      path.push(this.#restoreLastUrl());
+      path.push(requestedUrl);
+      this.#storeRequestedUrl('');
     }
 
     this.#router
       .navigate(path)
-      .then(() => {
-        this.#lastUrlApplied = toLastUrl;
-      })
+      .then()
       .catch(() => this.#router.navigate(['/']).then());
   }
 
