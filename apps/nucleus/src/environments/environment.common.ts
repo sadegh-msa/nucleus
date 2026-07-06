@@ -3,7 +3,7 @@ export const environment = {
   version: '1.0.0',
   api: {
     rest: {
-      url: 'https://mockoon.localhost:3000/api',
+      url: 'http://mockoon.localhost:3000/api',
       path: 'api/v1',
       time: '',
     },

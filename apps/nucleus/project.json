@@ -98,10 +98,10 @@
       "executor": "@angular/build:dev-server",
       "configurations": {
         "production": {
-          "buildTarget": "nucleus:build:production,fa"
+          "buildTarget": "nucleus:build:production"
         },
         "development": {
-          "buildTarget": "nucleus:build:development,fa"
+          "buildTarget": "nucleus:build:development"
         }
       },
       "defaultConfiguration": "development"
