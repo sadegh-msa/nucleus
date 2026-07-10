@@ -52,3 +52,4 @@ apps-circular.svg
 libs-circular.svg
 
 .claude/settings.local.json
+.cron-lock
