@@ -64,6 +64,17 @@ body {
       @include box.rounded();
       @include shadow.large();
       background-color: get-color-var(paper-dark);
+    }
+
+    > :is(header) {
+      padding: get-size-var(xs-4);
+    }
+
+    > :is(nav) {
+      padding: get-size-var(sm-1);
+    }
+
+    > :is(main):not(:has(.page)) {
       padding: get-size-var(sm-1);
     }
 
