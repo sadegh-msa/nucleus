@@ -1,32 +1,23 @@
-import { computed, effect, inject, resource, Service } from '@angular/core';
+import { computed, effect, inject, resource, Service, untracked } from '@angular/core';
 import { NavigationCancel, Router } from '@angular/router';
-import { Store, select } from '@ngrx/store';
 import {
   CookieService,
   OperationStatus,
   PermanentStorageService,
   sleepRandom,
 } from '@nucleus/common';
-import {
-  debounceTime,
-  distinctUntilChanged,
-  distinctUntilKeyChanged,
-  filter,
-  fromEvent,
-  map,
-  skipWhile,
-} from 'rxjs';
+import { debounceTime, filter, fromEvent, map, skipWhile } from 'rxjs';
 import { authDefaultConfig } from '../auth-default.config';
-import { NU_AUTH_CONFIG } from '../providers/auth-config.provider';
-import { type AuthStates, authActions, authSelectors } from '../store';
+import { injectAuthConfig } from '../providers/auth-config.provider';
+import { injectAuthStore } from '../store/auth.store';
 
 @Service()
 export class AuthTokenService {
   readonly #router = inject(Router);
   readonly #cookieService = inject(CookieService);
   readonly #permanentStorageService = inject(PermanentStorageService);
-  readonly #authStore$ = inject(Store<AuthStates>);
-  readonly #authConfig = inject(NU_AUTH_CONFIG);
+  readonly #authStore = injectAuthStore();
+  readonly #authConfig = injectAuthConfig();
 
   readonly #COOKIE_ACCESS_TOKEN_KEY = 'aat';
   readonly #REQUESTED_URL_KEY = 'requestedUrl';
@@ -61,60 +52,72 @@ export class AuthTokenService {
         }
       });
 
-    this.#authStore$
-      .pipe(select(authSelectors.check.status), debounceTime(1), distinctUntilChanged())
-      .subscribe((status) => {
-        if (status === Success) {
-          const requestedUrl = this.#restoreRequestedUrl();
+    // Watch check status
+    effect(() => {
+      const status = this.#authStore.checkStatus();
+      if (status === Success) {
+        const requestedUrl = this.#restoreRequestedUrl();
 
-          if (requestedUrl) {
-            this.#redirectToApp(!this.isAuthRouteActivated(requestedUrl));
-          }
-        } else if (status === Failure) {
-          if (!this.isAuthRouteActivated(location.pathname)) {
-            this.#redirectToApp(false, ['/', authDefaultConfig.routes.signIn.path]);
-          }
+        if (requestedUrl) {
+          this.#redirectToApp(!this.isAuthRouteActivated(requestedUrl));
         }
-      });
-
-    this.#authStore$
-      .pipe(select(authSelectors.signIn.state), debounceTime(1), distinctUntilKeyChanged('status'))
-      .subscribe(async ({ status, response }) => {
-        if (status === Success) {
-          await this.setAccessToken(response.token.accessToken);
-          this.#redirectToApp(true);
-        } else if (status === Failure) {
-          await this.deleteAccessToken();
+      } else if (status === Failure) {
+        if (!this.isAuthRouteActivated(location.pathname)) {
+          this.#redirectToApp(false, ['/', authDefaultConfig.routes.signIn.path]);
         }
+      }
+    });
 
-        await this.#checkToken();
-      });
+    // Watch signIn state
+    effect(() => {
+      const { status, response } = this.#authStore.signInState();
+      if (status === Success) {
+        untracked(() => this.#handleSignInSuccess(response.token.accessToken));
+      } else if (status === Failure) {
+        untracked(() => this.#handleAuthFailure());
+      }
+    });
 
-    this.#authStore$
-      .pipe(select(authSelectors.signUp.state), debounceTime(1), distinctUntilKeyChanged('status'))
-      .subscribe(async ({ status, response }) => {
-        if (status === Success) {
-          await this.setAccessToken(response.token.accessToken);
-          this.#redirectToApp();
-        } else if (status === Failure) {
-          await this.deleteAccessToken();
-        }
+    // Watch signUp state
+    effect(() => {
+      const { status, response } = this.#authStore.signUpState();
+      if (status === Success) {
+        untracked(() => this.#handleSignUpSuccess(response.token.accessToken));
+      } else if (status === Failure) {
+        untracked(() => this.#handleAuthFailure());
+      }
+    });
 
-        await this.#checkToken();
-      });
+    // Watch signOut state
+    effect(() => {
+      const { status } = this.#authStore.signOutState();
+      if (status === Success) {
+        untracked(() => this.#handleSignOutSuccess());
+      }
+    });
+  }
 
-    this.#authStore$
-      .pipe(
-        select(authSelectors.signOut.state),
-        debounceTime(1),
-        distinctUntilKeyChanged('status'),
-        filter((s) => s.status === Success),
-      )
-      .subscribe(async () => {
-        this.#storeRequestedUrl('');
-        await this.deleteAccessToken();
-        await this.#checkToken();
-      });
+  async #handleSignInSuccess(accessToken: string | null) {
+    await this.setAccessToken(accessToken);
+    this.#redirectToApp(true);
+    await this.#checkToken();
+  }
+
+  async #handleSignUpSuccess(accessToken: string | null) {
+    await this.setAccessToken(accessToken);
+    this.#redirectToApp();
+    await this.#checkToken();
+  }
+
+  async #handleSignOutSuccess() {
+    this.#storeRequestedUrl('');
+    await this.deleteAccessToken();
+    await this.#checkToken();
+  }
+
+  async #handleAuthFailure() {
+    await this.deleteAccessToken();
+    await this.#checkToken();
   }
 
   #storeRequestedUrl(url: string) {
@@ -162,9 +165,11 @@ export class AuthTokenService {
   async #checkToken() {
     const isAuthenticated = await this.isAuthenticated();
 
-    this.#authStore$.dispatch(
-      isAuthenticated ? authActions.checkSuccess() : authActions.checkFailure(),
-    );
+    if (isAuthenticated) {
+      this.#authStore.checkSuccess();
+    } else {
+      this.#authStore.checkFailure();
+    }
   }
 
   async setAccessToken(accessToken: string | null) {

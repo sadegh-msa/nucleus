@@ -4,10 +4,10 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { GenericFormService, GenericFormToolbarComponent, PageType } from '@nucleus/core';
 import { CalendarComponent, ShowLoadingComponent } from '@nucleus/fabric';
 import { SampleStatus } from '../../enums/sample-status.enum';
-import type { GenericSampleForm, SampleGeneric } from '../../models/sample-generic.model';
 import type { SampleTypedForm } from '../../models/sample.model';
+import type { GenericSampleForm, SampleGeneric } from '../../models/sample-generic.model';
 import { sampleConfig } from '../../sample.config';
-import { sampleActions, sampleSelectors } from '../../store';
+import { SampleStore } from '../../store/sample.store';
 
 @Component({
   selector: 'app-sample-form',
@@ -30,10 +30,7 @@ export class SampleFormComponent implements OnInit, GenericSampleForm {
 
   readonly PageType = PageType;
   readonly config = sampleConfig;
-  readonly store = {
-    actions: sampleActions,
-    selectors: sampleSelectors,
-  };
+  readonly store = inject(SampleStore);
   readonly form = new FormGroup<SampleTypedForm>({
     id: new FormControl(null),
     title: new FormControl(null, [Validators.required]),

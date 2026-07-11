@@ -1,12 +1,15 @@
 import { TestBed } from '@angular/core/testing';
-import { MockStore, provideMockStore } from '@ngrx/store/testing';
-import { CookieService, NU_COMMON_CONFIG } from '@nucleus/common';
-import { NU_AUTH_CONFIG } from '../providers/auth-config.provider';
+import { CookieService, provideNuCommonConfig } from '@nucleus/common';
+import { provideFabricConfig } from '@nucleus/fabric';
+import { MOCK_FABRIC_CONFIG, setupGlobalMocks } from '@test-mocks';
+import { provideAuthConfig } from '../providers/auth-config.provider';
+import { provideAuthStore } from '../store/auth.store';
 import { AuthTokenService } from './auth-token.service';
+
+setupGlobalMocks();
 
 describe('AuthTokenService', () => {
   let service: AuthTokenService;
-  let _store: MockStore;
   let cookieService: {
     getItem: jest.Mock;
     setItem: jest.Mock;
@@ -38,13 +41,13 @@ describe('AuthTokenService', () => {
 
     TestBed.configureTestingModule({
       providers: [
-        provideMockStore({ initialState: {} }),
-        { provide: NU_AUTH_CONFIG, useValue: mockAuthConfig },
-        { provide: NU_COMMON_CONFIG, useValue: mockCommonConfig },
+        provideAuthStore(),
+        provideAuthConfig(mockAuthConfig),
+        provideNuCommonConfig(mockCommonConfig),
+        provideFabricConfig(MOCK_FABRIC_CONFIG),
         { provide: CookieService, useValue: cookieService },
       ],
     });
-    _store = TestBed.inject(MockStore);
     service = TestBed.inject(AuthTokenService);
   });
 

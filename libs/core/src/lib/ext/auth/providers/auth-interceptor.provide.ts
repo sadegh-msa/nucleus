@@ -1,7 +1,7 @@
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from '../interceptors/auth.interceptor';
 
-export const provideNuAuthInterceptor = () => ({
+export const provideAuthInterceptor = () => ({
   provide: HTTP_INTERCEPTORS,
   useClass: AuthInterceptor,
   multi: true,

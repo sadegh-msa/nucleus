@@ -6,12 +6,12 @@ import {
   GenericListComponent,
   GenericListService,
   GenericListToolbarComponent,
-  type NuTable
+  type NuTable,
 } from '@nucleus/core';
-import type { GenericSampleList, SampleGeneric } from '../../models/sample-generic.model';
 import type { Sample, SampleList } from '../../models/sample.model';
+import type { GenericSampleList, SampleGeneric } from '../../models/sample-generic.model';
 import { sampleConfig } from '../../sample.config';
-import { sampleActions, sampleSelectors } from '../../store';
+import { SampleStore } from '../../store/sample.store';
 
 @Component({
   selector: 'app-sample-list',
@@ -26,10 +26,7 @@ export class SampleListComponent implements OnInit, GenericSampleList {
   isEmbedded = input(false);
 
   readonly config = sampleConfig;
-  readonly store = {
-    actions: sampleActions,
-    selectors: sampleSelectors,
-  };
+  readonly store = inject(SampleStore);
   readonly table: NuTable = {
     columns: [
       { field: 'index', label: '#', tooltip: 'Index', type: DataType.Index },

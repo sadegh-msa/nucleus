@@ -1,7 +1,6 @@
-import { DestroyRef, inject, Injector, Service, signal } from '@angular/core';
+import { DestroyRef, effect, Injector, inject, Service, signal } from '@angular/core';
 import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, Router } from '@angular/router';
-import { select, Store } from '@ngrx/store';
 import { mergeObjects, OperationStatus } from '@nucleus/common';
 import { filter, pairwise } from 'rxjs';
 import { createPagination } from '../creators/pagination.creator';
@@ -20,7 +19,6 @@ export class GenericListService<T extends GenericEntity> {
   readonly #injector = inject(Injector);
   readonly #activatedRoute = inject(ActivatedRoute);
   readonly #router = inject(Router);
-  readonly #store$ = inject(Store<T['store']['states']>);
 
   #consumer!: GenericListConsumer<T>;
   #lastQuery = { page: DEFAULT_PAGE, rows: DEFAULT_ROWS };
@@ -83,31 +81,32 @@ export class GenericListService<T extends GenericEntity> {
   }
 
   #handleLoadDataEvents() {
-    this.#store$
-      .pipe(select(this.#consumer.store.selectors.list.state), takeUntilDestroyed(this.#destroyRef))
-      .subscribe(({ response, status, tool }) => {
+    effect(
+      () => {
+        const { response, status, tool } = this.#consumer.store.list();
         tool?.showLoading?.set(status === OperationStatus.InProgress);
         this.#consumer.isDataLoading.set(status === OperationStatus.InProgress);
 
         if (status === OperationStatus.Success) {
           this.#handleLoadDataResponse(response);
         }
-      });
+      },
+      { injector: this.#injector },
+    );
   }
 
   #handleDeleteEvents() {
-    this.#store$
-      .pipe(
-        select(this.#consumer.store.selectors.delete.state),
-        takeUntilDestroyed(this.#destroyRef),
-      )
-      .subscribe(({ status, tool, query }) => {
+    effect(
+      () => {
+        const { status, tool, query } = this.#consumer.store.delete();
         tool?.showLoading?.set(status === OperationStatus.InProgress ? query : false);
 
         if (status === OperationStatus.Success) {
           this.loadData();
         }
-      });
+      },
+      { injector: this.#injector },
+    );
   }
 
   #selectionChanged(selectedItems: T['list'] | T['list'][0]) {
@@ -131,7 +130,7 @@ export class GenericListService<T extends GenericEntity> {
   }
 
   #handleLoadDataResponse(response: RestListResponse<T['list']>) {
-    const { data, control } = response;
+    const { data } = response;
     // Enable when backend was ready
     // this.#consumer.pagination.update(current => mergeObjects(current, control.pagination));
     this.#consumer.data.set(data);
@@ -154,12 +153,7 @@ export class GenericListService<T extends GenericEntity> {
   }
 
   loadData(tool?: NuTool) {
-    this.#store$.dispatch(
-      this.#consumer.store.actions.list({
-        tool,
-        query: { ...this.#lastQuery },
-      }),
-    );
+    this.#consumer.store.loadList({ ...this.#lastQuery } as any, tool);
   }
 
   delete(tool: NuTool, id: string) {
@@ -167,11 +161,6 @@ export class GenericListService<T extends GenericEntity> {
       tool.showLoading = signal(false);
     }
 
-    this.#store$.dispatch(
-      this.#consumer.store.actions.delete({
-        tool,
-        query: id,
-      }),
-    );
+    this.#consumer.store.loadDelete(id, tool);
   }
 }

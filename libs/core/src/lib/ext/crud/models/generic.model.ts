@@ -1,32 +1,17 @@
 import type { InputSignal, WritableSignal } from '@angular/core';
 import type { FormGroup } from '@angular/forms';
-import {
-  createAddStoreActionGroup,
-  createDeleteStoreActionGroup,
-  createGetStoreActionGroup,
-  createListStoreActionGroup,
-  createUpdateStoreActionGroup,
-} from '../../store/creators/store-action.creator'; // Possibility of circular dependency
-import type {
-  createAddStoreSelector,
-  createDeleteStoreSelector,
-  createGetStoreSelector,
-  createListStoreSelector,
-  createUpdateStoreSelector,
-} from '../../store/creators/store-selector.creator'; // Possibility of circular dependency
 import type {
   AddState,
   DeleteState,
   GetState,
   ListState,
   UpdateState,
-} from '../../store/models/state.model'; // Possibility of circular dependency
+} from '../../store/models/signal-store.model';
 import type { PageType } from '../enums/page.enum';
 import type { CrudConfig } from './crud-config.model';
 import type { Pagination } from './pagination.model';
-import type { RestListQuery } from './rest.model';
 import type { NuTable } from './table.model';
-import type { NuToolbar } from './toolbar.model';
+import type { NuTool, NuToolbar } from './toolbar.model';
 
 // eslint-disable-next-line
 type GenericTypedForm = any;
@@ -34,21 +19,51 @@ type GenericTypedForm = any;
 type GenericRequest = any;
 // eslint-disable-next-line
 type GenericResponse = any;
-// eslint-disable-next-line
-type GenericMainState = any;
-type GenericListState = ListState<RestListQuery, GenericResponse>;
-type GenericGetState = GetState<GenericResponse>;
-type GenericAddState = AddState<GenericRequest, GenericResponse>;
-type GenericUpdateState = UpdateState<GenericRequest, GenericResponse>;
-type GenericDeleteState = DeleteState;
 
-const genericActions = {
-  ...createListStoreActionGroup<RestListQuery, GenericResponse>('Init'),
-  ...createGetStoreActionGroup<GenericResponse>('Init'),
-  ...createAddStoreActionGroup<GenericRequest, GenericResponse>('Init'),
-  ...createUpdateStoreActionGroup<GenericRequest, GenericResponse>('Init'),
-  ...createDeleteStoreActionGroup('Init'),
-};
+export interface CrudStore {
+  // State signals
+  list(): ListState<RestListQuery, GenericResponse>;
+  get(): GetState<GenericResponse>;
+  add(): AddState<GenericRequest, GenericResponse>;
+  update(): UpdateState<GenericRequest, GenericResponse>;
+  delete(): DeleteState;
+
+  // Computed signals
+  listStatus(): OperationStatus;
+  listResponse(): RestListResponse<GenericResponse>;
+  getStatus(): OperationStatus;
+  getResponse(): RestGetResponse<GenericResponse>;
+  addStatus(): OperationStatus;
+  addResponse(): RestAddResponse<GenericResponse>;
+  updateStatus(): OperationStatus;
+  updateResponse(): RestUpdateResponse<GenericResponse>;
+  deleteStatus(): OperationStatus;
+  deleteResponse(): RestDeleteResponse;
+
+  // Methods
+  loadList(query: RestListQuery, tool?: NuTool): void;
+  loadGet(query: string, tool?: NuTool): void;
+  loadAdd(request: GenericRequest, tool?: NuTool): void;
+  loadUpdate(query: string, request: GenericRequest, tool?: NuTool): void;
+  loadDelete(query: string, tool?: NuTool): void;
+  getMutate(response: GenericResponse): void;
+  resetList(): void;
+  resetGet(): void;
+  resetAdd(): void;
+  resetUpdate(): void;
+  resetDelete(): void;
+  resetAll(): void;
+}
+
+import type { OperationStatus } from '@nucleus/common';
+import type {
+  RestAddResponse,
+  RestDeleteResponse,
+  RestGetResponse,
+  RestListQuery,
+  RestListResponse,
+  RestUpdateResponse,
+} from './rest.model';
 
 export interface GenericEntity<
   Full = unknown,
@@ -57,7 +72,6 @@ export interface GenericEntity<
   Update = unknown,
   Form = unknown,
   TypedFrom = GenericTypedForm,
-  States = unknown,
   Config = CrudConfig<any, any, any, any>,
 > {
   full: Full;
@@ -66,26 +80,12 @@ export interface GenericEntity<
   update: Update;
   form: Form;
   typedForm: TypedFrom;
-  store: {
-    states: States;
-    actions: typeof genericActions;
-    selectors: {
-      list: ReturnType<typeof createListStoreSelector<GenericMainState, GenericListState>>['list'];
-      get: ReturnType<typeof createGetStoreSelector<GenericMainState, GenericGetState>>['get'];
-      add: ReturnType<typeof createAddStoreSelector<GenericMainState, GenericAddState>>['add'];
-      update: ReturnType<
-        typeof createUpdateStoreSelector<GenericMainState, GenericUpdateState>
-      >['update'];
-      delete: ReturnType<
-        typeof createDeleteStoreSelector<GenericMainState, GenericDeleteState>
-      >['delete'];
-    };
-  };
+  store: CrudStore;
   config: Config;
 }
 
 export interface GenericListConsumer<T extends GenericEntity> {
-  store: Pick<T['store'], 'actions' | 'selectors'>;
+  store: CrudStore;
   config: Readonly<T['config']>;
   isEmbedded: InputSignal<boolean>;
   toolbar: NuToolbar;
@@ -98,7 +98,7 @@ export interface GenericListConsumer<T extends GenericEntity> {
 }
 
 export interface GenericFormConsumer<T extends GenericEntity> {
-  store: Pick<T['store'], 'actions' | 'selectors'>;
+  store: CrudStore;
   id: InputSignal<string>;
   config: Readonly<T['config']>;
   isEmbedded: InputSignal<boolean>;

@@ -1,25 +1,23 @@
-import { Component, DestroyRef, inject, type OnInit, signal } from '@angular/core';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { Component, effect, signal, untracked } from '@angular/core';
 import {
   FormControl,
   FormGroup,
   FormsModule,
   ReactiveFormsModule,
-  Validators
+  Validators,
 } from '@angular/forms';
 import { RouterLink } from '@angular/router';
-import { select, Store } from '@ngrx/store';
 
 import { OperationStatus } from '@nucleus/common';
 import {
   CheckboxDirective,
   FormFieldComponent,
   InputPasswordDirective,
-  SvgIconDirective
+  SvgIconDirective,
 } from '@nucleus/fabric';
-import { authActions, authSelectors, type AuthStates } from '../../../../ext/auth/store'; // Possibility of circular dependency
 import { authDefaultConfig } from '../../../../ext/auth/auth-default.config';
 import type { AuthSignIn, AuthSignInForm } from '../../../../ext/auth/models/auth.model';
+import { injectAuthStore } from '../../../../ext/auth/store/auth.store';
 import { SignLayoutComponent } from '../sign-layout/sign-layout.component';
 
 @Component({
@@ -36,9 +34,8 @@ import { SignLayoutComponent } from '../sign-layout/sign-layout.component';
     SvgIconDirective,
   ],
 })
-export class SignInComponent implements OnInit {
-  readonly #destroyRef = inject(DestroyRef);
-  readonly #authStore$ = inject(Store<AuthStates>);
+export class SignInComponent {
+  readonly #authStore = injectAuthStore();
 
   readonly config = authDefaultConfig;
   readonly form: FormGroup<AuthSignInForm> = new FormGroup<AuthSignInForm>({
@@ -53,14 +50,14 @@ export class SignInComponent implements OnInit {
 
   readonly isSubmitting = signal(false);
 
-  ngOnInit() {
-    this.#handleEvents();
-  }
+  constructor() {
+    effect(() => {
+      const status = this.#authStore.signInStatus();
 
-  #handleEvents() {
-    this.#authStore$
-      .pipe(select(authSelectors.signIn.status), takeUntilDestroyed(this.#destroyRef))
-      .subscribe((status) => this.isSubmitting.set(status === OperationStatus.InProgress));
+      untracked(() => {
+        this.isSubmitting.set(status === OperationStatus.InProgress);
+      });
+    });
   }
 
   submit() {
@@ -68,6 +65,6 @@ export class SignInComponent implements OnInit {
       return;
     }
 
-    this.#authStore$.dispatch(authActions.signIn({ request: this.form.value as AuthSignIn }));
+    this.#authStore.signIn(this.form.value as AuthSignIn);
   }
 }

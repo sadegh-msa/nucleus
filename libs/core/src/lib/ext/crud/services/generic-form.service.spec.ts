@@ -2,27 +2,20 @@ import { signal } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
-import { MockStore, provideMockStore } from '@ngrx/store/testing';
 import { PageType } from '../enums/page.enum';
 import { GenericFormService } from './generic-form.service';
 
 describe('GenericFormService', () => {
   let service: GenericFormService<any>;
-  let _store: MockStore;
   let router: { navigate: jest.Mock };
 
   beforeEach(() => {
     router = { navigate: jest.fn() };
 
     TestBed.configureTestingModule({
-      providers: [
-        GenericFormService,
-        provideMockStore({ initialState: {} }),
-        { provide: Router, useValue: router },
-      ],
+      providers: [GenericFormService, { provide: Router, useValue: router }],
     });
     service = TestBed.inject(GenericFormService);
-    _store = TestBed.inject(MockStore);
   });
 
   it('should be created', () => {
@@ -117,23 +110,19 @@ function createMockConsumer() {
       field: { id: 'id', title: 'title' },
     },
     store: {
-      selectors: {
-        get: { state: jest.fn() },
-        add: { state: jest.fn() },
-        update: { state: jest.fn() },
-        delete: { state: jest.fn() },
-      },
-      actions: {
-        get: jest.fn(),
-        getReset: jest.fn(),
-        add: jest.fn(),
-        addReset: jest.fn(),
-        update: jest.fn(),
-        updateReset: jest.fn(),
-        delete: jest.fn(),
-        deleteReset: jest.fn(),
-        getMutate: jest.fn(),
-      },
+      get: () => ({ status: 0, response: { data: {} }, tool: null }),
+      add: () => ({ status: 0, response: { data: {} }, tool: null }),
+      update: () => ({ status: 0, response: { data: {} }, tool: null }),
+      delete: () => ({ status: 0, response: { data: '' }, tool: null }),
+      loadGet: jest.fn(),
+      loadAdd: jest.fn(),
+      loadUpdate: jest.fn(),
+      loadDelete: jest.fn(),
+      resetGet: jest.fn(),
+      resetAdd: jest.fn(),
+      resetUpdate: jest.fn(),
+      resetDelete: jest.fn(),
+      getMutate: jest.fn(),
     },
     toolbar: { tools: [] },
     navigationState: undefined,

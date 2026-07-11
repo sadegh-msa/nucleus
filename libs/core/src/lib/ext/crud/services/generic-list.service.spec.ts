@@ -1,13 +1,11 @@
 import { signal } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { ActivatedRoute, Router } from '@angular/router';
-import { MockStore, provideMockStore } from '@ngrx/store/testing';
 
 import { GenericListService } from './generic-list.service';
 
 describe('GenericListService', () => {
   let service: GenericListService<any>;
-  let _store: MockStore;
   let router: { navigate: jest.Mock };
   let activatedRoute: any;
 
@@ -20,13 +18,11 @@ describe('GenericListService', () => {
     TestBed.configureTestingModule({
       providers: [
         GenericListService,
-        provideMockStore({ initialState: {} }),
         { provide: Router, useValue: router },
         { provide: ActivatedRoute, useValue: activatedRoute },
       ],
     });
     service = TestBed.inject(GenericListService);
-    _store = TestBed.inject(MockStore);
   });
 
   it('should be created', () => {
@@ -64,14 +60,14 @@ function createMockConsumer() {
     changeSelection: jest.fn(),
     config: { path: { page: { list: () => ['/list'] } } },
     store: {
-      selectors: {
-        list: { state: jest.fn() },
-        delete: { state: jest.fn() },
-      },
-      actions: {
-        list: jest.fn(),
-        delete: jest.fn(),
-      },
+      list: () => ({
+        status: 0,
+        response: { data: [], control: { pagination: { page: 0, rows: 10, pages: 0, total: 0 } } },
+        tool: null,
+      }),
+      delete: () => ({ status: 0, response: { data: '' }, tool: null }),
+      loadList: jest.fn(),
+      loadDelete: jest.fn(),
     },
     table: {
       columns: [],

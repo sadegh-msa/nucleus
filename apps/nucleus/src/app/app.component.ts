@@ -2,9 +2,8 @@ import { NgClass, NgTemplateOutlet } from '@angular/common';
 import { Component, effect, inject, signal, untracked } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { Store, select } from '@ngrx/store';
 import { OperationStatus } from '@nucleus/common';
-import { authActions, authSelectors } from '@nucleus/core';
+import { injectAuthStore } from '@nucleus/core';
 import {
   type MenuItem,
   MenuItemsComponent,
@@ -16,7 +15,6 @@ import { PanelComponent, PanelService } from '@nucleus/panel';
 import { ConfirmationService } from 'primeng/api';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { navMainMenu } from './app.menu';
-import type { AppStates } from './store/app.state';
 
 @Component({
   imports: [
@@ -34,7 +32,7 @@ import type { AppStates } from './store/app.state';
   providers: [ConfirmationService],
 })
 export class AppComponent {
-  readonly #appStore$ = inject(Store<AppStates>);
+  readonly #authStore = injectAuthStore();
   readonly #confirmationService = inject(ConfirmationService);
   readonly #panelService = inject(PanelService);
   readonly #localeService = inject(NuLocaleService);
@@ -75,7 +73,8 @@ export class AppComponent {
   }
 
   #handleEvents() {
-    this.#appStore$.pipe(select(authSelectors.check.status)).subscribe((status) => {
+    effect(() => {
+      const status = this.#authStore.checkStatus();
       if (status === OperationStatus.Success) {
         this.isUserAuthenticated.set(true);
       } else if (status === OperationStatus.Failure) {
@@ -83,13 +82,14 @@ export class AppComponent {
       }
     });
 
-    this.#appStore$.pipe(select(authSelectors.signOut.status)).subscribe((status) => {
+    effect(() => {
+      const status = this.#authStore.signOutStatus();
       this.showLoading.set(status === OperationStatus.InProgress);
     });
   }
 
   signOut() {
-    this.#appStore$.dispatch(authActions.signOut());
+    this.#authStore.signOut();
   }
 
   confirmSignOut() {

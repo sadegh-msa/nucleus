@@ -1,11 +1,11 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { type ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideRouter } from '@angular/router';
-import { provideMockStore } from '@ngrx/store/testing';
-import { NU_COMMON_CONFIG } from '@nucleus/common';
-import { FABRIC_CONFIG } from '@nucleus/fabric';
+import { provideNuCommonConfig } from '@nucleus/common';
+import { provideFabricConfig } from '@nucleus/fabric';
 import { MOCK_FABRIC_CONFIG, MOCK_NU_COMMON_CONFIG, setupGlobalMocks } from '@test-mocks';
-import { NU_AUTH_CONFIG } from '../../../../ext/auth/providers/auth-config.provider';
+import { provideAuthConfig } from '../../../../ext/auth/providers/auth-config.provider';
+import { provideAuthStore } from '../../../../ext/auth/store/auth.store';
 import { SignInComponent } from './sign-in.component';
 
 setupGlobalMocks();
@@ -19,10 +19,10 @@ describe('SignInComponent', () => {
       imports: [SignInComponent],
       providers: [
         provideRouter([]),
-        provideMockStore(),
-        { provide: NU_COMMON_CONFIG, useValue: MOCK_NU_COMMON_CONFIG },
-        { provide: FABRIC_CONFIG, useValue: MOCK_FABRIC_CONFIG },
-        { provide: NU_AUTH_CONFIG, useValue: { rememberMeExpiry: 60 } },
+        provideAuthStore(),
+        provideAuthConfig({ rememberMeExpiry: 60 }),
+        provideNuCommonConfig(MOCK_NU_COMMON_CONFIG),
+        provideFabricConfig(MOCK_FABRIC_CONFIG),
       ],
       schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();

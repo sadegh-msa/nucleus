@@ -1,13 +1,11 @@
-import { computed, DestroyRef, inject, Injector, Service, signal } from '@angular/core';
+import { computed, DestroyRef, effect, Injector, inject, Service, signal } from '@angular/core';
 import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop';
 import { Router } from '@angular/router';
-import { select, Store } from '@ngrx/store';
 import { OperationStatus } from '@nucleus/common';
-import { combineLatest, debounceTime, mergeAll } from 'rxjs';
 import {
   createAddToolbar,
   createEditToolbar,
-  createViewToolbar
+  createViewToolbar,
 } from '../creators/toolbar.creator';
 import { PageType } from '../enums/page.enum';
 import { RouterStateKey } from '../enums/router-state.enum';
@@ -20,7 +18,6 @@ export class GenericFormService<T extends GenericEntity> {
   readonly #destroyRef = inject(DestroyRef);
   readonly #injector = inject(Injector);
   readonly #router = inject(Router);
-  readonly #store$ = inject(Store<T['store']['states']>);
 
   #consumer!: GenericFormConsumer<T>;
 
@@ -82,57 +79,66 @@ export class GenericFormService<T extends GenericEntity> {
   #handleLoadDataEvents() {
     const { store, data, isSubmitting } = this.#consumer;
 
-    this.#store$
-      .pipe(
-        select(store.selectors.get.state),
-        debounceTime(0),
-        takeUntilDestroyed(this.#destroyRef),
-      )
-      .subscribe(({ status, response, tool }) => {
+    effect(
+      () => {
+        const { status, response, tool } = store.get();
         isSubmitting.set(status === OperationStatus.InProgress);
         tool?.showLoading?.set(status === OperationStatus.InProgress);
 
         data.set(response.data);
-      });
+      },
+      { injector: this.#injector },
+    );
   }
 
   #handleSaveEvents() {
     const { store, isSubmitting, isEmbedded } = this.#consumer;
 
-    this.#store$.dispatch(store.actions.addReset());
-    this.#store$.dispatch(store.actions.updateReset());
+    store.resetAdd();
+    store.resetUpdate();
 
-    combineLatest([
-      this.#store$.pipe(select(store.selectors.add.state)),
-      this.#store$.pipe(select(store.selectors.update.state)),
-    ])
-      .pipe(mergeAll(1), takeUntilDestroyed(this.#destroyRef))
-      .subscribe(({ status, response, tool }) => {
-        isSubmitting.set(status === OperationStatus.InProgress);
-        tool?.showLoading?.set(status === OperationStatus.InProgress);
+    effect(
+      () => {
+        const addState = store.add();
+        const updateState = store.update();
 
-        if (!isEmbedded && status === OperationStatus.Success) {
-          this.#store$.dispatch(store.actions.getMutate({ request: response }));
+        // Check which one is in progress
+        const active = [addState, updateState].find(
+          (s) => s.status === OperationStatus.InProgress || s.status === OperationStatus.Success,
+        );
+
+        if (!active) return;
+
+        isSubmitting.set(active.status === OperationStatus.InProgress);
+        active.tool?.showLoading?.set(active.status === OperationStatus.InProgress);
+
+        if (!isEmbedded && active.status === OperationStatus.Success) {
+          const response = (active as any).response?.data;
+          store.getMutate(response);
           this.navigateToViewPage({ [RouterStateKey.Saved]: true });
         }
-      });
+      },
+      { injector: this.#injector },
+    );
   }
 
   #handleDeleteEvents() {
     const { store, isSubmitting, isEmbedded } = this.#consumer;
 
-    this.#store$.dispatch(store.actions.deleteReset());
+    store.resetDelete();
 
-    this.#store$
-      .pipe(select(store.selectors.delete.state), takeUntilDestroyed(this.#destroyRef))
-      .subscribe(({ status, tool }) => {
+    effect(
+      () => {
+        const { status, tool } = store.delete();
         isSubmitting.set(status === OperationStatus.InProgress);
         tool?.showLoading?.set(status === OperationStatus.InProgress);
 
         if (!isEmbedded && status === OperationStatus.Success) {
           this.navigateToListPage();
         }
-      });
+      },
+      { injector: this.#injector },
+    );
   }
 
   #loadNavigationState() {
@@ -221,28 +227,28 @@ export class GenericFormService<T extends GenericEntity> {
       return;
     }
 
-    this.#store$.dispatch(store.actions.getReset());
-    this.#store$.dispatch(store.actions.get({ query: id(), tool }));
+    store.resetGet();
+    store.loadGet(id(), tool);
   }
 
   add(tool?: NuTool) {
     const { form, config, store } = this.#consumer;
     const request = { ...form.value, [config.field.id]: undefined } as T['add'];
 
-    this.#store$.dispatch(store.actions.add({ request, tool }));
+    store.loadAdd(request, tool);
   }
 
   update(tool?: NuTool) {
     const { form, store, id } = this.#consumer;
     const request = form.value as T['update'];
 
-    this.#store$.dispatch(store.actions.update({ query: id(), request, tool }));
+    store.loadUpdate(id(), request, tool);
   }
 
   delete(tool?: NuTool) {
     const { store, id } = this.#consumer;
 
-    this.#store$.dispatch(store.actions.delete({ query: id(), tool }));
+    store.loadDelete(id(), tool);
   }
 
   save(tool?: NuTool) {
