@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { type ComponentFixture, TestBed } from '@angular/core/testing';
-import { FABRIC_CONFIG } from '../../providers';
+import { provideFabricConfig } from '../../providers';
 import { SvgIconDirective } from './svg-icon.directive';
 
 if (typeof globalThis.IntersectionObserver === 'undefined') {
@@ -30,7 +30,7 @@ describe('SvgIconDirective', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [TestHostComponent],
-      providers: [{ provide: FABRIC_CONFIG, useValue: mockConfig }],
+      providers: [provideFabricConfig(mockConfig)],
     }).compileComponents();
 
     fixture = TestBed.createComponent(TestHostComponent);

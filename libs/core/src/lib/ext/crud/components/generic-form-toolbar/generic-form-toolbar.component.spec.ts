@@ -1,6 +1,6 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { type ComponentFixture, TestBed } from '@angular/core/testing';
-import { FABRIC_CONFIG } from '@nucleus/fabric';
+import { provideFabricConfig } from '@nucleus/fabric';
 import { ConfirmationService } from 'primeng/api';
 import { GenericFormToolbarComponent } from './generic-form-toolbar.component';
 
@@ -22,7 +22,7 @@ describe('GenericFormToolbarComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [GenericFormToolbarComponent],
-      providers: [{ provide: FABRIC_CONFIG, useValue: mockConfig }, ConfirmationService],
+      providers: [provideFabricConfig(mockConfig), ConfirmationService],
       schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
 

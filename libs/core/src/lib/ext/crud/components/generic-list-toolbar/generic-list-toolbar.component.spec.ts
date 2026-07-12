@@ -1,7 +1,7 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { type ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideRouter } from '@angular/router';
-import { FABRIC_CONFIG } from '@nucleus/fabric';
+import { provideFabricConfig } from '@nucleus/fabric';
 import { ConfirmationService } from 'primeng/api';
 import { GenericListToolbarComponent } from './generic-list-toolbar.component';
 
@@ -27,11 +27,7 @@ describe('GenericListToolbarComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [GenericListToolbarComponent],
-      providers: [
-        provideRouter([]),
-        { provide: FABRIC_CONFIG, useValue: mockConfig },
-        ConfirmationService,
-      ],
+      providers: [provideRouter([]), provideFabricConfig(mockConfig), ConfirmationService],
       schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
 

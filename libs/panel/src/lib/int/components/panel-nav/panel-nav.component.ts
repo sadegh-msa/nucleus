@@ -1,6 +1,6 @@
 import { NgClass, NgOptimizedImage } from '@angular/common';
 import { Component, computed, inject } from '@angular/core';
-import { NU_COMMON_CONFIG } from '@nucleus/common';
+import { injectNuCommonConfig } from '@nucleus/common';
 import { ScreenService, SvgIconDirective } from '@nucleus/fabric';
 import { PanelService } from '../../../ext/services/panel.service'; // Possibility of circular dependency
 
@@ -13,9 +13,8 @@ import { PanelService } from '../../../ext/services/panel.service'; // Possibili
 export class NuPanelNavComponent {
   readonly #screenService = inject(ScreenService);
   readonly #panelService = inject(PanelService);
-  readonly #nuCommonConfig = inject(NU_COMMON_CONFIG);
 
-  readonly branding = this.#nuCommonConfig.branding.organization;
+  readonly branding = injectNuCommonConfig().branding.organization;
 
   readonly breakpoints = this.#screenService.breakpoints;
   readonly navExtent = this.#panelService.navExtent;

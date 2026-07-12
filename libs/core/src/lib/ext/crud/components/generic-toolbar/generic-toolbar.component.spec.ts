@@ -1,8 +1,8 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { type ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideRouter } from '@angular/router';
-import { NU_COMMON_CONFIG } from '@nucleus/common';
-import { FABRIC_CONFIG } from '@nucleus/fabric';
+import { provideNuCommonConfig } from '@nucleus/common';
+import { provideFabricConfig } from '@nucleus/fabric';
 import { MOCK_FABRIC_CONFIG, MOCK_NU_COMMON_CONFIG, setupGlobalMocks } from '@test-mocks';
 import { ConfirmationService } from 'primeng/api';
 import { GenericToolbarComponent } from './generic-toolbar.component';
@@ -20,8 +20,8 @@ describe('GenericToolbarComponent', () => {
       imports: [GenericToolbarComponent],
       providers: [
         provideRouter([]),
-        { provide: NU_COMMON_CONFIG, useValue: MOCK_NU_COMMON_CONFIG },
-        { provide: FABRIC_CONFIG, useValue: MOCK_FABRIC_CONFIG },
+        provideNuCommonConfig(MOCK_NU_COMMON_CONFIG),
+        provideFabricConfig(MOCK_FABRIC_CONFIG),
         ConfirmationService,
       ],
       schemas: [NO_ERRORS_SCHEMA],

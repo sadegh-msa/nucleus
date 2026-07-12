@@ -1,7 +1,7 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { type ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideRouter } from '@angular/router';
-import { FABRIC_CONFIG } from '@nucleus/fabric';
+import { provideFabricConfig } from '@nucleus/fabric';
 import { MOCK_FABRIC_CONFIG, setupGlobalMocks } from '@test-mocks';
 import { ButtonComponent } from './button.component';
 
@@ -14,7 +14,7 @@ describe('ButtonComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [ButtonComponent],
-      providers: [provideRouter([]), { provide: FABRIC_CONFIG, useValue: MOCK_FABRIC_CONFIG }],
+      providers: [provideRouter([]), provideFabricConfig(MOCK_FABRIC_CONFIG)],
       schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
 

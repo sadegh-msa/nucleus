@@ -1,5 +1,5 @@
 import { TestBed } from '@angular/core/testing';
-import { NU_COMMON_CONFIG } from '../providers/common-config.provider';
+import { provideNuCommonConfig } from '../providers/common-config.provider';
 import { TemporaryStorageService } from './temporary-storage.service';
 
 describe('TemporaryStorageService', () => {
@@ -19,7 +19,7 @@ describe('TemporaryStorageService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [{ provide: NU_COMMON_CONFIG, useValue: mockConfig }],
+      providers: [provideNuCommonConfig(mockConfig)],
     });
     service = TestBed.inject(TemporaryStorageService);
     sessionStorage.clear();

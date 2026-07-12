@@ -1,6 +1,6 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { type ComponentFixture, TestBed } from '@angular/core/testing';
-import { FABRIC_CONFIG } from '@nucleus/fabric';
+import { provideFabricConfig } from '@nucleus/fabric';
 import { FieldValueComponent } from './field-value.component';
 
 describe('FieldValueComponent', () => {
@@ -16,7 +16,7 @@ describe('FieldValueComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [FieldValueComponent],
-      providers: [{ provide: FABRIC_CONFIG, useValue: mockConfig }],
+      providers: [provideFabricConfig(mockConfig)],
       schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
 

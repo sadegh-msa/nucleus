@@ -1,12 +1,12 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { inject, Service } from '@angular/core';
-import { NU_COMMON_CONFIG } from '@nucleus/common';
+import { injectNuCommonConfig } from '@nucleus/common';
 import type { RestListQuery } from '../models/rest.model';
 
 @Service()
 export class RestApiService {
   readonly httpClient = inject(HttpClient);
-  readonly commonConfig = inject(NU_COMMON_CONFIG);
+  readonly commonConfig = injectNuCommonConfig();
 
   createUrl(...paths: string[]) {
     return [this.commonConfig.api.rest.url, ...paths].filter((p) => !!p).join('/');

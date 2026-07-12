@@ -1,7 +1,7 @@
 import { provideHttpClient } from '@angular/common/http';
 import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
-import { NU_COMMON_CONFIG } from '@nucleus/common';
+import { provideNuCommonConfig } from '@nucleus/common';
 import { SampleRestService } from './sample-rest.service';
 
 describe('SampleRestService', () => {
@@ -25,7 +25,7 @@ describe('SampleRestService', () => {
       providers: [
         provideHttpClient(),
         provideHttpClientTesting(),
-        { provide: NU_COMMON_CONFIG, useValue: mockConfig },
+        provideNuCommonConfig(mockConfig),
       ],
     });
     service = TestBed.inject(SampleRestService);

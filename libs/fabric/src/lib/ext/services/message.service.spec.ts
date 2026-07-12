@@ -1,5 +1,5 @@
 import { TestBed } from '@angular/core/testing';
-import { FABRIC_CONFIG } from '../providers';
+import { provideFabricConfig } from '../providers';
 import { MessageService } from './message.service';
 
 describe('MessageService', () => {
@@ -13,7 +13,7 @@ describe('MessageService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [{ provide: FABRIC_CONFIG, useValue: mockConfig }],
+      providers: [provideFabricConfig(mockConfig)],
     });
     service = TestBed.inject(MessageService);
     jest.useFakeTimers();

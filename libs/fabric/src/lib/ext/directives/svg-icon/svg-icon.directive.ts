@@ -15,20 +15,20 @@ import {
 } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { OperationStatus, sleepRandom, TemporaryStorageService } from '@nucleus/common';
-import { FABRIC_CONFIG } from '../../providers';
+import { injectFabricConfig } from '../../providers';
 import type { IconVariant } from '../../types';
 
 @Directive({
   selector: 'svg[fabSvgIcon]',
   host: {
-    '[class]': 'styleClass'
-  }
+    '[class]': 'styleClass',
+  },
 })
 export class SvgIconDirective implements OnInit, OnDestroy {
   readonly #domSanitizer = inject(DomSanitizer);
   readonly #renderer = inject(Renderer2);
   readonly #elementRef = inject(ElementRef);
-  readonly #fabricConfig = inject(FABRIC_CONFIG);
+  readonly #fabricConfig = injectFabricConfig();
   readonly #temporaryStorageService = inject(TemporaryStorageService);
 
   readonly #DEFAULT_VARIANT: IconVariant = 'outline';

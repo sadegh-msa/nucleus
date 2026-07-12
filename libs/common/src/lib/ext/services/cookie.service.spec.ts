@@ -1,6 +1,6 @@
 import { DOCUMENT } from '@angular/common';
 import { TestBed } from '@angular/core/testing';
-import { NU_COMMON_CONFIG } from '../providers/common-config.provider';
+import { provideNuCommonConfig } from '../providers/common-config.provider';
 import { CookieService } from './cookie.service';
 import { CryptoService } from './crypto.service';
 
@@ -22,7 +22,7 @@ describe('CookieService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [{ provide: NU_COMMON_CONFIG, useValue: mockConfig }, CryptoService],
+      providers: [provideNuCommonConfig(mockConfig), CryptoService],
     });
     service = TestBed.inject(CookieService);
     _document = TestBed.inject(DOCUMENT);

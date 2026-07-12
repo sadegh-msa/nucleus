@@ -1,5 +1,5 @@
 import { TestBed } from '@angular/core/testing';
-import { NU_COMMON_CONFIG } from '../providers/common-config.provider';
+import { provideNuCommonConfig } from '../providers/common-config.provider';
 import { CryptoService } from './crypto.service';
 
 describe('CryptoService', () => {
@@ -19,7 +19,7 @@ describe('CryptoService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [{ provide: NU_COMMON_CONFIG, useValue: mockConfig }],
+      providers: [provideNuCommonConfig(mockConfig)],
     });
     service = TestBed.inject(CryptoService);
   });

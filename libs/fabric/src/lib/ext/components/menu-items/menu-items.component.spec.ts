@@ -1,6 +1,6 @@
 import { type ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideRouter } from '@angular/router';
-import { FABRIC_CONFIG } from '../../providers';
+import { provideFabricConfig } from '../../providers';
 import { MenuItemsComponent } from './menu-items.component';
 
 describe('MenuItemsComponent', () => {
@@ -21,7 +21,7 @@ describe('MenuItemsComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [MenuItemsComponent],
-      providers: [provideRouter([]), { provide: FABRIC_CONFIG, useValue: mockConfig }],
+      providers: [provideRouter([]), provideFabricConfig(mockConfig)],
     }).compileComponents();
 
     fixture = TestBed.createComponent(MenuItemsComponent);

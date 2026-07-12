@@ -1,9 +1,8 @@
-import { inject, Service } from '@angular/core';
-import { NU_COMMON_CONFIG } from '../providers/common-config.provider';
+import { Service } from '@angular/core';
+import { injectNuCommonConfig } from '../providers/common-config.provider';
 
 @Service()
 export class CryptoService {
-  readonly #commonConfig = inject(NU_COMMON_CONFIG);
   readonly #textEncoder = new TextEncoder();
   readonly #textDecoder = new TextDecoder('utf-8');
 
@@ -12,7 +11,7 @@ export class CryptoService {
   readonly #DEFAULT_SECURE_KEY = 'DFyaWAZZVnXY7dfQhogFEe3mint1xIRu';
 
   readonly #algorithm = (() => {
-    const { algorithm, secureKey } = this.#commonConfig.crypto;
+    const { algorithm, secureKey } = injectNuCommonConfig().crypto;
 
     return {
       name: algorithm.name || this.#DEFAULT_ALGORITHM_NAME,
@@ -22,7 +21,7 @@ export class CryptoService {
   })();
 
   readonly #key = (() => {
-    const { secureKey, algorithm } = this.#commonConfig.crypto;
+    const { secureKey, algorithm } = injectNuCommonConfig().crypto;
 
     return window.crypto.subtle.importKey(
       'raw',

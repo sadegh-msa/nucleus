@@ -1,7 +1,7 @@
 import { provideHttpClient } from '@angular/common/http';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
-import { NU_COMMON_CONFIG } from '@nucleus/common';
+import { provideNuCommonConfig } from '@nucleus/common';
 import { RestApiService } from './rest-api.service';
 
 describe('RestApiService', () => {
@@ -24,7 +24,7 @@ describe('RestApiService', () => {
       providers: [
         provideHttpClient(),
         provideHttpClientTesting(),
-        { provide: NU_COMMON_CONFIG, useValue: mockConfig },
+        provideNuCommonConfig(mockConfig),
       ],
     });
     service = TestBed.inject(RestApiService);

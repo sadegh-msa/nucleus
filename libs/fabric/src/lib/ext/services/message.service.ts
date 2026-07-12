@@ -1,10 +1,10 @@
-import { inject, Service, signal } from '@angular/core';
+import { Service, signal } from '@angular/core';
 import type { Message } from '../models';
-import { FABRIC_CONFIG } from '../providers';
+import { injectFabricConfig } from '../providers';
 
 @Service()
 export class MessageService {
-  readonly #fabricConfig = inject(FABRIC_CONFIG);
+  readonly #fabricConfig = injectFabricConfig();
 
   readonly #DEFAULT_DURATION = this.#fabricConfig.message.duration || 5000;
 
