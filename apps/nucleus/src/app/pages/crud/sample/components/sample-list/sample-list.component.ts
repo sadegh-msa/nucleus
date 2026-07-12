@@ -1,5 +1,4 @@
-import { Component, DestroyRef, inject, input, type OnInit } from '@angular/core';
-import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop';
+import { Component, effect, inject, input, type OnInit, untracked } from '@angular/core';
 import { DataType } from '@nucleus/common';
 import {
   createTableToolbar,
@@ -20,7 +19,6 @@ import { SampleStore } from '../../store/sample.store';
   providers: [GenericListService],
 })
 export class SampleListComponent implements OnInit, GenericSampleList {
-  readonly #destroyRef = inject(DestroyRef);
   readonly #genericListService = inject(GenericListService<SampleGeneric>);
 
   isEmbedded = input(false);
@@ -62,9 +60,13 @@ export class SampleListComponent implements OnInit, GenericSampleList {
   constructor() {
     this.#genericListService.init(this);
 
-    toObservable(this.data)
-      .pipe(takeUntilDestroyed(this.#destroyRef))
-      .subscribe(() => this.updateFilteredData());
+    effect(() => {
+      this.data();
+
+      untracked(() => {
+        this.updateFilteredData();
+      });
+    });
   }
 
   ngOnInit() {
