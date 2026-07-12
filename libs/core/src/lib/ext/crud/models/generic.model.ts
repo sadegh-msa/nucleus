@@ -85,7 +85,7 @@ export interface GenericEntity<
 }
 
 export interface GenericListConsumer<T extends GenericEntity> {
-  store: CrudStore;
+  store: T['store'];
   config: Readonly<T['config']>;
   isEmbedded: InputSignal<boolean>;
   toolbar: NuToolbar;
@@ -98,7 +98,7 @@ export interface GenericListConsumer<T extends GenericEntity> {
 }
 
 export interface GenericFormConsumer<T extends GenericEntity> {
-  store: CrudStore;
+  store: T['store'];
   id: InputSignal<string>;
   config: Readonly<T['config']>;
   isEmbedded: InputSignal<boolean>;
