@@ -1,7 +1,7 @@
 import { NgClass, NgOptimizedImage } from '@angular/common';
 import { Component, computed, inject } from '@angular/core';
 import { injectNuCommonConfig } from '@nucleus/common';
-import { ScreenService, SvgIconDirective } from '@nucleus/fabric';
+import { ScreenService, SvgIconDirective } from '@nucleus/ui';
 import { PanelService } from '../../../ext/services/panel.service'; // Possibility of circular dependency
 
 @Component({

@@ -1,7 +1,7 @@
 import type { NgClass } from '@angular/common';
 import type { Signal, WritableSignal } from '@angular/core';
 import type { Params } from '@angular/router';
-import type { IconVariant } from '@nucleus/fabric';
+import type { IconVariant } from '@nucleus/ui';
 import type { Observable } from 'rxjs';
 import type { ToolElement, ToolType } from '../enums/toolbar.enum';
 

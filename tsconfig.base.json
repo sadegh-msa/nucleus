@@ -20,7 +20,7 @@
       "@nucleus/*": ["./src/apps/nucleus/src/app/*"],
       "@nucleus/common": ["./libs/common/src/index.ts"],
       "@nucleus/core": ["./libs/core/src/index.ts"],
-      "@nucleus/fabric": ["./libs/fabric/src/index.ts"],
+      "@nucleus/ui": ["./libs/ui/src/index.ts"],
       "@nucleus/l10n": ["./libs/l10n/src/index.ts"],
       "@nucleus/panel": ["./libs/panel/src/index.ts"],
       "@nucleus/theme": ["./libs/theme/src/index.ts"],

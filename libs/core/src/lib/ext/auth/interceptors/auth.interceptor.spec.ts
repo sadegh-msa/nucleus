@@ -1,5 +1,5 @@
 import { TestBed } from '@angular/core/testing';
-import { MessageService } from '@nucleus/fabric';
+import { MessageService } from '@nucleus/ui';
 import { AuthTokenService } from '../services/auth-token.service';
 import { AuthInterceptor } from './auth.interceptor';
 

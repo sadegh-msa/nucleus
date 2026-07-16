@@ -4,12 +4,12 @@
       @if (tool.element === ToolElement.Button) {
         <button #buttonElement
                 (click)="runCommand(buttonElement, tool)"
-                [fabTooltip]="tool.tooltip" fabTooltipPlacement="block-end-inline-center"
+                [uiTooltip]="tool.tooltip" uiTooltipPlacement="block-end-inline-center"
                 [ngClass]="tool.ngClass || []"
                 [disabled]="!!(tool.disabled && tool.disabled())"
                 *permission="tool.permission">
           @if (tool.icon) {
-            <svg [fabSvgIcon]="tool.icon" [variant]="tool.iconVariant" />
+            <svg [uiSvgIcon]="tool.icon" [variant]="tool.iconVariant" />
           }
           @if (tool.label) {
             <span>{{ tool.label }}</span>
@@ -22,13 +22,13 @@
         }
       } @else if (tool.element === ToolElement.Link) {
         <a [ngClass]="tool.ngClass || []"
-           [fabTooltip]="tool.tooltip" fabTooltipPlacement="block-end-inline-center"
+           [uiTooltip]="tool.tooltip" uiTooltipPlacement="block-end-inline-center"
            [routerLink]="tool.command()"
            [state]="tool.routerStates ? tool.routerStates() : {}"
            [queryParams]="tool.routerQueryParams ? tool.routerQueryParams(): {}"
            *permission="tool.permission">
           @if (tool.icon) {
-            <svg [fabSvgIcon]="tool.icon" [variant]="tool.iconVariant" />
+            <svg [uiSvgIcon]="tool.icon" [variant]="tool.iconVariant" />
           }
           @if (tool.label) {
             <span>{{ tool.label }}</span>

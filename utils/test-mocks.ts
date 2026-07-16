@@ -1,4 +1,4 @@
-export const MOCK_FABRIC_CONFIG = {
+export const MOCK_UI_CONFIG = {
   icon: { dir: 'icons' },
   message: { duration: 5000 },
   verification: { duration: 60, length: 6 },

@@ -1,0 +1,221 @@
+@use '../../mixins/bubble.mixin';
+@use '../../funcs/size.func' as *;
+
+%inline-start-block {
+  &:not(:has(.bubble-arrow)) {
+    left: calc(var(--ui-trigger-left) - var(--ui-popover-width));
+  }
+
+  &:has(.bubble-arrow) {
+    left: calc(var(--ui-trigger-left) - var(--ui-popover-width) - var(--ui-bubble-arrow-diagonal-half));
+  }
+}
+
+%inline-end-block {
+  &:not(:has(.bubble-arrow)) {
+    left: var(--ui-trigger-right);
+  }
+
+  &:has(.bubble-arrow) {
+    left: calc(var(--ui-trigger-right) + var(--ui-bubble-arrow-diagonal-half));
+  }
+}
+
+@layer components {
+  #ui-popover-container {
+  }
+
+  .ui {
+    &.popover {
+      position: absolute;
+
+      &.block {
+        &-start-corner,
+        &-end-corner {
+          &-auto,
+          &-start:dir(ltr),
+          &-end:dir(rtl) {
+            left: calc(var(--ui-trigger-left) - var(--ui-popover-width) - #{get-size-var(1)});
+          }
+
+          &-end:dir(ltr),
+          &-start:dir(rtl) {
+            left: calc(var(--ui-trigger-right) + #{get-size-var(1)});
+          }
+        }
+
+        &-start-corner {
+          &-auto,
+          &-start,
+          &-end {
+            inset-block-start: calc(var(--ui-trigger-top) - var(--ui-popover-height) - #{get-size-var(1)});
+          }
+        }
+
+        &-end-corner {
+          &-auto,
+          &-start,
+          &-end {
+            inset-block-start: calc(var(--ui-trigger-bottom) + #{get-size-var(1)});
+          }
+        }
+
+        &-start-edge,
+        &-end-edge {
+          &-start:dir(ltr),
+          &-end:dir(rtl) {
+            left: calc(var(--ui-trigger-left) + var(--ui-trigger-width) - var(--ui-popover-width));
+          }
+
+          &-end:dir(ltr),
+          &-start:dir(rtl) {
+            left: var(--ui-trigger-left);
+          }
+        }
+
+        &-start-inline,
+        &-end-inline {
+          &-start:dir(ltr),
+          &-end:dir(rtl) {
+            &.bubble:not(:has(.bubble-arrow)),
+            &:not(.bubble) {
+              left: calc(var(--ui-trigger-left) + calc(var(--ui-trigger-width) / 4) - var(--ui-popover-width));
+            }
+
+            &.bubble:has(.bubble-arrow) {
+              left: calc(var(--ui-trigger-left) + calc(var(--ui-trigger-width) / 4) - var(--ui-popover-width) + var(--ui-bubble-arrow-diagonal));
+            }
+          }
+
+          &-center {
+            left: calc(var(--ui-trigger-left) + calc(var(--ui-trigger-width) / 2) - calc(var(--ui-popover-width) / 2));
+          }
+
+          &-end:dir(ltr),
+          &-start:dir(rtl) {
+            &.bubble:not(:has(.bubble-arrow)),
+            &:not(.bubble) {
+              left: calc(var(--ui-trigger-right) - calc(var(--ui-trigger-width) / 4));
+            }
+
+            &.bubble:has(.bubble-arrow) {
+              left: calc(var(--ui-trigger-right) - calc(var(--ui-trigger-width) / 4) - var(--ui-bubble-arrow-diagonal));
+            }
+          }
+        }
+
+        &-start {
+          &-edge-start,
+          &-edge-end,
+          &-inline-auto,
+          &-inline-start,
+          &-inline-center,
+          &-inline-end {
+            &.bubble:not(:has(.bubble-arrow)),
+            &:not(.bubble) {
+              inset-block-start: calc(var(--ui-trigger-top) - var(--ui-popover-height));
+            }
+
+            &.bubble:has(.bubble-arrow) {
+              inset-block-start: calc(var(--ui-trigger-top) - var(--ui-popover-height) - var(--ui-bubble-arrow-diagonal-half));
+            }
+          }
+        }
+
+        &-end {
+          &-edge-start,
+          &-edge-end,
+          &-inline-auto,
+          &-inline-start,
+          &-inline-center,
+          &-inline-end {
+            &.bubble:not(:has(.bubble-arrow)),
+            &:not(.bubble) {
+              inset-block-start: var(--ui-trigger-bottom);
+            }
+
+            &.bubble:has(.bubble-arrow) {
+              inset-block-start: calc(var(--ui-trigger-bottom) + var(--ui-bubble-arrow-diagonal-half));
+            }
+          }
+        }
+      }
+
+      &.inline {
+        &-start-edge,
+        &-end-edge {
+          &-start {
+            inset-block-start: calc(var(--ui-trigger-top) + var(--ui-trigger-height) - var(--ui-popover-height));
+          }
+
+          &-end {
+            inset-block-start: var(--ui-trigger-top);
+          }
+        }
+
+        &-start-block,
+        &-end-block {
+          &-start {
+            &.bubble:not(:has(.bubble-arrow)),
+            &:not(.bubble) {
+              inset-block-start: calc(var(--ui-trigger-top) + calc(var(--ui-trigger-height) / 4) - var(--ui-popover-height));
+            }
+
+            &.bubble:has(.bubble-arrow) {
+              inset-block-start: calc(var(--ui-trigger-top) + calc(var(--ui-trigger-height) / 4) - var(--ui-popover-height) + var(--ui-bubble-arrow-diagonal));
+            }
+          }
+
+          &-center {
+            inset-block-start: calc(var(--ui-trigger-top) + calc(var(--ui-trigger-height) / 2) - calc(var(--ui-popover-height) / 2));
+          }
+
+          &-end {
+            &.bubble:not(:has(.bubble-arrow)),
+            &:not(.bubble) {
+              inset-block-start: calc(var(--ui-trigger-bottom) - calc(var(--ui-trigger-height) / 4));
+            }
+
+            &.bubble:has(.bubble-arrow) {
+              inset-block-start: calc(var(--ui-trigger-bottom) - calc(var(--ui-trigger-height) / 4) - var(--ui-bubble-arrow-diagonal));
+            }
+          }
+        }
+
+        &-start {
+          &-edge-start,
+          &-edge-end,
+          &-block-auto,
+          &-block-start,
+          &-block-center,
+          &-block-end {
+            &:dir(ltr) {
+              @extend %inline-start-block;
+            }
+
+            &:dir(rtl) {
+              @extend %inline-end-block;
+            }
+          }
+        }
+
+        &-end {
+          &-edge-start,
+          &-edge-end,
+          &-block-auto,
+          &-block-start,
+          &-block-center,
+          &-block-end {
+            &:dir(ltr) {
+              @extend %inline-end-block;
+            }
+
+            &:dir(rtl) {
+              @extend %inline-start-block;
+            }
+          }
+        }
+      }
+    }
+  }
+}

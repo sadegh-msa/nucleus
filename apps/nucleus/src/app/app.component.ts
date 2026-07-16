@@ -9,7 +9,7 @@ import {
   MenuItemsComponent,
   MessageComponent,
   MessageService,
-} from '@nucleus/fabric';
+} from '@nucleus/ui';
 import { type NuLangDir, NuLocaleService } from '@nucleus/l10n';
 import { PanelComponent, PanelService } from '@nucleus/panel';
 import { ConfirmationService } from 'primeng/api';

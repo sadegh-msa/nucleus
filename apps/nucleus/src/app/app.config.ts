@@ -8,7 +8,7 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import { provideRouter, withComponentInputBinding } from '@angular/router';
 import { type NuCommonConfig, provideNuCommon } from '@nucleus/common';
 import { provideAuth, provideAuthStore } from '@nucleus/core';
-import { provideFabric } from '@nucleus/fabric';
+import { provideUi } from '@nucleus/ui';
 import { provideNuL10n } from '@nucleus/l10n';
 import Aura from '@primeng/themes/aura';
 import { providePrimeNG } from 'primeng/config';
@@ -28,7 +28,7 @@ export const appConfig: ApplicationConfig = {
       links: environment.links,
     }),
     provideNuL10n({ languages: environment.languages }),
-    provideFabric(environment.ui),
+    provideUi(environment.ui),
     provideAuth({ ...environment.auth }),
     provideAuthStore(),
     providePrimeNG({

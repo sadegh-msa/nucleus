@@ -1,6 +1,6 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { type ComponentFixture, TestBed } from '@angular/core/testing';
-import { provideFabricConfig } from '@nucleus/fabric';
+import { provideUiConfig } from '@nucleus/ui';
 import { InfoFieldsComponent } from './info-fields.component';
 
 describe('InfoFieldsComponent', () => {
@@ -25,7 +25,7 @@ describe('InfoFieldsComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [InfoFieldsComponent],
-      providers: [provideFabricConfig(mockConfig)],
+      providers: [provideUiConfig(mockConfig)],
       schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
 

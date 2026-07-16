@@ -2,8 +2,8 @@ import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { type ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideRouter } from '@angular/router';
 import { provideNuCommonConfig } from '@nucleus/common';
-import { provideFabricConfig } from '@nucleus/fabric';
-import { MOCK_FABRIC_CONFIG, MOCK_NU_COMMON_CONFIG, setupGlobalMocks } from '@test-mocks';
+import { provideUiConfig } from '@nucleus/ui';
+import { MOCK_UI_CONFIG, MOCK_NU_COMMON_CONFIG, setupGlobalMocks } from '@test-mocks';
 import { AuthTokenService } from '../../../../ext/auth/services/auth-token.service';
 import { SignLayoutComponent } from './sign-layout.component';
 
@@ -19,7 +19,7 @@ describe('SignLayoutComponent', () => {
       providers: [
         provideRouter([]),
         provideNuCommonConfig(MOCK_NU_COMMON_CONFIG),
-        provideFabricConfig(MOCK_FABRIC_CONFIG),
+        provideUiConfig(MOCK_UI_CONFIG),
         {
           provide: AuthTokenService,
           useValue: { isAuthenticated: jest.fn().mockReturnValue(false) },

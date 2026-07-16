@@ -3,66 +3,66 @@
 
   <ng-container form>
     <form id="sign-in-form" [formGroup]="form" (ngSubmit)="submit()" autocomplete="off">
-      <fab-form-field id="email-form-field"
+      <ui-form-field id="email-form-field"
                       label="Email" i18n-label
                       inputId="email"
                       help="Your email address"
                       [inputFormControl]="form.get('email')"
                       [messages]="{ required: 'Required', email: 'Invalid' }">
         <input id="email"
-               class="fab input"
+               class="ui input"
                placeholder="user@example.com"
                aria-describedby="email-help"
                spellcheck="false"
                formControlName="email" />
-      </fab-form-field>
+      </ui-form-field>
 
-      <fab-form-field id="password-form-field"
+      <ui-form-field id="password-form-field"
                       label="Password" i18n-label
                       inputId="password"
                       [inputFormControl]="form.get('password')"
                       [messages]="{ required: 'Password is required' }">
-        <input fabInputPassword
+        <input uiInputPassword
                id="password"
                placeholder="************"
                aria-describedby="password-help"
                spellcheck="false"
                formControlName="password" />
-      </fab-form-field>
+      </ui-form-field>
 
-      <fab-form-field id="remember-me-form-field"
+      <ui-form-field id="remember-me-form-field"
                       label="Remember me" i18n-label
                       inputId="remember-me"
                       [inputFormControl]="form.get('rememberMe')">
-        <input id="remember-me" type="checkbox" fabCheckbox formControlName="rememberMe">
-      </fab-form-field>
+        <input id="remember-me" type="checkbox" uiCheckbox formControlName="rememberMe">
+      </ui-form-field>
     </form>
   </ng-container>
 
   <ng-container actions>
     <div class="nu-form-actions">
       <button id="sign-in-button"
-              class="fab button normal primary emphasis"
+              class="ui button normal primary emphasis"
               form="sign-in-form"
       >
-        <svg fabSvgIcon="login" />
+        <svg uiSvgIcon="login" />
         <span i18n>Sign in</span>
         <!--        [showLoading]="isSubmitting()"-->
       </button>
 
       <a id="sign-up-button"
-         class="fab button normal stamp basic"
+         class="ui button normal stamp basic"
          [routerLink]="['/', config.routes.signUp.path]"
       >
-        <svg fabSvgIcon="user" />
+        <svg uiSvgIcon="user" />
         <span i18n>Create account</span>
       </a>
 
       <a id="reset-password-button"
-         class="fab button normal stamp basic"
+         class="ui button normal stamp basic"
          [routerLink]="['/', config.routes.resetPassword.path]"
       >
-        <svg fabSvgIcon="lock" />
+        <svg uiSvgIcon="lock" />
         <span i18n>Forgot password?</span>
       </a>
     </div>

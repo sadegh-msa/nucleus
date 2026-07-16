@@ -1,0 +1,19 @@
+@for (message of messages() | keyvalue; track message.key) {
+  @let msg = message.value;
+
+  <section
+    [class]="`ui message ${msg.variant}`"
+    animate.enter="fade-in-normal"
+    animate.leave="fade-out-normal"
+  >
+    <hgroup>
+      <h4>
+        {{ msg.title }}
+      </h4>
+      @if (msg.code) {
+        <h6>({{ msg.code }})</h6>
+      }
+    </hgroup>
+    <p>{{ msg.content }}</p>
+  </section>
+}

@@ -53,7 +53,7 @@ bun run localize
 - **State**: NgRx store + effects, zoneless change detection
 - **SSR**: Enabled via `@angular/ssr`
 - **UI**: PrimeNG 19 with Aura theme, PrimeFlex for utilities
-- **Styling**: SCSS with `libs/fabric/src/lib/ext/styles` included in style preprocessor paths
+- **Styling**: SCSS with `libs/ui/src/lib/ext/styles` included in style preprocessor paths
 - **i18n**: `en-US` (default) and `fa` (Persian) locales; build configs per locale in `apps/nucleus/project.json`
 
 ## Library Prefixes
@@ -62,7 +62,7 @@ bun run localize
 |---------|--------|---------|
 | common | `nu` | Shared utilities |
 | core | `nu` | Auth, guards, interceptors |
-| fabric | `fab` | UI component library |
+| ui | `ui` | UI component library |
 | l10n | `lib` | Localization |
 | panel | `nu` | Panel components |
 | theme | `nu` | Theme/styling assets |
@@ -70,7 +70,7 @@ bun run localize
 ## Imports
 
 Path aliases defined in `tsconfig.base.json`:
-- `@nucleus/common`, `@nucleus/core`, `@nucleus/fabric`, `@nucleus/l10n`, `@nucleus/panel`, `@nucleus/theme`
+- `@nucleus/common`, `@nucleus/core`, `@nucleus/ui`, `@nucleus/l10n`, `@nucleus/panel`, `@nucleus/theme`
 - `@libs/*`, `@styles/*`, `@test-mocks`
 
 ## Testing

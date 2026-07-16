@@ -2,8 +2,8 @@ import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { type ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideRouter } from '@angular/router';
 import { provideNuCommonConfig } from '@nucleus/common';
-import { provideFabricConfig } from '@nucleus/fabric';
-import { MOCK_FABRIC_CONFIG, MOCK_NU_COMMON_CONFIG, setupGlobalMocks } from '@test-mocks';
+import { provideUiConfig } from '@nucleus/ui';
+import { MOCK_UI_CONFIG, MOCK_NU_COMMON_CONFIG, setupGlobalMocks } from '@test-mocks';
 import { provideAuthConfig } from '../../../../ext/auth/providers/auth-config.provider';
 import { provideAuthStore } from '../../../../ext/auth/store/auth.store';
 import { SignInComponent } from './sign-in.component';
@@ -22,7 +22,7 @@ describe('SignInComponent', () => {
         provideAuthStore(),
         provideAuthConfig({ rememberMeExpiry: 60 }),
         provideNuCommonConfig(MOCK_NU_COMMON_CONFIG),
-        provideFabricConfig(MOCK_FABRIC_CONFIG),
+        provideUiConfig(MOCK_UI_CONFIG),
       ],
       schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();

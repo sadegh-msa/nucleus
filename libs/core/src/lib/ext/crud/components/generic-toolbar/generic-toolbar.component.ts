@@ -1,7 +1,7 @@
 import { NgClass } from '@angular/common';
 import { Component, inject, input } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { SvgIconDirective, TooltipDirective } from '@nucleus/fabric';
+import { SvgIconDirective, TooltipDirective } from '@nucleus/ui';
 import { ConfirmationService } from 'primeng/api';
 import { ConfirmPopupModule } from 'primeng/confirmpopup';
 import { AuthPermissionDirective } from '../../../auth';
@@ -39,9 +39,9 @@ export class GenericToolbarComponent {
       message: tool.confirm,
       icon: 'pi pi-exclamation-triangle',
       acceptLabel: $localize`Yes`,
-      acceptButtonStyleClass: 'fab button danger basic',
+      acceptButtonStyleClass: 'ui button danger basic',
       rejectLabel: $localize`No`,
-      rejectButtonStyleClass: 'fab button stamp basic',
+      rejectButtonStyleClass: 'ui button stamp basic',
       accept: () => tool.command(),
     });
   }

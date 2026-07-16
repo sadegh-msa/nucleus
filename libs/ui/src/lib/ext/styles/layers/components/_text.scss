@@ -1,0 +1,16 @@
+@use '../../mixins/text.mixin';
+
+@layer components {
+  .ui.text {
+    @include text.generic();
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @include text.colors(false, false, false);
+  }
+}

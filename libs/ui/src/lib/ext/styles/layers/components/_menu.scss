@@ -1,0 +1,7 @@
+@use '../../mixins/menu.mixin';
+
+@layer components {
+  menu.ui.menu {
+    @include menu.generic();
+  }
+}

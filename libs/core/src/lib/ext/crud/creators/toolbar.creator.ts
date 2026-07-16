@@ -17,7 +17,7 @@ type ViewTools = Partial<
 type ListTools = Partial<Record<ToolType.Add | ToolType.Refresh, Partial<NuTool>>>;
 type TableTools = Partial<Record<ToolType.View | ToolType.Delete, Partial<NuTool>>>;
 
-const commonStyleClass = ['nu-tool', 'fab', 'button', 'medium'];
+const commonStyleClass = ['nu-tool', 'ui', 'button', 'medium'];
 const buttonStyleClass = {
   basic: {
     stamp: new Set([...commonStyleClass, 'stamp', 'basic', 'second-ink']),

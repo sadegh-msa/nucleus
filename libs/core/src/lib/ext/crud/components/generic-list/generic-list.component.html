@@ -19,7 +19,7 @@
       }
 
       @for (column of table().columns; track column.field) {
-        <th [fabTooltip]="column.tooltip" fabTooltipPlacement="block-end-edge-end">
+        <th [uiTooltip]="column.tooltip" uiTooltipPlacement="block-end-edge-end">
           {{ column.label }}
         </th>
       }
@@ -80,11 +80,11 @@
                 (click)="runCommand(toolElement, tool, row)"
                 [ngClass]="tool.ngClass || []"
                 [disabled]="!!(tool.disabled && tool.disabled())"
-                [fabTooltip]="tool.tooltip" fabTooltipPlacement="block-end-inline-center"
+                [uiTooltip]="tool.tooltip" uiTooltipPlacement="block-end-inline-center"
                 *permission="tool.permission"
               >
                 @if (tool.icon) {
-                  <svg [fabSvgIcon]="tool.icon" [variant]="tool.iconVariant" />
+                  <svg [uiSvgIcon]="tool.icon" [variant]="tool.iconVariant" />
                 }
                 @if (tool.label) {
                   <span>{{ tool.label }}</span>
@@ -103,11 +103,11 @@
                 [queryParams]="
                   (tool.createRouterQueryParams && tool.createRouterQueryParams(row)) || {}
                 "
-                [fabTooltip]="tool.tooltip" fabTooltipPlacement="block-end-inline-center"
+                [uiTooltip]="tool.tooltip" uiTooltipPlacement="block-end-inline-center"
                 *permission="tool.permission"
               >
                 @if (tool.icon) {
-                  <svg [fabSvgIcon]="tool.icon" [variant]="tool.iconVariant" />
+                  <svg [uiSvgIcon]="tool.icon" [variant]="tool.iconVariant" />
                 }
                 @if (tool.label) {
                   <span>{{ tool.label }}</span>
@@ -119,11 +119,11 @@
           }
 
           <button
-            class="fab button nu-tool watermark basic medium second-info"
+            class="ui button nu-tool watermark basic medium second-info"
             (click)="infoOverlay.toggle($event)"
-            fabTooltip="Info" i18n-fabTooltip fabTooltipPlacement="block-end-inline-center"
+            uiTooltip="Info" i18n-uiTooltip uiTooltipPlacement="block-end-inline-center"
           >
-            <svg fabSvgIcon="info-circle" variant="bulk" />
+            <svg uiSvgIcon="info-circle" variant="bulk" />
           </button>
 
           <p-overlayPanel #infoOverlay styleClass="info-fields-overlay">

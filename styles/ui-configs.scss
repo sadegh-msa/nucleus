@@ -1,0 +1,12 @@
+@use 'sass:color';
+
+$new-color-pigments: (
+  primary: green,
+  base: pink,
+  danger: darkorange
+);
+
+$ui-custom-configs: (
+  //color: (pigments: $new-color-pigments),
+  //size: (alias: (step: 4)),
+);

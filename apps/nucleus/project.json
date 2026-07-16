@@ -40,7 +40,7 @@
         ],
         "styles": ["apps/nucleus/src/styles.scss"],
         "stylePreprocessorOptions": {
-          "includePaths": ["libs/fabric/src/lib/ext/styles"]
+          "includePaths": ["libs/ui/src/lib/ext/styles"]
         },
         "scripts": [],
         "localize": false,

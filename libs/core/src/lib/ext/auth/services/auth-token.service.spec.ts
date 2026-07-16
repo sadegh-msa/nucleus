@@ -1,7 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { CookieService, provideNuCommonConfig } from '@nucleus/common';
-import { provideFabricConfig } from '@nucleus/fabric';
-import { MOCK_FABRIC_CONFIG, setupGlobalMocks } from '@test-mocks';
+import { provideUiConfig } from '@nucleus/ui';
+import { MOCK_UI_CONFIG, setupGlobalMocks } from '@test-mocks';
 import { provideAuthConfig } from '../providers/auth-config.provider';
 import { provideAuthStore } from '../store/auth.store';
 import { AuthTokenService } from './auth-token.service';
@@ -44,7 +44,7 @@ describe('AuthTokenService', () => {
         provideAuthStore(),
         provideAuthConfig(mockAuthConfig),
         provideNuCommonConfig(mockCommonConfig),
-        provideFabricConfig(MOCK_FABRIC_CONFIG),
+        provideUiConfig(MOCK_UI_CONFIG),
         { provide: CookieService, useValue: cookieService },
       ],
     });

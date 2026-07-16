@@ -1,0 +1,19 @@
+<div class="ui-form-field-header">
+  @if (label()) {
+    <label [for]="inputId()">{{ label() }}</label>
+  }
+
+  @let formControl = inputFormControl();
+
+  @if (formControl && messages()) {
+    <span class="ui-form-field-message">
+      @if (!formControl.errors || formControl.pristine) {
+        {{ messages()['hint'] }}
+      } @else if (formControl.errors && formControl.dirty) {
+        {{ messages()[(formControl.errors | keyvalue)[0].key] }}
+      }
+      </span>
+  }
+</div>
+
+<ng-content />

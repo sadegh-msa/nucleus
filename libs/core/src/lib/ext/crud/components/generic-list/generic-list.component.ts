@@ -3,7 +3,7 @@ import { Component, computed, DestroyRef, inject, input, output, signal } from '
 import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop';
 import { RouterModule } from '@angular/router';
 import { DataType } from '@nucleus/common';
-import { SvgIconDirective, TooltipDirective } from '@nucleus/fabric';
+import { SvgIconDirective, TooltipDirective } from '@nucleus/ui';
 import { ConfirmationService } from 'primeng/api';
 import { ConfirmPopupModule } from 'primeng/confirmpopup';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
@@ -92,9 +92,9 @@ export class GenericListComponent {
       message: tool.confirm,
       icon: 'pi pi-exclamation-triangle',
       acceptLabel: $localize`Yes`,
-      acceptButtonStyleClass: 'fab button danger basic',
+      acceptButtonStyleClass: 'ui button danger basic',
       rejectLabel: $localize`No`,
-      rejectButtonStyleClass: 'fab button stamp basic',
+      rejectButtonStyleClass: 'ui button stamp basic',
       accept: () => tool.command(row),
     });
   }

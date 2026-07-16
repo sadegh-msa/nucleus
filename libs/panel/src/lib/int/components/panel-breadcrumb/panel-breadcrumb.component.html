@@ -1,18 +1,18 @@
-@let buttonStyleClass = 'fab button basic stamp small';
+@let buttonStyleClass = 'ui button basic stamp small';
 
-<a fabRipple
+<a uiRipple
    routerLink="/"
    [class]="buttonStyleClass"
    class="home second-primary"
 >
-  <svg fabSvgIcon="home" class="bidi" />
+  <svg uiSvgIcon="home" class="bidi" />
 </a>
 
 @for (item of items(); track $index; let last = $last) {
-  <svg fabSvgIcon="arrow-right-1" class="bidi small" />
+  <svg uiSvgIcon="arrow-right-1" class="bidi small" />
 
   @if (!last && item.routerLink) {
-    <a fabRipple
+    <a uiRipple
        [routerLink]="item.routerLink"
        [class]="buttonStyleClass"
        class="second-primary"
@@ -20,7 +20,7 @@
       <span>{{ item.label }}</span>
     </a>
   } @else {
-    <button fabRipple [class]="buttonStyleClass">
+    <button uiRipple [class]="buttonStyleClass">
       <span>{{ item.label }}</span>
     </button>
   }

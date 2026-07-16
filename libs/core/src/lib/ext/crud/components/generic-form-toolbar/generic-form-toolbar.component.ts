@@ -1,6 +1,6 @@
 import { KeyValuePipe } from '@angular/common';
 import { Component, input } from '@angular/core';
-import { SvgIconDirective } from '@nucleus/fabric';
+import { SvgIconDirective } from '@nucleus/ui';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
 import {
   GenericToolbarComponent

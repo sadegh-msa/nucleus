@@ -1,7 +1,7 @@
 import { inject, Service, signal } from '@angular/core';
 import { NavigationEnd, Router, Scroll } from '@angular/router';
 import { isUUID } from '@nucleus/common';
-import type { MenuItem } from '@nucleus/fabric';
+import type { MenuItem } from '@nucleus/ui';
 import { filter, map } from 'rxjs';
 
 @Service()

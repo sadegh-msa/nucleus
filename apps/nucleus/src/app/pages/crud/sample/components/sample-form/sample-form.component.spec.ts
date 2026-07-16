@@ -2,8 +2,8 @@ import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { type ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideRouter } from '@angular/router';
 import { provideNuCommonConfig } from '@nucleus/common';
-import { provideFabricConfig } from '@nucleus/fabric';
-import { MOCK_FABRIC_CONFIG, MOCK_NU_COMMON_CONFIG, setupGlobalMocks } from '@test-mocks';
+import { provideUiConfig } from '@nucleus/ui';
+import { MOCK_UI_CONFIG, MOCK_NU_COMMON_CONFIG, setupGlobalMocks } from '@test-mocks';
 import { ConfirmationService } from 'primeng/api';
 import { SampleFormComponent } from './sample-form.component';
 
@@ -19,7 +19,7 @@ describe('SampleFormComponent', () => {
       providers: [
         provideRouter([]),
         provideNuCommonConfig(MOCK_NU_COMMON_CONFIG),
-        provideFabricConfig(MOCK_FABRIC_CONFIG),
+        provideUiConfig(MOCK_UI_CONFIG),
         ConfirmationService,
       ],
       schemas: [NO_ERRORS_SCHEMA],

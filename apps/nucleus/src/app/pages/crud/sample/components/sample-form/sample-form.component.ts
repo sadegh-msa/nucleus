@@ -2,7 +2,7 @@ import { NgClass } from '@angular/common';
 import { Component, inject, input, type OnInit } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { GenericFormService, GenericFormToolbarComponent, PageType } from '@nucleus/core';
-import { CalendarComponent, ShowLoadingComponent } from '@nucleus/fabric';
+import { CalendarComponent, ShowLoadingComponent } from '@nucleus/ui';
 import { SampleStatus } from '../../enums/sample-status.enum';
 import type { SampleTypedForm } from '../../models/sample.model';
 import type { GenericSampleForm, SampleGeneric } from '../../models/sample-generic.model';

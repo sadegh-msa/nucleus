@@ -6,7 +6,7 @@ import type {
   HttpRequest
 } from '@angular/common/http';
 import { inject, Service } from '@angular/core';
-import { MessageService } from '@nucleus/fabric';
+import { MessageService } from '@nucleus/ui';
 import { catchError, type Observable } from 'rxjs';
 import { AuthTokenService } from '../services/auth-token.service';
 

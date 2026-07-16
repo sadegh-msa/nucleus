@@ -35,11 +35,11 @@ test.describe('App', () => {
 
   test('should redirect protected routes to sign-in when not authenticated', async ({ page }) => {
     const protectedRoutes = [
-      '/fabric/button',
-      '/fabric/icon',
-      '/fabric/menu',
-      '/fabric/popover',
-      '/fabric/typography',
+      '/ui/button',
+      '/ui/icon',
+      '/ui/menu',
+      '/ui/popover',
+      '/ui/typography',
       '/crud/sample',
       '/crud/sample/list',
       '/crud/sample/add',

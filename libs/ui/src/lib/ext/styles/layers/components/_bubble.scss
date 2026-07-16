@@ -1,0 +1,19 @@
+@use '../../mixins/bubble.mixin';
+
+@layer components {
+  .ui.bubble {
+    @include bubble.generic();
+
+    > .bubble-close {
+      position: absolute;
+    }
+
+    > .bubble-arrow {
+      height: var(--ui-bubble-arrow-size);
+      width: var(--ui-bubble-arrow-size);
+      position: absolute;
+      z-index: -1;
+      background-color: inherit;
+    }
+  }
+}

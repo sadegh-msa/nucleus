@@ -1,0 +1,22 @@
+@use '../../mixins/ripple.mixin';
+
+@layer components {
+  .ui {
+    &.ripple {
+      @include ripple.generic();
+
+      &.pointer-down {
+        @include ripple.pointer-down();
+      }
+
+      &.pointer-up {
+        @include ripple.pointer-up();
+      }
+    }
+
+    &.rippler {
+      position: relative;
+      overflow: hidden;
+    }
+  }
+}

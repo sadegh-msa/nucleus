@@ -1,7 +1,7 @@
 import { computed, InjectionToken, inject, type Provider } from '@angular/core';
 import { patchState, signalStore, withComputed, withMethods, withState } from '@ngrx/signals';
 import { OperationStatus } from '@nucleus/common';
-import { MessageService } from '@nucleus/fabric';
+import { MessageService } from '@nucleus/ui';
 import { formatErrorMessage } from '../../crud/helpers/format-messages.helper';
 import type { AuthSignIn, AuthSignUp, AuthStore, AuthStoreState } from '../models/auth-store.model';
 import { AuthRestService } from '../services/auth-rest.service';

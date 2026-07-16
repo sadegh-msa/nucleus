@@ -1,0 +1,224 @@
+<article id="tooltips">
+  <h4 class="title">Tooltips</h4>
+
+  <section>
+    @for (placement of placements; track $index) {
+      <button class="ui button bulk neutral second-stamp medium arrow"
+              [ngClass]="placement"
+              [uiTooltip]="placement"
+              [uiTooltipPlacement]="placement"
+      >
+        <svg uiSvgIcon="arrow-up-3" />
+      </button>
+    }
+  </section>
+</article>
+
+<article id="popovers">
+  <h4 class="title">Popovers</h4>
+
+  <section>
+    @for (placement of placements; track $index) {
+      <button class="ui button bulk neutral second-stamp medium arrow"
+              [ngClass]="placement"
+              [uiPopover]="popover"
+              [uiPopoverData]="placement"
+              [uiPopoverPlacement]="placement"
+              [uiPopoverEvent]="popoverEvent()"
+              [uiPopoverHasBubble]="popoverHasBubble()"
+              [uiPopoverHasClose]="popoverHasClose()"
+              [uiPopoverHasArrow]="popoverHasArrow()"
+              [uiPopoverDisabled]="popoverDisabled()"
+      >
+        <svg uiSvgIcon="arrow-up-3" />
+      </button>
+    }
+
+    <button class="ui button bulk primary medium event" (click)="togglePopoverEvent()">
+      <span>Event: {{ popoverEvent() }}</span>
+    </button>
+    <button class="ui button bulk primary medium has-bubble" (click)="togglePopoverHasBubble()">
+      <span>Has Bubble: {{ popoverHasBubble() ? 'yes' : 'no' }}</span>
+    </button>
+    <button class="ui button bulk primary medium has-close" (click)="togglePopoverHasClose()">
+      <span>Has close: {{ popoverHasClose() ? 'yes' : 'no' }}</span>
+    </button>
+    <button class="ui button bulk primary medium has-arrow" (click)="togglePopoverHasArrow()">
+      <span>Has arrow: {{ popoverHasArrow() ? 'yes' : 'no' }}</span>
+    </button>
+    <button class="ui button bulk primary medium is-disabled" (click)="togglePopoverDisabled()">
+      <span>{{ popoverDisabled() ? 'Disabled' : 'Enabled' }}</span>
+    </button>
+  </section>
+</article>
+
+<ng-template #popover let-placement="data">
+  <h3 class="ui primary popover-sample"
+      [class.bordered]="!popoverHasBubble()">
+    <svg uiSvgIcon="demo" variant="bold" class="normal" />
+    {{ placement }}
+  </h3>
+</ng-template>
+
+<article id="bubbles">
+  <h4 class="title">Bubbles</h4>
+
+  <section class="corner">
+    <div class="block-start">
+      <p class="ui bubble block-start-corner-start ink">
+        <ng-container *ngTemplateOutlet="bubbleExtra" />
+        block-start-corner-start
+        block-start-corner-start
+        block-start-corner-start
+      </p>
+      <p class="ui bubble block-start-corner-end stamp">
+        <ng-container *ngTemplateOutlet="bubbleExtra" />
+        block-start-corner-end
+        block-start-corner-end
+        block-start-corner-end
+      </p>
+    </div>
+
+    <div class="block-center">
+      <button class="ui button outline neutral normal target">
+        <span>Corner</span>
+      </button>
+    </div>
+
+    <div class="block-end">
+      <p class="ui bubble block-end-corner-start neutral">
+        <ng-container *ngTemplateOutlet="bubbleExtra" />
+        block-end-corner-start
+        block-start-corner-end
+        block-start-corner-end
+      </p>
+      <p class="ui bubble block-end-corner-end watermark">
+        <ng-container *ngTemplateOutlet="bubbleExtra" />
+        block-end-corner-end
+        block-end-corner-end
+        block-end-corner-end
+      </p>
+    </div>
+  </section>
+
+  <section class="center">
+    <div class="block-start">
+      <p class="ui bubble block-start-inline-center paper">
+        <ng-container *ngTemplateOutlet="bubbleExtra" />
+        block-start-inline-center
+        block-start-inline-center
+        block-start-inline-center
+      </p>
+    </div>
+
+    <div class="block-center">
+      <button class="ui button outline neutral normal target">
+        <span>Center</span>
+      </button>
+    </div>
+
+    <div class="block-end">
+      <p class="ui bubble block-end-inline-center text danger">
+        <ng-container *ngTemplateOutlet="bubbleExtra" />
+        block-end-inline-center
+        block-end-inline-center
+        block-end-inline-center
+      </p>
+    </div>
+  </section>
+
+  <section class="horizontal-edge">
+    <div class="block-start">
+      <p class="ui bubble block-start-inline-start text primary">
+        <ng-container *ngTemplateOutlet="bubbleExtra" />
+        block-start-inline-start
+        block-start-inline-start
+        block-start-inline-start
+      </p>
+      <p class="ui bubble block-start-inline-end text accent">
+        <ng-container *ngTemplateOutlet="bubbleExtra" />
+        block-start-inline-end
+        block-start-inline-end
+        block-start-inline-end
+      </p>
+    </div>
+
+    <div class="block-center">
+      <button class="ui button outline neutral normal target">
+        <span>Horizontal Edge</span>
+      </button>
+    </div>
+
+    <div class="block-end">
+      <p class="ui bubble block-end-inline-start text info">
+        <ng-container *ngTemplateOutlet="bubbleExtra" />
+        block-end-inline-start
+        block-end-inline-start
+        block-end-inline-start
+      </p>
+      <p class="ui bubble block-end-inline-end text success">
+        <ng-container *ngTemplateOutlet="bubbleExtra" />
+        block-end-inline-end
+        block-end-inline-start
+        block-end-inline-start
+      </p>
+    </div>
+  </section>
+
+  <section class="vertical-edge">
+    <div class="inline-start">
+      <p class="ui bubble inline-start-block-start primary">
+        <ng-container *ngTemplateOutlet="bubbleExtra" />
+        inline-start-block-start
+        inline-start-block-start
+        inline-start-block-start
+      </p>
+      <p class="ui bubble inline-start-block-center accent">
+        <ng-container *ngTemplateOutlet="bubbleExtra" />
+        inline-start-block-center
+        inline-start-block-center
+        inline-start-block-center
+      </p>
+      <p class="ui bubble inline-start-block-end info">
+        <ng-container *ngTemplateOutlet="bubbleExtra" />
+        inline-start-block-end
+        inline-start-block-end
+        inline-start-block-end
+      </p>
+    </div>
+
+    <div class="inline-center">
+      <button class="ui button outline neutral normal target">
+        <span>Vertical Edge</span>
+      </button>
+    </div>
+
+    <div class="inline-end">
+      <p class="ui bubble inline-end-block-start success">
+        <ng-container *ngTemplateOutlet="bubbleExtra" />
+        inline-end-block-start
+        inline-end-block-start
+        inline-end-block-start
+      </p>
+      <p class="ui bubble inline-end-block-center warning">
+        <ng-container *ngTemplateOutlet="bubbleExtra" />
+        inline-end-block-center
+        inline-end-block-center
+        inline-end-block-center
+      </p>
+      <p class="ui bubble inline-end-block-end danger">
+        <ng-container *ngTemplateOutlet="bubbleExtra" />
+        inline-end-block-end
+        inline-end-block-end
+        inline-end-block-end
+      </p>
+    </div>
+  </section>
+</article>
+
+<ng-template #bubbleExtra>
+  <button class="ui button emphasis stamp tiny rounded-full bubble-close">
+    <svg uiSvgIcon="close" variant="linear" />
+  </button>
+  <i class="bubble-arrow"></i>
+</ng-template>

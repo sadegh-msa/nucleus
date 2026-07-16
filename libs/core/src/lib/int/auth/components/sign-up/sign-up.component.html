@@ -3,25 +3,25 @@
 
   <ng-container form>
     <form id="sign-up-form" [formGroup]="form" (ngSubmit)="submit()" autocomplete="off">
-      <div id="email-form-field" class="fab-form-field">
-        <div class="fab-form-field-text">
+      <div id="email-form-field" class="ui-form-field">
+        <div class="ui-form-field-text">
           <label for="email" i18n>Email</label>
-          <span class="fab-form-field-message"></span>
+          <span class="ui-form-field-message"></span>
         </div>
         <input id="email"
-               class="fab input"
+               class="ui input"
                placeholder="username@example.com"
                aria-describedby="email-help"
                spellcheck="false"
                formControlName="email" />
       </div>
 
-      <div id="password-form-field" class="fab-form-field">
-        <div class="fab-form-field-text">
+      <div id="password-form-field" class="ui-form-field">
+        <div class="ui-form-field-text">
           <label for="password" i18n>Password</label>
-          <span class="fab-form-field-message"></span>
+          <span class="ui-form-field-message"></span>
         </div>
-        <input fabInputPassword
+        <input uiInputPassword
                id="password"
                type="password"
                placeholder="************"
@@ -31,14 +31,14 @@
                (strength)="onPasswordStrength($event)" />
       </div>
 
-      <div id="confirm-password-form-field" class="fab-form-field">
-        <div class="fab-form-field-text">
+      <div id="confirm-password-form-field" class="ui-form-field">
+        <div class="ui-form-field-text">
           <label for="confirm-password" i18n>Confirm password</label>
-          <span class="fab-form-field-message">
+          <span class="ui-form-field-message">
 <!--            {{ form.get('confirmPassword')?.hasError('passwordsDoNotMatch') }}-->
           </span>
         </div>
-        <input fabInputPassword
+        <input uiInputPassword
                id="confirm-password"
                type="password"
                placeholder="************"
@@ -55,24 +55,24 @@
   <ng-container actions>
     <div class="nu-form-actions">
       <button id="sign-up-button"
-              class="fab button normal primary emphasis"
+              class="ui button normal primary emphasis"
               form="sign-up-form">
-        <svg fabSvgIcon="user" />
+        <svg uiSvgIcon="user" />
         <span i18n>Sign up</span>
         <!--        [showLoading]="isSubmitting()"-->
       </button>
 
       <a id="sign-in-button"
-         class="fab button normal stamp basic"
+         class="ui button normal stamp basic"
          [routerLink]="['/', config.routes.signIn.path]">
-        <svg fabSvgIcon="login" />
+        <svg uiSvgIcon="login" />
         <span i18n>Sign in</span>
       </a>
 
       <a id="reset-password-button"
-         class="fab button normal stamp basic"
+         class="ui button normal stamp basic"
          [routerLink]="['/', config.routes.resetPassword.path]">
-        <svg fabSvgIcon="lock" />
+        <svg uiSvgIcon="lock" />
         <span i18n>Forgot password?</span>
       </a>
     </div>

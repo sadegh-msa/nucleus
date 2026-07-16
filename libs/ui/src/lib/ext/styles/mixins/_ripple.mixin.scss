@@ -1,0 +1,51 @@
+@use './transition.mixin';
+
+@mixin generic() {
+  --ui-ripple-scale: 0;
+  --ui-ripple-opacity: 1;
+
+  @include transition.slow(background, transform, opacity);
+  pointer-events: none;
+  position: absolute;
+  overflow: hidden;
+  border-radius: 100%;
+  opacity: var(--ui-ripple-opacity);
+  left: var(--ui-ripple-left);
+  top: var(--ui-ripple-top);
+  height: var(--ui-ripple-height);
+  width: var(--ui-ripple-width);
+  z-index: 1;
+  transform: scale3d(
+    var(--ui-ripple-scale),
+    var(--ui-ripple-scale),
+    var(--ui-ripple-scale)
+  );
+}
+
+@mixin pointer-down() {
+  background: radial-gradient(
+      closest-side,
+      var(--ui-ripple-bg-color),
+      oklch(0% 0 0 / 0%),
+      oklch(100% 0 0 / 0%),
+  );
+
+  &.finish {
+    --ui-ripple-scale: 1;
+  }
+}
+
+@mixin pointer-up() {
+  @include transition.duration(prolonged);
+
+  background: radial-gradient(
+      closest-side,
+      var(--ui-ripple-bg-color),
+      oklch(100% 0 0 / 0%),
+  );
+
+  &.finish {
+    --ui-ripple-scale: 7;
+    --ui-ripple-opacity: 0;
+  }
+}

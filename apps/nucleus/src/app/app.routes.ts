@@ -1,7 +1,7 @@
 import type { Route } from '@angular/router';
 import { authCanActivate, authRoutes } from '@nucleus/core';
 import { sampleConfig, sampleRoutes } from './pages/crud/sample';
-import { fabricRoutes } from './pages/fabric/fabric.routes';
+import { uiRoutes } from './pages/ui/ui.routes';
 
 export const appRoutes: Route[] = [
   ...authRoutes,
@@ -11,9 +11,9 @@ export const appRoutes: Route[] = [
     children: sampleRoutes,
   },
   {
-    path: 'fabric',
+    path: 'ui',
     canActivate: [authCanActivate],
-    children: fabricRoutes,
+    children: uiRoutes,
   },
-  { path: '**', pathMatch: 'full', redirectTo: 'fabric/button' },
+  { path: '**', pathMatch: 'full', redirectTo: 'ui/button' },
 ];

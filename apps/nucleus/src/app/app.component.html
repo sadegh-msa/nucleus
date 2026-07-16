@@ -20,7 +20,7 @@
       @defer (on timer(100ms)) {
         <nu-panel>
           <ng-container nav-body>
-            <menu [fabMenuItems]="navMainMenu"
+            <menu [uiMenuItems]="navMainMenu"
                   [ngClass]="navExtent()"
                   [extent]="navExtent()"
                   [submenuMode]="navExtent() === 'compact' ? 'floating' : 'sliding'"
@@ -29,7 +29,7 @@
           </ng-container>
 
           <ng-container nav-footer>
-            <menu [fabMenuItems]="navFooterMenu"
+            <menu [uiMenuItems]="navFooterMenu"
                   [ngClass]="navExtent()"
                   [extent]="navExtent()"
                   [submenuMode]="navExtent() === 'compact' ? 'floating' : 'sliding'"
@@ -49,5 +49,5 @@
   <router-outlet />
 </ng-template>
 
-<fab-message />
+<ui-message />
 <p-confirmDialog />

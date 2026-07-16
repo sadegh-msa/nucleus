@@ -4,7 +4,7 @@
   "lib": {
     "entryFile": "src/index.ts",
     "styleIncludePaths": [
-      "../../libs/fabric/src/lib/ext/styles"
+      "../../libs/ui/src/lib/ext/styles"
     ]
   }
 }

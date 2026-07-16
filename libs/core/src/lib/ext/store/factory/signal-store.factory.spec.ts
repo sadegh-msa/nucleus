@@ -2,8 +2,8 @@ import { provideHttpClient } from '@angular/common/http';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
 import { OperationStatus, provideNuCommonConfig } from '@nucleus/common';
-import { provideFabricConfig } from '@nucleus/fabric';
-import { MOCK_FABRIC_CONFIG, MOCK_NU_COMMON_CONFIG, setupGlobalMocks } from '@test-mocks';
+import { provideUiConfig } from '@nucleus/ui';
+import { MOCK_UI_CONFIG, MOCK_NU_COMMON_CONFIG, setupGlobalMocks } from '@test-mocks';
 import { of, Subject, throwError } from 'rxjs';
 import { createCrudSignalStore } from './signal-store.factory';
 
@@ -47,7 +47,7 @@ describe('createCrudSignalStore', () => {
         provideHttpClient(),
         provideHttpClientTesting(),
         provideNuCommonConfig(MOCK_NU_COMMON_CONFIG),
-        provideFabricConfig(MOCK_FABRIC_CONFIG),
+        provideUiConfig(MOCK_UI_CONFIG),
       ],
     });
 

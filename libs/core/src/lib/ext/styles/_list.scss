@@ -80,7 +80,7 @@ nu-generic-list {
             .table-tools {
               a,
               .p-button {
-                &:not(.fab-button-danger) {
+                &:not(.ui-button-danger) {
                   &:hover {
                     color: get-color-var(primary);
                   }

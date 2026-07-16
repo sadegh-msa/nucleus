@@ -1,4 +1,4 @@
-import type { MenuItem } from '@nucleus/fabric';
+import type { MenuItem } from '@nucleus/ui';
 
 export const navMainMenu = [
   {
@@ -25,45 +25,45 @@ export const navMainMenu = [
         ],
       },
       {
-        id: 'nucleus-nav-link-libs-fabric',
-        label: 'Fabric',
+        id: 'nucleus-nav-link-libs-ui',
+        label: 'UI',
         icon: 'main-component',
-        permission: 'nucleus.libs.fabric',
+        permission: 'nucleus.libs.ui',
         expanded: false,
         children: [
           {
             id: 'nucleus-nav-link-button',
             label: 'Button',
             icon: 'mouse-square',
-            routerLink: '/fabric/button',
+            routerLink: '/ui/button',
             permission: 'nucleus.button',
           },
           {
             id: 'nucleus-nav-link-icon',
             label: 'Icon',
             icon: 'shapes',
-            routerLink: '/fabric/icon',
+            routerLink: '/ui/icon',
             permission: 'nucleus.icon',
           },
           {
             id: 'nucleus-nav-link-menu',
             label: 'Menu',
             icon: 'menu-1',
-            routerLink: '/fabric/menu',
+            routerLink: '/ui/menu',
             permission: 'nucleus.menu',
           },
           {
             id: 'nucleus-nav-link-popover',
             label: 'Popover',
             icon: 'message',
-            routerLink: '/fabric/popover',
+            routerLink: '/ui/popover',
             permission: 'nucleus.popover',
           },
           {
             id: 'nucleus-nav-link-typography',
             label: 'Typography',
             icon: 'text',
-            routerLink: '/fabric/typography',
+            routerLink: '/ui/typography',
             permission: 'nucleus.typography',
           },
         ],

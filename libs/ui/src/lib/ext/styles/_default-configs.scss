@@ -1,0 +1,114 @@
+@use 'sass:color';
+@use 'sass:list';
+
+@function generate-grayscale-color(
+  $weight: 50%,
+  $alpha: 100%,
+  $light: oklch(100% 0 0),
+  $dark: oklch(0% 0.005 285.823),
+  $method: oklch longer hue
+) {
+  $color: color.mix($light, $dark, $weight, $method);
+  $space: list.nth($method, 1);
+
+  @return color.change($color: $color, $alpha: $alpha, $space: $space);
+}
+
+@function get-light-dark($light, $dark) {
+  @return (light: $light, dark: $dark);
+}
+
+@function css-get-light-dark($light, $dark) {
+  @return light-dark($light, $dark);
+}
+
+$grayscale-surface: get-light-dark(generate-grayscale-color(92%), generate-grayscale-color(92%));
+
+$ui-default-configs: (
+  prefix: ui,
+  size: (
+    base: 0.125rem,
+    factor: (
+      min: 1,
+      max: 210,
+    ),
+    alias: (
+      names: xs sm md lg xl 2xl 3xl 4xl 5xl 6xl 7xl 8xl 9xl 10xl,
+      step: 7,
+    ),
+    indicators: tiny small medium normal,
+  ),
+  color: (
+    pigments: (
+      primary: oklch(50% 0.2 250),
+      primary-surface: oklch(92% 0.015 250deg),
+      accent: oklch(55% 0.25 360),
+      accent-surface: oklch(92% 0.015 360),
+      info: oklch(60% 0.2 200),
+      info-surface: oklch(92% 0.015 200),
+      success: oklch(50% 0.2 145),
+      success-surface: oklch(92% 0.015 145),
+      warning: oklch(65% 0.15 70),
+      warning-surface: oklch(92% 0.015 70),
+      danger: oklch(50% 0.25 30),
+      danger-surface: oklch(92% 0.015 30),
+      ink: get-light-dark(generate-grayscale-color(2%), generate-grayscale-color(98%)),
+      ink-surface: $grayscale-surface,
+      stamp: get-light-dark(generate-grayscale-color(40%), generate-grayscale-color(60%)),
+      stamp-surface: $grayscale-surface,
+      neutral: get-light-dark(generate-grayscale-color(50%), generate-grayscale-color(50%)),
+      neutral-surface: $grayscale-surface,
+      watermark: get-light-dark(generate-grayscale-color(70%), generate-grayscale-color(30%)),
+      watermark-surface: $grayscale-surface,
+      paper: get-light-dark(generate-grayscale-color(98%), generate-grayscale-color(3%)),
+      paper-surface: $grayscale-surface,
+    ),
+    variants: (
+      light: 2.5%,
+      lighter: 5%,
+      lightest: 10%,
+      dark: -2.5%,
+      darker: -5%,
+      darkest: -10%
+    ),
+    palette: (
+      shadow: css-get-light-dark(generate-grayscale-color(0%, 15%), generate-grayscale-color(100%, 15%)),
+      overlay: css-get-light-dark(oklch(0% 0 0 / 50%), oklch(100% 0 0 / 50%)),
+      transparent: oklch(0% 0 0 / 0%),
+      transparent-dark: css-get-light-dark(oklch(0% 0 0 / 2%), oklch(100% 0 0 / 2%)),
+      transparent-darker: css-get-light-dark(oklch(0% 0 0 / 4%), oklch(100% 0 0 / 4%)),
+      transparent-darkest: css-get-light-dark(oklch(0% 0 0 / 8%), oklch(100% 0 0 / 8%)),
+    ),
+  ),
+  border: (
+    width: (
+      thin: 1px,
+      medium: 2px,
+      thick: 3px
+    ),
+    radius: (
+      none: null,
+      tiny: xs-2,
+      small: xs-3,
+      medium: xs-4,
+      normal: xs-5,
+      large: xs-6,
+      full: 100%
+    )
+  ),
+  typography: (
+    font: (
+      weights: normal semibold bold bolder,
+    )
+  ),
+  button: (
+    variants: basic bordered bulk emphasis outline,
+  ),
+  icon: (
+    variants: animation bold brand broken bulk intact linear outline twotone,
+    filled: bold bulk,
+  ),
+  message: (
+    variants: info success warning danger,
+  ),
+) !default;

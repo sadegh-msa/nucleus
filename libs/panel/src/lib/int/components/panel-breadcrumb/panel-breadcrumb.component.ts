@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { RippleDirective, SvgIconDirective } from '@nucleus/fabric';
+import { RippleDirective, SvgIconDirective } from '@nucleus/ui';
 import { PanelBreadcrumbService } from '../../services';
 
 @Component({
