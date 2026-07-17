@@ -4,9 +4,9 @@ export interface UiConfigModel {
   };
   message: {
     duration: number;
-  },
+  };
   verification: {
     duration: number;
     length: number;
-  }
+  };
 }

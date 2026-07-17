@@ -6,7 +6,7 @@ import { ConfirmationService } from 'primeng/api';
 import { ConfirmPopupModule } from 'primeng/confirmpopup';
 import { AuthPermissionDirective } from '../../../auth';
 import { ToolElement } from '../../enums/toolbar.enum';
-import type { NuToolModel, NuToolbarModel } from '../../models/toolbar.model';
+import type { NuToolbarModel, NuToolModel } from '../../models/toolbar.model';
 
 @Component({
   selector: 'nu-generic-toolbar',
@@ -17,7 +17,7 @@ import type { NuToolModel, NuToolbarModel } from '../../models/toolbar.model';
     RouterModule,
     NgClass,
     SvgIconDirective,
-    TooltipDirective
+    TooltipDirective,
   ],
 })
 export class GenericToolbarComponent {

@@ -8,8 +8,8 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import { provideRouter, withComponentInputBinding } from '@angular/router';
 import { type NuCommonConfigModel, provideNuCommon } from '@nucleus/common';
 import { provideAuth, provideAuthStore } from '@nucleus/core';
-import { provideUi } from '@nucleus/ui';
 import { provideNuL10n } from '@nucleus/l10n';
+import { provideUi } from '@nucleus/ui';
 import Aura from '@primeng/themes/aura';
 import { providePrimeNG } from 'primeng/config';
 import { environment } from '../environments/environment';

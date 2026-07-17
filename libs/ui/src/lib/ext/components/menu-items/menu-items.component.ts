@@ -7,7 +7,7 @@ import {
   PopoverDirective,
   RippleDirective,
   SvgIconDirective,
-  TooltipDirective
+  TooltipDirective,
 } from '../../directives';
 import type { MenuItemModel } from '../../models';
 import { CssSupportService } from '../../services';
@@ -117,7 +117,10 @@ export class MenuItemsComponent {
 
     items.forEach((item) => {
       Object.assign(item, R.mergeDeepRight({ ...(this.common() ?? {}) }, item) as MenuItemModel);
-      item.active = R.mergeDeepLeft({ ...(this.active() ?? {}) }, item.active ?? {}) as MenuItemModel;
+      item.active = R.mergeDeepLeft(
+        { ...(this.active() ?? {}) },
+        item.active ?? {},
+      ) as MenuItemModel;
       item.isActive = item.routerLink === currentUrl;
 
       if (item.children?.length) {

@@ -16,7 +16,9 @@ function convertDateOperator<Response>(dateFields: string[]) {
   return convertDateStrings<Response>(...(dateFields || []).map((f: string) => `data.${f}`));
 }
 
-export function createListRestMethod<T extends GenericEntityModel>({ endpoint }: RestServiceParamsModel) {
+export function createListRestMethod<T extends GenericEntityModel>({
+  endpoint,
+}: RestServiceParamsModel) {
   type Query = RestListQueryModel;
   type Response = RestListResponseModel<T['list']>;
   const service = inject(RestApiService);
@@ -75,7 +77,9 @@ export function createUpdateRestMethod<T extends GenericEntityModel>({
   };
 }
 
-export function createDeleteRestMethod<_T extends GenericEntityModel>({ endpoint }: RestServiceParamsModel) {
+export function createDeleteRestMethod<_T extends GenericEntityModel>({
+  endpoint,
+}: RestServiceParamsModel) {
   type Query = string;
   type Response = RestDeleteResponseModel;
   const service = inject(RestApiService);

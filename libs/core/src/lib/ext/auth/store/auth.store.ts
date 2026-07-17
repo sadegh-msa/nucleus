@@ -3,7 +3,12 @@ import { patchState, signalStore, withComputed, withMethods, withState } from '@
 import { OperationStatus } from '@nucleus/common';
 import { MessageService } from '@nucleus/ui';
 import { formatErrorMessage } from '../../crud/helpers/format-messages.helper';
-import type { AuthSignInModel, AuthSignUpModel, AuthStoreModel, AuthStoreStateModel } from '../models/auth-store.model';
+import type {
+  AuthSignInModel,
+  AuthSignUpModel,
+  AuthStoreModel,
+  AuthStoreStateModel,
+} from '../models/auth-store.model';
 import { AuthRestService } from '../services/auth-rest.service';
 
 const { Initial, InProgress, Success, Failure } = OperationStatus;

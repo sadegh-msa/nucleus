@@ -4,14 +4,14 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { OperationStatus } from '@nucleus/common';
 import { injectAuthStore } from '@nucleus/core';
+import { type NuLangDir, NuLocaleService } from '@nucleus/l10n';
+import { PanelComponent, PanelService } from '@nucleus/panel';
 import {
   type MenuItemModel,
   MenuItemsComponent,
   MessageComponent,
   MessageService,
 } from '@nucleus/ui';
-import { type NuLangDir, NuLocaleService } from '@nucleus/l10n';
-import { PanelComponent, PanelService } from '@nucleus/panel';
 import { ConfirmationService } from 'primeng/api';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { navMainMenu } from './app.menu';

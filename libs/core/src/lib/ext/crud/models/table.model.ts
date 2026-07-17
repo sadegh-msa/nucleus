@@ -1,7 +1,7 @@
 import type { NgClass } from '@angular/common';
 import type { DataType } from '@nucleus/common';
 import type { Observable } from 'rxjs';
-import type { NuToolModel, NuToolEventModel } from './toolbar.model';
+import type { NuToolEventModel, NuToolModel } from './toolbar.model';
 
 export interface NuTableColumnModel {
   field: string;

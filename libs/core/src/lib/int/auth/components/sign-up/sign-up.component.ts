@@ -4,7 +4,7 @@ import { RouterLink } from '@angular/router';
 import { OperationStatus } from '@nucleus/common';
 import { InputPasswordDirective, type PasswordStrengthModel, SvgIconDirective } from '@nucleus/ui';
 import { authDefaultConfig } from '../../../../ext/auth/auth-default.config';
-import type { AuthSignUpModel, AuthSignUpFormModel } from '../../../../ext/auth/models/auth.model';
+import type { AuthSignUpFormModel, AuthSignUpModel } from '../../../../ext/auth/models/auth.model';
 import { injectAuthStore } from '../../../../ext/auth/store/auth.store';
 import { SignLayoutComponent } from '../sign-layout/sign-layout.component';
 

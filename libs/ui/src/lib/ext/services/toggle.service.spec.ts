@@ -161,7 +161,9 @@ describe('ToggleService', () => {
   });
 });
 
-function createMockConsumer(value?: ToggleValueModel): GenericToggleConsumerModel & ControlValueAccessor {
+function createMockConsumer(
+  value?: ToggleValueModel,
+): GenericToggleConsumerModel & ControlValueAccessor {
   return {
     value: signal(value) as any,
     label: signal(undefined) as any,

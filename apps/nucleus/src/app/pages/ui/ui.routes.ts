@@ -1,6 +1,5 @@
 import type { Route } from '@angular/router';
 
-
 export const uiRoutes: Route[] = [
   {
     path: 'button',
@@ -27,5 +26,4 @@ export const uiRoutes: Route[] = [
     title: 'Typography',
     loadComponent: () => import('./components').then((m) => m.TypographyComponent),
   },
-
 ];

@@ -16,7 +16,7 @@ import {
   SvgIconDirective,
 } from '@nucleus/ui';
 import { authDefaultConfig } from '../../../../ext/auth/auth-default.config';
-import type { AuthSignInModel, AuthSignInFormModel } from '../../../../ext/auth/models/auth.model';
+import type { AuthSignInFormModel, AuthSignInModel } from '../../../../ext/auth/models/auth.model';
 import { injectAuthStore } from '../../../../ext/auth/store/auth.store';
 import { SignLayoutComponent } from '../sign-layout/sign-layout.component';
 

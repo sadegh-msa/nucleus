@@ -7,7 +7,7 @@ import {
   GenericListToolbarComponent,
   type NuTableModel,
 } from '@nucleus/core';
-import type { SampleModel, SampleListModel } from '../../models/sample.model';
+import type { SampleListModel, SampleModel } from '../../models/sample.model';
 import type { GenericSampleListModel, SampleGenericModel } from '../../models/sample-generic.model';
 import { sampleConfig } from '../../sample.config';
 import { SampleStore } from '../../store/sample.store';

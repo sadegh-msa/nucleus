@@ -5,7 +5,7 @@ import {
   NavigationError,
   NavigationSkipped,
   NavigationStart,
-  Router
+  Router,
 } from '@angular/router';
 import { filter, interval, type Subscription, takeWhile } from 'rxjs';
 

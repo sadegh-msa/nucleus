@@ -11,7 +11,7 @@ import { PageType } from '../enums/page.enum';
 import { RouterStateKey } from '../enums/router-state.enum';
 import { ToolType } from '../enums/toolbar.enum';
 import type { GenericEntityModel, GenericFormConsumerModel } from '../models/generic.model';
-import type { NuToolModel, NuToolbarModel } from '../models/toolbar.model';
+import type { NuToolbarModel, NuToolModel } from '../models/toolbar.model';
 
 @Service({ autoProvided: false })
 export class GenericFormService<T extends GenericEntityModel> {

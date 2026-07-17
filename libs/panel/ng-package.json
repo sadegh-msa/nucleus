@@ -3,8 +3,6 @@
   "dest": "../../dist/libs/panel",
   "lib": {
     "entryFile": "src/index.ts",
-    "styleIncludePaths": [
-      "../../libs/ui/src/lib/ext/styles"
-    ]
+    "styleIncludePaths": ["../../libs/ui/src/lib/ext/styles"]
   }
 }

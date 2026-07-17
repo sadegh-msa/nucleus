@@ -3,7 +3,7 @@ import type {
   HttpEvent,
   HttpHandler,
   HttpInterceptor,
-  HttpRequest
+  HttpRequest,
 } from '@angular/common/http';
 import { inject, Service } from '@angular/core';
 import { MessageService } from '@nucleus/ui';

@@ -1,4 +1,4 @@
 export enum ListOrder {
   ASC = 'asc',
-  DESC = 'desc'
+  DESC = 'desc',
 }

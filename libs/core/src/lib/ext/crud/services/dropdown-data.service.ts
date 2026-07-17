@@ -8,7 +8,10 @@ import type { ValueLabelModel } from '../models/pair.model';
 export class DropdownDataService {
   readonly #injector = inject(Injector);
 
-  load(store: CrudStoreModel, selector: 'list' | 'get' | 'add' | 'update' | 'delete'): DropdownDataModel {
+  load(
+    store: CrudStoreModel,
+    selector: 'list' | 'get' | 'add' | 'update' | 'delete',
+  ): DropdownDataModel {
     const options = signal<ValueLabelModel[]>([]);
     const icon = signal<string>('pi pi-angle-down');
 

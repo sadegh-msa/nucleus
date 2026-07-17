@@ -1,10 +1,14 @@
-import type { GenericEntityModel, GenericFormConsumerModel, GenericListConsumerModel } from '@nucleus/core';
 import type {
-  SampleModel,
+  GenericEntityModel,
+  GenericFormConsumerModel,
+  GenericListConsumerModel,
+} from '@nucleus/core';
+import type {
   SampleAddModel,
   SampleConfigModel,
   SampleFormModel,
   SampleListModel,
+  SampleModel,
   SampleTypedFormModel,
   SampleUpdateModel,
 } from './sample.model';

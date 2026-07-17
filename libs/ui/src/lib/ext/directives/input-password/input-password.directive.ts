@@ -16,7 +16,7 @@ import type { PasswordStrengthModel } from '../../models';
 @Directive({
   selector: '[uiInputPassword]',
   host: {
-    'class': 'ui input password',
+    class: 'ui input password',
   },
 })
 export class InputPasswordDirective implements OnInit {
@@ -49,18 +49,17 @@ export class InputPasswordDirective implements OnInit {
       return;
     }
 
-    formControl.valueChanges.pipe(
-      takeUntilDestroyed(this.#destroyRef),
-      map(String)
-    ).subscribe((value) => {
-      this.strength.emit({
-        medium: this.mediumPattern().test(value),
-        strong: this.strongPattern().test(value)
-      });
+    formControl.valueChanges
+      .pipe(takeUntilDestroyed(this.#destroyRef), map(String))
+      .subscribe((value) => {
+        this.strength.emit({
+          medium: this.mediumPattern().test(value),
+          strong: this.strongPattern().test(value),
+        });
 
-      if (this.passwordToConfirm()) {
-        formControl.setErrors({ passwordsDoNotMatch: value !== this.passwordToConfirm() });
-      }
-    });
+        if (this.passwordToConfirm()) {
+          formControl.setErrors({ passwordsDoNotMatch: value !== this.passwordToConfirm() });
+        }
+      });
   }
 }

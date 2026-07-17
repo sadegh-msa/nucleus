@@ -1,7 +1,17 @@
 import type { OperationStatus } from '@nucleus/common';
-import type { AuthSignInModel, AuthSignInResponseModel, AuthSignUpModel, AuthSignUpResponseModel } from './auth.model';
+import type {
+  AuthSignInModel,
+  AuthSignInResponseModel,
+  AuthSignUpModel,
+  AuthSignUpResponseModel,
+} from './auth.model';
 
-export type { AuthSignInModel, AuthSignInResponseModel, AuthSignUpModel, AuthSignUpResponseModel } from './auth.model';
+export type {
+  AuthSignInModel,
+  AuthSignInResponseModel,
+  AuthSignUpModel,
+  AuthSignUpResponseModel,
+} from './auth.model';
 
 export interface AuthSignInStateModel {
   request: AuthSignInModel;

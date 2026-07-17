@@ -7,7 +7,7 @@ import type {
   AuthSignInModel,
   AuthSignInResponseModel,
   AuthSignUpModel,
-  AuthSignUpResponseModel
+  AuthSignUpResponseModel,
 } from '../models/auth.model';
 
 @Service()

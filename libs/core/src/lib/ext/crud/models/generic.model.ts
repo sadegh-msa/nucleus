@@ -11,7 +11,7 @@ import type { PageType } from '../enums/page.enum';
 import type { CrudConfigModel } from './crud-config.model';
 import type { PaginationModel } from './pagination.model';
 import type { NuTableModel } from './table.model';
-import type { NuToolModel, NuToolbarModel } from './toolbar.model';
+import type { NuToolbarModel, NuToolModel } from './toolbar.model';
 
 // eslint-disable-next-line
 type GenericTypedFormModel = any;

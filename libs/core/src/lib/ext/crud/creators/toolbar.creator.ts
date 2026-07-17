@@ -4,7 +4,7 @@ import { type Observable, Subject } from 'rxjs';
 import { RouterStateKey } from '../enums/router-state.enum';
 import { ToolElement, ToolType } from '../enums/toolbar.enum';
 import type { GenericEntityModel } from '../models/generic.model';
-import type { NuToolModel, NuToolbarModel, NuToolEventModel } from '../models/toolbar.model';
+import type { NuToolbarModel, NuToolEventModel, NuToolModel } from '../models/toolbar.model';
 
 type AddTools = Partial<Record<ToolType.Save | ToolType.Cancel, Partial<NuToolModel>>>;
 type ViewEditRequired = Required<Pick<NuToolModel, 'id' | 'routerStates'>>;

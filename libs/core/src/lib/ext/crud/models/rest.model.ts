@@ -30,8 +30,14 @@ export interface RestListResponseControlModel extends RestResponseControlModel {
   pagination: PaginationModel;
 }
 
-export type RestListResponseModel<Response> = RestResponseModel<Response, RestListResponseControlModel>;
+export type RestListResponseModel<Response> = RestResponseModel<
+  Response,
+  RestListResponseControlModel
+>;
 export type RestGetResponseModel<Response> = RestResponseModel<Response, RestResponseControlModel>;
 export type RestAddResponseModel<Response> = RestResponseModel<Response, RestResponseControlModel>;
-export type RestUpdateResponseModel<Response> = RestResponseModel<Response, RestResponseControlModel>;
+export type RestUpdateResponseModel<Response> = RestResponseModel<
+  Response,
+  RestResponseControlModel
+>;
 export type RestDeleteResponseModel = RestResponseModel<string, RestResponseControlModel>;

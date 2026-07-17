@@ -1,4 +1,4 @@
 export enum RouterStateKey {
   Title = 'title',
-  Saved = 'saved'
+  Saved = 'saved',
 }

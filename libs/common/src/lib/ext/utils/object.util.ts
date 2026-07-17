@@ -23,4 +23,3 @@ function deepSetObjectValue(obj: any, keys: string[], getValue: (v: any) => any,
 export function deepSet(obj: any, path: string, getValue: (v: any) => any) {
   return deepSetObjectValue(obj, path.split('.'), getValue);
 }
-

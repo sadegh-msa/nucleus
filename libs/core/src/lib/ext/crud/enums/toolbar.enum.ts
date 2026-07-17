@@ -19,5 +19,5 @@ export enum ToolType {
 
 export enum ToolElement {
   Button = 'button',
-  Link = 'link'
+  Link = 'link',
 }
