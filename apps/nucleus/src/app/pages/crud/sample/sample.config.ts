@@ -1,5 +1,5 @@
 import { createActionPermissions, createPagePaths } from '@nucleus/core';
-import type { SampleConfig } from './models/sample.model';
+import type { SampleConfigModel } from './models/sample.model';
 
 const prefix = 'crud';
 const entity = 'sample';
@@ -27,4 +27,4 @@ export const sampleConfig = Object.freeze({
   rest: {
     endpoint: 'samples',
   },
-} as SampleConfig);
+} as SampleConfigModel);

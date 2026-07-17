@@ -2,9 +2,9 @@ import { Component, effect, signal, untracked } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { OperationStatus } from '@nucleus/common';
-import { InputPasswordDirective, type PasswordStrength, SvgIconDirective } from '@nucleus/ui';
+import { InputPasswordDirective, type PasswordStrengthModel, SvgIconDirective } from '@nucleus/ui';
 import { authDefaultConfig } from '../../../../ext/auth/auth-default.config';
-import type { AuthSignUp, AuthSignUpForm } from '../../../../ext/auth/models/auth.model';
+import type { AuthSignUpModel, AuthSignUpFormModel } from '../../../../ext/auth/models/auth.model';
 import { injectAuthStore } from '../../../../ext/auth/store/auth.store';
 import { SignLayoutComponent } from '../sign-layout/sign-layout.component';
 
@@ -23,7 +23,7 @@ export class SignUpComponent {
   readonly #authStore = injectAuthStore();
 
   readonly config = authDefaultConfig;
-  readonly form: FormGroup<AuthSignUpForm> = new FormGroup<AuthSignUpForm>({
+  readonly form: FormGroup<AuthSignUpFormModel> = new FormGroup<AuthSignUpFormModel>({
     email: new FormControl(null, [Validators.required, Validators.email]),
     password: new FormControl(null, [
       Validators.required,
@@ -53,10 +53,10 @@ export class SignUpComponent {
     this.#authStore.signUp({
       ...this.form.value,
       confirmPassword: undefined,
-    } as AuthSignUp);
+    } as AuthSignUpModel);
   }
 
-  onPasswordStrength(value: PasswordStrength) {
+  onPasswordStrength(value: PasswordStrengthModel) {
     console.log(value);
   }
 }

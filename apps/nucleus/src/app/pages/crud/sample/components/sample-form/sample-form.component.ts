@@ -4,8 +4,8 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { GenericFormService, GenericFormToolbarComponent, PageType } from '@nucleus/core';
 import { CalendarComponent, ShowLoadingComponent } from '@nucleus/ui';
 import { SampleStatus } from '../../enums/sample-status.enum';
-import type { SampleTypedForm } from '../../models/sample.model';
-import type { GenericSampleForm, SampleGeneric } from '../../models/sample-generic.model';
+import type { SampleTypedFormModel } from '../../models/sample.model';
+import type { GenericSampleFormModel, SampleGenericModel } from '../../models/sample-generic.model';
 import { sampleConfig } from '../../sample.config';
 import { SampleStore } from '../../store/sample.store';
 
@@ -21,8 +21,8 @@ import { SampleStore } from '../../store/sample.store';
   ],
   providers: [GenericFormService],
 })
-export class SampleFormComponent implements OnInit, GenericSampleForm {
-  readonly #genericFormService = inject(GenericFormService<SampleGeneric>);
+export class SampleFormComponent implements OnInit, GenericSampleFormModel {
+  readonly #genericFormService = inject(GenericFormService<SampleGenericModel>);
 
   pageType = input(PageType.View);
   id = input('');
@@ -31,7 +31,7 @@ export class SampleFormComponent implements OnInit, GenericSampleForm {
   readonly PageType = PageType;
   readonly config = sampleConfig;
   readonly store = inject(SampleStore);
-  readonly form = new FormGroup<SampleTypedForm>({
+  readonly form = new FormGroup<SampleTypedFormModel>({
     id: new FormControl(null),
     title: new FormControl(null, [Validators.required]),
     code: new FormControl(null, [Validators.required]),
@@ -43,14 +43,14 @@ export class SampleFormComponent implements OnInit, GenericSampleForm {
     details: new FormControl([]),
   });
 
-  data!: GenericSampleForm['data'];
-  title!: GenericSampleForm['title'];
-  isSubmitted!: GenericSampleForm['isSubmitted'];
-  isSubmitting!: GenericSampleForm['isSubmitting'];
-  save!: GenericSampleForm['save'];
-  formControlHasError!: GenericSampleForm['formControlHasError'];
-  toolbar!: GenericSampleForm['toolbar'];
-  navigationState: GenericSampleForm['navigationState'];
+  data!: GenericSampleFormModel['data'];
+  title!: GenericSampleFormModel['title'];
+  isSubmitted!: GenericSampleFormModel['isSubmitted'];
+  isSubmitting!: GenericSampleFormModel['isSubmitting'];
+  save!: GenericSampleFormModel['save'];
+  formControlHasError!: GenericSampleFormModel['formControlHasError'];
+  toolbar!: GenericSampleFormModel['toolbar'];
+  navigationState: GenericSampleFormModel['navigationState'];
 
   constructor() {
     this.#genericFormService.init(this);

@@ -16,7 +16,7 @@ import {
   SvgIconDirective,
 } from '@nucleus/ui';
 import { authDefaultConfig } from '../../../../ext/auth/auth-default.config';
-import type { AuthSignIn, AuthSignInForm } from '../../../../ext/auth/models/auth.model';
+import type { AuthSignInModel, AuthSignInFormModel } from '../../../../ext/auth/models/auth.model';
 import { injectAuthStore } from '../../../../ext/auth/store/auth.store';
 import { SignLayoutComponent } from '../sign-layout/sign-layout.component';
 
@@ -38,7 +38,7 @@ export class SignInComponent {
   readonly #authStore = injectAuthStore();
 
   readonly config = authDefaultConfig;
-  readonly form: FormGroup<AuthSignInForm> = new FormGroup<AuthSignInForm>({
+  readonly form: FormGroup<AuthSignInFormModel> = new FormGroup<AuthSignInFormModel>({
     email: new FormControl(null, [Validators.required, Validators.email]),
     password: new FormControl(null, [
       Validators.required,
@@ -65,6 +65,6 @@ export class SignInComponent {
       return;
     }
 
-    this.#authStore.signIn(this.form.value as AuthSignIn);
+    this.#authStore.signIn(this.form.value as AuthSignInModel);
   }
 }

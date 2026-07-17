@@ -1,4 +1,4 @@
-export interface Message {
+export interface MessageModel {
   variant: 'info' | 'danger' | 'warning' | 'success';
   content: string;
   title?: string;

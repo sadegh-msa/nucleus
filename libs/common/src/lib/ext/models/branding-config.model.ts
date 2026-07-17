@@ -1,20 +1,20 @@
-export interface NuBrandLogo {
+export interface NuBrandLogoModel {
   path: string;
   height: number;
   width: number;
 }
 
-export interface NuBrand {
+export interface NuBrandModel {
   title: string;
   homePage: string;
   logo: {
-    noTitle: NuBrandLogo;
-    hTitle: NuBrandLogo;
-    vTitle: NuBrandLogo;
+    noTitle: NuBrandLogoModel;
+    hTitle: NuBrandLogoModel;
+    vTitle: NuBrandLogoModel;
   };
 }
 
-export interface NuBrandingConfig {
-  manufacturer: NuBrand;
-  organization: NuBrand;
+export interface NuBrandingConfigModel {
+  manufacturer: NuBrandModel;
+  organization: NuBrandModel;
 }

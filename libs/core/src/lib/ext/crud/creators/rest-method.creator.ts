@@ -1,24 +1,24 @@
 import { inject } from '@angular/core';
 import { convertDateStrings } from '@nucleus/common';
-import type { GenericEntity } from '../models/generic.model';
+import type { GenericEntityModel } from '../models/generic.model';
 import type {
-  RestAddResponse,
-  RestDeleteResponse,
-  RestGetResponse,
-  RestListQuery,
-  RestListResponse,
-  RestUpdateResponse,
+  RestAddResponseModel,
+  RestDeleteResponseModel,
+  RestGetResponseModel,
+  RestListQueryModel,
+  RestListResponseModel,
+  RestUpdateResponseModel,
 } from '../models/rest.model';
-import type { RestServiceParams } from '../models/rest-service.model';
+import type { RestServiceParamsModel } from '../models/rest-service.model';
 import { RestApiService } from '../services/rest-api.service';
 
 function convertDateOperator<Response>(dateFields: string[]) {
   return convertDateStrings<Response>(...(dateFields || []).map((f: string) => `data.${f}`));
 }
 
-export function createListRestMethod<T extends GenericEntity>({ endpoint }: RestServiceParams) {
-  type Query = RestListQuery;
-  type Response = RestListResponse<T['list']>;
+export function createListRestMethod<T extends GenericEntityModel>({ endpoint }: RestServiceParamsModel) {
+  type Query = RestListQueryModel;
+  type Response = RestListResponseModel<T['list']>;
   const service = inject(RestApiService);
 
   return (query?: Query) => {
@@ -29,12 +29,12 @@ export function createListRestMethod<T extends GenericEntity>({ endpoint }: Rest
   };
 }
 
-export function createGetRestMethod<T extends GenericEntity>({
+export function createGetRestMethod<T extends GenericEntityModel>({
   endpoint,
   dateFields,
-}: RestServiceParams) {
+}: RestServiceParamsModel) {
   type Query = string;
-  type Response = RestGetResponse<T['full']>;
+  type Response = RestGetResponseModel<T['full']>;
   const service = inject(RestApiService);
 
   return (id: Query) => {
@@ -43,12 +43,12 @@ export function createGetRestMethod<T extends GenericEntity>({
   };
 }
 
-export function createAddRestMethod<T extends GenericEntity>({
+export function createAddRestMethod<T extends GenericEntityModel>({
   endpoint,
   dateFields,
-}: RestServiceParams) {
+}: RestServiceParamsModel) {
   type Request = T['add'];
-  type Response = RestAddResponse<T['full']>;
+  type Response = RestAddResponseModel<T['full']>;
   const service = inject(RestApiService);
 
   return (request: Request) => {
@@ -59,12 +59,12 @@ export function createAddRestMethod<T extends GenericEntity>({
   };
 }
 
-export function createUpdateRestMethod<T extends GenericEntity>({
+export function createUpdateRestMethod<T extends GenericEntityModel>({
   endpoint,
   dateFields,
-}: RestServiceParams) {
+}: RestServiceParamsModel) {
   type Request = T['update'];
-  type Response = RestUpdateResponse<T['full']>;
+  type Response = RestUpdateResponseModel<T['full']>;
   const service = inject(RestApiService);
 
   return (id: string, request: Request) => {
@@ -75,9 +75,9 @@ export function createUpdateRestMethod<T extends GenericEntity>({
   };
 }
 
-export function createDeleteRestMethod<_T extends GenericEntity>({ endpoint }: RestServiceParams) {
+export function createDeleteRestMethod<_T extends GenericEntityModel>({ endpoint }: RestServiceParamsModel) {
   type Query = string;
-  type Response = RestDeleteResponse;
+  type Response = RestDeleteResponseModel;
   const service = inject(RestApiService);
 
   return (id: Query) => {

@@ -1,52 +1,52 @@
 import type { InputSignal, WritableSignal } from '@angular/core';
 import type { FormGroup } from '@angular/forms';
 import type {
-  AddState,
-  DeleteState,
-  GetState,
-  ListState,
-  UpdateState,
+  AddStateModel,
+  DeleteStateModel,
+  GetStateModel,
+  ListStateModel,
+  UpdateStateModel,
 } from '../../store/models/signal-store.model';
 import type { PageType } from '../enums/page.enum';
-import type { CrudConfig } from './crud-config.model';
-import type { Pagination } from './pagination.model';
-import type { NuTable } from './table.model';
-import type { NuTool, NuToolbar } from './toolbar.model';
+import type { CrudConfigModel } from './crud-config.model';
+import type { PaginationModel } from './pagination.model';
+import type { NuTableModel } from './table.model';
+import type { NuToolModel, NuToolbarModel } from './toolbar.model';
 
 // eslint-disable-next-line
-type GenericTypedForm = any;
+type GenericTypedFormModel = any;
 // eslint-disable-next-line
-type GenericRequest = any;
+type GenericRequestModel = any;
 // eslint-disable-next-line
-type GenericResponse = any;
+type GenericResponseModel = any;
 
-export interface CrudStore {
+export interface CrudStoreModel {
   // State signals
-  list(): ListState<RestListQuery, GenericResponse>;
-  get(): GetState<GenericResponse>;
-  add(): AddState<GenericRequest, GenericResponse>;
-  update(): UpdateState<GenericRequest, GenericResponse>;
-  delete(): DeleteState;
+  list(): ListStateModel<RestListQueryModel, GenericResponseModel>;
+  get(): GetStateModel<GenericResponseModel>;
+  add(): AddStateModel<GenericRequestModel, GenericResponseModel>;
+  update(): UpdateStateModel<GenericRequestModel, GenericResponseModel>;
+  delete(): DeleteStateModel;
 
   // Computed signals
   listStatus(): OperationStatus;
-  listResponse(): RestListResponse<GenericResponse>;
+  listResponse(): RestListResponseModel<GenericResponseModel>;
   getStatus(): OperationStatus;
-  getResponse(): RestGetResponse<GenericResponse>;
+  getResponse(): RestGetResponseModel<GenericResponseModel>;
   addStatus(): OperationStatus;
-  addResponse(): RestAddResponse<GenericResponse>;
+  addResponse(): RestAddResponseModel<GenericResponseModel>;
   updateStatus(): OperationStatus;
-  updateResponse(): RestUpdateResponse<GenericResponse>;
+  updateResponse(): RestUpdateResponseModel<GenericResponseModel>;
   deleteStatus(): OperationStatus;
-  deleteResponse(): RestDeleteResponse;
+  deleteResponse(): RestDeleteResponseModel;
 
   // Methods
-  loadList(query: RestListQuery, tool?: NuTool): void;
-  loadGet(query: string, tool?: NuTool): void;
-  loadAdd(request: GenericRequest, tool?: NuTool): void;
-  loadUpdate(query: string, request: GenericRequest, tool?: NuTool): void;
-  loadDelete(query: string, tool?: NuTool): void;
-  getMutate(response: GenericResponse): void;
+  loadList(query: RestListQueryModel, tool?: NuToolModel): void;
+  loadGet(query: string, tool?: NuToolModel): void;
+  loadAdd(request: GenericRequestModel, tool?: NuToolModel): void;
+  loadUpdate(query: string, request: GenericRequestModel, tool?: NuToolModel): void;
+  loadDelete(query: string, tool?: NuToolModel): void;
+  getMutate(response: GenericResponseModel): void;
   resetList(): void;
   resetGet(): void;
   resetAdd(): void;
@@ -57,22 +57,22 @@ export interface CrudStore {
 
 import type { OperationStatus } from '@nucleus/common';
 import type {
-  RestAddResponse,
-  RestDeleteResponse,
-  RestGetResponse,
-  RestListQuery,
-  RestListResponse,
-  RestUpdateResponse,
+  RestAddResponseModel,
+  RestDeleteResponseModel,
+  RestGetResponseModel,
+  RestListQueryModel,
+  RestListResponseModel,
+  RestUpdateResponseModel,
 } from './rest.model';
 
-export interface GenericEntity<
+export interface GenericEntityModel<
   Full = unknown,
   List = Full[],
   Add = unknown,
   Update = unknown,
   Form = unknown,
-  TypedFrom = GenericTypedForm,
-  Config = CrudConfig<any, any, any, any>,
+  TypedFrom = GenericTypedFormModel,
+  Config = CrudConfigModel<any, any, any, any>,
 > {
   full: Full;
   list: List;
@@ -80,29 +80,29 @@ export interface GenericEntity<
   update: Update;
   form: Form;
   typedForm: TypedFrom;
-  store: CrudStore;
+  store: CrudStoreModel;
   config: Config;
 }
 
-export interface GenericListConsumer<T extends GenericEntity> {
+export interface GenericListConsumerModel<T extends GenericEntityModel> {
   store: T['store'];
   config: Readonly<T['config']>;
   isEmbedded: InputSignal<boolean>;
-  toolbar: NuToolbar;
-  table: NuTable;
+  toolbar: NuToolbarModel;
+  table: NuTableModel;
   data: WritableSignal<T['list']>;
   isDataLoading: WritableSignal<boolean>;
-  pagination: WritableSignal<Pagination>;
+  pagination: WritableSignal<PaginationModel>;
   selectedRecords: WritableSignal<T['list']>;
   changeSelection: (selectedItems: T['list'] | T['list'][0]) => void;
 }
 
-export interface GenericFormConsumer<T extends GenericEntity> {
+export interface GenericFormConsumerModel<T extends GenericEntityModel> {
   store: T['store'];
   id: InputSignal<string>;
   config: Readonly<T['config']>;
   isEmbedded: InputSignal<boolean>;
-  toolbar: NuToolbar;
+  toolbar: NuToolbarModel;
   pageType: InputSignal<PageType>;
   form: FormGroup<T['typedForm']>;
   navigationState?: Record<string, unknown>;

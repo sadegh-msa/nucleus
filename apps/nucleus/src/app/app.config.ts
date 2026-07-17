@@ -6,7 +6,7 @@ import {
 } from '@angular/core';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { provideRouter, withComponentInputBinding } from '@angular/router';
-import { type NuCommonConfig, provideNuCommon } from '@nucleus/common';
+import { type NuCommonConfigModel, provideNuCommon } from '@nucleus/common';
 import { provideAuth, provideAuthStore } from '@nucleus/core';
 import { provideUi } from '@nucleus/ui';
 import { provideNuL10n } from '@nucleus/l10n';
@@ -24,7 +24,7 @@ export const appConfig: ApplicationConfig = {
     provideNuCommon({
       api: environment.api,
       branding: environment.branding,
-      crypto: environment.crypto as NuCommonConfig['crypto'],
+      crypto: environment.crypto as NuCommonConfigModel['crypto'],
       links: environment.links,
     }),
     provideNuL10n({ languages: environment.languages }),

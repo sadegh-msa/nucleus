@@ -9,7 +9,7 @@ import {
 } from '@angular/core';
 import type { SetTimeout } from '@nucleus/common';
 import { VisualObserver } from '../helpers/viz-observer';
-import type { Popover, TriggerEvent } from '../models';
+import type { PopoverModel, TriggerEventModel } from '../models';
 
 @Service()
 export class PopoverService {
@@ -34,14 +34,14 @@ export class PopoverService {
     CLOSE:
       '<svg class="ui icon linear" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"> <path d="M 3.150239,3.150239 20.849761,20.849761" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" /> <path d="M 20.99993,3.0000696 3.0000696,20.99993" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" /> </svg>',
   });
-  readonly EVENT_MAP: Record<TriggerEvent, keyof HTMLElementEventMap> = Object.freeze({
+  readonly EVENT_MAP: Record<TriggerEventModel, keyof HTMLElementEventMap> = Object.freeze({
     click: 'pointerup',
     hover: 'pointerenter',
   });
 
   render(
     injector: Injector,
-    triggerEvent: TriggerEvent,
+    triggerEvent: TriggerEventModel,
     {
       content,
       templateData,
@@ -52,7 +52,7 @@ export class PopoverService {
       hasClose,
       attachTo,
       visible,
-    }: Popover,
+    }: PopoverModel,
   ) {
     const document = injector.get(DOCUMENT);
     const renderer = injector.get(Renderer2);
@@ -207,8 +207,8 @@ export class PopoverService {
 
   handleTriggerEvents(
     injector: Injector,
-    triggerEvent: TriggerEvent,
-    popover: Popover,
+    triggerEvent: TriggerEventModel,
+    popover: PopoverModel,
     getPopoverElement: () => HTMLElement | undefined,
   ) {
     const document = injector.get(DOCUMENT);
@@ -333,7 +333,7 @@ export class PopoverService {
     popoverElement.classList.add(NUMB, INVISIBLE);
   }
 
-  dispatchTriggerEvent(injector: Injector, triggerEvent: TriggerEvent) {
+  dispatchTriggerEvent(injector: Injector, triggerEvent: TriggerEventModel) {
     const elementRef = injector.get(ElementRef);
     const triggerElement = elementRef.nativeElement as HTMLElement;
     const eventType = this.EVENT_MAP[triggerEvent];

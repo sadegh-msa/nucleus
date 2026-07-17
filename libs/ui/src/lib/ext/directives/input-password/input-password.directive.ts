@@ -11,7 +11,7 @@ import {
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { NgControl } from '@angular/forms';
 import { map } from 'rxjs';
-import type { PasswordStrength } from '../../models';
+import type { PasswordStrengthModel } from '../../models';
 
 @Directive({
   selector: '[uiInputPassword]',
@@ -31,7 +31,7 @@ export class InputPasswordDirective implements OnInit {
   strongPattern = input(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,})/);
   passwordToConfirm = input<string | null>();
 
-  strength = output<PasswordStrength>();
+  strength = output<PasswordStrengthModel>();
 
   ngOnInit() {
     this.#handleEvents();

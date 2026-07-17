@@ -1,5 +1,5 @@
-import type { RestError } from '../models/rest.model';
+import type { RestErrorModel } from '../models/rest.model';
 
-export const formatErrorMessage = (error: RestError) => {
+export const formatErrorMessage = (error: RestErrorModel) => {
   return `${error?.code}: ${error?.reason}`;
 };

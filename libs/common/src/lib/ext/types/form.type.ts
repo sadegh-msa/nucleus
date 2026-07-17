@@ -1,7 +1,7 @@
 import type { FormArray, FormControl, FormGroup } from '@angular/forms';
 
-export type TypedForm<T> = {
+export type TypedFormModel<T> = {
   [K in keyof T]: FormControl<T[K] | null>;
 }
 
-export type TypedFormArray<T> = FormArray<FormGroup<TypedForm<T>>>
+export type TypedFormArrayModel<T> = FormArray<FormGroup<TypedFormModel<T>>>

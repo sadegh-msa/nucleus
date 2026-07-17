@@ -3,8 +3,8 @@ import { DividerModule } from 'primeng/divider';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { PaginatorModule, type PaginatorState } from 'primeng/paginator';
 import { createRowsPerPageOptions } from '../../creators/pagination.creator';
-import type { Pagination } from '../../models/pagination.model';
-import type { NuToolbar } from '../../models/toolbar.model';
+import type { PaginationModel } from '../../models/pagination.model';
+import type { NuToolbarModel } from '../../models/toolbar.model';
 import { GenericToolbarComponent } from '../generic-toolbar/generic-toolbar.component';
 
 @Component({
@@ -17,9 +17,9 @@ export class GenericListToolbarComponent {
 
   showPaginator = input(true);
   rowsPerPageOptions = input(createRowsPerPageOptions());
-  toolbar = input.required<NuToolbar>();
+  toolbar = input.required<NuToolbarModel>();
   selectedRecords = input(0);
-  pagination = model.required<Pagination>();
+  pagination = model.required<PaginationModel>();
 
   paginate(paginator: PaginatorState) {
     this.pagination.update((current) => ({

@@ -1,16 +1,16 @@
 import type { ListOrder } from '../enums/list-order.enum';
-import type { Pagination } from './pagination.model';
+import type { PaginationModel } from './pagination.model';
 
-export interface RestResponse<Data, Control> {
+export interface RestResponseModel<Data, Control> {
   data: Data;
   control: Control;
 }
 
-export interface RestResponseControl {
+export interface RestResponseControlModel {
   message?: string;
 }
 
-export interface RestError {
+export interface RestErrorModel {
   code: number;
   method: string;
   path: string;
@@ -18,7 +18,7 @@ export interface RestError {
   timestamp: string;
 }
 
-export interface RestListQuery {
+export interface RestListQueryModel {
   page?: number;
   rows?: number;
   order?: Record<string, ListOrder>;
@@ -26,12 +26,12 @@ export interface RestListQuery {
   fields?: string[];
 }
 
-export interface RestListResponseControl extends RestResponseControl {
-  pagination: Pagination;
+export interface RestListResponseControlModel extends RestResponseControlModel {
+  pagination: PaginationModel;
 }
 
-export type RestListResponse<Response> = RestResponse<Response, RestListResponseControl>;
-export type RestGetResponse<Response> = RestResponse<Response, RestResponseControl>;
-export type RestAddResponse<Response> = RestResponse<Response, RestResponseControl>;
-export type RestUpdateResponse<Response> = RestResponse<Response, RestResponseControl>;
-export type RestDeleteResponse = RestResponse<string, RestResponseControl>;
+export type RestListResponseModel<Response> = RestResponseModel<Response, RestListResponseControlModel>;
+export type RestGetResponseModel<Response> = RestResponseModel<Response, RestResponseControlModel>;
+export type RestAddResponseModel<Response> = RestResponseModel<Response, RestResponseControlModel>;
+export type RestUpdateResponseModel<Response> = RestResponseModel<Response, RestResponseControlModel>;
+export type RestDeleteResponseModel = RestResponseModel<string, RestResponseControlModel>;

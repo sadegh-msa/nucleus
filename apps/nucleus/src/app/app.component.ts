@@ -5,7 +5,7 @@ import { RouterModule } from '@angular/router';
 import { OperationStatus } from '@nucleus/common';
 import { injectAuthStore } from '@nucleus/core';
 import {
-  type MenuItem,
+  type MenuItemModel,
   MenuItemsComponent,
   MessageComponent,
   MessageService,
@@ -47,7 +47,7 @@ export class AppComponent {
       command: () => this.confirmSignOut(),
       permission: 'nucleus.menu.button.sign-out',
     },
-  ] as MenuItem[];
+  ] as MenuItemModel[];
 
   readonly isUserAuthenticated = signal(false);
   readonly showLoading = signal(false);

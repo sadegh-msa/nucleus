@@ -1,7 +1,7 @@
-import type { CommonFields, CrudConfig, TypedForm } from '@nucleus/core';
+import type { CommonFieldsModel, CrudConfigModel, TypedFormModel } from '@nucleus/core';
 import type { SampleStatus } from '../enums/sample-status.enum';
 
-export interface SampleDetail {
+export interface SampleDetailModel {
   id: string;
   debit: number;
   credit: number;
@@ -11,7 +11,7 @@ export interface SampleDetail {
   divisionId: string;
 }
 
-export interface SampleForm {
+export interface SampleFormModel {
   id: string;
   code: string;
   active: boolean;
@@ -19,13 +19,13 @@ export interface SampleForm {
   date: Date;
   description: string;
   status: SampleStatus;
-  details: SampleDetail[];
+  details: SampleDetailModel[];
   divisionId: string;
 }
 
-export type Sample = CommonFields & SampleForm;
-export type SampleList = Sample[];
-export type SampleAdd = Omit<SampleForm, 'id'>;
-export type SampleUpdate = SampleForm;
-export type SampleTypedForm = TypedForm<SampleForm>;
-export type SampleConfig = CrudConfig<Sample, 'id', 'code', 'title'>;
+export type SampleModel = CommonFieldsModel & SampleFormModel;
+export type SampleListModel = SampleModel[];
+export type SampleAddModel = Omit<SampleFormModel, 'id'>;
+export type SampleUpdateModel = SampleFormModel;
+export type SampleTypedFormModel = TypedFormModel<SampleFormModel>;
+export type SampleConfigModel = CrudConfigModel<SampleModel, 'id', 'code', 'title'>;

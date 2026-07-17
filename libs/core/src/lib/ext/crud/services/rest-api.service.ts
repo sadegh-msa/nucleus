@@ -1,7 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { inject, Service } from '@angular/core';
 import { injectNuCommonConfig } from '@nucleus/common';
-import type { RestListQuery } from '../models/rest.model';
+import type { RestListQueryModel } from '../models/rest.model';
 
 @Service()
 export class RestApiService {
@@ -12,7 +12,7 @@ export class RestApiService {
     return [this.commonConfig.api.rest.url, ...paths].filter((p) => !!p).join('/');
   }
 
-  createListHttpParams(query: RestListQuery = {}) {
+  createListHttpParams(query: RestListQueryModel = {}) {
     const fromObject = {
       ...(Number.isInteger(query.page) && { page: query.page }),
       ...(Number.isInteger(query.rows) && { rows: query.rows }),

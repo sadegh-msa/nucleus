@@ -1,5 +1,5 @@
 import { Service, signal } from '@angular/core';
-import type { Message } from '../models';
+import type { MessageModel } from '../models';
 import { injectUiConfig } from '../providers';
 
 @Service()
@@ -9,12 +9,12 @@ export class MessageService {
   readonly #DEFAULT_DURATION = this.#uiConfig.message.duration || 5000;
 
   #key = 0;
-  #messages = signal<Map<number, Message>>(new Map());
+  #messages = signal<Map<number, MessageModel>>(new Map());
   get messages() {
     return this.#messages;
   }
 
-  #createTitle(message: Message) {
+  #createTitle(message: MessageModel) {
     switch (message.variant) {
       case 'success':
         return $localize`Success`;
@@ -29,7 +29,7 @@ export class MessageService {
     }
   }
 
-  add(message: Message) {
+  add(message: MessageModel) {
     const key = ++this.#key;
 
     this.#messages.update((messages) => {

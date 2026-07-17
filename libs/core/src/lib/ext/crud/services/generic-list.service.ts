@@ -6,24 +6,24 @@ import { filter, pairwise } from 'rxjs';
 import { createPagination } from '../creators/pagination.creator';
 import { createListToolbar } from '../creators/toolbar.creator';
 import { ToolType } from '../enums/toolbar.enum';
-import type { GenericEntity, GenericListConsumer } from '../models/generic.model';
-import type { RestListResponse } from '../models/rest.model';
-import type { NuTool } from '../models/toolbar.model';
+import type { GenericEntityModel, GenericListConsumerModel } from '../models/generic.model';
+import type { RestListResponseModel } from '../models/rest.model';
+import type { NuToolModel } from '../models/toolbar.model';
 
 const DEFAULT_PAGE = 0;
 const DEFAULT_ROWS = 10;
 
 @Service({ autoProvided: false })
-export class GenericListService<T extends GenericEntity> {
+export class GenericListService<T extends GenericEntityModel> {
   readonly #destroyRef = inject(DestroyRef);
   readonly #injector = inject(Injector);
   readonly #activatedRoute = inject(ActivatedRoute);
   readonly #router = inject(Router);
 
-  #consumer!: GenericListConsumer<T>;
+  #consumer!: GenericListConsumerModel<T>;
   #lastQuery = { page: DEFAULT_PAGE, rows: DEFAULT_ROWS };
 
-  init(consumer: GenericListConsumer<T>) {
+  init(consumer: GenericListConsumerModel<T>) {
     consumer.pagination = signal(createPagination());
     consumer.data = signal<T['list']>([]);
     consumer.isDataLoading = signal(false);
@@ -129,7 +129,7 @@ export class GenericListService<T extends GenericEntity> {
       .then();
   }
 
-  #handleLoadDataResponse(response: RestListResponse<T['list']>) {
+  #handleLoadDataResponse(response: RestListResponseModel<T['list']>) {
     const { data } = response;
     // Enable when backend was ready
     // this.#consumer.pagination.update(current => mergeObjects(current, control.pagination));
@@ -152,11 +152,11 @@ export class GenericListService<T extends GenericEntity> {
     return toolbar;
   }
 
-  loadData(tool?: NuTool) {
+  loadData(tool?: NuToolModel) {
     this.#consumer.store.loadList({ ...this.#lastQuery } as any, tool);
   }
 
-  delete(tool: NuTool, id: string) {
+  delete(tool: NuToolModel, id: string) {
     if (!tool.showLoading) {
       tool.showLoading = signal(false);
     }

@@ -1,41 +1,41 @@
 import type { OperationStatus } from '@nucleus/common';
-import type { AuthSignIn, AuthSignInResponse, AuthSignUp, AuthSignUpResponse } from './auth.model';
+import type { AuthSignInModel, AuthSignInResponseModel, AuthSignUpModel, AuthSignUpResponseModel } from './auth.model';
 
-export type { AuthSignIn, AuthSignInResponse, AuthSignUp, AuthSignUpResponse } from './auth.model';
+export type { AuthSignInModel, AuthSignInResponseModel, AuthSignUpModel, AuthSignUpResponseModel } from './auth.model';
 
-export interface AuthSignInState {
-  request: AuthSignIn;
-  response: AuthSignInResponse;
+export interface AuthSignInStateModel {
+  request: AuthSignInModel;
+  response: AuthSignInResponseModel;
   message: string;
   status: OperationStatus;
 }
 
-export interface AuthSignUpState {
-  request: AuthSignUp;
-  response: AuthSignUpResponse;
+export interface AuthSignUpStateModel {
+  request: AuthSignUpModel;
+  response: AuthSignUpResponseModel;
   message: string;
   status: OperationStatus;
 }
 
-export interface AuthSignOutState {
+export interface AuthSignOutStateModel {
   message: string;
   status: OperationStatus;
 }
 
-export interface AuthCheckState {
+export interface AuthCheckStateModel {
   status: OperationStatus;
 }
 
-export interface AuthStoreState {
-  signIn: AuthSignInState;
-  signUp: AuthSignUpState;
-  signOut: AuthSignOutState;
-  check: AuthCheckState;
+export interface AuthStoreStateModel {
+  signIn: AuthSignInStateModel;
+  signUp: AuthSignUpStateModel;
+  signOut: AuthSignOutStateModel;
+  check: AuthCheckStateModel;
 }
 
-export interface AuthStore {
-  signIn(request: AuthSignIn): void;
-  signUp(request: AuthSignUp): void;
+export interface AuthStoreModel {
+  signIn(request: AuthSignInModel): void;
+  signUp(request: AuthSignUpModel): void;
   signOut(): void;
   checkSuccess(): void;
   checkFailure(): void;
@@ -44,10 +44,10 @@ export interface AuthStore {
   signUpStatus(): OperationStatus;
   signOutStatus(): OperationStatus;
   isCheckSuccess(): boolean;
-  signInResponse(): AuthSignInResponse;
-  signUpResponse(): AuthSignUpResponse;
-  signInState(): AuthSignInState;
-  signUpState(): AuthSignUpState;
-  signOutState(): AuthSignOutState;
-  checkState(): AuthCheckState;
+  signInResponse(): AuthSignInResponseModel;
+  signUpResponse(): AuthSignUpResponseModel;
+  signInState(): AuthSignInStateModel;
+  signUpState(): AuthSignUpStateModel;
+  signOutState(): AuthSignOutStateModel;
+  checkState(): AuthCheckStateModel;
 }

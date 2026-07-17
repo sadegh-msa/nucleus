@@ -1,3 +1,3 @@
 import type { PageType } from '../enums/page.enum';
 
-export type PagePath = Record<PageType, (...args: string[]) => string[]>;
+export type PagePathModel = Record<PageType, (...args: string[]) => string[]>;

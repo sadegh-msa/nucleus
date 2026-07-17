@@ -1,67 +1,67 @@
 import type { OperationStatus } from '@nucleus/common';
 import type { Observable } from 'rxjs';
 import type {
-  RestAddResponse,
-  RestDeleteResponse,
-  RestGetResponse,
-  RestListResponse,
-  RestUpdateResponse,
+  RestAddResponseModel,
+  RestDeleteResponseModel,
+  RestGetResponseModel,
+  RestListResponseModel,
+  RestUpdateResponseModel,
 } from '../../crud/models/rest.model';
-import type { NuTool } from '../../crud/models/toolbar.model';
+import type { NuToolModel } from '../../crud/models/toolbar.model';
 
-export interface ListState<Query, Response> {
-  tool?: NuTool;
+export interface ListStateModel<Query, Response> {
+  tool?: NuToolModel;
   query: Query;
-  response: RestListResponse<Response[]>;
+  response: RestListResponseModel<Response[]>;
   message: string;
   status: OperationStatus;
 }
 
-export interface GetState<Response> {
-  tool?: NuTool;
+export interface GetStateModel<Response> {
+  tool?: NuToolModel;
   query: string;
-  response: RestGetResponse<Response>;
+  response: RestGetResponseModel<Response>;
   message: string;
   status: OperationStatus;
 }
 
-export interface AddState<Request, Response> {
-  tool?: NuTool;
+export interface AddStateModel<Request, Response> {
+  tool?: NuToolModel;
   request: Request;
-  response: RestAddResponse<Response>;
+  response: RestAddResponseModel<Response>;
   message: string;
   status: OperationStatus;
 }
 
-export interface UpdateState<Request, Response> {
-  tool?: NuTool;
+export interface UpdateStateModel<Request, Response> {
+  tool?: NuToolModel;
   query: string;
   request: Request;
-  response: RestUpdateResponse<Response>;
+  response: RestUpdateResponseModel<Response>;
   message: string;
   status: OperationStatus;
 }
 
-export interface DeleteState {
-  tool?: NuTool;
+export interface DeleteStateModel {
+  tool?: NuToolModel;
   query: string;
-  response: RestDeleteResponse;
+  response: RestDeleteResponseModel;
   message: string;
   status: OperationStatus;
 }
 
-export interface CrudStoreState<Query, Request, Response> {
-  list: ListState<Query, Response>;
-  get: GetState<Response>;
-  add: AddState<Request, Response>;
-  update: UpdateState<Request, Response>;
-  delete: DeleteState;
+export interface CrudStoreStateModel<Query, Request, Response> {
+  list: ListStateModel<Query, Response>;
+  get: GetStateModel<Response>;
+  add: AddStateModel<Request, Response>;
+  update: UpdateStateModel<Request, Response>;
+  delete: DeleteStateModel;
 }
 
-export interface CrudRestMethods<Query, Request, Response> {
-  list: (query?: Query) => Observable<RestListResponse<Response[]>>;
-  get: (id: string) => Observable<RestGetResponse<Response>>;
-  add: (request: Request) => Observable<RestAddResponse<Response>>;
-  update: (id: string, request: Request) => Observable<RestUpdateResponse<Response>>;
-  delete: (id: string) => Observable<RestDeleteResponse>;
+export interface CrudRestMethodsModel<Query, Request, Response> {
+  list: (query?: Query) => Observable<RestListResponseModel<Response[]>>;
+  get: (id: string) => Observable<RestGetResponseModel<Response>>;
+  add: (request: Request) => Observable<RestAddResponseModel<Response>>;
+  update: (id: string, request: Request) => Observable<RestUpdateResponseModel<Response>>;
+  delete: (id: string) => Observable<RestDeleteResponseModel>;
 }

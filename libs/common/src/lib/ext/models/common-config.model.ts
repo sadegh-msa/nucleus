@@ -1,6 +1,6 @@
-import type { NuBrandingConfig } from './branding-config.model';
+import type { NuBrandingConfigModel } from './branding-config.model';
 
-export interface NuCommonConfig {
+export interface NuCommonConfigModel {
   api: {
     rest: {
       url: string;
@@ -8,7 +8,7 @@ export interface NuCommonConfig {
       time: string;
     };
   };
-  branding: NuBrandingConfig;
+  branding: NuBrandingConfigModel;
   links: Record<'customerAgreement' | 'privacyPolicy', string>;
   crypto: {
     algorithm: {

@@ -1,4 +1,4 @@
-export interface UiConfig {
+export interface UiConfigModel {
   icon: {
     dir: string;
   };

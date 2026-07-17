@@ -1,7 +1,7 @@
 import { NgClass, TitleCasePipe } from '@angular/common';
 import { Component, forwardRef, inject, input } from '@angular/core';
 import { type ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
-import type { GenericToggleConsumer, ToggleValue } from '../../models/toggle.model';
+import type { GenericToggleConsumerModel, ToggleValueModel } from '../../models/toggle.model';
 import { ToggleService } from '../../services';
 
 @Component({
@@ -17,17 +17,17 @@ import { ToggleService } from '../../services';
     ToggleService,
   ],
 })
-export class ToggleComponent implements ControlValueAccessor, GenericToggleConsumer {
+export class ToggleComponent implements ControlValueAccessor, GenericToggleConsumerModel {
   readonly #toggleService = inject(ToggleService);
 
-  value = input<ToggleValue>();
+  value = input<ToggleValueModel>();
   label = input<string>();
   hasCheckmark = input<boolean>();
-  isChecked!: GenericToggleConsumer['isChecked'];
-  isDisabled!: GenericToggleConsumer['isDisabled'];
-  isBinary!: GenericToggleConsumer['isBinary'];
-  hasLabel!: GenericToggleConsumer['hasLabel'];
-  toggle!: () => GenericToggleConsumer['toggle'];
+  isChecked!: GenericToggleConsumerModel['isChecked'];
+  isDisabled!: GenericToggleConsumerModel['isDisabled'];
+  isBinary!: GenericToggleConsumerModel['isBinary'];
+  hasLabel!: GenericToggleConsumerModel['hasLabel'];
+  toggle!: () => GenericToggleConsumerModel['toggle'];
   writeValue!: (obj: any) => void;
   registerOnChange!: (fn: any) => void;
   registerOnTouched!: (fn: any) => void;

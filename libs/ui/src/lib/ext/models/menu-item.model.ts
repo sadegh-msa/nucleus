@@ -2,7 +2,7 @@ import type { NgClass, NgStyle } from '@angular/common';
 import type { RouterLink } from '@angular/router';
 import type { FabPlacement, IconVariant } from '../types';
 
-export interface MenuItem {
+export interface MenuItemModel {
   id?: string;
   htmlLabel?: string;
   label?: string;
@@ -24,11 +24,11 @@ export interface MenuItem {
   routerLink?: RouterLink['routerLink'];
   permission?: string;
   expanded?: boolean;
-  children?: MenuItem[];
+  children?: MenuItemModel[];
   size?: number;
   isActive?: boolean;
-  active?: MenuItem;
-  original?: MenuItem;
+  active?: MenuItemModel;
+  original?: MenuItemModel;
   divider?: boolean;
 
   command?(...args: unknown[]): unknown;

@@ -1,3 +1,3 @@
-export interface AuthConfig {
+export interface AuthConfigModel {
   rememberMeExpiry: number;
 }

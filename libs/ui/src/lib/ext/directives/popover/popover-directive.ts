@@ -13,7 +13,7 @@ import {
   Renderer2,
   untracked,
 } from '@angular/core';
-import type { Popover, TriggerEvent } from '../../models';
+import type { PopoverModel, TriggerEventModel } from '../../models';
 import { PopoverService } from '../../services';
 import type { FabPlacement } from '../../types';
 
@@ -26,16 +26,16 @@ export class PopoverDirective implements OnDestroy {
   readonly #elementRef = inject(ElementRef);
   readonly #popoverService = inject(PopoverService);
 
-  content = input.required<Popover['content']>({ alias: 'uiPopover' });
+  content = input.required<PopoverModel['content']>({ alias: 'uiPopover' });
   templateData = input<unknown>({}, { alias: 'uiPopoverData' });
-  triggerEvent = input<TriggerEvent>('click', { alias: 'uiPopoverEvent' });
+  triggerEvent = input<TriggerEventModel>('click', { alias: 'uiPopoverEvent' });
   placement = input<FabPlacement>('auto', { alias: 'uiPopoverPlacement' });
   styleClass = input('text stamp fade-normal', { alias: 'uiPopoverStyleClass' });
   hasBubble = input(true, { alias: 'uiPopoverHasBubble', transform: booleanAttribute });
   hasArrow = input(true, { alias: 'uiPopoverHasArrow', transform: booleanAttribute });
   hasClose = input(false, { alias: 'uiPopoverHasClose', transform: booleanAttribute });
   closeDelay = input(0, { alias: 'uiPopoverCloseDelay' });
-  attachTo = input<Popover['attachTo']>('body', { alias: 'uiPopoverAttachTo' });
+  attachTo = input<PopoverModel['attachTo']>('body', { alias: 'uiPopoverAttachTo' });
   disabled = input(false, { alias: 'uiPopoverDisabled', transform: booleanAttribute });
 
   visible = model(false, { alias: 'uiPopoverVisible' });
@@ -55,7 +55,7 @@ export class PopoverDirective implements OnDestroy {
         closeDelay: this.closeDelay(),
         attachTo: this.attachTo(),
         visible: this.visible,
-      }) as Popover,
+      }) as PopoverModel,
   );
 
   popoverElement?: HTMLElement;

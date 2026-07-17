@@ -5,10 +5,10 @@ import {
   GenericListComponent,
   GenericListService,
   GenericListToolbarComponent,
-  type NuTable,
+  type NuTableModel,
 } from '@nucleus/core';
-import type { Sample, SampleList } from '../../models/sample.model';
-import type { GenericSampleList, SampleGeneric } from '../../models/sample-generic.model';
+import type { SampleModel, SampleListModel } from '../../models/sample.model';
+import type { GenericSampleListModel, SampleGenericModel } from '../../models/sample-generic.model';
 import { sampleConfig } from '../../sample.config';
 import { SampleStore } from '../../store/sample.store';
 
@@ -18,14 +18,14 @@ import { SampleStore } from '../../store/sample.store';
   imports: [GenericListComponent, GenericListToolbarComponent],
   providers: [GenericListService],
 })
-export class SampleListComponent implements OnInit, GenericSampleList {
-  readonly #genericListService = inject(GenericListService<SampleGeneric>);
+export class SampleListComponent implements OnInit, GenericSampleListModel {
+  readonly #genericListService = inject(GenericListService<SampleGenericModel>);
 
   isEmbedded = input(false);
 
   readonly config = sampleConfig;
   readonly store = inject(SampleStore);
-  readonly table: NuTable = {
+  readonly table: NuTableModel = {
     columns: [
       { field: 'index', label: '#', tooltip: 'Index', type: DataType.Index },
       {
@@ -46,16 +46,16 @@ export class SampleListComponent implements OnInit, GenericSampleList {
       },
       { field: 'divisionId', label: 'Division' },
     ],
-    ...createTableToolbar<SampleGeneric>(this.config),
+    ...createTableToolbar<SampleGenericModel>(this.config),
   };
 
-  isDataLoading!: GenericSampleList['isDataLoading'];
-  data!: GenericSampleList['data'];
-  pagination!: GenericSampleList['pagination'];
-  selectedRecords!: GenericSampleList['selectedRecords'];
-  toolbar!: GenericSampleList['toolbar'];
-  changeSelection!: GenericSampleList['changeSelection'];
-  filteredData: SampleList = [];
+  isDataLoading!: GenericSampleListModel['isDataLoading'];
+  data!: GenericSampleListModel['data'];
+  pagination!: GenericSampleListModel['pagination'];
+  selectedRecords!: GenericSampleListModel['selectedRecords'];
+  toolbar!: GenericSampleListModel['toolbar'];
+  changeSelection!: GenericSampleListModel['changeSelection'];
+  filteredData: SampleListModel = [];
 
   constructor() {
     this.#genericListService.init(this);
@@ -86,7 +86,7 @@ export class SampleListComponent implements OnInit, GenericSampleList {
     });
   }
 
-  activate(row: Sample) {
+  activate(row: SampleModel) {
     console.log(row);
   }
 }

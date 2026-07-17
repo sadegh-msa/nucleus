@@ -12,7 +12,7 @@ import {
   Renderer2,
   untracked,
 } from '@angular/core';
-import type { Popover, TriggerEvent } from '../../models';
+import type { PopoverModel, TriggerEventModel } from '../../models';
 import { PopoverService } from '../../services';
 import type { FabPlacement } from '../../types';
 
@@ -27,18 +27,18 @@ export class TooltipDirective implements OnDestroy {
 
   readonly #CSS_CLASS_TOOLTIP = 'tooltip';
 
-  content = input.required<Popover['content']>({ alias: 'uiTooltip' });
+  content = input.required<PopoverModel['content']>({ alias: 'uiTooltip' });
   templateData = input<unknown>({}, { alias: 'uiTooltipData' });
   placement = input<FabPlacement>('auto', { alias: 'uiTooltipPlacement' });
   styleClass = input('stamp fade-normal', { alias: 'uiTooltipStyleClass' });
   hasBubble = input(true, { alias: 'uiTooltipHasBubble', transform: booleanAttribute });
   hasArrow = input(true, { alias: 'uiTooltipArrow', transform: booleanAttribute });
-  attachTo = input<Popover['attachTo']>('body', { alias: 'uiTooltipAttachTo' });
+  attachTo = input<PopoverModel['attachTo']>('body', { alias: 'uiTooltipAttachTo' });
   disabled = input(false, { alias: 'uiTooltipDisabled', transform: booleanAttribute });
 
   visible = model(false, { alias: 'uiTooltipVisible' });
 
-  readonly #TRIGGER_EVENT: TriggerEvent = 'hover';
+  readonly #TRIGGER_EVENT: TriggerEventModel = 'hover';
 
   readonly popover = computed(
     () =>
@@ -53,7 +53,7 @@ export class TooltipDirective implements OnDestroy {
         closeDelay: 0,
         attachTo: this.attachTo(),
         visible: this.visible,
-      }) as Popover,
+      }) as PopoverModel,
   );
 
   tooltipElement?: HTMLElement;

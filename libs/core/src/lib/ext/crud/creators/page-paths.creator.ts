@@ -1,5 +1,5 @@
 import { PageType } from '../enums/page.enum';
-import type { PagePath } from '../models/page.model';
+import type { PagePathModel } from '../models/page.model';
 
 const { List, Edit, Add, View } = PageType;
 const list = List.toLowerCase();
@@ -7,7 +7,7 @@ const view = View.toLowerCase();
 const add = Add.toLowerCase();
 const edit = Edit.toLowerCase();
 
-export function createPagePaths(fullPath?: string[]): PagePath {
+export function createPagePaths(fullPath?: string[]): PagePathModel {
   const paths = fullPath?.length ? fullPath : [];
 
   return {

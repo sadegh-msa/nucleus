@@ -9,7 +9,7 @@ import {
   SvgIconDirective,
   TooltipDirective
 } from '../../directives';
-import type { MenuItem } from '../../models';
+import type { MenuItemModel } from '../../models';
 import { CssSupportService } from '../../services';
 import type { FabPlacement } from '../../types';
 
@@ -36,13 +36,13 @@ export class MenuItemsComponent {
   readonly #router = inject(Router);
   readonly #cssSupport = inject(CssSupportService);
 
-  uiMenuItems = input.required<MenuItem[]>();
+  uiMenuItems = input.required<MenuItemModel[]>();
   popoverPlacement = input<FabPlacement>('inline-end-edge-end');
   tooltipPlacement = input<FabPlacement>('inline-end-block-center');
   extent = input<Extent>('wide');
   mode = input<'popup' | 'still'>('still');
   submenuMode = input<'floating' | 'sliding'>('sliding');
-  common = input<MenuItem>({
+  common = input<MenuItemModel>({
     iconVariant: 'outline',
     ngClass: {
       'ui button medium rounded-none': true,
@@ -50,7 +50,7 @@ export class MenuItemsComponent {
       'bulk primary': false,
     },
   });
-  active = input<MenuItem>({
+  active = input<MenuItemModel>({
     iconVariant: 'bold',
     ngClass: {
       ...((this.common().ngClass as object) ?? {}),
@@ -65,7 +65,7 @@ export class MenuItemsComponent {
     () => this.isCompact() || this.submenuMode() === 'floating',
   );
   readonly isSubmenuSliding = computed(() => !this.isCompact() && this.submenuMode() === 'sliding');
-  readonly items = linkedSignal<MenuItem[], MenuItem[]>({
+  readonly items = linkedSignal<MenuItemModel[], MenuItemModel[]>({
     source: this.uiMenuItems,
     computation: (newItems) => {
       return this.#computeItems(R.clone(newItems));
@@ -112,12 +112,12 @@ export class MenuItemsComponent {
     });
   }
 
-  #computeItems(items: MenuItem[]) {
+  #computeItems(items: MenuItemModel[]) {
     const currentUrl = this.#router.url;
 
     items.forEach((item) => {
-      Object.assign(item, R.mergeDeepRight({ ...(this.common() ?? {}) }, item) as MenuItem);
-      item.active = R.mergeDeepLeft({ ...(this.active() ?? {}) }, item.active ?? {}) as MenuItem;
+      Object.assign(item, R.mergeDeepRight({ ...(this.common() ?? {}) }, item) as MenuItemModel);
+      item.active = R.mergeDeepLeft({ ...(this.active() ?? {}) }, item.active ?? {}) as MenuItemModel;
       item.isActive = item.routerLink === currentUrl;
 
       if (item.children?.length) {
@@ -132,7 +132,7 @@ export class MenuItemsComponent {
     return items;
   }
 
-  #calculateSize(item: MenuItem) {
+  #calculateSize(item: MenuItemModel) {
     if (!item.expanded) {
       return 0;
     }
@@ -145,14 +145,14 @@ export class MenuItemsComponent {
     return item.size ?? 0;
   }
 
-  collapseItem(item: MenuItem) {
+  collapseItem(item: MenuItemModel) {
     item.children?.forEach((i) => {
       this.collapseItem(i);
     });
     item.expanded = false;
   }
 
-  clickItem(item: MenuItem) {
+  clickItem(item: MenuItemModel) {
     if (item.children?.length) {
       if (!item.expanded) {
         item.expanded = true;
@@ -178,7 +178,7 @@ export class MenuItemsComponent {
     }
   }
 
-  onRouterLinkIsActiveChange(item: MenuItem, isActive: boolean) {
+  onRouterLinkIsActiveChange(item: MenuItemModel, isActive: boolean) {
     item.isActive = isActive;
 
     if (isActive) {
@@ -186,7 +186,7 @@ export class MenuItemsComponent {
       Object.assign(item, structuredClone(item.active));
     } else {
       for (const key of Object.keys(item.active || {})) {
-        item[key as keyof MenuItem] = undefined;
+        item[key as keyof MenuItemModel] = undefined;
       }
 
       Object.assign(item, structuredClone(item.original));

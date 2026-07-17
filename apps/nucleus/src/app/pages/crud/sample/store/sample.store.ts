@@ -1,10 +1,10 @@
 import { inject } from '@angular/core';
 import { createCrudSignalStore } from '@nucleus/core';
-import type { Sample, SampleList, SampleUpdate } from '../models/sample.model';
+import type { SampleModel, SampleListModel, SampleUpdateModel } from '../models/sample.model';
 import { sampleConfig } from '../sample.config';
 import { SampleRestService } from '../services/sample-rest.service';
 
-export const SampleStore = createCrudSignalStore<SampleList, SampleUpdate, Sample>(
+export const SampleStore = createCrudSignalStore<SampleListModel, SampleUpdateModel, SampleModel>(
   { title: sampleConfig.info.title },
   () => {
     const sampleRestService = inject(SampleRestService);

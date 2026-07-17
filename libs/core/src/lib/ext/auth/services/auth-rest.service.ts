@@ -4,10 +4,10 @@ import { map } from 'rxjs';
 import { RestApiService } from '../../crud/services/rest-api.service'; // Possibility of circular dependency
 import { authDefaultConfig } from '../auth-default.config';
 import type {
-  AuthSignIn,
-  AuthSignInResponse,
-  AuthSignUp,
-  AuthSignUpResponse
+  AuthSignInModel,
+  AuthSignInResponseModel,
+  AuthSignUpModel,
+  AuthSignUpResponseModel
 } from '../models/auth.model';
 
 @Service()
@@ -21,16 +21,16 @@ export class AuthRestService {
     return this.#restApiService.createUrl(this.endpoint, ...paths);
   }
 
-  signIn(data: AuthSignIn) {
+  signIn(data: AuthSignInModel) {
     return this.#httpClient
       .post(this.createUrl('signin'), data)
-      .pipe(map((v) => ({ token: v }) as AuthSignInResponse));
+      .pipe(map((v) => ({ token: v }) as AuthSignInResponseModel));
   }
 
-  signUp(data: AuthSignUp) {
+  signUp(data: AuthSignUpModel) {
     return this.#httpClient
       .post(this.createUrl('signup'), data)
-      .pipe(map((v) => ({ token: v }) as AuthSignUpResponse));
+      .pipe(map((v) => ({ token: v }) as AuthSignUpResponseModel));
   }
 
   signOut() {

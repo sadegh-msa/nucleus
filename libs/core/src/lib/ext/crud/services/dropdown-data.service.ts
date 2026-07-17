@@ -1,15 +1,15 @@
 import { effect, Injector, inject, Service, signal } from '@angular/core';
 import { OperationStatus } from '@nucleus/common';
-import type { DropdownData } from '../models/dropdown.model';
-import type { CrudStore } from '../models/generic.model';
-import type { ValueLabel } from '../models/pair.model';
+import type { DropdownDataModel } from '../models/dropdown.model';
+import type { CrudStoreModel } from '../models/generic.model';
+import type { ValueLabelModel } from '../models/pair.model';
 
 @Service({ autoProvided: false })
 export class DropdownDataService {
   readonly #injector = inject(Injector);
 
-  load(store: CrudStore, selector: 'list' | 'get' | 'add' | 'update' | 'delete'): DropdownData {
-    const options = signal<ValueLabel[]>([]);
+  load(store: CrudStoreModel, selector: 'list' | 'get' | 'add' | 'update' | 'delete'): DropdownDataModel {
+    const options = signal<ValueLabelModel[]>([]);
     const icon = signal<string>('pi pi-angle-down');
 
     effect(

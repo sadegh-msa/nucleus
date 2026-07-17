@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, signal } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import type { ControlValueAccessor } from '@angular/forms';
-import type { GenericToggleConsumer, ToggleValue } from '../models/toggle.model';
+import type { GenericToggleConsumerModel, ToggleValueModel } from '../models/toggle.model';
 import { ToggleService } from './toggle.service';
 
 describe('ToggleService', () => {
@@ -74,7 +74,7 @@ describe('ToggleService', () => {
       const consumer = createMockConsumer();
       service.init(consumer);
 
-      consumer.writeValue(true as ToggleValue);
+      consumer.writeValue(true as ToggleValueModel);
 
       expect(consumer.isChecked()).toBe(true);
     });
@@ -83,7 +83,7 @@ describe('ToggleService', () => {
       const consumer = createMockConsumer();
       service.init(consumer);
 
-      consumer.writeValue(false as ToggleValue);
+      consumer.writeValue(false as ToggleValueModel);
 
       expect(consumer.isChecked()).toBe(false);
     });
@@ -92,10 +92,10 @@ describe('ToggleService', () => {
       const consumer = createMockConsumer('option1');
       service.init(consumer);
 
-      consumer.writeValue('option1' as ToggleValue);
+      consumer.writeValue('option1' as ToggleValueModel);
       expect(consumer.isChecked()).toBe(true);
 
-      consumer.writeValue('option2' as ToggleValue);
+      consumer.writeValue('option2' as ToggleValueModel);
       expect(consumer.isChecked()).toBe(false);
     });
 
@@ -161,7 +161,7 @@ describe('ToggleService', () => {
   });
 });
 
-function createMockConsumer(value?: ToggleValue): GenericToggleConsumer & ControlValueAccessor {
+function createMockConsumer(value?: ToggleValueModel): GenericToggleConsumerModel & ControlValueAccessor {
   return {
     value: signal(value) as any,
     label: signal(undefined) as any,

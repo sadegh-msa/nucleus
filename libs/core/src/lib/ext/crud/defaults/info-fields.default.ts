@@ -1,5 +1,5 @@
 import { DataType } from '@nucleus/common';
-import type { InfoField } from '../models/info.model';
+import type { InfoFieldModel } from '../models/info.model';
 
 export const infoFieldsDefault = Object.freeze([
   [{ field: 'id', label: $localize`ID`, type: DataType.Text, separator: ':' }],
@@ -19,4 +19,4 @@ export const infoFieldsDefault = Object.freeze([
     { field: 'updatedBy', label: $localize`Updated By`, type: DataType.Text },
     { field: 'updatedAt', label: $localize`At`, type: DataType.Datetime, format: 'medium' },
   ],
-]) as InfoField[][];
+]) as InfoFieldModel[][];

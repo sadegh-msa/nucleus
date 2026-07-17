@@ -1,4 +1,4 @@
-export interface ElementRect {
+export interface ElementRectModel {
   top: number;
   left: number;
   height: number;

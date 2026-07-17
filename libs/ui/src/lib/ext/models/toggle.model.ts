@@ -1,9 +1,9 @@
 import type { InputSignal, Signal, WritableSignal } from '@angular/core';
 
-export type ToggleValue = boolean | string | null | undefined;
+export type ToggleValueModel = boolean | string | null | undefined;
 
-export interface GenericToggleConsumer {
-  value: InputSignal<ToggleValue>;
+export interface GenericToggleConsumerModel {
+  value: InputSignal<ToggleValueModel>;
   label: InputSignal<string | undefined>;
   isChecked: WritableSignal<boolean>;
   isDisabled: WritableSignal<boolean>;

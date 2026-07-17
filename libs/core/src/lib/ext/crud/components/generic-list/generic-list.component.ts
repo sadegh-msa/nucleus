@@ -13,9 +13,9 @@ import { filter } from 'rxjs';
 import { AuthPermissionDirective } from '../../../auth';
 import { infoFieldsDefault } from '../../defaults/info-fields.default';
 import { ToolElement } from '../../enums/toolbar.enum';
-import type { InfoField } from '../../models/info.model';
-import type { NuTable } from '../../models/table.model';
-import type { NuTool } from '../../models/toolbar.model';
+import type { InfoFieldModel } from '../../models/info.model';
+import type { NuTableModel } from '../../models/table.model';
+import type { NuToolModel } from '../../models/toolbar.model';
 import { FieldValueComponent } from '../field-value/field-value.component';
 import { InfoFieldsComponent } from '../info-fields/info-fields.component';
 
@@ -46,11 +46,11 @@ export class GenericListComponent {
   readonly altData = computed(() => [...Array(10).keys()]);
   readonly activated = signal<any>(null);
 
-  infoFields = input<InfoField[][]>(infoFieldsDefault);
+  infoFields = input<InfoFieldModel[][]>(infoFieldsDefault);
   idField = input<string>('id');
   selectionMode = input<'single' | 'multiple' | null>(null);
   isActivatable = input(false);
-  table = input<NuTable>({ columns: [], tools: [] });
+  table = input<NuTableModel>({ columns: [], tools: [] });
   showLoading = input(false);
   firstRow = input(0);
   activatedRow = input<any>();
@@ -80,7 +80,7 @@ export class GenericListComponent {
       .subscribe((row) => this.activated.set(row));
   }
 
-  runCommand(targetElement: HTMLButtonElement, tool: NuTool, row: any) {
+  runCommand(targetElement: HTMLButtonElement, tool: NuToolModel, row: any) {
     if (!tool.confirm) {
       tool.command(row);
       return;

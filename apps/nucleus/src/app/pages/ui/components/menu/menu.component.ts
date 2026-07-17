@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { type MenuItem, MenuItemsComponent } from '@nucleus/ui';
+import { type MenuItemModel, MenuItemsComponent } from '@nucleus/ui';
 import { navMainMenu } from '../../../../app.menu';
 
 @Component({
@@ -9,7 +9,7 @@ import { navMainMenu } from '../../../../app.menu';
   styleUrl: './menu.component.scss',
 })
 export class MenuComponent {
-  readonly compactMenuItems = structuredClone(navMainMenu) as MenuItem[];
-  readonly floatingMenuItems = structuredClone(navMainMenu) as MenuItem[];
-  readonly slidingMenuItems = structuredClone(navMainMenu) as MenuItem[];
+  readonly compactMenuItems = structuredClone(navMainMenu) as MenuItemModel[];
+  readonly floatingMenuItems = structuredClone(navMainMenu) as MenuItemModel[];
+  readonly slidingMenuItems = structuredClone(navMainMenu) as MenuItemModel[];
 }

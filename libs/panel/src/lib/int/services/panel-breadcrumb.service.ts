@@ -1,14 +1,14 @@
 import { inject, Service, signal } from '@angular/core';
 import { NavigationEnd, Router, Scroll } from '@angular/router';
 import { isUUID } from '@nucleus/common';
-import type { MenuItem } from '@nucleus/ui';
+import type { MenuItemModel } from '@nucleus/ui';
 import { filter, map } from 'rxjs';
 
 @Service()
 export class PanelBreadcrumbService {
   readonly #router = inject(Router);
 
-  readonly #items = signal<MenuItem[]>([]);
+  readonly #items = signal<MenuItemModel[]>([]);
   readonly items = this.#items.asReadonly();
 
   constructor() {

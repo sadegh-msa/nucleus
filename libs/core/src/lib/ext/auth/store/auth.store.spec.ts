@@ -3,7 +3,7 @@ import { HttpTestingController, provideHttpClientTesting } from '@angular/common
 import { TestBed } from '@angular/core/testing';
 import { OperationStatus, provideNuCommonConfig } from '@nucleus/common';
 import { provideUiConfig } from '@nucleus/ui';
-import { MOCK_UI_CONFIG, MOCK_NU_COMMON_CONFIG, setupGlobalMocks } from '@test-mocks';
+import { MOCK_NU_COMMON_CONFIG, MOCK_UI_CONFIG, setupGlobalMocks } from '@test-mocks';
 import { provideAuthConfig } from '../providers/auth-config.provider';
 import { AuthRestService } from '../services/auth-rest.service';
 import { injectAuthStore, provideAuthStore } from './auth.store';

@@ -1,4 +1,4 @@
-import type { MenuItem } from '@nucleus/ui';
+import type { MenuItemModel } from '@nucleus/ui';
 
 export const navMainMenu = [
   {
@@ -70,4 +70,4 @@ export const navMainMenu = [
       },
     ],
   },
-] as MenuItem[];
+] as MenuItemModel[];

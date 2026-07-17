@@ -1,6 +1,6 @@
-import type { Pagination } from '../models/pagination.model';
+import type { PaginationModel } from '../models/pagination.model';
 
-export function createPagination(): Pagination {
+export function createPagination(): PaginationModel {
   return {
     rows: 10,
     page: 0,

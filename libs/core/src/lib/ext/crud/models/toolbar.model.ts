@@ -5,7 +5,7 @@ import type { IconVariant } from '@nucleus/ui';
 import type { Observable } from 'rxjs';
 import type { ToolElement, ToolType } from '../enums/toolbar.enum';
 
-export interface NuTool {
+export interface NuToolModel {
   command: ($event?: unknown) => string | unknown[];
   permission: string;
   element: ToolElement;
@@ -26,12 +26,12 @@ export interface NuTool {
   id?: Signal<string>;
 }
 
-export interface NuToolEvent {
-  tool: NuTool;
+export interface NuToolEventModel {
+  tool: NuToolModel;
   payload?: unknown;
 }
 
-export interface NuToolbar {
-  tools: NuTool[];
-  events$?: Observable<NuToolEvent>;
+export interface NuToolbarModel {
+  tools: NuToolModel[];
+  events$?: Observable<NuToolEventModel>;
 }

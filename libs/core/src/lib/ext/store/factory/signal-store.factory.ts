@@ -3,18 +3,18 @@ import { patchState, signalStore, withComputed, withMethods, withState } from '@
 import { OperationStatus } from '@nucleus/common';
 import { MessageService } from '@nucleus/ui';
 import { formatErrorMessage } from '../../crud/helpers/format-messages.helper';
-import type { NuTool } from '../../crud/models/toolbar.model';
+import type { NuToolModel } from '../../crud/models/toolbar.model';
 import type {
-  AddState,
-  CrudRestMethods,
-  CrudStoreState,
-  DeleteState,
-  GetState,
-  ListState,
-  UpdateState,
+  AddStateModel,
+  CrudRestMethodsModel,
+  CrudStoreStateModel,
+  DeleteStateModel,
+  GetStateModel,
+  ListStateModel,
+  UpdateStateModel,
 } from '../models/signal-store.model';
 
-function createListInitialState<Query>(): ListState<Query, never> {
+function createListInitialState<Query>(): ListStateModel<Query, never> {
   return {
     query: {} as Query,
     response: {
@@ -26,7 +26,7 @@ function createListInitialState<Query>(): ListState<Query, never> {
   };
 }
 
-function createGetInitialState<Response>(): GetState<Response> {
+function createGetInitialState<Response>(): GetStateModel<Response> {
   return {
     query: '',
     response: { control: {}, data: {} as Response },
@@ -35,7 +35,7 @@ function createGetInitialState<Response>(): GetState<Response> {
   };
 }
 
-function createAddInitialState<Request, Response>(): AddState<Request, Response> {
+function createAddInitialState<Request, Response>(): AddStateModel<Request, Response> {
   return {
     request: {} as Request,
     response: { control: {}, data: {} as Response },
@@ -44,7 +44,7 @@ function createAddInitialState<Request, Response>(): AddState<Request, Response>
   };
 }
 
-function createUpdateInitialState<Request, Response>(): UpdateState<Request, Response> {
+function createUpdateInitialState<Request, Response>(): UpdateStateModel<Request, Response> {
   return {
     query: '',
     request: {} as Request,
@@ -54,7 +54,7 @@ function createUpdateInitialState<Request, Response>(): UpdateState<Request, Res
   };
 }
 
-function createDeleteInitialState(): DeleteState {
+function createDeleteInitialState(): DeleteStateModel {
   return {
     query: '',
     response: { control: {}, data: '' },
@@ -63,7 +63,7 @@ function createDeleteInitialState(): DeleteState {
   };
 }
 
-function createCrudInitialState<Query, Request, Response>(): CrudStoreState<
+function createCrudInitialState<Query, Request, Response>(): CrudStoreStateModel<
   Query,
   Request,
   Response
@@ -79,7 +79,7 @@ function createCrudInitialState<Query, Request, Response>(): CrudStoreState<
 
 export function createCrudSignalStore<Query, Request, Response>(
   config: { title: string },
-  restFactory: () => CrudRestMethods<Query, Request, Response>,
+  restFactory: () => CrudRestMethodsModel<Query, Request, Response>,
 ) {
   return signalStore(
     { providedIn: 'root' },
@@ -103,7 +103,7 @@ export function createCrudSignalStore<Query, Request, Response>(
       const rest = restFactory();
 
       return {
-        loadList(query: Query, tool?: NuTool) {
+        loadList(query: Query, tool?: NuToolModel) {
           patchState(store, {
             list: { ...store.list(), query, tool, status: OperationStatus.InProgress },
           });
@@ -123,7 +123,7 @@ export function createCrudSignalStore<Query, Request, Response>(
           });
         },
 
-        loadGet(query: string, tool?: NuTool) {
+        loadGet(query: string, tool?: NuToolModel) {
           if (!query) {
             const message = $localize`ID of ${config.title} is required`;
             messageService.addError(message);
@@ -152,7 +152,7 @@ export function createCrudSignalStore<Query, Request, Response>(
           });
         },
 
-        loadAdd(request: Request, tool?: NuTool) {
+        loadAdd(request: Request, tool?: NuToolModel) {
           patchState(store, {
             add: { ...store.add(), request, tool, status: OperationStatus.InProgress },
           });
@@ -174,7 +174,7 @@ export function createCrudSignalStore<Query, Request, Response>(
           });
         },
 
-        loadUpdate(query: string, request: Request, tool?: NuTool) {
+        loadUpdate(query: string, request: Request, tool?: NuToolModel) {
           if (!query) {
             const message = $localize`ID of ${config.title} is required`;
             messageService.addError(message);
@@ -211,7 +211,7 @@ export function createCrudSignalStore<Query, Request, Response>(
           });
         },
 
-        loadDelete(query: string, tool?: NuTool) {
+        loadDelete(query: string, tool?: NuToolModel) {
           if (!query) {
             const message = $localize`ID of ${config.title} is required`;
             messageService.addError(message);

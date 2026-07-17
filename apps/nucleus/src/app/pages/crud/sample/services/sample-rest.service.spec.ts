@@ -85,7 +85,7 @@ describe('SampleRestService', () => {
 
     it('should make a GET request with the given id', () => {
       const mockResponse = {
-        data: { id: '1', code: 'S001', title: 'Sample 1' },
+        data: { id: '1', code: 'S001', title: 'SampleModel 1' },
         control: { message: 'ok' },
       };
 
@@ -106,7 +106,7 @@ describe('SampleRestService', () => {
     });
 
     it('should make a POST request with the given data', () => {
-      const mockRequest = { code: 'S002', title: 'Sample 2' };
+      const mockRequest = { code: 'S002', title: 'SampleModel 2' };
       const mockResponse = {
         data: { id: '2', ...mockRequest },
         control: { message: 'created' },

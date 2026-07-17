@@ -1,7 +1,7 @@
 import type { TemplateRef, WritableSignal } from '@angular/core';
 import type { FabPlacement } from '../types';
 
-export interface Popover {
+export interface PopoverModel {
   content: string | TemplateRef<unknown> | null | undefined;
   templateData?: unknown;
   styleClass: string;
@@ -14,4 +14,4 @@ export interface Popover {
   attachTo: 'parent' | 'body' | HTMLElement;
 }
 
-export type TriggerEvent = 'click' | 'hover';
+export type TriggerEventModel = 'click' | 'hover';

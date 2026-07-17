@@ -1,7 +1,7 @@
 import { makeEnvironmentProviders } from '@angular/core';
-import type { NuCommonConfig } from '../models/common-config.model';
+import type { NuCommonConfigModel } from '../models/common-config.model';
 import { provideNuCommonConfig } from './common-config.provider';
 
-export function provideNuCommon(config: NuCommonConfig) {
+export function provideNuCommon(config: NuCommonConfigModel) {
   return makeEnvironmentProviders([provideNuCommonConfig(config)]);
 }

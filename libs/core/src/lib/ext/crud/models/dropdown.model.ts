@@ -1,7 +1,7 @@
 import type { Signal } from '@angular/core';
-import type { ValueLabel } from './pair.model';
+import type { ValueLabelModel } from './pair.model';
 
-export interface DropdownData {
-  options: Signal<ValueLabel[]>;
+export interface DropdownDataModel {
+  options: Signal<ValueLabelModel[]>;
   icon: Signal<string>;
 }

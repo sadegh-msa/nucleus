@@ -1,4 +1,4 @@
-export interface CommonFields {
+export interface CommonFieldsModel {
   createdBy: string;
   createdAt: string;
   updatedBy: string;

@@ -1,12 +1,12 @@
 import { ChangeDetectorRef, computed, effect, inject, Service, signal } from '@angular/core';
 import type { ControlValueAccessor } from '@angular/forms';
-import type { GenericToggleConsumer, ToggleValue } from '../models/toggle.model';
+import type { GenericToggleConsumerModel, ToggleValueModel } from '../models/toggle.model';
 
 @Service({ autoProvided: false })
 export class ToggleService {
   #changeDetectorRef = inject(ChangeDetectorRef);
 
-  #consumer!: GenericToggleConsumer;
+  #consumer!: GenericToggleConsumerModel;
 
   #onChange: any = () => {};
   #onTouch: any = () => {};
@@ -28,7 +28,7 @@ export class ToggleService {
     });
   }
 
-  init(consumer: ControlValueAccessor & GenericToggleConsumer) {
+  init(consumer: ControlValueAccessor & GenericToggleConsumerModel) {
     consumer.isChecked = signal(false);
     consumer.isDisabled = signal(false);
     consumer.isBinary = computed(() => consumer.value() === undefined);
@@ -42,7 +42,7 @@ export class ToggleService {
     this.#consumer = consumer;
   }
 
-  #writeValue(value: ToggleValue) {
+  #writeValue(value: ToggleValueModel) {
     this.#consumer.isChecked.set(
       this.#consumer.isBinary() ? !!value : value === this.#consumer.value(),
     );

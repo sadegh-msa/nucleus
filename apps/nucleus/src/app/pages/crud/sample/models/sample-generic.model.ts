@@ -1,23 +1,23 @@
-import type { GenericEntity, GenericFormConsumer, GenericListConsumer } from '@nucleus/core';
+import type { GenericEntityModel, GenericFormConsumerModel, GenericListConsumerModel } from '@nucleus/core';
 import type {
-  Sample,
-  SampleAdd,
-  SampleConfig,
-  SampleForm,
-  SampleList,
-  SampleTypedForm,
-  SampleUpdate,
+  SampleModel,
+  SampleAddModel,
+  SampleConfigModel,
+  SampleFormModel,
+  SampleListModel,
+  SampleTypedFormModel,
+  SampleUpdateModel,
 } from './sample.model';
 
-export type SampleGeneric = GenericEntity<
-  Sample,
-  SampleList,
-  SampleAdd,
-  SampleUpdate,
-  SampleForm,
-  SampleTypedForm,
-  SampleConfig
+export type SampleGenericModel = GenericEntityModel<
+  SampleModel,
+  SampleListModel,
+  SampleAddModel,
+  SampleUpdateModel,
+  SampleFormModel,
+  SampleTypedFormModel,
+  SampleConfigModel
 >;
 
-export type GenericSampleList = GenericListConsumer<SampleGeneric>;
-export type GenericSampleForm = GenericFormConsumer<SampleGeneric>;
+export type GenericSampleListModel = GenericListConsumerModel<SampleGenericModel>;
+export type GenericSampleFormModel = GenericFormConsumerModel<SampleGenericModel>;

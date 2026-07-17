@@ -1,3 +1,3 @@
 import type { ToolType } from '../enums/toolbar.enum';
 
-export type ActionPermission = Record<ToolType, string>;
+export type ActionPermissionModel = Record<ToolType, string>;

@@ -3,12 +3,12 @@ import { patchState, signalStore, withComputed, withMethods, withState } from '@
 import { OperationStatus } from '@nucleus/common';
 import { MessageService } from '@nucleus/ui';
 import { formatErrorMessage } from '../../crud/helpers/format-messages.helper';
-import type { AuthSignIn, AuthSignUp, AuthStore, AuthStoreState } from '../models/auth-store.model';
+import type { AuthSignInModel, AuthSignUpModel, AuthStoreModel, AuthStoreStateModel } from '../models/auth-store.model';
 import { AuthRestService } from '../services/auth-rest.service';
 
 const { Initial, InProgress, Success, Failure } = OperationStatus;
 
-const initialAuthState: AuthStoreState = {
+const initialAuthState: AuthStoreStateModel = {
   signIn: {
     request: { email: '', password: '' },
     response: { token: { accessToken: null, refreshToken: null } },
@@ -25,7 +25,7 @@ const initialAuthState: AuthStoreState = {
   check: { status: Initial },
 };
 
-const AUTH_STORE = new InjectionToken<AuthStore>('AuthStore');
+const AUTH_STORE = new InjectionToken<AuthStoreModel>('AuthStore');
 
 const AuthSignalStore = signalStore(
   { providedIn: 'root' },
@@ -46,7 +46,7 @@ const AuthSignalStore = signalStore(
     const messageService = inject(MessageService);
 
     return {
-      doSignIn(request: AuthSignIn) {
+      doSignIn(request: AuthSignInModel) {
         patchState(state, { signIn: { ...state.signIn(), request, status: InProgress } });
         authRestService.signIn(request).subscribe({
           next: (response) => {
@@ -67,7 +67,7 @@ const AuthSignalStore = signalStore(
         });
       },
 
-      doSignUp(request: AuthSignUp) {
+      doSignUp(request: AuthSignUpModel) {
         patchState(state, { signUp: { ...state.signUp(), request, status: InProgress } });
         authRestService.signUp(request).subscribe({
           next: (response) => {
@@ -114,7 +114,7 @@ const AuthSignalStore = signalStore(
   }),
 );
 
-function createAuthStoreInstance(): AuthStore {
+function createAuthStoreInstance(): AuthStoreModel {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const instance = inject(AuthSignalStore as any) as any;
 
@@ -142,6 +142,6 @@ export function provideAuthStore(): Provider[] {
   return [AuthSignalStore, { provide: AUTH_STORE, useFactory: createAuthStoreInstance }];
 }
 
-export function injectAuthStore(): AuthStore {
+export function injectAuthStore(): AuthStoreModel {
   return inject(AUTH_STORE);
 }

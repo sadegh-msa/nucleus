@@ -1,5 +1,5 @@
 import { Component, input } from '@angular/core';
-import type { InfoField } from '../../models/info.model';
+import type { InfoFieldModel } from '../../models/info.model';
 import { FieldValueComponent } from '../field-value/field-value.component';
 
 @Component({
@@ -8,6 +8,6 @@ import { FieldValueComponent } from '../field-value/field-value.component';
   imports: [FieldValueComponent],
 })
 export class InfoFieldsComponent {
-  infoFields = input.required<InfoField[][]>();
+  infoFields = input.required<InfoFieldModel[][]>();
   data = input.required<any>();
 }

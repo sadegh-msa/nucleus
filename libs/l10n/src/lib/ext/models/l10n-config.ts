@@ -1,3 +1,3 @@
-export interface NuL10nConfig {
+export interface NuL10nConfigModel {
   languages: Record<string, string>;
 }

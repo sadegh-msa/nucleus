@@ -6,8 +6,8 @@ import {
   GenericToolbarComponent
 } from '../../components/generic-toolbar/generic-toolbar.component'; // Possibility of circular dependency
 import { infoFieldsDefault } from '../../defaults/info-fields.default';
-import type { InfoField } from '../../models/info.model';
-import type { NuToolbar } from '../../models/toolbar.model';
+import type { InfoFieldModel } from '../../models/info.model';
+import type { NuToolbarModel } from '../../models/toolbar.model';
 import { InfoFieldsComponent } from '../info-fields/info-fields.component';
 
 @Component({
@@ -22,7 +22,7 @@ import { InfoFieldsComponent } from '../info-fields/info-fields.component';
   ],
 })
 export class GenericFormToolbarComponent {
-  infoFields = input<InfoField[][]>(infoFieldsDefault);
+  infoFields = input<InfoFieldModel[][]>(infoFieldsDefault);
   data = input<any>(null);
-  toolbar = input.required<NuToolbar>();
+  toolbar = input.required<NuToolbarModel>();
 }

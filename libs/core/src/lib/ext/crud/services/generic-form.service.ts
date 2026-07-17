@@ -10,18 +10,18 @@ import {
 import { PageType } from '../enums/page.enum';
 import { RouterStateKey } from '../enums/router-state.enum';
 import { ToolType } from '../enums/toolbar.enum';
-import type { GenericEntity, GenericFormConsumer } from '../models/generic.model';
-import type { NuTool, NuToolbar } from '../models/toolbar.model';
+import type { GenericEntityModel, GenericFormConsumerModel } from '../models/generic.model';
+import type { NuToolModel, NuToolbarModel } from '../models/toolbar.model';
 
 @Service({ autoProvided: false })
-export class GenericFormService<T extends GenericEntity> {
+export class GenericFormService<T extends GenericEntityModel> {
   readonly #destroyRef = inject(DestroyRef);
   readonly #injector = inject(Injector);
   readonly #router = inject(Router);
 
-  #consumer!: GenericFormConsumer<T>;
+  #consumer!: GenericFormConsumerModel<T>;
 
-  init(consumer: GenericFormConsumer<T>) {
+  init(consumer: GenericFormConsumerModel<T>) {
     consumer.data = signal<T['full']>({});
     consumer.title = signal(this.#getCurrentTitle());
     consumer.isSubmitting = signal(false);
@@ -174,7 +174,7 @@ export class GenericFormService<T extends GenericEntity> {
         return { [RouterStateKey.Title]: data()[config.field.title as keyof T['full']] };
       }),
     };
-    let toolbar: NuToolbar = { tools: [] };
+    let toolbar: NuToolbarModel = { tools: [] };
 
     switch (pageType()) {
       case PageType.Add:
@@ -215,7 +215,7 @@ export class GenericFormService<T extends GenericEntity> {
     return toolbar;
   }
 
-  loadData(tool?: NuTool) {
+  loadData(tool?: NuToolModel) {
     const { pageType, store, id, navigationState } = this.#consumer;
 
     if (pageType() === PageType.Add) {
@@ -231,27 +231,27 @@ export class GenericFormService<T extends GenericEntity> {
     store.loadGet(id(), tool);
   }
 
-  add(tool?: NuTool) {
+  add(tool?: NuToolModel) {
     const { form, config, store } = this.#consumer;
     const request = { ...form.value, [config.field.id]: undefined } as T['add'];
 
     store.loadAdd(request, tool);
   }
 
-  update(tool?: NuTool) {
+  update(tool?: NuToolModel) {
     const { form, store, id } = this.#consumer;
     const request = form.value as T['update'];
 
     store.loadUpdate(id(), request, tool);
   }
 
-  delete(tool?: NuTool) {
+  delete(tool?: NuToolModel) {
     const { store, id } = this.#consumer;
 
     store.loadDelete(id(), tool);
   }
 
-  save(tool?: NuTool) {
+  save(tool?: NuToolModel) {
     const { isSubmitted, form, pageType } = this.#consumer;
 
     isSubmitted.set(true);

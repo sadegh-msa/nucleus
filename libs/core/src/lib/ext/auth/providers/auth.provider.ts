@@ -1,9 +1,9 @@
 import { makeEnvironmentProviders } from '@angular/core';
-import type { AuthConfig } from '../models/auth-config.model';
+import type { AuthConfigModel } from '../models/auth-config.model';
 import { provideAuthConfig } from './auth-config.provider';
 import { provideAuthInterceptor } from './auth-interceptor.provide';
 
-export function provideAuth(config: AuthConfig) {
+export function provideAuth(config: AuthConfigModel) {
   return makeEnvironmentProviders([
     // provideRouter(authRoutes),
     provideAuthConfig(config),

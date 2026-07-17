@@ -1,9 +1,9 @@
 import { Service } from '@angular/core';
-import type { ElementRect } from '../models';
+import type { ElementRectModel } from '../models';
 
 @Service()
 export class HtmlService {
-  getElementRect(element: HTMLElement): ElementRect {
+  getElementRect(element: HTMLElement): ElementRectModel {
     return {
       top: element.offsetTop,
       left: element.offsetLeft,
