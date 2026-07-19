@@ -6,7 +6,7 @@ import {
   GenericListComponent,
   GenericListToolbarComponent,
   type NuTableModel,
-} from '@nucleus/core';
+} from '@nucleus/core/crud';
 import type { SampleListModel, SampleModel } from '../../models/sample.model';
 import type { GenericSampleListModel, SampleGenericModel } from '../../models/sample-generic.model';
 import { sampleConfig } from '../../sample.config';

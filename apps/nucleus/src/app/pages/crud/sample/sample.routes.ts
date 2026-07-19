@@ -1,5 +1,5 @@
 import type { Route } from '@angular/router';
-import { PageType, pagePathPattern } from '@nucleus/core';
+import { PageType, pagePathPattern } from '@nucleus/core/crud';
 
 const { List, View, Add, Edit } = PageType;
 const { list, view, add, edit } = pagePathPattern;

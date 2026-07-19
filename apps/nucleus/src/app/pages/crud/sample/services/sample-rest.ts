@@ -6,7 +6,7 @@ import {
   createListRestMethod,
   createUpdateRestMethod,
   type RestServiceParamsModel,
-} from '@nucleus/core';
+} from '@nucleus/core/crud';
 import type { SampleGenericModel } from '../models/sample-generic.model';
 import { sampleConfig } from '../sample.config';
 

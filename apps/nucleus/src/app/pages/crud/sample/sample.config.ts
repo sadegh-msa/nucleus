@@ -1,4 +1,4 @@
-import { createActionPermissions, createPagePaths } from '@nucleus/core';
+import { createActionPermissions, createPagePaths } from '@nucleus/core/crud';
 import type { SampleConfigModel } from './models/sample.model';
 
 const prefix = 'crud';

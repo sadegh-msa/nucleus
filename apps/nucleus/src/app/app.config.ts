@@ -7,7 +7,7 @@ import {
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { provideRouter, withComponentInputBinding } from '@angular/router';
 import { type NuCommonConfigModel, provideNuCommon } from '@nucleus/common';
-import { provideAuth, provideAuthStore } from '@nucleus/core';
+import { provideAuth, provideAuthStore } from '@nucleus/core/auth';
 import { provideNuL10n } from '@nucleus/l10n';
 import { provideUi } from '@nucleus/ui';
 import Aura from '@primeng/themes/aura';

@@ -2,7 +2,7 @@ import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { type ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideRouter } from '@angular/router';
 import { provideNuCommonConfig } from '@nucleus/common';
-import { provideAuthStore } from '@nucleus/core';
+import { provideAuthStore } from '@nucleus/core/auth';
 import { provideUiConfig } from '@nucleus/ui';
 import { MOCK_NU_COMMON_CONFIG, MOCK_UI_CONFIG, setupGlobalMocks } from '@test-mocks';
 import { AppComponent } from './app.component';
