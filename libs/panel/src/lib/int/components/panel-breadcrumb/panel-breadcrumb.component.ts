@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { RippleDirective, SvgIconDirective } from '@nucleus/ui';
-import { PanelBreadcrumbService } from '../../services';
+import { PanelBreadcrumb } from '../../services';
 
 @Component({
   selector: 'nu-panel-breadcrumb',
@@ -10,7 +10,7 @@ import { PanelBreadcrumbService } from '../../services';
   imports: [SvgIconDirective, RippleDirective, RouterLink],
 })
 export class PanelBreadcrumbComponent {
-  readonly #breadcrumbService = inject(PanelBreadcrumbService);
+  readonly #breadcrumb = inject(PanelBreadcrumb);
 
-  readonly items = this.#breadcrumbService.items;
+  readonly items = this.#breadcrumb.items;
 }

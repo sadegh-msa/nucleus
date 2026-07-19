@@ -10,7 +10,7 @@ import {
   TooltipDirective,
 } from '../../directives';
 import type { MenuItemModel } from '../../models';
-import { CssSupportService } from '../../services';
+import { CssSupport } from '../../services';
 import type { FabPlacement } from '../../types';
 
 @Component({
@@ -34,7 +34,7 @@ import type { FabPlacement } from '../../types';
 })
 export class MenuItemsComponent {
   readonly #router = inject(Router);
-  readonly #cssSupport = inject(CssSupportService);
+  readonly #cssSupport = inject(CssSupport);
 
   uiMenuItems = input.required<MenuItemModel[]>();
   popoverPlacement = input<FabPlacement>('inline-end-edge-end');

@@ -1,9 +1,9 @@
 import { inject } from '@angular/core';
 import type { CanActivateFn } from '@angular/router';
-import { AuthTokenService } from '../../../ext/auth/services/auth-token.service';
+import { AuthToken } from '../../../ext/auth/services/auth-token';
 
 export const authCanActivateSelf: CanActivateFn = async (route, state) => {
-  const authService = inject(AuthTokenService);
+  const authService = inject(AuthToken);
 
   return !(await authService.isAuthenticated()) && authService.isAuthRouteActivated(state.url);
 };

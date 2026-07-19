@@ -1,12 +1,12 @@
 import { TestBed } from '@angular/core/testing';
-import { MessageService } from '@nucleus/ui';
-import { AuthTokenService } from '../services/auth-token.service';
+import { MessageManager } from '@nucleus/ui';
+import { AuthToken } from '../services/auth-token';
 import { AuthInterceptor } from './auth.interceptor';
 
 describe('AuthInterceptor', () => {
   let interceptor: AuthInterceptor;
 
-  const mockMessageService = {
+  const mockMessage = {
     addError: jest.fn(),
     addWarning: jest.fn(),
     addInfo: jest.fn(),
@@ -16,7 +16,7 @@ describe('AuthInterceptor', () => {
     messages: { size: 0 },
   };
 
-  const mockAuthTokenService = {
+  const mockAuthToken = {
     getAccessToken: jest.fn().mockReturnValue('test-token'),
     deleteAccessToken: jest.fn(),
   };
@@ -25,8 +25,8 @@ describe('AuthInterceptor', () => {
     TestBed.configureTestingModule({
       providers: [
         AuthInterceptor,
-        { provide: MessageService, useValue: mockMessageService },
-        { provide: AuthTokenService, useValue: mockAuthTokenService },
+        { provide: MessageManager, useValue: mockMessage },
+        { provide: AuthToken, useValue: mockAuthToken },
       ],
     });
     interceptor = TestBed.inject(AuthInterceptor);

@@ -1,7 +1,7 @@
 import { AsyncPipe, NgOptimizedImage, NgStyle, NgTemplateOutlet } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { injectNuCommonConfig } from '@nucleus/common';
-import { AuthTokenService } from '../../../../ext/auth/services/auth-token.service';
+import { AuthToken } from '../../../../ext/auth/services/auth-token';
 
 @Component({
   selector: 'nu-sign-layout',
@@ -9,8 +9,8 @@ import { AuthTokenService } from '../../../../ext/auth/services/auth-token.servi
   imports: [NgOptimizedImage, NgStyle, NgTemplateOutlet, AsyncPipe],
 })
 export class SignLayoutComponent {
-  readonly #authTokenService = inject(AuthTokenService);
+  readonly #authToken = inject(AuthToken);
 
   readonly branding = injectNuCommonConfig().branding;
-  readonly isUserAuthenticated = this.#authTokenService.isAuthenticated;
+  readonly isUserAuthenticated = this.#authToken.isAuthenticated;
 }

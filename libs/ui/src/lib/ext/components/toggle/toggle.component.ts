@@ -2,7 +2,7 @@ import { NgClass, TitleCasePipe } from '@angular/common';
 import { Component, forwardRef, inject, input } from '@angular/core';
 import { type ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 import type { GenericToggleConsumerModel, ToggleValueModel } from '../../models/toggle.model';
-import { ToggleService } from '../../services';
+import { ToggleValueAccessor } from '../../services/toggle-value-accessor';
 
 @Component({
   selector: 'ui-toggle',
@@ -14,11 +14,11 @@ import { ToggleService } from '../../services';
       useExisting: forwardRef(() => ToggleComponent),
       multi: true,
     },
-    ToggleService,
+    ToggleValueAccessor,
   ],
 })
 export class ToggleComponent implements ControlValueAccessor, GenericToggleConsumerModel {
-  readonly #toggleService = inject(ToggleService);
+  readonly #toggleValueAccessor = inject(ToggleValueAccessor);
 
   value = input<ToggleValueModel>();
   label = input<string>();
@@ -34,6 +34,6 @@ export class ToggleComponent implements ControlValueAccessor, GenericToggleConsu
   setDisabledState!: (isDisabled: boolean) => void;
 
   constructor() {
-    this.#toggleService.init(this);
+    this.#toggleValueAccessor.init(this);
   }
 }

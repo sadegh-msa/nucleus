@@ -10,7 +10,7 @@ import type {
   RestUpdateResponseModel,
 } from '../models/rest.model';
 import type { RestServiceParamsModel } from '../models/rest-service.model';
-import { RestApiService } from '../services/rest-api.service';
+import { RestApi } from '../services/rest-api';
 
 function convertDateOperator<Response>(dateFields: string[]) {
   return convertDateStrings<Response>(...(dateFields || []).map((f: string) => `data.${f}`));
@@ -21,7 +21,7 @@ export function createListRestMethod<T extends GenericEntityModel>({
 }: RestServiceParamsModel) {
   type Query = RestListQueryModel;
   type Response = RestListResponseModel<T['list']>;
-  const service = inject(RestApiService);
+  const service = inject(RestApi);
 
   return (query?: Query) => {
     const url = service.createUrl(endpoint);
@@ -37,7 +37,7 @@ export function createGetRestMethod<T extends GenericEntityModel>({
 }: RestServiceParamsModel) {
   type Query = string;
   type Response = RestGetResponseModel<T['full']>;
-  const service = inject(RestApiService);
+  const service = inject(RestApi);
 
   return (id: Query) => {
     const url = service.createUrl(endpoint, id);
@@ -51,7 +51,7 @@ export function createAddRestMethod<T extends GenericEntityModel>({
 }: RestServiceParamsModel) {
   type Request = T['add'];
   type Response = RestAddResponseModel<T['full']>;
-  const service = inject(RestApiService);
+  const service = inject(RestApi);
 
   return (request: Request) => {
     const url = service.createUrl(endpoint);
@@ -67,7 +67,7 @@ export function createUpdateRestMethod<T extends GenericEntityModel>({
 }: RestServiceParamsModel) {
   type Request = T['update'];
   type Response = RestUpdateResponseModel<T['full']>;
-  const service = inject(RestApiService);
+  const service = inject(RestApi);
 
   return (id: string, request: Request) => {
     const url = service.createUrl(endpoint, id);
@@ -82,7 +82,7 @@ export function createDeleteRestMethod<_T extends GenericEntityModel>({
 }: RestServiceParamsModel) {
   type Query = string;
   type Response = RestDeleteResponseModel;
-  const service = inject(RestApiService);
+  const service = inject(RestApi);
 
   return (id: Query) => {
     const url = service.createUrl(endpoint, id);

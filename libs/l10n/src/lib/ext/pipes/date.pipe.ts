@@ -1,25 +1,25 @@
 import { inject, Pipe, type PipeTransform } from '@angular/core';
-import { NuDateService } from '../services';
+import { DateUtils } from '../services/date-utils';
 
 @Pipe({
   name: 'nuDate',
 })
 export class NuDatePipe implements PipeTransform {
-  readonly #dateTimeService = inject(NuDateService);
+  readonly #dateUtils = inject(DateUtils);
 
   transform(inputValue?: string | Date | null, formatStr?: string | 'distance') {
     if (!inputValue) {
       return inputValue;
     }
 
-    const date = this.#dateTimeService.convertToDate(inputValue);
+    const date = this.#dateUtils.convertToDate(inputValue);
 
-    if (!date || !this.#dateTimeService.isValidDate(date)) {
+    if (!date || !this.#dateUtils.isValidDate(date)) {
       return inputValue;
     }
 
     return formatStr === 'distance'
-      ? this.#dateTimeService.formatDistanceToNow(date)
-      : this.#dateTimeService.format(date, formatStr);
+      ? this.#dateUtils.formatDistanceToNow(date)
+      : this.#dateUtils.format(date, formatStr);
   }
 }

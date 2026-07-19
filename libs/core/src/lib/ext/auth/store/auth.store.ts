@@ -1,7 +1,7 @@
 import { computed, InjectionToken, inject, type Provider } from '@angular/core';
 import { patchState, signalStore, withComputed, withMethods, withState } from '@ngrx/signals';
 import { OperationStatus } from '@nucleus/common';
-import { MessageService } from '@nucleus/ui';
+import { MessageManager } from '@nucleus/ui';
 import { formatErrorMessage } from '../../crud/helpers/format-messages.helper';
 import type {
   AuthSignInModel,
@@ -9,7 +9,7 @@ import type {
   AuthStoreModel,
   AuthStoreStateModel,
 } from '../models/auth-store.model';
-import { AuthRestService } from '../services/auth-rest.service';
+import { AuthRest } from '../services/auth-rest';
 
 const { Initial, InProgress, Success, Failure } = OperationStatus;
 
@@ -47,8 +47,8 @@ const AuthSignalStore = signalStore(
   })),
 
   withMethods((state) => {
-    const authRestService = inject(AuthRestService);
-    const messageService = inject(MessageService);
+    const authRestService = inject(AuthRest);
+    const messageManager = inject(MessageManager);
 
     return {
       doSignIn(request: AuthSignInModel) {
@@ -66,7 +66,7 @@ const AuthSignalStore = signalStore(
           },
           error: ({ error }: { error: any }) => {
             const message = formatErrorMessage(error);
-            messageService.addError(message);
+            messageManager.addError(message);
             patchState(state, { signIn: { ...state.signIn(), message, status: Failure } });
           },
         });
@@ -77,14 +77,14 @@ const AuthSignalStore = signalStore(
         authRestService.signUp(request).subscribe({
           next: (response) => {
             const message = $localize`You signed up successfully`;
-            messageService.addSuccess(message);
+            messageManager.addSuccess(message);
             patchState(state, {
               signUp: { ...state.signUp(), response, message, status: Success },
             });
           },
           error: ({ error }: { error: any }) => {
             const message = formatErrorMessage(error);
-            messageService.addError(message);
+            messageManager.addError(message);
             patchState(state, { signUp: { ...state.signUp(), message, status: Failure } });
           },
         });
@@ -102,7 +102,7 @@ const AuthSignalStore = signalStore(
           },
           error: ({ error }: { error: any }) => {
             const message = formatErrorMessage(error);
-            messageService.addError(message);
+            messageManager.addError(message);
             patchState(state, { signOut: { ...state.signOut(), message, status: Failure } });
           },
         });

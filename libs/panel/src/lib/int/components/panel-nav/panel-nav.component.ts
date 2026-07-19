@@ -1,8 +1,8 @@
 import { NgClass, NgOptimizedImage } from '@angular/common';
 import { Component, computed, inject } from '@angular/core';
 import { injectNuCommonConfig } from '@nucleus/common';
-import { ScreenService, SvgIconDirective } from '@nucleus/ui';
-import { PanelService } from '../../../ext/services/panel.service'; // Possibility of circular dependency
+import { ScreenUtils, SvgIconDirective } from '@nucleus/ui';
+import { PanelManager } from '../../../ext/services/panel-manager'; // Possibility of circular dependency
 
 @Component({
   selector: 'nav[nu-panel-nav]',
@@ -11,15 +11,15 @@ import { PanelService } from '../../../ext/services/panel.service'; // Possibili
   styleUrl: './panel-nav.component.scss',
 })
 export class NuPanelNavComponent {
-  readonly #screenService = inject(ScreenService);
-  readonly #panelService = inject(PanelService);
+  readonly #screenUtils = inject(ScreenUtils);
+  readonly #panelManager = inject(PanelManager);
 
   readonly branding = injectNuCommonConfig().branding.organization;
 
-  readonly breakpoints = this.#screenService.breakpoints;
-  readonly navExtent = this.#panelService.navExtent;
-  readonly isNavWide = this.#panelService.isNavWide;
-  readonly isNavCompact = this.#panelService.isNavCompact;
+  readonly breakpoints = this.#screenUtils.breakpoints;
+  readonly navExtent = this.#panelManager.navExtent;
+  readonly isNavWide = this.#panelManager.isNavWide;
+  readonly isNavCompact = this.#panelManager.isNavCompact;
 
   readonly logoInfo = computed(() => {
     const { logo, title } = this.branding;
@@ -34,6 +34,6 @@ export class NuPanelNavComponent {
   });
 
   toggleNavMode() {
-    this.#panelService.toggleNavExtent();
+    this.#panelManager.toggleNavExtent();
   }
 }

@@ -1,7 +1,7 @@
 import { computed, inject } from '@angular/core';
 import { patchState, signalStore, withComputed, withMethods, withState } from '@ngrx/signals';
 import { OperationStatus } from '@nucleus/common';
-import { MessageService } from '@nucleus/ui';
+import { MessageManager } from '@nucleus/ui';
 import { formatErrorMessage } from '../../crud/helpers/format-messages.helper';
 import type { NuToolModel } from '../../crud/models/toolbar.model';
 import type {
@@ -99,7 +99,7 @@ export function createCrudSignalStore<Query, Request, Response>(
     })),
 
     withMethods((store) => {
-      const messageService = inject(MessageService);
+      const messageManager = inject(MessageManager);
       const rest = restFactory();
 
       return {
@@ -115,7 +115,7 @@ export function createCrudSignalStore<Query, Request, Response>(
             },
             error: ({ error }: { error: any }) => {
               const message = formatErrorMessage(error);
-              messageService.addError(message);
+              messageManager.addError(message);
               patchState(store, {
                 list: { ...store.list(), message, tool, status: OperationStatus.Failure },
               });
@@ -126,7 +126,7 @@ export function createCrudSignalStore<Query, Request, Response>(
         loadGet(query: string, tool?: NuToolModel) {
           if (!query) {
             const message = $localize`ID of ${config.title} is required`;
-            messageService.addError(message);
+            messageManager.addError(message);
             patchState(store, {
               get: { ...store.get(), message, status: OperationStatus.Failure },
             });
@@ -144,7 +144,7 @@ export function createCrudSignalStore<Query, Request, Response>(
             },
             error: ({ error }: { error: any }) => {
               const message = formatErrorMessage(error);
-              messageService.addError(message);
+              messageManager.addError(message);
               patchState(store, {
                 get: { ...store.get(), message, tool, status: OperationStatus.Failure },
               });
@@ -159,14 +159,14 @@ export function createCrudSignalStore<Query, Request, Response>(
           rest.add(request).subscribe({
             next: (response) => {
               const message = $localize`${config.title} added successfully`;
-              messageService.addSuccess(message);
+              messageManager.addSuccess(message);
               patchState(store, {
                 add: { ...store.add(), response, message, tool, status: OperationStatus.Success },
               });
             },
             error: ({ error }: { error: any }) => {
               const message = formatErrorMessage(error);
-              messageService.addError(message);
+              messageManager.addError(message);
               patchState(store, {
                 add: { ...store.add(), message, tool, status: OperationStatus.Failure },
               });
@@ -177,7 +177,7 @@ export function createCrudSignalStore<Query, Request, Response>(
         loadUpdate(query: string, request: Request, tool?: NuToolModel) {
           if (!query) {
             const message = $localize`ID of ${config.title} is required`;
-            messageService.addError(message);
+            messageManager.addError(message);
             patchState(store, {
               update: { ...store.update(), message, status: OperationStatus.Failure },
             });
@@ -190,7 +190,7 @@ export function createCrudSignalStore<Query, Request, Response>(
           rest.update(query, request).subscribe({
             next: (response) => {
               const message = $localize`${config.title} updated successfully`;
-              messageService.addSuccess(message);
+              messageManager.addSuccess(message);
               patchState(store, {
                 update: {
                   ...store.update(),
@@ -203,7 +203,7 @@ export function createCrudSignalStore<Query, Request, Response>(
             },
             error: ({ error }: { error: any }) => {
               const message = formatErrorMessage(error);
-              messageService.addError(message);
+              messageManager.addError(message);
               patchState(store, {
                 update: { ...store.update(), message, tool, status: OperationStatus.Failure },
               });
@@ -214,7 +214,7 @@ export function createCrudSignalStore<Query, Request, Response>(
         loadDelete(query: string, tool?: NuToolModel) {
           if (!query) {
             const message = $localize`ID of ${config.title} is required`;
-            messageService.addError(message);
+            messageManager.addError(message);
             patchState(store, {
               delete: { ...store.delete(), message, status: OperationStatus.Failure },
             });
@@ -227,7 +227,7 @@ export function createCrudSignalStore<Query, Request, Response>(
           rest.delete(query).subscribe({
             next: () => {
               const message = $localize`${config.title} deleted successfully`;
-              messageService.addSuccess(message);
+              messageManager.addSuccess(message);
               patchState(store, {
                 delete: {
                   ...store.delete(),
@@ -240,7 +240,7 @@ export function createCrudSignalStore<Query, Request, Response>(
             },
             error: ({ error }: { error: any }) => {
               const message = formatErrorMessage(error);
-              messageService.addError(message);
+              messageManager.addError(message);
               patchState(store, {
                 delete: { ...store.delete(), message, tool, status: OperationStatus.Failure },
               });

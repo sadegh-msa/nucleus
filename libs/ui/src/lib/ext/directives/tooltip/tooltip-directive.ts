@@ -13,7 +13,7 @@ import {
   untracked,
 } from '@angular/core';
 import type { PopoverModel, TriggerEventModel } from '../../models';
-import { PopoverService } from '../../services';
+import { PopoverBuilder } from '../../services/popover-builder';
 import type { FabPlacement } from '../../types';
 
 @Directive({
@@ -23,7 +23,7 @@ export class TooltipDirective implements OnDestroy {
   readonly #injector = inject(Injector);
   readonly #renderer = inject(Renderer2);
   readonly #elementRef = inject(ElementRef);
-  readonly #popoverService = inject(PopoverService);
+  readonly #popoverBuilder = inject(PopoverBuilder);
 
   readonly #CSS_CLASS_TOOLTIP = 'tooltip';
 
@@ -95,9 +95,9 @@ export class TooltipDirective implements OnDestroy {
         }
 
         if (visible) {
-          this.#popoverService.showPopover(this.tooltipElement);
+          this.#popoverBuilder.showPopover(this.tooltipElement);
         } else {
-          this.#popoverService.hidePopover(this.tooltipElement);
+          this.#popoverBuilder.hidePopover(this.tooltipElement);
         }
 
         if (disabled) {
@@ -121,7 +121,7 @@ export class TooltipDirective implements OnDestroy {
       this.#renderer.removeChild(parentNode, this.tooltipElement);
     }
 
-    const { popoverElement, cleanUpElementObservers } = this.#popoverService.render(
+    const { popoverElement, cleanUpElementObservers } = this.#popoverBuilder.render(
       this.#injector,
       this.#TRIGGER_EVENT,
       this.popover(),
@@ -138,7 +138,7 @@ export class TooltipDirective implements OnDestroy {
       this.#renderTooltip();
     }
 
-    this.#cleanUpTriggerListener = this.#popoverService.handleTriggerEvents(
+    this.#cleanUpTriggerListener = this.#popoverBuilder.handleTriggerEvents(
       this.#injector,
       this.#TRIGGER_EVENT,
       this.popover(),

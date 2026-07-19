@@ -4,13 +4,13 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { OperationStatus } from '@nucleus/common';
 import { injectAuthStore } from '@nucleus/core';
-import { type NuLangDir, NuLocaleService } from '@nucleus/l10n';
-import { PanelComponent, PanelService } from '@nucleus/panel';
+import { LocaleUtils, type NuLangDir } from '@nucleus/l10n';
+import { PanelComponent, PanelManager } from '@nucleus/panel';
 import {
   type MenuItemModel,
   MenuItemsComponent,
   MessageComponent,
-  MessageService,
+  MessageManager,
 } from '@nucleus/ui';
 import { ConfirmationService } from 'primeng/api';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
@@ -34,9 +34,9 @@ import { navMainMenu } from './app.menu';
 export class AppComponent {
   readonly #authStore = injectAuthStore();
   readonly #confirmationService = inject(ConfirmationService);
-  readonly #panelService = inject(PanelService);
-  readonly #localeService = inject(NuLocaleService);
-  readonly #messageService = inject(MessageService);
+  readonly #panelManager = inject(PanelManager);
+  readonly #localeUtils = inject(LocaleUtils);
+  readonly #messageManager = inject(MessageManager);
 
   readonly navMainMenu = navMainMenu;
   readonly navFooterMenu = [
@@ -52,7 +52,7 @@ export class AppComponent {
   readonly isUserAuthenticated = signal(false);
   readonly showLoading = signal(false);
   readonly htmlDir = signal<NuLangDir>('ltr');
-  readonly navExtent = this.#panelService.navExtent;
+  readonly navExtent = this.#panelManager.navExtent;
 
   constructor() {
     this.#handleEvents();
@@ -61,9 +61,9 @@ export class AppComponent {
       const dir = this.htmlDir();
 
       untracked(() => {
-        this.#localeService.setDir(dir);
+        this.#localeUtils.setDir(dir);
 
-        this.#messageService.add({
+        this.#messageManager.add({
           variant: 'info',
           title: 'Direction',
           content: dir.toUpperCase(),

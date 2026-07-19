@@ -1,12 +1,12 @@
 import { type ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideUiConfig } from '../../providers';
-import { MessageService } from '../../services';
+import { MessageManager } from '../../services/message-manager';
 import { MessageComponent } from './message.component';
 
 describe('MessageComponent', () => {
   let component: MessageComponent;
   let fixture: ComponentFixture<MessageComponent>;
-  let messageService: MessageService;
+  let messageService: MessageManager;
 
   const mockConfig = {
     icon: { dir: 'icons' },
@@ -22,7 +22,7 @@ describe('MessageComponent', () => {
 
     fixture = TestBed.createComponent(MessageComponent);
     component = fixture.componentInstance;
-    messageService = TestBed.inject(MessageService);
+    messageService = TestBed.inject(MessageManager);
     fixture.detectChanges();
   });
 
@@ -34,7 +34,7 @@ describe('MessageComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should expose messages from MessageService', () => {
+  it('should expose messages from Message', () => {
     expect(component.messages).toBe(messageService.messages);
   });
 

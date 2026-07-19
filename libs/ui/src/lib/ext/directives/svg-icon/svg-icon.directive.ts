@@ -14,7 +14,7 @@ import {
   untracked,
 } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
-import { OperationStatus, sleepRandom, TemporaryStorageService } from '@nucleus/common';
+import { OperationStatus, sleepRandom, TemporaryStorage } from '@nucleus/common';
 import { injectUiConfig } from '../../providers';
 import type { IconVariant } from '../../types';
 
@@ -29,7 +29,7 @@ export class SvgIconDirective implements OnInit, OnDestroy {
   readonly #renderer = inject(Renderer2);
   readonly #elementRef = inject(ElementRef);
   readonly #uiConfig = injectUiConfig();
-  readonly #temporaryStorageService = inject(TemporaryStorageService);
+  readonly #temporaryStorage = inject(TemporaryStorage);
 
   readonly #DEFAULT_VARIANT: IconVariant = 'outline';
   readonly #STORAGE_KEY = 'uiSvgIcon';
@@ -55,12 +55,12 @@ export class SvgIconDirective implements OnInit, OnDestroy {
       }
 
       const storageKey = `${this.#STORAGE_KEY}.${params.variant}.${params.icon}`;
-      let cachedSvg = this.#temporaryStorageService.getItem(storageKey)?.trim();
+      let cachedSvg = this.#temporaryStorage.getItem(storageKey)?.trim();
 
       let retrying = 0;
 
       while (cachedSvg === OperationStatus.Initial && retrying <= this.#RETRYING_TIMES) {
-        cachedSvg = this.#temporaryStorageService.getItem(storageKey)?.trim();
+        cachedSvg = this.#temporaryStorage.getItem(storageKey)?.trim();
         await sleepRandom();
         retrying++;
       }
@@ -69,13 +69,13 @@ export class SvgIconDirective implements OnInit, OnDestroy {
         return cachedSvg;
       }
 
-      this.#temporaryStorageService.setItem(storageKey, OperationStatus.Initial);
+      this.#temporaryStorage.setItem(storageKey, OperationStatus.Initial);
       const url = this.#createIconUrl(params.variant, params.icon);
       const response = await fetch(url);
 
       if (response.ok) {
         const rawSvg = await response.text();
-        this.#temporaryStorageService.setItem(storageKey, rawSvg);
+        this.#temporaryStorage.setItem(storageKey, rawSvg);
 
         return rawSvg;
       }

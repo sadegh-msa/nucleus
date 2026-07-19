@@ -2,8 +2,8 @@ import { Component, effect, inject, input, type OnInit, untracked } from '@angul
 import { DataType } from '@nucleus/common';
 import {
   createTableToolbar,
+  GenericListBuilder,
   GenericListComponent,
-  GenericListService,
   GenericListToolbarComponent,
   type NuTableModel,
 } from '@nucleus/core';
@@ -16,10 +16,10 @@ import { SampleStore } from '../../store/sample.store';
   selector: 'app-sample-list',
   templateUrl: './sample-list.component.html',
   imports: [GenericListComponent, GenericListToolbarComponent],
-  providers: [GenericListService],
+  providers: [GenericListBuilder],
 })
 export class SampleListComponent implements OnInit, GenericSampleListModel {
-  readonly #genericListService = inject(GenericListService<SampleGenericModel>);
+  readonly #genericListBuilder = inject(GenericListBuilder<SampleGenericModel>);
 
   isEmbedded = input(false);
 
@@ -58,7 +58,7 @@ export class SampleListComponent implements OnInit, GenericSampleListModel {
   filteredData: SampleListModel = [];
 
   constructor() {
-    this.#genericListService.init(this);
+    this.#genericListBuilder.init(this);
 
     effect(() => {
       this.data();
@@ -70,7 +70,7 @@ export class SampleListComponent implements OnInit, GenericSampleListModel {
   }
 
   ngOnInit() {
-    this.#genericListService.run();
+    this.#genericListBuilder.run();
   }
 
   updateFilteredData() {

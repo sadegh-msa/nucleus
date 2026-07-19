@@ -4,7 +4,7 @@ import { provideRouter } from '@angular/router';
 import { provideNuCommonConfig } from '@nucleus/common';
 import { provideUiConfig } from '@nucleus/ui';
 import { MOCK_NU_COMMON_CONFIG, MOCK_UI_CONFIG, setupGlobalMocks } from '@test-mocks';
-import { AuthTokenService } from '../../../../ext/auth/services/auth-token.service';
+import { AuthToken } from '../../../../ext/auth/services/auth-token';
 import { SignLayoutComponent } from './sign-layout.component';
 
 setupGlobalMocks();
@@ -21,7 +21,7 @@ describe('SignLayoutComponent', () => {
         provideNuCommonConfig(MOCK_NU_COMMON_CONFIG),
         provideUiConfig(MOCK_UI_CONFIG),
         {
-          provide: AuthTokenService,
+          provide: AuthToken,
           useValue: { isAuthenticated: jest.fn().mockReturnValue(false) },
         },
       ],

@@ -5,7 +5,7 @@ import { OperationStatus, provideNuCommonConfig } from '@nucleus/common';
 import { provideUiConfig } from '@nucleus/ui';
 import { MOCK_NU_COMMON_CONFIG, MOCK_UI_CONFIG, setupGlobalMocks } from '@test-mocks';
 import { provideAuthConfig } from '../providers/auth-config.provider';
-import { AuthRestService } from '../services/auth-rest.service';
+import { AuthRest } from '../services/auth-rest';
 import { injectAuthStore, provideAuthStore } from './auth.store';
 
 setupGlobalMocks();
@@ -23,7 +23,7 @@ describe('AuthStore', () => {
         provideAuthConfig({ rememberMeExpiry: 60 }),
         provideNuCommonConfig(MOCK_NU_COMMON_CONFIG),
         provideUiConfig(MOCK_UI_CONFIG),
-        AuthRestService,
+        AuthRest,
       ],
     });
 

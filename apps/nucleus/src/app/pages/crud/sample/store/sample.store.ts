@@ -2,19 +2,19 @@ import { inject } from '@angular/core';
 import { createCrudSignalStore } from '@nucleus/core';
 import type { SampleListModel, SampleModel, SampleUpdateModel } from '../models/sample.model';
 import { sampleConfig } from '../sample.config';
-import { SampleRestService } from '../services/sample-rest.service';
+import { SampleRest } from '../services/sample-rest';
 
 export const SampleStore = createCrudSignalStore<SampleListModel, SampleUpdateModel, SampleModel>(
   { title: sampleConfig.info.title },
   () => {
-    const sampleRestService = inject(SampleRestService);
+    const sampleRest = inject(SampleRest);
 
     return {
-      list: sampleRestService.list,
-      get: sampleRestService.get,
-      add: sampleRestService.add,
-      update: sampleRestService.update,
-      delete: sampleRestService.delete,
+      list: sampleRest.list,
+      get: sampleRest.get,
+      add: sampleRest.add,
+      update: sampleRest.update,
+      delete: sampleRest.delete,
     };
   },
 );

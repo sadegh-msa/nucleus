@@ -14,7 +14,7 @@ import {
   untracked,
 } from '@angular/core';
 import type { PopoverModel, TriggerEventModel } from '../../models';
-import { PopoverService } from '../../services';
+import { PopoverBuilder } from '../../services/popover-builder';
 import type { FabPlacement } from '../../types';
 
 @Directive({
@@ -24,7 +24,7 @@ export class PopoverDirective implements OnDestroy {
   readonly #injector = inject(Injector);
   readonly #renderer = inject(Renderer2);
   readonly #elementRef = inject(ElementRef);
-  readonly #popoverService = inject(PopoverService);
+  readonly #popoverBuilder = inject(PopoverBuilder);
 
   content = input.required<PopoverModel['content']>({ alias: 'uiPopover' });
   templateData = input<unknown>({}, { alias: 'uiPopoverData' });
@@ -99,9 +99,9 @@ export class PopoverDirective implements OnDestroy {
         }
 
         if (visible) {
-          this.#popoverService.showPopover(this.popoverElement);
+          this.#popoverBuilder.showPopover(this.popoverElement);
         } else {
-          this.#popoverService.hidePopover(this.popoverElement);
+          this.#popoverBuilder.hidePopover(this.popoverElement);
         }
 
         if (disabled) {
@@ -128,7 +128,7 @@ export class PopoverDirective implements OnDestroy {
       this.#renderer.removeChild(parentNode, this.popoverElement);
     }
 
-    const { popoverElement, cleanUpElementObservers } = this.#popoverService.render(
+    const { popoverElement, cleanUpElementObservers } = this.#popoverBuilder.render(
       this.#injector,
       this.triggerEvent(),
       this.popover(),
@@ -145,7 +145,7 @@ export class PopoverDirective implements OnDestroy {
       this.#renderPopover();
     }
 
-    this.#cleanUpTriggerListener = this.#popoverService.handleTriggerEvents(
+    this.#cleanUpTriggerListener = this.#popoverBuilder.handleTriggerEvents(
       this.#injector,
       this.triggerEvent(),
       this.popover(),

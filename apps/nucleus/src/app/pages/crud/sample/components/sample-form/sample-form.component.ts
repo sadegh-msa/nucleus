@@ -1,7 +1,7 @@
 import { NgClass } from '@angular/common';
 import { Component, inject, input, type OnInit } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { GenericFormService, GenericFormToolbarComponent, PageType } from '@nucleus/core';
+import { GenericFormBuilder, GenericFormToolbarComponent, PageType } from '@nucleus/core';
 import { CalendarComponent, ShowLoadingComponent } from '@nucleus/ui';
 import { SampleStatus } from '../../enums/sample-status.enum';
 import type { SampleTypedFormModel } from '../../models/sample.model';
@@ -19,10 +19,10 @@ import { SampleStore } from '../../store/sample.store';
     GenericFormToolbarComponent,
     CalendarComponent,
   ],
-  providers: [GenericFormService],
+  providers: [GenericFormBuilder],
 })
 export class SampleFormComponent implements OnInit, GenericSampleFormModel {
-  readonly #genericFormService = inject(GenericFormService<SampleGenericModel>);
+  readonly #genericFormBuilder = inject(GenericFormBuilder<SampleGenericModel>);
 
   pageType = input(PageType.View);
   id = input('');
@@ -53,10 +53,10 @@ export class SampleFormComponent implements OnInit, GenericSampleFormModel {
   navigationState: GenericSampleFormModel['navigationState'];
 
   constructor() {
-    this.#genericFormService.init(this);
+    this.#genericFormBuilder.init(this);
   }
 
   ngOnInit() {
-    this.#genericFormService.run();
+    this.#genericFormBuilder.run();
   }
 }

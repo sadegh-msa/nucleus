@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { type ComponentFixture, TestBed } from '@angular/core/testing';
-import { NuDateService } from '../services';
+import { DateUtils } from '../services/date-utils';
 import { NuDatePipe } from './date.pipe';
 
 @Component({
@@ -14,7 +14,7 @@ class HostComponent {
 
 describe('NuDatePipe', () => {
   let fixture: ComponentFixture<HostComponent>;
-  let dateService: jest.Mocked<NuDateService>;
+  let dateService: jest.Mocked<DateUtils>;
 
   beforeEach(async () => {
     const mock = {
@@ -25,10 +25,10 @@ describe('NuDatePipe', () => {
     };
     await TestBed.configureTestingModule({
       imports: [HostComponent],
-      providers: [{ provide: NuDateService, useValue: mock }],
+      providers: [{ provide: DateUtils, useValue: mock }],
     }).compileComponents();
     fixture = TestBed.createComponent(HostComponent);
-    dateService = TestBed.inject(NuDateService) as any;
+    dateService = TestBed.inject(DateUtils) as any;
   });
 
   it('should create', () => expect(fixture.componentInstance).toBeTruthy());
