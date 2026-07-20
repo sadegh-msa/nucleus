@@ -2,7 +2,7 @@ import { NgClass } from '@angular/common';
 import { Component, inject, input, type OnInit } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { GenericFormBuilder, GenericFormToolbar, PageType } from '@nucleus/core/crud';
-import { Calendar, Loading } from '@nucleus/ui';
+import { UiCalendar, UiLoading } from '@nucleus/ui';
 import { SampleStatus } from '../../enums/sample-status.enum';
 import type { SampleTypedFormModel } from '../../models/sample.model';
 import type { GenericSampleFormModel, SampleGenericModel } from '../../models/sample-generic.model';
@@ -15,9 +15,9 @@ import { SampleStore } from '../../store/sample.store';
   imports: [
     ReactiveFormsModule,
     NgClass,
-    Loading,
+    UiLoading,
     GenericFormToolbar,
-    Calendar,
+    UiCalendar,
   ],
   providers: [GenericFormBuilder],
 })

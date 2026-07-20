@@ -1,4 +1,4 @@
-export interface MessageModel {
+export interface UiMessageModel {
   variant: 'info' | 'danger' | 'warning' | 'success';
   content: string;
   title?: string;

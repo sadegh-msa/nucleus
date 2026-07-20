@@ -1,11 +1,11 @@
 import { type ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideRouter } from '@angular/router';
 import { provideUiConfig } from '../../providers';
-import { MenuItems } from './menu-items';
+import { UiMenuItems } from './menu-items';
 
-describe('MenuItems', () => {
-  let component: MenuItems;
-  let fixture: ComponentFixture<MenuItems>;
+describe('UiMenuItems', () => {
+  let component: UiMenuItems;
+  let fixture: ComponentFixture<UiMenuItems>;
 
   const mockConfig = {
     icon: { dir: 'icons' },
@@ -20,11 +20,11 @@ describe('MenuItems', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [MenuItems],
+      imports: [UiMenuItems],
       providers: [provideRouter([]), provideUiConfig(mockConfig)],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(MenuItems);
+    fixture = TestBed.createComponent(UiMenuItems);
     component = fixture.componentInstance;
     fixture.componentRef.setInput('uiMenuItems', mockItems);
     fixture.detectChanges();

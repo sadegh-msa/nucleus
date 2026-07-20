@@ -11,7 +11,7 @@ import { RouterLink } from '@angular/router';
 import { OperationStatus } from '@nucleus/common';
 import {
   CheckboxDirective,
-  FormField,
+  UiFormField,
   InputPasswordDirective,
   SvgIconDirective,
 } from '@nucleus/ui';
@@ -28,7 +28,7 @@ import { SignLayout } from '../sign-layout/sign-layout';
     SignLayout,
     RouterLink,
     FormsModule,
-    FormField,
+    UiFormField,
     CheckboxDirective,
     InputPasswordDirective,
     SvgIconDirective,

@@ -6,7 +6,7 @@ import { ConfirmationService } from 'primeng/api';
 import { ConfirmPopupModule } from 'primeng/confirmpopup';
 import { AuthPermissionDirective } from '../../../auth';
 import { ToolElement } from '../../enums/toolbar.enum';
-import type { NuToolbarModel, NuToolModel } from '../../models/toolbar.model';
+import type { ToolbarModel, ToolModel } from '../../models/toolbar.model';
 
 @Component({
   selector: 'nu-generic-toolbar',
@@ -25,9 +25,9 @@ export class GenericToolbar {
 
   readonly ToolElement = ToolElement;
 
-  toolbar = input.required<NuToolbarModel>();
+  toolbar = input.required<ToolbarModel>();
 
-  runCommand(targetElement: HTMLButtonElement, tool: NuToolModel) {
+  runCommand(targetElement: HTMLButtonElement, tool: ToolModel) {
     if (!tool.confirm) {
       tool.command();
       return;

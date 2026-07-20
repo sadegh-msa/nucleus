@@ -5,7 +5,7 @@ import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { GenericToolbar } from '../../components/generic-toolbar/generic-toolbar'; // Possibility of circular dependency
 import { infoFieldsDefault } from '../../defaults/info-fields.default';
 import type { InfoFieldModel } from '../../models/info.model';
-import type { NuToolbarModel } from '../../models/toolbar.model';
+import type { ToolbarModel } from '../../models/toolbar.model';
 import { InfoFields } from '../info-fields/info-fields';
 
 @Component({
@@ -22,5 +22,5 @@ import { InfoFields } from '../info-fields/info-fields';
 export class GenericFormToolbar {
   infoFields = input<InfoFieldModel[][]>(infoFieldsDefault);
   data = input<any>(null);
-  toolbar = input.required<NuToolbarModel>();
+  toolbar = input.required<ToolbarModel>();
 }

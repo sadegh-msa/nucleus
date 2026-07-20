@@ -2,19 +2,19 @@ import { ChangeDetectorRef, signal } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import type { ControlValueAccessor } from '@angular/forms';
 import type { GenericToggleConsumerModel, ToggleValueModel } from '../models/toggle.model';
-import { ToggleValueAccessor } from './toggle-value-accessor';
+import { UiToggleValueAccessor } from './toggle-value-accessor';
 
-describe('ToggleValueAccessor', () => {
-  let service: ToggleValueAccessor;
+describe('UiToggleValueAccessor', () => {
+  let service: UiToggleValueAccessor;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [
-        ToggleValueAccessor,
+        UiToggleValueAccessor,
         { provide: ChangeDetectorRef, useValue: { markForCheck: jest.fn() } },
       ],
     });
-    service = TestBed.inject(ToggleValueAccessor);
+    service = TestBed.inject(UiToggleValueAccessor);
   });
 
   it('should be created', () => {

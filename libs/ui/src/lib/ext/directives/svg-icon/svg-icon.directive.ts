@@ -16,7 +16,7 @@ import {
 import { DomSanitizer } from '@angular/platform-browser';
 import { OperationStatus, sleepRandom, TemporaryStorage } from '@nucleus/common';
 import { injectUiConfig } from '../../providers';
-import type { IconVariant } from '../../types';
+import type { UiIconVariant } from '../../types';
 
 @Directive({
   selector: 'svg[uiSvgIcon]',
@@ -31,7 +31,7 @@ export class SvgIconDirective implements OnInit, OnDestroy {
   readonly #uiConfig = injectUiConfig();
   readonly #temporaryStorage = inject(TemporaryStorage);
 
-  readonly #DEFAULT_VARIANT: IconVariant = 'outline';
+  readonly #DEFAULT_VARIANT: UiIconVariant = 'outline';
   readonly #STORAGE_KEY = 'uiSvgIcon';
   readonly #RETRYING_TIMES = 10;
 
@@ -85,7 +85,7 @@ export class SvgIconDirective implements OnInit, OnDestroy {
   });
 
   icon = input.required<string>({ alias: 'uiSvgIcon' });
-  inputVariant = input<IconVariant | undefined>(undefined, { alias: 'variant' });
+  inputVariant = input<UiIconVariant | undefined>(undefined, { alias: 'variant' });
   generateId = input(false, { transform: booleanAttribute });
 
   readonly #isInViewport = signal(false);
@@ -123,7 +123,7 @@ export class SvgIconDirective implements OnInit, OnDestroy {
     this.#intersectionObserver.disconnect();
   }
 
-  #createIconUrl(variant: IconVariant, icon: string) {
+  #createIconUrl(variant: UiIconVariant, icon: string) {
     const iconDir = this.#uiConfig.icon.dir;
     return `${iconDir}/${variant}/${icon}.svg`;
   }

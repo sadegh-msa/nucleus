@@ -1,5 +1,5 @@
 import { TestBed } from '@angular/core/testing';
-import { MessageManager } from '@nucleus/ui';
+import { UiMessageManager } from '@nucleus/ui';
 import { AuthToken } from '../services/auth-token';
 import { AuthInterceptor } from './auth.interceptor';
 
@@ -25,7 +25,7 @@ describe('AuthInterceptor', () => {
     TestBed.configureTestingModule({
       providers: [
         AuthInterceptor,
-        { provide: MessageManager, useValue: mockMessage },
+        { provide: UiMessageManager, useValue: mockMessage },
         { provide: AuthToken, useValue: mockAuthToken },
       ],
     });

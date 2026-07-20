@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { CssSupport } from './css-support';
+import { UiCssSupport } from './css-support';
 
-describe('CssSupport', () => {
-  let service: CssSupport;
+describe('UiCssSupport', () => {
+  let service: UiCssSupport;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(CssSupport);
+    service = TestBed.inject(UiCssSupport);
   });
 
   it('should be created', () => {

@@ -14,8 +14,8 @@ import { AuthPermissionDirective } from '../../../auth';
 import { infoFieldsDefault } from '../../defaults/info-fields.default';
 import { ToolElement } from '../../enums/toolbar.enum';
 import type { InfoFieldModel } from '../../models/info.model';
-import type { NuTableModel } from '../../models/table.model';
-import type { NuToolModel } from '../../models/toolbar.model';
+import type { TableModel } from '../../models/table.model';
+import type { ToolModel } from '../../models/toolbar.model';
 import { FieldValue } from '../field-value/field-value';
 import { InfoFields } from '../info-fields/info-fields';
 
@@ -50,7 +50,7 @@ export class GenericList {
   idField = input<string>('id');
   selectionMode = input<'single' | 'multiple' | null>(null);
   isActivatable = input(false);
-  table = input<NuTableModel>({ columns: [], tools: [] });
+  table = input<TableModel>({ columns: [], tools: [] });
   showLoading = input(false);
   firstRow = input(0);
   activatedRow = input<any>();
@@ -80,7 +80,7 @@ export class GenericList {
       .subscribe((row) => this.activated.set(row));
   }
 
-  runCommand(targetElement: HTMLButtonElement, tool: NuToolModel, row: any) {
+  runCommand(targetElement: HTMLButtonElement, tool: ToolModel, row: any) {
     if (!tool.confirm) {
       tool.command(row);
       return;

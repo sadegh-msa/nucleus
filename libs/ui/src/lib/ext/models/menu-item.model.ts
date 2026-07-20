@@ -1,18 +1,18 @@
 import type { NgClass, NgStyle } from '@angular/common';
 import type { RouterLink } from '@angular/router';
-import type { FabPlacement, IconVariant } from '../types';
+import type { UiIconVariant, UiPlacement } from '../types';
 
-export interface MenuItemModel {
+export interface UiMenuItemModel {
   id?: string;
   htmlLabel?: string;
   label?: string;
   labelNgStyle?: NgStyle['ngStyle'];
   labelNgClass?: NgClass['ngClass'];
   tooltip?: string;
-  tooltipPlacement?: FabPlacement;
-  submenuPlacement?: FabPlacement;
+  tooltipPlacement?: UiPlacement;
+  submenuPlacement?: UiPlacement;
   icon?: string;
-  iconVariant?: IconVariant;
+  iconVariant?: UiIconVariant;
   iconGenerateId?: boolean;
   iconNgStyle?: NgStyle['ngStyle'];
   iconNgClass?: NgClass['ngClass'];
@@ -24,11 +24,11 @@ export interface MenuItemModel {
   routerLink?: RouterLink['routerLink'];
   permission?: string;
   expanded?: boolean;
-  children?: MenuItemModel[];
+  children?: UiMenuItemModel[];
   size?: number;
   isActive?: boolean;
-  active?: MenuItemModel;
-  original?: MenuItemModel;
+  active?: UiMenuItemModel;
+  original?: UiMenuItemModel;
   divider?: boolean;
 
   command?(...args: unknown[]): unknown;

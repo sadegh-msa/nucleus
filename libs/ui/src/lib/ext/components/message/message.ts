@@ -1,6 +1,6 @@
 import { KeyValuePipe } from '@angular/common';
 import { Component, inject } from '@angular/core';
-import { MessageManager } from '../../services/message-manager';
+import { UiMessageManager } from '../../services/message-manager';
 
 @Component({
   selector: 'ui-message',
@@ -10,8 +10,8 @@ import { MessageManager } from '../../services/message-manager';
     class: 'ui messages',
   },
 })
-export class Message {
-  readonly #messageManager = inject(MessageManager);
+export class UiMessage {
+  readonly #uiMessageManager = inject(UiMessageManager);
 
-  readonly messages = this.#messageManager.messages;
+  readonly messages = this.#uiMessageManager.messages;
 }

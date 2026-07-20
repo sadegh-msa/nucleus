@@ -1,11 +1,11 @@
 import type { TemplateRef, WritableSignal } from '@angular/core';
-import type { FabPlacement } from '../types';
+import type { UiPlacement } from '../types';
 
-export interface PopoverModel {
+export interface UiPopoverModel {
   content: string | TemplateRef<unknown> | null | undefined;
   templateData?: unknown;
   styleClass: string;
-  placement: FabPlacement;
+  placement: UiPlacement;
   hasBubble: boolean;
   hasArrow: boolean;
   hasClose: boolean;

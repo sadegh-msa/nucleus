@@ -1,16 +1,16 @@
 import { type ComponentFixture, TestBed } from '@angular/core/testing';
-import { Toggle } from './toggle';
+import { UiToggle } from './toggle';
 
 describe('InputDate', () => {
-  let component: Toggle;
-  let fixture: ComponentFixture<Toggle>;
+  let component: UiToggle;
+  let fixture: ComponentFixture<UiToggle>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [Toggle],
+      imports: [UiToggle],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(Toggle);
+    fixture = TestBed.createComponent(UiToggle);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

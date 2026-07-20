@@ -13,9 +13,9 @@ import {
   Renderer2,
   untracked,
 } from '@angular/core';
-import type { PopoverModel, TriggerEventModel } from '../../models';
-import { PopoverBuilder } from '../../services/popover-builder';
-import type { FabPlacement } from '../../types';
+import type { TriggerEventModel, UiPopoverModel } from '../../models';
+import { UiPopoverBuilder } from '../../services/popover-builder';
+import type { UiPlacement } from '../../types';
 
 @Directive({
   selector: '[uiPopover]',
@@ -24,18 +24,18 @@ export class PopoverDirective implements OnDestroy {
   readonly #injector = inject(Injector);
   readonly #renderer = inject(Renderer2);
   readonly #elementRef = inject(ElementRef);
-  readonly #popoverBuilder = inject(PopoverBuilder);
+  readonly #uiPopoverBuilder = inject(UiPopoverBuilder);
 
-  content = input.required<PopoverModel['content']>({ alias: 'uiPopover' });
+  content = input.required<UiPopoverModel['content']>({ alias: 'uiPopover' });
   templateData = input<unknown>({}, { alias: 'uiPopoverData' });
   triggerEvent = input<TriggerEventModel>('click', { alias: 'uiPopoverEvent' });
-  placement = input<FabPlacement>('auto', { alias: 'uiPopoverPlacement' });
+  placement = input<UiPlacement>('auto', { alias: 'uiPopoverPlacement' });
   styleClass = input('text stamp fade-normal', { alias: 'uiPopoverStyleClass' });
   hasBubble = input(true, { alias: 'uiPopoverHasBubble', transform: booleanAttribute });
   hasArrow = input(true, { alias: 'uiPopoverHasArrow', transform: booleanAttribute });
   hasClose = input(false, { alias: 'uiPopoverHasClose', transform: booleanAttribute });
   closeDelay = input(0, { alias: 'uiPopoverCloseDelay' });
-  attachTo = input<PopoverModel['attachTo']>('body', { alias: 'uiPopoverAttachTo' });
+  attachTo = input<UiPopoverModel['attachTo']>('body', { alias: 'uiPopoverAttachTo' });
   disabled = input(false, { alias: 'uiPopoverDisabled', transform: booleanAttribute });
 
   visible = model(false, { alias: 'uiPopoverVisible' });
@@ -55,7 +55,7 @@ export class PopoverDirective implements OnDestroy {
         closeDelay: this.closeDelay(),
         attachTo: this.attachTo(),
         visible: this.visible,
-      }) as PopoverModel,
+      }) as UiPopoverModel,
   );
 
   popoverElement?: HTMLElement;
@@ -99,9 +99,9 @@ export class PopoverDirective implements OnDestroy {
         }
 
         if (visible) {
-          this.#popoverBuilder.showPopover(this.popoverElement);
+          this.#uiPopoverBuilder.showPopover(this.popoverElement);
         } else {
-          this.#popoverBuilder.hidePopover(this.popoverElement);
+          this.#uiPopoverBuilder.hidePopover(this.popoverElement);
         }
 
         if (disabled) {
@@ -128,7 +128,7 @@ export class PopoverDirective implements OnDestroy {
       this.#renderer.removeChild(parentNode, this.popoverElement);
     }
 
-    const { popoverElement, cleanUpElementObservers } = this.#popoverBuilder.render(
+    const { popoverElement, cleanUpElementObservers } = this.#uiPopoverBuilder.render(
       this.#injector,
       this.triggerEvent(),
       this.popover(),
@@ -145,7 +145,7 @@ export class PopoverDirective implements OnDestroy {
       this.#renderPopover();
     }
 
-    this.#cleanUpTriggerListener = this.#popoverBuilder.handleTriggerEvents(
+    this.#cleanUpTriggerListener = this.#uiPopoverBuilder.handleTriggerEvents(
       this.#injector,
       this.triggerEvent(),
       this.popover(),

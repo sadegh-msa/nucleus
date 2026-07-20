@@ -1,4 +1,4 @@
-export interface PasswordStrengthModel {
+export interface UiPasswordStrengthModel {
   medium: boolean;
   strong: boolean;
 }

@@ -1,9 +1,9 @@
 import { TestBed } from '@angular/core/testing';
 import { provideUiConfig } from '../providers';
-import { MessageManager } from './message-manager';
+import { UiMessageManager } from './message-manager';
 
-describe('MessageManager', () => {
-  let service: MessageManager;
+describe('UiMessageManager', () => {
+  let service: UiMessageManager;
 
   const mockConfig = {
     icon: { dir: 'icons' },
@@ -15,7 +15,7 @@ describe('MessageManager', () => {
     TestBed.configureTestingModule({
       providers: [provideUiConfig(mockConfig)],
     });
-    service = TestBed.inject(MessageManager);
+    service = TestBed.inject(UiMessageManager);
     jest.useFakeTimers();
   });
 

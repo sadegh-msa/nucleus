@@ -1,12 +1,12 @@
 import { type ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideUiConfig } from '../../providers';
-import { MessageManager } from '../../services/message-manager';
-import { Message } from './message';
+import { UiMessageManager } from '../../services/message-manager';
+import { UiMessage } from './message';
 
-describe('Message', () => {
-  let component: Message;
-  let fixture: ComponentFixture<Message>;
-  let messageService: MessageManager;
+describe('UiMessage', () => {
+  let component: UiMessage;
+  let fixture: ComponentFixture<UiMessage>;
+  let messageService: UiMessageManager;
 
   const mockConfig = {
     icon: { dir: 'icons' },
@@ -16,13 +16,13 @@ describe('Message', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [Message],
+      imports: [UiMessage],
       providers: [provideUiConfig(mockConfig)],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(Message);
+    fixture = TestBed.createComponent(UiMessage);
     component = fixture.componentInstance;
-    messageService = TestBed.inject(MessageManager);
+    messageService = TestBed.inject(UiMessageManager);
     fixture.detectChanges();
   });
 

@@ -6,12 +6,7 @@ import { OperationStatus } from '@nucleus/common';
 import { injectAuthStore } from '@nucleus/core/auth';
 import { LocaleUtils, type NuLangDir } from '@nucleus/l10n';
 import { Panel, PanelManager } from '@nucleus/panel';
-import {
-  type MenuItemModel,
-  MenuItems,
-  Message,
-  MessageManager,
-} from '@nucleus/ui';
+import { UiMenuItems, UiMessage, UiMessageManager, type UiMenuItemModel } from '@nucleus/ui';
 import { ConfirmationService } from 'primeng/api';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { navMainMenu } from './app.menu';
@@ -21,9 +16,9 @@ import { navMainMenu } from './app.menu';
     RouterModule,
     FormsModule,
     ConfirmDialogModule,
-    Message,
+    UiMessage,
     NgTemplateOutlet,
-    MenuItems,
+    UiMenuItems,
     NgClass,
     Panel,
   ],
@@ -36,7 +31,7 @@ export class App {
   readonly #confirmationService = inject(ConfirmationService);
   readonly #panelManager = inject(PanelManager);
   readonly #localeUtils = inject(LocaleUtils);
-  readonly #messageManager = inject(MessageManager);
+  readonly #uiMessageManager = inject(UiMessageManager);
 
   readonly navMainMenu = navMainMenu;
   readonly navFooterMenu = [
@@ -47,7 +42,7 @@ export class App {
       command: () => this.confirmSignOut(),
       permission: 'nucleus.menu.button.sign-out',
     },
-  ] as MenuItemModel[];
+  ] as UiMenuItemModel[];
 
   readonly isUserAuthenticated = signal(false);
   readonly showLoading = signal(false);
@@ -63,7 +58,7 @@ export class App {
       untracked(() => {
         this.#localeUtils.setDir(dir);
 
-        this.#messageManager.add({
+        this.#uiMessageManager.add({
           variant: 'info',
           title: 'Direction',
           content: dir.toUpperCase(),

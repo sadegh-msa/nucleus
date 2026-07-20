@@ -4,7 +4,7 @@ import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { PaginatorModule, type PaginatorState } from 'primeng/paginator';
 import { createRowsPerPageOptions } from '../../creators/pagination.creator';
 import type { PaginationModel } from '../../models/pagination.model';
-import type { NuToolbarModel } from '../../models/toolbar.model';
+import type { ToolbarModel } from '../../models/toolbar.model';
 import { GenericToolbar } from '../generic-toolbar/generic-toolbar';
 
 @Component({
@@ -17,7 +17,7 @@ export class GenericListToolbar {
 
   showPaginator = input(true);
   rowsPerPageOptions = input(createRowsPerPageOptions());
-  toolbar = input.required<NuToolbarModel>();
+  toolbar = input.required<ToolbarModel>();
   selectedRecords = input(0);
   pagination = model.required<PaginationModel>();
 

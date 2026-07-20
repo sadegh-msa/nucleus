@@ -1,11 +1,11 @@
 import type { NgClass } from '@angular/common';
 import type { Signal, WritableSignal } from '@angular/core';
 import type { Params } from '@angular/router';
-import type { IconVariant } from '@nucleus/ui';
+import type { UiIconVariant } from '@nucleus/ui';
 import type { Observable } from 'rxjs';
 import type { ToolElement, ToolType } from '../enums/toolbar.enum';
 
-export interface NuToolModel {
+export interface ToolModel {
   command: ($event?: unknown) => string | unknown[];
   permission: string;
   element: ToolElement;
@@ -14,7 +14,7 @@ export interface NuToolModel {
   label?: string;
   tooltip?: string;
   icon?: string;
-  iconVariant?: IconVariant;
+  iconVariant?: UiIconVariant;
   ngClass?: NgClass['ngClass'];
   confirm?: string;
   showLoading?: WritableSignal<boolean | number | string>;
@@ -26,12 +26,12 @@ export interface NuToolModel {
   id?: Signal<string>;
 }
 
-export interface NuToolEventModel {
-  tool: NuToolModel;
+export interface ToolEventModel {
+  tool: ToolModel;
   payload?: unknown;
 }
 
-export interface NuToolbarModel {
-  tools: NuToolModel[];
-  events$?: Observable<NuToolEventModel>;
+export interface ToolbarModel {
+  tools: ToolModel[];
+  events$?: Observable<ToolEventModel>;
 }

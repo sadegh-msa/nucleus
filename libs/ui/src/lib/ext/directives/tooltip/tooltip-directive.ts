@@ -12,9 +12,9 @@ import {
   Renderer2,
   untracked,
 } from '@angular/core';
-import type { PopoverModel, TriggerEventModel } from '../../models';
-import { PopoverBuilder } from '../../services/popover-builder';
-import type { FabPlacement } from '../../types';
+import type { TriggerEventModel, UiPopoverModel } from '../../models';
+import { UiPopoverBuilder } from '../../services/popover-builder';
+import type { UiPlacement } from '../../types';
 
 @Directive({
   selector: '[uiTooltip]',
@@ -23,17 +23,17 @@ export class TooltipDirective implements OnDestroy {
   readonly #injector = inject(Injector);
   readonly #renderer = inject(Renderer2);
   readonly #elementRef = inject(ElementRef);
-  readonly #popoverBuilder = inject(PopoverBuilder);
+  readonly #uiPopoverBuilder = inject(UiPopoverBuilder);
 
   readonly #CSS_CLASS_TOOLTIP = 'tooltip';
 
-  content = input.required<PopoverModel['content']>({ alias: 'uiTooltip' });
+  content = input.required<UiPopoverModel['content']>({ alias: 'uiTooltip' });
   templateData = input<unknown>({}, { alias: 'uiTooltipData' });
-  placement = input<FabPlacement>('auto', { alias: 'uiTooltipPlacement' });
+  placement = input<UiPlacement>('auto', { alias: 'uiTooltipPlacement' });
   styleClass = input('stamp fade-normal', { alias: 'uiTooltipStyleClass' });
   hasBubble = input(true, { alias: 'uiTooltipHasBubble', transform: booleanAttribute });
   hasArrow = input(true, { alias: 'uiTooltipArrow', transform: booleanAttribute });
-  attachTo = input<PopoverModel['attachTo']>('body', { alias: 'uiTooltipAttachTo' });
+  attachTo = input<UiPopoverModel['attachTo']>('body', { alias: 'uiTooltipAttachTo' });
   disabled = input(false, { alias: 'uiTooltipDisabled', transform: booleanAttribute });
 
   visible = model(false, { alias: 'uiTooltipVisible' });
@@ -53,7 +53,7 @@ export class TooltipDirective implements OnDestroy {
         closeDelay: 0,
         attachTo: this.attachTo(),
         visible: this.visible,
-      }) as PopoverModel,
+      }) as UiPopoverModel,
   );
 
   tooltipElement?: HTMLElement;
@@ -95,9 +95,9 @@ export class TooltipDirective implements OnDestroy {
         }
 
         if (visible) {
-          this.#popoverBuilder.showPopover(this.tooltipElement);
+          this.#uiPopoverBuilder.showPopover(this.tooltipElement);
         } else {
-          this.#popoverBuilder.hidePopover(this.tooltipElement);
+          this.#uiPopoverBuilder.hidePopover(this.tooltipElement);
         }
 
         if (disabled) {
@@ -121,7 +121,7 @@ export class TooltipDirective implements OnDestroy {
       this.#renderer.removeChild(parentNode, this.tooltipElement);
     }
 
-    const { popoverElement, cleanUpElementObservers } = this.#popoverBuilder.render(
+    const { popoverElement, cleanUpElementObservers } = this.#uiPopoverBuilder.render(
       this.#injector,
       this.#TRIGGER_EVENT,
       this.popover(),
@@ -138,7 +138,7 @@ export class TooltipDirective implements OnDestroy {
       this.#renderTooltip();
     }
 
-    this.#cleanUpTriggerListener = this.#popoverBuilder.handleTriggerEvents(
+    this.#cleanUpTriggerListener = this.#uiPopoverBuilder.handleTriggerEvents(
       this.#injector,
       this.#TRIGGER_EVENT,
       this.popover(),

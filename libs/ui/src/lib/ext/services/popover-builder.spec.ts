@@ -1,12 +1,12 @@
 import { TestBed } from '@angular/core/testing';
-import { PopoverBuilder } from './popover-builder';
+import { UiPopoverBuilder } from './popover-builder';
 
-describe('PopoverBuilder', () => {
-  let service: PopoverBuilder;
+describe('UiPopoverBuilder', () => {
+  let service: UiPopoverBuilder;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({ providers: [PopoverBuilder] });
-    service = TestBed.inject(PopoverBuilder);
+    TestBed.configureTestingModule({ providers: [UiPopoverBuilder] });
+    service = TestBed.inject(UiPopoverBuilder);
   });
 
   it('should be created', () => {

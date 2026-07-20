@@ -32,4 +32,4 @@ export const uiPlacement = [
   'block-end-inline-end',
   'block-end-corner-end',
 ] as const;
-export type FabPlacement = (typeof uiPlacement)[number];
+export type UiPlacement = (typeof uiPlacement)[number];

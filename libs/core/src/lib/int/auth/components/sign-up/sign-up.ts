@@ -2,7 +2,11 @@ import { Component, effect, signal, untracked } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { OperationStatus } from '@nucleus/common';
-import { InputPasswordDirective, type PasswordStrengthModel, SvgIconDirective } from '@nucleus/ui';
+import {
+  InputPasswordDirective,
+  SvgIconDirective,
+  type UiPasswordStrengthModel,
+} from '@nucleus/ui';
 import { authDefaultConfig } from '../../../../ext/auth/auth-default.config';
 import type { AuthSignUpFormModel, AuthSignUpModel } from '../../../../ext/auth/models/auth.model';
 import { injectAuthStore } from '../../../../ext/auth/store/auth.store';
@@ -11,13 +15,7 @@ import { SignLayout } from '../sign-layout/sign-layout';
 @Component({
   selector: 'nu-sign-up',
   templateUrl: './sign-up.html',
-  imports: [
-    RouterLink,
-    ReactiveFormsModule,
-    SignLayout,
-    InputPasswordDirective,
-    SvgIconDirective,
-  ],
+  imports: [RouterLink, ReactiveFormsModule, SignLayout, InputPasswordDirective, SvgIconDirective],
 })
 export class SignUp {
   readonly #authStore = injectAuthStore();
@@ -56,7 +54,7 @@ export class SignUp {
     } as AuthSignUpModel);
   }
 
-  onPasswordStrength(value: PasswordStrengthModel) {
+  onPasswordStrength(value: UiPasswordStrengthModel) {
     console.log(value);
   }
 }

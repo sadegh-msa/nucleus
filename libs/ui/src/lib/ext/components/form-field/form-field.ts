@@ -1,7 +1,7 @@
 import { KeyValuePipe } from '@angular/common';
 import { Component, input } from '@angular/core';
 import type { AbstractControl } from '@angular/forms';
-import type { FabPlacement } from '../../types';
+import type { UiPlacement } from '../../types';
 
 @Component({
   selector: 'ui-form-field',
@@ -11,11 +11,11 @@ import type { FabPlacement } from '../../types';
     '[class]': 'styleClass',
   },
 })
-export class FormField {
+export class UiFormField {
   inputId = input('');
   label = input<string>();
   help = input<string>();
-  helpPlacement = input<FabPlacement>('auto');
+  helpPlacement = input<UiPlacement>('auto');
   inputFormControl = input<AbstractControl<any> | null>(null);
   messages = input<Record<string, string>>({});
 

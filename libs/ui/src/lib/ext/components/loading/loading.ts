@@ -9,7 +9,7 @@ import { Component, input } from '@angular/core';
     '[class.nu-loading-fullscreen]': "loadingMode() === 'fullscreen'",
   },
 })
-export class Loading {
+export class UiLoading {
   loading = input<boolean>(false);
   loadingMode = input<'box' | 'fullscreen'>('box');
 }

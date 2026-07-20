@@ -1,9 +1,9 @@
 import type { NgClass } from '@angular/common';
 import type { DataType } from '@nucleus/common';
 import type { Observable } from 'rxjs';
-import type { NuToolEventModel, NuToolModel } from './toolbar.model';
+import type { ToolEventModel, ToolModel } from './toolbar.model';
 
-export interface NuTableColumnModel {
+export interface TableColumnModel {
   field: string;
   label: string;
   tooltip?: string;
@@ -13,8 +13,8 @@ export interface NuTableColumnModel {
   ngClass?: NgClass['ngClass'];
 }
 
-export interface NuTableModel {
-  columns: NuTableColumnModel[];
-  tools: NuToolModel[];
-  events$?: Observable<NuToolEventModel>;
+export interface TableModel {
+  columns: TableColumnModel[];
+  tools: ToolModel[];
+  events$?: Observable<ToolEventModel>;
 }

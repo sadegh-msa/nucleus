@@ -10,8 +10,8 @@ import type {
 import type { PageType } from '../enums/page.enum';
 import type { CrudConfigModel } from './crud-config.model';
 import type { PaginationModel } from './pagination.model';
-import type { NuTableModel } from './table.model';
-import type { NuToolbarModel, NuToolModel } from './toolbar.model';
+import type { TableModel } from './table.model';
+import type { ToolbarModel, ToolModel } from './toolbar.model';
 
 // eslint-disable-next-line
 type GenericTypedFormModel = any;
@@ -41,11 +41,11 @@ export interface CrudStoreModel {
   deleteResponse(): RestDeleteResponseModel;
 
   // Methods
-  loadList(query: RestListQueryModel, tool?: NuToolModel): void;
-  loadGet(query: string, tool?: NuToolModel): void;
-  loadAdd(request: GenericRequestModel, tool?: NuToolModel): void;
-  loadUpdate(query: string, request: GenericRequestModel, tool?: NuToolModel): void;
-  loadDelete(query: string, tool?: NuToolModel): void;
+  loadList(query: RestListQueryModel, tool?: ToolModel): void;
+  loadGet(query: string, tool?: ToolModel): void;
+  loadAdd(request: GenericRequestModel, tool?: ToolModel): void;
+  loadUpdate(query: string, request: GenericRequestModel, tool?: ToolModel): void;
+  loadDelete(query: string, tool?: ToolModel): void;
   getMutate(response: GenericResponseModel): void;
   resetList(): void;
   resetGet(): void;
@@ -88,8 +88,8 @@ export interface GenericListConsumerModel<T extends GenericEntityModel> {
   store: T['store'];
   config: Readonly<T['config']>;
   isEmbedded: InputSignal<boolean>;
-  toolbar: NuToolbarModel;
-  table: NuTableModel;
+  toolbar: ToolbarModel;
+  table: TableModel;
   data: WritableSignal<T['list']>;
   isDataLoading: WritableSignal<boolean>;
   pagination: WritableSignal<PaginationModel>;
@@ -102,7 +102,7 @@ export interface GenericFormConsumerModel<T extends GenericEntityModel> {
   id: InputSignal<string>;
   config: Readonly<T['config']>;
   isEmbedded: InputSignal<boolean>;
-  toolbar: NuToolbarModel;
+  toolbar: ToolbarModel;
   pageType: InputSignal<PageType>;
   form: FormGroup<T['typedForm']>;
   navigationState?: Record<string, unknown>;

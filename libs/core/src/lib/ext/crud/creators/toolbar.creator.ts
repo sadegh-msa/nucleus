@@ -4,18 +4,18 @@ import { type Observable, Subject } from 'rxjs';
 import { RouterStateKey } from '../enums/router-state.enum';
 import { ToolElement, ToolType } from '../enums/toolbar.enum';
 import type { GenericEntityModel } from '../models/generic.model';
-import type { NuToolbarModel, NuToolEventModel, NuToolModel } from '../models/toolbar.model';
+import type { ToolbarModel, ToolEventModel, ToolModel } from '../models/toolbar.model';
 
-type AddTools = Partial<Record<ToolType.Save | ToolType.Cancel, Partial<NuToolModel>>>;
-type ViewEditRequired = Required<Pick<NuToolModel, 'id' | 'routerStates'>>;
-type EditTools = Partial<Record<ToolType.Save, Partial<NuToolModel>>> &
+type AddTools = Partial<Record<ToolType.Save | ToolType.Cancel, Partial<ToolModel>>>;
+type ViewEditRequired = Required<Pick<ToolModel, 'id' | 'routerStates'>>;
+type EditTools = Partial<Record<ToolType.Save, Partial<ToolModel>>> &
   Record<ToolType.Cancel, ViewEditRequired>;
 type ViewTools = Partial<
-  Record<ToolType.Delete | ToolType.Refresh | ToolType.Back, Partial<NuToolModel>>
+  Record<ToolType.Delete | ToolType.Refresh | ToolType.Back, Partial<ToolModel>>
 > &
   Record<ToolType.Edit, ViewEditRequired>;
-type ListTools = Partial<Record<ToolType.Add | ToolType.Refresh, Partial<NuToolModel>>>;
-type TableTools = Partial<Record<ToolType.View | ToolType.Delete, Partial<NuToolModel>>>;
+type ListTools = Partial<Record<ToolType.Add | ToolType.Refresh, Partial<ToolModel>>>;
+type TableTools = Partial<Record<ToolType.View | ToolType.Delete, Partial<ToolModel>>>;
 
 const commonStyleClass = ['nu-tool', 'ui', 'button', 'medium'];
 const buttonStyleClass = {
@@ -172,8 +172,8 @@ const createTableDeleteTool = (toOverride = {}, toMerge = {}) =>
 export function createAddToolbar<T extends GenericEntityModel>(
   config: T['config'],
   tools?: AddTools,
-): NuToolbarModel {
-  const subject$ = new Subject<NuToolEventModel>();
+): ToolbarModel {
+  const subject$ = new Subject<ToolEventModel>();
   const saveTool = createSaveTool(
     {
       command: () => subject$.next({ tool: saveTool }),
@@ -199,8 +199,8 @@ export function createAddToolbar<T extends GenericEntityModel>(
 export function createEditToolbar<T extends GenericEntityModel>(
   config: T['config'],
   tools: EditTools,
-): NuToolbarModel {
-  const subject$ = new Subject<NuToolEventModel>();
+): ToolbarModel {
+  const subject$ = new Subject<ToolEventModel>();
   const saveTool = createSaveTool(
     {
       command: () => subject$.next({ tool: saveTool }),
@@ -225,8 +225,8 @@ export function createEditToolbar<T extends GenericEntityModel>(
 export function createViewToolbar<T extends GenericEntityModel>(
   config: T['config'],
   tools: ViewTools,
-): NuToolbarModel {
-  const subject$ = new Subject<NuToolEventModel>();
+): ToolbarModel {
+  const subject$ = new Subject<ToolEventModel>();
   const editTool = createEditTool(
     {
       command: () => config.path.page.edit(editTool.id()),
@@ -265,8 +265,8 @@ export function createViewToolbar<T extends GenericEntityModel>(
 export function createListToolbar<T extends GenericEntityModel>(
   config: T['config'],
   tools?: ListTools,
-): NuToolbarModel {
-  const subject$ = new Subject<NuToolEventModel>();
+): ToolbarModel {
+  const subject$ = new Subject<ToolEventModel>();
   const addTool = createAddTool(
     {
       command: () => config.path.page.add(),
@@ -291,10 +291,10 @@ export function createListToolbar<T extends GenericEntityModel>(
 export function createTableToolbar<T extends GenericEntityModel>(
   config: T['config'],
   tools?: TableTools,
-): { tools: NuToolModel[]; events$: Observable<NuToolEventModel> } {
+): { tools: ToolModel[]; events$: Observable<ToolEventModel> } {
   type Row = T['list'][0];
 
-  const subject$ = new Subject<NuToolEventModel>();
+  const subject$ = new Subject<ToolEventModel>();
   const getId = (row: Row) => row[config.field.id as keyof Row] as string;
   const viewAction = createTableViewTool(
     {

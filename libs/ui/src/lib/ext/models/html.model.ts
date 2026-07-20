@@ -1,4 +1,4 @@
-export interface ElementRectModel {
+export interface UiElementRectModel {
   top: number;
   left: number;
   height: number;

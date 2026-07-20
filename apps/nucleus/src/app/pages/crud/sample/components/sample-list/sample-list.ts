@@ -2,10 +2,10 @@ import { Component, effect, inject, input, type OnInit, untracked } from '@angul
 import { DataType } from '@nucleus/common';
 import {
   createTableToolbar,
-  GenericListBuilder,
   GenericList,
+  GenericListBuilder,
   GenericListToolbar,
-  type NuTableModel,
+  type TableModel,
 } from '@nucleus/core/crud';
 import type { SampleListModel, SampleModel } from '../../models/sample.model';
 import type { GenericSampleListModel, SampleGenericModel } from '../../models/sample-generic.model';
@@ -25,7 +25,7 @@ export class SampleList implements OnInit, GenericSampleListModel {
 
   readonly config = sampleConfig;
   readonly store = inject(SampleStore);
-  readonly table: NuTableModel = {
+  readonly table: TableModel = {
     columns: [
       { field: 'index', label: '#', tooltip: 'Index', type: DataType.Index },
       {

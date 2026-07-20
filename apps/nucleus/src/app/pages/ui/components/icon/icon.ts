@@ -1,6 +1,6 @@
 import { NgClass } from '@angular/common';
 import { Component } from '@angular/core';
-import { iconVariants, SvgIconDirective } from '@nucleus/ui';
+import { SvgIconDirective, uiIconVariants } from '@nucleus/ui';
 import { colors, sizes } from '../../shared/data';
 
 @Component({
@@ -12,5 +12,5 @@ import { colors, sizes } from '../../shared/data';
 export class Icon {
   readonly colors = colors;
   readonly sizes = sizes;
-  readonly variants = iconVariants;
+  readonly variants = uiIconVariants;
 }

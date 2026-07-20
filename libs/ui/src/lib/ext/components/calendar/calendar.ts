@@ -9,12 +9,12 @@ import { type ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angu
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => Calendar),
+      useExisting: forwardRef(() => UiCalendar),
       multi: true,
     },
   ],
 })
-export class Calendar implements ControlValueAccessor {
+export class UiCalendar implements ControlValueAccessor {
   value = signal<Date>(new Date());
   isDisabled = signal(false);
 

@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { HtmlUtils } from './html-utils';
+import { UiHtmlUtils } from './html-utils';
 
-describe('HtmlUtils', () => {
-  let service: HtmlUtils;
+describe('UiHtmlUtils', () => {
+  let service: UiHtmlUtils;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(HtmlUtils);
+    service = TestBed.inject(UiHtmlUtils);
   });
 
   it('should be created', () => {

@@ -11,7 +11,7 @@ import { PageType } from '../enums/page.enum';
 import { RouterStateKey } from '../enums/router-state.enum';
 import { ToolType } from '../enums/toolbar.enum';
 import type { GenericEntityModel, GenericFormConsumerModel } from '../models/generic.model';
-import type { NuToolbarModel, NuToolModel } from '../models/toolbar.model';
+import type { ToolbarModel, ToolModel } from '../models/toolbar.model';
 
 @Service({ autoProvided: false })
 export class GenericFormBuilder<T extends GenericEntityModel> {
@@ -174,7 +174,7 @@ export class GenericFormBuilder<T extends GenericEntityModel> {
         return { [RouterStateKey.Title]: data()[config.field.title as keyof T['full']] };
       }),
     };
-    let toolbar: NuToolbarModel = { tools: [] };
+    let toolbar: ToolbarModel = { tools: [] };
 
     switch (pageType()) {
       case PageType.Add:
@@ -215,7 +215,7 @@ export class GenericFormBuilder<T extends GenericEntityModel> {
     return toolbar;
   }
 
-  loadData(tool?: NuToolModel) {
+  loadData(tool?: ToolModel) {
     const { pageType, store, id, navigationState } = this.#consumer;
 
     if (pageType() === PageType.Add) {
@@ -231,27 +231,27 @@ export class GenericFormBuilder<T extends GenericEntityModel> {
     store.loadGet(id(), tool);
   }
 
-  add(tool?: NuToolModel) {
+  add(tool?: ToolModel) {
     const { form, config, store } = this.#consumer;
     const request = { ...form.value, [config.field.id]: undefined } as T['add'];
 
     store.loadAdd(request, tool);
   }
 
-  update(tool?: NuToolModel) {
+  update(tool?: ToolModel) {
     const { form, store, id } = this.#consumer;
     const request = form.value as T['update'];
 
     store.loadUpdate(id(), request, tool);
   }
 
-  delete(tool?: NuToolModel) {
+  delete(tool?: ToolModel) {
     const { store, id } = this.#consumer;
 
     store.loadDelete(id(), tool);
   }
 
-  save(tool?: NuToolModel) {
+  save(tool?: ToolModel) {
     const { isSubmitted, form, pageType } = this.#consumer;
 
     isSubmitted.set(true);

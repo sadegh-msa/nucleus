@@ -6,4 +6,4 @@ import { Component } from '@angular/core';
   templateUrl: './dropdown.html',
   styleUrl: './dropdown.scss',
 })
-export class Dropdown {}
+export class UiDropdown {}

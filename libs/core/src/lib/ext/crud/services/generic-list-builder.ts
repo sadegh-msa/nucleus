@@ -8,7 +8,7 @@ import { createListToolbar } from '../creators/toolbar.creator';
 import { ToolType } from '../enums/toolbar.enum';
 import type { GenericEntityModel, GenericListConsumerModel } from '../models/generic.model';
 import type { RestListResponseModel } from '../models/rest.model';
-import type { NuToolModel } from '../models/toolbar.model';
+import type { ToolModel } from '../models/toolbar.model';
 
 const DEFAULT_PAGE = 0;
 const DEFAULT_ROWS = 10;
@@ -152,11 +152,11 @@ export class GenericListBuilder<T extends GenericEntityModel> {
     return toolbar;
   }
 
-  loadData(tool?: NuToolModel) {
+  loadData(tool?: ToolModel) {
     this.#consumer.store.loadList({ ...this.#lastQuery } as any, tool);
   }
 
-  delete(tool: NuToolModel, id: string) {
+  delete(tool: ToolModel, id: string) {
     if (!tool.showLoading) {
       tool.showLoading = signal(false);
     }

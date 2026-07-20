@@ -9,10 +9,10 @@ import {
 } from '@angular/core';
 import type { SetTimeout } from '@nucleus/common';
 import { VisualObserver } from '../helpers/viz-observer';
-import type { PopoverModel, TriggerEventModel } from '../models';
+import type { TriggerEventModel, UiPopoverModel } from '../models';
 
 @Service()
-export class PopoverBuilder {
+export class UiPopoverBuilder {
   readonly #CSS = Object.freeze({
     VAR: {
       POPOVER: '--ui-popover',
@@ -52,7 +52,7 @@ export class PopoverBuilder {
       hasClose,
       attachTo,
       visible,
-    }: PopoverModel,
+    }: UiPopoverModel,
   ) {
     const document = injector.get(DOCUMENT);
     const renderer = injector.get(Renderer2);
@@ -208,7 +208,7 @@ export class PopoverBuilder {
   handleTriggerEvents(
     injector: Injector,
     triggerEvent: TriggerEventModel,
-    popover: PopoverModel,
+    popover: UiPopoverModel,
     getPopoverElement: () => HTMLElement | undefined,
   ) {
     const document = injector.get(DOCUMENT);

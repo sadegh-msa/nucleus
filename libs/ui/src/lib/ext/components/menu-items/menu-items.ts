@@ -9,9 +9,9 @@ import {
   SvgIconDirective,
   TooltipDirective,
 } from '../../directives';
-import type { MenuItemModel } from '../../models';
-import { CssSupport } from '../../services';
-import type { FabPlacement } from '../../types';
+import type { UiMenuItemModel } from '../../models';
+import { UiCssSupport } from '../../services';
+import type { UiPlacement } from '../../types';
 
 @Component({
   selector: 'menu[uiMenuItems]',
@@ -32,17 +32,17 @@ import type { FabPlacement } from '../../types';
     '[class]': 'styleClass',
   },
 })
-export class MenuItems {
+export class UiMenuItems {
   readonly #router = inject(Router);
-  readonly #cssSupport = inject(CssSupport);
+  readonly #uiCssSupport = inject(UiCssSupport);
 
-  uiMenuItems = input.required<MenuItemModel[]>();
-  popoverPlacement = input<FabPlacement>('inline-end-edge-end');
-  tooltipPlacement = input<FabPlacement>('inline-end-block-center');
+  uiMenuItems = input.required<UiMenuItemModel[]>();
+  popoverPlacement = input<UiPlacement>('inline-end-edge-end');
+  tooltipPlacement = input<UiPlacement>('inline-end-block-center');
   extent = input<Extent>('wide');
   mode = input<'popup' | 'still'>('still');
   submenuMode = input<'floating' | 'sliding'>('sliding');
-  common = input<MenuItemModel>({
+  common = input<UiMenuItemModel>({
     iconVariant: 'outline',
     ngClass: {
       'ui button medium rounded-none': true,
@@ -50,7 +50,7 @@ export class MenuItems {
       'bulk primary': false,
     },
   });
-  active = input<MenuItemModel>({
+  active = input<UiMenuItemModel>({
     iconVariant: 'bold',
     ngClass: {
       ...((this.common().ngClass as object) ?? {}),
@@ -65,7 +65,7 @@ export class MenuItems {
     () => this.isCompact() || this.submenuMode() === 'floating',
   );
   readonly isSubmenuSliding = computed(() => !this.isCompact() && this.submenuMode() === 'sliding');
-  readonly items = linkedSignal<MenuItemModel[], MenuItemModel[]>({
+  readonly items = linkedSignal<UiMenuItemModel[], UiMenuItemModel[]>({
     source: this.uiMenuItems,
     computation: (newItems) => {
       return this.#computeItems(R.clone(newItems));
@@ -84,7 +84,7 @@ export class MenuItems {
   }
 
   constructor() {
-    if (!this.#cssSupport.calcSize()) {
+    if (!this.#uiCssSupport.calcSize()) {
       effect(() => {
         const items = this.items();
 
@@ -112,15 +112,15 @@ export class MenuItems {
     });
   }
 
-  #computeItems(items: MenuItemModel[]) {
+  #computeItems(items: UiMenuItemModel[]) {
     const currentUrl = this.#router.url;
 
     items.forEach((item) => {
-      Object.assign(item, R.mergeDeepRight({ ...(this.common() ?? {}) }, item) as MenuItemModel);
+      Object.assign(item, R.mergeDeepRight({ ...(this.common() ?? {}) }, item) as UiMenuItemModel);
       item.active = R.mergeDeepLeft(
         { ...(this.active() ?? {}) },
         item.active ?? {},
-      ) as MenuItemModel;
+      ) as UiMenuItemModel;
       item.isActive = item.routerLink === currentUrl;
 
       if (item.children?.length) {
@@ -135,7 +135,7 @@ export class MenuItems {
     return items;
   }
 
-  #calculateSize(item: MenuItemModel) {
+  #calculateSize(item: UiMenuItemModel) {
     if (!item.expanded) {
       return 0;
     }
@@ -148,14 +148,14 @@ export class MenuItems {
     return item.size ?? 0;
   }
 
-  collapseItem(item: MenuItemModel) {
+  collapseItem(item: UiMenuItemModel) {
     item.children?.forEach((i) => {
       this.collapseItem(i);
     });
     item.expanded = false;
   }
 
-  clickItem(item: MenuItemModel) {
+  clickItem(item: UiMenuItemModel) {
     if (item.children?.length) {
       if (!item.expanded) {
         item.expanded = true;
@@ -169,7 +169,7 @@ export class MenuItems {
     }
 
     if (this.isSubmenuSliding()) {
-      if (!this.#cssSupport.calcSize()) {
+      if (!this.#uiCssSupport.calcSize()) {
         this.items().forEach((i) => {
           this.#calculateSize(i);
         });
@@ -181,7 +181,7 @@ export class MenuItems {
     }
   }
 
-  onRouterLinkIsActiveChange(item: MenuItemModel, isActive: boolean) {
+  onRouterLinkIsActiveChange(item: UiMenuItemModel, isActive: boolean) {
     item.isActive = isActive;
 
     if (isActive) {
@@ -189,7 +189,7 @@ export class MenuItems {
       Object.assign(item, structuredClone(item.active));
     } else {
       for (const key of Object.keys(item.active || {})) {
-        item[key as keyof MenuItemModel] = undefined;
+        item[key as keyof UiMenuItemModel] = undefined;
       }
 
       Object.assign(item, structuredClone(item.original));

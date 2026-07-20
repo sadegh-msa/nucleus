@@ -1,4 +1,4 @@
-export const iconVariants = [
+export const uiIconVariants = [
   'animation',
   'bold',
   'brand',
@@ -9,4 +9,4 @@ export const iconVariants = [
   'outline',
   'twotone',
 ] as const;
-export type IconVariant = (typeof iconVariants)[number];
+export type UiIconVariant = (typeof uiIconVariants)[number];

@@ -7,10 +7,10 @@ import type {
   RestListResponseModel,
   RestUpdateResponseModel,
 } from '../../crud/models/rest.model';
-import type { NuToolModel } from '../../crud/models/toolbar.model';
+import type { ToolModel } from '../../crud/models/toolbar.model';
 
 export interface ListStateModel<Query, Response> {
-  tool?: NuToolModel;
+  tool?: ToolModel;
   query: Query;
   response: RestListResponseModel<Response[]>;
   message: string;
@@ -18,7 +18,7 @@ export interface ListStateModel<Query, Response> {
 }
 
 export interface GetStateModel<Response> {
-  tool?: NuToolModel;
+  tool?: ToolModel;
   query: string;
   response: RestGetResponseModel<Response>;
   message: string;
@@ -26,7 +26,7 @@ export interface GetStateModel<Response> {
 }
 
 export interface AddStateModel<Request, Response> {
-  tool?: NuToolModel;
+  tool?: ToolModel;
   request: Request;
   response: RestAddResponseModel<Response>;
   message: string;
@@ -34,7 +34,7 @@ export interface AddStateModel<Request, Response> {
 }
 
 export interface UpdateStateModel<Request, Response> {
-  tool?: NuToolModel;
+  tool?: ToolModel;
   query: string;
   request: Request;
   response: RestUpdateResponseModel<Response>;
@@ -43,7 +43,7 @@ export interface UpdateStateModel<Request, Response> {
 }
 
 export interface DeleteStateModel {
-  tool?: NuToolModel;
+  tool?: ToolModel;
   query: string;
   response: RestDeleteResponseModel;
   message: string;
