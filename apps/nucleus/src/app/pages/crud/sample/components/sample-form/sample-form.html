@@ -1,0 +1,48 @@
+<div class="page page-form" [loading]="isSubmitting()">
+  <nu-generic-form-toolbar [toolbar]="toolbar"
+                            [data]="data()"
+                            class="page-toolbar page-form-toolbar" />
+
+  <div class="page-content page-form-content">
+    <form class="form-view" [formGroup]="form" (ngSubmit)="save()" autocomplete="off"
+          [ngClass]="{'form-view': pageType() === PageType.View}">
+      <div class="form-field-2">
+        <label for="title">Title *</label>
+        <input id="title"
+               aria-describedby="title-help"
+               formControlName="title" />
+        <div class="form-field-message">
+          @if (formControlHasError('title', 'required')) {
+            <small class="p-error" i18n>Username is not available.</small>
+          }
+        </div>
+      </div>
+
+      <div class="form-field-2">
+        <label for="code">Code *</label>
+        <input id="code"
+               aria-describedby="code-help"
+               formControlName="code" />
+      </div>
+
+      <div class="form-field-2">
+        <label for="date">Date *</label>
+        <ui-calendar id="date"
+               aria-describedby="date-help"
+               formControlName="date" />
+      </div>
+
+      <div class="form-field-6">
+        <label>Test Dropdown</label>
+        <select formControlName="divisionId"></select>
+      </div>
+
+      <div class="form-field-4">
+        <label for="description">Description</label>
+        <input id="description"
+               aria-describedby="description-help"
+               formControlName="description" />
+      </div>
+    </form>
+  </div>
+</div>

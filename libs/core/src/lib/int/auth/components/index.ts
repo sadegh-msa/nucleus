@@ -1,3 +1,3 @@
-export * from './sign-in/sign-in.component';
-export * from './sign-layout/sign-layout.component';
-export * from './sign-up/sign-up.component';
+export * from './sign-in/sign-in';
+export * from './sign-layout/sign-layout';
+export * from './sign-up/sign-up';

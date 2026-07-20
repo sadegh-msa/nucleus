@@ -5,9 +5,9 @@ const { List, View, Add, Edit } = PageType;
 const { list, view, add, edit } = pagePathPattern;
 
 const loadListComponent = () =>
-  import('./components/sample-list/sample-list.component').then((m) => m.SampleListComponent);
+  import('./components/sample-list/sample-list').then((m) => m.SampleList);
 const loadFormComponent = () =>
-  import('./components/sample-form/sample-form.component').then((m) => m.SampleFormComponent);
+  import('./components/sample-form/sample-form').then((m) => m.SampleForm);
 
 export const sampleRoutes: Route[] = [
   { path: '', redirectTo: list, pathMatch: 'full' },

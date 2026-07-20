@@ -1,2 +1,2 @@
-export * from './components/panel/panel.component';
+export * from './components/panel/panel';
 export * from './services/panel-manager';
