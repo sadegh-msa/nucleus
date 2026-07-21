@@ -5,7 +5,7 @@ import { OperationStatus, provideNuCommonConfig } from '@nucleus/common';
 import { provideUiConfig } from '@nucleus/ui';
 import { MOCK_NU_COMMON_CONFIG, MOCK_UI_CONFIG, setupGlobalMocks } from '@test-mocks';
 import { of, Subject, throwError } from 'rxjs';
-import { createCrudSignalStore } from './signal-store.factory';
+import { createCrudSignalStore } from './signal-store-factory';
 
 setupGlobalMocks();
 

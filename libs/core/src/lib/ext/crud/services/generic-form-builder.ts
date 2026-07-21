@@ -2,14 +2,10 @@ import { computed, DestroyRef, effect, Injector, inject, Service, signal } from 
 import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop';
 import { Router } from '@angular/router';
 import { OperationStatus } from '@nucleus/common';
-import {
-  createAddToolbar,
-  createEditToolbar,
-  createViewToolbar,
-} from '../creators/toolbar.creator';
 import { PageType } from '../enums/page.enum';
 import { RouterStateKey } from '../enums/router-state.enum';
 import { ToolType } from '../enums/toolbar.enum';
+import { createAddToolbar, createEditToolbar, createViewToolbar } from '../factory/toolbar-factory';
 import type { GenericEntityModel, GenericFormConsumerModel } from '../models/generic.model';
 import type { ToolbarModel, ToolModel } from '../models/toolbar.model';
 

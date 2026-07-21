@@ -2,7 +2,7 @@ import { Component, computed, input, model } from '@angular/core';
 import { DividerModule } from 'primeng/divider';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { PaginatorModule, type PaginatorState } from 'primeng/paginator';
-import { createRowsPerPageOptions } from '../../creators/pagination.creator';
+import { createRowsPerPageOptions } from '../../factory/pagination-factory';
 import type { PaginationModel } from '../../models/pagination.model';
 import type { ToolbarModel } from '../../models/toolbar.model';
 import { GenericToolbar } from '../generic-toolbar/generic-toolbar';

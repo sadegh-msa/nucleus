@@ -1,6 +1,6 @@
 import { Pipe, type PipeTransform } from '@angular/core';
-import { createPagePaths } from '../creators/page-paths.creator';
 import type { PageType } from '../enums/page.enum';
+import { createPagePaths } from '../factory/page-paths-factory';
 
 @Pipe({
   name: 'pagePath',
