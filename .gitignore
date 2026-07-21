@@ -53,6 +53,6 @@ libs-circular.svg
 
 .claude/settings.local.json
 
-.mimocode/.cron-lock
-.mimocode/plans
+.mimocode/
 .omo/
+.superpowers/
