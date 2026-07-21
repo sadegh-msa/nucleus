@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, signal } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import type { ControlValueAccessor } from '@angular/forms';
-import type { GenericToggleConsumerModel, ToggleValueModel } from '../models/toggle.model';
+import type { ToggleValueModel, UiGenericToggleConsumerModel } from '../models/toggle.model';
 import { UiToggleValueAccessor } from './toggle-value-accessor';
 
 describe('UiToggleValueAccessor', () => {
@@ -163,7 +163,7 @@ describe('UiToggleValueAccessor', () => {
 
 function createMockConsumer(
   value?: ToggleValueModel,
-): GenericToggleConsumerModel & ControlValueAccessor {
+): UiGenericToggleConsumerModel & ControlValueAccessor {
   return {
     value: signal(value) as any,
     label: signal(undefined) as any,
