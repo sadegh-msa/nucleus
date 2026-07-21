@@ -1,7 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { UiMessageManager } from '@nucleus/ui';
 import { AuthToken } from '../services/auth-token';
-import { AuthInterceptor } from './auth.interceptor';
+import { AuthInterceptor } from './auth-interceptor';
 
 describe('AuthInterceptor', () => {
   let interceptor: AuthInterceptor;
