@@ -56,10 +56,10 @@ export function setupGlobalMocks() {
   }
   if (typeof globalThis.crypto !== 'undefined' && !globalThis.crypto.subtle) {
     (globalThis.crypto as any).subtle = {
-      importKey: jest.fn().mockResolvedValue({}),
-      exportKey: jest.fn().mockResolvedValue(new ArrayBuffer(0)),
-      encrypt: jest.fn().mockResolvedValue(new ArrayBuffer(0)),
-      decrypt: jest.fn().mockResolvedValue(new ArrayBuffer(0)),
+      importKey: vi.fn().mockResolvedValue({}),
+      exportKey: vi.fn().mockResolvedValue(new ArrayBuffer(0)),
+      encrypt: vi.fn().mockResolvedValue(new ArrayBuffer(0)),
+      decrypt: vi.fn().mockResolvedValue(new ArrayBuffer(0)),
     };
   }
 }

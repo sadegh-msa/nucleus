@@ -1,23 +1,18 @@
-import { setupZonelessTestEnv } from 'jest-preset-angular/setup-env/zoneless';
-
-setupZonelessTestEnv({
-  errorOnUnknownElements: true,
-  errorOnUnknownProperties: true,
-});
+import '@analogjs/vitest-angular/setup-testbed';
 
 Object.defineProperty(window, 'crypto', {
   value: {
     subtle: {
-      importKey: jest.fn().mockResolvedValue({}),
-      encrypt: jest.fn().mockImplementation(async (_algo: any, _key: any, data: any) => {
+      importKey: vi.fn().mockResolvedValue({}),
+      encrypt: vi.fn().mockImplementation(async (_algo: any, _key: any, data: any) => {
         const bytes = new Uint8Array(data);
         let binary = '';
-        bytes.forEach((b) => {
+        bytes.forEach((b: number) => {
           binary += String.fromCharCode(b);
         });
         return new TextEncoder().encode(btoa(binary));
       }),
-      decrypt: jest.fn().mockImplementation(async (_algo: any, _key: any, data: any) => {
+      decrypt: vi.fn().mockImplementation(async (_algo: any, _key: any, data: any) => {
         const base64Str = new TextDecoder().decode(data);
         const binary = atob(base64Str);
         const bytes = new Uint8Array(binary.length);
