@@ -12,12 +12,14 @@ export function mergeObjects<T = any>(a: any, b: any) {
 }
 
 function deepSetObjectValue(obj: any, keys: string[], getValue: (v: any) => any, index = 0) {
-  if (obj[keys[index]]) {
-    deepSetObjectValue(obj[keys[index]], keys, getValue, index++);
+  let idx = index;
+
+  if (obj[keys[idx]]) {
+    deepSetObjectValue(obj[keys[idx]], keys, getValue, idx++);
     return;
   }
 
-  obj[keys[index + 1]] = getValue(obj[keys[index + 1]]);
+  obj[keys[idx + 1]] = getValue(obj[keys[idx + 1]]);
 }
 
 export function deepSet(obj: any, path: string, getValue: (v: any) => any) {
