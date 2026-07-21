@@ -1,4 +1,4 @@
-import { DropdownOptionsPipe } from './dropdown-options.pipe';
+import { DropdownOptionsPipe } from './dropdown-options-pipe';
 
 describe('DropdownOptionsPipe', () => {
   it('create an instance', () => {

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { type ComponentFixture, TestBed } from '@angular/core/testing';
-import { SafeHtml } from './safe-html.pipe';
+import { SafeHtml } from './safe-html-pipe';
 
 @Component({
   template: `<div [innerHTML]="html | safeHTML"></div>`,

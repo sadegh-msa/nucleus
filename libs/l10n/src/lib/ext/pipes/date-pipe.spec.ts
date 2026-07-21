@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { type ComponentFixture, TestBed } from '@angular/core/testing';
 import { DateUtils } from '../services/date-utils';
-import { NuDatePipe } from './date.pipe';
+import { NuDatePipe } from './date-pipe';
 
 @Component({
   template: '{{ date | nuDate: format }}',

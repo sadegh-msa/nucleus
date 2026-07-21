@@ -4,7 +4,7 @@ export * from './models/branding-config.model';
 export * from './models/common-config.model';
 export * from './models/utility.model';
 export * from './operators/convert-date-strings.operator';
-export * from './pipes/safe-html.pipe';
+export * from './pipes/safe-html-pipe';
 export * from './providers/common.provider';
 export * from './providers/common-config.provider';
 export * from './services/cookie-utils';

@@ -1,4 +1,4 @@
-import { PagePathPipe } from './page-path.pipe';
+import { PagePathPipe } from './page-path-pipe';
 
 describe('PagePathPipe', () => {
   it('create an instance', () => {
