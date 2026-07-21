@@ -4,7 +4,7 @@ import { RouterModule } from '@angular/router';
 import { UiSvgIcon, UiTooltip } from '@nucleus/ui';
 import { ConfirmationService } from 'primeng/api';
 import { ConfirmPopupModule } from 'primeng/confirmpopup';
-import { AuthPermissionDirective } from '../../../auth';
+import { AuthPermission } from '../../../auth';
 import { ToolElement } from '../../enums/toolbar.enum';
 import type { ToolbarModel, ToolModel } from '../../models/toolbar.model';
 
@@ -12,7 +12,7 @@ import type { ToolbarModel, ToolModel } from '../../models/toolbar.model';
   selector: 'nu-generic-toolbar',
   templateUrl: './generic-toolbar.html',
   imports: [
-    AuthPermissionDirective,
+    AuthPermission,
     ConfirmPopupModule,
     RouterModule,
     NgClass,

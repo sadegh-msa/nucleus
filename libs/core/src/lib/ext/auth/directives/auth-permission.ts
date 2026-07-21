@@ -11,7 +11,7 @@ import {
 @Directive({
   selector: '[permission]',
 })
-export class AuthPermissionDirective {
+export class AuthPermission {
   readonly #templateRef = inject(TemplateRef<any>);
   readonly #viewContainer = inject(ViewContainerRef);
 

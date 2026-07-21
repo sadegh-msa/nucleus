@@ -10,7 +10,7 @@ import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { SkeletonModule } from 'primeng/skeleton';
 import { TableModule } from 'primeng/table';
 import { filter } from 'rxjs';
-import { AuthPermissionDirective } from '../../../auth';
+import { AuthPermission } from '../../../auth';
 import { infoFieldsDefault } from '../../defaults/info-fields.default';
 import { ToolElement } from '../../enums/toolbar.enum';
 import type { InfoFieldModel } from '../../models/info.model';
@@ -23,7 +23,7 @@ import { InfoFields } from '../info-fields/info-fields';
   selector: 'nu-generic-list',
   templateUrl: './generic-list.html',
   imports: [
-    AuthPermissionDirective,
+    AuthPermission,
     ConfirmPopupModule,
     FieldValue,
     InfoFields,
