@@ -2,7 +2,7 @@ import { Service } from '@angular/core';
 import { injectNuCommonConfig } from '../providers/common-config-provider';
 
 @Service()
-export class CryptoUtils {
+export class Cryptograph {
   readonly #textEncoder = new TextEncoder();
   readonly #textDecoder = new TextDecoder('utf-8');
 

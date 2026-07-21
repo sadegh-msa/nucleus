@@ -1,11 +1,11 @@
 import { DOCUMENT } from '@angular/common';
 import { inject, Service } from '@angular/core';
-import { CryptoUtils } from './crypto-utils';
+import { Cryptograph } from './cryptograph';
 
 @Service()
 export class CookieManager {
   readonly #document = inject(DOCUMENT);
-  readonly #cryptoUtils = inject(CryptoUtils);
+  readonly #cryptograph = inject(Cryptograph);
 
   async setItem(key: string, value: boolean | number | string | null, exMinutes?: number) {
     let expires = '';
@@ -17,7 +17,7 @@ export class CookieManager {
     }
 
     try {
-      const encryptedValue = value ? await this.#cryptoUtils.encrypt(value.toString()) : value;
+      const encryptedValue = value ? await this.#cryptograph.encrypt(value.toString()) : value;
       this.#document.cookie = `${key}=${encryptedValue};${expires};path=/`;
     } catch (error) {
       console.error(error);
@@ -44,7 +44,7 @@ export class CookieManager {
     let value: boolean | string | number | undefined;
 
     try {
-      value = await this.#cryptoUtils.decrypt(encryptedValue);
+      value = await this.#cryptograph.decrypt(encryptedValue);
     } catch (error) {
       console.error(error);
       value = undefined;

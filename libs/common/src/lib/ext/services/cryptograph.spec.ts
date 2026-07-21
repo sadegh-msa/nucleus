@@ -1,9 +1,9 @@
 import { TestBed } from '@angular/core/testing';
 import { provideNuCommonConfig } from '../providers/common-config-provider';
-import { CryptoUtils } from './crypto-utils';
+import { Cryptograph } from './cryptograph';
 
-describe('CryptoUtils', () => {
-  let service: CryptoUtils;
+describe('Cryptograph', () => {
+  let service: Cryptograph;
 
   const mockConfig = {
     api: {
@@ -21,7 +21,7 @@ describe('CryptoUtils', () => {
     TestBed.configureTestingModule({
       providers: [provideNuCommonConfig(mockConfig)],
     });
-    service = TestBed.inject(CryptoUtils);
+    service = TestBed.inject(Cryptograph);
   });
 
   it('should be created', () => {

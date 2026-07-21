@@ -2,7 +2,7 @@ import { injectAsync, Service } from '@angular/core';
 
 @Service()
 export class TemporaryStorage {
-  readonly #loadCrypto = injectAsync(() => import('./crypto-utils').then((m) => m.CryptoUtils));
+  readonly #loadCrypto = injectAsync(() => import('./cryptograph').then((m) => m.Cryptograph));
 
   async setEncryptedItem(key: string, value: unknown) {
     const crypto = await this.#loadCrypto();
