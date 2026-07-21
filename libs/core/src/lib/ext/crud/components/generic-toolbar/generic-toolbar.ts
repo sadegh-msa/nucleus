@@ -1,7 +1,7 @@
 import { NgClass } from '@angular/common';
 import { Component, inject, input } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { SvgIconDirective, TooltipDirective } from '@nucleus/ui';
+import { UiSvgIcon, UiTooltip } from '@nucleus/ui';
 import { ConfirmationService } from 'primeng/api';
 import { ConfirmPopupModule } from 'primeng/confirmpopup';
 import { AuthPermissionDirective } from '../../../auth';
@@ -16,8 +16,8 @@ import type { ToolbarModel, ToolModel } from '../../models/toolbar.model';
     ConfirmPopupModule,
     RouterModule,
     NgClass,
-    SvgIconDirective,
-    TooltipDirective,
+    UiSvgIcon,
+    UiTooltip,
   ],
 })
 export class GenericToolbar {

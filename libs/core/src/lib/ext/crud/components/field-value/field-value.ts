@@ -1,12 +1,12 @@
 import { CurrencyPipe, DatePipe, NgTemplateOutlet } from '@angular/common';
 import { Component, input } from '@angular/core';
 import { DataType } from '@nucleus/common';
-import { SvgIconDirective } from '@nucleus/ui';
+import { UiSvgIcon } from '@nucleus/ui';
 
 @Component({
   selector: 'nu-field-value',
   templateUrl: './field-value.html',
-  imports: [CurrencyPipe, DatePipe, NgTemplateOutlet, SvgIconDirective],
+  imports: [CurrencyPipe, DatePipe, NgTemplateOutlet, UiSvgIcon],
 })
 export class FieldValue {
   readonly DataType = DataType;

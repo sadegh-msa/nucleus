@@ -1,15 +1,15 @@
 import { Component } from '@angular/core';
 import { type ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
-import { InputPasswordDirective } from './input-password.directive';
+import { UiInputPassword } from './input-password';
 
 @Component({
   template: '<input uiInputPassword ngModel />',
-  imports: [InputPasswordDirective, FormsModule],
+  imports: [UiInputPassword, FormsModule],
 })
 class TestHostComponent {}
 
-describe('InputPasswordDirective', () => {
+describe('UiInputPassword', () => {
   let fixture: ComponentFixture<TestHostComponent>;
   let inputEl: HTMLInputElement;
 

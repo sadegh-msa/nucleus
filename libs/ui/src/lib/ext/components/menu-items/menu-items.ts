@@ -4,10 +4,10 @@ import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { type Extent, SafeHtml } from '@nucleus/common';
 import * as R from 'ramda';
 import {
-  PopoverDirective,
-  RippleDirective,
-  SvgIconDirective,
-  TooltipDirective,
+  UiPopover,
+  UiRipple,
+  UiSvgIcon,
+  UiTooltip,
 } from '../../directives';
 import type { UiMenuItemModel } from '../../models';
 import { UiCssSupport } from '../../services';
@@ -22,10 +22,10 @@ import type { UiPlacement } from '../../types';
     RouterLink,
     RouterLinkActive,
     SafeHtml,
-    SvgIconDirective,
-    RippleDirective,
-    TooltipDirective,
-    PopoverDirective,
+    UiSvgIcon,
+    UiRipple,
+    UiTooltip,
+    UiPopover,
   ],
   templateUrl: './menu-items.html',
   host: {

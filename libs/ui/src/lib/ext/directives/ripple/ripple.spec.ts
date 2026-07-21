@@ -1,17 +1,17 @@
 import { Component } from '@angular/core';
 import { type ComponentFixture, TestBed } from '@angular/core/testing';
-import { RippleDirective } from './ripple.directive';
+import { UiRipple } from './ripple';
 
 @Component({
   template: '<button uiRipple>Click Me</button>',
-  imports: [RippleDirective],
+  imports: [UiRipple],
 })
 class TestHostComponent {}
 
-describe('RippleDirective', () => {
+describe('UiRipple', () => {
   let fixture: ComponentFixture<TestHostComponent>;
   let buttonEl: HTMLButtonElement;
-  let directive: RippleDirective;
+  let directive: UiRipple;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({ imports: [TestHostComponent] }).compileComponents();
@@ -19,7 +19,7 @@ describe('RippleDirective', () => {
     fixture.detectChanges();
     buttonEl = fixture.nativeElement.querySelector('button');
     const btnEl = fixture.debugElement.query((el) => el.nativeElement.tagName === 'BUTTON');
-    directive = btnEl.injector.get(RippleDirective);
+    directive = btnEl.injector.get(UiRipple);
   });
 
   it('should have rippler class', () => {

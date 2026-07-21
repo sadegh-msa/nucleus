@@ -1,12 +1,12 @@
 import { NgTemplateOutlet, TitleCasePipe } from '@angular/common';
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { RippleDirective, SvgIconDirective } from '@nucleus/ui';
+import { UiRipple, UiSvgIcon } from '@nucleus/ui';
 import { colors, sizes } from '../../shared/data';
 
 @Component({
   selector: 'app-button',
-  imports: [RouterLink, NgTemplateOutlet, TitleCasePipe, SvgIconDirective, RippleDirective],
+  imports: [RouterLink, NgTemplateOutlet, TitleCasePipe, UiSvgIcon, UiRipple],
   templateUrl: './button.html',
   styleUrl: './button.scss',
 })

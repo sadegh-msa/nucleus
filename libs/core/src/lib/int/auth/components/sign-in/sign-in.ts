@@ -10,10 +10,10 @@ import { RouterLink } from '@angular/router';
 
 import { OperationStatus } from '@nucleus/common';
 import {
-  CheckboxDirective,
+  UiCheckbox,
   UiFormField,
-  InputPasswordDirective,
-  SvgIconDirective,
+  UiInputPassword,
+  UiSvgIcon,
 } from '@nucleus/ui';
 import { authDefaultConfig } from '../../../../ext/auth/auth-default.config';
 import type { AuthSignInFormModel, AuthSignInModel } from '../../../../ext/auth/models/auth.model';
@@ -29,9 +29,9 @@ import { SignLayout } from '../sign-layout/sign-layout';
     RouterLink,
     FormsModule,
     UiFormField,
-    CheckboxDirective,
-    InputPasswordDirective,
-    SvgIconDirective,
+    UiCheckbox,
+    UiInputPassword,
+    UiSvgIcon,
   ],
 })
 export class SignIn {

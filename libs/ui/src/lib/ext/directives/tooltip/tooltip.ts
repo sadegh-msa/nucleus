@@ -19,7 +19,7 @@ import type { UiPlacement } from '../../types';
 @Directive({
   selector: '[uiTooltip]',
 })
-export class TooltipDirective implements OnDestroy {
+export class UiTooltip implements OnDestroy {
   readonly #injector = inject(Injector);
   readonly #renderer = inject(Renderer2);
   readonly #elementRef = inject(ElementRef);

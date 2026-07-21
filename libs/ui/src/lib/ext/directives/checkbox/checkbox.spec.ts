@@ -1,14 +1,14 @@
 import { Component } from '@angular/core';
 import { type ComponentFixture, TestBed } from '@angular/core/testing';
-import { CheckboxDirective } from './checkbox.directive';
+import { UiCheckbox } from './checkbox';
 
 @Component({
   template: '<input type="checkbox" uiCheckbox />',
-  imports: [CheckboxDirective],
+  imports: [UiCheckbox],
 })
 class TestHostComponent {}
 
-describe('CheckboxDirective', () => {
+describe('UiCheckbox', () => {
   let fixture: ComponentFixture<TestHostComponent>;
   let inputEl: HTMLInputElement;
 

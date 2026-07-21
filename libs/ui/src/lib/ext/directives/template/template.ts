@@ -3,7 +3,7 @@ import { Directive, inject, input, TemplateRef } from '@angular/core';
 @Directive({
   selector: '[uiTemplate]',
 })
-export class TemplateDirective {
+export class UiTemplate {
   readonly #templateRef = inject(TemplateRef);
 
   uiTemplate = input.required<string>();

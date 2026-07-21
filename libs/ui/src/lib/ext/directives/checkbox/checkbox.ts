@@ -7,7 +7,7 @@ import { Directive, ElementRef, inject, type OnInit, Renderer2 } from '@angular/
     '(click)': 'handleClickEvent()',
   },
 })
-export class CheckboxDirective implements OnInit {
+export class UiCheckbox implements OnInit {
   readonly #renderer = inject(Renderer2);
   readonly #elementRef = inject(ElementRef);
 

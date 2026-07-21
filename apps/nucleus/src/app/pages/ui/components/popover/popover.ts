@@ -1,16 +1,16 @@
 import { NgClass, NgTemplateOutlet } from '@angular/common';
 import { Component, signal } from '@angular/core';
 import {
-  PopoverDirective,
-  SvgIconDirective,
-  TooltipDirective,
+  UiPopover,
+  UiSvgIcon,
+  UiTooltip,
   type UiPlacement,
   uiPlacement,
 } from '@nucleus/ui';
 
 @Component({
   selector: 'app-popover',
-  imports: [SvgIconDirective, NgClass, NgTemplateOutlet, PopoverDirective, TooltipDirective],
+  imports: [UiSvgIcon, NgClass, NgTemplateOutlet, UiPopover, UiTooltip],
   templateUrl: './popover.html',
   styleUrl: './popover.scss',
 })

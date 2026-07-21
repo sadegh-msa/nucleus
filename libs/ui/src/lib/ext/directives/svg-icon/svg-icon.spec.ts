@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { type ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideUiConfig } from '../../providers';
-import { SvgIconDirective } from './svg-icon.directive';
+import { UiSvgIcon } from './svg-icon';
 
 if (typeof globalThis.IntersectionObserver === 'undefined') {
   (globalThis as any).IntersectionObserver = class {
@@ -13,11 +13,11 @@ if (typeof globalThis.IntersectionObserver === 'undefined') {
 
 @Component({
   template: '<svg uiSvgIcon="test-icon"></svg>',
-  imports: [SvgIconDirective],
+  imports: [UiSvgIcon],
 })
 class TestHostComponent {}
 
-describe('SvgIconDirective', () => {
+describe('UiSvgIcon', () => {
   let fixture: ComponentFixture<TestHostComponent>;
   let svgEl: SVGElement;
 

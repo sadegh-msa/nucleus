@@ -3,7 +3,7 @@ import { Component, computed, DestroyRef, inject, input, output, signal } from '
 import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop';
 import { RouterModule } from '@angular/router';
 import { DataType } from '@nucleus/common';
-import { SvgIconDirective, TooltipDirective } from '@nucleus/ui';
+import { UiSvgIcon, UiTooltip } from '@nucleus/ui';
 import { ConfirmationService } from 'primeng/api';
 import { ConfirmPopupModule } from 'primeng/confirmpopup';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
@@ -32,8 +32,8 @@ import { InfoFields } from '../info-fields/info-fields';
     RouterModule,
     SkeletonModule,
     TableModule,
-    SvgIconDirective,
-    TooltipDirective,
+    UiSvgIcon,
+    UiTooltip,
   ],
   providers: [ConfirmationService],
 })

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { type ComponentFixture, TestBed } from '@angular/core/testing';
-import { PopoverDirective } from './popover-directive';
+import { UiPopover } from './popover';
 
 if (typeof globalThis.IntersectionObserver === 'undefined') {
   (globalThis as any).IntersectionObserver = class {
@@ -12,13 +12,13 @@ if (typeof globalThis.IntersectionObserver === 'undefined') {
 
 @Component({
   template: '<div uiPopover="Popover content">Trigger</div>',
-  imports: [PopoverDirective],
+  imports: [UiPopover],
 })
 class TestHostComponent {}
 
-describe('PopoverDirective', () => {
+describe('UiPopover', () => {
   let fixture: ComponentFixture<TestHostComponent>;
-  let directive: PopoverDirective;
+  let directive: UiPopover;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({ imports: [TestHostComponent] }).compileComponents();
@@ -27,7 +27,7 @@ describe('PopoverDirective', () => {
     const divEl = fixture.debugElement.query(
       (el) => el.nativeElement.tagName === 'DIV' && el.nativeElement.hasAttribute('uipopover'),
     );
-    directive = divEl.injector.get(PopoverDirective);
+    directive = divEl.injector.get(UiPopover);
   });
 
   it('should create', () => expect(directive).toBeTruthy());

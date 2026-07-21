@@ -1,11 +1,11 @@
 import { NgClass } from '@angular/common';
 import { Component } from '@angular/core';
-import { SvgIconDirective, uiIconVariants } from '@nucleus/ui';
+import { UiSvgIcon, uiIconVariants } from '@nucleus/ui';
 import { colors, sizes } from '../../shared/data';
 
 @Component({
   selector: 'app-icon',
-  imports: [SvgIconDirective, NgClass],
+  imports: [UiSvgIcon, NgClass],
   templateUrl: './icon.html',
   styleUrl: './icon.scss',
 })

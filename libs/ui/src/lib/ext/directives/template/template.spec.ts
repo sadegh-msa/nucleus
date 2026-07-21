@@ -1,14 +1,14 @@
 import { Component } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
-import { TemplateDirective } from './template.directive';
+import { UiTemplate } from './template';
 
 @Component({
   template: `<ng-template uiTemplate="testName">Hello</ng-template>`,
-  imports: [TemplateDirective],
+  imports: [UiTemplate],
 })
 class TestHostComponent {}
 
-describe('TemplateDirective', () => {
+describe('UiTemplate', () => {
   it('should work with ng-template', async () => {
     await TestBed.configureTestingModule({ imports: [TestHostComponent] }).compileComponents();
     const fixture = TestBed.createComponent(TestHostComponent);

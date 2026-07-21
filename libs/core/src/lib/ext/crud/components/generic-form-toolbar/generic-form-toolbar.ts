@@ -1,6 +1,6 @@
 import { KeyValuePipe } from '@angular/common';
 import { Component, input } from '@angular/core';
-import { SvgIconDirective } from '@nucleus/ui';
+import { UiSvgIcon } from '@nucleus/ui';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { GenericToolbar } from '../../components/generic-toolbar/generic-toolbar'; // Possibility of circular dependency
 import { infoFieldsDefault } from '../../defaults/info-fields.default';
@@ -16,7 +16,7 @@ import { InfoFields } from '../info-fields/info-fields';
     InfoFields,
     KeyValuePipe,
     OverlayPanelModule,
-    SvgIconDirective,
+    UiSvgIcon,
   ],
 })
 export class GenericFormToolbar {

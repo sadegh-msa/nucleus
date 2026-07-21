@@ -20,7 +20,7 @@ import type { UiPlacement } from '../../types';
 @Directive({
   selector: '[uiPopover]',
 })
-export class PopoverDirective implements OnDestroy {
+export class UiPopover implements OnDestroy {
   readonly #injector = inject(Injector);
   readonly #renderer = inject(Renderer2);
   readonly #elementRef = inject(ElementRef);

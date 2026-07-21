@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { type ComponentFixture, TestBed } from '@angular/core/testing';
-import { TooltipDirective } from './tooltip-directive';
+import { UiTooltip } from './tooltip';
 
 if (typeof globalThis.IntersectionObserver === 'undefined') {
   (globalThis as any).IntersectionObserver = class {
@@ -12,20 +12,20 @@ if (typeof globalThis.IntersectionObserver === 'undefined') {
 
 @Component({
   template: '<span uiTooltip="Tooltip content">Hover me</span>',
-  imports: [TooltipDirective],
+  imports: [UiTooltip],
 })
 class TestHostComponent {}
 
-describe('TooltipDirective', () => {
+describe('UiTooltip', () => {
   let fixture: ComponentFixture<TestHostComponent>;
-  let directive: TooltipDirective;
+  let directive: UiTooltip;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({ imports: [TestHostComponent] }).compileComponents();
     fixture = TestBed.createComponent(TestHostComponent);
     fixture.detectChanges();
     const spanEl = fixture.debugElement.query((el) => el.nativeElement.tagName === 'SPAN');
-    directive = spanEl.injector.get(TooltipDirective);
+    directive = spanEl.injector.get(UiTooltip);
   });
 
   it('should create', () => expect(directive).toBeTruthy());

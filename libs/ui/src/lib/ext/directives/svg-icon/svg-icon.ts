@@ -24,7 +24,7 @@ import type { UiIconVariant } from '../../types';
     '[class]': 'styleClass',
   },
 })
-export class SvgIconDirective implements OnInit, OnDestroy {
+export class UiSvgIcon implements OnInit, OnDestroy {
   readonly #domSanitizer = inject(DomSanitizer);
   readonly #renderer = inject(Renderer2);
   readonly #elementRef = inject(ElementRef);

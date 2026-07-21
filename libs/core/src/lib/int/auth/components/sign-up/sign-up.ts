@@ -3,8 +3,8 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { RouterLink } from '@angular/router';
 import { OperationStatus } from '@nucleus/common';
 import {
-  InputPasswordDirective,
-  SvgIconDirective,
+  UiInputPassword,
+  UiSvgIcon,
   type UiPasswordStrengthModel,
 } from '@nucleus/ui';
 import { authDefaultConfig } from '../../../../ext/auth/auth-default.config';
@@ -15,7 +15,7 @@ import { SignLayout } from '../sign-layout/sign-layout';
 @Component({
   selector: 'nu-sign-up',
   templateUrl: './sign-up.html',
-  imports: [RouterLink, ReactiveFormsModule, SignLayout, InputPasswordDirective, SvgIconDirective],
+  imports: [RouterLink, ReactiveFormsModule, SignLayout, UiInputPassword, UiSvgIcon],
 })
 export class SignUp {
   readonly #authStore = injectAuthStore();

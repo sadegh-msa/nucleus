@@ -13,7 +13,7 @@ type Pointer = 'pointer-down' | 'pointer-up';
     '(keydown)': 'onKeydown($event)',
   },
 })
-export class RippleDirective {
+export class UiRipple {
   readonly #elementRef = inject(ElementRef);
   readonly #renderer = inject(Renderer2);
 

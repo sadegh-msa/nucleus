@@ -19,7 +19,7 @@ import type { UiPasswordStrengthModel } from '../../models';
     class: 'ui input password',
   },
 })
-export class InputPasswordDirective implements OnInit {
+export class UiInputPassword implements OnInit {
   readonly #destroyRef = inject(DestroyRef);
   readonly #renderer = inject(Renderer2);
   readonly #elementRef = inject(ElementRef);
