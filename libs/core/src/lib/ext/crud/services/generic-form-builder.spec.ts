@@ -2,15 +2,16 @@ import { signal } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
+import { type Mock, vi } from 'vitest';
 import { PageType } from '../enums/page.enum';
 import { GenericFormBuilder } from './generic-form-builder';
 
 describe('GenericFormBuilder', () => {
   let service: GenericFormBuilder<any>;
-  let router: { navigate: jest.Mock };
+  let router: { navigate: Mock };
 
   beforeEach(() => {
-    router = { navigate: jest.fn() };
+    router = { navigate: vi.fn() };
 
     TestBed.configureTestingModule({
       providers: [GenericFormBuilder, { provide: Router, useValue: router }],
@@ -98,8 +99,8 @@ function createMockConsumer() {
     id: signal('123'),
     pageType: signal(PageType.View),
     isEmbedded: signal(false),
-    save: jest.fn(),
-    formControlHasError: jest.fn().mockReturnValue(false),
+    save: vi.fn(),
+    formControlHasError: vi.fn().mockReturnValue(false),
     config: {
       path: {
         page: {
@@ -114,15 +115,15 @@ function createMockConsumer() {
       add: () => ({ status: 0, response: { data: {} }, tool: null }),
       update: () => ({ status: 0, response: { data: {} }, tool: null }),
       delete: () => ({ status: 0, response: { data: '' }, tool: null }),
-      loadGet: jest.fn(),
-      loadAdd: jest.fn(),
-      loadUpdate: jest.fn(),
-      loadDelete: jest.fn(),
-      resetGet: jest.fn(),
-      resetAdd: jest.fn(),
-      resetUpdate: jest.fn(),
-      resetDelete: jest.fn(),
-      getMutate: jest.fn(),
+      loadGet: vi.fn(),
+      loadAdd: vi.fn(),
+      loadUpdate: vi.fn(),
+      loadDelete: vi.fn(),
+      resetGet: vi.fn(),
+      resetAdd: vi.fn(),
+      resetUpdate: vi.fn(),
+      resetDelete: vi.fn(),
+      getMutate: vi.fn(),
     },
     toolbar: { tools: [] },
     navigationState: undefined,

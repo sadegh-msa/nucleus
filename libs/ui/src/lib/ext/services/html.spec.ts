@@ -1,4 +1,5 @@
 import { TestBed } from '@angular/core/testing';
+import { vi } from 'vitest';
 
 import { UiHtml } from './html';
 
@@ -35,7 +36,7 @@ describe('UiHtml', () => {
       const first = document.createElement('div');
       const second = document.createElement('div');
 
-      jest.spyOn(first, 'getBoundingClientRect').mockReturnValue({
+      vi.spyOn(first, 'getBoundingClientRect').mockReturnValue({
         top: 10,
         left: 10,
         width: 100,
@@ -46,7 +47,7 @@ describe('UiHtml', () => {
         y: 10,
         toJSON: () => {},
       });
-      jest.spyOn(second, 'getBoundingClientRect').mockReturnValue({
+      vi.spyOn(second, 'getBoundingClientRect').mockReturnValue({
         top: 0,
         left: 0,
         width: 200,
@@ -67,7 +68,7 @@ describe('UiHtml', () => {
       const first = document.createElement('div');
       const second = document.createElement('div');
 
-      jest.spyOn(first, 'getBoundingClientRect').mockReturnValue({
+      vi.spyOn(first, 'getBoundingClientRect').mockReturnValue({
         top: 10,
         left: 10,
         width: 50,
@@ -78,7 +79,7 @@ describe('UiHtml', () => {
         y: 10,
         toJSON: () => {},
       });
-      jest.spyOn(second, 'getBoundingClientRect').mockReturnValue({
+      vi.spyOn(second, 'getBoundingClientRect').mockReturnValue({
         top: 200,
         left: 200,
         width: 50,

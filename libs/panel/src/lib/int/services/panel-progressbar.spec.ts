@@ -1,5 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 import { NavigationEnd, NavigationStart, Router } from '@angular/router';
+import { type Mock, vi } from 'vitest';
 import { Subject } from 'rxjs';
 
 import { PanelProgressbar } from './panel-progressbar';
@@ -7,12 +8,12 @@ import { PanelProgressbar } from './panel-progressbar';
 describe('PanelProgressbar', () => {
   let service: PanelProgressbar;
   let routerEvents$: Subject<any>;
-  let router: { navigate: jest.Mock; events: Subject<any> };
+  let router: { navigate: Mock; events: Subject<any> };
 
   beforeEach(() => {
     routerEvents$ = new Subject();
     router = {
-      navigate: jest.fn(),
+      navigate: vi.fn(),
       events: routerEvents$,
     };
 
@@ -20,11 +21,11 @@ describe('PanelProgressbar', () => {
       providers: [{ provide: Router, useValue: router }],
     });
     service = TestBed.inject(PanelProgressbar);
-    jest.useFakeTimers();
+    vi.useFakeTimers();
   });
 
   afterEach(() => {
-    jest.useRealTimers();
+    vi.useRealTimers();
   });
 
   it('should be created', () => {
@@ -57,7 +58,7 @@ describe('PanelProgressbar', () => {
     it('should increment value over time', () => {
       service.startProgress();
 
-      jest.advanceTimersByTime(200);
+      vi.advanceTimersByTime(200);
 
       expect(service.value()).toBeGreaterThan(0);
     });
@@ -75,7 +76,7 @@ describe('PanelProgressbar', () => {
       service.startProgress();
       service.endProgress();
 
-      jest.advanceTimersByTime(1500);
+      vi.advanceTimersByTime(1500);
 
       expect(service.value()).toBe(-1);
     });

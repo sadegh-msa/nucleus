@@ -1,4 +1,5 @@
 import { TestBed } from '@angular/core/testing';
+import { vi } from 'vitest';
 
 import { UiCssSupport } from './css-support';
 
@@ -22,7 +23,7 @@ describe('UiCssSupport', () => {
     });
 
     it('should call CSS.supports with the correct argument', () => {
-      const spy = jest.spyOn(CSS, 'supports');
+      const spy = vi.spyOn(CSS, 'supports');
 
       service.calcSize();
 

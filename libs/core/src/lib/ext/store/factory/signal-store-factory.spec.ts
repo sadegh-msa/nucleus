@@ -4,6 +4,7 @@ import { TestBed } from '@angular/core/testing';
 import { OperationStatus, provideNuCommonConfig } from '@nucleus/common';
 import { provideUiConfig } from '@nucleus/ui';
 import { MOCK_NU_COMMON_CONFIG, MOCK_UI_CONFIG, setupGlobalMocks } from '@test-mocks';
+import { type Mock, vi } from 'vitest';
 import { of, Subject, throwError } from 'rxjs';
 import { createCrudSignalStore } from './signal-store-factory';
 
@@ -21,20 +22,20 @@ interface TestCreate {
 describe('createCrudSignalStore', () => {
   let store: any;
   let mockRest: {
-    list: jest.Mock;
-    get: jest.Mock;
-    add: jest.Mock;
-    update: jest.Mock;
-    delete: jest.Mock;
+    list: Mock;
+    get: Mock;
+    add: Mock;
+    update: Mock;
+    delete: Mock;
   };
 
   beforeEach(() => {
     mockRest = {
-      list: jest.fn(),
-      get: jest.fn(),
-      add: jest.fn(),
-      update: jest.fn(),
-      delete: jest.fn(),
+      list: vi.fn(),
+      get: vi.fn(),
+      add: vi.fn(),
+      update: vi.fn(),
+      delete: vi.fn(),
     };
 
     const TestStore = createCrudSignalStore<any, TestCreate, TestItem>(
@@ -394,7 +395,7 @@ describe('createCrudSignalStore', () => {
 
   describe('tool support', () => {
     it('should pass tool to state on loadList', () => {
-      const tool = { showLoading: { set: jest.fn() } } as any;
+      const tool = { showLoading: { set: vi.fn() } } as any;
       mockRest.list.mockReturnValue(of({ control: {}, data: [] }));
 
       store.loadList({ page: 0, rows: 10 }, tool);

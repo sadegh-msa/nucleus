@@ -4,6 +4,7 @@ import { provideRouter } from '@angular/router';
 import { provideNuCommonConfig } from '@nucleus/common';
 import { provideUiConfig } from '@nucleus/ui';
 import { MOCK_NU_COMMON_CONFIG, MOCK_UI_CONFIG, setupGlobalMocks } from '@test-mocks';
+import { vi } from 'vitest';
 import { AuthToken } from '../../../../ext/auth/services/auth-token';
 import { SignLayout } from './sign-layout';
 
@@ -22,7 +23,7 @@ describe('SignLayout', () => {
         provideUiConfig(MOCK_UI_CONFIG),
         {
           provide: AuthToken,
-          useValue: { isAuthenticated: jest.fn().mockReturnValue(false) },
+          useValue: { isAuthenticated: vi.fn().mockReturnValue(false) },
         },
       ],
       schemas: [NO_ERRORS_SCHEMA],

@@ -5,6 +5,7 @@ import { provideNuCommonConfig } from '@nucleus/common';
 import { provideUiConfig } from '@nucleus/ui';
 import { MOCK_NU_COMMON_CONFIG, MOCK_UI_CONFIG, setupGlobalMocks } from '@test-mocks';
 import { ConfirmationService } from 'primeng/api';
+import { vi } from 'vitest';
 import { GenericList } from './generic-list';
 
 setupGlobalMocks();
@@ -58,7 +59,7 @@ describe('GenericList', () => {
   });
 
   it('should emit selection', () => {
-    const spy = jest.fn();
+    const spy = vi.fn();
     component.selection.subscribe(spy);
     component.changeSelection([mockData[0]]);
     expect(spy).toHaveBeenCalledWith([mockData[0]]);

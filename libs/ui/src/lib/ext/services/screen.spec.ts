@@ -1,5 +1,6 @@
 import { DOCUMENT } from '@angular/common';
 import { TestBed } from '@angular/core/testing';
+import { vi } from 'vitest';
 
 import { UiScreen } from './screen';
 
@@ -14,8 +15,8 @@ describe('UiScreen', () => {
       configurable: true,
     });
 
-    jest.spyOn(window, 'getComputedStyle').mockReturnValue({
-      getPropertyValue: jest.fn().mockReturnValue('16px'),
+    vi.spyOn(window, 'getComputedStyle').mockReturnValue({
+      getPropertyValue: vi.fn().mockReturnValue('16px'),
     } as unknown as CSSStyleDeclaration);
 
     Object.defineProperty(globalThis, 'ResizeObserver', {
@@ -34,7 +35,7 @@ describe('UiScreen', () => {
   });
 
   afterEach(() => {
-    jest.restoreAllMocks();
+    vi.restoreAllMocks();
   });
 
   it('should be created', () => {

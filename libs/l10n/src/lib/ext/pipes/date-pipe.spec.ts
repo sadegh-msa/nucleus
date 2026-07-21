@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import { type ComponentFixture, TestBed } from '@angular/core/testing';
+import { type Mock, vi } from 'vitest';
 import { DateUtils } from '../services/date-utils';
+
+type MockedDateUtils = { [K in keyof DateUtils]: DateUtils[K] extends (...args: any[]) => any ? Mock<DateUtils[K]> : DateUtils[K] };
 import { NuDatePipe } from './date-pipe';
 
 @Component({
@@ -14,14 +17,14 @@ class HostComponent {
 
 describe('NuDatePipe', () => {
   let fixture: ComponentFixture<HostComponent>;
-  let dateService: jest.Mocked<DateUtils>;
+  let dateService: MockedDateUtils;
 
   beforeEach(async () => {
     const mock = {
-      convertToDate: jest.fn(),
-      isValidDate: jest.fn(),
-      format: jest.fn(),
-      formatDistanceToNow: jest.fn(),
+      convertToDate: vi.fn(),
+      isValidDate: vi.fn(),
+      format: vi.fn(),
+      formatDistanceToNow: vi.fn(),
     };
     await TestBed.configureTestingModule({
       imports: [HostComponent],

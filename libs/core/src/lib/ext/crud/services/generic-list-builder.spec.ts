@@ -1,18 +1,19 @@
 import { signal } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { ActivatedRoute, Router } from '@angular/router';
+import { type Mock, vi } from 'vitest';
 
 import { GenericListBuilder } from './generic-list-builder';
 
 describe('GenericListBuilder', () => {
   let service: GenericListBuilder<any>;
-  let router: { navigate: jest.Mock };
+  let router: { navigate: Mock };
   let activatedRoute: any;
 
   beforeEach(() => {
-    router = { navigate: jest.fn() };
+    router = { navigate: vi.fn() };
     activatedRoute = {
-      queryParams: { pipe: jest.fn().mockReturnValue({ subscribe: jest.fn() }) },
+      queryParams: { pipe: vi.fn().mockReturnValue({ subscribe: vi.fn() }) },
     };
 
     TestBed.configureTestingModule({
@@ -57,7 +58,7 @@ function createMockConsumer() {
     selectedRecords: signal([]),
     isEmbedded: signal(false),
     toolbar: { tools: [] } as any,
-    changeSelection: jest.fn(),
+    changeSelection: vi.fn(),
     config: { path: { page: { list: () => ['/list'] } } },
     store: {
       list: () => ({
@@ -66,13 +67,13 @@ function createMockConsumer() {
         tool: null,
       }),
       delete: () => ({ status: 0, response: { data: '' }, tool: null }),
-      loadList: jest.fn(),
-      loadDelete: jest.fn(),
+      loadList: vi.fn(),
+      loadDelete: vi.fn(),
     },
     table: {
       columns: [],
       tools: [],
-      events$: { pipe: jest.fn().mockReturnValue({ subscribe: jest.fn() }) },
+      events$: { pipe: vi.fn().mockReturnValue({ subscribe: vi.fn() }) },
     },
   };
 }

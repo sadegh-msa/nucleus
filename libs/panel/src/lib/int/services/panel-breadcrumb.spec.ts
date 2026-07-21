@@ -1,11 +1,12 @@
 import { TestBed } from '@angular/core/testing';
 import { Router } from '@angular/router';
+import { type Mock, vi } from 'vitest';
 
 import { PanelBreadcrumb } from './panel-breadcrumb';
 
 describe('PanelBreadcrumb', () => {
   let service: PanelBreadcrumb;
-  let router: { navigate: jest.Mock; events: { pipe: jest.Mock }; currentNavigation: jest.Mock };
+  let router: { navigate: Mock; events: { pipe: Mock }; currentNavigation: Mock };
   let savedPathname: string;
   let originalReplaceState: typeof history.replaceState;
 
@@ -15,9 +16,9 @@ describe('PanelBreadcrumb', () => {
     history.replaceState.call(window.history, {}, '', '/users');
 
     router = {
-      navigate: jest.fn(),
-      events: { pipe: jest.fn().mockReturnValue({ subscribe: jest.fn() }) },
-      currentNavigation: jest.fn().mockReturnValue(null),
+      navigate: vi.fn(),
+      events: { pipe: vi.fn().mockReturnValue({ subscribe: vi.fn() }) },
+      currentNavigation: vi.fn().mockReturnValue(null),
     };
 
     TestBed.configureTestingModule({

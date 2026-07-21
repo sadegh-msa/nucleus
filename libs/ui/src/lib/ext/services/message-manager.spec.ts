@@ -1,5 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 import { provideUiConfig } from '../providers';
+import { vi } from 'vitest';
 import { UiMessageManager } from './message-manager';
 
 describe('UiMessageManager', () => {
@@ -16,11 +17,11 @@ describe('UiMessageManager', () => {
       providers: [provideUiConfig(mockConfig)],
     });
     service = TestBed.inject(UiMessageManager);
-    jest.useFakeTimers();
+    vi.useFakeTimers();
   });
 
   afterEach(() => {
-    jest.useRealTimers();
+    vi.useRealTimers();
   });
 
   it('should be created', () => {
@@ -53,7 +54,7 @@ describe('UiMessageManager', () => {
 
       expect(service.messages().size).toBe(1);
 
-      jest.advanceTimersByTime(1000);
+      vi.advanceTimersByTime(1000);
 
       expect(service.messages().size).toBe(0);
     });
@@ -63,7 +64,7 @@ describe('UiMessageManager', () => {
 
       expect(service.messages().size).toBe(1);
 
-      jest.advanceTimersByTime(5000);
+      vi.advanceTimersByTime(5000);
 
       expect(service.messages().size).toBe(0);
     });

@@ -1,5 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 import { UiMessageManager } from '@nucleus/ui';
+import { vi } from 'vitest';
 import { AuthToken } from '../services/auth-token';
 import { AuthInterceptor } from './auth-interceptor';
 
@@ -7,18 +8,18 @@ describe('AuthInterceptor', () => {
   let interceptor: AuthInterceptor;
 
   const mockMessage = {
-    addError: jest.fn(),
-    addWarning: jest.fn(),
-    addInfo: jest.fn(),
-    addSuccess: jest.fn(),
-    add: jest.fn(),
-    remove: jest.fn(),
+    addError: vi.fn(),
+    addWarning: vi.fn(),
+    addInfo: vi.fn(),
+    addSuccess: vi.fn(),
+    add: vi.fn(),
+    remove: vi.fn(),
     messages: { size: 0 },
   };
 
   const mockAuthToken = {
-    getAccessToken: jest.fn().mockReturnValue('test-token'),
-    deleteAccessToken: jest.fn(),
+    getAccessToken: vi.fn().mockReturnValue('test-token'),
+    deleteAccessToken: vi.fn(),
   };
 
   beforeEach(() => {
@@ -37,13 +38,13 @@ describe('AuthInterceptor', () => {
   });
 
   it('should add Authorization header', () => {
-    const request = new (jest.requireActual('@angular/common/http').HttpRequest)(
+    const request = new (vi.requireActual('@angular/common/http').HttpRequest)(
       'GET',
       '/api/test',
     );
     const handledReq = jest
       .fn()
-      .mockReturnValue({ pipe: jest.fn().mockReturnValue({ subscribe: jest.fn() }) });
+      .mockReturnValue({ pipe: vi.fn().mockReturnValue({ subscribe: vi.fn() }) });
 
     interceptor.intercept(request, { handle: handledReq } as any);
 

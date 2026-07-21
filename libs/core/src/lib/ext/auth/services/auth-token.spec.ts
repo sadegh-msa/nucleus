@@ -2,6 +2,7 @@ import { TestBed } from '@angular/core/testing';
 import { CookieManager, provideNuCommonConfig } from '@nucleus/common';
 import { provideUiConfig } from '@nucleus/ui';
 import { MOCK_UI_CONFIG, setupGlobalMocks } from '@test-mocks';
+import { type Mock, vi } from 'vitest';
 import { provideAuthConfig } from '../providers/auth-config-provider';
 import { provideAuthStore } from '../store/auth-store';
 import { AuthToken } from './auth-token';
@@ -11,9 +12,9 @@ setupGlobalMocks();
 describe('AuthToken', () => {
   let service: AuthToken;
   let cookieService: {
-    getItem: jest.Mock;
-    setItem: jest.Mock;
-    deleteItem: jest.Mock;
+    getItem: Mock;
+    setItem: Mock;
+    deleteItem: Mock;
   };
 
   const mockAuthConfig = {
@@ -34,9 +35,9 @@ describe('AuthToken', () => {
 
   beforeEach(() => {
     cookieService = {
-      getItem: jest.fn(),
-      setItem: jest.fn(),
-      deleteItem: jest.fn(),
+      getItem: vi.fn(),
+      setItem: vi.fn(),
+      deleteItem: vi.fn(),
     };
 
     TestBed.configureTestingModule({

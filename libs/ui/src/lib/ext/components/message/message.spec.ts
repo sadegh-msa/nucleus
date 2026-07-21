@@ -1,6 +1,7 @@
 import { type ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideUiConfig } from '../../providers';
 import { UiMessageManager } from '../../services/message-manager';
+import { vi } from 'vitest';
 import { UiMessage } from './message';
 
 describe('UiMessage', () => {
@@ -27,7 +28,7 @@ describe('UiMessage', () => {
   });
 
   afterEach(() => {
-    jest.useRealTimers();
+    vi.useRealTimers();
   });
 
   it('should create', () => {
@@ -43,7 +44,7 @@ describe('UiMessage', () => {
   });
 
   it('should reflect added messages', () => {
-    jest.useFakeTimers();
+    vi.useFakeTimers();
     messageService.add({ variant: 'info', content: 'Test' });
     fixture.detectChanges();
 

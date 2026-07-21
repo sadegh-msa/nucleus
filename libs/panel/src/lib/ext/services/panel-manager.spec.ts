@@ -1,16 +1,17 @@
 import { TestBed } from '@angular/core/testing';
 import { PermanentStorage } from '@nucleus/common';
+import { type Mock, vi } from 'vitest';
 import { PanelManager } from './panel-manager';
 
 describe('PanelManager', () => {
   let service: PanelManager;
-  let storageService: { getItem: jest.Mock; setItem: jest.Mock; removeItem: jest.Mock };
+  let storageService: { getItem: Mock; setItem: Mock; removeItem: Mock };
 
   beforeEach(() => {
     storageService = {
-      getItem: jest.fn().mockReturnValue(null),
-      setItem: jest.fn(),
-      removeItem: jest.fn(),
+      getItem: vi.fn().mockReturnValue(null),
+      setItem: vi.fn(),
+      removeItem: vi.fn(),
     };
 
     TestBed.configureTestingModule({

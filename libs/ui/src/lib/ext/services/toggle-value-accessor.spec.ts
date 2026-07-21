@@ -1,6 +1,7 @@
 import { ChangeDetectorRef, signal } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import type { ControlValueAccessor } from '@angular/forms';
+import { vi } from 'vitest';
 import type { ToggleValueModel, UiGenericToggleConsumerModel } from '../models/toggle.model';
 import { UiToggleValueAccessor } from './toggle-value-accessor';
 
@@ -11,7 +12,7 @@ describe('UiToggleValueAccessor', () => {
     TestBed.configureTestingModule({
       providers: [
         UiToggleValueAccessor,
-        { provide: ChangeDetectorRef, useValue: { markForCheck: jest.fn() } },
+        { provide: ChangeDetectorRef, useValue: { markForCheck: vi.fn() } },
       ],
     });
     service = TestBed.inject(UiToggleValueAccessor);
@@ -101,7 +102,7 @@ describe('UiToggleValueAccessor', () => {
 
     it('should register onChange callback', () => {
       const consumer = createMockConsumer();
-      const onChange = jest.fn();
+      const onChange = vi.fn();
       service.init(consumer);
 
       consumer.registerOnChange(onChange);
@@ -111,7 +112,7 @@ describe('UiToggleValueAccessor', () => {
 
     it('should register onTouched callback', () => {
       const consumer = createMockConsumer();
-      const onTouch = jest.fn();
+      const onTouch = vi.fn();
       service.init(consumer);
 
       consumer.registerOnTouched(onTouch);
@@ -171,10 +172,10 @@ function createMockConsumer(
     isDisabled: signal(false),
     isBinary: signal(true),
     hasLabel: signal(false),
-    toggle: jest.fn(),
-    writeValue: jest.fn(),
-    registerOnChange: jest.fn(),
-    registerOnTouched: jest.fn(),
-    setDisabledState: jest.fn(),
+    toggle: vi.fn(),
+    writeValue: vi.fn(),
+    registerOnChange: vi.fn(),
+    registerOnTouched: vi.fn(),
+    setDisabledState: vi.fn(),
   };
 }
