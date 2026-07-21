@@ -75,7 +75,7 @@ Path aliases defined in `tsconfig.base.json`:
 
 ## Testing
 
-- **Unit**: Jest with `jest-preset-angular`; use `@test-mocks` for shared mocks
+- **Unit**: Vitest v4 with `@analogjs/vitest-angular`; use `@test-mocks` for shared mocks
 - **E2E**: Playwright (via `@nx/playwright`)
 - Test setup in `utils/test-mocks.ts` provides `setupGlobalMocks()` for jsdom environment
 
