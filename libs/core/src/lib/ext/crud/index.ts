@@ -15,7 +15,7 @@ export * from './factory/pagination-factory';
 export * from './factory/permission-factory';
 export * from './factory/rest-method-factory';
 export * from './factory/toolbar-factory';
-export * from './helpers/format-messages.helper';
+export * from './helpers/format-messages-helper';
 export * from './models/crud.model';
 export * from './models/crud-config.model';
 export * from './models/dropdown.model';
