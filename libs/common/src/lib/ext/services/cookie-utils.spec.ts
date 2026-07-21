@@ -1,6 +1,6 @@
 import { DOCUMENT } from '@angular/common';
 import { TestBed } from '@angular/core/testing';
-import { provideNuCommonConfig } from '../providers/common-config.provider';
+import { provideNuCommonConfig } from '../providers/common-config-provider';
 import { CookieUtils } from './cookie-utils';
 import { CryptoUtils } from './crypto-utils';
 

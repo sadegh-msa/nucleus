@@ -4,7 +4,7 @@ import { TestBed } from '@angular/core/testing';
 import { OperationStatus, provideNuCommonConfig } from '@nucleus/common';
 import { provideUiConfig } from '@nucleus/ui';
 import { MOCK_NU_COMMON_CONFIG, MOCK_UI_CONFIG, setupGlobalMocks } from '@test-mocks';
-import { provideAuthConfig } from '../providers/auth-config.provider';
+import { provideAuthConfig } from '../providers/auth-config-provider';
 import { AuthRest } from '../services/auth-rest';
 import { injectAuthStore, provideAuthStore } from './auth.store';
 

@@ -1,5 +1,5 @@
 import { TestBed } from '@angular/core/testing';
-import { provideNuCommonConfig } from '../providers/common-config.provider';
+import { provideNuCommonConfig } from '../providers/common-config-provider';
 import { CryptoUtils } from './crypto-utils';
 
 describe('CryptoUtils', () => {

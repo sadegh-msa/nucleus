@@ -3,7 +3,7 @@ import { NavigationCancel, Router } from '@angular/router';
 import { CookieUtils, OperationStatus, PermanentStorage, sleepRandom } from '@nucleus/common';
 import { debounceTime, filter, fromEvent, map, skipWhile } from 'rxjs';
 import { authDefaultConfig } from '../auth-default.config';
-import { injectAuthConfig } from '../providers/auth-config.provider';
+import { injectAuthConfig } from '../providers/auth-config-provider';
 import { injectAuthStore } from '../store/auth.store';
 
 @Service()

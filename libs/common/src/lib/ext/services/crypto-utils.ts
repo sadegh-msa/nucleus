@@ -1,5 +1,5 @@
 import { Service } from '@angular/core';
-import { injectNuCommonConfig } from '../providers/common-config.provider';
+import { injectNuCommonConfig } from '../providers/common-config-provider';
 
 @Service()
 export class CryptoUtils {

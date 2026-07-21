@@ -1,5 +1,5 @@
 import { TestBed } from '@angular/core/testing';
-import { provideNuCommonConfig } from '../providers/common-config.provider';
+import { provideNuCommonConfig } from '../providers/common-config-provider';
 import { PermanentStorage } from './permanent-storage';
 
 describe('PermanentStorage', () => {
