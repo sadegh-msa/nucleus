@@ -10,7 +10,8 @@
     "e2e:cli": "nx run nucleus-e2e:e2e",
     "build": "nx build --configuration=fa nucleus",
     "localize": "nx extract-i18n nucleus && node utils/merge-locales.mjs nucleus",
-    "lint": "biome check --write $(git status --porcelain | grep -E '^\\s*[AM?]' | awk '{print $2}')",
+    "lint": "nx affected -t lint --batch",
+    "lint:all": "nx run-many -t lint --batch",
     "cd:apps": "madge --circular --extensions ts --image apps-circular.svg ./apps",
     "cd:libs": "madge --circular --extensions ts --image libs-circular.svg ./libs"
   },
@@ -45,6 +46,7 @@
     "@angular/compiler-cli": "22.0.6",
     "@angular/language-service": "22.0.6",
     "@angular/localize": "22.0.6",
+    "@berenddeboer/nx-biome": "^1.0.3",
     "@biomejs/biome": "^2.5.0",
     "@nx/angular": "23.1.0",
     "@nx/devkit": "23.1.0",

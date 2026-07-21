@@ -42,8 +42,5 @@
         "config": "libs/ui/vite.config.mts"
       }
     },
-    "lint": {
-      "executor": "@nx/eslint:lint"
-    }
   }
 }

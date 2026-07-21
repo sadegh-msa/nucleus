@@ -54,8 +54,5 @@
         "config": "libs/theme/vite.config.mts"
       }
     },
-    "lint": {
-      "executor": "@nx/eslint:lint"
-    }
   }
 }

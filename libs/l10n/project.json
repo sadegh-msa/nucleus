@@ -42,8 +42,5 @@
         "config": "libs/l10n/vite.config.mts"
       }
     },
-    "lint": {
-      "executor": "@nx/eslint:lint"
-    }
   }
 }
