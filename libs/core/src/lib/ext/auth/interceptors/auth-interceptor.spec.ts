@@ -1,3 +1,4 @@
+import { HttpRequest } from '@angular/common/http';
 import { TestBed } from '@angular/core/testing';
 import { UiMessageManager } from '@nucleus/ui';
 import { vi } from 'vitest';
@@ -38,11 +39,8 @@ describe('AuthInterceptor', () => {
   });
 
   it('should add Authorization header', () => {
-    const request = new (vi.requireActual('@angular/common/http').HttpRequest)(
-      'GET',
-      '/api/test',
-    );
-    const handledReq = jest
+    const request = new HttpRequest('GET', '/api/test');
+    const handledReq = vi
       .fn()
       .mockReturnValue({ pipe: vi.fn().mockReturnValue({ subscribe: vi.fn() }) });
 

@@ -1,21 +1,23 @@
 import { defineConfig } from 'vitest/config';
+import angular from '@analogjs/vite-plugin-angular';
 import path from 'path';
 
 export default defineConfig({
   root: __dirname,
+  plugins: [angular()],
   resolve: {
-    alias: {
-      '@nucleus/common': path.resolve(__dirname, '../../libs/common/src/index.ts'),
-      '@nucleus/core': path.resolve(__dirname, '../../libs/core/src/index.ts'),
-      '@nucleus/core/auth': path.resolve(__dirname, '../../libs/core/src/lib/ext/auth/index.ts'),
-      '@nucleus/core/crud': path.resolve(__dirname, '../../libs/core/src/lib/ext/crud/index.ts'),
-      '@nucleus/core/store': path.resolve(__dirname, '../../libs/core/src/lib/ext/store/index.ts'),
-      '@nucleus/ui': path.resolve(__dirname, '../../libs/ui/src/index.ts'),
-      '@nucleus/l10n': path.resolve(__dirname, '../../libs/l10n/src/index.ts'),
-      '@nucleus/panel': path.resolve(__dirname, '../../libs/panel/src/index.ts'),
-      '@nucleus/theme': path.resolve(__dirname, '../../libs/theme/src/index.ts'),
-      '@test-mocks': path.resolve(__dirname, '../../utils/test-mocks.ts'),
-    },
+    alias: [
+      { find: /^@nucleus\/core\/auth$/, replacement: path.resolve(__dirname, '../../libs/core/src/lib/ext/auth/index.ts') },
+      { find: /^@nucleus\/core\/crud$/, replacement: path.resolve(__dirname, '../../libs/core/src/lib/ext/crud/index.ts') },
+      { find: /^@nucleus\/core\/store$/, replacement: path.resolve(__dirname, '../../libs/core/src/lib/ext/store/index.ts') },
+      { find: '@nucleus/common', replacement: path.resolve(__dirname, '../../libs/common/src/index.ts') },
+      { find: '@nucleus/core', replacement: path.resolve(__dirname, '../../libs/core/src/index.ts') },
+      { find: '@nucleus/ui', replacement: path.resolve(__dirname, '../../libs/ui/src/index.ts') },
+      { find: '@nucleus/l10n', replacement: path.resolve(__dirname, '../../libs/l10n/src/index.ts') },
+      { find: '@nucleus/panel', replacement: path.resolve(__dirname, '../../libs/panel/src/index.ts') },
+      { find: '@nucleus/theme', replacement: path.resolve(__dirname, '../../libs/theme/src/index.ts') },
+      { find: '@test-mocks', replacement: path.resolve(__dirname, '../../utils/test-mocks.ts') },
+    ],
   },
   test: {
     globals: true,

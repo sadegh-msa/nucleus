@@ -1,8 +1,10 @@
 import { defineConfig } from 'vitest/config';
+import angular from '@analogjs/vite-plugin-angular';
 import path from 'path';
 
 export default defineConfig({
   root: __dirname,
+  plugins: [angular()],
   resolve: {
     alias: {
       '@nucleus/common': path.resolve(__dirname, 'src/index.ts'),

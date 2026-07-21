@@ -1,1 +1,5 @@
-import '@analogjs/vitest-angular/setup-testbed';
+import '@angular/localize/init';
+import '@angular/compiler';
+import { setupTestBed } from '@analogjs/vitest-angular/setup-testbed';
+
+setupTestBed();

@@ -36,7 +36,7 @@
       }
     },
     "test": {
-      "executor": "@nx/vitest:vitest",
+      "executor": "@nx/vitest:test",
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
       "options": {
         "config": "libs/l10n/vitest.config.ts"

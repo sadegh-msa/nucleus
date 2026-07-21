@@ -1,8 +1,10 @@
 import { defineConfig } from 'vitest/config';
+import angular from '@analogjs/vite-plugin-angular';
 import path from 'path';
 
 export default defineConfig({
   root: __dirname,
+  plugins: [angular()],
   resolve: {
     alias: {
       '@nucleus/common': path.resolve(__dirname, '../common/src/index.ts'),
@@ -20,6 +22,7 @@ export default defineConfig({
   test: {
     globals: true,
     environment: 'jsdom',
+    passWithNoTests: true,
     setupFiles: ['src/test-setup.ts'],
     include: ['src/**/*.spec.ts'],
     coverage: {

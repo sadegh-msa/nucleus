@@ -48,7 +48,7 @@
       }
     },
     "test": {
-      "executor": "@nx/vitest:vitest",
+      "executor": "@nx/vitest:test",
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
       "options": {
         "config": "libs/theme/vitest.config.ts"

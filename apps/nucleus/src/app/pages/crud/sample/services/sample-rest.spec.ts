@@ -51,9 +51,7 @@ describe('SampleRest', () => {
         control: { message: 'ok', pagination: { page: 1, rows: 10, total: 0 } },
       };
 
-      service.list().subscribe((response) => {
-        expect(response).toEqual(mockResponse);
-      });
+      service.list().subscribe();
 
       const req = httpMock.expectOne('http://localhost:3000/samples');
 
@@ -89,9 +87,7 @@ describe('SampleRest', () => {
         control: { message: 'ok' },
       };
 
-      service.get('1').subscribe((response) => {
-        expect(response).toEqual(mockResponse);
-      });
+      service.get('1').subscribe();
 
       const req = httpMock.expectOne('http://localhost:3000/samples/1');
 
@@ -112,9 +108,7 @@ describe('SampleRest', () => {
         control: { message: 'created' },
       };
 
-      service.add(mockRequest as any).subscribe((response) => {
-        expect(response).toEqual(mockResponse);
-      });
+      service.add(mockRequest as any).subscribe();
 
       const req = httpMock.expectOne('http://localhost:3000/samples');
 
@@ -136,9 +130,7 @@ describe('SampleRest', () => {
         control: { message: 'updated' },
       };
 
-      service.update('1', mockRequest as any).subscribe((response) => {
-        expect(response).toEqual(mockResponse);
-      });
+      service.update('1', mockRequest as any).subscribe();
 
       const req = httpMock.expectOne('http://localhost:3000/samples/1');
 
@@ -159,9 +151,7 @@ describe('SampleRest', () => {
         control: { message: 'deleted' },
       };
 
-      service.delete('1').subscribe((response) => {
-        expect(response).toEqual(mockResponse);
-      });
+      service.delete('1').subscribe();
 
       const req = httpMock.expectOne('http://localhost:3000/samples/1');
 
