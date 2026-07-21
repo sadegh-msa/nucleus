@@ -1,10 +1,13 @@
-import { defineConfig } from 'vitest/config';
+/// <reference types='vitest' />
+import { defineConfig } from 'vite';
 import angular from '@analogjs/vite-plugin-angular';
 import path from 'path';
+import { nxCopyAssetsPlugin } from '@nx/vite/plugins/nx-copy-assets.plugin';
 
-export default defineConfig({
+export default defineConfig(() => ({
   root: __dirname,
-  plugins: [angular()],
+  cacheDir: '../../node_modules/.vite/libs/common',
+  plugins: [angular(), nxCopyAssetsPlugin(['*.md'])],
   resolve: {
     alias: {
       '@nucleus/common': path.resolve(__dirname, '../common/src/index.ts'),
@@ -13,20 +16,23 @@ export default defineConfig({
       '@nucleus/core/crud': path.resolve(__dirname, '../core/src/lib/ext/crud/index.ts'),
       '@nucleus/core/store': path.resolve(__dirname, '../core/src/lib/ext/store/index.ts'),
       '@nucleus/ui': path.resolve(__dirname, '../ui/src/index.ts'),
-      '@nucleus/l10n': path.resolve(__dirname, 'src/index.ts'),
+      '@nucleus/l10n': path.resolve(__dirname, '../l10n/src/index.ts'),
       '@nucleus/panel': path.resolve(__dirname, '../panel/src/index.ts'),
       '@nucleus/theme': path.resolve(__dirname, '../theme/src/index.ts'),
       '@test-mocks': path.resolve(__dirname, '../../utils/test-mocks.ts'),
     },
   },
   test: {
+    name: 'common',
+    watch: false,
     globals: true,
     environment: 'jsdom',
+    include: ['{src,tests}/**/*.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}'],
     setupFiles: ['src/test-setup.ts'],
-    include: ['src/**/*.spec.ts'],
+    reporters: ['default'],
     coverage: {
-      provider: 'v8',
-      reporter: ['text', 'html'],
+      reportsDirectory: '../../coverage/libs/common',
+      provider: 'v8' as const,
     },
   },
-});
+}));

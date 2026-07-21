@@ -1,10 +1,13 @@
-import { defineConfig } from 'vitest/config';
+/// <reference types='vitest' />
+import { defineConfig } from 'vite';
 import angular from '@analogjs/vite-plugin-angular';
 import path from 'path';
+import { nxCopyAssetsPlugin } from '@nx/vite/plugins/nx-copy-assets.plugin';
 
-export default defineConfig({
+export default defineConfig(() => ({
   root: __dirname,
-  plugins: [angular()],
+  cacheDir: '../../node_modules/.vite/libs/core',
+  plugins: [angular(), nxCopyAssetsPlugin(['*.md'])],
   resolve: {
     alias: {
       '@nucleus/common': path.resolve(__dirname, '../common/src/index.ts'),
@@ -20,13 +23,16 @@ export default defineConfig({
     },
   },
   test: {
+    name: 'core',
+    watch: false,
     globals: true,
     environment: 'jsdom',
+    include: ['{src,tests}/**/*.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}'],
     setupFiles: ['src/test-setup.ts'],
-    include: ['src/**/*.spec.ts'],
+    reporters: ['default'],
     coverage: {
-      provider: 'v8',
-      reporter: ['text', 'html'],
+      reportsDirectory: '../../coverage/libs/core',
+      provider: 'v8' as const,
     },
   },
-});
+}));

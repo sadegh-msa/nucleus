@@ -2,9 +2,9 @@ import { defineConfig } from 'vitest/config';
 
 export default defineConfig({
   test: {
-    globals: true,
-    environment: 'jsdom',
-    include: ['**/*.spec.ts'],
-    exclude: ['**/node_modules/**', '**/dist/**', '**/e2e/**'],
+    projects: [
+      '**/vite.config.{mjs,js,ts,mts}',
+      '**/vitest.config.{mjs,js,ts,mts}',
+    ],
   },
 });
