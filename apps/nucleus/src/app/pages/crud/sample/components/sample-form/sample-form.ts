@@ -5,23 +5,20 @@ import { GenericFormBuilder, GenericFormToolbar, PageType } from '@nucleus/core/
 import { UiCalendar, UiLoading } from '@nucleus/ui';
 import { SampleStatus } from '../../enums/sample-status.enum';
 import type { SampleTypedFormModel } from '../../models/sample.model';
-import type { GenericSampleFormModel, SampleGenericModel } from '../../models/sample-generic.model';
+import {
+  AbstractGenericSampleForm,
+  type SampleGenericModel,
+} from '../../models/sample-generic.model';
 import { sampleConfig } from '../../sample.config';
 import { SampleStore } from '../../store/sample-store';
 
 @Component({
   selector: 'app-sample-form',
   templateUrl: './sample-form.html',
-  imports: [
-    ReactiveFormsModule,
-    NgClass,
-    UiLoading,
-    GenericFormToolbar,
-    UiCalendar,
-  ],
+  imports: [ReactiveFormsModule, NgClass, UiLoading, GenericFormToolbar, UiCalendar],
   providers: [GenericFormBuilder],
 })
-export class SampleForm implements OnInit, GenericSampleFormModel {
+export class SampleForm extends AbstractGenericSampleForm implements OnInit {
   readonly #genericFormBuilder = inject(GenericFormBuilder<SampleGenericModel>);
 
   pageType = input(PageType.View);
@@ -43,16 +40,9 @@ export class SampleForm implements OnInit, GenericSampleFormModel {
     details: new FormControl([]),
   });
 
-  data!: GenericSampleFormModel['data'];
-  title!: GenericSampleFormModel['title'];
-  isSubmitted!: GenericSampleFormModel['isSubmitted'];
-  isSubmitting!: GenericSampleFormModel['isSubmitting'];
-  save!: GenericSampleFormModel['save'];
-  formControlHasError!: GenericSampleFormModel['formControlHasError'];
-  toolbar!: GenericSampleFormModel['toolbar'];
-  navigationState: GenericSampleFormModel['navigationState'];
-
   constructor() {
+    super();
+
     this.#genericFormBuilder.init(this);
   }
 

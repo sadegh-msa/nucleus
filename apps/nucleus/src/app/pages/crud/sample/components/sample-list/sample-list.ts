@@ -8,7 +8,7 @@ import {
   type TableModel,
 } from '@nucleus/core/crud';
 import type { SampleListModel, SampleModel } from '../../models/sample.model';
-import type { GenericSampleListModel, SampleGenericModel } from '../../models/sample-generic.model';
+import { AbstractGenericSampleList, type SampleGenericModel } from '../../models/sample-generic.model';
 import { sampleConfig } from '../../sample.config';
 import { SampleStore } from '../../store/sample-store';
 
@@ -18,7 +18,7 @@ import { SampleStore } from '../../store/sample-store';
   imports: [GenericList, GenericListToolbar],
   providers: [GenericListBuilder],
 })
-export class SampleList implements OnInit, GenericSampleListModel {
+export class SampleList extends AbstractGenericSampleList implements OnInit {
   readonly #genericListBuilder = inject(GenericListBuilder<SampleGenericModel>);
 
   isEmbedded = input(false);
@@ -49,15 +49,11 @@ export class SampleList implements OnInit, GenericSampleListModel {
     ...createTableToolbar<SampleGenericModel>(this.config),
   };
 
-  isDataLoading!: GenericSampleListModel['isDataLoading'];
-  data!: GenericSampleListModel['data'];
-  pagination!: GenericSampleListModel['pagination'];
-  selectedRecords!: GenericSampleListModel['selectedRecords'];
-  toolbar!: GenericSampleListModel['toolbar'];
-  changeSelection!: GenericSampleListModel['changeSelection'];
   filteredData: SampleListModel = [];
 
   constructor() {
+    super();
+
     this.#genericListBuilder.init(this);
 
     effect(() => {

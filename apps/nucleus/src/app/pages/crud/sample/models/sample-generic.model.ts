@@ -23,5 +23,25 @@ export type SampleGenericModel = GenericEntityModel<
   SampleConfigModel
 >;
 
-export type GenericSampleListModel = GenericListConsumerModel<SampleGenericModel>;
-export type GenericSampleFormModel = GenericFormConsumerModel<SampleGenericModel>;
+type GenericSampleListModel = GenericListConsumerModel<SampleGenericModel>;
+type GenericSampleFormModel = GenericFormConsumerModel<SampleGenericModel>;
+
+export abstract class AbstractGenericSampleList {
+  isDataLoading!: GenericSampleListModel['isDataLoading'];
+  data!: GenericSampleListModel['data'];
+  pagination!: GenericSampleListModel['pagination'];
+  selectedRecords!: GenericSampleListModel['selectedRecords'];
+  toolbar!: GenericSampleListModel['toolbar'];
+  changeSelection!: GenericSampleListModel['changeSelection'];
+}
+
+export abstract class AbstractGenericSampleForm {
+  data!: GenericSampleFormModel['data'];
+  title!: GenericSampleFormModel['title'];
+  isSubmitted!: GenericSampleFormModel['isSubmitted'];
+  isSubmitting!: GenericSampleFormModel['isSubmitting'];
+  save!: GenericSampleFormModel['save'];
+  formControlHasError!: GenericSampleFormModel['formControlHasError'];
+  toolbar!: GenericSampleFormModel['toolbar'];
+  navigationState: GenericSampleFormModel['navigationState'];
+}
