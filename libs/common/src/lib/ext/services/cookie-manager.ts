@@ -3,7 +3,7 @@ import { inject, Service } from '@angular/core';
 import { CryptoUtils } from './crypto-utils';
 
 @Service()
-export class CookieUtils {
+export class CookieManager {
   readonly #document = inject(DOCUMENT);
   readonly #cryptoUtils = inject(CryptoUtils);
 

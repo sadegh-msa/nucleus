@@ -1,11 +1,11 @@
 import { DOCUMENT } from '@angular/common';
 import { TestBed } from '@angular/core/testing';
 import { provideNuCommonConfig } from '../providers/common-config-provider';
-import { CookieUtils } from './cookie-utils';
+import { CookieManager } from './cookie-manager';
 import { CryptoUtils } from './crypto-utils';
 
-describe('CookieUtils', () => {
-  let service: CookieUtils;
+describe('CookieManager', () => {
+  let service: CookieManager;
   let _document: Document;
 
   const mockConfig = {
@@ -24,7 +24,7 @@ describe('CookieUtils', () => {
     TestBed.configureTestingModule({
       providers: [provideNuCommonConfig(mockConfig), CryptoUtils],
     });
-    service = TestBed.inject(CookieUtils);
+    service = TestBed.inject(CookieManager);
     _document = TestBed.inject(DOCUMENT);
   });
 

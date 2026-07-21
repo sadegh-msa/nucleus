@@ -1,6 +1,6 @@
 import { computed, effect, inject, resource, Service, untracked } from '@angular/core';
 import { NavigationCancel, Router } from '@angular/router';
-import { CookieUtils, OperationStatus, PermanentStorage, sleepRandom } from '@nucleus/common';
+import { CookieManager, OperationStatus, PermanentStorage, sleepRandom } from '@nucleus/common';
 import { debounceTime, filter, fromEvent, map, skipWhile } from 'rxjs';
 import { authDefaultConfig } from '../auth-default.config';
 import { injectAuthConfig } from '../providers/auth-config-provider';
@@ -9,7 +9,7 @@ import { injectAuthStore } from '../store/auth-store';
 @Service()
 export class AuthToken {
   readonly #router = inject(Router);
-  readonly #cookieUtils = inject(CookieUtils);
+  readonly #cookieManager = inject(CookieManager);
   readonly #permanentStorage = inject(PermanentStorage);
   readonly #authStore = injectAuthStore();
   readonly #authConfig = injectAuthConfig();
@@ -154,7 +154,7 @@ export class AuthToken {
   }
 
   async #fetchAccessToken() {
-    return (await this.#cookieUtils.getItem(this.#COOKIE_ACCESS_TOKEN_KEY)) || null;
+    return (await this.#cookieManager.getItem(this.#COOKIE_ACCESS_TOKEN_KEY)) || null;
   }
 
   async #checkToken() {
@@ -168,7 +168,7 @@ export class AuthToken {
   }
 
   async setAccessToken(accessToken: string | null) {
-    await this.#cookieUtils.setItem(
+    await this.#cookieManager.setItem(
       this.#COOKIE_ACCESS_TOKEN_KEY,
       accessToken,
       this.#REMEMBER_ME_EXPIRY_MINUTES,
@@ -188,7 +188,7 @@ export class AuthToken {
   }
 
   async deleteAccessToken() {
-    await this.#cookieUtils.deleteItem(this.#COOKIE_ACCESS_TOKEN_KEY);
+    await this.#cookieManager.deleteItem(this.#COOKIE_ACCESS_TOKEN_KEY);
     this.#reloadAccessToken();
   }
 

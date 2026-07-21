@@ -7,7 +7,7 @@ export * from './operators/convert-date-strings.operator';
 export * from './pipes/safe-html-pipe';
 export * from './providers/common-provider';
 export * from './providers/common-config-provider';
-export * from './services/cookie-utils';
+export * from './services/cookie-manager';
 export * from './services/crypto-utils';
 export * from './services/permanent-storage';
 export * from './services/temporary-storage';
