@@ -1,5 +1,3 @@
-// biome-ignore-all lint/suspicious/noExplicitAny: <explanation>
-
 export function mergeObjects<T = any>(a: any, b: any) {
   const res: Partial<Record<keyof T, unknown>> = {};
   const keys = Object.keys({ ...(a || {}), ...(b || {}) }) as (keyof T)[];
