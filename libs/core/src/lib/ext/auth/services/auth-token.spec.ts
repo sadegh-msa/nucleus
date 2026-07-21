@@ -3,7 +3,7 @@ import { CookieUtils, provideNuCommonConfig } from '@nucleus/common';
 import { provideUiConfig } from '@nucleus/ui';
 import { MOCK_UI_CONFIG, setupGlobalMocks } from '@test-mocks';
 import { provideAuthConfig } from '../providers/auth-config-provider';
-import { provideAuthStore } from '../store/auth.store';
+import { provideAuthStore } from '../store/auth-store';
 import { AuthToken } from './auth-token';
 
 setupGlobalMocks();

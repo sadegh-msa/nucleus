@@ -5,7 +5,7 @@ import { provideNuCommonConfig } from '@nucleus/common';
 import { provideUiConfig } from '@nucleus/ui';
 import { MOCK_NU_COMMON_CONFIG, MOCK_UI_CONFIG, setupGlobalMocks } from '@test-mocks';
 import { provideAuthConfig } from '../../../../ext/auth/providers/auth-config-provider';
-import { provideAuthStore } from '../../../../ext/auth/store/auth.store';
+import { provideAuthStore } from '../../../../ext/auth/store/auth-store';
 import { SignUp } from './sign-up';
 
 setupGlobalMocks();

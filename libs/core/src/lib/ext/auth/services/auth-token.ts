@@ -4,7 +4,7 @@ import { CookieUtils, OperationStatus, PermanentStorage, sleepRandom } from '@nu
 import { debounceTime, filter, fromEvent, map, skipWhile } from 'rxjs';
 import { authDefaultConfig } from '../auth-default.config';
 import { injectAuthConfig } from '../providers/auth-config-provider';
-import { injectAuthStore } from '../store/auth.store';
+import { injectAuthStore } from '../store/auth-store';
 
 @Service()
 export class AuthToken {

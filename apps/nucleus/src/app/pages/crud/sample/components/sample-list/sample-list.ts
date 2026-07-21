@@ -10,7 +10,7 @@ import {
 import type { SampleListModel, SampleModel } from '../../models/sample.model';
 import type { GenericSampleListModel, SampleGenericModel } from '../../models/sample-generic.model';
 import { sampleConfig } from '../../sample.config';
-import { SampleStore } from '../../store/sample.store';
+import { SampleStore } from '../../store/sample-store';
 
 @Component({
   selector: 'app-sample-list',

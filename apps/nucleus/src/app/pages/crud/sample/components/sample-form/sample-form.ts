@@ -7,7 +7,7 @@ import { SampleStatus } from '../../enums/sample-status.enum';
 import type { SampleTypedFormModel } from '../../models/sample.model';
 import type { GenericSampleFormModel, SampleGenericModel } from '../../models/sample-generic.model';
 import { sampleConfig } from '../../sample.config';
-import { SampleStore } from '../../store/sample.store';
+import { SampleStore } from '../../store/sample-store';
 
 @Component({
   selector: 'app-sample-form',

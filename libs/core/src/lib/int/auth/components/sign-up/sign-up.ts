@@ -9,7 +9,7 @@ import {
 } from '@nucleus/ui';
 import { authDefaultConfig } from '../../../../ext/auth/auth-default.config';
 import type { AuthSignUpFormModel, AuthSignUpModel } from '../../../../ext/auth/models/auth.model';
-import { injectAuthStore } from '../../../../ext/auth/store/auth.store';
+import { injectAuthStore } from '../../../../ext/auth/store/auth-store';
 import { SignLayout } from '../sign-layout/sign-layout';
 
 @Component({
