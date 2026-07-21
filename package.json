@@ -5,7 +5,7 @@
   "scripts": {
     "reset": "nx reset",
     "start": "nx serve nucleus",
-    "test": "jest",
+    "test": "vitest run",
     "e2e": "nx run nucleus-e2e:e2e -- --ui",
     "e2e:cli": "nx run nucleus-e2e:e2e",
     "build": "nx build --configuration=fa nucleus",
@@ -38,6 +38,7 @@
     "rxjs": "^7.8.2"
   },
   "devDependencies": {
+    "@analogjs/vitest-angular": "^2.6.3",
     "@angular/build": "22.0.1",
     "@angular/cli": "22.0.1",
     "@angular/compiler-cli": "22.0.1",
@@ -46,9 +47,9 @@
     "@biomejs/biome": "^2.5.0",
     "@nx/angular": "23.0.0",
     "@nx/devkit": "23.0.0",
-    "@nx/jest": "23.0.0",
     "@nx/js": "23.0.0",
     "@nx/playwright": "23.0.0",
+    "@nx/vitest": "^23.1.0",
     "@nx/web": "23.0.0",
     "@nx/workspace": "23.0.0",
     "@playwright/test": "^1.61.0",
@@ -57,22 +58,19 @@
     "@swc/core": "^1.15.41",
     "@swc/helpers": "^0.5.23",
     "@types/express": "^5.0.6",
-    "@types/jest": "^30.0.0",
     "@types/node": "^24.13.2",
     "@types/ramda": "^0.31.1",
-    "jest": "^30.4.2",
-    "jest-environment-jsdom": "^30.4.1",
-    "jest-preset-angular": "^17.0.0",
+    "@vitest/coverage-v8": "^4.1.10",
     "madge": "^8.0.0",
     "ng-packagr": "22.0.0",
     "nx": "23.0.0",
     "stylelint": "^17.13.0",
     "stylelint-scss": "^7.2.0",
-    "ts-jest": "^29.4.11",
     "ts-node": "^10.9.2",
     "tslib": "^2.8.1",
     "typescript": "^6.0.3",
-    "verdaccio": "^6.7.2"
+    "verdaccio": "^6.7.2",
+    "vitest": "^4.1.10"
   },
   "nx": {
     "includedScripts": []
