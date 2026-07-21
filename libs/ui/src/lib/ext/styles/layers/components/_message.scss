@@ -1,5 +1,5 @@
-@use '../../funcs/size.func' as *;
-@use '../../mixins/message.mixin';
+@use '../../funcs/size-func' as *;
+@use '../../mixins/message-mixin' as message;
 
 @layer components {
   .ui.messages {

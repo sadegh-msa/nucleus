@@ -1,6 +1,6 @@
 @use 'sass:map';
-@use './config.func' as *;
-@use './size.func' as *;
+@use './config-func' as *;
+@use './size-func' as *;
 
 @function get-border-width($width) {
   @return get-config(border, width, $width);

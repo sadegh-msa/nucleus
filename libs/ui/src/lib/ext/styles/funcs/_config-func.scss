@@ -1,6 +1,6 @@
 @use 'sass:map';
 @use '@styles/ui-configs.scss' as *;
-@use '../helpers/_config.helper' as *;
+@use '../helpers/_config-helper' as *;
 @use '../_default-configs' as *;
 
 $ui-configs: merge-configs($ui-default-configs, $ui-custom-configs);

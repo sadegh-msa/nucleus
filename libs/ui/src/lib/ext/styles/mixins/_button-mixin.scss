@@ -1,16 +1,16 @@
 @use 'sass:string';
-@use '../funcs/size.func' as *;
-@use '../funcs/config.func' as *;
-@use '../funcs/color.func' as *;
-@use '../funcs/border.func' as *;
-@use '../helpers/list.helper' as *;
-@use './icon.mixin';
-@use './text.mixin';
-@use './shadow.mixin';
-@use './transition.mixin';
-@use './box.mixin';
-@use './size.mixin';
-@use './color.mixin';
+@use '../funcs/size-func' as *;
+@use '../funcs/config-func' as *;
+@use '../funcs/color-func' as *;
+@use '../funcs/border-func' as *;
+@use '../helpers/list-helper' as *;
+@use './icon-mixin' as icon;
+@use './text-mixin' as text;
+@use './shadow-mixin' as shadow;
+@use './transition-mixin' as transition;
+@use './box-mixin' as box;
+@use './size-mixin' as size;
+@use './color-mixin' as color;
 
 $colors: get-color-list();
 $sizes: get-size-list();

@@ -1,7 +1,7 @@
-@use '../../funcs/color.func' as *;
-@use '../../funcs/size.func' as *;
-@use '../../mixins/box.mixin';
-@use '../../mixins/shadow.mixin';
+@use '../../funcs/color-func' as *;
+@use '../../funcs/size-func' as *;
+@use '../../mixins/box-mixin' as box;
+@use '../../mixins/shadow-mixin' as shadow;
 
 .ui.card {
   @include box.rounded();

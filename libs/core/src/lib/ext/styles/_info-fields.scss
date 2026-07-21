@@ -1,5 +1,5 @@
-@use 'funcs/size.func' as *;
-@use 'mixins/text.mixin';
+@use 'funcs/size-func' as *;
+@use 'mixins/text-mixin' as text;
 
 .info-fields-overlay {
   display: flex;

@@ -1,7 +1,7 @@
-@use 'funcs/color.func' as *;
-@use 'funcs/border.func' as *;
-@use 'funcs/size.func' as *;
-@use 'mixins/box.mixin';
+@use 'funcs/color-func' as *;
+@use 'funcs/border-func' as *;
+@use 'funcs/size-func' as *;
+@use 'mixins/box-mixin' as box;
 @use '@libs/theme/src/lib/ext/styles/_basic-theme.scss';
 
 /****************/

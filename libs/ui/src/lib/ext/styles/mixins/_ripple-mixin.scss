@@ -1,4 +1,4 @@
-@use './transition.mixin';
+@use './transition-mixin' as transition;
 
 @mixin generic() {
   --ui-ripple-scale: 0;

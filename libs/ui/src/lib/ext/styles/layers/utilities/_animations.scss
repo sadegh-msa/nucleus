@@ -1,5 +1,5 @@
-@use '../../mixins/animation.mixin';
-@use '../../mixins/transition.mixin';
+@use '../../mixins/animation-mixin' as animation;
+@use '../../mixins/transition-mixin' as transition;
 
 @layer utilities {
   @each $speed, $time in animation.$speed-map {

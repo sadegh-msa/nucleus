@@ -1,4 +1,4 @@
-@use '../funcs/color.func' as *;
+@use '../funcs/color-func' as *;
 
 @mixin inset($color: shadow) {
   $color-var: get-color-var($color);

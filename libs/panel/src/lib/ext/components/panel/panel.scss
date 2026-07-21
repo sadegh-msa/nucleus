@@ -1,9 +1,9 @@
-@use 'funcs/size.func' as *;
-@use 'funcs/color.func' as *;
-@use 'mixins/transition.mixin';
-@use 'mixins/screens.mixin' as *;
-@use 'mixins/shadow.mixin';
-@use 'mixins/box.mixin';
+@use 'funcs/size-func' as *;
+@use 'funcs/color-func' as *;
+@use 'mixins/transition-mixin' as transition;
+@use 'mixins/screens-mixin' as *;
+@use 'mixins/shadow-mixin' as shadow;
+@use 'mixins/box-mixin' as box;
 @use '@libs/theme/src/lib/ext/styles/_panel-theme.scss';
 
 $panel-nav-compact-width: 69px;

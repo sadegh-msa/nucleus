@@ -1,7 +1,7 @@
-@use '../../funcs/color.func' as *;
-@use '../../funcs/size.func' as *;
-@use '../../mixins/box.mixin';
-@use '../../mixins/transition.mixin';
+@use '../../funcs/color-func' as *;
+@use '../../funcs/size-func' as *;
+@use '../../mixins/box-mixin' as box;
+@use '../../mixins/transition-mixin' as transition;
 
 
 .ui.input {

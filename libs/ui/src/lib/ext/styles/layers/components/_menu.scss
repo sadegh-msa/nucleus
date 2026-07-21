@@ -1,4 +1,4 @@
-@use '../../mixins/menu.mixin';
+@use '../../mixins/menu-mixin' as menu;
 
 @layer components {
   menu.ui.menu {

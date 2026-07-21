@@ -1,8 +1,8 @@
-@use '../funcs/config.func' as *;
-@use '../funcs/size.func' as *;
-@use '../funcs/color.func' as *;
-@use '../mixins/box.mixin';
-@use '../mixins/shadow.mixin';
+@use '../funcs/config-func' as *;
+@use '../funcs/size-func' as *;
+@use '../funcs/color-func' as *;
+@use '../mixins/box-mixin' as box;
+@use '../mixins/shadow-mixin' as shadow;
 
 $variants: get-config(message, variants);
 

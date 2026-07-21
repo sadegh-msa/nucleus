@@ -1,4 +1,4 @@
-@use '../../mixins/text.mixin';
+@use '../../mixins/text-mixin' as text;
 
 @layer components {
   .ui.text {

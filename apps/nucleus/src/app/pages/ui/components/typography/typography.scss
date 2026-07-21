@@ -1,5 +1,5 @@
-@use 'funcs/size.func' as *;
-@use 'mixins/box.mixin';
+@use 'funcs/size-func' as *;
+@use 'mixins/box-mixin' as box;
 
 :host {
   display: flex;

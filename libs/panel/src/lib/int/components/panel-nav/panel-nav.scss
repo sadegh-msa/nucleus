@@ -1,5 +1,5 @@
-@use 'funcs/size.func' as *;
-@use 'mixins/transition.mixin';
+@use 'funcs/size-func' as *;
+@use 'mixins/transition-mixin' as transition;
 
 :host {
   position: relative;

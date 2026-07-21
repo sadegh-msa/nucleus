@@ -1,7 +1,7 @@
 @use 'sass:list';
 @use 'sass:map';
 @use 'sass:string';
-@use './config.func' as *;
+@use './config-func' as *;
 
 @function get-color($color) {
   @return get-config(color, palette, $color);

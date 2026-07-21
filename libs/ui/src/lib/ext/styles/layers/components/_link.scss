@@ -1,5 +1,5 @@
-@use '../../funcs/size.func' as *;
-@use '../../mixins/link.mixin';
+@use '../../funcs/size-func' as *;
+@use '../../mixins/link-mixin' as link;
 
 @layer components {
   a.ui.link {

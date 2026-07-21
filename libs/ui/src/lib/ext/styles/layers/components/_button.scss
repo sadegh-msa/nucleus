@@ -1,4 +1,4 @@
-@use '../../mixins/button.mixin';
+@use '../../mixins/button-mixin' as button;
 
 @layer components {
   :is(a, button).ui.button {

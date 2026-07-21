@@ -1,7 +1,7 @@
-@use '../funcs/color.func' as *;
-@use '../funcs/size.func' as *;
-@use '../mixins/transition.mixin';
-@use '../mixins/box.mixin';
+@use '../funcs/color-func' as *;
+@use '../funcs/size-func' as *;
+@use '../mixins/transition-mixin' as transition;
+@use '../mixins/box-mixin' as box;
 
 @mixin base($size, $thickness, $color) {
   position: relative;

@@ -1,8 +1,8 @@
 @use 'ui';
-@use 'funcs/size.func' as *;
+@use 'funcs/size-func' as *;
 @use './varibales';
-@use './fonts/iransansx-fanum.font';
-@use './fonts/kalameh-fanum.font';
+@use './fonts/iransansx-fanum-font';
+@use './fonts/kalameh-fanum-font';
 @use 'layers/defaults/defaults';
 @use 'layers/defaults/typography';
 @use 'layers/components/bubble';

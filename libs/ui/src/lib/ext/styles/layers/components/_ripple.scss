@@ -1,4 +1,4 @@
-@use '../../mixins/ripple.mixin';
+@use '../../mixins/ripple-mixin' as ripple;
 
 @layer components {
   .ui {

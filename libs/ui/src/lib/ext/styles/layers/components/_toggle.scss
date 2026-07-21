@@ -1,10 +1,10 @@
-@use '../../funcs/color.func' as *;
-@use '../../funcs/size.func' as *;
-@use '../../mixins/box.mixin';
-@use '../../mixins/shadow.mixin';
-@use '../../mixins/size.mixin';
-@use '../../mixins/transition.mixin';
-@use '../../mixins/checkmark.mixin';
+@use '../../funcs/color-func' as *;
+@use '../../funcs/size-func' as *;
+@use '../../mixins/box-mixin' as box;
+@use '../../mixins/shadow-mixin' as shadow;
+@use '../../mixins/size-mixin' as size;
+@use '../../mixins/transition-mixin' as transition;
+@use '../../mixins/checkmark-mixin' as checkmark;
 
 ui-toggle {
   display: flex;

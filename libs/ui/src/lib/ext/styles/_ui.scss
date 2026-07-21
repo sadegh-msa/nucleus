@@ -1,5 +1,5 @@
 @use './layers/reset/reset';
-@use './mixins/root.mixin';
+@use './mixins/root-mixin' as root;
 
 @layer reset, defaults, components, libraries, theme, application, utilities;
 

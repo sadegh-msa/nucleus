@@ -1,9 +1,9 @@
-@use '../funcs/size.func' as *;
-@use '../funcs/color.func' as *;
-@use '../helpers/list.helper' as *;
-@use '../mixins/color.mixin';
-@use '../mixins/box.mixin';
-@use '../mixins/shadow.mixin';
+@use '../funcs/size-func' as *;
+@use '../funcs/color-func' as *;
+@use '../helpers/list-helper' as *;
+@use '../mixins/color-mixin' as color;
+@use '../mixins/box-mixin' as box;
+@use '../mixins/shadow-mixin' as shadow;
 
 $colors: get-color-list();
 

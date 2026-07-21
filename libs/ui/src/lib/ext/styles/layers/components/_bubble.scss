@@ -1,4 +1,4 @@
-@use '../../mixins/bubble.mixin';
+@use '../../mixins/bubble-mixin' as bubble;
 
 @layer components {
   .ui.bubble {

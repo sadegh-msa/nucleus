@@ -1,6 +1,6 @@
-@use '../../funcs/size.func' as *;
-@use '../../funcs/color.func' as *;
-@use '../../mixins/screens.mixin' as *;
+@use '../../funcs/size-func' as *;
+@use '../../funcs/color-func' as *;
+@use '../../mixins/screens-mixin' as *;
 
 @layer defaults {
   *:not(h1, h2, h3, h4, h5, h6) {
