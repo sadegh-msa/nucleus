@@ -6,7 +6,7 @@ type Size = (typeof sizes)[number];
 type Window = { height: number; width: number; fontSize: number };
 
 @Service()
-export class UiScreenUtils {
+export class UiScreen {
   readonly #document = inject(DOCUMENT);
 
   readonly #breakpointsRem = {

@@ -1,7 +1,7 @@
 import { NgClass, NgOptimizedImage } from '@angular/common';
 import { Component, computed, inject } from '@angular/core';
 import { injectNuCommonConfig } from '@nucleus/common';
-import { UiScreenUtils, UiSvgIcon } from '@nucleus/ui';
+import { UiScreen, UiSvgIcon } from '@nucleus/ui';
 import { PanelManager } from '../../../ext/services/panel-manager'; // Possibility of circular dependency
 
 @Component({
@@ -11,12 +11,12 @@ import { PanelManager } from '../../../ext/services/panel-manager'; // Possibili
   styleUrl: './panel-nav.scss',
 })
 export class NuPanelNav {
-  readonly #uiScreenUtils = inject(UiScreenUtils);
+  readonly #uiScreen = inject(UiScreen);
   readonly #panelManager = inject(PanelManager);
 
   readonly branding = injectNuCommonConfig().branding.organization;
 
-  readonly breakpoints = this.#uiScreenUtils.breakpoints;
+  readonly breakpoints = this.#uiScreen.breakpoints;
   readonly navExtent = this.#panelManager.navExtent;
   readonly isNavWide = this.#panelManager.isNavWide;
   readonly isNavCompact = this.#panelManager.isNavCompact;

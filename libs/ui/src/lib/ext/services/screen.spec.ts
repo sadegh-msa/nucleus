@@ -1,10 +1,10 @@
 import { DOCUMENT } from '@angular/common';
 import { TestBed } from '@angular/core/testing';
 
-import { UiScreenUtils } from './screen-utils';
+import { UiScreen } from './screen';
 
-describe('UiScreenUtils', () => {
-  let service: UiScreenUtils;
+describe('UiScreen', () => {
+  let service: UiScreen;
   let _document: Document;
 
   beforeEach(() => {
@@ -29,7 +29,7 @@ describe('UiScreenUtils', () => {
     });
 
     TestBed.configureTestingModule({});
-    service = TestBed.inject(UiScreenUtils);
+    service = TestBed.inject(UiScreen);
     _document = TestBed.inject(DOCUMENT);
   });
 

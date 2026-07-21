@@ -2,7 +2,7 @@ import { Service } from '@angular/core';
 import type { UiElementRectModel } from '../models';
 
 @Service()
-export class UiHtmlUtils {
+export class UiHtml {
   getElementRect(element: HTMLElement): UiElementRectModel {
     return {
       top: element.offsetTop,
