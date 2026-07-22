@@ -66,6 +66,7 @@
     "@types/node": "^24.13.2",
     "@types/ramda": "^0.31.1",
     "@vitest/coverage-v8": "^4.1.10",
+    "app-root-path": "^3.1.0",
     "madge": "^8.0.0",
     "ng-packagr": "22.0.1",
     "nx": "23.1.0",

@@ -52,6 +52,7 @@
         "@types/node": "^24.13.2",
         "@types/ramda": "^0.31.1",
         "@vitest/coverage-v8": "^4.1.10",
+        "app-root-path": "^3.1.0",
         "madge": "^8.0.0",
         "ng-packagr": "22.0.1",
         "nx": "23.1.0",
@@ -1226,6 +1227,8 @@
     "apache-md5": ["apache-md5@1.1.8", "", {}, "sha512-FCAJojipPn0bXjuEpjOOOMN8FZDkxfWWp4JGN9mifU2IhxvKyXZYqpzPHdnTSUpmPDy+tsslB6Z1g+Vg6nVbYA=="],
 
     "app-module-path": ["app-module-path@2.2.0", "", {}, "sha512-gkco+qxENJV+8vFcDiiFhuoSvRXb2a/QPqpSoWhVz829VNJfOTnELbBmPmNKFxf3xdNnw4DWCkzkDaavcX/1YQ=="],
+
+    "app-root-path": ["app-root-path@3.1.0", "", {}, "sha512-biN3PwB2gUtjaYy/isrU3aNWI5w+fAfvHkSvCKeQGxhmYpwKFUxudR3Yya+KqVRHBmEDYh+/lTozYCFbmzX4nA=="],
 
     "argparse": ["argparse@2.0.1", "", {}, "sha512-8+9WqebbFzpX9OR+Wa6O29asIogeRMzcGtAINdpMHHyAg10f05aSFVBbcEqGf/PXw1EjAZ+q2/bEBg3DvurK3Q=="],
 

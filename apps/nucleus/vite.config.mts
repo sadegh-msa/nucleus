@@ -1,24 +1,16 @@
 /// <reference types='vitest' />
 
+import path from 'node:path';
 import angular from '@analogjs/vite-plugin-angular';
-import path from 'path';
+import { playwright } from '@vitest/browser-playwright';
 import { defineConfig } from 'vite';
+import { getPathAlias } from '../../utils/path-alias';
 
 export default defineConfig(() => ({
   root: __dirname,
   cacheDir: '../../node_modules/.vite/apps/nucleus',
   plugins: [angular()],
-  resolve: {
-    alias: {
-      '@nucleus/common': path.resolve(__dirname, '../../libs/common/src/index.ts'),
-      '@nucleus/core': path.resolve(__dirname, '../../libs/core/src/index.ts'),
-      '@nucleus/ui': path.resolve(__dirname, '../../libs/ui/src/index.ts'),
-      '@nucleus/l10n': path.resolve(__dirname, '../../libs/l10n/src/index.ts'),
-      '@nucleus/panel': path.resolve(__dirname, '../../libs/panel/src/index.ts'),
-      '@nucleus/theme': path.resolve(__dirname, '../../libs/theme/src/index.ts'),
-      '@test-mocks': path.resolve(__dirname, '../../utils/test-mocks.ts'),
-    },
-  },
+  resolve: { alias: getPathAlias() },
   test: {
     name: 'nucleus',
     watch: false,
@@ -30,6 +22,12 @@ export default defineConfig(() => ({
     coverage: {
       reportsDirectory: '../../coverage/apps/nucleus',
       provider: 'v8' as const,
+    },
+    browser: {
+      enabled: true,
+      headless: true,
+      provider: playwright(),
+      instances: [{ browser: 'chromium' }],
     },
   },
 }));
