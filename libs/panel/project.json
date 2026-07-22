@@ -41,6 +41,6 @@
       "options": {
         "config": "libs/panel/vite.config.mts"
       }
-    },
+    }
   }
 }

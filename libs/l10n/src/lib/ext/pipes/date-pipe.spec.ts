@@ -3,7 +3,12 @@ import { type ComponentFixture, TestBed } from '@angular/core/testing';
 import { type Mock, vi } from 'vitest';
 import { DateUtils } from '../services/date-utils';
 
-type MockedDateUtils = { [K in keyof DateUtils]: DateUtils[K] extends (...args: any[]) => any ? Mock<DateUtils[K]> : DateUtils[K] };
+type MockedDateUtils = {
+  [K in keyof DateUtils]: DateUtils[K] extends (...args: any[]) => any
+    ? Mock<DateUtils[K]>
+    : DateUtils[K];
+};
+
 import { NuDatePipe } from './date-pipe';
 
 @Component({

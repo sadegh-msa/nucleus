@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { UiMenuItems, type UiMenuItemModel } from '@nucleus/ui';
+import { type UiMenuItemModel, UiMenuItems } from '@nucleus/ui';
 import { navMainMenu } from '../../../../app.menu';
 
 @Component({

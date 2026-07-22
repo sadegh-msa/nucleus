@@ -1,8 +1,8 @@
 import '@angular/localize/init';
 import '@angular/compiler';
+import { setupTestBed } from '@analogjs/vitest-angular/setup-testbed';
 import { ApplicationRef } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
-import { setupTestBed } from '@analogjs/vitest-angular/setup-testbed';
 
 setupTestBed();
 

@@ -1,7 +1,7 @@
 import { type ComponentFixture, TestBed } from '@angular/core/testing';
+import { vi } from 'vitest';
 import { provideUiConfig } from '../../providers';
 import { UiMessageManager } from '../../services/message-manager';
-import { vi } from 'vitest';
 import { UiMessage } from './message';
 
 describe('UiMessage', () => {

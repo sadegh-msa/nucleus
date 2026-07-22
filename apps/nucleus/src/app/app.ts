@@ -6,7 +6,7 @@ import { OperationStatus } from '@nucleus/common';
 import { injectAuthStore } from '@nucleus/core/auth';
 import { LocaleUtils, type NuLangDir } from '@nucleus/l10n';
 import { Panel, PanelManager } from '@nucleus/panel';
-import { UiMenuItems, UiMessage, UiMessageManager, type UiMenuItemModel } from '@nucleus/ui';
+import { type UiMenuItemModel, UiMenuItems, UiMessage, UiMessageManager } from '@nucleus/ui';
 import { ConfirmationService } from 'primeng/api';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { navMainMenu } from './app.menu';

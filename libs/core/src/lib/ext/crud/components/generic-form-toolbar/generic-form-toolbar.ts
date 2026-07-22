@@ -11,13 +11,7 @@ import { InfoFields } from '../info-fields/info-fields';
 @Component({
   selector: 'nu-generic-form-toolbar',
   templateUrl: './generic-form-toolbar.html',
-  imports: [
-    GenericToolbar,
-    InfoFields,
-    KeyValuePipe,
-    OverlayPanelModule,
-    UiSvgIcon,
-  ],
+  imports: [GenericToolbar, InfoFields, KeyValuePipe, OverlayPanelModule, UiSvgIcon],
 })
 export class GenericFormToolbar {
   infoFields = input<InfoFieldModel[][]>(infoFieldsDefault);

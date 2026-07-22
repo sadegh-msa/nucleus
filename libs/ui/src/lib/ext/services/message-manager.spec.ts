@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
-import { provideUiConfig } from '../providers';
 import { vi } from 'vitest';
+import { provideUiConfig } from '../providers';
 import { UiMessageManager } from './message-manager';
 
 describe('UiMessageManager', () => {

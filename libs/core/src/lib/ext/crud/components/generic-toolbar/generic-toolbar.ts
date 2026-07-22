@@ -11,14 +11,7 @@ import type { ToolbarModel, ToolModel } from '../../models/toolbar.model';
 @Component({
   selector: 'nu-generic-toolbar',
   templateUrl: './generic-toolbar.html',
-  imports: [
-    AuthPermission,
-    ConfirmPopupModule,
-    RouterModule,
-    NgClass,
-    UiSvgIcon,
-    UiTooltip,
-  ],
+  imports: [AuthPermission, ConfirmPopupModule, RouterModule, NgClass, UiSvgIcon, UiTooltip],
 })
 export class GenericToolbar {
   readonly #confirmationService = inject(ConfirmationService);

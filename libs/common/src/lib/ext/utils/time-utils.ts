@@ -1,6 +1,6 @@
 export function syncSleep(duration: number) {
   const now = Date.now();
-  while (Date.now()< now + duration / 1000) {
+  while (Date.now() < now + duration / 1000) {
     /* Do nothing */
   }
 }

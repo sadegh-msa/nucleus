@@ -3,12 +3,7 @@ import { Component, computed, effect, inject, input, linkedSignal, untracked } f
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { type Extent, SafeHtml } from '@nucleus/common';
 import * as R from 'ramda';
-import {
-  UiPopover,
-  UiRipple,
-  UiSvgIcon,
-  UiTooltip,
-} from '../../directives';
+import { UiPopover, UiRipple, UiSvgIcon, UiTooltip } from '../../directives';
 import type { UiMenuItemModel } from '../../models';
 import { UiCssSupport } from '../../services';
 import type { UiPlacement } from '../../types';

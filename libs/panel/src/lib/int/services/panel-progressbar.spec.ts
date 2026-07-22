@@ -1,7 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { NavigationEnd, NavigationStart, Router } from '@angular/router';
-import { type Mock, vi } from 'vitest';
 import { Subject } from 'rxjs';
+import { type Mock, vi } from 'vitest';
 
 import { PanelProgressbar } from './panel-progressbar';
 

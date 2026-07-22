@@ -1,8 +1,9 @@
 /// <reference types='vitest' />
-import { defineConfig } from 'vite';
+
 import angular from '@analogjs/vite-plugin-angular';
-import path from 'path';
 import { nxCopyAssetsPlugin } from '@nx/vite/plugins/nx-copy-assets.plugin';
+import path from 'path';
+import { defineConfig } from 'vite';
 
 export default defineConfig(() => ({
   root: __dirname,

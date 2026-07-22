@@ -41,6 +41,6 @@
       "options": {
         "config": "libs/core/vite.config.mts"
       }
-    },
+    }
   }
 }

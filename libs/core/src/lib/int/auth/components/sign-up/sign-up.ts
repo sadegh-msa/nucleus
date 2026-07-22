@@ -2,11 +2,7 @@ import { Component, effect, signal, untracked } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { OperationStatus } from '@nucleus/common';
-import {
-  UiInputPassword,
-  UiSvgIcon,
-  type UiPasswordStrengthModel,
-} from '@nucleus/ui';
+import { UiInputPassword, type UiPasswordStrengthModel, UiSvgIcon } from '@nucleus/ui';
 import { authDefaultConfig } from '../../../../ext/auth/auth-default.config';
 import type { AuthSignUpFormModel, AuthSignUpModel } from '../../../../ext/auth/models/auth.model';
 import { injectAuthStore } from '../../../../ext/auth/store/auth-store';

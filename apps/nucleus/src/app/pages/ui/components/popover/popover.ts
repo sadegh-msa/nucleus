@@ -1,12 +1,6 @@
 import { NgClass, NgTemplateOutlet } from '@angular/common';
 import { Component, signal } from '@angular/core';
-import {
-  UiPopover,
-  UiSvgIcon,
-  UiTooltip,
-  type UiPlacement,
-  uiPlacement,
-} from '@nucleus/ui';
+import { type UiPlacement, UiPopover, UiSvgIcon, UiTooltip, uiPlacement } from '@nucleus/ui';
 
 @Component({
   selector: 'app-popover',
@@ -15,9 +9,7 @@ import {
   styleUrl: './popover.scss',
 })
 export class Popover {
-  readonly placements = uiPlacement
-    .filter((i) => !i.includes('auto'))
-    .map((i) => i as UiPlacement);
+  readonly placements = uiPlacement.filter((i) => !i.includes('auto')).map((i) => i as UiPlacement);
   readonly popoverEvent = signal<'click' | 'hover'>('click');
   readonly popoverHasBubble = signal(true);
   readonly popoverHasClose = signal(false);

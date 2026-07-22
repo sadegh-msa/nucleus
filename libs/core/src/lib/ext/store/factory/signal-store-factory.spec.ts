@@ -4,8 +4,8 @@ import { TestBed } from '@angular/core/testing';
 import { OperationStatus, provideNuCommonConfig } from '@nucleus/common';
 import { provideUiConfig } from '@nucleus/ui';
 import { MOCK_NU_COMMON_CONFIG, MOCK_UI_CONFIG, setupGlobalMocks } from '@test-mocks';
-import { type Mock, vi } from 'vitest';
 import { of, Subject, throwError } from 'rxjs';
+import { type Mock, vi } from 'vitest';
 import { createCrudSignalStore } from './signal-store-factory';
 
 setupGlobalMocks();

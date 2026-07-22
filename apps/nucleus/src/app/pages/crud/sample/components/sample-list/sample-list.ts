@@ -8,7 +8,10 @@ import {
   type TableModel,
 } from '@nucleus/core/crud';
 import type { SampleListModel, SampleModel } from '../../models/sample.model';
-import { AbstractGenericSampleList, type SampleGenericModel } from '../../models/sample-generic.model';
+import {
+  AbstractGenericSampleList,
+  type SampleGenericModel,
+} from '../../models/sample-generic.model';
 import { sampleConfig } from '../../sample.config';
 import { SampleStore } from '../../store/sample-store';
 
