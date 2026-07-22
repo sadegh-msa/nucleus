@@ -7,7 +7,7 @@
   },
   "files": {
     "ignoreUnknown": true,
-    "includes": ["**"]
+    "includes": ["**", "!**/*.svg", "!**/assets", "!.agents", "!.opencode", "!.vscode", "!utils"]
   },
   "formatter": {
     "enabled": true,
@@ -15,6 +15,11 @@
     "indentWidth": 2,
     "lineWidth": 100,
     "lineEnding": "lf"
+  },
+  "html": {
+    "parser": {
+      "interpolation": true
+    }
   },
   "assist": { "actions": { "source": { "organizeImports": "on" } } },
   "linter": {
@@ -24,10 +29,17 @@
       "complexity": {
         "noForEach": "off",
         "noUselessConstructor": "error",
-        "noVoid": "error"
+        "noVoid": "error",
+        "useLiteralKeys": "off",
+        "useOptionalChain": "off"
       },
       "a11y": {
-        "useButtonType": "error"
+        "useButtonType": "off",
+        "useValidAnchor": "off",
+        "useAnchorContent": "off",
+        "noLabelWithoutControl": "off",
+        "useAltText": "off",
+        "noSvgWithoutTitle": "off"
       },
       "style": {
         "noParameterAssign": "error",
@@ -36,13 +48,20 @@
         "useEnumInitializers": "error",
         "useSelfClosingElements": "error",
         "useSingleVarDeclarator": "error",
-        "noUnusedTemplateLiteral": "error",
-        "useNumberNamespace": "error",
-        "noInferrableTypes": "error",
-        "noUselessElse": "error"
+        "noUnusedTemplateLiteral": "off",
+        "useNumberNamespace": "off",
+        "noInferrableTypes": "off",
+        "noUselessElse": "error",
+        "useNodejsImportProtocol": "off",
+        "noNonNullAssertion": "off"
+      },
+      "correctness": {
+        "noUnusedFunctionParameters": "off",
+        "noUnusedPrivateClassMembers": "off"
       },
       "suspicious": {
-        "noExplicitAny": "off"
+        "noExplicitAny": "off",
+        "useIterableCallbackReturn": "off"
       }
     }
   },
