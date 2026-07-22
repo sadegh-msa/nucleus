@@ -1,14 +1,10 @@
 import { Component } from '@angular/core';
 import { type ComponentFixture, TestBed } from '@angular/core/testing';
+import { afterEach } from 'vitest';
+import { setupGlobalMocks } from '@test-mocks';
 import { UiPopover } from './popover';
 
-if (typeof globalThis.IntersectionObserver === 'undefined') {
-  (globalThis as any).IntersectionObserver = class {
-    observe() {}
-    unobserve() {}
-    disconnect() {}
-  };
-}
+setupGlobalMocks();
 
 @Component({
   template: '<div uiPopover="Popover content">Trigger</div>',
@@ -42,4 +38,6 @@ describe('UiPopover', () => {
     expect(p.hasBubble).toBe(true);
     expect(p.attachTo).toBe('body');
   });
+
+  afterEach(() => fixture?.destroy());
 });

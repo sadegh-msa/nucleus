@@ -1,14 +1,10 @@
 import { Component } from '@angular/core';
 import { type ComponentFixture, TestBed } from '@angular/core/testing';
+import { afterEach } from 'vitest';
+import { setupGlobalMocks } from '@test-mocks';
 import { UiTooltip } from './tooltip';
 
-if (typeof globalThis.IntersectionObserver === 'undefined') {
-  (globalThis as any).IntersectionObserver = class {
-    observe() {}
-    unobserve() {}
-    disconnect() {}
-  };
-}
+setupGlobalMocks();
 
 @Component({
   template: '<span uiTooltip="Tooltip content">Hover me</span>',
@@ -39,4 +35,6 @@ describe('UiTooltip', () => {
     expect(popover.hasClose).toBe(false);
     expect(popover.styleClass).toContain('tooltip');
   });
+
+  afterEach(() => fixture?.destroy());
 });

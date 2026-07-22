@@ -11,6 +11,13 @@ export default defineConfig(() => ({
   cacheDir: '../../node_modules/.vite/apps/nucleus',
   plugins: [angular()],
   resolve: { alias: getPathAlias() },
+  css: {
+    preprocessorOptions: {
+      scss: {
+        loadPaths: [path.resolve(__dirname, '../../libs/ui/src/lib/ext/styles')],
+      },
+    },
+  },
   test: {
     name: 'nucleus',
     watch: false,

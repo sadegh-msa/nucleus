@@ -34,13 +34,11 @@ export const MOCK_NU_COMMON_CONFIG = {
 };
 
 export function setupGlobalMocks() {
-  if (typeof globalThis.IntersectionObserver === 'undefined') {
-    (globalThis as any).IntersectionObserver = class {
-      observe() {}
-      unobserve() {}
-      disconnect() {}
-    };
-  }
+  (globalThis as any).IntersectionObserver = class {
+    observe() {}
+    unobserve() {}
+    disconnect() {}
+  };
   if (typeof globalThis.ResizeObserver === 'undefined') {
     (globalThis as any).ResizeObserver = class {
       observe() {}
