@@ -10,6 +10,8 @@
     "e2e:cli": "nx run nucleus-e2e:e2e",
     "build": "nx build --configuration=fa nucleus",
     "localize": "nx extract-i18n nucleus && node utils/merge-locales.mjs nucleus",
+    "format": "biome check --write $(git status --porcelain | grep -E '^\\s*[AM?]' | awk '{print $2}')",
+    "format:all": "biome check --write",
     "lint": "nx affected -t lint --batch",
     "lint:all": "nx run-many -t lint --batch",
     "cd:apps": "madge --circular --extensions ts --image apps-circular.svg ./apps",
