@@ -15,8 +15,7 @@
     "skipDefaultLibCheck": true,
     "declarationMap": true,
     "paths": {
-      "@libs/*": ["./libs/*"],
-      "@styles/*": ["./styles/*"],
+      "@/*": ["./*"],
       "@nucleus/app": ["./src/apps/nucleus/src/app/*"],
       "@nucleus/e2e": ["./src/apps/nucleus-e2e/src/app/*"],
       "@nucleus/common": ["./libs/common/src/index.ts"],

@@ -72,7 +72,7 @@ bun run localize
 
 Path aliases defined in `tsconfig.base.json`:
 - `@nucleus/common`, `@nucleus/core`, `@nucleus/ui`, `@nucleus/l10n`, `@nucleus/panel`, `@nucleus/theme`
-- `@libs/*`, `@styles/*`, `@test-mocks`
+- `@/*`, `@test-mocks`
 
 ## Testing
 

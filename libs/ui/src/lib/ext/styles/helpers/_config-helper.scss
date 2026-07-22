@@ -3,11 +3,20 @@
 @use 'sass:color';
 @use 'sass:meta';
 
+@function get-color-value($color-value, $light-dark) {
+  $is-map: meta.type-of($color-value) == 'map';
+
+  @if($is-map) {
+    @return map.get($color-value, $light-dark);
+  }
+
+  @return $color-value;
+}
+
 @function generate-color-variants($color, $color-value, $variants) {
   $palette: ();
-  $is-map: meta.type-of($color-value) == 'map';
-  $light-value: if(sass($is-map == true): map.get($color-value, light); else: $color-value);
-  $dark-value: if(sass($is-map == true): map.get($color-value, dark); else: $color-value);
+  $light-value: get-color-value($color-value, light);
+  $dark-value: get-color-value($color-value, dark);
   $palette: map.set($palette, $color, light-dark($light-value, $dark-value));
 
   @each $variant, $variant-value in $variants {

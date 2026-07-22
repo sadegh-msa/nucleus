@@ -17,8 +17,13 @@
     $level: string-to-number(list.nth($split, 2));
     $alias-step: get-config(size, alias, step);
     $alias-value: (list.index(get-config(size, alias, names), $alias) - 1) * $alias-step;
+    $increment: 1;
 
-    @return $alias-value + if(sass($level <= $alias-step): $level; else: 1);
+    @if($level <= $alias-step) {
+      $increment: $level;
+    }
+
+    @return $alias-value + $increment;
   }
 
   @return $value;
