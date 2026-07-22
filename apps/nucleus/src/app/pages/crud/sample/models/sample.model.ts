@@ -1,4 +1,4 @@
-import type { CommonFieldsModel, CrudConfigModel, TypedFormModel } from '@nucleus/core/crud';
+import type { CommonFieldsModel, CrudConfigModel, TypedFormModel } from '@nucleus/core';
 import type { SampleStatus } from '../enums/sample-status.enum';
 
 export interface SampleDetailModel {

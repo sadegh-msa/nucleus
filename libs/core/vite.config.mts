@@ -11,9 +11,6 @@ export default defineConfig(() => ({
   resolve: {
     alias: {
       '@nucleus/common': path.resolve(__dirname, '../common/src/index.ts'),
-      '@nucleus/core/auth': path.resolve(__dirname, 'src/lib/ext/auth/index.ts'),
-      '@nucleus/core/crud': path.resolve(__dirname, 'src/lib/ext/crud/index.ts'),
-      '@nucleus/core/store': path.resolve(__dirname, 'src/lib/ext/store/index.ts'),
       '@nucleus/core': path.resolve(__dirname, 'src/index.ts'),
       '@nucleus/ui': path.resolve(__dirname, '../ui/src/index.ts'),
       '@nucleus/l10n': path.resolve(__dirname, '../l10n/src/index.ts'),

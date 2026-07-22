@@ -3,7 +3,7 @@ import { Component, effect, inject, signal, untracked } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { OperationStatus } from '@nucleus/common';
-import { injectAuthStore } from '@nucleus/core/auth';
+import { injectAuthStore } from '@nucleus/core';
 import { LocaleUtils, type NuLangDir } from '@nucleus/l10n';
 import { Panel, PanelManager } from '@nucleus/panel';
 import { type UiMenuItemModel, UiMenuItems, UiMessage, UiMessageManager } from '@nucleus/ui';

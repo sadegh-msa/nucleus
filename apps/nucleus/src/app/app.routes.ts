@@ -1,5 +1,5 @@
 import type { Route } from '@angular/router';
-import { authCanActivate, authRoutes } from '@nucleus/core/auth';
+import { authCanActivate, authRoutes } from '@nucleus/core';
 import { sampleConfig, sampleRoutes } from './pages/crud/sample';
 import { uiRoutes } from './pages/ui/ui.routes';
 

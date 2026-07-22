@@ -1,5 +1,5 @@
 import { inject } from '@angular/core';
-import { createCrudSignalStore } from '@nucleus/core/store';
+import { createCrudSignalStore } from '@nucleus/core';
 import type { SampleListModel, SampleModel, SampleUpdateModel } from '../models/sample.model';
 import { sampleConfig } from '../sample.config';
 import { SampleRest } from '../services/sample-rest';

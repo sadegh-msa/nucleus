@@ -2,7 +2,7 @@ import type {
   GenericEntityModel,
   GenericFormConsumerModel,
   GenericListConsumerModel,
-} from '@nucleus/core/crud';
+} from '@nucleus/core';
 import type {
   SampleAddModel,
   SampleConfigModel,
