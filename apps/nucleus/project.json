@@ -20,17 +20,13 @@
   "targets": {
     "build": {
       "executor": "@angular/build:application",
-      "outputs": [
-        "{options.outputPath}"
-      ],
+      "outputs": ["{options.outputPath}"],
       "defaultConfiguration": "production",
       "options": {
         "outputPath": "dist/apps/nucleus",
         "index": "apps/nucleus/src/index.html",
         "browser": "apps/nucleus/src/main.ts",
-        "polyfills": [
-          "@angular/localize/init"
-        ],
+        "polyfills": ["@angular/localize/init"],
         "tsConfig": "apps/nucleus/tsconfig.app.json",
         "inlineStyleLanguage": "scss",
         "assets": [
@@ -43,13 +39,9 @@
             "input": "apps/nucleus/public"
           }
         ],
-        "styles": [
-          "apps/nucleus/src/styles.scss"
-        ],
+        "styles": ["apps/nucleus/src/styles.scss"],
         "stylePreprocessorOptions": {
-          "includePaths": [
-            "libs/ui/src/lib/ext/styles"
-          ]
+          "includePaths": ["libs/ui/src/lib/ext/styles"]
         },
         "scripts": [],
         "localize": false,
@@ -83,9 +75,7 @@
           ]
         },
         "en-US": {
-          "localize": [
-            "en-US"
-          ],
+          "localize": ["en-US"],
           "fileReplacements": [
             {
               "replace": "apps/nucleus/src/environments/environment.ts",
@@ -94,9 +84,7 @@
           ]
         },
         "fa": {
-          "localize": [
-            "fa"
-          ],
+          "localize": ["fa"],
           "fileReplacements": [
             {
               "replace": "apps/nucleus/src/environments/environment.ts",
