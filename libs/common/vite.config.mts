@@ -1,14 +1,13 @@
 /// <reference types='vitest' />
 
 import angular from '@analogjs/vite-plugin-angular';
-import { nxCopyAssetsPlugin } from '@nx/vite/plugins/nx-copy-assets.plugin';
 import path from 'path';
 import { defineConfig } from 'vite';
 
 export default defineConfig(() => ({
   root: __dirname,
   cacheDir: '../../node_modules/.vite/libs/common',
-  plugins: [angular(), nxCopyAssetsPlugin(['*.md'])],
+  plugins: [angular()],
   resolve: {
     alias: {
       '@nucleus/common': path.resolve(__dirname, '../common/src/index.ts'),
