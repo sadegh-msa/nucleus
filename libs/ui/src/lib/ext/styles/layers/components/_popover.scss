@@ -1,5 +1,5 @@
 @use '../../mixins/bubble-mixin' as bubble;
-@use '../../funcs/size-func' as *;
+@use '../../helpers/size-helper' as *;
 
 %inline-start-block {
   &:not(:has(.bubble-arrow)) {

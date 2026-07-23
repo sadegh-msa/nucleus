@@ -1,8 +1,8 @@
 @use 'sass:list';
-@use '../../funcs/config-func' as *;
-@use '../../funcs/border-func' as *;
-@use '../../funcs/color-func' as *;
-@use '../../funcs/size-func' as *;
+@use '../../helpers/config-helper' as *;
+@use '../../helpers/border-helper' as *;
+@use '../../helpers/color-helper' as *;
+@use '../../helpers/size-helper' as *;
 @use '../../mixins/icon-mixin' as icon;
 @use '../../mixins/size-mixin' as size;
 

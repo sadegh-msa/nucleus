@@ -1,9 +1,9 @@
 @use 'sass:string';
-@use '../funcs/size-func' as *;
-@use '../funcs/config-func' as *;
-@use '../funcs/color-func' as *;
-@use '../funcs/border-func' as *;
-@use '../helpers/list-helper' as *;
+@use '../helpers/size-helper' as *;
+@use '../helpers/config-helper' as *;
+@use '../helpers/color-helper' as *;
+@use '../helpers/border-helper' as *;
+@use '../utils/list-util' as *;
 @use './icon-mixin' as icon;
 @use './text-mixin' as text;
 @use './shadow-mixin' as shadow;

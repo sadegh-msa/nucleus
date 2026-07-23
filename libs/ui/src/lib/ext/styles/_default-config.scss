@@ -24,7 +24,7 @@
 
 $grayscale-surface: get-light-dark(generate-grayscale-color(92%), generate-grayscale-color(92%));
 
-$ui-default-configs: (
+$ui-default-config: (
   prefix: ui,
   size: (
     base: 0.125rem,

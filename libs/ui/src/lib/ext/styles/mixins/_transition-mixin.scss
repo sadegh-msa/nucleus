@@ -1,5 +1,5 @@
 @use 'sass:map';
-@use '../helpers/list-helper' as *;
+@use '../utils/list-util' as *;
 @use './animation-mixin' as animation;
 
 $speed-map: animation.$speed-map;

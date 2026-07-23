@@ -2,11 +2,13 @@
 @use 'sass:list';
 @use 'sass:color';
 @use 'sass:meta';
+@use '../../../../../../../styles/ui-config.scss' as *;
+@use '../_default-config' as *;
 
 @function get-color-value($color-value, $light-dark) {
   $is-map: meta.type-of($color-value) == 'map';
 
-  @if($is-map) {
+  @if ($is-map) {
     @return map.get($color-value, $light-dark);
   }
 
@@ -25,7 +27,7 @@
       $color + '-' + $variant,
       light-dark(
         color.adjust($light-value, $space: oklch, $lightness: $variant-value),
-        color.adjust($dark-value, $space: oklch, $lightness: -1 * $variant-value),
+        color.adjust($dark-value, $space: oklch, $lightness: -1 * $variant-value)
       )
     );
   }
@@ -53,7 +55,7 @@
     (
       pigments: $pigments,
       palette: map.merge($palette, generate-color-palette($pigments, $variants)),
-      variants: $variants,
+      variants: $variants
     )
   );
 }
@@ -73,4 +75,14 @@
   }
 
   @return $merged-configs;
+}
+
+@function get-config($keys...) {
+  $ui-config: merge-configs($ui-default-config, $ui-custom-configs);
+
+  @return map.get($ui-config, $keys...);
+}
+
+@function create-css-var-name($property, $value) {
+  @return #{--#{get-config(prefix)}-#{$property}}-#{$value};
 }

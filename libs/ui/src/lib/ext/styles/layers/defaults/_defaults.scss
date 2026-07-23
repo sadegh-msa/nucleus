@@ -1,6 +1,6 @@
-@use '../../funcs/color-func' as *;
-@use '../../funcs/size-func' as *;
-@use '../../funcs/border-func' as *;
+@use '../../helpers/color-helper' as *;
+@use '../../helpers/size-helper' as *;
+@use '../../helpers/border-helper' as *;
 @use '../../mixins/box-mixin' as box;
 @use '../../mixins/shadow-mixin' as shadow;
 

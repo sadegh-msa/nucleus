@@ -1,5 +1,5 @@
-@use '../../funcs/color-func' as *;
-@use '../../funcs/border-func' as *;
+@use '../../helpers/color-helper' as *;
+@use '../../helpers/border-helper' as *;
 @use '../../mixins/box-mixin' as box;
 @use '../../mixins/size-mixin' as size;
 

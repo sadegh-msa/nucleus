@@ -1,5 +1,5 @@
 @use 'sass:string';
-@use '../funcs/color-func' as *;
+@use '../helpers/color-helper' as *;
 @use './text-mixin' as text;
 
 @mixin box($bg-color, $border-color: null, $variant: null) {

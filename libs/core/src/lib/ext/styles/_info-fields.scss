@@ -1,4 +1,4 @@
-@use 'funcs/size-func' as *;
+@use 'helpers/size-helper' as *;
 @use 'mixins/text-mixin' as text;
 
 .info-fields-overlay {

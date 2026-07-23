@@ -1,5 +1,5 @@
-@use 'funcs/size-func' as *;
-@use 'funcs/color-func' as *;
+@use 'helpers/size-helper' as *;
+@use 'helpers/color-helper' as *;
 @use 'mixins/transition-mixin' as transition;
 @use 'mixins/screens-mixin' as *;
 @use 'mixins/shadow-mixin' as shadow;
