@@ -1,5 +1,5 @@
 import { map, type Observable } from 'rxjs';
-import { deepSet } from '../utils/object-utils';
+import { deepSet } from '../utils/object-util';
 
 export function convertDateStrings<T>(
   ...fieldPaths: string[]

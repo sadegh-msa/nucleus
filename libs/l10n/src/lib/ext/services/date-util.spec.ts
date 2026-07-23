@@ -1,18 +1,18 @@
 import { DOCUMENT } from '@angular/common';
 import { TestBed } from '@angular/core/testing';
 
-import { DateUtils } from './date-utils';
-import { LocaleUtils } from './locale-utils';
+import { DateUtil } from './date-util';
+import { LocaleUtil } from './locale-util';
 
-describe('DateUtils', () => {
-  let service: DateUtils;
-  let _localeService: LocaleUtils;
+describe('DateUtil', () => {
+  let service: DateUtil;
+  let _localeService: LocaleUtil;
   let document: Document;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(DateUtils);
-    _localeService = TestBed.inject(LocaleUtils);
+    service = TestBed.inject(DateUtil);
+    _localeService = TestBed.inject(LocaleUtil);
     document = TestBed.inject(DOCUMENT);
     document.documentElement.lang = 'en-US';
     document.documentElement.dir = 'ltr';
@@ -62,7 +62,7 @@ describe('DateUtils', () => {
 
       TestBed.resetTestingModule();
       TestBed.configureTestingModule({});
-      const freshService = TestBed.inject(DateUtils);
+      const freshService = TestBed.inject(DateUtil);
       const locale = freshService.locale();
 
       expect(locale).toBeDefined();
@@ -74,7 +74,7 @@ describe('DateUtils', () => {
 
       TestBed.resetTestingModule();
       TestBed.configureTestingModule({});
-      const freshService = TestBed.inject(DateUtils);
+      const freshService = TestBed.inject(DateUtil);
       const locale = freshService.locale();
 
       expect(locale).toBeDefined();
@@ -95,7 +95,7 @@ describe('DateUtils', () => {
 
       TestBed.resetTestingModule();
       TestBed.configureTestingModule({});
-      const freshService = TestBed.inject(DateUtils);
+      const freshService = TestBed.inject(DateUtil);
 
       expect(freshService.defaultInputFormatStr).toBe('MM/dd/yyyy HH:mm');
     });
@@ -105,7 +105,7 @@ describe('DateUtils', () => {
 
       TestBed.resetTestingModule();
       TestBed.configureTestingModule({});
-      const freshService = TestBed.inject(DateUtils);
+      const freshService = TestBed.inject(DateUtil);
 
       expect(freshService.defaultInputFormatStr).toBe('yyyy/MM/dd HH:mm');
     });
@@ -124,7 +124,7 @@ describe('DateUtils', () => {
 
       TestBed.resetTestingModule();
       TestBed.configureTestingModule({});
-      const freshService = TestBed.inject(DateUtils);
+      const freshService = TestBed.inject(DateUtil);
 
       expect(freshService.defaultOutputFormatStr).toBe('MMM d, yyyy HH:mm');
     });
@@ -134,7 +134,7 @@ describe('DateUtils', () => {
 
       TestBed.resetTestingModule();
       TestBed.configureTestingModule({});
-      const freshService = TestBed.inject(DateUtils);
+      const freshService = TestBed.inject(DateUtil);
 
       expect(freshService.defaultOutputFormatStr).toBe('d MMMM yyyy HH:mm');
     });

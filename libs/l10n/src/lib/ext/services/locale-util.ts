@@ -3,7 +3,7 @@ import { computed, inject, Service, signal } from '@angular/core';
 import type { NuLang, NuLangDir } from '../types/lang.type';
 
 @Service()
-export class LocaleUtils {
+export class LocaleUtil {
   readonly #document = inject(DOCUMENT);
 
   readonly #htmlObserver = new MutationObserver((list) => {

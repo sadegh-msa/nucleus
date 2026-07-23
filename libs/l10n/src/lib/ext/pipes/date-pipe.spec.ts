@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
 import { type ComponentFixture, TestBed } from '@angular/core/testing';
 import { type Mock, vi } from 'vitest';
-import { DateUtils } from '../services/date-utils';
+import { DateUtil } from '../services/date-util';
 
-type MockedDateUtils = {
-  [K in keyof DateUtils]: DateUtils[K] extends (...args: any[]) => any
-    ? Mock<DateUtils[K]>
-    : DateUtils[K];
+type MockedDateUtil = {
+  [K in keyof DateUtil]: DateUtil[K] extends (...args: any[]) => any
+    ? Mock<DateUtil[K]>
+    : DateUtil[K];
 };
 
 import { NuDatePipe } from './date-pipe';
@@ -22,7 +22,7 @@ class HostComponent {
 
 describe('NuDatePipe', () => {
   let fixture: ComponentFixture<HostComponent>;
-  let dateService: MockedDateUtils;
+  let dateService: MockedDateUtil;
 
   beforeEach(async () => {
     const mock = {
@@ -33,10 +33,10 @@ describe('NuDatePipe', () => {
     };
     await TestBed.configureTestingModule({
       imports: [HostComponent],
-      providers: [{ provide: DateUtils, useValue: mock }],
+      providers: [{ provide: DateUtil, useValue: mock }],
     }).compileComponents();
     fixture = TestBed.createComponent(HostComponent);
-    dateService = TestBed.inject(DateUtils) as any;
+    dateService = TestBed.inject(DateUtil) as any;
   });
 
   it('should create', () => expect(fixture.componentInstance).toBeTruthy());

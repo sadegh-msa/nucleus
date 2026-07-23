@@ -18,11 +18,11 @@ import {
   parse as jParse,
 } from 'date-fns-jalali';
 import type { NuLang } from '../types/lang.type';
-import { LocaleUtils } from './locale-utils';
+import { LocaleUtil } from './locale-util';
 
 @Service()
-export class DateUtils {
-  readonly #localeUtils = inject(LocaleUtils);
+export class DateUtil {
+  readonly #localeUtil = inject(LocaleUtil);
 
   readonly #DISTANCE_LIMIT = 2 * 24 * 60 * 60;
   readonly #defaultFormatStr: Record<NuLang, Record<'input' | 'output', string>> = {
@@ -42,14 +42,14 @@ export class DateUtils {
 
   readonly #now = signal(new Date());
   readonly now = computed(() => new Date(this.#now().getTime()));
-  readonly locale = computed(() => this.#locales[this.#localeUtils.lang()]);
+  readonly locale = computed(() => this.#locales[this.#localeUtil.lang()]);
 
   get defaultInputFormatStr() {
-    return this.#defaultFormatStr[this.#localeUtils.lang()].input;
+    return this.#defaultFormatStr[this.#localeUtil.lang()].input;
   }
 
   get defaultOutputFormatStr() {
-    return this.#defaultFormatStr[this.#localeUtils.lang()].output;
+    return this.#defaultFormatStr[this.#localeUtil.lang()].output;
   }
 
   isValidDate(inputValue: unknown) {
@@ -80,13 +80,13 @@ export class DateUtils {
     referenceDate: DateArg<Date> = this.now(),
     options?: ParseOptions<Date>,
   ) {
-    return this.#localeUtils.isPersian()
+    return this.#localeUtil.isPersian()
       ? jParse(dateStr, formatStr, referenceDate, options)
       : parse(dateStr, formatStr, referenceDate, options);
   }
 
   format(date: DateArg<Date>, formatStr = this.defaultOutputFormatStr, options?: FormatOptions) {
-    return this.#localeUtils.isPersian()
+    return this.#localeUtil.isPersian()
       ? jFormat(date, formatStr, options)
       : format(date, formatStr, options);
   }
@@ -108,7 +108,7 @@ export class DateUtils {
         locale: this.locale(),
       };
 
-      return this.#localeUtils.isPersian()
+      return this.#localeUtil.isPersian()
         ? jFormatDistance(laterDate, earlierDate, options)
         : formatDistance(laterDate, earlierDate, options);
     }

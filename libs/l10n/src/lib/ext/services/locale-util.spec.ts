@@ -1,15 +1,15 @@
 import { DOCUMENT } from '@angular/common';
 import { TestBed } from '@angular/core/testing';
 
-import { LocaleUtils } from './locale-utils';
+import { LocaleUtil } from './locale-util';
 
-describe('LocaleUtils', () => {
-  let service: LocaleUtils;
+describe('LocaleUtil', () => {
+  let service: LocaleUtil;
   let document: Document;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(LocaleUtils);
+    service = TestBed.inject(LocaleUtil);
     document = TestBed.inject(DOCUMENT);
   });
 
@@ -41,7 +41,7 @@ describe('LocaleUtils', () => {
 
       TestBed.resetTestingModule();
       TestBed.configureTestingModule({});
-      const freshService = TestBed.inject(LocaleUtils);
+      const freshService = TestBed.inject(LocaleUtil);
 
       expect(freshService.lang()).toBe('fa');
     });
@@ -60,7 +60,7 @@ describe('LocaleUtils', () => {
 
       TestBed.resetTestingModule();
       TestBed.configureTestingModule({});
-      const freshService = TestBed.inject(LocaleUtils);
+      const freshService = TestBed.inject(LocaleUtil);
 
       expect(freshService.dir()).toBe('rtl');
     });
@@ -89,7 +89,7 @@ describe('LocaleUtils', () => {
 
       TestBed.resetTestingModule();
       TestBed.configureTestingModule({});
-      const freshService = TestBed.inject(LocaleUtils);
+      const freshService = TestBed.inject(LocaleUtil);
 
       expect(freshService.isPersian()).toBe(false);
     });
@@ -117,7 +117,7 @@ describe('LocaleUtils', () => {
 
       TestBed.resetTestingModule();
       TestBed.configureTestingModule({});
-      const freshService = TestBed.inject(LocaleUtils);
+      const freshService = TestBed.inject(LocaleUtil);
 
       expect(freshService.lang()).toBe('fa');
       expect(freshService.isPersian()).toBe(true);
@@ -128,7 +128,7 @@ describe('LocaleUtils', () => {
 
       TestBed.resetTestingModule();
       TestBed.configureTestingModule({});
-      const freshService = TestBed.inject(LocaleUtils);
+      const freshService = TestBed.inject(LocaleUtil);
 
       expect(freshService.dir()).toBe('rtl');
       expect(freshService.isRtl()).toBe(true);

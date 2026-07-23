@@ -1,2 +1,2 @@
-export * from './date-utils';
-export * from './locale-utils';
+export * from './date-util';
+export * from './locale-util';

@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { OperationStatus } from '@nucleus/common';
 import { injectAuthStore } from '@nucleus/core';
-import { LocaleUtils, type NuLangDir } from '@nucleus/l10n';
+import { LocaleUtil, type NuLangDir } from '@nucleus/l10n';
 import { Panel, PanelManager } from '@nucleus/panel';
 import { type UiMenuItemModel, UiMenuItems, UiMessage, UiMessageManager } from '@nucleus/ui';
 import { ConfirmationService } from 'primeng/api';
@@ -30,7 +30,7 @@ export class App {
   readonly #authStore = injectAuthStore();
   readonly #confirmationService = inject(ConfirmationService);
   readonly #panelManager = inject(PanelManager);
-  readonly #localeUtils = inject(LocaleUtils);
+  readonly #localeUtil = inject(LocaleUtil);
   readonly #uiMessageManager = inject(UiMessageManager);
 
   readonly navMainMenu = navMainMenu;
@@ -56,7 +56,7 @@ export class App {
       const dir = this.htmlDir();
 
       untracked(() => {
-        this.#localeUtils.setDir(dir);
+        this.#localeUtil.setDir(dir);
 
         this.#uiMessageManager.add({
           variant: 'info',
