@@ -1,0 +1,9 @@
+@use 'sass:meta';
+
+@function if-else($condition, $if-true, $if-false: null) {
+  @if $condition {
+    @return $if-true;
+  }
+
+  @return $if-false;
+}

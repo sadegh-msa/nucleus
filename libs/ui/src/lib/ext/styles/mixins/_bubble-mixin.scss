@@ -1,6 +1,7 @@
 @use '../helpers/size-helper' as *;
 @use '../helpers/color-helper' as *;
 @use '../utils/list-util' as *;
+@use '../utils/control-util' as *;
 @use '../mixins/color-mixin' as color;
 @use '../mixins/box-mixin' as box;
 @use '../mixins/shadow-mixin' as shadow;
@@ -15,7 +16,7 @@ $colors: get-color-list();
 }
 
 @mixin arrow($block-placement, $block-offset, $inline-placement, $inline-offset, $is-rotate-reversed: false) {
-  $rotate-value: if($block-placement == $inline-placement, 45deg, -45deg);
+  $rotate-value: if-else($block-placement == $inline-placement, 45deg, -45deg);
 
   @if ($is-rotate-reversed) {
     $rotate-value: -1 * $rotate-value;
@@ -64,7 +65,7 @@ $colors: get-color-list();
 
 @mixin corner-arrow($block-placement, $inline-placement) {
   $offset: calc(-1 * var(--ui-bubble-arrow-size-half) / 3);
-  $skew-value: if($block-placement == $inline-placement, 12deg, -12deg);
+  $skew-value: if-else($block-placement == $inline-placement, 12deg, -12deg);
 
   > .bubble-arrow {
     inset-block-#{$block-placement}: $offset;

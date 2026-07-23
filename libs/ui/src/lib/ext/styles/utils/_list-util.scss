@@ -1,8 +1,9 @@
 @use "sass:list";
+@use './control-util' as *;
 
 @function list-to-classes($list, $prefix: null) {
   $classes: ();
-  $prefix-class: if($prefix, "#{$prefix}", "");
+  $prefix-class: if-else($prefix, "#{$prefix}", "");
 
   @each $item in $list {
     $classes: list.append($classes, ".#{$prefix-class}#{$item}");

@@ -1,9 +1,10 @@
 @use '../helpers/color-helper' as *;
 @use '../helpers/border-helper' as *;
+@use '../utils/control-util' as *;
 
 @mixin generic($border-radius, $border-color, $border-width, $border-style) {
   @if ($border-radius != null) {
-    border-radius: if($border-radius == full, 100%, get-border-radius-var($border-radius));
+    border-radius: if-else($border-radius == full, 100%, get-border-radius-var($border-radius));
   }
 
   @if ($border-color != null) {

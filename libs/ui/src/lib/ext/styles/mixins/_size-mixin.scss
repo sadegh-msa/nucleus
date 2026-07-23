@@ -1,18 +1,19 @@
 @use '../helpers/size-helper' as *;
+@use '../utils/control-util' as *;
 
 @mixin min-rect($width, $height: null) {
   min-width: get-size-var($width);
-  min-height: get-size-var(if($height == null, $width, $height));
+  min-height: get-size-var(if-else($height == null, $width, $height));
 }
 
 @mixin rect($width, $height: null) {
   width: get-size-var($width);
-  height: get-size-var(if($height == null, $width, $height));
+  height: get-size-var(if-else($height == null, $width, $height));
 }
 
 @mixin max-rect($width, $height: null) {
   max-width: get-size-var($width);
-  max-height: get-size-var(if($height == null, $width, $height));
+  max-height: get-size-var(if-else($height == null, $width, $height));
 }
 
 @mixin semistrict-rect($width, $height: null) {

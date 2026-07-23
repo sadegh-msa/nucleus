@@ -4,6 +4,7 @@
 @use '../helpers/color-helper' as *;
 @use '../helpers/border-helper' as *;
 @use '../utils/list-util' as *;
+@use '../utils/control-util' as *;
 @use './icon-mixin' as icon;
 @use './text-mixin' as text;
 @use './shadow-mixin' as shadow;
@@ -112,22 +113,22 @@ $border-radius-list: get-border-radius-list();
 }
 
 @mixin variant-color($bg-color, $text-color, $border-color: null) {
-  $is-bg-transparent: if(
+  $is-bg-transparent: if-else(
       string.index(#{$bg-color}, 'transparent'),
       true,
       false
   );
-  $is-bg-surface: if(string.index(#{$bg-color}, 'surface'), true, false);
+  $is-bg-surface: if-else(string.index(#{$bg-color}, 'surface'), true, false);
   $is-bg-bright: $is-bg-transparent or $is-bg-surface;
 
   &:hover {
-    $hover-variant: if($is-bg-bright, 'dark', 'light');
+    $hover-variant: if-else($is-bg-bright, 'dark', 'light');
     @include color.generic($bg-color, $text-color, $border-color, $hover-variant);
   }
 
   &:not(.rippler) {
     &:active {
-      $active-variant: if($is-bg-bright, 'darker', 'dark');
+      $active-variant: if-else($is-bg-bright, 'darker', 'dark');
       @include color.generic($bg-color, $text-color, $border-color, $active-variant);
       @include shadow.inset();
     }
