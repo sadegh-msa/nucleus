@@ -39,6 +39,9 @@ bunx nx build --configuration=fa nucleus
 # Test single file
 bunx nx test nucleus -- --testPathPattern=component-name
 
+# Test all libs with coverage
+bun run test:coverage
+
 # Lint changed files only
 bun run lint  # runs biome on git-changed files
 
@@ -79,6 +82,7 @@ Path aliases defined in `tsconfig.base.json`:
 - **Unit**: Vitest v4 with `@analogjs/vitest-angular`; use `@test-mocks` for shared mocks
 - **E2E**: Playwright (via `@nx/playwright`)
 - Test setup in `utils/test-mocks.ts` provides `setupGlobalMocks()` for jsdom environment
+- **Coverage**: Browser mode with `@vitest/coverage-v8`; requires `optimizeDeps.include` for `@vitest/coverage-v8/browser`
 
 ## Linting
 

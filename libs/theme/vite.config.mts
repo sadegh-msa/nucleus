@@ -10,6 +10,9 @@ export default defineConfig(() => ({
   root: __dirname,
   cacheDir: '../../node_modules/.vite/libs/theme',
   plugins: [angular()],
+  optimizeDeps: {
+    include: ['@vitest/coverage-v8/browser'],
+  },
   resolve: { alias: getPathAlias() },
   css: {
     preprocessorOptions: {
