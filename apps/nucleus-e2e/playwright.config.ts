@@ -9,6 +9,14 @@ export default defineConfig({
   use: {
     baseURL,
     trace: 'on-first-retry',
+    screenshot: 'only-on-failure',
+  },
+  snapshotDir: './__snapshots__',
+  expect: {
+    toHaveScreenshot: {
+      maxDiffPixelRatio: 0.01,
+      threshold: 0.2,
+    },
   },
   webServer: {
     command: 'bunx nx run nucleus:serve',

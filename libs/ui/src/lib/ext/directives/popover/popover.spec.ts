@@ -12,6 +12,13 @@ setupGlobalMocks();
 })
 class TestHostComponent {}
 
+@Component({
+  template:
+    '<div uiPopover="Popover content" [uiPopoverDisabled]="disabled" [uiPopoverHasClose]="hasClose">Trigger</div>',
+  imports: [UiPopover],
+})
+class ConfigurableHostComponent {}
+
 describe('UiPopover', () => {
   let fixture: ComponentFixture<TestHostComponent>;
   let directive: UiPopover;
@@ -36,7 +43,40 @@ describe('UiPopover', () => {
     const p = directive.popover();
     expect(p.content).toBe('Popover content');
     expect(p.hasBubble).toBe(true);
+    expect(p.hasArrow).toBe(true);
+    expect(p.hasClose).toBe(false);
     expect(p.attachTo).toBe('body');
+    expect(p.styleClass).toBe('text stamp fade-normal');
+  });
+
+  afterEach(() => fixture?.destroy());
+});
+
+describe('UiPopover configurable', () => {
+  let fixture: ComponentFixture<ConfigurableHostComponent>;
+  let directive: UiPopover;
+
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({ imports: [ConfigurableHostComponent] }).compileComponents();
+    fixture = TestBed.createComponent(ConfigurableHostComponent);
+    fixture.detectChanges();
+    const divEl = fixture.debugElement.query(
+      (el) => el.nativeElement.tagName === 'DIV' && el.nativeElement.hasAttribute('uipopover'),
+    );
+    directive = divEl.injector.get(UiPopover);
+  });
+
+  it('should have default closeDelay 0', () => expect(directive.closeDelay()).toBe(0));
+  it('should have default attachTo body', () => expect(directive.attachTo()).toBe('body'));
+
+  it('should emit visibility on show', () => {
+    const spy = vi.fn();
+    directive.visibility.subscribe(spy);
+
+    directive.visible.set(true);
+    fixture.detectChanges();
+
+    expect(spy).toHaveBeenCalled();
   });
 
   afterEach(() => fixture?.destroy());

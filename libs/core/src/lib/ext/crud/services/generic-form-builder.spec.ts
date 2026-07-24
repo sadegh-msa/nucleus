@@ -11,7 +11,7 @@ describe('GenericFormBuilder', () => {
   let router: { navigate: Mock };
 
   beforeEach(() => {
-    router = { navigate: vi.fn() };
+    router = { navigate: vi.fn().mockResolvedValue(true) };
 
     TestBed.configureTestingModule({
       providers: [GenericFormBuilder, { provide: Router, useValue: router }],
@@ -81,6 +81,93 @@ describe('GenericFormBuilder', () => {
 
       expect(consumer.form.touched).toBe(true);
     });
+
+    it('should return early when form is invalid', () => {
+      const consumer = createMockConsumer();
+      consumer.form.controls['name'].setErrors({ required: true });
+      service.init(consumer as any);
+
+      service.save();
+
+      expect(consumer.store.loadAdd).not.toHaveBeenCalled();
+      expect(consumer.store.loadUpdate).not.toHaveBeenCalled();
+    });
+  });
+
+  describe('loadData', () => {
+    it('should not load data for Add page type', () => {
+      const consumer = createMockConsumer();
+      consumer.pageType.set(PageType.Add);
+      service.init(consumer as any);
+
+      service.loadData();
+
+      expect(consumer.store.loadGet).not.toHaveBeenCalled();
+    });
+
+    it('should load data for View page type', () => {
+      const consumer = createMockConsumer();
+      consumer.pageType.set(PageType.View);
+      service.init(consumer as any);
+
+      service.loadData();
+
+      expect(consumer.store.loadGet).toHaveBeenCalled();
+    });
+  });
+
+  describe('navigateToListPage', () => {
+    it('should navigate to list page', () => {
+      const consumer = createMockConsumer();
+      service.init(consumer as any);
+
+      service.navigateToListPage();
+
+      expect(router.navigate).toHaveBeenCalledWith(['/list']);
+    });
+  });
+
+  describe('navigateToViewPage', () => {
+    it('should navigate to view page', () => {
+      const consumer = createMockConsumer();
+      service.init(consumer as any);
+
+      service.navigateToViewPage();
+
+      expect(router.navigate).toHaveBeenCalled();
+    });
+  });
+
+  describe('createToolbar', () => {
+    it('should create view toolbar', () => {
+      const consumer = createMockConsumer();
+      consumer.pageType.set(PageType.View);
+      service.init(consumer as any);
+
+      const toolbar = service.createToolbar(false);
+
+      expect(toolbar.tools.length).toBeGreaterThan(0);
+    });
+
+    it('should create add toolbar', () => {
+      const consumer = createMockConsumer();
+      consumer.pageType.set(PageType.Add);
+      service.init(consumer as any);
+
+      const toolbar = service.createToolbar(false);
+
+      expect(toolbar.tools.length).toBeGreaterThan(0);
+    });
+
+    it('should create edit toolbar', () => {
+      const consumer = createMockConsumer();
+      consumer.pageType.set(PageType.Edit);
+      service.init(consumer as any);
+
+      const toolbar = service.createToolbar(false);
+
+      expect(toolbar.tools.length).toBeGreaterThan(0);
+    });
   });
 });
 
@@ -106,9 +193,19 @@ function createMockConsumer() {
         page: {
           list: () => ['/list'],
           view: (id: string) => [`/view/${id}`],
+          edit: (id: string) => [`/edit/${id}`],
         },
       },
       field: { id: 'id', title: 'title' },
+      permission: {
+        action: {
+          add: 'add',
+          edit: 'edit',
+          view: 'view',
+          delete: 'delete',
+          list: 'list',
+        },
+      },
     },
     store: {
       get: () => ({ status: 0, response: { data: {} }, tool: null }),
