@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { type ComponentFixture, TestBed } from '@angular/core/testing';
-import { afterEach } from 'vitest';
 import { setupGlobalMocks } from '@test-mocks';
+import { afterEach } from 'vitest';
 import { UiPopover } from './popover';
 
 setupGlobalMocks();
@@ -57,7 +57,9 @@ describe('UiPopover configurable', () => {
   let directive: UiPopover;
 
   beforeEach(async () => {
-    await TestBed.configureTestingModule({ imports: [ConfigurableHostComponent] }).compileComponents();
+    await TestBed.configureTestingModule({
+      imports: [ConfigurableHostComponent],
+    }).compileComponents();
     fixture = TestBed.createComponent(ConfigurableHostComponent);
     fixture.detectChanges();
     const divEl = fixture.debugElement.query(

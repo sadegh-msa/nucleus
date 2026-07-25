@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { type ComponentFixture, TestBed } from '@angular/core/testing';
-import { afterEach } from 'vitest';
 import { setupGlobalMocks } from '@test-mocks';
+import { afterEach } from 'vitest';
 import { UiTooltip } from './tooltip';
 
 setupGlobalMocks();

@@ -1,5 +1,5 @@
 import { TestBed } from '@angular/core/testing';
-import { Router, type ActivatedRouteSnapshot, type RouterStateSnapshot } from '@angular/router';
+import { type ActivatedRouteSnapshot, Router, type RouterStateSnapshot } from '@angular/router';
 import { vi } from 'vitest';
 import { AuthToken } from '../../../ext/auth/services/auth-token';
 import { authCanActivateSelf } from './auth-self-guard';
