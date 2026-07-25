@@ -13,10 +13,10 @@ import {
   signal,
   untracked,
 } from '@angular/core';
-import { DomSanitizer } from '@angular/platform-browser';
-import { OperationStatus, sleepRandom, TemporaryStorage } from '@nucleus/common';
-import { injectUiConfig } from '../../providers';
 import type { UiIconVariant } from '../../types';
+import { UiSvgIconLoader } from '../../services/svg-icon-loader';
+
+const DEFAULT_VARIANT: UiIconVariant = 'outline';
 
 @Directive({
   selector: 'svg[uiSvgIcon]',
@@ -25,15 +25,9 @@ import type { UiIconVariant } from '../../types';
   },
 })
 export class UiSvgIcon implements OnInit, OnDestroy {
-  readonly #domSanitizer = inject(DomSanitizer);
   readonly #renderer = inject(Renderer2);
   readonly #elementRef = inject(ElementRef);
-  readonly #uiConfig = injectUiConfig();
-  readonly #temporaryStorage = inject(TemporaryStorage);
-
-  readonly #DEFAULT_VARIANT: UiIconVariant = 'outline';
-  readonly #STORAGE_KEY = 'uiSvgIcon';
-  readonly #RETRYING_TIMES = 10;
+  readonly #uiSvgIconLoader = inject(UiSvgIconLoader);
 
   readonly #intersectionObserver = new IntersectionObserver(([entries], observer) => {
     if (entries.isIntersecting) {
@@ -54,33 +48,7 @@ export class UiSvgIcon implements OnInit, OnDestroy {
         return null;
       }
 
-      const storageKey = `${this.#STORAGE_KEY}.${params.variant}.${params.icon}`;
-      let cachedSvg = this.#temporaryStorage.getItem(storageKey)?.trim();
-
-      let retrying = 0;
-
-      while (cachedSvg === OperationStatus.Initial && retrying <= this.#RETRYING_TIMES) {
-        cachedSvg = this.#temporaryStorage.getItem(storageKey)?.trim();
-        await sleepRandom();
-        retrying++;
-      }
-
-      if (cachedSvg?.startsWith('<svg')) {
-        return cachedSvg;
-      }
-
-      this.#temporaryStorage.setItem(storageKey, OperationStatus.Initial);
-      const url = this.#createIconUrl(params.variant, params.icon);
-      const response = await fetch(url);
-
-      if (response.ok) {
-        const rawSvg = await response.text();
-        this.#temporaryStorage.setItem(storageKey, rawSvg);
-
-        return rawSvg;
-      }
-
-      return null;
+      return this.#uiSvgIconLoader.loadIcon(params.variant, params.icon);
     },
   });
 
@@ -91,7 +59,7 @@ export class UiSvgIcon implements OnInit, OnDestroy {
   readonly #isInViewport = signal(false);
 
   readonly rawSvg = computed(() => this.#resource.value());
-  readonly variant = computed(() => this.inputVariant() || this.#DEFAULT_VARIANT);
+  readonly variant = computed(() => this.inputVariant() || DEFAULT_VARIANT);
 
   get styleClass() {
     return `ui icon ${this.variant()}`;
@@ -123,36 +91,9 @@ export class UiSvgIcon implements OnInit, OnDestroy {
     this.#intersectionObserver.disconnect();
   }
 
-  #createIconUrl(variant: UiIconVariant, icon: string) {
-    const iconDir = this.#uiConfig.icon.dir;
-    return `${iconDir}/${variant}/${icon}.svg`;
-  }
-
-  #updateTagIds(rawSvg: string) {
-    let svg = rawSvg;
-
-    const svgIdSet = new Set<string>(svg.match(/<id-\d+>/g) || []);
-
-    svgIdSet.forEach((svgId) => {
-      svg = svg.replaceAll(svgId, crypto.randomUUID());
-    });
-
-    return svg;
-  }
-
-  #normalizeSvg(rawSvg: string) {
-    let svg = rawSvg;
-
-    if (this.generateId()) {
-      svg = this.#updateTagIds(svg);
-    }
-
-    return this.#domSanitizer.bypassSecurityTrustHtml(svg).toString();
-  }
-
   #insertIcon(hostElement: HTMLElement, rawSvg: string) {
     const tempElement = this.#renderer.createElement('div');
-    tempElement.innerHTML = this.#normalizeSvg(rawSvg);
+    tempElement.innerHTML = this.#uiSvgIconLoader.normalizeSvg(rawSvg, this.generateId());
     const svgElement = tempElement.children[0];
 
     if (!svgElement) {
