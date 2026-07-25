@@ -20,7 +20,7 @@ export class UiFormField {
   messages = input<Record<string, string>>({});
 
   get styleClass() {
-    const hasError = this.inputFormControl()?.dirty && this.inputFormControl()?.errors;
-    return hasError ? 'ui-error' : '';
+    const formControl = this.inputFormControl();
+    return formControl?.dirty && formControl.errors ? 'ui-error' : '';
   }
 }

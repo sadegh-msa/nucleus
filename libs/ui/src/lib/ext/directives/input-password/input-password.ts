@@ -45,11 +45,7 @@ export class UiInputPassword implements OnInit {
   #handleEvents() {
     const formControl = this.#ngControl.control;
 
-    if (!formControl) {
-      return;
-    }
-
-    formControl.valueChanges
+    formControl?.valueChanges
       .pipe(takeUntilDestroyed(this.#destroyRef), map(String))
       .subscribe((value) => {
         this.strength.emit({

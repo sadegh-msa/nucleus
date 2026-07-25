@@ -8,8 +8,8 @@ export class UiToggleValueAccessor {
 
   #consumer!: UiGenericToggleConsumerModel;
 
-  #onChange: any = () => {};
-  #onTouch: any = () => {};
+  #onChange: (value: ToggleValueModel) => void = () => {};
+  #onTouch: () => void = () => {};
 
   constructor() {
     effect(() => {
@@ -48,11 +48,11 @@ export class UiToggleValueAccessor {
     );
   }
 
-  #registerOnChange(fn: any) {
+  #registerOnChange(fn: (value: ToggleValueModel) => void) {
     this.#onChange = fn;
   }
 
-  #registerOnTouched(fn: any) {
+  #registerOnTouched(fn: () => void) {
     this.#onTouch = fn;
   }
 

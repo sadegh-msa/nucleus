@@ -52,10 +52,6 @@ export class UiScreen {
     new ResizeObserver(() => {
       clearTimeout(this.#windowTimer);
       this.#windowTimer = setTimeout(() => {
-        if (!this.#windowTimer) {
-          return;
-        }
-
         this.#window.set(this.#getWindow());
       }, 100);
     }).observe(this.#document.body);
