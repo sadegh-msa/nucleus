@@ -56,3 +56,11 @@ libs-circular.svg
 .mimocode/
 .omo/
 .superpowers/
+
+# test artifacts
+.vitest-attachments/
+__screenshots__/
+__snapshots__/
+!apps/*-e2e/**/.vitest-attachments
+!apps/*-e2e/**/__screenshots__
+!apps/*-e2e/**/__snapshots__
