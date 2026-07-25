@@ -3,20 +3,20 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
-    "reset": "nx reset",
-    "start": "nx serve nucleus",
-    "test": "nx run-many --target=test --all",
-    "test:coverage": "nx run-many --target=test --all --coverage",
+    "build": "nx build --configuration=fa nucleus",
+    "circular:apps": "madge --circular --extensions ts --image apps-circular.svg ./apps",
+    "circular:libs": "madge --circular --extensions ts --image libs-circular.svg ./libs",
     "e2e": "nx run nucleus-e2e:e2e",
     "e2e:ui": "nx run nucleus-e2e:e2e -- --ui",
-    "build": "nx build --configuration=fa nucleus",
-    "localize": "nx extract-i18n nucleus && node utils/merge-locales.mjs nucleus",
     "format": "biome check --write $(git status --porcelain | grep -E '^\\s*[AM?]' | awk '{print $2}')",
     "format:all": "biome check --write",
     "lint": "nx affected -t lint --batch",
     "lint:all": "nx run-many -t lint --batch",
-    "circular:apps": "madge --circular --extensions ts --image apps-circular.svg ./apps",
-    "circular:libs": "madge --circular --extensions ts --image libs-circular.svg ./libs"
+    "localize": "nx extract-i18n nucleus && node utils/merge-locales.mjs nucleus",
+    "reset": "nx reset",
+    "start": "nx serve nucleus",
+    "test": "nx run-many --target=test --all",
+    "test:coverage": "nx run-many --target=test --all --coverage"
   },
   "private": true,
   "dependencies": {
