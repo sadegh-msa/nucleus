@@ -29,14 +29,15 @@ class MockIntersectionObserver {
       entries.map((e) => ({
         target: e.target ?? document.createElement('div'),
         intersectionRatio: e.intersectionRatio ?? 1,
-        boundingClientRect: e.boundingClientRect ?? DOMRect.fromRect({ x: 0, y: 0, width: 100, height: 50 }),
+        boundingClientRect:
+          e.boundingClientRect ?? DOMRect.fromRect({ x: 0, y: 0, width: 100, height: 50 }),
         root: null,
         rootMargin: '',
-        threshold: this.options?.threshold as number ?? 1,
+        threshold: (this.options?.threshold as number) ?? 1,
         time: 0,
         isIntersecting: e.intersectionRatio !== 0,
         isVisible: true,
-      })) as IntersectionObserverEntry[],
+      })) as unknown as IntersectionObserverEntry[],
       this,
     );
   }
@@ -206,7 +207,9 @@ describe('VisualObserver', () => {
       observer.observe(el);
 
       const resizeObs = MockResizeObserver.instances[0];
-      resizeObs.trigger([{ target: el, contentRect: DOMRect.fromRect({ x: 10, y: 20, width: 200, height: 100 }) }]);
+      resizeObs.trigger([
+        { target: el, contentRect: DOMRect.fromRect({ x: 10, y: 20, width: 200, height: 100 }) },
+      ]);
 
       expect(callback).toHaveBeenCalled();
       const [entries] = callback.mock.calls[0];
@@ -309,7 +312,9 @@ describe('VisualObserver', () => {
       observer.observe(el);
 
       const resizeObs = MockResizeObserver.instances[0];
-      resizeObs.trigger([{ target: el, contentRect: DOMRect.fromRect({ x: 0, y: 0, width: 0, height: 0 }) }]);
+      resizeObs.trigger([
+        { target: el, contentRect: DOMRect.fromRect({ x: 0, y: 0, width: 0, height: 0 }) },
+      ]);
 
       expect(callback).toHaveBeenCalled();
       const [entries] = callback.mock.calls[0];
