@@ -15,8 +15,8 @@
     "format:all": "biome check --write",
     "lint": "nx affected -t lint --batch",
     "lint:all": "nx run-many -t lint --batch",
-    "cd:apps": "madge --circular --extensions ts --image apps-circular.svg ./apps",
-    "cd:libs": "madge --circular --extensions ts --image libs-circular.svg ./libs"
+    "circular:apps": "madge --circular --extensions ts --image apps-circular.svg ./apps",
+    "circular:libs": "madge --circular --extensions ts --image libs-circular.svg ./libs"
   },
   "private": true,
   "dependencies": {
