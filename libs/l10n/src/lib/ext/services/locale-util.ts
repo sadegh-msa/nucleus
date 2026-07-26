@@ -7,16 +7,14 @@ export class LocaleUtil {
   readonly #document = inject(DOCUMENT);
 
   readonly #htmlObserver = new MutationObserver((list) => {
-    if (!list.length) {
-      return;
-    }
+    for (const mutation of list) {
+      if (mutation.attributeName === 'lang') {
+        this.#lang.set(this.#getDocumentLang());
+      }
 
-    if (list[0].attributeName === 'lang') {
-      this.#lang.set(this.#getDocumentLang());
-    }
-
-    if (list[0].attributeName === 'dir') {
-      this.#dir.set(this.#getDocumentDir());
+      if (mutation.attributeName === 'dir') {
+        this.#dir.set(this.#getDocumentDir());
+      }
     }
   });
 
@@ -28,11 +26,11 @@ export class LocaleUtil {
   isPersian = computed(() => this.lang() === 'fa');
 
   get lang() {
-    return this.#lang.asReadonly();
+    return this.#lang;
   }
 
   get dir() {
-    return this.#dir.asReadonly();
+    return this.#dir;
   }
 
   constructor() {

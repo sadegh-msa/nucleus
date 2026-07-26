@@ -84,7 +84,7 @@ describe('DateUtil', () => {
 
   describe('defaultInputFormatStr', () => {
     it('should return a format string', () => {
-      const format = service.defaultInputFormatStr;
+      const format = service.defaultInputFormatStr();
 
       expect(format).toBeTruthy();
       expect(typeof format).toBe('string');
@@ -97,7 +97,7 @@ describe('DateUtil', () => {
       TestBed.configureTestingModule({});
       const freshService = TestBed.inject(DateUtil);
 
-      expect(freshService.defaultInputFormatStr).toBe('MM/dd/yyyy HH:mm');
+      expect(freshService.defaultInputFormatStr()).toBe('MM/dd/yyyy HH:mm');
     });
 
     it('should return yyyy/MM/dd HH:mm for fa', () => {
@@ -107,13 +107,13 @@ describe('DateUtil', () => {
       TestBed.configureTestingModule({});
       const freshService = TestBed.inject(DateUtil);
 
-      expect(freshService.defaultInputFormatStr).toBe('yyyy/MM/dd HH:mm');
+      expect(freshService.defaultInputFormatStr()).toBe('yyyy/MM/dd HH:mm');
     });
   });
 
   describe('defaultOutputFormatStr', () => {
     it('should return a format string', () => {
-      const format = service.defaultOutputFormatStr;
+      const format = service.defaultOutputFormatStr();
 
       expect(format).toBeTruthy();
       expect(typeof format).toBe('string');
@@ -126,7 +126,7 @@ describe('DateUtil', () => {
       TestBed.configureTestingModule({});
       const freshService = TestBed.inject(DateUtil);
 
-      expect(freshService.defaultOutputFormatStr).toBe('MMM d, yyyy HH:mm');
+      expect(freshService.defaultOutputFormatStr()).toBe('MMM d, yyyy HH:mm');
     });
 
     it('should return d MMMM yyyy HH:mm for fa', () => {
@@ -136,7 +136,7 @@ describe('DateUtil', () => {
       TestBed.configureTestingModule({});
       const freshService = TestBed.inject(DateUtil);
 
-      expect(freshService.defaultOutputFormatStr).toBe('d MMMM yyyy HH:mm');
+      expect(freshService.defaultOutputFormatStr()).toBe('d MMMM yyyy HH:mm');
     });
   });
 

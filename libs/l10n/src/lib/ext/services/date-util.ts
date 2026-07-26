@@ -1,4 +1,4 @@
-import { computed, inject, Service, signal } from '@angular/core';
+import { computed, inject, Service } from '@angular/core';
 import {
   type DateArg,
   type FormatDistanceOptions,
@@ -40,17 +40,10 @@ export class DateUtil {
     fa: faIR,
   };
 
-  readonly #now = signal(new Date());
-  readonly now = computed(() => new Date(this.#now().getTime()));
+  readonly now = computed(() => new Date());
   readonly locale = computed(() => this.#locales[this.#localeUtil.lang()]);
-
-  get defaultInputFormatStr() {
-    return this.#defaultFormatStr[this.#localeUtil.lang()].input;
-  }
-
-  get defaultOutputFormatStr() {
-    return this.#defaultFormatStr[this.#localeUtil.lang()].output;
-  }
+  readonly defaultInputFormatStr = computed(() => this.#defaultFormatStr[this.#localeUtil.lang()].input);
+  readonly defaultOutputFormatStr = computed(() => this.#defaultFormatStr[this.#localeUtil.lang()].output);
 
   isValidDate(inputValue: unknown) {
     return isValid(inputValue);
@@ -76,7 +69,7 @@ export class DateUtil {
 
   parse(
     dateStr: string,
-    formatStr = this.defaultInputFormatStr,
+    formatStr = this.defaultInputFormatStr(),
     referenceDate: DateArg<Date> = this.now(),
     options?: ParseOptions<Date>,
   ) {
@@ -85,7 +78,7 @@ export class DateUtil {
       : parse(dateStr, formatStr, referenceDate, options);
   }
 
-  format(date: DateArg<Date>, formatStr = this.defaultOutputFormatStr, options?: FormatOptions) {
+  format(date: DateArg<Date>, formatStr = this.defaultOutputFormatStr(), options?: FormatOptions) {
     return this.#localeUtil.isPersian()
       ? jFormat(date, formatStr, options)
       : format(date, formatStr, options);
