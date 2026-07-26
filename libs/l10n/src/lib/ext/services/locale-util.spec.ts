@@ -15,7 +15,7 @@ describe('LocaleUtil', () => {
 
   afterEach(() => {
     if (document) {
-      document.documentElement.lang = 'en';
+      document.documentElement.lang = 'en-US';
       document.documentElement.dir = 'ltr';
     }
   });

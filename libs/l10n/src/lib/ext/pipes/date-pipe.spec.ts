@@ -3,13 +3,14 @@ import { type ComponentFixture, TestBed } from '@angular/core/testing';
 import { type Mock, vi } from 'vitest';
 import { DateUtil } from '../services/date-util';
 
-type MockedDateUtil = {
-  [K in keyof DateUtil]: DateUtil[K] extends (...args: any[]) => any
-    ? Mock<DateUtil[K]>
-    : DateUtil[K];
-};
-
 import { NuDatePipe } from './date-pipe';
+
+type MockedDateUtil = {
+  convertToDate: Mock;
+  isValidDate: Mock;
+  format: Mock;
+  formatDistanceToNow: Mock;
+};
 
 @Component({
   template: '{{ date | nuDate: format }}',
