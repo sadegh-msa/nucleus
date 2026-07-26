@@ -1,6 +1,6 @@
 import { injectAsync } from '@angular/core';
 
-export abstract class GenericStorage {
+export abstract class AbstractStorage {
   readonly #loadCrypto = injectAsync(() => import('../../ext/services/cryptograph').then((m) => m.Cryptograph));
 
   protected constructor(protected readonly storage: Storage) {}

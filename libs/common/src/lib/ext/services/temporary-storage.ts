@@ -1,8 +1,8 @@
 import { Service } from '@angular/core';
-import { GenericStorage } from '../../int/services/generic-storage';
+import { AbstractStorage } from '../../int/abstracts/abstract-storage';
 
 @Service()
-export class TemporaryStorage extends GenericStorage {
+export class TemporaryStorage extends AbstractStorage {
   constructor() {
     super(sessionStorage);
   }
