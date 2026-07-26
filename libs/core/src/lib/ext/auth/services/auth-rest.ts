@@ -38,6 +38,6 @@ export class AuthRest {
   }
 
   refresh() {
-    return this.#httpClient.post(this.createUrl('logout'), {});
+    return this.#httpClient.post(this.createUrl('refresh'), {});
   }
 }

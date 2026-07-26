@@ -30,7 +30,7 @@ export class GenericFormBuilder<T extends GenericEntityModel> {
 
   run(createToolbar = true) {
     if (!this.#consumer) {
-      throw new Error('It needs to be call "init" method at first!');
+      throw new Error('It needs to call "init" method first!');
     }
 
     const { pageType, form } = this.#consumer;

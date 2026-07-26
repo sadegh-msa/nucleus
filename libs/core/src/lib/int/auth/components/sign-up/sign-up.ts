@@ -2,7 +2,7 @@ import { Component, effect, signal, untracked } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { OperationStatus } from '@nucleus/common';
-import { UiInputPassword, type UiPasswordStrengthModel, UiSvgIcon } from '@nucleus/ui';
+import { UiFormField, UiInputPassword, type UiPasswordStrengthModel, UiSvgIcon } from '@nucleus/ui';
 import { authDefaultConfig } from '../../../../ext/auth/auth-default.config';
 import type { AuthSignUpFormModel, AuthSignUpModel } from '../../../../ext/auth/models/auth.model';
 import { injectAuthStore } from '../../../../ext/auth/store/auth-store';
@@ -11,7 +11,7 @@ import { SignLayout } from '../sign-layout/sign-layout';
 @Component({
   selector: 'nu-sign-up',
   templateUrl: './sign-up.html',
-  imports: [RouterLink, ReactiveFormsModule, SignLayout, UiInputPassword, UiSvgIcon],
+  imports: [RouterLink, ReactiveFormsModule, SignLayout, UiFormField, UiInputPassword, UiSvgIcon],
 })
 export class SignUp {
   readonly #authStore = injectAuthStore();
@@ -50,7 +50,5 @@ export class SignUp {
     } as AuthSignUpModel);
   }
 
-  onPasswordStrength(value: UiPasswordStrengthModel) {
-    console.log(value);
-  }
+  onPasswordStrength(_value: UiPasswordStrengthModel) {}
 }

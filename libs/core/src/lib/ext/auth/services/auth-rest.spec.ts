@@ -89,7 +89,7 @@ describe('AuthRest', () => {
     it('should POST to refresh endpoint', () => {
       service.refresh().subscribe();
 
-      const req = httpMock.expectOne((request) => request.url.includes('logout'));
+      const req = httpMock.expectOne((request) => request.url.includes('refresh'));
 
       expect(req.request.method).toBe('POST');
       req.flush({});

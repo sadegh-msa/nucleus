@@ -1,5 +1,6 @@
 import { HttpRequest } from '@angular/common/http';
 import { TestBed } from '@angular/core/testing';
+import { firstValueFrom, of } from 'rxjs';
 import { UiMessageManager } from '@nucleus/ui';
 import { vi } from 'vitest';
 import { AuthToken } from '../services/auth-token';
@@ -19,7 +20,7 @@ describe('AuthInterceptor', () => {
   };
 
   const mockAuthToken = {
-    getAccessToken: vi.fn().mockReturnValue('test-token'),
+    getAccessToken: vi.fn().mockResolvedValue('test-token'),
     deleteAccessToken: vi.fn(),
   };
 
@@ -38,16 +39,14 @@ describe('AuthInterceptor', () => {
     expect(interceptor).toBeTruthy();
   });
 
-  it('should add Authorization header', () => {
+  it('should add Authorization header', async () => {
     const request = new HttpRequest('GET', '/api/test');
-    const handledReq = vi
-      .fn()
-      .mockReturnValue({ pipe: vi.fn().mockReturnValue({ subscribe: vi.fn() }) });
+    const next = { handle: vi.fn().mockReturnValue(of({})) };
 
-    interceptor.intercept(request, { handle: handledReq } as any);
+    await firstValueFrom(interceptor.intercept(request, next as any));
 
-    expect(handledReq).toHaveBeenCalled();
-    const cloned = handledReq.mock.calls[0][0];
+    expect(next.handle).toHaveBeenCalled();
+    const cloned = next.handle.mock.calls[0][0];
     expect(cloned.headers.get('Authorization')).toBe('Bearer test-token');
   });
 });

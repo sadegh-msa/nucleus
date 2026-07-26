@@ -3,24 +3,24 @@
 
   <ng-container form>
     <form id="sign-up-form" [formGroup]="form" (ngSubmit)="submit()" autocomplete="off">
-      <div id="email-form-field" class="ui-form-field">
-        <div class="ui-form-field-text">
-          <label for="email" i18n>Email</label>
-          <span class="ui-form-field-message"></span>
-        </div>
+      <ui-form-field id="email-form-field"
+                      label="Email" i18n-label
+                      inputId="email"
+                      [inputFormControl]="form.get('email')"
+                      [messages]="{ required: 'Required', email: 'Invalid' }">
         <input id="email"
                class="ui input"
                placeholder="username@example.com"
                aria-describedby="email-help"
                spellcheck="false"
                formControlName="email" />
-      </div>
+      </ui-form-field>
 
-      <div id="password-form-field" class="ui-form-field">
-        <div class="ui-form-field-text">
-          <label for="password" i18n>Password</label>
-          <span class="ui-form-field-message"></span>
-        </div>
+      <ui-form-field id="password-form-field"
+                      label="Password" i18n-label
+                      inputId="password"
+                      [inputFormControl]="form.get('password')"
+                      [messages]="{ required: 'Required', minlength: 'Too short', maxlength: 'Too long' }">
         <input uiInputPassword
                id="password"
                type="password"
@@ -29,26 +29,22 @@
                spellcheck="false"
                formControlName="password"
                (strength)="onPasswordStrength($event)" />
-      </div>
+      </ui-form-field>
 
-      <div id="confirm-password-form-field" class="ui-form-field">
-        <div class="ui-form-field-text">
-          <label for="confirm-password" i18n>Confirm password</label>
-          <span class="ui-form-field-message">
-<!--            {{ form.get('confirmPassword')?.hasError('passwordsDoNotMatch') }}-->
-          </span>
-        </div>
+      <ui-form-field id="confirm-password-form-field"
+                      label="Confirm password" i18n-label
+                      inputId="confirm-password"
+                      [inputFormControl]="form.get('confirmPassword')"
+                      [messages]="{ required: 'Required', passwordsDoNotMatch: 'Passwords do not match' }">
         <input uiInputPassword
                id="confirm-password"
                type="password"
                placeholder="************"
                aria-describedby="confirm-password-help"
                spellcheck="false"
-               [class.invalid]="form.get('confirmPassword')?.hasError('passwordsDoNotMatch')"
-               [class.dirty]="form.get('confirmPassword')?.dirty"
                [passwordToConfirm]="form.get('password')?.value"
                formControlName="confirmPassword" />
-      </div>
+      </ui-form-field>
     </form>
   </ng-container>
 
@@ -59,7 +55,6 @@
               form="sign-up-form">
         <svg uiSvgIcon="user" />
         <span i18n>Sign up</span>
-        <!--        [showLoading]="isSubmitting()"-->
       </button>
 
       <a id="sign-in-button"

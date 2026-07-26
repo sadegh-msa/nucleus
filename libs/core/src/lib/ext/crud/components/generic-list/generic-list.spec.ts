@@ -66,6 +66,7 @@ describe('GenericList', () => {
   });
 
   it('should activate a row', () => {
+    fixture.componentRef.setInput('isActivatable', true);
     component.activateRow(mockData[0]);
     expect(component.activated()).toBe(mockData[0]);
   });

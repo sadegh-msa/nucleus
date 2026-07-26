@@ -35,7 +35,7 @@ export class GenericListBuilder<T extends GenericEntityModel> {
 
   run(createToolbar = true) {
     if (!this.#consumer) {
-      throw new Error('It needs to be call "init" method at first!');
+      throw new Error('It needs to call "init" method first!');
     }
 
     this.#handleConsumerEvents();
@@ -131,8 +131,6 @@ export class GenericListBuilder<T extends GenericEntityModel> {
 
   #handleLoadDataResponse(response: RestListResponseModel<T['list']>) {
     const { data } = response;
-    // Enable when backend was ready
-    // this.#consumer.pagination.update(current => mergeObjects(current, control.pagination));
     this.#consumer.data.set(data);
   }
 

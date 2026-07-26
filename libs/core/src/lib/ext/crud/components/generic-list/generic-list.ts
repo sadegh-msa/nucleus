@@ -104,7 +104,7 @@ export class GenericList {
   }
 
   activateRow(row: any) {
-    if (!this.isActivatable) {
+    if (!this.isActivatable()) {
       return;
     }
 

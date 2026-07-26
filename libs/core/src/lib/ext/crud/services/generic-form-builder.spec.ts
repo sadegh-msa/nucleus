@@ -25,7 +25,7 @@ describe('GenericFormBuilder', () => {
 
   describe('run', () => {
     it('should throw error when init not called', () => {
-      expect(() => service.run()).toThrow('It needs to be call "init" method at first!');
+      expect(() => service.run()).toThrow('It needs to call "init" method first!');
     });
   });
 
