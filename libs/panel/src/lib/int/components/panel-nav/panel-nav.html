@@ -3,20 +3,12 @@
 <header>
   <a href="/" class="panel-nav-logo" [class]="navExtent()" target="_blank">
     <figure [style]="`--nav-logo-height:${logo.height}px;--nav-logo-width:${logo.width}px;`">
-      @if (isNavWide()) {
-        <img animate.leave="transition-delay-normal"
-             [alt]="logo.alt"
-             [height]="logo.height"
-             [width]="logo.width"
-             [ngSrc]="logo.src"
-             priority>
-      } @else {
-        <img [alt]="logo.alt"
-             [height]="logo.height"
-             [width]="logo.width"
-             [ngSrc]="logo.src"
-             priority>
-      }
+      <img [attr.animate.leave]="isNavWide() ? 'transition-delay-normal' : null"
+           [alt]="logo.alt"
+           [height]="logo.height"
+           [width]="logo.width"
+           [ngSrc]="logo.src"
+           priority>
     </figure>
   </a>
 </header>

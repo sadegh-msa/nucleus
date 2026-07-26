@@ -2,7 +2,7 @@ import { NgClass, NgOptimizedImage } from '@angular/common';
 import { Component, computed, inject } from '@angular/core';
 import { injectNuCommonConfig } from '@nucleus/common';
 import { UiScreen, UiSvgIcon } from '@nucleus/ui';
-import { PanelManager } from '../../../ext/services/panel-manager'; // Possibility of circular dependency
+import { PanelManager } from '../../../ext/services/panel-manager';
 
 @Component({
   selector: 'nav[nu-panel-nav]',

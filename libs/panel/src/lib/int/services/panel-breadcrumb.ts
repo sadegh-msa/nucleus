@@ -4,6 +4,8 @@ import { isUUID } from '@nucleus/common';
 import type { UiMenuItemModel } from '@nucleus/ui';
 import { filter, map } from 'rxjs';
 
+const proxiedFns = new WeakSet<Function>();
+
 @Service()
 export class PanelBreadcrumb {
   readonly #router = inject(Router);
@@ -17,18 +19,23 @@ export class PanelBreadcrumb {
   }
 
   #handleEvents() {
-    window.history.replaceState = new Proxy(window.history.replaceState, {
-      apply: (target, thisArg, argArray) => {
-        const oldTitle = window.history.state?.title;
-        const newTitle = argArray[0].title;
+    if (!proxiedFns.has(window.history.replaceState)) {
+      const original = window.history.replaceState;
+      const proxied = new Proxy(original, {
+        apply: (target, thisArg, argArray: [data: any, unused: string, url?: string | URL | null]) => {
+          const oldTitle = window.history.state?.title;
+          const newTitle = argArray[0]?.title;
 
-        if (newTitle && oldTitle !== newTitle) {
-          this.setTitle(newTitle);
-        }
+          if (newTitle && oldTitle !== newTitle) {
+            this.setTitle(newTitle);
+          }
 
-        return target.apply(thisArg, argArray as any);
-      },
-    });
+          return Reflect.apply(target, thisArg, argArray);
+        },
+      });
+      proxiedFns.add(proxied);
+      window.history.replaceState = proxied;
+    }
     const routeObserver = (route: NavigationEnd) => {
       this.#update(route.urlAfterRedirects, this.#router.currentNavigation()?.extras.state);
     };

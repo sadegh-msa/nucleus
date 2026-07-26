@@ -27,7 +27,7 @@ export class PanelManager {
   #restoreExtent() {
     let extent = this.#permanentStorage.getItem<Extent>(this.#STORAGE_NAV_KEY);
 
-    if (!extents?.includes(extent)) {
+    if (!extents.includes(extent)) {
       extent = 'wide' as Extent;
     }
 

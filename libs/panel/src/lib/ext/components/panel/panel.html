@@ -3,15 +3,13 @@
           [class]="`progress-${progressValue()}`"></progress>
 
 @defer (when isNavVisible()) {
-  @if (isNavVisible()) {
-    <nav nu-panel-nav>
-      <ng-content select="[nav-body]" />
+  <nav nu-panel-nav>
+    <ng-content select="[nav-body]" />
 
-      <ng-container nav-footer>
-        <ng-content select="[nav-footer]" />
-      </ng-container>
-    </nav>
-  }
+    <ng-container nav-footer>
+      <ng-content select="[nav-footer]" />
+    </ng-container>
+  </nav>
 }
 
 <header nu-panel-header>

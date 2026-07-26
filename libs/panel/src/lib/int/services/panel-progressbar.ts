@@ -22,7 +22,7 @@ export class PanelProgressbar {
   readonly #value = signal(0);
   readonly value = this.#value.asReadonly();
 
-  intervalSub?: Subscription;
+  #intervalSub?: Subscription;
 
   constructor() {
     this.#router.events
@@ -46,15 +46,15 @@ export class PanelProgressbar {
   startProgress() {
     const topValue = this.endValue - this.endValue / this.progressStep;
 
-    this.intervalSub?.unsubscribe();
+    this.#intervalSub?.unsubscribe();
     this.#value.set(this.startValue);
-    this.intervalSub = interval(this.intervalValue)
+    this.#intervalSub = interval(this.intervalValue)
       .pipe(takeWhile(() => this.#value() <= topValue))
       .subscribe(() => this.#value.update((v) => v + this.progressStep));
   }
 
   endProgress() {
-    this.intervalSub?.unsubscribe();
+    this.#intervalSub?.unsubscribe();
     this.#value.set(this.endValue);
     setTimeout(() => this.#value.set(-1), this.endDelay);
   }
