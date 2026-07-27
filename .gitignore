@@ -56,6 +56,7 @@ libs-circular.svg
 .mimocode/
 .omo/
 .superpowers/
+docs/superpowers/
 
 # test artifacts
 .vitest-attachments/
