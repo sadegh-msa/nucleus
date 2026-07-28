@@ -7,11 +7,9 @@ import {
   GenericListToolbar,
   type TableModel,
 } from '@nucleus/core';
+import { AbstractGenericSampleList } from '../../abstracts/abstract-generic-sample-list';
 import type { SampleListModel, SampleModel } from '../../models/sample.model';
-import {
-  AbstractGenericSampleList,
-  type SampleGenericModel,
-} from '../../models/sample-generic.model';
+import type { SampleGenericModel } from '../../models/sample-generic.model';
 import { sampleConfig } from '../../sample.config';
 import { SampleStore } from '../../store/sample-store';
 

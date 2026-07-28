@@ -3,12 +3,10 @@ import { Component, inject, input, type OnInit } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { GenericFormBuilder, GenericFormToolbar, PageType } from '@nucleus/core';
 import { UiCalendar, UiLoading } from '@nucleus/ui';
+import { AbstractGenericSampleForm } from '../../abstracts/abstract-generic-sample-form';
 import { SampleStatus } from '../../enums/sample-status.enum';
 import type { SampleTypedFormModel } from '../../models/sample.model';
-import {
-  AbstractGenericSampleForm,
-  type SampleGenericModel,
-} from '../../models/sample-generic.model';
+import type { SampleGenericModel } from '../../models/sample-generic.model';
 import { sampleConfig } from '../../sample.config';
 import { SampleStore } from '../../store/sample-store';
 
