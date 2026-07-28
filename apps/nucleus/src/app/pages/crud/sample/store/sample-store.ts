@@ -6,15 +6,5 @@ import { SampleRest } from '../services/sample-rest';
 
 export const SampleStore = createCrudSignalStore<SampleListModel, SampleUpdateModel, SampleModel>(
   { title: sampleConfig.info.title },
-  () => {
-    const sampleRest = inject(SampleRest);
-
-    return {
-      list: sampleRest.list,
-      get: sampleRest.get,
-      add: sampleRest.add,
-      update: sampleRest.update,
-      delete: sampleRest.delete,
-    };
-  },
+  () => inject(SampleRest),
 );
