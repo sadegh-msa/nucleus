@@ -1,6 +1,13 @@
 import { NgClass, NgTemplateOutlet } from '@angular/common';
 import { Component, signal } from '@angular/core';
-import { type UiPlacement, UiPopover, UiSvgIcon, UiTooltip, uiPlacement } from '@nucleus/ui';
+import {
+  type TriggerEventModel,
+  type UiPlacement,
+  UiPopover,
+  UiSvgIcon,
+  UiTooltip,
+  uiPlacement,
+} from '@nucleus/ui';
 
 @Component({
   selector: 'app-popover',
@@ -10,15 +17,15 @@ import { type UiPlacement, UiPopover, UiSvgIcon, UiTooltip, uiPlacement } from '
 })
 export class Popover {
   readonly placements = uiPlacement.filter((i) => !i.includes('auto')).map((i) => i as UiPlacement);
-  readonly popoverEvent = signal<'click' | 'hover'>('click');
+  readonly popoverEvent = signal<TriggerEventModel>('click');
   readonly popoverHasBubble = signal(true);
   readonly popoverHasClose = signal(false);
   readonly popoverHasArrow = signal(true);
   readonly popoverDisabled = signal(false);
 
   togglePopoverEvent() {
-    const event = this.popoverEvent() === 'hover' ? 'click' : 'hover';
-    this.popoverEvent.set(event);
+    const event = this.popoverEvent();
+    this.popoverEvent.set(event === 'click' ? 'focus' : event === 'focus' ? 'hover' : 'click');
   }
 
   togglePopoverHasBubble() {

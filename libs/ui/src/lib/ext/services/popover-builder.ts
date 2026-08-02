@@ -6,6 +6,7 @@ import type { TriggerEventModel, UiPopoverModel } from '../models';
 
 const EVENT_MAP: Record<TriggerEventModel, keyof HTMLElementEventMap> = Object.freeze({
   click: 'pointerup',
+  focus: 'focus',
   hover: 'pointerenter',
 });
 
@@ -49,6 +50,7 @@ export class UiPopoverBuilder {
     const triggerAbortController = new AbortController();
     let docPointerupAbortController: AbortController;
     let docPointermoveAbortController: AbortController;
+    let docFocusoutAbortController: AbortController;
 
     const removeEventListeners = () => {
       docPointerupAbortController?.abort();
@@ -86,7 +88,13 @@ export class UiPopoverBuilder {
         );
       }
 
-      if (triggerEvent === 'hover') {
+      if (triggerEvent === 'focus') {
+        docFocusoutAbortController = new AbortController();
+
+        document.body.addEventListener('focusout', () => popover.visible.set(false), {
+          signal: docFocusoutAbortController.signal,
+        });
+      } else if (triggerEvent === 'hover') {
         let timeout: SetTimeout;
         docPointermoveAbortController = new AbortController();
 

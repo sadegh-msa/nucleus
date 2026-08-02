@@ -80,6 +80,19 @@ test.describe('UI Visual Regression', () => {
       await expect(page.locator('#popovers')).toHaveScreenshot('popovers-section.png');
     });
 
+    test('should match popovers section with focus trigger screenshot', async ({
+      authenticatedPage: page,
+    }) => {
+      await page.goto('/ui/popover');
+      await page.waitForLoadState('networkidle');
+
+      await page.locator('button.event').click();
+      await expect(page.locator('button.event')).toHaveText('Event: focus');
+      await page.waitForTimeout(500);
+
+      await expect(page.locator('#popovers')).toHaveScreenshot('popovers-focus-trigger.png');
+    });
+
     test('should match bubbles section screenshot', async ({ authenticatedPage: page }) => {
       await page.goto('/ui/popover');
       await expect(page.locator('#bubbles')).toBeVisible();

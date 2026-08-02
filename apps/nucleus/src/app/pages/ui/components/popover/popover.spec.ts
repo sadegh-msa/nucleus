@@ -35,7 +35,10 @@ describe('Popover', () => {
     expect(component.popoverEvent()).toBe('click');
   });
 
-  it('should toggle popoverEvent', () => {
+  it('should toggle popoverEvent through click, focus, hover', () => {
+    expect(component.popoverEvent()).toBe('click');
+    component.togglePopoverEvent();
+    expect(component.popoverEvent()).toBe('focus');
     component.togglePopoverEvent();
     expect(component.popoverEvent()).toBe('hover');
     component.togglePopoverEvent();

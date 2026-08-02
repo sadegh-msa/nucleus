@@ -14,4 +14,4 @@ export interface UiPopoverModel {
   attachTo: 'parent' | 'body' | HTMLElement;
 }
 
-export type TriggerEventModel = 'click' | 'hover';
+export type TriggerEventModel = 'click' | 'focus' | 'hover';
