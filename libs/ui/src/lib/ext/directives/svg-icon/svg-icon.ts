@@ -13,15 +13,15 @@ import {
   signal,
   untracked,
 } from '@angular/core';
-import type { UiIconVariant } from '../../types';
 import { UiSvgIconLoader } from '../../services/svg-icon-loader';
+import type { UiIconVariant } from '../../types';
 
 const DEFAULT_VARIANT: UiIconVariant = 'outline';
 
 @Directive({
   selector: 'svg[uiSvgIcon]',
   host: {
-    '[class]': 'styleClass',
+    '[class]': 'styleClass()',
   },
 })
 export class UiSvgIcon implements OnInit, OnDestroy {
@@ -60,10 +60,7 @@ export class UiSvgIcon implements OnInit, OnDestroy {
 
   readonly rawSvg = computed(() => this.#resource.value());
   readonly variant = computed(() => this.inputVariant() || DEFAULT_VARIANT);
-
-  get styleClass() {
-    return `ui icon ${this.variant()}`;
-  }
+  readonly styleClass = computed(() => `ui icon ${this.variant()}`);
 
   constructor() {
     effect(() => {

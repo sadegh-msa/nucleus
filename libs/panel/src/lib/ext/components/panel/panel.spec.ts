@@ -41,6 +41,6 @@ describe('Panel', () => {
   });
 
   it('should have styleClass with nav', () => {
-    expect(component.styleClass).toContain('nu');
+    expect(component.styleClass()).toContain('nu');
   });
 });

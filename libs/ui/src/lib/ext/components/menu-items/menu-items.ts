@@ -24,7 +24,7 @@ import type { UiPlacement } from '../../types';
   ],
   templateUrl: './menu-items.html',
   host: {
-    '[class]': 'styleClass',
+    '[class]': 'styleClass()',
   },
 })
 export class UiMenuItems {
@@ -60,14 +60,7 @@ export class UiMenuItems {
     () => this.isCompact() || this.submenuMode() === 'floating',
   );
   readonly isSubmenuSliding = computed(() => !this.isCompact() && this.submenuMode() === 'sliding');
-  readonly items = linkedSignal<UiMenuItemModel[], UiMenuItemModel[]>({
-    source: this.uiMenuItems,
-    computation: (newItems) => {
-      return this.#computeItems(R.clone(newItems));
-    },
-  });
-
-  get styleClass() {
+  readonly styleClass = computed(() => {
     return Array.from(
       new Set([
         'ui menu',
@@ -76,7 +69,14 @@ export class UiMenuItems {
         this.isSubmenuFloating() ? 'floating' : this.submenuMode(),
       ]),
     ).join(' ');
-  }
+  });
+
+  readonly items = linkedSignal<UiMenuItemModel[], UiMenuItemModel[]>({
+    source: this.uiMenuItems,
+    computation: (newItems) => {
+      return this.#computeItems(R.clone(newItems));
+    },
+  });
 
   constructor() {
     if (!this.#uiCssSupport.calcSize()) {

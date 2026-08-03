@@ -1,4 +1,4 @@
-import { Component, inject, ViewEncapsulation } from '@angular/core';
+import { Component, computed, inject, ViewEncapsulation } from '@angular/core';
 import { NuPanelHeader, NuPanelNav, PanelProgressbar } from '../../../int';
 import { PanelManager } from '../../services/panel-manager';
 
@@ -6,7 +6,7 @@ import { PanelManager } from '../../services/panel-manager';
   selector: 'nu-panel',
   imports: [NuPanelHeader, NuPanelNav],
   host: {
-    '[class]': 'styleClass',
+    '[class]': 'styleClass()',
   },
   templateUrl: './panel.html',
   styleUrl: './panel.scss',
@@ -20,7 +20,5 @@ export class Panel {
   readonly isNavVisible = this.#panelManager.isNavVisible;
   readonly progressValue = this.#progressbar.value;
 
-  get styleClass() {
-    return `nu nav-${this.navExtent()}`;
-  }
+  readonly styleClass = computed(() => `nu nav-${this.navExtent()}`);
 }

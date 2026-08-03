@@ -77,8 +77,10 @@ describe('UiMenuItems', () => {
   });
 
   it('should set styleClass', () => {
-    expect(component.styleClass).toContain('ui');
-    expect(component.styleClass).toContain('menu');
-    expect(component.styleClass).toContain('wide');
+    const styleClass = component.styleClass();
+
+    expect(styleClass).toContain('ui');
+    expect(styleClass).toContain('menu');
+    expect(styleClass).toContain('wide');
   });
 });
