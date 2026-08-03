@@ -1,0 +1,12 @@
+@use '../../helpers/size-helper' as *;
+@use '../../mixins/list-mixin' as list;
+
+@layer components {
+  ul.ui.list {
+    @include list.generic();
+
+    &.checklist {
+      @include list.checklist();
+    }
+  }
+}

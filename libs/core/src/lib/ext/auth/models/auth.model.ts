@@ -1,5 +1,3 @@
-import type { TypedFormModel } from '../../crud/models/form.model'; // Possibility of circular dependency
-
 export interface AuthTokenModel {
   accessToken: string | null;
   refreshToken: string | null;
@@ -24,6 +22,3 @@ export interface AuthSignInResponseModel {
 export interface AuthSignUpResponseModel {
   token: AuthTokenModel;
 }
-
-export type AuthSignInFormModel = TypedFormModel<AuthSignInModel>;
-export type AuthSignUpFormModel = TypedFormModel<AuthSignUpModel & { confirmPassword: string }>;

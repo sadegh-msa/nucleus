@@ -1,0 +1,57 @@
+@use '../helpers/color-helper' as *;
+@use '../helpers/size-helper' as *;
+@use '../utils/list-util' as *;
+@use './text-mixin' as text;
+
+$colors: get-color-list();
+
+@mixin generic() {
+  display: flex;
+  flex-direction: column;
+  width: max-content;
+  align-items: flex-start;
+  gap: get-size-var(xs-4);
+  list-style: inside;
+
+  li {
+    @include text.generic(true, true, true);
+  }
+}
+
+@mixin checklist() {
+  list-style: none;
+
+  li {
+    &::before {
+      @include text.color(inherit);
+    }
+
+    &:not(.checked):not(.wrong) {
+      &::before {
+        content: '☐ ';
+      }
+
+      &:not(#{list-to-classes($colors)}) {
+        @include text.color(neutral);
+      }
+    }
+
+    &.checked {
+      &::before {
+        content: '🗹 ';
+      }
+
+      @include text.color(success);
+      @include text.weight(semibold);
+    }
+
+    &.wrong {
+      &::before {
+        content: '🗙 ';
+      }
+
+      @include text.color(danger);
+      @include text.weight(semibold);
+    }
+  }
+}

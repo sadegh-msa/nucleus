@@ -1,6 +1,7 @@
 @use '../../helpers/color-helper' as *;
 @use '../../helpers/size-helper' as *;
 @use '../../helpers/border-helper' as *;
+@use '../../mixins/text-mixin' as text;
 
 ui-form-field,
 .ui-form-field {
@@ -13,8 +14,8 @@ ui-form-field,
   &:not(.ui-error) {
     & > {
       .ui-form-field-header {
-        .ui-form-field-message {
-          color: get-color-var(neutral-lighter);
+        .ui-form-field-message:not(.ui.text) {
+          @include text.color(neutral-lighter);
         }
       }
     }
@@ -24,7 +25,7 @@ ui-form-field,
     & > {
       .ui-form-field-header {
         .ui-form-field-message {
-          color: get-color-var(danger);
+          @include text.color(danger);
         }
       }
 
@@ -35,21 +36,32 @@ ui-form-field,
   }
 
   > .ui-form-field-header {
-    margin-block-end: get-size-var(xs-1);
     display: flex;
     align-items: flex-end;
+    margin-block-end: get-size-var(xs-1);
     padding-inline: get-size-var(xs-1);
 
+    > .ui-form-field-help {
+      @include text.color(neutral-lighter);
+      @include text.weight(bold);
+      cursor: pointer;
+      font-style: normal;
+      padding-inline: get-size-var(xs-4);
+
+      &:hover {
+        @include text.color(info);
+      }
+    }
+
     > .ui-form-field-message {
+      @include text.size(medium);
       flex-grow: 1;
       text-align: end;
-      font-size: get-size-var(xs-7);
-      line-height: get-size-var(sm-3);
     }
   }
 
   label {
-    font-weight: 600;
+    @include text.weight(bold);
   }
 
   &:has(input[type='checkbox']) {

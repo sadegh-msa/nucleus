@@ -1,17 +1,16 @@
 import {
-  DestroyRef,
   Directive,
   ElementRef,
+  effect,
   inject,
   input,
   type OnInit,
   output,
   Renderer2,
+  untracked,
 } from '@angular/core';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { NgControl } from '@angular/forms';
-import { map } from 'rxjs';
-import type { UiPasswordStrengthModel } from '../../models';
+import { FormField } from '@angular/forms/signals';
+import { type PasswordStrengthModel, PasswordValidator } from '@nucleus/common';
 
 @Directive({
   selector: '[uiInputPassword]',
@@ -20,42 +19,28 @@ import type { UiPasswordStrengthModel } from '../../models';
   },
 })
 export class UiInputPassword implements OnInit {
-  readonly #destroyRef = inject(DestroyRef);
   readonly #renderer = inject(Renderer2);
   readonly #elementRef = inject(ElementRef);
-  readonly #ngControl = inject(NgControl);
+  readonly #formField = inject(FormField);
+  readonly #passwordValidator = inject(PasswordValidator);
 
-  mediumPattern = input(
-    /^(((?=.*[a-z])(?=.*[A-Z]))|((?=.*[a-z])(?=.*[0-9]))|((?=.*[A-Z])(?=.*[0-9])))(?=.{6,})/,
-  );
-  strongPattern = input(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,})/);
   passwordToConfirm = input<string | null>();
 
-  strength = output<UiPasswordStrengthModel>();
+  strength = output<PasswordStrengthModel>();
+  confirm = output<boolean>();
+
+  constructor() {
+    effect(() => {
+      const password = this.#formField.state().controlValue();
+
+      untracked(() => {
+        this.strength.emit(this.#passwordValidator.check(password));
+        this.confirm.emit(this.passwordToConfirm() === password);
+      });
+    });
+  }
 
   ngOnInit() {
-    this.#handleEvents();
-    this.#setElementAttributes();
-  }
-
-  #setElementAttributes() {
     this.#renderer.setAttribute(this.#elementRef.nativeElement, 'type', 'password');
-  }
-
-  #handleEvents() {
-    const formControl = this.#ngControl.control;
-
-    formControl?.valueChanges
-      .pipe(takeUntilDestroyed(this.#destroyRef), map(String))
-      .subscribe((value) => {
-        this.strength.emit({
-          medium: this.mediumPattern().test(value),
-          strong: this.strongPattern().test(value),
-        });
-
-        if (this.passwordToConfirm()) {
-          formControl.setErrors({ passwordsDoNotMatch: value !== this.passwordToConfirm() });
-        }
-      });
   }
 }

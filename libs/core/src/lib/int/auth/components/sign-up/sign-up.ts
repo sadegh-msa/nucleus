@@ -1,33 +1,96 @@
-import { Component, effect, signal, untracked } from '@angular/core';
-import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Component, computed, effect, signal, untracked } from '@angular/core';
+import { email, FormField, form, maxLength, required, validate } from '@angular/forms/signals';
 import { RouterLink } from '@angular/router';
-import { OperationStatus } from '@nucleus/common';
-import { UiFormField, UiInputPassword, type UiPasswordStrengthModel, UiSvgIcon } from '@nucleus/ui';
+import { OperationStatus, type PasswordStrengthModel } from '@nucleus/common';
+import {
+  UiFormField,
+  UiInputPassword,
+  UiPasswordChecklist,
+  UiPopover,
+  UiSvgIcon,
+} from '@nucleus/ui';
 import { authDefaultConfig } from '../../../../ext/auth/auth-default.config';
-import type { AuthSignUpFormModel, AuthSignUpModel } from '../../../../ext/auth/models/auth.model';
+import type { AuthSignUpModel } from '../../../../ext/auth/models/auth.model';
 import { injectAuthStore } from '../../../../ext/auth/store/auth-store';
 import { SignLayout } from '../sign-layout/sign-layout';
 
 @Component({
   selector: 'nu-sign-up',
   templateUrl: './sign-up.html',
-  imports: [RouterLink, ReactiveFormsModule, SignLayout, UiFormField, UiInputPassword, UiSvgIcon],
+  imports: [
+    RouterLink,
+    FormField,
+    SignLayout,
+    UiFormField,
+    UiInputPassword,
+    UiSvgIcon,
+    UiPopover,
+    UiPasswordChecklist,
+  ],
 })
 export class SignUp {
   readonly #authStore = injectAuthStore();
 
   readonly config = authDefaultConfig;
-  readonly form: FormGroup<AuthSignUpFormModel> = new FormGroup<AuthSignUpFormModel>({
-    email: new FormControl(null, [Validators.required, Validators.email]),
-    password: new FormControl(null, [
-      Validators.required,
-      Validators.minLength(3),
-      Validators.maxLength(100),
-    ]),
-    confirmPassword: new FormControl(null, [Validators.required]),
+  readonly authSignInModel = signal<AuthSignUpModel & { confirmPassword: string }>({
+    email: '',
+    password: '',
+    confirmPassword: '',
+  });
+  readonly form = form(this.authSignInModel, (f) => {
+    required(f.email, { message: $localize`Required` });
+    email(f.email, { message: $localize`Invalid` });
+    required(f.password, { message: $localize`Required` });
+    maxLength(f.password, 36, { message: $localize`Too long` });
+    validate(f.password, () => {
+      const { moderate, strong } = this.passwordStrength() || {};
+      if (!moderate && !strong) {
+        return { kind: 'strength', message: $localize`Weak` };
+      }
+      return undefined;
+    });
+    required(f.confirmPassword, { message: $localize`Required` });
+    validate(f.confirmPassword, () => {
+      if (!this.arePasswordsMatching()) {
+        return { kind: 'match', message: $localize`Mismatch` };
+      }
+      return undefined;
+    });
+  });
+  readonly passwordStrength = signal<PasswordStrengthModel | null>(null);
+  readonly arePasswordsMatching = signal(false);
+  readonly isSubmitting = signal(false);
+
+  readonly passwordHint = computed(() => {
+    const { moderate, strong } = this.passwordStrength() || {};
+
+    let message = '';
+    let styleClass = '';
+
+    if (strong) {
+      message = $localize`Strong`;
+      styleClass = 'success';
+    } else if (moderate) {
+      message = $localize`Moderate`;
+      styleClass = 'warning';
+    }
+
+    return {
+      message,
+      ...(message && styleClass && { styleClass: `ui text ${styleClass}` }),
+    };
   });
 
-  readonly isSubmitting = signal(false);
+  readonly confirmPasswordHint = computed(() => {
+    if (this.arePasswordsMatching()) {
+      return {
+        message: $localize`Match`,
+        styleClass: 'ui text success',
+      };
+    }
+
+    return undefined;
+  });
 
   constructor() {
     effect(() => {
@@ -39,16 +102,19 @@ export class SignUp {
     });
   }
 
-  submit() {
-    if (this.form.invalid || this.isSubmitting()) {
+  onSubmit(event: Event) {
+    event.preventDefault();
+
+    const form = this.form();
+
+    if (form.invalid() || this.isSubmitting()) {
+      form.markAsTouched();
       return;
     }
 
     this.#authStore.signUp({
-      ...this.form.value,
+      ...form.value(),
       confirmPassword: undefined,
     } as AuthSignUpModel);
   }
-
-  onPasswordStrength(_value: UiPasswordStrengthModel) {}
 }

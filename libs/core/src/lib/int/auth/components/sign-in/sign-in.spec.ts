@@ -33,18 +33,43 @@ describe('SignIn', () => {
   });
 
   it('should create', () => expect(component).toBeTruthy());
+
   it('should have form fields', () => {
-    expect(component.form.get('email')).toBeTruthy();
-    expect(component.form.get('password')).toBeTruthy();
+    expect(component.form.email).toBeTruthy();
+    expect(component.form.password).toBeTruthy();
+    expect(component.form.rememberMe).toBeTruthy();
   });
-  it('should have invalid form initially', () => expect(component.form.invalid).toBe(true));
+
+  it('should have invalid form initially', () => expect(component.form().invalid()).toBe(true));
+
   it('should validate email required', () => {
-    component.form.get('email')?.setValue('');
-    expect(component.form.get('email')?.hasError('required')).toBe(true);
+    component.form.email().value.set('');
+    expect(component.form.email().errors()).toEqual(
+      expect.arrayContaining([expect.objectContaining({ kind: 'required' })]),
+    );
   });
-  it('should validate password minLength', () => {
-    component.form.get('password')?.setValue('ab');
-    expect(component.form.get('password')?.hasError('minlength')).toBe(true);
+
+  it('should validate email format', () => {
+    component.form.email().value.set('invalid-email');
+    expect(component.form.email().errors()).toEqual(
+      expect.arrayContaining([expect.objectContaining({ kind: 'email' })]),
+    );
   });
+
+  it('should validate password required', () => {
+    component.form.email().value.set('user@example.com');
+    component.form.password().value.set('');
+    expect(component.form.password().errors()).toEqual(
+      expect.arrayContaining([expect.objectContaining({ kind: 'required' })]),
+    );
+  });
+
+  it('should validate password maxLength', () => {
+    component.form.email().value.set('user@example.com');
+    component.form.password().value.set('a'.repeat(37));
+    const errors = component.form.password().errors();
+    expect(errors.length).toBeGreaterThan(0);
+  });
+
   it('should start with isSubmitting false', () => expect(component.isSubmitting()).toBe(false));
 });

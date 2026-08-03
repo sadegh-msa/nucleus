@@ -1,19 +1,29 @@
 <div class="ui-form-field-header">
   @if (label()) {
-    <label [for]="inputId()">{{ label() }}</label>
+    <label [for]="inputId()">
+      {{ label() }}
+      @if(fieldState()?.required()) {
+        *
+      }
+    </label>
   }
 
-  @let formControl = inputFormControl();
+  @if (help()) {
+    <i
+      class="ui-form-field-help"
+      [uiTooltip]="help()"
+      [uiTooltipPlacement]="helpPlacement()"
+      >?</i>
+  }
 
-  @if (formControl && messages()) {
-    <span class="ui-form-field-message">
-      @if (!formControl.errors || formControl.pristine) {
-        {{ messages()['hint'] }}
-      } @else if (formControl.errors && formControl.dirty) {
-        {{ messages()[(formControl.errors | keyvalue)[0].key] }}
-      }
-      </span>
+  @let hintMessage = hint()?.message;
+  @let hintStyleClass = hint()?.styleClass;
+  @let errorMessage = error();
+
+  @if (isTouched() && (errorMessage || hintMessage)) {
+    <span class="ui-form-field-message" [class]="hintStyleClass">
+      {{ errorMessage || hintMessage }}
+    </span>
   }
 </div>
-
 <ng-content />

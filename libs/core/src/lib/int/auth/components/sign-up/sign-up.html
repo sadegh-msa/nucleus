@@ -2,74 +2,100 @@
   <ng-container title i18n>Sign up</ng-container>
 
   <ng-container form>
-    <form id="sign-up-form" [formGroup]="form" (ngSubmit)="submit()" autocomplete="off">
-      <ui-form-field id="email-form-field"
-                      label="Email" i18n-label
-                      inputId="email"
-                      [inputFormControl]="form.get('email')"
-                      [messages]="{ required: 'Required', email: 'Invalid' }">
-        <input id="email"
-               class="ui input"
-               placeholder="username@example.com"
-               aria-describedby="email-help"
-               spellcheck="false"
-               formControlName="email" />
+    <form id="sign-up-form" (submit)="onSubmit($event)" autocomplete="off">
+      <ui-form-field
+        id="email-form-field"
+        label="Email" i18n-label
+        inputId="email"
+        [fieldState]="form.email()"
+      >
+        <input
+          id="email"
+          class="ui input"
+          placeholder="username@example.com"
+          aria-describedby="email-help"
+          spellcheck="false"
+          [formField]="form.email"
+        />
       </ui-form-field>
 
-      <ui-form-field id="password-form-field"
-                      label="Password" i18n-label
-                      inputId="password"
-                      [inputFormControl]="form.get('password')"
-                      [messages]="{ required: 'Required', minlength: 'Too short', maxlength: 'Too long' }">
+      <ui-form-field
+        id="password-form-field"
+        label="Password" i18n-label
+        inputId="password"
+        [fieldState]="form.password()"
+        [hint]="passwordHint()"
+      >
         <input uiInputPassword
-               id="password"
-               type="password"
-               placeholder="************"
-               aria-describedby="password-help"
-               spellcheck="false"
-               formControlName="password"
-               (strength)="onPasswordStrength($event)" />
+          id="password"
+          type="password"
+          placeholder="************"
+          aria-describedby="password-help"
+          spellcheck="false"
+          [formField]="form.password"
+          (strength)="passwordStrength.set($event)"
+          [uiPopover]="passwordPopover"
+          uiPopoverPlacement="block-start-inline-center"
+          uiPopoverEvent="focus"
+        />
       </ui-form-field>
 
-      <ui-form-field id="confirm-password-form-field"
-                      label="Confirm password" i18n-label
-                      inputId="confirm-password"
-                      [inputFormControl]="form.get('confirmPassword')"
-                      [messages]="{ required: 'Required', passwordsDoNotMatch: 'Passwords do not match' }">
+      <ui-form-field
+        id="confirm-password-form-field"
+        label="Confirm password" i18n-label
+        inputId="confirm-password"
+        [fieldState]="form.confirmPassword()"
+        [hint]="confirmPasswordHint()"
+      >
         <input uiInputPassword
-               id="confirm-password"
-               type="password"
-               placeholder="************"
-               aria-describedby="confirm-password-help"
-               spellcheck="false"
-               [passwordToConfirm]="form.get('password')?.value"
-               formControlName="confirmPassword" />
+          id="confirm-password"
+          type="password"
+          placeholder="************"
+          aria-describedby="confirm-password-help"
+          spellcheck="false"
+          [formField]="form.confirmPassword"
+          [passwordToConfirm]="form.password().value()"
+          (confirm)="arePasswordsMatching.set($event)"
+        />
       </ui-form-field>
     </form>
   </ng-container>
 
   <ng-container actions>
     <div class="nu-form-actions">
-      <button id="sign-up-button"
-              class="ui button normal primary emphasis"
-              form="sign-up-form">
+      <button
+        id="sign-up-button"
+        class="ui button normal primary emphasis"
+        form="sign-up-form"
+        (click)="form().markAsTouched()"
+      >
         <svg uiSvgIcon="user" />
         <span i18n>Sign up</span>
       </button>
 
-      <a id="sign-in-button"
-         class="ui button normal stamp basic"
-         [routerLink]="['/', config.routes.signIn.path]">
+      <a
+        id="sign-in-button"
+        class="ui button normal stamp basic"
+        [routerLink]="['/', config.routes.signIn.path]"
+      >
         <svg uiSvgIcon="login" />
         <span i18n>Sign in</span>
       </a>
 
-      <a id="reset-password-button"
-         class="ui button normal stamp basic"
-         [routerLink]="['/', config.routes.resetPassword.path]">
+      <a
+        id="reset-password-button"
+        class="ui button normal stamp basic"
+        [routerLink]="['/', config.routes.resetPassword.path]"
+      >
         <svg uiSvgIcon="lock" />
         <span i18n>Forgot password?</span>
       </a>
     </div>
   </ng-container>
 </nu-sign-layout>
+
+<ng-template #passwordPopover>
+  @if(passwordStrength(); as ps) {
+    <ui-password-checklist [fieldState]="form.password()" [passwordStrength]="ps" />
+  }
+</ng-template>
