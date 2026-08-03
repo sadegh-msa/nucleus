@@ -47,48 +47,56 @@ export class AuthToken {
         }
       });
 
-    // Watch check status
     effect(() => {
       const status = this.#authStore.checkStatus();
-      if (status === Success) {
-        const requestedUrl = this.#restoreRequestedUrl();
 
-        if (requestedUrl) {
-          this.#redirectToApp(!this.isAuthRouteActivated(requestedUrl));
+      untracked(() => {
+        if (status === Success) {
+          const requestedUrl = this.#restoreRequestedUrl();
+
+          if (requestedUrl) {
+            this.#redirectToApp(!this.isAuthRouteActivated(requestedUrl));
+          }
+        } else if (status === Failure) {
+          if (!this.isAuthRouteActivated(location.pathname)) {
+            this.#redirectToApp(false, ['/', authDefaultConfig.routes.signIn.path]);
+          }
         }
-      } else if (status === Failure) {
-        if (!this.isAuthRouteActivated(location.pathname)) {
-          this.#redirectToApp(false, ['/', authDefaultConfig.routes.signIn.path]);
-        }
-      }
+      });
     });
 
-    // Watch signIn state
     effect(() => {
       const { status, response } = this.#authStore.signInState();
-      if (status === Success) {
-        untracked(() => this.#handleSignInSuccess(response.token.accessToken));
-      } else if (status === Failure) {
-        untracked(() => this.#handleAuthFailure());
-      }
+
+      untracked(() => {
+        if (status === Success) {
+          this.#handleSignInSuccess(response.token.accessToken);
+        } else if (status === Failure) {
+          this.#handleAuthFailure();
+        }
+      });
     });
 
-    // Watch signUp state
     effect(() => {
       const { status, response } = this.#authStore.signUpState();
-      if (status === Success) {
-        untracked(() => this.#handleSignUpSuccess(response.token.accessToken));
-      } else if (status === Failure) {
-        untracked(() => this.#handleAuthFailure());
-      }
+
+      untracked(() => {
+        if (status === Success) {
+          this.#handleSignUpSuccess(response.token.accessToken);
+        } else if (status === Failure) {
+          this.#handleAuthFailure();
+        }
+      });
     });
 
-    // Watch signOut state
     effect(() => {
       const { status } = this.#authStore.signOutState();
-      if (status === Success) {
-        untracked(() => this.#handleSignOutSuccess());
-      }
+
+      untracked(() => {
+        if (status === Success) {
+          this.#handleSignOutSuccess();
+        }
+      });
     });
   }
 
