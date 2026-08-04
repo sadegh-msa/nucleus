@@ -3,62 +3,64 @@
 @use '../../mixins/box-mixin' as box;
 @use '../../mixins/size-mixin' as size;
 
-input[type='checkbox'].ui.checkbox {
-  @include box.rounded-medium();
-  appearance: none;
-  background-color: get-color-var(paper);
-  margin: get-border-width-var(medium);
-  display: flex;
-  place-content: center;
-
-  &::before {
-    content: '';
-    @include size.rect(sm-4);
-    @include box.rounded-medium(neutral-surface);
-  }
-
-  &:not(:checked) {
-    // &:hover {
-      // background-color: get-color-var(paper-dark);
-    // }
-
-    &:active {
-      background-color: get-color-var(paper-darker);
-    }
-  }
-
-  &:checked {
-    background-color: transparent;
+@layer components {
+  input[type='checkbox'].ui.checkbox {
+    @include box.rounded-medium();
+    appearance: none;
+    background-color: get-color-var(paper);
+    margin: get-border-width-var(medium);
+    display: flex;
+    place-content: center;
 
     &::before {
       content: '';
-      background-image: var(--checkmark-svg-path);
-      background-position: center;
-      background-size: 14px;
-      background-repeat: no-repeat;
+      @include size.rect(sm-4);
+      @include box.rounded-medium(neutral-surface);
     }
-  }
 
-  &:not(:disabled) {
-    cursor: pointer;
+    &:not(:checked) {
+      // &:hover {
+      // background-color: get-color-var(paper-dark);
+      // }
 
-    &:checked::before {
-      @include box.rounded-medium(primary);
-      background-color: get-color-var(primary);
+      &:active {
+        background-color: get-color-var(paper-darker);
+      }
     }
-  }
 
-  &:disabled {
-    cursor: not-allowed;
+    &:checked {
+      background-color: transparent;
 
-    &:checked::before {
-      @include box.rounded-medium(watermark);
-      background-color: get-color-var(watermark);
+      &::before {
+        content: '';
+        background-image: var(--checkmark-svg-path);
+        background-position: center;
+        background-size: 14px;
+        background-repeat: no-repeat;
+      }
     }
-  }
 
-  &:focus {
-    outline-offset: get-border-width-var(thin);
-    margin-inline: get-border-width-var(thick);
+    &:not(:disabled) {
+      cursor: pointer;
+
+      &:checked::before {
+        @include box.rounded-medium(primary);
+        background-color: get-color-var(primary);
+      }
+    }
+
+    &:disabled {
+      cursor: not-allowed;
+
+      &:checked::before {
+        @include box.rounded-medium(watermark);
+        background-color: get-color-var(watermark);
+      }
+    }
+
+    &:focus {
+      outline-offset: get-border-width-var(thin);
+      margin-inline: get-border-width-var(thick);
+    }
   }
 }

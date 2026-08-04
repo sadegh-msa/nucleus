@@ -6,93 +6,95 @@
 @use '../../mixins/transition-mixin' as transition;
 @use '../../mixins/checkmark-mixin' as checkmark;
 
-ui-toggle {
-  display: flex;
-  align-items: center;
-  position: relative;
-  gap: get-size-var(xs-4);
-
-  > label {
-    user-select: none;
-  }
-
-  > .ui-toggle-chassis {
-    @include box.rounded;
-    @include shadow.inset;
+@layer components {
+  ui-toggle {
     display: flex;
     align-items: center;
-    width: get-size-var(lg-3);
     position: relative;
-    z-index: 10;
-    background-color: get-color-var(paper-darkest);
-    padding: 1px;
+    gap: get-size-var(xs-4);
 
-    &:not(.disabled) {
-      cursor: pointer;
-
-      & + label {
-        cursor: pointer;
-      }
+    > label {
+      user-select: none;
     }
 
-    &.disabled {
-      & + label {
-        cursor: default;
-      }
-    }
+    > .ui-toggle-chassis {
+      @include box.rounded;
+      @include shadow.inset;
+      display: flex;
+      align-items: center;
+      width: get-size-var(lg-3);
+      position: relative;
+      z-index: 10;
+      background-color: get-color-var(paper-darkest);
+      padding: 1px;
 
-    &.checked {
       &:not(.disabled) {
-        border-color: get-color-var(primary);
-        background-color: get-color-var(primary-dark);
+        cursor: pointer;
 
-        > .ui-toggle-switch {
-          &:before,
-          &:after {
-            background-color: get-color-var(primary);
-          }
+        & + label {
+          cursor: pointer;
         }
       }
 
       &.disabled {
-        background-color: get-color-var(paper-dark);
+        & + label {
+          cursor: default;
+        }
+      }
+
+      &.checked {
+        &:not(.disabled) {
+          border-color: get-color-var(primary);
+          background-color: get-color-var(primary-dark);
+
+          > .ui-toggle-switch {
+            &:before,
+            &:after {
+              background-color: get-color-var(primary);
+            }
+          }
+        }
+
+        &.disabled {
+          background-color: get-color-var(paper-dark);
+
+          > .ui-toggle-switch {
+            > .ui-toggle-checkmark {
+              @include checkmark.disabled;
+            }
+          }
+        }
 
         > .ui-toggle-switch {
+          &:dir(ltr) {
+            translate: get-size-var(sm-5) 0;
+          }
+
+          &:dir(rtl) {
+            translate: calc(-1 * #{get-size-var(sm-5)}) 0;
+          }
+
           > .ui-toggle-checkmark {
-            @include checkmark.disabled;
+            @include checkmark.darkest;
           }
         }
       }
 
       > .ui-toggle-switch {
-        &:dir(ltr) {
-          translate: get-size-var(sm-5) 0;
-        }
-
-        &:dir(rtl) {
-          translate: calc(-1 * #{get-size-var(sm-5)}) 0;
-        }
+        @include box.rounded-medium;
+        @include shadow.medium;
+        @include size.rect(sm-4);
+        @include transition.normal(all);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        z-index: 20;
+        background-color: get-color-var(paper);
 
         > .ui-toggle-checkmark {
-          @include checkmark.darkest;
+          @include checkmark.base(0.43rem, 0.16rem, primary);
         }
-      }
-    }
-
-    > .ui-toggle-switch {
-      @include box.rounded-medium;
-      @include shadow.medium;
-      @include size.rect(sm-4);
-      @include transition.normal(all);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      position: relative;
-      z-index: 20;
-      background-color: get-color-var(paper);
-
-      > .ui-toggle-checkmark {
-        @include checkmark.base(0.43rem, 0.16rem, primary);
       }
     }
   }
