@@ -10,7 +10,7 @@ $colors: get-color-list();
   flex-direction: column;
   width: max-content;
   align-items: flex-start;
-  gap: get-size-var(xs-4);
+  gap: get-size-var(xs-5);
   list-style: inside;
 
   li {
@@ -22,6 +22,8 @@ $colors: get-color-list();
   list-style: none;
 
   li {
+    @include text.weight(semibold);
+
     &::before {
       @include text.color(inherit);
     }
@@ -32,8 +34,12 @@ $colors: get-color-list();
       }
 
       &:not(#{list-to-classes($colors)}) {
-        @include text.color(neutral);
+        @include text.color(stamp);
       }
+    }
+
+    &.checked, &.wrong {
+      @include text.weight(bold);
     }
 
     &.checked {
@@ -42,7 +48,6 @@ $colors: get-color-list();
       }
 
       @include text.color(success);
-      @include text.weight(semibold);
     }
 
     &.wrong {
@@ -51,7 +56,6 @@ $colors: get-color-list();
       }
 
       @include text.color(danger);
-      @include text.weight(semibold);
     }
   }
 }
