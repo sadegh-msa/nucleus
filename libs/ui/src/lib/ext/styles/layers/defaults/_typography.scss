@@ -2,6 +2,13 @@
 @use '../../helpers/color-helper' as *;
 @use '../../mixins/screens-mixin' as *;
 
+@mixin set-h-padding($size) {
+  &:has(+ ul),
+  &:has(+ ol) {
+    padding-block-end: calc(get-size-var($size) / 2);
+  }
+}
+
 @layer defaults {
   *:not(h1, h2, h3, h4, h5, h6) {
     font-family: var(--font-family-default), sans-serif;
@@ -27,18 +34,21 @@
     font-weight: 900;
 
     @include screens(handset) {
-      font-size: get-size-var(sm-5);
-      line-height: get-size-var(md-2);
+      @include set-h-padding(sm-7);
+      font-size: get-size-var(sm-7);
+      line-height: get-size-var(md-4);
     }
 
     @include screens(tablet) {
-      font-size: get-size-var(sm-5);
-      line-height: get-size-var(md-2);
+      @include set-h-padding(sm-7);
+      font-size: get-size-var(sm-7);
+      line-height: get-size-var(md-4);
     }
 
     @include screens(web) {
+      @include set-h-padding(md-1);
       font-size: get-size-var(md-1);
-      line-height: get-size-var(md-4);
+      line-height: get-size-var(md-5);
     }
   }
 
@@ -46,18 +56,21 @@
     font-weight: 900;
 
     @include screens(handset) {
-      font-size: get-size-var(sm-3);
-      line-height: get-size-var(sm-7);
+      @include set-h-padding(sm-5);
+      font-size: get-size-var(sm-5);
+      line-height: get-size-var(md-2);
     }
 
     @include screens(tablet) {
-      font-size: get-size-var(sm-3);
-      line-height: get-size-var(sm-7);
+      @include set-h-padding(sm-5);
+      font-size: get-size-var(sm-5);
+      line-height: get-size-var(md-2);
     }
 
     @include screens(web) {
-      font-size: get-size-var(sm-5);
-      line-height: get-size-var(md-2);
+      @include set-h-padding(sm-6);
+      font-size: get-size-var(sm-6);
+      line-height: get-size-var(md-3);
     }
   }
 
@@ -65,76 +78,43 @@
     font-weight: 800;
 
     @include screens(handset) {
-      font-size: get-size-var(sm-2);
-      line-height: get-size-var(sm-7);
+      @include set-h-padding(sm-4);
+      font-size: get-size-var(sm-4);
+      line-height: get-size-var(md-1);
     }
 
     @include screens(tablet) {
-      font-size: get-size-var(sm-2);
-      line-height: get-size-var(sm-7);
+      @include set-h-padding(sm-4);
+      font-size: get-size-var(sm-4);
+      line-height: get-size-var(md-1);
     }
 
     @include screens(web) {
-      font-size: get-size-var(sm-3);
-      line-height: get-size-var(sm-7);
+      @include set-h-padding(sm-5);
+      font-size: get-size-var(sm-5);
+      line-height: get-size-var(md-2);
     }
   }
 
   h4 {
+    @include set-h-padding(sm-3);
     font-weight: 800;
-
-    @include screens(handset) {
-      font-size: get-size-var(sm-1);
-      line-height: get-size-var(sm-5);
-    }
-
-    @include screens(tablet) {
-      font-size: get-size-var(sm-1);
-      line-height: get-size-var(sm-5);
-    }
-
-    @include screens(web) {
-      font-size: get-size-var(sm-2);
-      line-height: get-size-var(sm-7);
-    }
+    font-size: get-size-var(sm-3);
+    line-height: get-size-var(sm-7);
   }
 
   h5 {
+    @include set-h-padding(sm-2);
     font-weight: 800;
-
-    @include screens(handset) {
-      font-size: get-size-var(xs-7);
-      line-height: get-size-var(sm-3);
-    }
-
-    @include screens(tablet) {
-      font-size: get-size-var(xs-7);
-      line-height: get-size-var(sm-3);
-    }
-
-    @include screens(web) {
-      font-size: get-size-var(sm-1);
-      line-height: get-size-var(sm-5);
-    }
+    font-size: get-size-var(sm-2);
+    line-height: get-size-var(sm-6);
   }
 
   h6 {
+    @include set-h-padding(sm-1);
     font-weight: 800;
-
-    @include screens(handset) {
-      font-size: get-size-var(xs-6);
-      line-height: get-size-var(sm-2);
-    }
-
-    @include screens(tablet) {
-      font-size: get-size-var(xs-6);
-      line-height: get-size-var(sm-2);
-    }
-
-    @include screens(web) {
-      font-size: get-size-var(xs-7);
-      line-height: get-size-var(sm-4);
-    }
+    font-size: get-size-var(sm-1);
+    line-height: get-size-var(sm-5);
   }
 
   hgroup {
