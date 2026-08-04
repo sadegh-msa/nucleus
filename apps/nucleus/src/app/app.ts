@@ -33,7 +33,7 @@ export class App {
   readonly #localeUtil = inject(LocaleUtil);
   readonly #uiMessageManager = inject(UiMessageManager);
 
-  readonly navMainMenu = navMainMenu;
+  readonly navMainMenu = structuredClone(navMainMenu) as UiMenuItemModel[];
   readonly navFooterMenu = [
     {
       id: 'nucleus-menu-sign-out',

@@ -1,5 +1,5 @@
 import { signal } from '@angular/core';
-import { mergeObjects } from '@nucleus/common';
+import { mergeAll } from '@nucleus/common';
 import { type Observable, Subject } from 'rxjs';
 import { RouterStateKey } from '../enums/router-state.enum';
 import { ToolElement, ToolType } from '../enums/toolbar.enum';
@@ -38,7 +38,7 @@ const buttonStyleClass = {
 const deleteConfirmMessage = $localize`Are you sure that you want to delete this item?`;
 
 const createSaveTool = (toOverride = {}, toMerge = {}) =>
-  mergeObjects(
+  mergeAll(
     {
       type: ToolType.Save,
       label: $localize`Save`,
@@ -53,7 +53,7 @@ const createSaveTool = (toOverride = {}, toMerge = {}) =>
   );
 
 const createCancelTool = (toOverride = {}, toMerge = {}) =>
-  mergeObjects(
+  mergeAll(
     {
       type: ToolType.Cancel,
       label: $localize`Cancel`,
@@ -66,7 +66,7 @@ const createCancelTool = (toOverride = {}, toMerge = {}) =>
   );
 
 const createAddTool = (toOverride = {}, toMerge = {}) =>
-  mergeObjects(
+  mergeAll(
     {
       type: ToolType.Add,
       label: $localize`Add`,
@@ -80,7 +80,7 @@ const createAddTool = (toOverride = {}, toMerge = {}) =>
   );
 
 const createEditTool = (toOverride = {}, toMerge = {}) =>
-  mergeObjects(
+  mergeAll(
     {
       type: ToolType.Edit,
       label: $localize`Edit`,
@@ -94,7 +94,7 @@ const createEditTool = (toOverride = {}, toMerge = {}) =>
   );
 
 const createDeleteTool = (toOverride = {}, toMerge = {}) =>
-  mergeObjects(
+  mergeAll(
     {
       type: ToolType.Delete,
       label: $localize`Delete`,
@@ -110,7 +110,7 @@ const createDeleteTool = (toOverride = {}, toMerge = {}) =>
   );
 
 const createRefreshTool = (toOverride = {}, toMerge = {}) =>
-  mergeObjects(
+  mergeAll(
     {
       type: ToolType.Refresh,
       label: $localize`Refresh`,
@@ -125,7 +125,7 @@ const createRefreshTool = (toOverride = {}, toMerge = {}) =>
   );
 
 const createBackTool = (toOverride = {}, toMerge = {}) =>
-  mergeObjects(
+  mergeAll(
     {
       type: ToolType.Back,
       label: $localize`Back to List`,
@@ -139,7 +139,7 @@ const createBackTool = (toOverride = {}, toMerge = {}) =>
   );
 
 const createTableViewTool = (toOverride = {}, toMerge = {}) =>
-  mergeObjects(
+  mergeAll(
     {
       type: ToolType.View,
       tooltip: $localize`View`,
@@ -154,7 +154,7 @@ const createTableViewTool = (toOverride = {}, toMerge = {}) =>
   );
 
 const createTableDeleteTool = (toOverride = {}, toMerge = {}) =>
-  mergeObjects(
+  mergeAll(
     {
       type: ToolType.Delete,
       tooltip: $localize`Delete`,

@@ -1,13 +1,4 @@
-export function mergeObjects<T = any>(a: any, b: any) {
-  const res: Partial<Record<keyof T, unknown>> = {};
-  const keys = Object.keys({ ...(a || {}), ...(b || {}) }) as (keyof T)[];
-
-  for (let i = 0; i < keys.length; i++) {
-    res[keys[i]] = b[keys[i]] ?? a[keys[i]];
-  }
-
-  return res as T;
-}
+import * as R from 'ramda';
 
 function deepSetObjectValue(obj: any, keys: string[], getValue: (v: any) => any, index = 0) {
   if (index >= keys.length - 1) {
@@ -22,4 +13,27 @@ function deepSetObjectValue(obj: any, keys: string[], getValue: (v: any) => any,
 
 export function deepSet(obj: any, path: string, getValue: (v: any) => any) {
   return deepSetObjectValue(obj, path.split('.'), getValue);
+}
+
+export function mergeAll<T = any>(...objects: any[]) {
+  return R.mergeAll<T>(objects) as T;
+}
+
+export function mergeAllIgnoreNil<T = any>(...objects: any[]) {
+  return R.reduce(
+    R.mergeWith((l, r) => (R.isNil(r) ? l : r)),
+    {},
+  )(objects) as T;
+}
+
+export function patchExisting<T>(target: T, source: Partial<T>): T {
+  return R.mergeRight(target as object, R.pick(R.keys(target as object), source)) as T;
+}
+
+export function mergeDeepLeft<T>(left: any, right: any) {
+  return R.mergeDeepLeft(left, right) as T;
+}
+
+export function mergeDeepRight<T>(left: any, right: any) {
+  return R.mergeDeepRight(left, right) as T;
 }

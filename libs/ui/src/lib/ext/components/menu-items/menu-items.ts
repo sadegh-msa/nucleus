@@ -1,8 +1,7 @@
 import { NgClass, NgStyle, NgTemplateOutlet } from '@angular/common';
 import { Component, computed, effect, inject, input, linkedSignal, untracked } from '@angular/core';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
-import { type Extent, SafeHtml } from '@nucleus/common';
-import * as R from 'ramda';
+import { type Extent, mergeDeepLeft, mergeDeepRight, SafeHtml } from '@nucleus/common';
 import { UiPopover, UiRipple, UiSvgIcon, UiTooltip } from '../../directives';
 import type { UiMenuItemModel } from '../../models';
 import { UiCssSupport } from '../../services';
@@ -74,7 +73,7 @@ export class UiMenuItems {
   readonly items = linkedSignal<UiMenuItemModel[], UiMenuItemModel[]>({
     source: this.uiMenuItems,
     computation: (newItems) => {
-      return this.#computeItems(R.clone(newItems));
+      return this.#computeItems(newItems);
     },
   });
 
@@ -111,8 +110,8 @@ export class UiMenuItems {
     const currentUrl = this.#router.url;
 
     items.forEach((item) => {
-      Object.assign(item, R.mergeDeepRight({ ...(this.common() ?? {}) }, item) as UiMenuItemModel);
-      item.active = R.mergeDeepLeft(
+      Object.assign(item, mergeDeepRight({ ...(this.common() ?? {}) }, item) as UiMenuItemModel);
+      item.active = mergeDeepLeft(
         { ...(this.active() ?? {}) },
         item.active ?? {},
       ) as UiMenuItemModel;

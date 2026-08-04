@@ -1,7 +1,7 @@
 import { DestroyRef, effect, Injector, inject, Service, signal } from '@angular/core';
 import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, Router } from '@angular/router';
-import { mergeObjects, OperationStatus } from '@nucleus/common';
+import { mergeAll, OperationStatus } from '@nucleus/common';
 import { filter, pairwise } from 'rxjs';
 import { ToolType } from '../enums/toolbar.enum';
 import { createPagination } from '../factory/pagination-factory';
@@ -53,7 +53,7 @@ export class GenericListBuilder<T extends GenericEntityModel> {
       .pipe(takeUntilDestroyed(this.#destroyRef))
       .subscribe((queryParams) => {
         const { page, rows } = queryParams;
-        this.#lastQuery = mergeObjects(this.#lastQuery, {
+        this.#lastQuery = mergeAll(this.#lastQuery, {
           page: page > 0 ? page - 1 : DEFAULT_PAGE,
           rows: rows > 0 ? rows : DEFAULT_ROWS,
         });
