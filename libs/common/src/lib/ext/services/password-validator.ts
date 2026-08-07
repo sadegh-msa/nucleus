@@ -33,6 +33,7 @@ export class PasswordValidator {
 
     return {
       condition: {
+        minLength: this.#moderateLength,
         upperCase: 2,
         lowerCase: 2,
         digit: 2,

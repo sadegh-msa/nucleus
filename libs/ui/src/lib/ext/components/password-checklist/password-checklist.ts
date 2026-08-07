@@ -6,8 +6,13 @@ import type { PasswordStrengthModel } from '../../models';
   selector: 'ui-password-checklist',
   imports: [],
   templateUrl: './password-checklist.html',
+  host: {
+    '[class]': 'styleClass()',
+  },
 })
 export class UiPasswordChecklist {
   fieldState = input.required<FieldState<string, string>>();
   passwordStrength = input.required<PasswordStrengthModel>();
+  styleClass = input('ui list checklist');
 }
+

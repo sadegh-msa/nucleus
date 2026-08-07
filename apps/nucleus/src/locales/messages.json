@@ -50,6 +50,8 @@
     "5537979240619532485": "Strong",
     "3582857921209594802": "Moderate",
     "6619869754055745168": "Match",
+    "5520222216904131007": "Password requirements:",
+    "3640524062876481879": "At least {$INTERPOLATION} characters",
     "1523610905397807962": "At least {$INTERPOLATION} upper case characters",
     "2238700709021657414": "At least {$INTERPOLATION} lower case characters",
     "350197682964222698": "At least {$INTERPOLATION} digits",

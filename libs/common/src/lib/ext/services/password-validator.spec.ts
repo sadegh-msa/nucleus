@@ -19,6 +19,7 @@ describe('PasswordValidator', () => {
         moderate: false,
         strong: false,
         condition: {
+          minLength: 8,
           upperCase: 2,
           lowerCase: 2,
           digit: 2,

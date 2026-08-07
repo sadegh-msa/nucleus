@@ -7,6 +7,7 @@ export interface PasswordStrengthModel {
   moderate: boolean;
   strong: boolean;
   condition: {
+    minLength: number;
     upperCase: number;
     lowerCase: number;
     digit: number;
