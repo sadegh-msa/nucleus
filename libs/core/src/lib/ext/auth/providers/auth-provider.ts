@@ -4,8 +4,5 @@ import { provideAuthConfig } from './auth-config-provider';
 import { provideAuthInterceptor } from './auth-interceptor.provide';
 
 export function provideAuth(config: AuthConfigModel) {
-  return makeEnvironmentProviders([
-    provideAuthConfig(config),
-    provideAuthInterceptor(),
-  ]);
+  return makeEnvironmentProviders([provideAuthConfig(config), provideAuthInterceptor()]);
 }

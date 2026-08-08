@@ -1,5 +1,12 @@
 import { describe, expect, it } from 'vitest';
-import { deepSet, mergeAll, mergeAllIgnoreNil, mergeDeepLeft, mergeDeepRight, patchExisting } from './object-util';
+import {
+  deepSet,
+  mergeAll,
+  mergeAllIgnoreNil,
+  mergeDeepLeft,
+  mergeDeepRight,
+  patchExisting,
+} from './object-util';
 
 describe('mergeAll', () => {
   it('should merge two objects with b taking priority', () => {

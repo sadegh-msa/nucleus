@@ -65,7 +65,7 @@ describe('UiSvgIconLoader', () => {
     });
 
     it('should return null when fetch fails', async () => {
-      const spy = vi.spyOn(globalThis, 'fetch').mockResolvedValue({
+      vi.spyOn(globalThis, 'fetch').mockResolvedValue({
         ok: false,
         text: () => Promise.resolve(''),
       } as Response);
@@ -76,7 +76,7 @@ describe('UiSvgIconLoader', () => {
     });
 
     it('should return null when fetch throws', async () => {
-      const spy = vi.spyOn(globalThis, 'fetch').mockRejectedValue(new Error('Network error'));
+      vi.spyOn(globalThis, 'fetch').mockRejectedValue(new Error('Network error'));
 
       const result = await service.loadIcon('outline', 'missing');
 
@@ -86,7 +86,7 @@ describe('UiSvgIconLoader', () => {
     it('should use OperationStatus.Initial when cache exists but is not an SVG', async () => {
       storage.setItem('uiSvgIcon.bold.user', OperationStatus.Initial);
       const svgContent = '<svg viewBox="0 0 24 24"><rect/></svg>';
-      const spy = vi.spyOn(globalThis, 'fetch').mockResolvedValue({
+      vi.spyOn(globalThis, 'fetch').mockResolvedValue({
         ok: true,
         text: () => Promise.resolve(svgContent),
       } as Response);
@@ -98,7 +98,7 @@ describe('UiSvgIconLoader', () => {
 
     it('should store fetched SVG in sessionStorage', async () => {
       const svgContent = '<svg viewBox="0 0 24 24"><path/></svg>';
-      const spy = vi.spyOn(globalThis, 'fetch').mockResolvedValue({
+      vi.spyOn(globalThis, 'fetch').mockResolvedValue({
         ok: true,
         text: () => Promise.resolve(svgContent),
       } as Response);

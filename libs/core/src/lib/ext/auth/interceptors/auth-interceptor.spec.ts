@@ -1,7 +1,7 @@
 import { HttpRequest } from '@angular/common/http';
 import { TestBed } from '@angular/core/testing';
-import { firstValueFrom, of } from 'rxjs';
 import { UiMessageManager } from '@nucleus/ui';
+import { firstValueFrom, of } from 'rxjs';
 import { vi } from 'vitest';
 import { AuthToken } from '../services/auth-token';
 import { AuthInterceptor } from './auth-interceptor';

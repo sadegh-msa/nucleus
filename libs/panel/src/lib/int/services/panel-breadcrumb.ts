@@ -4,7 +4,7 @@ import { isUUID } from '@nucleus/common';
 import type { UiMenuItemModel } from '@nucleus/ui';
 import { filter, map } from 'rxjs';
 
-const proxiedFns = new WeakSet<Function>();
+const proxiedFns = new WeakSet<(...args: never) => unknown>();
 
 @Service()
 export class PanelBreadcrumb {
@@ -22,7 +22,11 @@ export class PanelBreadcrumb {
     if (!proxiedFns.has(window.history.replaceState)) {
       const original = window.history.replaceState;
       const proxied = new Proxy(original, {
-        apply: (target, thisArg, argArray: [data: any, unused: string, url?: string | URL | null]) => {
+        apply: (
+          target,
+          thisArg,
+          argArray: [data: any, unused: string, url?: string | URL | null],
+        ) => {
           const oldTitle = window.history.state?.title;
           const newTitle = argArray[0]?.title;
 
