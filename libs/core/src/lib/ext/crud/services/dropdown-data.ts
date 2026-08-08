@@ -1,5 +1,4 @@
 import { effect, Injector, inject, Service, signal } from '@angular/core';
-import { OperationStatus } from '@nucleus/common';
 import type { DropdownDataModel } from '../models/dropdown.model';
 import type { CrudStoreModel } from '../models/generic.model';
 import type { ValueLabelModel } from '../models/pair.model';
@@ -19,9 +18,7 @@ export class DropdownData {
       () => {
         const state = store[selector]();
         const { status, response } = state as any;
-        icon.set(
-          status === OperationStatus.InProgress ? 'pi pi-spin pi-spinner' : 'pi pi-angle-down',
-        );
+        icon.set(status === 'inProgress' ? 'pi pi-spin pi-spinner' : 'pi pi-angle-down');
         options.set(response);
       },
       { injector: this.#injector },

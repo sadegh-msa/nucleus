@@ -1,5 +1,4 @@
 import { TestBed } from '@angular/core/testing';
-import { OperationStatus } from '@nucleus/common';
 import { DropdownData } from './dropdown-data';
 
 describe('DropdownData', () => {
@@ -19,7 +18,7 @@ describe('DropdownData', () => {
   describe('load', () => {
     it('should return dropdown data with options and icon signals', () => {
       const mockStore = {
-        list: () => ({ status: OperationStatus.Initial, response: [] }),
+        list: () => ({ status: 'initial', response: [] }),
       };
 
       const result = service.load(mockStore as any, 'list');
@@ -30,7 +29,7 @@ describe('DropdownData', () => {
 
     it('should have default icon', () => {
       const mockStore = {
-        list: () => ({ status: OperationStatus.Initial, response: [] }),
+        list: () => ({ status: 'initial', response: [] }),
       };
 
       const result = service.load(mockStore as any, 'list');
@@ -40,7 +39,7 @@ describe('DropdownData', () => {
 
     it('should have empty options by default', () => {
       const mockStore = {
-        list: () => ({ status: OperationStatus.Initial, response: [] }),
+        list: () => ({ status: 'initial', response: [] }),
       };
 
       const result = service.load(mockStore as any, 'list');

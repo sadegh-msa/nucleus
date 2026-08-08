@@ -1,12 +1,9 @@
 import { computed, DestroyRef, effect, Injector, inject, Service, signal } from '@angular/core';
 import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop';
 import { Router } from '@angular/router';
-import { OperationStatus } from '@nucleus/common';
-import { PageType } from '../enums/page.enum';
-import { RouterStateKey } from '../enums/router-state.enum';
-import { ToolType } from '../enums/toolbar.enum';
 import { createAddToolbar, createEditToolbar, createViewToolbar } from '../factory/toolbar-factory';
 import type { GenericEntityModel, GenericFormConsumerModel } from '../models/generic.model';
+import type { RouterStateModel } from '../models/router.model';
 import type { ToolbarModel, ToolModel } from '../models/toolbar.model';
 
 @Service({ autoProvided: false })
@@ -40,8 +37,8 @@ export class GenericFormBuilder<T extends GenericEntityModel> {
     this.#handleSaveEvents();
     this.#handleDeleteEvents();
 
-    if (pageType() !== PageType.Add) {
-      if (pageType() === PageType.View) {
+    if (pageType() !== 'add') {
+      if (pageType() === 'view') {
         form.disable();
       }
 
@@ -58,7 +55,7 @@ export class GenericFormBuilder<T extends GenericEntityModel> {
     const { config, pageType, title, data, form } = this.#consumer;
     const toObservableOptions = { injector: this.#injector };
 
-    if (pageType() !== PageType.Add) {
+    if (pageType() !== 'add') {
       toObservable(title, toObservableOptions)
         .pipe(takeUntilDestroyed(this.#destroyRef))
         .subscribe(() => this.#updateNavigationState());
@@ -78,8 +75,8 @@ export class GenericFormBuilder<T extends GenericEntityModel> {
     effect(
       () => {
         const { status, response, tool } = store.get();
-        isSubmitting.set(status === OperationStatus.InProgress);
-        tool?.showLoading?.set(status === OperationStatus.InProgress);
+        isSubmitting.set(status === 'inProgress');
+        tool?.showLoading?.set(status === 'inProgress');
 
         data.set(response.data);
       },
@@ -100,18 +97,18 @@ export class GenericFormBuilder<T extends GenericEntityModel> {
 
         // Check which one is in progress
         const active = [addState, updateState].find(
-          (s) => s.status === OperationStatus.InProgress || s.status === OperationStatus.Success,
+          (s) => s.status === 'inProgress' || s.status === 'success',
         );
 
         if (!active) return;
 
-        isSubmitting.set(active.status === OperationStatus.InProgress);
-        active.tool?.showLoading?.set(active.status === OperationStatus.InProgress);
+        isSubmitting.set(active.status === 'inProgress');
+        active.tool?.showLoading?.set(active.status === 'inProgress');
 
-        if (!isEmbedded && active.status === OperationStatus.Success) {
+        if (!isEmbedded && active.status === 'success') {
           const response = (active as any).response?.data;
           store.getMutate(response);
-          this.navigateToViewPage({ [RouterStateKey.Saved]: true });
+          this.navigateToViewPage({ saved: true });
         }
       },
       { injector: this.#injector },
@@ -126,10 +123,10 @@ export class GenericFormBuilder<T extends GenericEntityModel> {
     effect(
       () => {
         const { status, tool } = store.delete();
-        isSubmitting.set(status === OperationStatus.InProgress);
-        tool?.showLoading?.set(status === OperationStatus.InProgress);
+        isSubmitting.set(status === 'inProgress');
+        tool?.showLoading?.set(status === 'inProgress');
 
-        if (!isEmbedded && status === OperationStatus.Success) {
+        if (!isEmbedded && status === 'success') {
           this.navigateToListPage();
         }
       },
@@ -141,9 +138,9 @@ export class GenericFormBuilder<T extends GenericEntityModel> {
     this.#consumer.navigationState = window.history.state;
   }
 
-  #setNavigationState(key: string, value?: unknown) {
-    const state = window.history.state || {};
-    window.history.replaceState({ ...state, [key]: value }, '', this.#router.url);
+  #setNavigationState(state: RouterStateModel) {
+    const historyState = window.history.state || {};
+    window.history.replaceState({ ...historyState, ...state }, '', this.#router.url);
   }
 
   #updateNavigationState() {
@@ -153,13 +150,11 @@ export class GenericFormBuilder<T extends GenericEntityModel> {
       return;
     }
 
-    this.#setNavigationState(RouterStateKey.Title, title());
+    this.#setNavigationState({ title: title() });
   }
 
   #getCurrentTitle() {
-    const state = window.history.state || {};
-
-    return state[RouterStateKey.Title] || '...';
+    return (window.history.state || {})['title'] || '...';
   }
 
   createToolbar(attachEventHandler: boolean) {
@@ -167,25 +162,25 @@ export class GenericFormBuilder<T extends GenericEntityModel> {
     const viewExtra = {
       id: computed(() => id()),
       routerStates: computed(() => {
-        return { [RouterStateKey.Title]: data()[config.field.title as keyof T['full']] };
+        return { title: data()[config.field.title as keyof T['full']] };
       }),
     };
     let toolbar: ToolbarModel = { tools: [] };
 
     switch (pageType()) {
-      case PageType.Add:
+      case 'add':
         toolbar = createAddToolbar<T>(config);
         break;
 
-      case PageType.Edit:
+      case 'edit':
         toolbar = createEditToolbar<T>(config, {
-          [ToolType.Cancel]: viewExtra,
+          ['cancel']: viewExtra,
         });
         break;
 
-      case PageType.View:
+      case 'view':
         toolbar = createViewToolbar<T>(config, {
-          [ToolType.Edit]: viewExtra,
+          ['edit']: viewExtra,
         });
         break;
     }
@@ -193,15 +188,15 @@ export class GenericFormBuilder<T extends GenericEntityModel> {
     if (attachEventHandler) {
       toolbar?.events$?.pipe(takeUntilDestroyed(this.#destroyRef)).subscribe(({ tool }) => {
         switch (tool.type) {
-          case ToolType.Save:
+          case 'save':
             this.save(tool);
             break;
 
-          case ToolType.Refresh:
+          case 'refresh':
             this.loadData(tool);
             break;
 
-          case ToolType.Delete:
+          case 'delete':
             this.delete(tool);
             break;
         }
@@ -214,12 +209,12 @@ export class GenericFormBuilder<T extends GenericEntityModel> {
   loadData(tool?: ToolModel) {
     const { pageType, store, id, navigationState } = this.#consumer;
 
-    if (pageType() === PageType.Add) {
+    if (pageType() === 'add') {
       return;
     }
 
-    if (navigationState?.[RouterStateKey.Saved]) {
-      this.#setNavigationState(RouterStateKey.Saved, false);
+    if (navigationState?.['saved']) {
+      this.#setNavigationState({ saved: false });
       return;
     }
 
@@ -257,9 +252,9 @@ export class GenericFormBuilder<T extends GenericEntityModel> {
       return;
     }
 
-    if (pageType() === PageType.Add) {
+    if (pageType() === 'add') {
       this.add(tool);
-    } else if (pageType() === PageType.Edit) {
+    } else if (pageType() === 'edit') {
       this.update(tool);
     }
   }
@@ -268,12 +263,12 @@ export class GenericFormBuilder<T extends GenericEntityModel> {
     this.#router.navigate(this.#consumer.config.path.page.list()).then();
   }
 
-  navigateToViewPage(state?: Record<string, unknown>) {
+  navigateToViewPage(state?: RouterStateModel) {
     const { config, id, title } = this.#consumer;
 
     this.#router
       .navigate(config.path.page.view(id()), {
-        state: { [RouterStateKey.Title]: title(), ...(state && { ...state }) },
+        state: { title: title(), ...(state && { ...state }) },
       })
       .then();
   }

@@ -2,7 +2,6 @@ import { NgClass } from '@angular/common';
 import { Component, computed, DestroyRef, inject, input, output, signal } from '@angular/core';
 import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop';
 import { RouterModule } from '@angular/router';
-import { DataType } from '@nucleus/common';
 import { UiSvgIcon, UiTooltip } from '@nucleus/ui';
 import { ConfirmationService } from 'primeng/api';
 import { ConfirmPopupModule } from 'primeng/confirmpopup';
@@ -12,7 +11,6 @@ import { TableModule } from 'primeng/table';
 import { filter } from 'rxjs';
 import { AuthPermission } from '../../../auth';
 import { infoFieldsDefault } from '../../defaults/info-fields.default';
-import { ToolElement } from '../../enums/toolbar.enum';
 import type { InfoFieldModel } from '../../models/info.model';
 import type { TableModel } from '../../models/table.model';
 import type { ToolModel } from '../../models/toolbar.model';
@@ -41,8 +39,6 @@ export class GenericList {
   readonly #destroyRef = inject(DestroyRef);
   readonly #confirmationService = inject(ConfirmationService);
 
-  readonly ToolElement = ToolElement;
-  readonly DataType = DataType;
   readonly altData = computed(() => [...Array(10).keys()]);
   readonly activated = signal<any>(null);
 

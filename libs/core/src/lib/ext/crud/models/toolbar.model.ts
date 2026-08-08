@@ -3,12 +3,12 @@ import type { Signal, WritableSignal } from '@angular/core';
 import type { Params } from '@angular/router';
 import type { UiIconVariant } from '@nucleus/ui';
 import type { Observable } from 'rxjs';
-import type { ToolElement, ToolType } from '../enums/toolbar.enum';
+import type { ToolElementType, ToolType } from '../types/toolbar.type';
 
 export interface ToolModel {
   command: ($event?: unknown) => string | unknown[];
   permission: string;
-  element: ToolElement;
+  element: ToolElementType;
   type: ToolType;
   key: string;
   label?: string;

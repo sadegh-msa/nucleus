@@ -3,7 +3,6 @@ import { TestBed } from '@angular/core/testing';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { type Mock, vi } from 'vitest';
-import { PageType } from '../enums/page.enum';
 import { GenericFormBuilder } from './generic-form-builder';
 
 describe('GenericFormBuilder', () => {
@@ -97,7 +96,7 @@ describe('GenericFormBuilder', () => {
   describe('loadData', () => {
     it('should not load data for Add page type', () => {
       const consumer = createMockConsumer();
-      consumer.pageType.set(PageType.Add);
+      consumer.pageType.set('add');
       service.init(consumer as any);
 
       service.loadData();
@@ -107,7 +106,7 @@ describe('GenericFormBuilder', () => {
 
     it('should load data for View page type', () => {
       const consumer = createMockConsumer();
-      consumer.pageType.set(PageType.View);
+      consumer.pageType.set('view');
       service.init(consumer as any);
 
       service.loadData();
@@ -141,7 +140,7 @@ describe('GenericFormBuilder', () => {
   describe('createToolbar', () => {
     it('should create view toolbar', () => {
       const consumer = createMockConsumer();
-      consumer.pageType.set(PageType.View);
+      consumer.pageType.set('view');
       service.init(consumer as any);
 
       const toolbar = service.createToolbar(false);
@@ -151,7 +150,7 @@ describe('GenericFormBuilder', () => {
 
     it('should create add toolbar', () => {
       const consumer = createMockConsumer();
-      consumer.pageType.set(PageType.Add);
+      consumer.pageType.set('add');
       service.init(consumer as any);
 
       const toolbar = service.createToolbar(false);
@@ -161,7 +160,7 @@ describe('GenericFormBuilder', () => {
 
     it('should create edit toolbar', () => {
       const consumer = createMockConsumer();
-      consumer.pageType.set(PageType.Edit);
+      consumer.pageType.set('edit');
       service.init(consumer as any);
 
       const toolbar = service.createToolbar(false);
@@ -184,7 +183,7 @@ function createMockConsumer() {
     isSubmitted: signal(false),
     form,
     id: signal('123'),
-    pageType: signal(PageType.View),
+    pageType: signal('view'),
     isEmbedded: signal(false),
     save: vi.fn(),
     formControlHasError: vi.fn().mockReturnValue(false),

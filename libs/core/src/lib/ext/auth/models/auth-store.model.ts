@@ -1,4 +1,4 @@
-import type { OperationStatus } from '@nucleus/common';
+import type { OperationStatusType } from '@nucleus/common';
 import type {
   AuthSignInModel,
   AuthSignInResponseModel,
@@ -17,23 +17,23 @@ export interface AuthSignInStateModel {
   request: AuthSignInModel;
   response: AuthSignInResponseModel;
   message: string;
-  status: OperationStatus;
+  status: OperationStatusType;
 }
 
 export interface AuthSignUpStateModel {
   request: AuthSignUpModel;
   response: AuthSignUpResponseModel;
   message: string;
-  status: OperationStatus;
+  status: OperationStatusType;
 }
 
 export interface AuthSignOutStateModel {
   message: string;
-  status: OperationStatus;
+  status: OperationStatusType;
 }
 
 export interface AuthCheckStateModel {
-  status: OperationStatus;
+  status: OperationStatusType;
 }
 
 export interface AuthStoreStateModel {
@@ -49,10 +49,10 @@ export interface AuthStoreModel {
   signOut(): void;
   checkSuccess(): void;
   checkFailure(): void;
-  checkStatus(): OperationStatus;
-  signInStatus(): OperationStatus;
-  signUpStatus(): OperationStatus;
-  signOutStatus(): OperationStatus;
+  checkStatus(): OperationStatusType;
+  signInStatus(): OperationStatusType;
+  signUpStatus(): OperationStatusType;
+  signOutStatus(): OperationStatusType;
   isCheckSuccess(): boolean;
   signInResponse(): AuthSignInResponseModel;
   signUpResponse(): AuthSignUpResponseModel;

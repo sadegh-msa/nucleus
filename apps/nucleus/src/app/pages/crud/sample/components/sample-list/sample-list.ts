@@ -1,5 +1,4 @@
 import { Component, effect, inject, input, type OnInit, untracked } from '@angular/core';
-import { DataType } from '@nucleus/common';
 import {
   createTableToolbar,
   GenericList,
@@ -28,12 +27,12 @@ export class SampleList extends AbstractGenericSampleList implements OnInit {
   readonly store = inject(SampleStore);
   readonly table: TableModel = {
     columns: [
-      { field: 'index', label: '#', tooltip: 'Index', type: DataType.Index },
+      { field: 'index', label: '#', tooltip: 'Index', type: 'index' },
       {
         field: 'active',
         label: 'A',
         tooltip: 'is Active',
-        type: DataType.Boolean,
+        type: 'boolean',
         format: 'icon',
         ngClass: 'boolean',
       },
@@ -42,7 +41,7 @@ export class SampleList extends AbstractGenericSampleList implements OnInit {
       {
         field: 'date',
         label: 'Date',
-        type: DataType.Datetime,
+        type: 'datetime',
         format: 'longDate',
       },
       { field: 'divisionId', label: 'Division' },

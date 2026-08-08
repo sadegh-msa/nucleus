@@ -1,7 +1,6 @@
 import type { Route } from '@angular/router';
-import { PageType, pagePathPattern } from '@nucleus/core';
+import { pagePathPattern } from '@nucleus/core';
 
-const { List, View, Add, Edit } = PageType;
 const { list, view, add, edit } = pagePathPattern;
 
 const loadListComponent = () =>
@@ -11,8 +10,8 @@ const loadFormComponent = () =>
 
 export const sampleRoutes: Route[] = [
   { path: '', redirectTo: list, pathMatch: 'full' },
-  { path: list, loadComponent: loadListComponent, data: { pageType: List } },
-  { path: view, loadComponent: loadFormComponent, data: { pageType: View } },
-  { path: add, loadComponent: loadFormComponent, data: { pageType: Add } },
-  { path: edit, loadComponent: loadFormComponent, data: { pageType: Edit } },
+  { path: list, loadComponent: loadListComponent, data: { pageType: 'list' } },
+  { path: view, loadComponent: loadFormComponent, data: { pageType: 'view' } },
+  { path: add, loadComponent: loadFormComponent, data: { pageType: 'add' } },
+  { path: edit, loadComponent: loadFormComponent, data: { pageType: 'edit' } },
 ];

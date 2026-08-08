@@ -34,5 +34,4 @@ describe('GenericToolbar', () => {
   });
 
   it('should create', () => expect(component).toBeTruthy());
-  it('should have ToolElement enum', () => expect(component.ToolElement).toBeTruthy());
 });

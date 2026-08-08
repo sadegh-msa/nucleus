@@ -2,7 +2,6 @@ import { Component, effect, signal, untracked } from '@angular/core';
 import { email, FormField, form, maxLength, required } from '@angular/forms/signals';
 import { RouterLink } from '@angular/router';
 
-import { OperationStatus } from '@nucleus/common';
 import { UiCheckbox, UiFormField, UiInputPassword, UiSvgIcon } from '@nucleus/ui';
 import type { AuthSignInModel } from '../../../../ext/auth/models/auth.model';
 import { injectAuthStore } from '../../../../ext/auth/store/auth-store';
@@ -36,7 +35,7 @@ export class SignIn {
       const status = this.#authStore.signInStatus();
 
       untracked(() => {
-        this.isSubmitting.set(status === OperationStatus.InProgress);
+        this.isSubmitting.set(status === 'inProgress');
       });
     });
   }

@@ -1,6 +1,5 @@
 import { computed, inject } from '@angular/core';
 import { patchState, signalStore, withComputed, withMethods, withState } from '@ngrx/signals';
-import { OperationStatus } from '@nucleus/common';
 import { UiMessageManager } from '@nucleus/ui';
 import { formatErrorMessage } from '../../crud/helpers/format-messages-helper';
 import type { ToolModel } from '../../crud/models/toolbar.model';
@@ -22,7 +21,7 @@ function createListInitialState<Query>(): ListStateModel<Query, never> {
       data: [] as never[],
     },
     message: '',
-    status: OperationStatus.Initial,
+    status: 'initial',
   };
 }
 
@@ -31,7 +30,7 @@ function createGetInitialState<Response>(): GetStateModel<Response> {
     query: '',
     response: { control: {}, data: {} as Response },
     message: '',
-    status: OperationStatus.Initial,
+    status: 'initial',
   };
 }
 
@@ -40,7 +39,7 @@ function createAddInitialState<Request, Response>(): AddStateModel<Request, Resp
     request: {} as Request,
     response: { control: {}, data: {} as Response },
     message: '',
-    status: OperationStatus.Initial,
+    status: 'initial',
   };
 }
 
@@ -50,7 +49,7 @@ function createUpdateInitialState<Request, Response>(): UpdateStateModel<Request
     request: {} as Request,
     response: { control: {}, data: {} as Response },
     message: '',
-    status: OperationStatus.Initial,
+    status: 'initial',
   };
 }
 
@@ -59,7 +58,7 @@ function createDeleteInitialState(): DeleteStateModel {
     query: '',
     response: { control: {}, data: '' },
     message: '',
-    status: OperationStatus.Initial,
+    status: 'initial',
   };
 }
 
@@ -105,19 +104,19 @@ export function createCrudSignalStore<Query, Request, Response>(
       return {
         loadList(query: Query, tool?: ToolModel) {
           patchState(store, {
-            list: { ...store.list(), query, tool, status: OperationStatus.InProgress },
+            list: { ...store.list(), query, tool, status: 'inProgress' },
           });
           rest.list(query).subscribe({
             next: (response) => {
               patchState(store, {
-                list: { ...store.list(), response, tool, status: OperationStatus.Success },
+                list: { ...store.list(), response, tool, status: 'success' },
               });
             },
             error: ({ error }: { error: any }) => {
               const message = formatErrorMessage(error);
               uiMessageManager.addError(message);
               patchState(store, {
-                list: { ...store.list(), message, tool, status: OperationStatus.Failure },
+                list: { ...store.list(), message, tool, status: 'failure' },
               });
             },
           });
@@ -128,25 +127,25 @@ export function createCrudSignalStore<Query, Request, Response>(
             const message = $localize`ID of ${config.title} is required`;
             uiMessageManager.addError(message);
             patchState(store, {
-              get: { ...store.get(), message, status: OperationStatus.Failure },
+              get: { ...store.get(), message, status: 'failure' },
             });
             return;
           }
 
           patchState(store, {
-            get: { ...store.get(), query, tool, status: OperationStatus.InProgress },
+            get: { ...store.get(), query, tool, status: 'inProgress' },
           });
           rest.get(query).subscribe({
             next: (response) => {
               patchState(store, {
-                get: { ...store.get(), response, tool, status: OperationStatus.Success },
+                get: { ...store.get(), response, tool, status: 'success' },
               });
             },
             error: ({ error }: { error: any }) => {
               const message = formatErrorMessage(error);
               uiMessageManager.addError(message);
               patchState(store, {
-                get: { ...store.get(), message, tool, status: OperationStatus.Failure },
+                get: { ...store.get(), message, tool, status: 'failure' },
               });
             },
           });
@@ -154,21 +153,21 @@ export function createCrudSignalStore<Query, Request, Response>(
 
         loadAdd(request: Request, tool?: ToolModel) {
           patchState(store, {
-            add: { ...store.add(), request, tool, status: OperationStatus.InProgress },
+            add: { ...store.add(), request, tool, status: 'inProgress' },
           });
           rest.add(request).subscribe({
             next: (response) => {
               const message = $localize`${config.title} added successfully`;
               uiMessageManager.addSuccess(message);
               patchState(store, {
-                add: { ...store.add(), response, message, tool, status: OperationStatus.Success },
+                add: { ...store.add(), response, message, tool, status: 'success' },
               });
             },
             error: ({ error }: { error: any }) => {
               const message = formatErrorMessage(error);
               uiMessageManager.addError(message);
               patchState(store, {
-                add: { ...store.add(), message, tool, status: OperationStatus.Failure },
+                add: { ...store.add(), message, tool, status: 'failure' },
               });
             },
           });
@@ -179,13 +178,13 @@ export function createCrudSignalStore<Query, Request, Response>(
             const message = $localize`ID of ${config.title} is required`;
             uiMessageManager.addError(message);
             patchState(store, {
-              update: { ...store.update(), message, status: OperationStatus.Failure },
+              update: { ...store.update(), message, status: 'failure' },
             });
             return;
           }
 
           patchState(store, {
-            update: { ...store.update(), query, request, tool, status: OperationStatus.InProgress },
+            update: { ...store.update(), query, request, tool, status: 'inProgress' },
           });
           rest.update(query, request).subscribe({
             next: (response) => {
@@ -197,7 +196,7 @@ export function createCrudSignalStore<Query, Request, Response>(
                   response,
                   message,
                   tool,
-                  status: OperationStatus.Success,
+                  status: 'success',
                 },
               });
             },
@@ -205,7 +204,7 @@ export function createCrudSignalStore<Query, Request, Response>(
               const message = formatErrorMessage(error);
               uiMessageManager.addError(message);
               patchState(store, {
-                update: { ...store.update(), message, tool, status: OperationStatus.Failure },
+                update: { ...store.update(), message, tool, status: 'failure' },
               });
             },
           });
@@ -216,13 +215,13 @@ export function createCrudSignalStore<Query, Request, Response>(
             const message = $localize`ID of ${config.title} is required`;
             uiMessageManager.addError(message);
             patchState(store, {
-              delete: { ...store.delete(), message, status: OperationStatus.Failure },
+              delete: { ...store.delete(), message, status: 'failure' },
             });
             return;
           }
 
           patchState(store, {
-            delete: { ...store.delete(), query, tool, status: OperationStatus.InProgress },
+            delete: { ...store.delete(), query, tool, status: 'inProgress' },
           });
           rest.delete(query).subscribe({
             next: () => {
@@ -234,7 +233,7 @@ export function createCrudSignalStore<Query, Request, Response>(
                   response: { control: {}, data: query },
                   message,
                   tool,
-                  status: OperationStatus.Success,
+                  status: 'success',
                 },
               });
             },
@@ -242,7 +241,7 @@ export function createCrudSignalStore<Query, Request, Response>(
               const message = formatErrorMessage(error);
               uiMessageManager.addError(message);
               patchState(store, {
-                delete: { ...store.delete(), message, tool, status: OperationStatus.Failure },
+                delete: { ...store.delete(), message, tool, status: 'failure' },
               });
             },
           });
@@ -253,7 +252,7 @@ export function createCrudSignalStore<Query, Request, Response>(
             get: {
               ...store.get(),
               response: { control: {}, data: response },
-              status: OperationStatus.Initial,
+              status: 'initial',
             },
           });
         },

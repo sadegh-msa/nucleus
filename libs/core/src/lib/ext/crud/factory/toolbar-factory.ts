@@ -1,21 +1,16 @@
 import { signal } from '@angular/core';
 import { mergeAll } from '@nucleus/common';
 import { type Observable, Subject } from 'rxjs';
-import { RouterStateKey } from '../enums/router-state.enum';
-import { ToolElement, ToolType } from '../enums/toolbar.enum';
 import type { GenericEntityModel } from '../models/generic.model';
 import type { ToolbarModel, ToolEventModel, ToolModel } from '../models/toolbar.model';
 
-type AddTools = Partial<Record<ToolType.Save | ToolType.Cancel, Partial<ToolModel>>>;
+type AddTools = Partial<Record<'save' | 'cancel', Partial<ToolModel>>>;
 type ViewEditRequired = Required<Pick<ToolModel, 'id' | 'routerStates'>>;
-type EditTools = Partial<Record<ToolType.Save, Partial<ToolModel>>> &
-  Record<ToolType.Cancel, ViewEditRequired>;
-type ViewTools = Partial<
-  Record<ToolType.Delete | ToolType.Refresh | ToolType.Back, Partial<ToolModel>>
-> &
-  Record<ToolType.Edit, ViewEditRequired>;
-type ListTools = Partial<Record<ToolType.Add | ToolType.Refresh, Partial<ToolModel>>>;
-type TableTools = Partial<Record<ToolType.View | ToolType.Delete, Partial<ToolModel>>>;
+type EditTools = Partial<Record<'save', Partial<ToolModel>>> & Record<'cancel', ViewEditRequired>;
+type ViewTools = Partial<Record<'delete' | 'refresh' | 'back', Partial<ToolModel>>> &
+  Record<'edit', ViewEditRequired>;
+type ListTools = Partial<Record<'add' | 'refresh', Partial<ToolModel>>>;
+type TableTools = Partial<Record<'view' | 'delete', Partial<ToolModel>>>;
 
 const commonStyleClass = ['nu-tool', 'ui', 'button', 'medium'];
 const buttonStyleClass = {
@@ -40,10 +35,10 @@ const deleteConfirmMessage = $localize`Are you sure that you want to delete this
 const createSaveTool = (toOverride = {}, toMerge = {}) =>
   mergeAll(
     {
-      type: ToolType.Save,
+      type: 'save',
       label: $localize`Save`,
       icon: 'save-2',
-      element: ToolElement.Button,
+      element: 'button',
       ngClass: buttonStyleClass.emphasis.primary,
       key: self.crypto.randomUUID(),
       showLoading: signal(false),
@@ -55,10 +50,10 @@ const createSaveTool = (toOverride = {}, toMerge = {}) =>
 const createCancelTool = (toOverride = {}, toMerge = {}) =>
   mergeAll(
     {
-      type: ToolType.Cancel,
+      type: 'cancel',
       label: $localize`Cancel`,
       icon: 'close-square',
-      element: ToolElement.Link,
+      element: 'link',
       ngClass: buttonStyleClass.basic.stamp,
       ...toOverride,
     },
@@ -68,10 +63,10 @@ const createCancelTool = (toOverride = {}, toMerge = {}) =>
 const createAddTool = (toOverride = {}, toMerge = {}) =>
   mergeAll(
     {
-      type: ToolType.Add,
+      type: 'add',
       label: $localize`Add`,
       icon: 'add-square',
-      element: ToolElement.Link,
+      element: 'link',
       ngClass: buttonStyleClass.basic.stamp,
       key: self.crypto.randomUUID(),
       ...toOverride,
@@ -82,10 +77,10 @@ const createAddTool = (toOverride = {}, toMerge = {}) =>
 const createEditTool = (toOverride = {}, toMerge = {}) =>
   mergeAll(
     {
-      type: ToolType.Edit,
+      type: 'edit',
       label: $localize`Edit`,
       icon: 'edit',
-      element: ToolElement.Link,
+      element: 'link',
       ngClass: buttonStyleClass.basic.primary,
       key: self.crypto.randomUUID(),
       ...toOverride,
@@ -96,10 +91,10 @@ const createEditTool = (toOverride = {}, toMerge = {}) =>
 const createDeleteTool = (toOverride = {}, toMerge = {}) =>
   mergeAll(
     {
-      type: ToolType.Delete,
+      type: 'delete',
       label: $localize`Delete`,
       icon: 'trash',
-      element: ToolElement.Button,
+      element: 'button',
       confirm: deleteConfirmMessage,
       ngClass: buttonStyleClass.basic.danger,
       key: self.crypto.randomUUID(),
@@ -112,10 +107,10 @@ const createDeleteTool = (toOverride = {}, toMerge = {}) =>
 const createRefreshTool = (toOverride = {}, toMerge = {}) =>
   mergeAll(
     {
-      type: ToolType.Refresh,
+      type: 'refresh',
       label: $localize`Refresh`,
       icon: 'refresh-square-2',
-      element: ToolElement.Button,
+      element: 'button',
       ngClass: buttonStyleClass.basic.stamp,
       key: self.crypto.randomUUID(),
       showLoading: signal(false),
@@ -127,10 +122,10 @@ const createRefreshTool = (toOverride = {}, toMerge = {}) =>
 const createBackTool = (toOverride = {}, toMerge = {}) =>
   mergeAll(
     {
-      type: ToolType.Back,
+      type: 'back',
       label: $localize`Back to List`,
       icon: 'arrow-up-3',
-      element: ToolElement.Link,
+      element: 'link',
       ngClass: buttonStyleClass.basic.stamp,
       key: self.crypto.randomUUID(),
       ...toOverride,
@@ -141,11 +136,11 @@ const createBackTool = (toOverride = {}, toMerge = {}) =>
 const createTableViewTool = (toOverride = {}, toMerge = {}) =>
   mergeAll(
     {
-      type: ToolType.View,
+      type: 'view',
       tooltip: $localize`View`,
       icon: 'book',
       iconVariant: 'bulk',
-      element: ToolElement.Link,
+      element: 'link',
       ngClass: buttonStyleClass.table.basic.primary,
       key: self.crypto.randomUUID(),
       ...toOverride,
@@ -156,11 +151,11 @@ const createTableViewTool = (toOverride = {}, toMerge = {}) =>
 const createTableDeleteTool = (toOverride = {}, toMerge = {}) =>
   mergeAll(
     {
-      type: ToolType.Delete,
+      type: 'delete',
       tooltip: $localize`Delete`,
       icon: 'trash',
       iconVariant: 'bulk',
-      element: ToolElement.Button,
+      element: 'button',
       confirm: deleteConfirmMessage,
       ngClass: buttonStyleClass.table.basic.danger,
       key: self.crypto.randomUUID(),
@@ -180,14 +175,14 @@ export function createAddToolbar<T extends GenericEntityModel>(
       permission: config.permission.action.add,
       icon: 'save-add',
     },
-    tools?.[ToolType.Save],
+    tools?.['save'],
   );
   const cancelTool = createCancelTool(
     {
       command: () => config.path.page.list(),
       permission: config.permission.action.list,
     },
-    tools?.[ToolType.Cancel],
+    tools?.['cancel'],
   );
 
   return {
@@ -206,14 +201,14 @@ export function createEditToolbar<T extends GenericEntityModel>(
       command: () => subject$.next({ tool: saveTool }),
       permission: config.permission.action.edit,
     },
-    tools?.[ToolType.Save],
+    tools?.['save'],
   );
   const cancelTool = createCancelTool(
     {
       command: () => config.path.page.view(cancelTool.id()),
       permission: config.permission.action.view,
     },
-    tools?.[ToolType.Cancel],
+    tools?.['cancel'],
   );
 
   return {
@@ -232,28 +227,28 @@ export function createViewToolbar<T extends GenericEntityModel>(
       command: () => config.path.page.edit(editTool.id()),
       permission: config.permission.action.edit,
     },
-    tools[ToolType.Edit],
+    tools['edit'],
   );
   const deleteTool = createDeleteTool(
     {
       command: () => subject$.next({ tool: deleteTool }),
       permission: config.permission.action.delete,
     },
-    tools[ToolType.Delete],
+    tools['delete'],
   );
   const refreshTool = createRefreshTool(
     {
       command: () => subject$.next({ tool: refreshTool }),
       permission: config.permission.action.view,
     },
-    tools[ToolType.Refresh],
+    tools['refresh'],
   );
   const backTool = createBackTool(
     {
       command: () => config.path.page.list(),
       permission: config.permission.action.list,
     },
-    tools[ToolType.Back],
+    tools['back'],
   );
 
   return {
@@ -272,14 +267,14 @@ export function createListToolbar<T extends GenericEntityModel>(
       command: () => config.path.page.add(),
       permission: config.permission.action.add,
     },
-    tools?.[ToolType.Add],
+    tools?.['add'],
   );
   const refreshTool = createRefreshTool(
     {
       command: () => subject$.next({ tool: refreshTool }),
       permission: config.permission.action.list,
     },
-    tools?.[ToolType.Refresh],
+    tools?.['refresh'],
   );
 
   return {
@@ -299,19 +294,19 @@ export function createTableToolbar<T extends GenericEntityModel>(
   const viewAction = createTableViewTool(
     {
       command: (row: Row) => config.path.page.view(getId(row)),
-      getRouterStates: (row: Row) => {
-        return { [RouterStateKey.Title]: row[config.field.title as keyof Row] };
-      },
+      getRouterStates: (row: Row) => ({
+        title: row[config.field.title as keyof Row],
+      }),
       permission: config.permission.action.view,
     },
-    tools?.[ToolType.View],
+    tools?.['view'],
   );
   const deleteAction = createTableDeleteTool(
     {
       command: (row: Row) => subject$.next({ tool: deleteAction, payload: getId(row) }),
       permission: config.permission.action.delete,
     },
-    tools?.[ToolType.Delete],
+    tools?.['delete'],
   );
 
   return {

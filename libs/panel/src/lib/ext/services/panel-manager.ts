@@ -1,5 +1,6 @@
 import { computed, effect, inject, Service, signal } from '@angular/core';
-import { type ExtentType, extents, PermanentStorage } from '@nucleus/common';
+import { PermanentStorage } from '@nucleus/common';
+import { type ExtentType, extentLiterals } from '@nucleus/ui';
 import { panelInternalConfig } from '../../int/configs';
 
 const navConfig = panelInternalConfig.nav;
@@ -28,7 +29,7 @@ export class PanelManager {
   #restoreExtent() {
     let extent = this.#permanentStorage.getItem<ExtentType>(navConfig.storageKey);
 
-    if (!extents.includes(extent)) {
+    if (!extentLiterals.includes(extent)) {
       extent = 'wide' as ExtentType;
     }
 

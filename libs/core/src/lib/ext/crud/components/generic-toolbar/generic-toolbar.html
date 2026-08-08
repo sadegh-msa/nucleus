@@ -1,7 +1,7 @@
 <menu class="toolbar-start">
   @for (tool of toolbar().tools; track tool.key) {
     <li>
-      @if (tool.element === ToolElement.Button) {
+      @if (tool.element === 'button') {
         <button #buttonElement
                 (click)="runCommand(buttonElement, tool)"
                 [uiTooltip]="tool.tooltip" uiTooltipPlacement="block-end-inline-center"
@@ -20,7 +20,7 @@
         @if (tool.confirm) {
           <p-confirmPopup [key]="tool.key" />
         }
-      } @else if (tool.element === ToolElement.Link) {
+      } @else if (tool.element === 'link') {
         <a [ngClass]="tool.ngClass || []"
            [uiTooltip]="tool.tooltip" uiTooltipPlacement="block-end-inline-center"
            [routerLink]="tool.command()"

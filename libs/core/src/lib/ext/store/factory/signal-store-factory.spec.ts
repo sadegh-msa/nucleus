@@ -1,7 +1,7 @@
 import { provideHttpClient } from '@angular/common/http';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
-import { OperationStatus, provideNuCommonConfig } from '@nucleus/common';
+import { provideNuCommonConfig } from '@nucleus/common';
 import { provideUiConfig } from '@nucleus/ui';
 import { MOCK_NU_COMMON_CONFIG, MOCK_UI_CONFIG, setupGlobalMocks } from '@test-mocks';
 import { of, Subject, throwError } from 'rxjs';
@@ -57,11 +57,11 @@ describe('createCrudSignalStore', () => {
 
   describe('initial state', () => {
     it('should have Initial status for all operations', () => {
-      expect(store.listStatus()).toBe(OperationStatus.Initial);
-      expect(store.getStatus()).toBe(OperationStatus.Initial);
-      expect(store.addStatus()).toBe(OperationStatus.Initial);
-      expect(store.updateStatus()).toBe(OperationStatus.Initial);
-      expect(store.deleteStatus()).toBe(OperationStatus.Initial);
+      expect(store.listStatus()).toBe('initial');
+      expect(store.getStatus()).toBe('initial');
+      expect(store.addStatus()).toBe('initial');
+      expect(store.updateStatus()).toBe('initial');
+      expect(store.deleteStatus()).toBe('initial');
     });
 
     it('should have empty initial responses', () => {
@@ -85,7 +85,7 @@ describe('createCrudSignalStore', () => {
 
       store.loadList(query);
 
-      expect(store.listStatus()).toBe(OperationStatus.Success);
+      expect(store.listStatus()).toBe('success');
       expect(store.listResponse().data).toEqual(response.data);
     });
 
@@ -94,12 +94,12 @@ describe('createCrudSignalStore', () => {
       mockRest.list.mockReturnValue(subject.asObservable());
 
       store.loadList({ page: 0, rows: 10 });
-      expect(store.listStatus()).toBe(OperationStatus.InProgress);
+      expect(store.listStatus()).toBe('inProgress');
 
       subject.next({ control: {}, data: [] });
       subject.complete();
 
-      expect(store.listStatus()).toBe(OperationStatus.Success);
+      expect(store.listStatus()).toBe('success');
     });
 
     it('should set status to Failure on error', () => {
@@ -117,7 +117,7 @@ describe('createCrudSignalStore', () => {
 
       store.loadList({ page: 0, rows: 10 });
 
-      expect(store.listStatus()).toBe(OperationStatus.Failure);
+      expect(store.listStatus()).toBe('failure');
     });
   });
 
@@ -132,7 +132,7 @@ describe('createCrudSignalStore', () => {
 
       store.loadGet('1');
 
-      expect(store.getStatus()).toBe(OperationStatus.Success);
+      expect(store.getStatus()).toBe('success');
       expect(store.getResponse().data).toEqual(response.data);
     });
 
@@ -141,18 +141,18 @@ describe('createCrudSignalStore', () => {
       mockRest.get.mockReturnValue(subject.asObservable());
 
       store.loadGet('1');
-      expect(store.getStatus()).toBe(OperationStatus.InProgress);
+      expect(store.getStatus()).toBe('inProgress');
 
       subject.next({ control: {}, data: { id: '1', name: 'Item' } });
       subject.complete();
 
-      expect(store.getStatus()).toBe(OperationStatus.Success);
+      expect(store.getStatus()).toBe('success');
     });
 
     it('should set status to Failure when query is empty', () => {
       store.loadGet('');
 
-      expect(store.getStatus()).toBe(OperationStatus.Failure);
+      expect(store.getStatus()).toBe('failure');
     });
 
     it('should set status to Failure on error', () => {
@@ -164,7 +164,7 @@ describe('createCrudSignalStore', () => {
 
       store.loadGet('1');
 
-      expect(store.getStatus()).toBe(OperationStatus.Failure);
+      expect(store.getStatus()).toBe('failure');
     });
   });
 
@@ -180,7 +180,7 @@ describe('createCrudSignalStore', () => {
 
       store.loadAdd(request);
 
-      expect(store.addStatus()).toBe(OperationStatus.Success);
+      expect(store.addStatus()).toBe('success');
       expect(store.addResponse().data).toEqual(response.data);
     });
 
@@ -189,12 +189,12 @@ describe('createCrudSignalStore', () => {
       mockRest.add.mockReturnValue(subject.asObservable());
 
       store.loadAdd({ name: 'Item' });
-      expect(store.addStatus()).toBe(OperationStatus.InProgress);
+      expect(store.addStatus()).toBe('inProgress');
 
       subject.next({ control: {}, data: { id: '1', name: 'Item' } });
       subject.complete();
 
-      expect(store.addStatus()).toBe(OperationStatus.Success);
+      expect(store.addStatus()).toBe('success');
     });
 
     it('should set status to Failure on error', () => {
@@ -212,7 +212,7 @@ describe('createCrudSignalStore', () => {
 
       store.loadAdd({ name: 'Bad Item' });
 
-      expect(store.addStatus()).toBe(OperationStatus.Failure);
+      expect(store.addStatus()).toBe('failure');
     });
   });
 
@@ -228,7 +228,7 @@ describe('createCrudSignalStore', () => {
 
       store.loadUpdate('1', request);
 
-      expect(store.updateStatus()).toBe(OperationStatus.Success);
+      expect(store.updateStatus()).toBe('success');
       expect(store.updateResponse().data).toEqual(response.data);
     });
 
@@ -237,18 +237,18 @@ describe('createCrudSignalStore', () => {
       mockRest.update.mockReturnValue(subject.asObservable());
 
       store.loadUpdate('1', { name: 'Item' });
-      expect(store.updateStatus()).toBe(OperationStatus.InProgress);
+      expect(store.updateStatus()).toBe('inProgress');
 
       subject.next({ control: {}, data: { id: '1', name: 'Item' } });
       subject.complete();
 
-      expect(store.updateStatus()).toBe(OperationStatus.Success);
+      expect(store.updateStatus()).toBe('success');
     });
 
     it('should set status to Failure when query is empty', () => {
       store.loadUpdate('', { name: 'Item' });
 
-      expect(store.updateStatus()).toBe(OperationStatus.Failure);
+      expect(store.updateStatus()).toBe('failure');
     });
 
     it('should set status to Failure on error', () => {
@@ -266,7 +266,7 @@ describe('createCrudSignalStore', () => {
 
       store.loadUpdate('1', { name: 'Item' });
 
-      expect(store.updateStatus()).toBe(OperationStatus.Failure);
+      expect(store.updateStatus()).toBe('failure');
     });
   });
 
@@ -276,7 +276,7 @@ describe('createCrudSignalStore', () => {
 
       store.loadDelete('1');
 
-      expect(store.deleteStatus()).toBe(OperationStatus.Success);
+      expect(store.deleteStatus()).toBe('success');
       expect(store.deleteResponse().data).toBe('1');
     });
 
@@ -285,18 +285,18 @@ describe('createCrudSignalStore', () => {
       mockRest.delete.mockReturnValue(subject.asObservable());
 
       store.loadDelete('1');
-      expect(store.deleteStatus()).toBe(OperationStatus.InProgress);
+      expect(store.deleteStatus()).toBe('inProgress');
 
       subject.next({ control: {}, data: '1' });
       subject.complete();
 
-      expect(store.deleteStatus()).toBe(OperationStatus.Success);
+      expect(store.deleteStatus()).toBe('success');
     });
 
     it('should set status to Failure when query is empty', () => {
       store.loadDelete('');
 
-      expect(store.deleteStatus()).toBe(OperationStatus.Failure);
+      expect(store.deleteStatus()).toBe('failure');
     });
 
     it('should set status to Failure on error', () => {
@@ -314,7 +314,7 @@ describe('createCrudSignalStore', () => {
 
       store.loadDelete('1');
 
-      expect(store.deleteStatus()).toBe(OperationStatus.Failure);
+      expect(store.deleteStatus()).toBe('failure');
     });
   });
 
@@ -325,7 +325,7 @@ describe('createCrudSignalStore', () => {
       store.getMutate(response);
 
       expect(store.getResponse().data).toEqual(response);
-      expect(store.getStatus()).toBe(OperationStatus.Initial);
+      expect(store.getStatus()).toBe('initial');
     });
   });
 
@@ -333,48 +333,48 @@ describe('createCrudSignalStore', () => {
     it('should reset list state', () => {
       mockRest.list.mockReturnValue(of({ control: {}, data: [{ id: '1', name: 'Item' }] }));
       store.loadList({ page: 0, rows: 10 });
-      expect(store.listStatus()).toBe(OperationStatus.Success);
+      expect(store.listStatus()).toBe('success');
 
       store.resetList();
-      expect(store.listStatus()).toBe(OperationStatus.Initial);
+      expect(store.listStatus()).toBe('initial');
       expect(store.listResponse().data).toEqual([]);
     });
 
     it('should reset get state', () => {
       mockRest.get.mockReturnValue(of({ control: {}, data: { id: '1', name: 'Item' } }));
       store.loadGet('1');
-      expect(store.getStatus()).toBe(OperationStatus.Success);
+      expect(store.getStatus()).toBe('success');
 
       store.resetGet();
-      expect(store.getStatus()).toBe(OperationStatus.Initial);
+      expect(store.getStatus()).toBe('initial');
       expect(store.getResponse().data).toEqual({});
     });
 
     it('should reset add state', () => {
       mockRest.add.mockReturnValue(of({ control: {}, data: { id: '1', name: 'Item' } }));
       store.loadAdd({ name: 'Item' });
-      expect(store.addStatus()).toBe(OperationStatus.Success);
+      expect(store.addStatus()).toBe('success');
 
       store.resetAdd();
-      expect(store.addStatus()).toBe(OperationStatus.Initial);
+      expect(store.addStatus()).toBe('initial');
     });
 
     it('should reset update state', () => {
       mockRest.update.mockReturnValue(of({ control: {}, data: { id: '1', name: 'Item' } }));
       store.loadUpdate('1', { name: 'Item' });
-      expect(store.updateStatus()).toBe(OperationStatus.Success);
+      expect(store.updateStatus()).toBe('success');
 
       store.resetUpdate();
-      expect(store.updateStatus()).toBe(OperationStatus.Initial);
+      expect(store.updateStatus()).toBe('initial');
     });
 
     it('should reset delete state', () => {
       mockRest.delete.mockReturnValue(of({ control: {}, data: '1' } as any));
       store.loadDelete('1');
-      expect(store.deleteStatus()).toBe(OperationStatus.Success);
+      expect(store.deleteStatus()).toBe('success');
 
       store.resetDelete();
-      expect(store.deleteStatus()).toBe(OperationStatus.Initial);
+      expect(store.deleteStatus()).toBe('initial');
     });
 
     it('should reset all states', () => {
@@ -385,11 +385,11 @@ describe('createCrudSignalStore', () => {
 
       store.resetAll();
 
-      expect(store.listStatus()).toBe(OperationStatus.Initial);
-      expect(store.getStatus()).toBe(OperationStatus.Initial);
-      expect(store.addStatus()).toBe(OperationStatus.Initial);
-      expect(store.updateStatus()).toBe(OperationStatus.Initial);
-      expect(store.deleteStatus()).toBe(OperationStatus.Initial);
+      expect(store.listStatus()).toBe('initial');
+      expect(store.getStatus()).toBe('initial');
+      expect(store.addStatus()).toBe('initial');
+      expect(store.updateStatus()).toBe('initial');
+      expect(store.deleteStatus()).toBe('initial');
     });
   });
 

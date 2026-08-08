@@ -1,14 +1,14 @@
 @switch (type()) {
-  @case (DataType.Index) {
+  @case ('index') {
     {{ value() + 1 }}
   }
-  @case (DataType.Boolean) {
+  @case ('boolean') {
     <ng-container *ngTemplateOutlet="handleBoolean" />
   }
-  @case (DataType.Datetime) {
+  @case ('datetime') {
     {{ value() | date: format() || 'medium' }}
   }
-  @case (DataType.Currency) {
+  @case ('currency') {
     {{ value() | currency: format() || 'CAD' }}
   }
   @default {

@@ -2,9 +2,8 @@ import { NgClass, NgTemplateOutlet } from '@angular/common';
 import { Component, effect, inject, signal, untracked } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { OperationStatus } from '@nucleus/common';
 import { injectAuthStore } from '@nucleus/core';
-import { LocaleUtil, type NuLangDir } from '@nucleus/l10n';
+import { type LangDirType, LocaleUtil } from '@nucleus/l10n';
 import { Panel, PanelManager } from '@nucleus/panel';
 import { type UiMenuItemModel, UiMenuItems, UiMessage, UiMessageManager } from '@nucleus/ui';
 import { ConfirmationService } from 'primeng/api';
@@ -46,7 +45,7 @@ export class App {
 
   readonly isUserAuthenticated = signal(false);
   readonly showLoading = signal(false);
-  readonly htmlDir = signal<NuLangDir>('ltr');
+  readonly htmlDir = signal<LangDirType>('ltr');
   readonly navExtent = this.#panelManager.navExtent;
 
   constructor() {
@@ -70,16 +69,16 @@ export class App {
   #handleEvents() {
     effect(() => {
       const status = this.#authStore.checkStatus();
-      if (status === OperationStatus.Success) {
+      if (status === 'success') {
         this.isUserAuthenticated.set(true);
-      } else if (status === OperationStatus.Failure) {
+      } else if (status === 'failure') {
         this.isUserAuthenticated.set(false);
       }
     });
 
     effect(() => {
       const status = this.#authStore.signOutStatus();
-      this.showLoading.set(status === OperationStatus.InProgress);
+      this.showLoading.set(status === 'inProgress');
     });
   }
 

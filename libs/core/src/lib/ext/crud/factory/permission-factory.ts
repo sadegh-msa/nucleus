@@ -1,19 +1,17 @@
-import { ToolType } from '../enums/toolbar.enum';
+import type { ToolType } from '../types/toolbar.type';
 
-const { List, Edit, Add, View, Delete } = ToolType;
-
-const list = List.toLowerCase();
-const view = View.toLowerCase();
-const add = Add.toLowerCase();
-const edit = Edit.toLowerCase();
-const pDelete = Delete.toLowerCase();
+const list = 'list';
+const view = 'view';
+const add = 'add';
+const edit = 'edit';
+const tDelete = 'delete';
 
 export function createActionPermissions(fullPath: string[]): Partial<Record<ToolType, string>> {
   return {
-    [List]: [...fullPath, list].join('.').replace('/.', ''),
-    [View]: [...fullPath, view].join('.').replace('/.', ''),
-    [Add]: [...fullPath, add].join('.').replace('/.', ''),
-    [Edit]: [...fullPath, edit].join('.').replace('/.', ''),
-    [Delete]: [...fullPath, pDelete].join('.').replace('/.', ''),
+    [list]: [...fullPath, list].join('.').replace('/.', ''),
+    [view]: [...fullPath, view].join('.').replace('/.', ''),
+    [add]: [...fullPath, add].join('.').replace('/.', ''),
+    [edit]: [...fullPath, edit].join('.').replace('/.', ''),
+    [tDelete]: [...fullPath, tDelete].join('.').replace('/.', ''),
   };
 }

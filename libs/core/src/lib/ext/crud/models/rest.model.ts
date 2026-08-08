@@ -1,5 +1,10 @@
-import type { ListOrder } from '../enums/list-order.enum';
+import type { ListOrderType } from '../types/list.type';
 import type { PaginationModel } from './pagination.model';
+
+export interface RestMethodParamsModel {
+  endpoint: string;
+  dateFields: string[];
+}
 
 export interface RestResponseModel<Data, Control> {
   data: Data;
@@ -21,7 +26,7 @@ export interface RestErrorModel {
 export interface RestListQueryModel {
   page?: number;
   rows?: number;
-  order?: Record<string, ListOrder>;
+  order?: Record<string, ListOrderType>;
   filter?: unknown;
   fields?: string[];
 }

@@ -35,8 +35,4 @@ describe('FieldValue', () => {
     fixture.detectChanges();
     expect(fixture.nativeElement.textContent).toContain('Hello World');
   });
-
-  it('should have DataType available', () => {
-    expect(component.DataType).toBeTruthy();
-  });
 });

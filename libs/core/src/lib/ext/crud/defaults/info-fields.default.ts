@@ -1,22 +1,21 @@
-import { DataType } from '@nucleus/common';
 import type { InfoFieldModel } from '../models/info.model';
 
 export const infoFieldsDefault = Object.freeze([
-  [{ field: 'id', label: $localize`ID`, type: DataType.Text, separator: ':' }],
+  [{ field: 'id', label: $localize`ID`, type: 'text', separator: ':' }],
   [
     {
       field: 'updatedVersion',
       label: $localize`Updated Version`,
-      type: DataType.Numeric,
+      type: 'numeric',
       separator: ':',
     },
   ],
   [
-    { field: 'createdBy', label: $localize`Created By`, type: DataType.Text },
-    { field: 'createdAt', label: $localize`At`, type: DataType.Datetime, format: 'medium' },
+    { field: 'createdBy', label: $localize`Created By`, type: 'text' },
+    { field: 'createdAt', label: $localize`At`, type: 'datetime', format: 'medium' },
   ],
   [
-    { field: 'updatedBy', label: $localize`Updated By`, type: DataType.Text },
-    { field: 'updatedAt', label: $localize`At`, type: DataType.Datetime, format: 'medium' },
+    { field: 'updatedBy', label: $localize`Updated By`, type: 'text' },
+    { field: 'updatedAt', label: $localize`At`, type: 'datetime', format: 'medium' },
   ],
 ]) as InfoFieldModel[][];

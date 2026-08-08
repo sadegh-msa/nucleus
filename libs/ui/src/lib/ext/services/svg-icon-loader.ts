@@ -1,6 +1,6 @@
 import { inject, Service } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
-import { OperationStatus, sleepRandom, TemporaryStorage } from '@nucleus/common';
+import { sleepRandom, TemporaryStorage } from '@nucleus/common';
 import { injectUiConfig } from '../providers';
 import type { UiIconVariant } from '../types';
 
@@ -19,7 +19,7 @@ export class UiSvgIconLoader {
 
     let retrying = 0;
 
-    while (cachedSvg === OperationStatus.Initial && retrying <= RETRYING_TIMES) {
+    while (cachedSvg === 'initial' && retrying <= RETRYING_TIMES) {
       cachedSvg = this.#temporaryStorage.getItem(storageKey)?.trim();
       await sleepRandom();
       retrying++;
@@ -29,7 +29,7 @@ export class UiSvgIconLoader {
       return cachedSvg;
     }
 
-    this.#temporaryStorage.setItem(storageKey, OperationStatus.Initial);
+    this.#temporaryStorage.setItem(storageKey, 'initial');
 
     try {
       const url = this.#createIconUrl(variant, icon);

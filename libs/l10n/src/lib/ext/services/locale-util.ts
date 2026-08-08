@@ -1,6 +1,6 @@
 import { DOCUMENT } from '@angular/common';
 import { computed, inject, Service, signal } from '@angular/core';
-import type { NuLang, NuLangDir } from '../types/lang.type';
+import type { LangDirType, LangType } from '../types/lang.type';
 
 @Service()
 export class LocaleUtil {
@@ -18,8 +18,8 @@ export class LocaleUtil {
     }
   });
 
-  readonly #lang = signal<NuLang>(this.#getDocumentLang());
-  readonly #dir = signal<NuLangDir>(this.#getDocumentDir());
+  readonly #lang = signal<LangType>(this.#getDocumentLang());
+  readonly #dir = signal<LangDirType>(this.#getDocumentDir());
 
   isLtr = computed(() => this.#dir() === 'ltr');
   isRtl = computed(() => this.#dir() === 'rtl');
@@ -47,18 +47,18 @@ export class LocaleUtil {
   }
 
   #getDocumentLang() {
-    return this.#document.documentElement.lang as NuLang;
+    return this.#document.documentElement.lang as LangType;
   }
 
   #getDocumentDir() {
-    return this.#document.documentElement.dir.toLowerCase() as NuLangDir;
+    return this.#document.documentElement.dir.toLowerCase() as LangDirType;
   }
 
-  setLang(lang: NuLang) {
+  setLang(lang: LangType) {
     this.#document.documentElement.lang = lang;
   }
 
-  setDir(dir: NuLangDir) {
+  setDir(dir: LangDirType) {
     this.#document.documentElement.dir = dir;
   }
 }

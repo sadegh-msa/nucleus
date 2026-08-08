@@ -12,7 +12,7 @@ import {
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { NavigationStart, Router, RouterLink } from '@angular/router';
-import { type ExtentType, mergeDeepLeft, mergeDeepRight, SafeHtml } from '@nucleus/common';
+import { mergeDeepLeft, mergeDeepRight, SafeHtml } from '@nucleus/common';
 import { filter, map } from 'rxjs/operators';
 import { uiDefaultConfig } from '../../../int/configs';
 import { uiStyleClass } from '../../../int/constants';
@@ -20,7 +20,7 @@ import { UiPopover, UiRipple, UiSvgIcon, UiTooltip } from '../../directives';
 import { uniquifyStyleClass } from '../../helpers';
 import type { UiMenuItemModel } from '../../models';
 import { UiCssSupport } from '../../services';
-import type { UiMenuModeType, UiMenuSubModeType, UiPlacementType } from '../../types';
+import type { ExtentType, UiMenuModeType, UiMenuSubModeType, UiPlacementType } from '../../types';
 
 const menuConfig = uiDefaultConfig.menu;
 const menuStyleClass = uiStyleClass.menu;

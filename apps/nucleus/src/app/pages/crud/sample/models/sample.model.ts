@@ -1,5 +1,5 @@
 import type { CommonFieldsModel, CrudConfigModel, TypedFormModel } from '@nucleus/core';
-import type { SampleStatus } from '../enums/sample-status.enum';
+import type { SampleStatusType } from '../types/sample.type';
 
 export interface SampleDetailModel {
   id: string;
@@ -18,7 +18,7 @@ export interface SampleFormModel {
   title: string;
   date: Date;
   description: string;
-  status: SampleStatus;
+  status: SampleStatusType;
   details: SampleDetailModel[];
   divisionId: string;
 }

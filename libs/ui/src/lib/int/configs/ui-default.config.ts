@@ -1,5 +1,5 @@
-import type { ExtentType } from '@nucleus/common';
 import type { UiPopoverModel } from '../../ext/models/popover.model';
+import type { ExtentType } from '../../ext/types/extent.type';
 import type { UiIconVariant } from '../../ext/types/icon.type';
 import type { UiMenuModeType, UiMenuSubModeType } from '../../ext/types/menu.type';
 import type { UiPlacementType } from '../../ext/types/placement.type';

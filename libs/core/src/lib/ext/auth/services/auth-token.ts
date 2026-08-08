@@ -1,6 +1,6 @@
 import { computed, effect, inject, resource, Service, untracked } from '@angular/core';
 import { NavigationCancel, Router } from '@angular/router';
-import { CookieManager, OperationStatus, PermanentStorage, sleepRandom } from '@nucleus/common';
+import { CookieManager, PermanentStorage, sleepRandom } from '@nucleus/common';
 import { debounceTime, filter, fromEvent, map, skipWhile } from 'rxjs';
 import { authInternalConfig } from '../../../int/auth/configs';
 import { injectAuthConfig } from '../providers/auth-config-provider';
@@ -21,7 +21,7 @@ export class AuthToken {
 
   readonly #accessTokenResource = resource({
     loader: () => this.#fetchAccessToken(),
-    defaultValue: OperationStatus.Initial,
+    defaultValue: 'initial',
   });
   readonly isAuthenticated = computed(async () => !!(await this.getAccessToken()));
 
@@ -33,8 +33,6 @@ export class AuthToken {
   }
 
   #handleEvents() {
-    const { Success, Failure } = OperationStatus;
-
     this.#router.events
       .pipe(
         filter((v) => v instanceof NavigationCancel),
@@ -50,13 +48,13 @@ export class AuthToken {
       const status = this.#authStore.checkStatus();
 
       untracked(() => {
-        if (status === Success) {
+        if (status === 'success') {
           const requestedUrl = this.#restoreRequestedUrl();
 
           if (requestedUrl) {
             this.#redirectToApp(!this.isAuthRouteActivated(requestedUrl));
           }
-        } else if (status === Failure) {
+        } else if (status === 'failure') {
           if (!this.isAuthRouteActivated(location.pathname)) {
             this.#redirectToApp(false, ['/', routesConfig.signIn.path]);
           }
@@ -68,9 +66,9 @@ export class AuthToken {
       const { status, response } = this.#authStore.signInState();
 
       untracked(() => {
-        if (status === Success) {
+        if (status === 'success') {
           this.#handleSignInSuccess(response.token.accessToken);
-        } else if (status === Failure) {
+        } else if (status === 'failure') {
           this.#handleAuthFailure();
         }
       });
@@ -80,9 +78,9 @@ export class AuthToken {
       const { status, response } = this.#authStore.signUpState();
 
       untracked(() => {
-        if (status === Success) {
+        if (status === 'success') {
           this.#handleSignUpSuccess(response.token.accessToken);
-        } else if (status === Failure) {
+        } else if (status === 'failure') {
           this.#handleAuthFailure();
         }
       });
@@ -92,7 +90,7 @@ export class AuthToken {
       const { status } = this.#authStore.signOutState();
 
       untracked(() => {
-        if (status === Success) {
+        if (status === 'success') {
           this.#handleSignOutSuccess();
         }
       });
@@ -186,7 +184,7 @@ export class AuthToken {
   async getAccessToken() {
     let accessToken = this.#accessTokenResource.value();
 
-    while (accessToken === OperationStatus.Initial) {
+    while (accessToken === 'initial') {
       accessToken = this.#accessTokenResource.value();
       await sleepRandom();
     }

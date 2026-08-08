@@ -1,9 +1,6 @@
 import { computed, DOCUMENT, inject, Service, signal } from '@angular/core';
 import type { SetTimeoutType } from '@nucleus/common';
-
-const sizes = ['sm', 'md', 'lg', 'xl', 'xxl', 'tablet', 'web'] as const;
-type Size = (typeof sizes)[number];
-type Window = { height: number; width: number; fontSize: number };
+import type { ScreenSizeType } from '../types/screen.type';
 
 @Service()
 export class UiScreen {
@@ -17,14 +14,14 @@ export class UiScreen {
     xxl: 96,
     tablet: 40,
     web: 64,
-  } as Readonly<Record<Size, number>>;
+  } as Readonly<Record<ScreenSizeType, number>>;
 
-  readonly #window = signal<Window>(this.#getWindow());
+  readonly #windowInfo = signal(this.#getWindowInfo());
   readonly breakpoints = computed(() => {
-    const { width, height, fontSize } = this.#window();
+    const { width, height, fontSize } = this.#windowInfo();
     const { sm, md, lg, xl, xxl, tablet, web } = Object.fromEntries(
       Object.entries(this.#breakpointsRem).map(([s, v]) => [s, v * fontSize]),
-    ) as Record<Size, number>;
+    ) as Record<ScreenSizeType, number>;
 
     return {
       isXs: width <= sm,
@@ -52,12 +49,12 @@ export class UiScreen {
     new ResizeObserver(() => {
       clearTimeout(this.#windowTimer);
       this.#windowTimer = setTimeout(() => {
-        this.#window.set(this.#getWindow());
+        this.#updateWindowInfo();
       }, 100);
     }).observe(this.#document.body);
   }
 
-  #getWindow() {
+  #getWindowInfo() {
     const computedStyle = window.getComputedStyle(this.#document.body, null);
     const fontSize = Number.parseFloat(computedStyle.getPropertyValue('font-size'));
 
@@ -66,5 +63,9 @@ export class UiScreen {
       height: window.screen.availHeight,
       width: window.screen.availWidth,
     };
+  }
+
+  #updateWindowInfo() {
+    this.#windowInfo.set(this.#getWindowInfo());
   }
 }

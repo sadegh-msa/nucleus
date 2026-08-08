@@ -1,6 +1,7 @@
 import { inject, Service, signal } from '@angular/core';
 import { NavigationEnd, Router, Scroll } from '@angular/router';
 import { isUUID } from '@nucleus/common';
+import type { RouterStateModel } from '@nucleus/core';
 import type { UiMenuItemModel } from '@nucleus/ui';
 import { filter, map } from 'rxjs';
 
@@ -60,7 +61,7 @@ export class PanelBreadcrumb {
       .subscribe(routeObserver);
   }
 
-  #update(routeUrl: string, routeState?: Record<string, string>) {
+  #update(routeUrl: string, routeState?: RouterStateModel) {
     const url = new URL(routeUrl, location.origin);
     const urlSegments = url.pathname.split('/').filter((v) => v?.length);
 
@@ -86,7 +87,7 @@ export class PanelBreadcrumb {
       let label = labels[i];
 
       if (i === urlSegments.length - 1 && hasId) {
-        label = routeState?.['title'] || '...';
+        label = routeState?.title || '...';
       }
 
       items.push({ label, routerLink });

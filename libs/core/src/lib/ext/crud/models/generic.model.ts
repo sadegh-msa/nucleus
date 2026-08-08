@@ -7,7 +7,7 @@ import type {
   ListStateModel,
   UpdateStateModel,
 } from '../../store/models/signal-store.model';
-import type { PageType } from '../enums/page.enum';
+import type { PageType } from '../types/page.type';
 import type { CrudConfigModel } from './crud-config.model';
 import type { PaginationModel } from './pagination.model';
 import type { TableModel } from './table.model';
@@ -29,15 +29,15 @@ export interface CrudStoreModel {
   delete(): DeleteStateModel;
 
   // Computed signals
-  listStatus(): OperationStatus;
+  listStatus(): OperationStatusType;
   listResponse(): RestListResponseModel<GenericResponseModel>;
-  getStatus(): OperationStatus;
+  getStatus(): OperationStatusType;
   getResponse(): RestGetResponseModel<GenericResponseModel>;
-  addStatus(): OperationStatus;
+  addStatus(): OperationStatusType;
   addResponse(): RestAddResponseModel<GenericResponseModel>;
-  updateStatus(): OperationStatus;
+  updateStatus(): OperationStatusType;
   updateResponse(): RestUpdateResponseModel<GenericResponseModel>;
-  deleteStatus(): OperationStatus;
+  deleteStatus(): OperationStatusType;
   deleteResponse(): RestDeleteResponseModel;
 
   // Methods
@@ -55,7 +55,7 @@ export interface CrudStoreModel {
   resetAll(): void;
 }
 
-import type { OperationStatus } from '@nucleus/common';
+import type { OperationStatusType } from '@nucleus/common';
 import type {
   RestAddResponseModel,
   RestDeleteResponseModel,

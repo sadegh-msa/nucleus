@@ -7,9 +7,9 @@ import type {
   RestGetResponseModel,
   RestListQueryModel,
   RestListResponseModel,
+  RestMethodParamsModel,
   RestUpdateResponseModel,
 } from '../models/rest.model';
-import type { RestServiceParamsModel } from '../models/rest-service.model';
 import { RestApi } from '../services/rest-api';
 
 function convertDateOperator<Response>(dateFields: string[]) {
@@ -18,7 +18,7 @@ function convertDateOperator<Response>(dateFields: string[]) {
 
 export function createListRestMethod<T extends GenericEntityModel>({
   endpoint,
-}: RestServiceParamsModel) {
+}: RestMethodParamsModel) {
   type Query = RestListQueryModel;
   type Response = RestListResponseModel<T['list']>;
   const service = inject(RestApi);
@@ -34,7 +34,7 @@ export function createListRestMethod<T extends GenericEntityModel>({
 export function createGetRestMethod<T extends GenericEntityModel>({
   endpoint,
   dateFields,
-}: RestServiceParamsModel) {
+}: RestMethodParamsModel) {
   type Query = string;
   type Response = RestGetResponseModel<T['full']>;
   const service = inject(RestApi);
@@ -48,7 +48,7 @@ export function createGetRestMethod<T extends GenericEntityModel>({
 export function createAddRestMethod<T extends GenericEntityModel>({
   endpoint,
   dateFields,
-}: RestServiceParamsModel) {
+}: RestMethodParamsModel) {
   type Request = T['add'];
   type Response = RestAddResponseModel<T['full']>;
   const service = inject(RestApi);
@@ -64,7 +64,7 @@ export function createAddRestMethod<T extends GenericEntityModel>({
 export function createUpdateRestMethod<T extends GenericEntityModel>({
   endpoint,
   dateFields,
-}: RestServiceParamsModel) {
+}: RestMethodParamsModel) {
   type Request = T['update'];
   type Response = RestUpdateResponseModel<T['full']>;
   const service = inject(RestApi);
@@ -79,7 +79,7 @@ export function createUpdateRestMethod<T extends GenericEntityModel>({
 
 export function createDeleteRestMethod<_T extends GenericEntityModel>({
   endpoint,
-}: RestServiceParamsModel) {
+}: RestMethodParamsModel) {
   type Query = string;
   type Response = RestDeleteResponseModel;
   const service = inject(RestApi);

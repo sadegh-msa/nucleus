@@ -1,7 +1,7 @@
 import { provideHttpClient } from '@angular/common/http';
 import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
-import { OperationStatus, provideNuCommonConfig } from '@nucleus/common';
+import { provideNuCommonConfig } from '@nucleus/common';
 import { provideUiConfig } from '@nucleus/ui';
 import { MOCK_NU_COMMON_CONFIG, MOCK_UI_CONFIG, setupGlobalMocks } from '@test-mocks';
 import { provideAuthConfig } from '../providers/auth-config-provider';
@@ -37,10 +37,10 @@ describe('AuthStore', () => {
 
   describe('initial state', () => {
     it('should have Initial status for all states', () => {
-      expect(authStore.checkStatus()).toBe(OperationStatus.Initial);
-      expect(authStore.signInStatus()).toBe(OperationStatus.Initial);
-      expect(authStore.signUpStatus()).toBe(OperationStatus.Initial);
-      expect(authStore.signOutStatus()).toBe(OperationStatus.Initial);
+      expect(authStore.checkStatus()).toBe('initial');
+      expect(authStore.signInStatus()).toBe('initial');
+      expect(authStore.signUpStatus()).toBe('initial');
+      expect(authStore.signOutStatus()).toBe('initial');
     });
 
     it('should not be check success initially', () => {
@@ -49,31 +49,31 @@ describe('AuthStore', () => {
 
     it('should return empty initial states', () => {
       const signInState = authStore.signInState();
-      expect(signInState.status).toBe(OperationStatus.Initial);
+      expect(signInState.status).toBe('initial');
       expect(signInState.response.token.accessToken).toBeNull();
 
       const signUpState = authStore.signUpState();
-      expect(signUpState.status).toBe(OperationStatus.Initial);
+      expect(signUpState.status).toBe('initial');
       expect(signUpState.response.token.accessToken).toBeNull();
 
       const signOutState = authStore.signOutState();
-      expect(signOutState.status).toBe(OperationStatus.Initial);
+      expect(signOutState.status).toBe('initial');
 
       const checkState = authStore.checkState();
-      expect(checkState.status).toBe(OperationStatus.Initial);
+      expect(checkState.status).toBe('initial');
     });
   });
 
   describe('checkSuccess / checkFailure', () => {
     it('should set check status to Success', () => {
       authStore.checkSuccess();
-      expect(authStore.checkStatus()).toBe(OperationStatus.Success);
+      expect(authStore.checkStatus()).toBe('success');
       expect(authStore.isCheckSuccess()).toBe(true);
     });
 
     it('should set check status to Failure', () => {
       authStore.checkFailure();
-      expect(authStore.checkStatus()).toBe(OperationStatus.Failure);
+      expect(authStore.checkStatus()).toBe('failure');
       expect(authStore.isCheckSuccess()).toBe(false);
     });
   });
@@ -83,12 +83,12 @@ describe('AuthStore', () => {
       const request = { email: 'test@test.com', password: 'pass123' };
 
       authStore.signIn(request);
-      expect(authStore.signInStatus()).toBe(OperationStatus.InProgress);
+      expect(authStore.signInStatus()).toBe('inProgress');
 
       const req = httpMock.expectOne((r) => r.url.includes('signin'));
       req.flush({ accessToken: 'token-123', refreshToken: 'refresh-123' });
 
-      expect(authStore.signInStatus()).toBe(OperationStatus.Success);
+      expect(authStore.signInStatus()).toBe('success');
       expect(authStore.signInResponse().token.accessToken).toBe('token-123');
     });
 
@@ -109,7 +109,7 @@ describe('AuthStore', () => {
         { status: 401, statusText: 'Unauthorized' },
       );
 
-      expect(authStore.signInStatus()).toBe(OperationStatus.Failure);
+      expect(authStore.signInStatus()).toBe('failure');
     });
   });
 
@@ -118,12 +118,12 @@ describe('AuthStore', () => {
       const request = { email: 'new@test.com', password: 'pass123' };
 
       authStore.signUp(request);
-      expect(authStore.signUpStatus()).toBe(OperationStatus.InProgress);
+      expect(authStore.signUpStatus()).toBe('inProgress');
 
       const req = httpMock.expectOne((r) => r.url.includes('signup'));
       req.flush({ accessToken: 'token-456', refreshToken: 'refresh-456' });
 
-      expect(authStore.signUpStatus()).toBe(OperationStatus.Success);
+      expect(authStore.signUpStatus()).toBe('success');
       expect(authStore.signUpResponse().token.accessToken).toBe('token-456');
     });
 
@@ -138,7 +138,7 @@ describe('AuthStore', () => {
         { status: 400, statusText: 'Bad Request' },
       );
 
-      expect(authStore.signUpStatus()).toBe(OperationStatus.Failure);
+      expect(authStore.signUpStatus()).toBe('failure');
     });
   });
 
@@ -148,13 +148,13 @@ describe('AuthStore', () => {
       expect(authStore.isCheckSuccess()).toBe(true);
 
       authStore.signOut();
-      expect(authStore.signOutStatus()).toBe(OperationStatus.InProgress);
+      expect(authStore.signOutStatus()).toBe('inProgress');
 
       const req = httpMock.expectOne((r) => r.url.includes('logout'));
       req.flush({});
 
-      expect(authStore.signOutStatus()).toBe(OperationStatus.Success);
-      expect(authStore.checkStatus()).toBe(OperationStatus.Initial);
+      expect(authStore.signOutStatus()).toBe('success');
+      expect(authStore.checkStatus()).toBe('initial');
       expect(authStore.isCheckSuccess()).toBe(false);
     });
 
@@ -167,7 +167,7 @@ describe('AuthStore', () => {
         { status: 500, statusText: 'Server Error' },
       );
 
-      expect(authStore.signOutStatus()).toBe(OperationStatus.Failure);
+      expect(authStore.signOutStatus()).toBe('failure');
     });
   });
 });

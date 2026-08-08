@@ -1,5 +1,3 @@
-export * from './enums/data-type.enum';
-export * from './enums/operation-status.enum';
 export * from './models/branding-config.model';
 export * from './models/common-config.model';
 export * from './models/password.model';
@@ -13,9 +11,10 @@ export * from './services/cryptograph';
 export * from './services/password-validator';
 export * from './services/permanent-storage';
 export * from './services/temporary-storage';
-export * from './types/extent.type';
+export * from './types/data.type';
 export * from './types/form.type';
 export * from './types/global.type';
+export * from './types/operation.type';
 export * from './utils/apply-mixins-util';
 export * from './utils/object-util';
 export * from './utils/time-util';

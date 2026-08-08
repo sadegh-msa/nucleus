@@ -1,7 +1,7 @@
 import { Component, computed, effect, signal, untracked } from '@angular/core';
 import { email, FormField, form, maxLength, required, validate } from '@angular/forms/signals';
 import { RouterLink } from '@angular/router';
-import { OperationStatus, type PasswordStrengthModel } from '@nucleus/common';
+import type { PasswordStrengthModel } from '@nucleus/common';
 import {
   UiFormField,
   UiInputPassword,
@@ -97,7 +97,7 @@ export class SignUp {
       const status = this.#authStore.signUpStatus();
 
       untracked(() => {
-        this.isSubmitting.set(status === OperationStatus.InProgress);
+        this.isSubmitting.set(status === 'inProgress');
       });
     });
   }

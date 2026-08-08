@@ -41,8 +41,4 @@ describe('SampleForm', () => {
   it('should have config', () => {
     expect(component.config).toBeTruthy();
   });
-
-  it('should have PageType enum', () => {
-    expect(component.PageType).toBeTruthy();
-  });
 });

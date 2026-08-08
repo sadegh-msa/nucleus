@@ -18,7 +18,7 @@ import {
   parse as jParse,
 } from 'date-fns-jalali';
 import { l10nInternalConfig } from '../../int/configs';
-import type { NuLang } from '../types/lang.type';
+import type { LangType } from '../types/lang.type';
 import { LocaleUtil } from './locale-util';
 
 const dateConfig = l10nInternalConfig.date;
@@ -27,7 +27,7 @@ const dateConfig = l10nInternalConfig.date;
 export class DateUtil {
   readonly #localeUtil = inject(LocaleUtil);
 
-  readonly #defaultFormatStr: Record<NuLang, Record<'input' | 'output', string>> = {
+  readonly #defaultFormatStr: Record<LangType, Record<'input' | 'output', string>> = {
     'en-US': {
       input: 'MM/dd/yyyy HH:mm',
       output: 'MMM d, yyyy HH:mm',
@@ -37,7 +37,7 @@ export class DateUtil {
       output: 'd MMMM yyyy HH:mm',
     },
   };
-  readonly #locales: Record<NuLang, Locale> = {
+  readonly #locales: Record<LangType, Locale> = {
     'en-US': enUS,
     fa: faIR,
   };

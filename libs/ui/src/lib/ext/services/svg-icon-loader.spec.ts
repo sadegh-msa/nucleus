@@ -1,5 +1,5 @@
 import { TestBed } from '@angular/core/testing';
-import { OperationStatus, TemporaryStorage } from '@nucleus/common';
+import { TemporaryStorage } from '@nucleus/common';
 import { afterEach, vi } from 'vitest';
 import { provideUiConfig } from '../providers';
 import { UiSvgIconLoader } from './svg-icon-loader';
@@ -83,8 +83,8 @@ describe('UiSvgIconLoader', () => {
       expect(result).toBeNull();
     });
 
-    it('should use OperationStatus.Initial when cache exists but is not an SVG', async () => {
-      storage.setItem('uiSvgIcon.bold.user', OperationStatus.Initial);
+    it('should use initial status when cache exists but is not an SVG', async () => {
+      storage.setItem('uiSvgIcon.bold.user', 'initial');
       const svgContent = '<svg viewBox="0 0 24 24"><rect/></svg>';
       vi.spyOn(globalThis, 'fetch').mockResolvedValue({
         ok: true,

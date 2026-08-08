@@ -1,4 +1,4 @@
-import type { OperationStatus } from '@nucleus/common';
+import type { OperationStatusType } from '@nucleus/common';
 import type { Observable } from 'rxjs';
 import type {
   RestAddResponseModel,
@@ -14,7 +14,7 @@ export interface ListStateModel<Query, Response> {
   query: Query;
   response: RestListResponseModel<Response[]>;
   message: string;
-  status: OperationStatus;
+  status: OperationStatusType;
 }
 
 export interface GetStateModel<Response> {
@@ -22,7 +22,7 @@ export interface GetStateModel<Response> {
   query: string;
   response: RestGetResponseModel<Response>;
   message: string;
-  status: OperationStatus;
+  status: OperationStatusType;
 }
 
 export interface AddStateModel<Request, Response> {
@@ -30,7 +30,7 @@ export interface AddStateModel<Request, Response> {
   request: Request;
   response: RestAddResponseModel<Response>;
   message: string;
-  status: OperationStatus;
+  status: OperationStatusType;
 }
 
 export interface UpdateStateModel<Request, Response> {
@@ -39,7 +39,7 @@ export interface UpdateStateModel<Request, Response> {
   request: Request;
   response: RestUpdateResponseModel<Response>;
   message: string;
-  status: OperationStatus;
+  status: OperationStatusType;
 }
 
 export interface DeleteStateModel {
@@ -47,7 +47,7 @@ export interface DeleteStateModel {
   query: string;
   response: RestDeleteResponseModel;
   message: string;
-  status: OperationStatus;
+  status: OperationStatusType;
 }
 
 export interface CrudStoreStateModel<Query, Request, Response> {

@@ -32,8 +32,8 @@
   <ng-template let-i="rowIndex" let-row pTemplate="body">
     <tr
       [ngClass]="{
-        'table-activation':
-          activated() && (activated() || {})[idField()] === (row || {})[idField()],
+      'table-activation':
+      activated() && (activated() || {})[idField()] === (row || {})[idField()],
       }"
     >
       @if (!data().length && showLoading()) {
@@ -65,16 +65,16 @@
 
         @for (column of table().columns; track column.field) {
           <td (click)="activateRow(row)" [ngClass]="column.ngClass || []">
-            <nu-field-value [value]="column.type === DataType.Index ? firstRow() + i : row[column.field]"
+            <nu-field-value [value]="column.type === 'index' ? firstRow() + i : row[column.field]"
               [type]="column.type"
               [format]="column.format"
-             />
+            />
           </td>
         }
 
         <td class="table-tools">
           @for (tool of table().tools; track tool.key) {
-            @if (tool.element === ToolElement.Button) {
+            @if (tool.element === 'button') {
               <button
                 #toolElement
                 (click)="runCommand(toolElement, tool, row)"
@@ -95,13 +95,13 @@
               @if (tool.confirm) {
                 <p-confirmPopup [key]="tool.key + row[idField()]" />
               }
-            } @else if (tool.element === ToolElement.Link) {
+            } @else if (tool.element === 'link') {
               <a
                 [ngClass]="tool.ngClass || []"
                 [routerLink]="tool.command(row)"
                 [state]="(tool.createRouterStates && tool.createRouterStates(row)) || {}"
                 [queryParams]="
-                  (tool.createRouterQueryParams && tool.createRouterQueryParams(row)) || {}
+                (tool.createRouterQueryParams && tool.createRouterQueryParams(row)) || {}
                 "
                 [uiTooltip]="tool.tooltip" uiTooltipPlacement="block-end-inline-center"
                 *permission="tool.permission"

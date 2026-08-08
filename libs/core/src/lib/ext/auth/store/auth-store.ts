@@ -1,6 +1,5 @@
 import { computed, InjectionToken, inject, type Provider } from '@angular/core';
 import { patchState, signalStore, withComputed, withMethods, withState } from '@ngrx/signals';
-import { OperationStatus } from '@nucleus/common';
 import { UiMessageManager } from '@nucleus/ui';
 import { formatErrorMessage } from '../../crud/helpers/format-messages-helper';
 import type {
@@ -11,23 +10,21 @@ import type {
 } from '../models/auth-store.model';
 import { AuthRest } from '../services/auth-rest';
 
-const { Initial, InProgress, Success, Failure } = OperationStatus;
-
 const initialAuthState: AuthStoreStateModel = {
   signIn: {
     request: { email: '', password: '' },
     response: { token: { accessToken: null, refreshToken: null } },
     message: '',
-    status: Initial,
+    status: 'initial',
   },
   signUp: {
     request: { email: '', password: '' },
     response: { token: { accessToken: null, refreshToken: null } },
     message: '',
-    status: Initial,
+    status: 'initial',
   },
-  signOut: { message: '', status: Initial },
-  check: { status: Initial },
+  signOut: { message: '', status: 'initial' },
+  check: { status: 'initial' },
 };
 
 const AUTH_STORE = new InjectionToken<AuthStoreModel>('AuthStore');
@@ -41,7 +38,7 @@ const AuthSignalStore = signalStore(
     signInStatus: computed(() => state.signIn().status),
     signUpStatus: computed(() => state.signUp().status),
     signOutStatus: computed(() => state.signOut().status),
-    isCheckSuccess: computed(() => state.check().status === Success),
+    isCheckSuccess: computed(() => state.check().status === 'success'),
     signInResponse: computed(() => state.signIn().response),
     signUpResponse: computed(() => state.signUp().response),
   })),
@@ -52,7 +49,7 @@ const AuthSignalStore = signalStore(
 
     return {
       doSignIn(request: AuthSignInModel) {
-        patchState(state, { signIn: { ...state.signIn(), request, status: InProgress } });
+        patchState(state, { signIn: { ...state.signIn(), request, status: 'inProgress' } });
         authRestService.signIn(request).subscribe({
           next: (response) => {
             patchState(state, {
@@ -60,60 +57,60 @@ const AuthSignalStore = signalStore(
                 ...state.signIn(),
                 response,
                 message: $localize`You signed in successfully`,
-                status: Success,
+                status: 'success',
               },
             });
           },
           error: ({ error }: { error: any }) => {
             const message = formatErrorMessage(error);
             uiMessageManager.addError(message);
-            patchState(state, { signIn: { ...state.signIn(), message, status: Failure } });
+            patchState(state, { signIn: { ...state.signIn(), message, status: 'failure' } });
           },
         });
       },
 
       doSignUp(request: AuthSignUpModel) {
-        patchState(state, { signUp: { ...state.signUp(), request, status: InProgress } });
+        patchState(state, { signUp: { ...state.signUp(), request, status: 'inProgress' } });
         authRestService.signUp(request).subscribe({
           next: (response) => {
             const message = $localize`You signed up successfully`;
             uiMessageManager.addSuccess(message);
             patchState(state, {
-              signUp: { ...state.signUp(), response, message, status: Success },
+              signUp: { ...state.signUp(), response, message, status: 'success' },
             });
           },
           error: ({ error }: { error: any }) => {
             const message = formatErrorMessage(error);
             uiMessageManager.addError(message);
-            patchState(state, { signUp: { ...state.signUp(), message, status: Failure } });
+            patchState(state, { signUp: { ...state.signUp(), message, status: 'failure' } });
           },
         });
       },
 
       doSignOut() {
-        patchState(state, { signOut: { ...state.signOut(), status: InProgress } });
+        patchState(state, { signOut: { ...state.signOut(), status: 'inProgress' } });
         authRestService.signOut().subscribe({
           next: () => {
             const message = $localize`You signed out successfully`;
             patchState(state, {
               ...initialAuthState,
-              signOut: { ...initialAuthState.signOut, message, status: Success },
+              signOut: { ...initialAuthState.signOut, message, status: 'success' },
             });
           },
           error: ({ error }: { error: any }) => {
             const message = formatErrorMessage(error);
             uiMessageManager.addError(message);
-            patchState(state, { signOut: { ...state.signOut(), message, status: Failure } });
+            patchState(state, { signOut: { ...state.signOut(), message, status: 'failure' } });
           },
         });
       },
 
       doCheckSuccess() {
-        patchState(state, { check: { status: Success } });
+        patchState(state, { check: { status: 'success' } });
       },
 
       doCheckFailure() {
-        patchState(state, { check: { status: Failure } });
+        patchState(state, { check: { status: 'failure' } });
       },
     };
   }),

@@ -5,7 +5,6 @@ import { UiSvgIcon, UiTooltip } from '@nucleus/ui';
 import { ConfirmationService } from 'primeng/api';
 import { ConfirmPopupModule } from 'primeng/confirmpopup';
 import { AuthPermission } from '../../../auth';
-import { ToolElement } from '../../enums/toolbar.enum';
 import type { ToolbarModel, ToolModel } from '../../models/toolbar.model';
 
 @Component({
@@ -15,8 +14,6 @@ import type { ToolbarModel, ToolModel } from '../../models/toolbar.model';
 })
 export class GenericToolbar {
   readonly #confirmationService = inject(ConfirmationService);
-
-  readonly ToolElement = ToolElement;
 
   toolbar = input.required<ToolbarModel>();
 

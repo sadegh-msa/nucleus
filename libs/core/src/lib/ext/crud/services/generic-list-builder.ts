@@ -1,10 +1,9 @@
 import { DestroyRef, effect, Injector, inject, Service, signal } from '@angular/core';
 import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, Router } from '@angular/router';
-import { mergeAll, OperationStatus } from '@nucleus/common';
+import { mergeAll } from '@nucleus/common';
 import { filter, pairwise } from 'rxjs';
 import { crudInternalConfig } from '../../../int/crud/configs';
-import { ToolType } from '../enums/toolbar.enum';
 import { createPagination } from '../factory/pagination-factory';
 import { createListToolbar } from '../factory/toolbar-factory';
 import type { GenericEntityModel, GenericListConsumerModel } from '../models/generic.model';
@@ -74,7 +73,7 @@ export class GenericListBuilder<T extends GenericEntityModel> {
       .subscribe(() => this.#updateUrl());
 
     table.events$?.pipe(takeUntilDestroyed(this.#destroyRef)).subscribe(({ tool, payload }) => {
-      if (tool.type === ToolType.Delete) {
+      if (tool.type === 'delete') {
         this.delete(tool, payload as string);
       }
     });
@@ -84,10 +83,10 @@ export class GenericListBuilder<T extends GenericEntityModel> {
     effect(
       () => {
         const { response, status, tool } = this.#consumer.store.list();
-        tool?.showLoading?.set(status === OperationStatus.InProgress);
-        this.#consumer.isDataLoading.set(status === OperationStatus.InProgress);
+        tool?.showLoading?.set(status === 'inProgress');
+        this.#consumer.isDataLoading.set(status === 'inProgress');
 
-        if (status === OperationStatus.Success) {
+        if (status === 'success') {
           this.#handleLoadDataResponse(response);
         }
       },
@@ -99,9 +98,9 @@ export class GenericListBuilder<T extends GenericEntityModel> {
     effect(
       () => {
         const { status, tool, query } = this.#consumer.store.delete();
-        tool?.showLoading?.set(status === OperationStatus.InProgress ? query : false);
+        tool?.showLoading?.set(status === 'inProgress' ? query : false);
 
-        if (status === OperationStatus.Success) {
+        if (status === 'success') {
           this.loadData();
         }
       },
@@ -136,12 +135,12 @@ export class GenericListBuilder<T extends GenericEntityModel> {
 
   createToolbar(attachEventHandler: boolean) {
     const toolbar = createListToolbar<T>(this.#consumer.config, {
-      [ToolType.Refresh]: { showLoading: signal(false) },
+      ['refresh']: { showLoading: signal(false) },
     });
 
     if (attachEventHandler) {
       toolbar.events$?.pipe(takeUntilDestroyed(this.#destroyRef)).subscribe(({ tool }) => {
-        if (tool.type === ToolType.Refresh) {
+        if (tool.type === 'refresh') {
           this.loadData(tool);
         }
       });

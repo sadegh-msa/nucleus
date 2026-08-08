@@ -5,14 +5,14 @@ import {
   createGetRestMethod,
   createListRestMethod,
   createUpdateRestMethod,
-  type RestServiceParamsModel,
+  type RestMethodParamsModel,
 } from '@nucleus/core';
 import type { SampleGenericModel } from '../models/sample-generic.model';
 import { sampleConfig } from '../sample.config';
 
 @Service()
 export class SampleRest {
-  readonly #args: RestServiceParamsModel = {
+  readonly #args: RestMethodParamsModel = {
     endpoint: sampleConfig.rest.endpoint,
     dateFields: sampleConfig.field.dates,
   };
