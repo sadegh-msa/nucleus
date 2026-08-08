@@ -8,6 +8,7 @@
     "circular:libs": "madge --circular --extensions ts --image libs-circular.svg ./libs",
     "e2e": "nx run nucleus-e2e:e2e",
     "e2e:ui": "nx run nucleus-e2e:e2e -- --ui",
+    "e2e:update-snapshots": "nx run nucleus-e2e:e2e -- --update-snapshots",
     "format": "biome check --write $(git status --porcelain | grep -E '^\\s*[AM?]' | awk '{print $2}')",
     "format:all": "biome check --write",
     "lint": "nx affected -t lint --batch",
