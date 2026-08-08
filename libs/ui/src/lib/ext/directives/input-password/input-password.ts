@@ -11,11 +11,14 @@ import {
 } from '@angular/core';
 import { FormField } from '@angular/forms/signals';
 import { type PasswordStrengthModel, PasswordValidator } from '@nucleus/common';
+import { uiStyleClass } from '../../../int/constants/style-constant';
+
+const passwordStyleClass = uiStyleClass.password;
 
 @Directive({
   selector: '[uiInputPassword]',
   host: {
-    class: 'ui input password',
+    '[class]': 'styleClass',
   },
 })
 export class UiInputPassword implements OnInit {
@@ -23,6 +26,8 @@ export class UiInputPassword implements OnInit {
   readonly #elementRef = inject(ElementRef);
   readonly #formField = inject(FormField);
   readonly #passwordValidator = inject(PasswordValidator);
+
+  readonly styleClass = passwordStyleClass.input.basic;
 
   passwordToConfirm = input<string | null>();
 

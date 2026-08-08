@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Service } from '@angular/core';
 import { map } from 'rxjs';
+import { authInternalConfig } from '../../../int/auth/configs';
 import { RestApi } from '../../crud/services/rest-api'; // Possibility of circular dependency
-import { authDefaultConfig } from '../auth-default.config';
 import type {
   AuthSignInModel,
   AuthSignInResponseModel,
@@ -15,7 +15,7 @@ export class AuthRest {
   readonly #httpClient = inject(HttpClient);
   readonly #restApi = inject(RestApi);
 
-  readonly endpoint = authDefaultConfig.rest.endpoint;
+  readonly endpoint = authInternalConfig.rest.endpoint;
 
   createUrl(...paths: string[]) {
     return this.#restApi.createUrl(this.endpoint, ...paths);

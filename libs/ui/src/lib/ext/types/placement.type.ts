@@ -1,4 +1,4 @@
-export const uiPlacement = [
+export const uiPlacements = [
   'auto',
   'block-auto-corner-auto',
   'block-start-corner-auto',
@@ -32,4 +32,4 @@ export const uiPlacement = [
   'block-end-inline-end',
   'block-end-corner-end',
 ] as const;
-export type UiPlacement = (typeof uiPlacement)[number];
+export type UiPlacementType = (typeof uiPlacements)[number];

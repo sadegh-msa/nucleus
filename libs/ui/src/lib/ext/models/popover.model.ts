@@ -1,11 +1,11 @@
 import type { TemplateRef, WritableSignal } from '@angular/core';
-import type { UiPlacement } from '../types';
+import type { UiPlacementType } from '../types';
 
 export interface UiPopoverModel {
   content: string | TemplateRef<unknown> | null | undefined;
   templateData?: unknown;
   styleClass: string;
-  placement: UiPlacement;
+  placement: UiPlacementType;
   hasBubble: boolean;
   hasArrow: boolean;
   hasClose: boolean;
@@ -13,5 +13,3 @@ export interface UiPopoverModel {
   visible: WritableSignal<boolean>;
   attachTo: 'parent' | 'body' | HTMLElement;
 }
-
-export type TriggerEventModel = 'click' | 'focus' | 'hover';

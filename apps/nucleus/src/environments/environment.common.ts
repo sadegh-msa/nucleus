@@ -56,11 +56,13 @@ export const environment = {
     },
   },
   crypto: {
+    // For more information visit:
+    // https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto/encrypt
     algorithm: {
-      name: 'AES-CTR',
+      name: 'AES-CTR', // 'AES-CTR' | 'AES-CBC' | 'AES-GCM'
       length: 128,
     },
-    secureKey: 'RnZhS1OkJsgwq72xAp854NcdC1GvmIvI', // length === 32
+    secureKey: 'NZhLt97oidYmfB3A', // length === 16
   },
   languages: {
     'en-US': 'English - US',

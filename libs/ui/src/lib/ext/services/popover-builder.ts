@@ -1,36 +1,32 @@
 import { DOCUMENT, ElementRef, type Injector, inject, Service } from '@angular/core';
-import type { SetTimeout } from '@nucleus/common';
+import type { SetTimeoutType } from '@nucleus/common';
+import { eventMap, uiStyleClass } from '../../int/constants';
 import { UiPopoverPositioner } from '../../int/services/popover-positioner';
 import { UiPopoverRenderer } from '../../int/services/popover-renderer';
-import type { TriggerEventModel, UiPopoverModel } from '../models';
+import type { UiPopoverModel } from '../models';
+import type { TriggerEventType } from '../types/trigger.type';
 
-const EVENT_MAP: Record<TriggerEventModel, keyof HTMLElementEventMap> = Object.freeze({
-  click: 'pointerup',
-  focus: 'focus',
-  hover: 'pointerenter',
-});
+const popoverStyleClass = uiStyleClass.popover;
 
 @Service()
 export class UiPopoverBuilder {
   readonly #uiPopoverPositioner = inject(UiPopoverPositioner);
   readonly #uiPopoverRenderer = inject(UiPopoverRenderer);
 
-  readonly EVENT_MAP = EVENT_MAP;
-
-  render(injector: Injector, triggerEvent: TriggerEventModel, popover: UiPopoverModel) {
+  render(injector: Injector, triggerEvent: TriggerEventType, popover: UiPopoverModel) {
     return this.#uiPopoverRenderer.render(injector, triggerEvent, popover);
   }
 
   handleTriggerEvents(
     injector: Injector,
-    triggerEvent: TriggerEventModel,
+    triggerEvent: TriggerEventType,
     popover: UiPopoverModel,
     getPopoverElement: () => HTMLElement | undefined,
   ) {
     const document = injector.get(DOCUMENT);
     const elementRef = injector.get(ElementRef);
     const triggerElement = elementRef.nativeElement as HTMLElement;
-    const eventType = EVENT_MAP[triggerEvent];
+    const eventType = eventMap.popover.opener[triggerEvent];
 
     const observer = new IntersectionObserver(
       () => {
@@ -48,13 +44,14 @@ export class UiPopoverBuilder {
     observer.observe(triggerElement);
 
     const triggerAbortController = new AbortController();
-    let docPointerupAbortController: AbortController;
-    let docPointermoveAbortController: AbortController;
-    let docFocusoutAbortController: AbortController;
+    let clickClosureAbortController: AbortController;
+    let focusClosureAbortController: AbortController;
+    let hoverClosureAbortController: AbortController;
 
     const removeEventListeners = () => {
-      docPointerupAbortController?.abort();
-      docPointermoveAbortController?.abort();
+      clickClosureAbortController?.abort();
+      focusClosureAbortController?.abort();
+      hoverClosureAbortController?.abort();
     };
     const addEventListeners = () => {
       const popoverElement = getPopoverElement();
@@ -67,15 +64,15 @@ export class UiPopoverBuilder {
       this.#uiPopoverPositioner.defineCssVars(injector, popoverElement);
 
       if (!popover.hasClose) {
-        docPointerupAbortController = new AbortController();
+        clickClosureAbortController = new AbortController();
 
         document.body.addEventListener(
-          'pointerup',
+          eventMap.popover.closure.click,
           (pointerEvent) => {
             const isInsideEvent = this.#uiPopoverPositioner.isInsideEvent(
               injector,
               popoverElement,
-              pointerEvent,
+              pointerEvent as PointerEvent,
             );
 
             if (popover.visible() && !isInsideEvent) {
@@ -83,30 +80,34 @@ export class UiPopoverBuilder {
             }
           },
           {
-            signal: docPointerupAbortController.signal,
+            signal: clickClosureAbortController.signal,
           },
         );
       }
 
       if (triggerEvent === 'focus') {
-        docFocusoutAbortController = new AbortController();
-
-        document.body.addEventListener('focusout', () => popover.visible.set(false), {
-          signal: docFocusoutAbortController.signal,
-        });
-      } else if (triggerEvent === 'hover') {
-        let timeout: SetTimeout;
-        docPointermoveAbortController = new AbortController();
+        focusClosureAbortController = new AbortController();
 
         document.body.addEventListener(
-          'pointermove',
+          eventMap.popover.closure.focus,
+          () => popover.visible.set(false),
+          {
+            signal: focusClosureAbortController.signal,
+          },
+        );
+      } else if (triggerEvent === 'hover') {
+        let timeout: SetTimeoutType;
+        hoverClosureAbortController = new AbortController();
+
+        document.body.addEventListener(
+          eventMap.popover.closure.hover,
           (pointerEvent) => {
             clearTimeout(timeout);
             timeout = setTimeout(() => {
               const isInsideEvent = this.#uiPopoverPositioner.isInsideEvent(
                 injector,
                 popoverElement,
-                pointerEvent,
+                pointerEvent as PointerEvent,
               );
 
               if (popover.visible() && !isInsideEvent) {
@@ -115,7 +116,7 @@ export class UiPopoverBuilder {
             }, popover.closeDelay ?? 0);
           },
           {
-            signal: docPointermoveAbortController.signal,
+            signal: hoverClosureAbortController.signal,
           },
         );
       }
@@ -153,17 +154,18 @@ export class UiPopoverBuilder {
   }
 
   showPopover(popoverElement: HTMLElement) {
-    popoverElement.classList.remove('numb', 'transparent');
+    popoverElement.classList.remove(...popoverStyleClass.invisibility);
   }
 
   hidePopover(popoverElement: HTMLElement) {
-    popoverElement.classList.add('numb', 'transparent');
+    popoverElement.classList.add(...popoverStyleClass.invisibility);
   }
 
-  dispatchTriggerEvent(injector: Injector, triggerEvent: TriggerEventModel) {
+  dispatchTriggerEvent(injector: Injector, triggerEvent: TriggerEventType) {
     const elementRef = injector.get(ElementRef);
     const triggerElement = elementRef.nativeElement as HTMLElement;
-    const eventType = EVENT_MAP[triggerEvent];
+    const eventType = eventMap.popover.opener[triggerEvent];
+
     triggerElement.dispatchEvent(new Event(eventType));
   }
 }

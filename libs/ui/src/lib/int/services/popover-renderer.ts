@@ -8,28 +8,14 @@ import {
   TemplateRef,
   ViewContainerRef,
 } from '@angular/core';
-import { VisualObserver } from '../../ext/helpers/viz-observer';
-import type { TriggerEventModel, UiPopoverModel } from '../../ext/models';
+import { uniquifyStyleClass, VisualObserver } from '../../ext/helpers';
+import type { UiPopoverModel } from '../../ext/models';
+import type { TriggerEventType } from '../../ext/types/trigger.type';
+import { getCloseSvg, uiStyleClass, uiStyleId } from '../constants';
 import { UiPopoverPositioner } from './popover-positioner';
 
-const CSS = Object.freeze({
-  ID: {
-    CONTAINER: 'ui-popover-container',
-  },
-  CLASS: {
-    POPOVER: 'ui popover',
-    BUBBLE: 'bubble',
-    ARROW: 'bubble-arrow',
-    CLOSE: 'ui button emphasis stamp tiny rounded-full bubble-close',
-    INVISIBLE: 'transparent',
-    NUMB: 'numb',
-  },
-});
-
-const SVG = Object.freeze({
-  CLOSE:
-    '<svg class="ui icon linear" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"> <path d="M 3.150239,3.150239 20.849761,20.849761" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" /> <path d="M 20.99993,3.0000696 3.0000696,20.99993" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" /> </svg>',
-});
+const popoverStyleClass = uiStyleClass.popover;
+const bubbleStyleClass = uiStyleClass.bubble;
 
 @Service()
 export class UiPopoverRenderer {
@@ -37,7 +23,7 @@ export class UiPopoverRenderer {
 
   render(
     injector: Injector,
-    triggerEvent: TriggerEventModel,
+    triggerEvent: TriggerEventType,
     {
       content,
       templateData,
@@ -55,21 +41,25 @@ export class UiPopoverRenderer {
     const viewContainerRef = injector.get(ViewContainerRef);
     const elementRef = injector.get(ElementRef);
     const popoverElement = renderer.createElement('div');
-    const allStyleClass = [
-      CSS.CLASS.NUMB,
-      CSS.CLASS.INVISIBLE,
-      CSS.CLASS.POPOVER,
-      hasBubble ? CSS.CLASS.BUBBLE : '',
+    const styleClassAggregation = uniquifyStyleClass(
+      uiStyleClass.prefix,
+      popoverStyleClass.basic,
+      ...popoverStyleClass.invisibility,
+      hasBubble ? bubbleStyleClass.basic : '',
       styleClass,
       placement,
-    ].join(' ');
+    );
 
-    renderer.setAttribute(popoverElement, 'class', allStyleClass);
+    renderer.setAttribute(popoverElement, 'class', styleClassAggregation);
 
     if (content instanceof TemplateRef) {
-      const embeddedViewRef = viewContainerRef.createEmbeddedView(content, {
-        data: templateData,
-      });
+      const embeddedViewRef = viewContainerRef.createEmbeddedView(
+        content,
+        {
+          data: templateData,
+        },
+        { injector },
+      );
       embeddedViewRef.rootNodes.forEach((node: HTMLElement) => {
         renderer.appendChild(popoverElement, node);
       });
@@ -83,14 +73,14 @@ export class UiPopoverRenderer {
     if (hasBubble) {
       if (hasArrow) {
         const bubbleArrow = renderer.createElement('i');
-        renderer.setAttribute(bubbleArrow, 'class', CSS.CLASS.ARROW);
+        renderer.setAttribute(bubbleArrow, 'class', bubbleStyleClass.arrow);
         renderer.appendChild(popoverElement, bubbleArrow);
       }
 
       if (triggerEvent === 'click' && hasClose) {
         const bubbleClose = renderer.createElement('button');
-        renderer.setAttribute(bubbleClose, 'class', CSS.CLASS.CLOSE);
-        renderer.setProperty(bubbleClose, 'innerHTML', SVG.CLOSE);
+        renderer.setAttribute(bubbleClose, 'class', bubbleStyleClass.close);
+        renderer.setProperty(bubbleClose, 'innerHTML', getCloseSvg());
         renderer.setProperty(bubbleClose, 'onclick', () => visible.set(false));
         renderer.appendChild(popoverElement, bubbleClose);
       }
@@ -100,11 +90,12 @@ export class UiPopoverRenderer {
     let container = renderer.parentNode(triggerElement);
 
     if (attachTo === 'body') {
-      container = document.getElementById(CSS.ID.CONTAINER);
+      const containerId = uiStyleId.popover.container;
+      container = document.getElementById(containerId);
 
       if (!container) {
         container = renderer.createElement('div');
-        container.setAttribute('id', CSS.ID.CONTAINER);
+        container.setAttribute('id', containerId);
         renderer.appendChild(document.body, container);
       }
 
@@ -116,7 +107,7 @@ export class UiPopoverRenderer {
       renderer.appendChild(container, popoverElement);
     }
 
-    const isSubPopover = popoverElement.parentElement?.classList.contains(CSS.CLASS.POPOVER);
+    const isSubPopover = popoverElement.parentElement?.classList.contains(popoverStyleClass.basic);
     const triggerVisualObserver = isSubPopover
       ? null
       : new VisualObserver(() => {

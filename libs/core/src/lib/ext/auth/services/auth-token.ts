@@ -2,9 +2,12 @@ import { computed, effect, inject, resource, Service, untracked } from '@angular
 import { NavigationCancel, Router } from '@angular/router';
 import { CookieManager, OperationStatus, PermanentStorage, sleepRandom } from '@nucleus/common';
 import { debounceTime, filter, fromEvent, map, skipWhile } from 'rxjs';
-import { authDefaultConfig } from '../auth-default.config';
+import { authInternalConfig } from '../../../int/auth/configs';
 import { injectAuthConfig } from '../providers/auth-config-provider';
 import { injectAuthStore } from '../store/auth-store';
+
+const routesConfig = authInternalConfig.routes;
+const tokenConfig = authInternalConfig.token;
 
 @Service()
 export class AuthToken {
@@ -14,11 +17,7 @@ export class AuthToken {
   readonly #authStore = injectAuthStore();
   readonly #authConfig = injectAuthConfig();
 
-  readonly #COOKIE_ACCESS_TOKEN_KEY = 'aat';
-  readonly #REQUESTED_URL_KEY = 'requestedUrl';
-  readonly #REMEMBER_ME_EXPIRY_MINUTES = this.#authConfig.rememberMeExpiry || 7 * 24 * 60;
-  readonly #DEADLINE_EXTENDER_TIME = 60 * 1000;
-  readonly #AUTH_PATHS = Object.values(authDefaultConfig.routes).map((i) => i.path);
+  readonly #authPaths = Object.values(routesConfig).map((i) => i.path);
 
   readonly #accessTokenResource = resource({
     loader: () => this.#fetchAccessToken(),
@@ -59,7 +58,7 @@ export class AuthToken {
           }
         } else if (status === Failure) {
           if (!this.isAuthRouteActivated(location.pathname)) {
-            this.#redirectToApp(false, ['/', authDefaultConfig.routes.signIn.path]);
+            this.#redirectToApp(false, ['/', routesConfig.signIn.path]);
           }
         }
       });
@@ -124,11 +123,11 @@ export class AuthToken {
   }
 
   #storeRequestedUrl(url: string) {
-    this.#permanentStorage.setItem(this.#REQUESTED_URL_KEY, url);
+    this.#permanentStorage.setItem(tokenConfig.requestedUrlKey, url);
   }
 
   #restoreRequestedUrl() {
-    return this.#permanentStorage.getItem(this.#REQUESTED_URL_KEY) || '';
+    return this.#permanentStorage.getItem(tokenConfig.requestedUrlKey) || '';
   }
 
   #redirectToApp(loadRequestedUrl = false, path = ['/']) {
@@ -150,7 +149,7 @@ export class AuthToken {
     fromEvent(document, 'click')
       .pipe(
         skipWhile(() => !this.isAuthenticated()),
-        debounceTime(this.#DEADLINE_EXTENDER_TIME),
+        debounceTime(tokenConfig.deadlineExtenderTime),
       )
       .subscribe(async () => {
         await this.setAccessToken((await this.getAccessToken()) || null);
@@ -162,7 +161,7 @@ export class AuthToken {
   }
 
   async #fetchAccessToken() {
-    return (await this.#cookieManager.getItem(this.#COOKIE_ACCESS_TOKEN_KEY)) || null;
+    return (await this.#cookieManager.getItem(tokenConfig.cookieAccessTokenKey)) || null;
   }
 
   async #checkToken() {
@@ -177,9 +176,9 @@ export class AuthToken {
 
   async setAccessToken(accessToken: string | null) {
     await this.#cookieManager.setItem(
-      this.#COOKIE_ACCESS_TOKEN_KEY,
+      tokenConfig.cookieAccessTokenKey,
       accessToken,
-      this.#REMEMBER_ME_EXPIRY_MINUTES,
+      this.#authConfig.rememberMeExpiry,
     );
     this.#reloadAccessToken();
   }
@@ -196,12 +195,12 @@ export class AuthToken {
   }
 
   async deleteAccessToken() {
-    await this.#cookieManager.deleteItem(this.#COOKIE_ACCESS_TOKEN_KEY);
+    await this.#cookieManager.deleteItem(tokenConfig.cookieAccessTokenKey);
     this.#reloadAccessToken();
   }
 
   isAuthRouteActivated(url: string) {
     const path = url.split('/')?.at(-1)?.split('#')[0];
-    return !!path && this.#AUTH_PATHS.includes(path);
+    return !!path && this.#authPaths.includes(path);
   }
 }

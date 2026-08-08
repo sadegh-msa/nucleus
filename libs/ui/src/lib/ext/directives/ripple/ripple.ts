@@ -1,7 +1,13 @@
 import { booleanAttribute, Directive, ElementRef, inject, input, Renderer2 } from '@angular/core';
-import type { SetTimeout } from '@nucleus/common';
+import type { SetTimeoutType } from '@nucleus/common';
+import { uiDefaultConfig } from '../../../int/configs';
+import { uiStyleClass, uiStyleVar } from '../../../int/constants';
 
 type Pointer = 'pointer-down' | 'pointer-up';
+
+const rippleConfig = uiDefaultConfig.ripple;
+const rippleStyleClass = uiStyleClass.ripple;
+const rippleStyleClassBasicArray = rippleStyleClass.basic.split(' ');
 
 @Directive({
   selector: '[uiRipple]',
@@ -17,27 +23,19 @@ export class UiRipple {
   readonly #elementRef = inject(ElementRef);
   readonly #renderer = inject(Renderer2);
 
-  readonly #DURATION = 1000;
-  readonly #TAG = 's';
-  readonly #UI_STYLE_CLASS = 'ui';
-  readonly #RIPPLE_STYLE_CLASS = 'ripple';
-  readonly #FINISH_STYLE_CLASS = 'finish';
-
-  isEnabled = input(true, { alias: 'uiRipple', transform: booleanAttribute });
-  #timeoutHandler?: SetTimeout;
+  #timeoutHandler?: SetTimeoutType;
   #lastEvent: Pointer | null = null;
   #ripple?: HTMLElement;
 
+  isEnabled = input(true, { alias: 'uiRipple', transform: booleanAttribute });
+
   #setRippleVar(element: HTMLElement, name: string, value: string) {
-    element.style.setProperty(
-      `--${this.#UI_STYLE_CLASS}-${this.#RIPPLE_STYLE_CLASS}-${name}`,
-      value,
-    );
+    element.style.setProperty(`${uiStyleVar.ripple}-${name}`, value);
   }
 
   #clearHostElement() {
     const hostElement = this.#elementRef.nativeElement;
-    const oldRipples = hostElement.getElementsByClassName(this.#RIPPLE_STYLE_CLASS);
+    const oldRipples = hostElement.getElementsByClassName(rippleStyleClass.basic);
 
     while (oldRipples[0]) {
       oldRipples[0].parentNode.removeChild(oldRipples[0]);
@@ -57,12 +55,12 @@ export class UiRipple {
       clearTimeout(this.#timeoutHandler);
 
       const ripple = this.#ripple;
-      ripple.classList.remove(this.#lastEvent, this.#FINISH_STYLE_CLASS);
-      ripple.classList.add(pointer, this.#FINISH_STYLE_CLASS);
+      ripple.classList.remove(this.#lastEvent, rippleStyleClass.ending);
+      ripple.classList.add(pointer, rippleStyleClass.ending);
 
       this.#timeoutHandler = setTimeout(() => {
         ripple.remove();
-      }, this.#DURATION);
+      }, rippleConfig.duration);
       this.#ripple = undefined;
 
       return;
@@ -71,8 +69,8 @@ export class UiRipple {
     this.#clearHostElement();
 
     const hostElement = this.#elementRef.nativeElement;
-    const ripple = this.#renderer.createElement(this.#TAG);
-    ripple.classList.add(this.#UI_STYLE_CLASS, this.#RIPPLE_STYLE_CLASS, pointer);
+    const ripple = this.#renderer.createElement(rippleConfig.tag);
+    ripple.classList.add(...rippleStyleClassBasicArray, pointer);
 
     this.#renderer.appendChild(hostElement, ripple);
 
@@ -82,7 +80,7 @@ export class UiRipple {
     this.#setRippleVar(ripple, 'top', layerY > -1 ? `${layerY - size / 2}px` : 'auto');
     this.#setRippleVar(ripple, 'height', `${size}px`);
     this.#setRippleVar(ripple, 'width', `${size}px`);
-    ripple.classList.add(this.#FINISH_STYLE_CLASS);
+    ripple.classList.add(rippleStyleClass.ending);
 
     this.#ripple = ripple;
   }

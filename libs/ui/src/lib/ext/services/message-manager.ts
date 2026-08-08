@@ -1,18 +1,21 @@
 import { Service, signal } from '@angular/core';
+import { uiDefaultConfig } from '../../int/configs';
 import type { UiMessageModel } from '../models';
 import { injectUiConfig } from '../providers';
+
+const messageConfig = uiDefaultConfig.message;
 
 @Service()
 export class UiMessageManager {
   readonly #uiConfig = injectUiConfig();
-
-  readonly #DEFAULT_DURATION = this.#uiConfig.message.duration || 5000;
 
   #key = 0;
   #messages = signal<Map<number, UiMessageModel>>(new Map());
   get messages() {
     return this.#messages;
   }
+
+  readonly duration = this.#uiConfig.message.duration || messageConfig.duration;
 
   #createTitle(message: UiMessageModel) {
     switch (message.variant) {
@@ -39,7 +42,7 @@ export class UiMessageManager {
 
     setTimeout(() => {
       this.remove(key);
-    }, message.duration || this.#DEFAULT_DURATION);
+    }, message.duration || this.duration);
 
     return key;
   }

@@ -12,12 +12,18 @@ import {
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { NavigationStart, Router, RouterLink } from '@angular/router';
-import { type Extent, mergeDeepLeft, mergeDeepRight, SafeHtml } from '@nucleus/common';
+import { type ExtentType, mergeDeepLeft, mergeDeepRight, SafeHtml } from '@nucleus/common';
 import { filter, map } from 'rxjs/operators';
+import { uiDefaultConfig } from '../../../int/configs';
+import { uiStyleClass } from '../../../int/constants';
 import { UiPopover, UiRipple, UiSvgIcon, UiTooltip } from '../../directives';
+import { uniquifyStyleClass } from '../../helpers';
 import type { UiMenuItemModel } from '../../models';
 import { UiCssSupport } from '../../services';
-import type { UiPlacement } from '../../types';
+import type { UiMenuModeType, UiMenuSubModeType, UiPlacementType } from '../../types';
+
+const menuConfig = uiDefaultConfig.menu;
+const menuStyleClass = uiStyleClass.menu;
 
 @Component({
   selector: 'menu[uiMenuItems]',
@@ -44,43 +50,46 @@ export class UiMenuItems {
   readonly #uiCssSupport = inject(UiCssSupport);
 
   uiMenuItems = input.required<UiMenuItemModel[]>();
-  popoverPlacement = input<UiPlacement>('inline-end-edge-end');
-  tooltipPlacement = input<UiPlacement>('inline-end-block-center');
-  extent = input<Extent>('wide');
-  mode = input<'popup' | 'still'>('still');
-  submenuMode = input<'floating' | 'sliding'>('sliding');
+  popoverPlacement = input<UiPlacementType>(menuConfig.popoverPlacement);
+  tooltipPlacement = input<UiPlacementType>(menuConfig.tooltipPlacement);
+  extent = input<ExtentType>(menuConfig.extent);
+  mode = input<UiMenuModeType>(menuConfig.mode);
+  submenuMode = input<UiMenuSubModeType>(menuConfig.submenuMode);
   defaultStyle = input<UiMenuItemModel>({
-    iconVariant: 'outline',
+    iconVariant: menuConfig.item.icon.variant.default,
     ngClass: {
-      'ui button medium rounded-none': true,
-      'basic stamp second-ink': true,
-      'bulk primary': false,
+      [menuStyleClass.item.button.basic]: true,
+      [menuStyleClass.item.button.hover]: true,
+      [menuStyleClass.item.button.active]: false,
     },
   });
   activeStyle = input<UiMenuItemModel>({
-    iconVariant: 'bold',
+    iconVariant: menuConfig.item.icon.variant.active,
     ngClass: {
       ...((this.defaultStyle().ngClass as object) ?? {}),
-      'basic stamp second-ink': false,
-      'bulk primary': true,
+      [menuStyleClass.item.button.hover]: false,
+      [menuStyleClass.item.button.active]: true,
     },
   });
 
   readonly isCompact = computed(() => this.extent() === 'compact');
   readonly isWide = computed(() => this.extent() === 'wide');
   readonly isSubmenuFloating = computed(
-    () => this.isCompact() || this.submenuMode() === 'floating',
+    () => this.isCompact() || this.submenuMode() === 'floating', //
   );
-  readonly isSubmenuSliding = computed(() => !this.isCompact() && this.submenuMode() === 'sliding');
+  readonly isSubmenuSliding = computed(
+    () => !this.isCompact() && this.submenuMode() === 'sliding', //
+  );
   readonly styleClass = computed(() => {
-    return Array.from(
-      new Set([
-        'ui menu',
-        this.extent(),
-        this.mode(),
-        this.isSubmenuFloating() ? 'floating' : this.submenuMode(),
-      ]),
-    ).join(' ');
+    return uniquifyStyleClass(
+      uiStyleClass.prefix,
+      menuStyleClass.basic,
+      menuStyleClass.status[this.extent()],
+      menuStyleClass.status[this.mode()],
+      this.isSubmenuFloating()
+        ? menuStyleClass.status.floating
+        : menuStyleClass.status[this.submenuMode()],
+    );
   });
 
   readonly items = linkedSignal<UiMenuItemModel[], UiMenuItemModel[]>({

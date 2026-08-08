@@ -1,6 +1,6 @@
 import type { NgClass, NgStyle } from '@angular/common';
 import type { RouterLink } from '@angular/router';
-import type { UiIconVariant, UiPlacement } from '../types';
+import type { UiIconVariant, UiPlacementType } from '../types';
 
 export interface UiMenuItemModel {
   id?: string;
@@ -9,8 +9,8 @@ export interface UiMenuItemModel {
   labelNgStyle?: NgStyle['ngStyle'];
   labelNgClass?: NgClass['ngClass'];
   tooltip?: string;
-  tooltipPlacement?: UiPlacement;
-  submenuPlacement?: UiPlacement;
+  tooltipPlacement?: UiPlacementType;
+  submenuPlacement?: UiPlacementType;
   icon?: string;
   iconVariant?: UiIconVariant;
   iconGenerateId?: boolean;

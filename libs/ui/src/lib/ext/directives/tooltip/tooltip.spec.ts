@@ -26,7 +26,8 @@ describe('UiTooltip', () => {
 
   it('should create', () => expect(directive).toBeTruthy());
   it('should have content set', () => expect(directive.content()).toBe('Tooltip content'));
-  it('should have default placement as auto', () => expect(directive.placement()).toBe('auto'));
+  it('should have default placement as block-start-inline-center', () =>
+    expect(directive.placement()).toBe('block-start-inline-center'));
   it('should have default disabled as false', () => expect(directive.disabled()).toBe(false));
   it('should have default visible as false', () => expect(directive.visible()).toBe(false));
   it('should compute popover config', () => {

@@ -3,6 +3,7 @@ import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, Router } from '@angular/router';
 import { mergeAll, OperationStatus } from '@nucleus/common';
 import { filter, pairwise } from 'rxjs';
+import { crudInternalConfig } from '../../../int/crud/configs';
 import { ToolType } from '../enums/toolbar.enum';
 import { createPagination } from '../factory/pagination-factory';
 import { createListToolbar } from '../factory/toolbar-factory';
@@ -10,8 +11,7 @@ import type { GenericEntityModel, GenericListConsumerModel } from '../models/gen
 import type { RestListResponseModel } from '../models/rest.model';
 import type { ToolModel } from '../models/toolbar.model';
 
-const DEFAULT_PAGE = 0;
-const DEFAULT_ROWS = 10;
+const paginationConfig = crudInternalConfig.pagination;
 
 @Service({ autoProvided: false })
 export class GenericListBuilder<T extends GenericEntityModel> {
@@ -21,7 +21,7 @@ export class GenericListBuilder<T extends GenericEntityModel> {
   readonly #router = inject(Router);
 
   #consumer!: GenericListConsumerModel<T>;
-  #lastQuery = { page: DEFAULT_PAGE, rows: DEFAULT_ROWS };
+  #lastQuery = { page: paginationConfig.page, rows: paginationConfig.rows };
 
   init(consumer: GenericListConsumerModel<T>) {
     consumer.pagination = signal(createPagination());
@@ -54,8 +54,8 @@ export class GenericListBuilder<T extends GenericEntityModel> {
       .subscribe((queryParams) => {
         const { page, rows } = queryParams;
         this.#lastQuery = mergeAll(this.#lastQuery, {
-          page: page > 0 ? page - 1 : DEFAULT_PAGE,
-          rows: rows > 0 ? rows : DEFAULT_ROWS,
+          page: page > 0 ? page - 1 : paginationConfig.page,
+          rows: rows > 0 ? rows : paginationConfig.rows,
         });
 
         this.loadData();

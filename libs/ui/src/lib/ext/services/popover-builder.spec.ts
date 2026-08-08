@@ -18,15 +18,6 @@ describe('UiPopoverBuilder', () => {
     expect(service).toBeTruthy();
   });
 
-  describe('EVENT_MAP', () => {
-    it('should have click mapped to pointerup', () => {
-      expect(service.EVENT_MAP.click).toBe('pointerup');
-    });
-    it('should have hover mapped to pointerenter', () => {
-      expect(service.EVENT_MAP.hover).toBe('pointerenter');
-    });
-  });
-
   describe('showPopover', () => {
     it('should remove numb and transparent classes', () => {
       const element = document.createElement('div');

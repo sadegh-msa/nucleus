@@ -1,6 +1,9 @@
 import { Component, input } from '@angular/core';
 import type { FieldState } from '@angular/forms/signals';
-import type { PasswordStrengthModel } from '../../models';
+import type { PasswordStrengthModel } from '@nucleus/common';
+import { uiStyleClass } from '../../../int/constants';
+
+const passwordStyleClass = uiStyleClass.password;
 
 @Component({
   selector: 'ui-password-checklist',
@@ -13,6 +16,5 @@ import type { PasswordStrengthModel } from '../../models';
 export class UiPasswordChecklist {
   fieldState = input.required<FieldState<string, string>>();
   passwordStrength = input.required<PasswordStrengthModel>();
-  styleClass = input('ui list checklist');
+  styleClass = input(passwordStyleClass.checklist.optional);
 }
-

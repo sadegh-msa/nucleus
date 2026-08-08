@@ -1,7 +1,7 @@
-import { Component, computed, effect, input } from '@angular/core';
+import { Component, computed, input } from '@angular/core';
 import type { FieldState } from '@angular/forms/signals';
 import { UiTooltip } from '../../directives';
-import type { UiPlacement } from '../../types';
+import type { UiPlacementType } from '../../types';
 
 @Component({
   selector: 'ui-form-field',
@@ -15,7 +15,7 @@ export class UiFormField {
   inputId = input('');
   label = input<string>();
   help = input<string>();
-  helpPlacement = input<UiPlacement>('block-start-inline-end');
+  helpPlacement = input<UiPlacementType>('block-start-inline-end');
   hint = input<{ message: string; styleClass?: string }>();
   fieldState = input<FieldState<any, any>>();
 

@@ -1,9 +1,7 @@
 import { ElementRef, type Injector, Renderer2, Service } from '@angular/core';
+import { uiStyleClass, uiStyleVar } from '../constants';
 
-const CSS_VAR = Object.freeze({
-  POPOVER: '--ui-popover',
-  TRIGGER: '--ui-trigger',
-});
+const popoverStyleClass = uiStyleClass.popover;
 
 @Service()
 export class UiPopoverPositioner {
@@ -18,14 +16,14 @@ export class UiPopoverPositioner {
     popoverStyle = popoverStyle.at(-1) !== ';' ? `${popoverStyle};` : popoverStyle;
 
     for (const [key, value] of Object.entries(triggerDomRect.toJSON())) {
-      popoverStyle += `${CSS_VAR.TRIGGER}-${key}:${value}px;`;
+      popoverStyle += `${uiStyleVar.trigger}-${key}:${value}px;`;
     }
 
     for (const [key, value] of Object.entries(popoverDomRect.toJSON())) {
-      popoverStyle += `${CSS_VAR.POPOVER}-${key}:${value}px;`;
+      popoverStyle += `${uiStyleVar.popover}-${key}:${value}px;`;
     }
 
-    popoverStyle += 'z-index: 200;';
+    popoverStyle += `z-index: ${popoverStyleClass.zIndex};`;
 
     renderer.setProperty(popoverElement, 'style', popoverStyle);
   }

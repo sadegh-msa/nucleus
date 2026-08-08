@@ -13,9 +13,14 @@ import {
   Renderer2,
   untracked,
 } from '@angular/core';
-import type { TriggerEventModel, UiPopoverModel } from '../../models';
+import { uiDefaultConfig } from '../../../int/configs';
+import { uiStyleClass } from '../../../int/constants';
+import type { UiPopoverModel } from '../../models';
 import { UiPopoverBuilder } from '../../services/popover-builder';
-import type { UiPlacement } from '../../types';
+import type { TriggerEventType, UiPlacementType } from '../../types';
+
+const popoverConfig = uiDefaultConfig.popover;
+const popoverStyleClass = uiStyleClass.popover;
 
 @Directive({
   selector: '[uiPopover]',
@@ -28,15 +33,29 @@ export class UiPopover implements OnDestroy {
 
   content = input.required<UiPopoverModel['content']>({ alias: 'uiPopover' });
   templateData = input<unknown>({}, { alias: 'uiPopoverData' });
-  triggerEvent = input<TriggerEventModel>('click', { alias: 'uiPopoverEvent' });
-  placement = input<UiPlacement>('auto', { alias: 'uiPopoverPlacement' });
-  styleClass = input('text stamp fade-normal', { alias: 'uiPopoverStyleClass' });
-  hasBubble = input(true, { alias: 'uiPopoverHasBubble', transform: booleanAttribute });
-  hasArrow = input(true, { alias: 'uiPopoverHasArrow', transform: booleanAttribute });
-  hasClose = input(false, { alias: 'uiPopoverHasClose', transform: booleanAttribute });
-  closeDelay = input(0, { alias: 'uiPopoverCloseDelay' });
-  attachTo = input<UiPopoverModel['attachTo']>('body', { alias: 'uiPopoverAttachTo' });
-  disabled = input(false, { alias: 'uiPopoverDisabled', transform: booleanAttribute });
+  triggerEvent = input<TriggerEventType>(popoverConfig.triggerEvent, { alias: 'uiPopoverEvent' });
+  placement = input<UiPlacementType>(popoverConfig.placement, { alias: 'uiPopoverPlacement' });
+  closeDelay = input(popoverConfig.closeDelay, { alias: 'uiPopoverCloseDelay' });
+  hasBubble = input(popoverConfig.hasBubble, {
+    alias: 'uiPopoverHasBubble',
+    transform: booleanAttribute,
+  });
+  hasArrow = input(popoverConfig.hasArrow, {
+    alias: 'uiPopoverHasArrow',
+    transform: booleanAttribute,
+  });
+  hasClose = input(popoverConfig.hasClose, {
+    alias: 'uiPopoverHasClose',
+    transform: booleanAttribute,
+  });
+  attachTo = input<UiPopoverModel['attachTo']>(popoverConfig.attachTo, {
+    alias: 'uiPopoverAttachTo',
+  });
+  disabled = input(popoverConfig.disabled, {
+    alias: 'uiPopoverDisabled',
+    transform: booleanAttribute,
+  });
+  styleClass = input(popoverStyleClass.optional, { alias: 'uiPopoverStyleClass' });
 
   visible = model(false, { alias: 'uiPopoverVisible' });
 

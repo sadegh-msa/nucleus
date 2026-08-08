@@ -6,30 +6,20 @@ export class Cryptograph {
   readonly #textEncoder = new TextEncoder();
   readonly #textDecoder = new TextDecoder('utf-8');
 
-  readonly #DEFAULT_ALGORITHM_NAME = 'AES-CTR';
-  readonly #DEFAULT_ALGORITHM_LENGTH = 256;
-  readonly #DEFAULT_SECURE_KEY = 'DFyaWAZZVnXY7dfQhogFEe3mint1xIRu';
-
   readonly #algorithm = (() => {
     const { algorithm, secureKey } = injectNuCommonConfig().crypto;
 
     return {
-      name: algorithm.name || this.#DEFAULT_ALGORITHM_NAME,
-      counter: this.#textEncoder.encode((secureKey || this.#DEFAULT_SECURE_KEY).slice(0, 16)),
-      length: algorithm.length || this.#DEFAULT_ALGORITHM_LENGTH,
+      name: algorithm.name,
+      length: algorithm.length,
+      counter: this.#textEncoder.encode(secureKey.slice(0, 16)),
     };
   })();
 
   readonly #key = (() => {
-    const { secureKey, algorithm } = injectNuCommonConfig().crypto;
+    const { counter, name } = this.#algorithm;
 
-    return window.crypto.subtle.importKey(
-      'raw',
-      this.#textEncoder.encode(secureKey || this.#DEFAULT_SECURE_KEY),
-      algorithm.name || this.#DEFAULT_ALGORITHM_NAME,
-      false,
-      ['encrypt', 'decrypt'],
-    );
+    return window.crypto.subtle.importKey('raw', counter, name, false, ['encrypt', 'decrypt']);
   })();
 
   async encrypt(text: string) {

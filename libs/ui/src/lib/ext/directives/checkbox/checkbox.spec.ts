@@ -30,14 +30,14 @@ describe('UiCheckbox', () => {
 
   it('should set checkmark SVG path style on init', () => {
     const style = inputEl.getAttribute('style');
-    expect(style).toContain('--checkmark-svg-path');
+    expect(style).toContain('--ui-checkmark-svg-path');
   });
 
   it('should update checkmark SVG path on click', () => {
     const styleBefore = inputEl.getAttribute('style');
     inputEl.click();
     const styleAfter = inputEl.getAttribute('style');
-    expect(styleAfter).toContain('--checkmark-svg-path');
+    expect(styleAfter).toContain('--ui-checkmark-svg-path');
     expect(styleAfter).not.toBe(styleBefore);
   });
 });

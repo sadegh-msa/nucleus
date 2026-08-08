@@ -30,7 +30,7 @@
       oklch(100% 0 0 / 0%),
   );
 
-  &.finish {
+  &.ending {
     --ui-ripple-scale: 1;
   }
 }
@@ -44,7 +44,7 @@
       oklch(100% 0 0 / 0%),
   );
 
-  &.finish {
+  &.ending {
     --ui-ripple-scale: 7;
     --ui-ripple-opacity: 0;
   }

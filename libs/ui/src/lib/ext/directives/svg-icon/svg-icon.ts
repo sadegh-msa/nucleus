@@ -13,10 +13,13 @@ import {
   signal,
   untracked,
 } from '@angular/core';
+import { uiDefaultConfig } from '../../../int/configs';
+import { uiStyleClass } from '../../../int/constants';
 import { UiSvgIconLoader } from '../../services/svg-icon-loader';
 import type { UiIconVariant } from '../../types';
 
-const DEFAULT_VARIANT: UiIconVariant = 'outline';
+const svgIconConfig = uiDefaultConfig.svgIcon;
+const svgIconStyleClass = uiStyleClass.svgIcon;
 
 @Directive({
   selector: 'svg[uiSvgIcon]',
@@ -59,8 +62,8 @@ export class UiSvgIcon implements OnInit, OnDestroy {
   readonly #isInViewport = signal(false);
 
   readonly rawSvg = computed(() => this.#resource.value());
-  readonly variant = computed(() => this.inputVariant() || DEFAULT_VARIANT);
-  readonly styleClass = computed(() => `ui icon ${this.variant()}`);
+  readonly variant = computed(() => this.inputVariant() || svgIconConfig.variant);
+  readonly styleClass = computed(() => `${svgIconStyleClass.basic} ${this.variant()}`);
 
   constructor() {
     effect(() => {

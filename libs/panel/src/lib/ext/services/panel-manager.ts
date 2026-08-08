@@ -1,13 +1,14 @@
 import { computed, effect, inject, Service, signal } from '@angular/core';
-import { type Extent, extents, PermanentStorage } from '@nucleus/common';
+import { type ExtentType, extents, PermanentStorage } from '@nucleus/common';
+import { panelInternalConfig } from '../../int/configs';
+
+const navConfig = panelInternalConfig.nav;
 
 @Service()
 export class PanelManager {
   readonly #permanentStorage = inject(PermanentStorage);
 
-  readonly #STORAGE_NAV_KEY = 'panelNavExtent';
-
-  readonly navExtent = signal<Extent>('wide');
+  readonly navExtent = signal<ExtentType>('wide');
   readonly isNavCompact = computed(() => this.navExtent() === 'compact');
   readonly isNavWide = computed(() => this.navExtent() === 'wide');
   readonly isNavVisible = signal(true);
@@ -21,14 +22,14 @@ export class PanelManager {
   }
 
   #storeExtent() {
-    this.#permanentStorage.setItem(this.#STORAGE_NAV_KEY, this.navExtent());
+    this.#permanentStorage.setItem(navConfig.storageKey, this.navExtent());
   }
 
   #restoreExtent() {
-    let extent = this.#permanentStorage.getItem<Extent>(this.#STORAGE_NAV_KEY);
+    let extent = this.#permanentStorage.getItem<ExtentType>(navConfig.storageKey);
 
     if (!extents.includes(extent)) {
-      extent = 'wide' as Extent;
+      extent = 'wide' as ExtentType;
     }
 
     this.navExtent.set(extent);

@@ -1,2 +1,2 @@
-export type SetTimeout = ReturnType<typeof setTimeout>;
-export type SetInterval = ReturnType<typeof setInterval>;
+export type SetTimeoutType = ReturnType<typeof setTimeout>;
+export type SetIntervalType = ReturnType<typeof setInterval>;

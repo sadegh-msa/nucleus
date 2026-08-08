@@ -1,4 +1,4 @@
-export const authDefaultConfig = Object.freeze({
+export const authInternalConfig = Object.freeze({
   rest: {
     endpoint: 'auth',
   },
@@ -15,5 +15,10 @@ export const authDefaultConfig = Object.freeze({
       path: 'reset-password',
       title: $localize`Reset password`,
     },
+  },
+  token: {
+    cookieAccessTokenKey: 'aat',
+    requestedUrlKey: 'requestedUrl',
+    deadlineExtenderTime: 60 * 1000,
   },
 });

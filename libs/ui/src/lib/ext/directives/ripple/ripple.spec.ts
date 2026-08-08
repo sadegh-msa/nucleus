@@ -50,13 +50,12 @@ describe('UiRipple', () => {
 
     const ripple1 = buttonEl.querySelector('.ripple');
     expect(ripple1).toBeTruthy();
-    expect(ripple1?.classList.contains('finish')).toBe(true);
+    expect(ripple1?.classList.contains('ending')).toBe(true);
 
     const event2 = new PointerEvent('pointerdown', { bubbles: true, clientX: 60, clientY: 60 });
     buttonEl.dispatchEvent(event2);
     fixture.detectChanges();
 
-    // Second click adds finish class, old one gets removed via setTimeout
     const allRipples = buttonEl.querySelectorAll('.ripple');
     expect(allRipples.length).toBeGreaterThanOrEqual(0);
   });

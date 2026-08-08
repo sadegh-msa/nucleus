@@ -1,5 +1,5 @@
 import { computed, DOCUMENT, inject, Service, signal } from '@angular/core';
-import type { SetTimeout } from '@nucleus/common';
+import type { SetTimeoutType } from '@nucleus/common';
 
 const sizes = ['sm', 'md', 'lg', 'xl', 'xxl', 'tablet', 'web'] as const;
 type Size = (typeof sizes)[number];
@@ -46,7 +46,7 @@ export class UiScreen {
     };
   });
 
-  #windowTimer?: SetTimeout;
+  #windowTimer?: SetTimeoutType;
 
   constructor() {
     new ResizeObserver(() => {

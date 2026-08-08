@@ -1,13 +1,15 @@
 @layer utilities {
-  .transparent {
-    opacity: 0;
-  }
+  .ui {
+    &.transparent {
+      opacity: 0;
+    }
 
-  .invisible {
-    visibility: hidden;
-  }
+    &.invisible {
+      visibility: hidden;
+    }
 
-  .numb {
-    pointer-events: none;
+    &.numb {
+      pointer-events: none;
+    }
   }
 }

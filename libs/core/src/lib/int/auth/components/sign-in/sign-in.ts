@@ -1,12 +1,12 @@
 import { Component, effect, signal, untracked } from '@angular/core';
-import { email, FormField, form, maxLength, minLength, required } from '@angular/forms/signals';
+import { email, FormField, form, maxLength, required } from '@angular/forms/signals';
 import { RouterLink } from '@angular/router';
 
 import { OperationStatus } from '@nucleus/common';
 import { UiCheckbox, UiFormField, UiInputPassword, UiSvgIcon } from '@nucleus/ui';
-import { authDefaultConfig } from '../../../../ext/auth/auth-default.config';
 import type { AuthSignInModel } from '../../../../ext/auth/models/auth.model';
 import { injectAuthStore } from '../../../../ext/auth/store/auth-store';
+import { authInternalConfig } from '../../configs';
 import { SignLayout } from '../sign-layout/sign-layout';
 
 @Component({
@@ -17,7 +17,7 @@ import { SignLayout } from '../sign-layout/sign-layout';
 export class SignIn {
   readonly #authStore = injectAuthStore();
 
-  readonly config = authDefaultConfig;
+  readonly config = authInternalConfig;
   readonly authSignInModel = signal<AuthSignInModel>({
     email: '',
     password: '',

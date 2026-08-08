@@ -9,9 +9,9 @@ import {
   UiPopover,
   UiSvgIcon,
 } from '@nucleus/ui';
-import { authDefaultConfig } from '../../../../ext/auth/auth-default.config';
 import type { AuthSignUpModel } from '../../../../ext/auth/models/auth.model';
 import { injectAuthStore } from '../../../../ext/auth/store/auth-store';
+import { authInternalConfig } from '../../configs';
 import { SignLayout } from '../sign-layout/sign-layout';
 
 @Component({
@@ -31,7 +31,7 @@ import { SignLayout } from '../sign-layout/sign-layout';
 export class SignUp {
   readonly #authStore = injectAuthStore();
 
-  readonly config = authDefaultConfig;
+  readonly config = authInternalConfig;
   readonly authSignInModel = signal<AuthSignUpModel & { confirmPassword: string }>({
     email: '',
     password: '',

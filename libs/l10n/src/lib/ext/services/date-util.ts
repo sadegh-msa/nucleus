@@ -17,14 +17,16 @@ import {
   formatDistance as jFormatDistance,
   parse as jParse,
 } from 'date-fns-jalali';
+import { l10nInternalConfig } from '../../int/configs';
 import type { NuLang } from '../types/lang.type';
 import { LocaleUtil } from './locale-util';
+
+const dateConfig = l10nInternalConfig.date;
 
 @Service()
 export class DateUtil {
   readonly #localeUtil = inject(LocaleUtil);
 
-  readonly #DISTANCE_LIMIT = 2 * 24 * 60 * 60;
   readonly #defaultFormatStr: Record<NuLang, Record<'input' | 'output', string>> = {
     'en-US': {
       input: 'MM/dd/yyyy HH:mm',
@@ -42,8 +44,12 @@ export class DateUtil {
 
   readonly now = computed(() => new Date());
   readonly locale = computed(() => this.#locales[this.#localeUtil.lang()]);
-  readonly defaultInputFormatStr = computed(() => this.#defaultFormatStr[this.#localeUtil.lang()].input);
-  readonly defaultOutputFormatStr = computed(() => this.#defaultFormatStr[this.#localeUtil.lang()].output);
+  readonly defaultInputFormatStr = computed(
+    () => this.#defaultFormatStr[this.#localeUtil.lang()].input,
+  );
+  readonly defaultOutputFormatStr = computed(
+    () => this.#defaultFormatStr[this.#localeUtil.lang()].output,
+  );
 
   isValidDate(inputValue: unknown) {
     return isValid(inputValue);
@@ -95,7 +101,7 @@ export class DateUtil {
     const diff = earlierDate.getTime() - laterDate.getTime();
     const diffInSeconds = Math.abs(Math.floor(diff / 1000));
 
-    if (diffInSeconds < this.#DISTANCE_LIMIT) {
+    if (diffInSeconds < dateConfig.distanceLimit) {
       const options: FormatDistanceOptions = {
         addSuffix: true,
         locale: this.locale(),
