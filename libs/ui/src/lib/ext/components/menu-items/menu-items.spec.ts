@@ -61,7 +61,7 @@ describe('UiMenuItems', () => {
 
   it('should collapse item', () => {
     const item = { label: 'Test', expanded: true, children: [{ label: 'Child', expanded: true }] };
-    component.collapseItem(item);
+    component.onClick(item);
     expect(item.expanded).toBe(false);
     expect(item.children?.[0].expanded).toBe(false);
   });
@@ -72,7 +72,7 @@ describe('UiMenuItems', () => {
       expanded: false,
       children: [{ label: 'Child' }],
     };
-    component.clickItem(item);
+    component.onClick(item);
     expect(item.expanded).toBe(true);
   });
 
@@ -82,5 +82,66 @@ describe('UiMenuItems', () => {
     expect(styleClass).toContain('ui');
     expect(styleClass).toContain('menu');
     expect(styleClass).toContain('wide');
+  });
+
+  it('should have default styleClass as wide', () => {
+    const styleClass = component.styleClass();
+
+    expect(styleClass).toContain('ui');
+    expect(styleClass).toContain('menu');
+    expect(styleClass).toContain('wide');
+    expect(styleClass).toContain('still');
+  });
+
+  it('should update styleClass when extent changes', () => {
+    const styleClassWide = component.styleClass();
+    expect(styleClassWide).toContain('wide');
+
+    fixture.componentRef.setInput('extent', 'compact');
+    fixture.detectChanges();
+
+    const styleClassCompact = component.styleClass();
+    expect(styleClassCompact).toContain('compact');
+    expect(styleClassCompact).not.toContain('wide');
+  });
+
+  it('should have default submenuMode as sliding', () => {
+    expect(component.submenuMode()).toBe('sliding');
+  });
+
+  it('should have default popoverPlacement as inline-end-edge-end', () => {
+    expect(component.popoverPlacement()).toBe('inline-end-edge-end');
+  });
+
+  it('should have default tooltipPlacement as inline-end-block-center', () => {
+    expect(component.tooltipPlacement()).toBe('inline-end-block-center');
+  });
+
+  it('should collapse items when isSubmenuFloating and isCompact', () => {
+    const item = {
+      label: 'Parent',
+      expanded: true,
+      children: [{ label: 'Child', expanded: true }],
+    };
+
+    fixture.componentRef.setInput('uiMenuItems', [item]);
+    fixture.componentRef.setInput('submenuMode', 'floating');
+    fixture.componentRef.setInput('extent', 'compact');
+    fixture.detectChanges();
+
+    expect(item.expanded).toBe(false);
+    expect(item.children?.[0].expanded).toBe(false);
+  });
+
+  it('should update styleClass when submenuMode changes', () => {
+    let styleClass = component.styleClass();
+    expect(styleClass).toContain('sliding');
+
+    fixture.componentRef.setInput('submenuMode', 'floating');
+    fixture.detectChanges();
+
+    styleClass = component.styleClass();
+    expect(styleClass).toContain('floating');
+    expect(styleClass).not.toContain('sliding');
   });
 });

@@ -11,10 +11,7 @@
     } @else if (!item.hidden) {
       <li>
         @let itemTooltipPlacement = item.tooltipPlacement || tooltipPlacement();
-        @let isTooltipDisabled = !isCompact() || item.expanded || isSubMenu;
-        @let itemPopoverPlacement = item.popoverPlacement || popoverPlacement();
-        @let isPopoverVisible = isSubmenuFloating() && item.expanded;
-        @let isFloatingSubmenuDisabled = !isSubmenuFloating() || !item.children?.length;
+        @let isItemTooltipDisabled = !isCompact() || item.expanded || isSubMenu;
 
         @if (item.routerLink) {
           <a [uiRipple]="!item.disabled"
@@ -24,40 +21,49 @@
              [class.disabled]="item.disabled"
              [href]="item.href"
              [routerLink]="item.routerLink"
-             routerLinkActive
-             (isActiveChange)="onRouterLinkIsActiveChange(item, $event)"
-             (click)="clickItem(item)"
+             (click)="onClick(item)"
              [uiTooltip]="tooltip"
              [uiTooltipData]="item"
              [uiTooltipPlacement]="itemTooltipPlacement"
-             [uiTooltipDisabled]="isTooltipDisabled"
+             [uiTooltipDisabled]="isItemTooltipDisabled"
           >
             <ng-container *ngTemplateOutlet="content; context:{item, isSubMenu}" />
           </a>
+        } @else if(isSubmenuFloating()) {
+          <button [uiRipple]="!item.disabled"
+                  [id]="item.id"
+                  [ngStyle]="item.ngStyle"
+                  [ngClass]="item.ngClass"
+                  [disabled]="item.disabled"
+                  (click)="onClick(item)"
+                  [uiTooltip]="tooltip"
+                  [uiTooltipData]="item"
+                  [uiTooltipPlacement]="itemTooltipPlacement"
+                  [uiTooltipDisabled]="isItemTooltipDisabled"
+                  [uiPopover]="submenu"
+                  [uiPopoverData]="item"
+                  [uiPopoverHasBubble]="false"
+                  [uiPopoverPlacement]="item.popoverPlacement || popoverPlacement()"
+                  [uiPopoverDisabled]="!item.children?.length"
+                  [uiPopoverVisible]="item.expanded"
+          >
+            <ng-container *ngTemplateOutlet="content; context:{item}" />
+          </button>
         } @else {
           <button [uiRipple]="!item.disabled"
                   [id]="item.id"
                   [ngStyle]="item.ngStyle"
                   [ngClass]="item.ngClass"
                   [disabled]="item.disabled"
-                  (click)="clickItem(item)"
+                  (click)="onClick(item)"
                   [uiTooltip]="tooltip"
                   [uiTooltipData]="item"
                   [uiTooltipPlacement]="itemTooltipPlacement"
-                  [uiTooltipDisabled]="isTooltipDisabled"
-                  [uiPopover]="submenu"
-                  [uiPopoverData]="item"
-                  [uiPopoverPlacement]="itemPopoverPlacement"
-                  [uiPopoverDisabled]="isFloatingSubmenuDisabled"
-                  [uiPopoverHasBubble]="false"
-                  [uiPopoverVisible]="isPopoverVisible"
-                  (uiPopoverVisibility)="!$event && collapseItem(item)"
+                  [uiTooltipDisabled]="isItemTooltipDisabled"
           >
             <ng-container *ngTemplateOutlet="content; context:{item}" />
           </button>
-        }
 
-        @if (isSubmenuSliding()) {
           <ng-container *ngTemplateOutlet="submenu; context:{data: item}" />
         }
       </li>
@@ -74,7 +80,7 @@
     >
      <!-- @if (isSubmenuFloating()) {
         <li>
-          <button class="numb" [ngClass]="item.ngClass">
+          <button class="ui numb" [ngClass]="item.ngClass">
             @if (item.htmlLabel) {
               <hgroup [innerHTML]="item.htmlLabel | safeHTML"></hgroup>
             } @else if (item.label) {
