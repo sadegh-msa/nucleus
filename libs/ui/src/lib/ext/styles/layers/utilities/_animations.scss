@@ -12,44 +12,21 @@
         @include transition.delay($speed);
       }
 
-      &.fade-#{$speed} {
+      &.fade-#{$speed},
+      &.fade-in-#{$speed},
+      &.fade-out-#{$speed} {
         @include transition.duration($speed);
         @include transition.properties(opacity);
         @include transition.timing-function();
       }
 
-      &.fade-in-#{$speed},
-      &.fade-out-#{$speed} {
-        @include animation.timing-function();
-        @include animation.duration($speed);
-        animation-iteration-count: 1;
-      }
-
       &.fade-in-#{$speed} {
-        animation-name: fadeIn;
+        opacity: 1;
       }
 
       &.fade-out-#{$speed} {
-        animation-name: fadeOut;
+        opacity: 0;
       }
     }
-  }
-}
-
-@keyframes fadeIn {
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
-}
-
-@keyframes fadeOut {
-  0% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 0;
   }
 }
