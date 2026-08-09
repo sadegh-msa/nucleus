@@ -11,14 +11,7 @@ export const uiStyleVar = Object.freeze({
   trigger: '--ui-trigger',
 });
 
-const utility = {
-  invisible: 'invisible',
-  numb: 'numb',
-  transparent: 'transparent',
-};
-
 export const uiStyleClass = Object.freeze({
-  utility,
   prefix: 'ui',
   bubble: {
     basic: 'ui bubble',
@@ -61,7 +54,7 @@ export const uiStyleClass = Object.freeze({
     basic: 'ui popover',
     optional: 'text stamp fade-normal',
     zIndex: 200,
-    invisibility: [utility.numb, utility.transparent],
+    invisibility: ['numb', 'transparent'],
   },
   ripple: {
     basic: 'ui ripple',
