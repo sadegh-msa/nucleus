@@ -39,24 +39,16 @@ testem.log
 .DS_Store
 Thumbs.db
 
+# nx
 .nx/cache
 .nx/workspace-data
-
-.angular
-
-.claude/worktrees
 .nx/polygraph
 .nx/self-healing
 
+# Angular
+.angular
 apps-circular.svg
 libs-circular.svg
-
-.claude/settings.local.json
-
-.mimocode/
-.omo/
-.superpowers/
-docs/superpowers/
 
 # test artifacts
 .vitest-attachments/
@@ -65,3 +57,13 @@ __snapshots__/
 !apps/*-e2e/**/.vitest-attachments
 !apps/*-e2e/**/__screenshots__
 !apps/*-e2e/**/__snapshots__
+
+# AI agents
+.claude/worktrees
+.claude/settings.local.json
+.codegraph/
+.kilo/
+.mimocode/
+.omo/
+.superpowers/
+docs/superpowers/
