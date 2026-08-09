@@ -1,8 +1,21 @@
 {
   "recommendations": [
+    "fenma.angular-team-html-formatter",
+    "angular.ng-template",
+    "imgildev.vscode-auto-barrel",
+    "biomejs.biome",
+    "wmaurer.change-case",
+    "streetsidesoftware.code-spell-checker",
+    "editorconfig.editorconfig",
+    "donjayamanne.githistory",
+    "nhoizey.gremlins",
+    "ecmel.vscode-html-css",
+    "christian-kohler.npm-intellisense",
     "nrwl.angular-console",
-    "esbenp.prettier-vscode",
-    "firsttris.vscode-jest-runner",
-    "ms-playwright.playwright"
+    "zhuangtongfa.material-theme",
+    "quicktype.quicktype",
+    "ms-playwright.playwright",
+    "sibiraj-s.vscode-scss-formatter",
+    "tyriar.sort-lines"
   ]
 }
