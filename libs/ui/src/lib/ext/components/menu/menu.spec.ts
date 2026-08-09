@@ -1,11 +1,11 @@
 import { type ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideRouter } from '@angular/router';
 import { provideUiConfig } from '../../providers';
-import { UiMenuItems } from './menu-items';
+import { UiMenu } from './menu';
 
-describe('UiMenuItems', () => {
-  let component: UiMenuItems;
-  let fixture: ComponentFixture<UiMenuItems>;
+describe('UiMenu', () => {
+  let component: UiMenu;
+  let fixture: ComponentFixture<UiMenu>;
 
   const mockConfig = {
     icon: { dir: 'icons' },
@@ -20,13 +20,13 @@ describe('UiMenuItems', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [UiMenuItems],
+      imports: [UiMenu],
       providers: [provideRouter([]), provideUiConfig(mockConfig)],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(UiMenuItems);
+    fixture = TestBed.createComponent(UiMenu);
     component = fixture.componentInstance;
-    fixture.componentRef.setInput('uiMenuItems', mockItems);
+    fixture.componentRef.setInput('uiMenu', mockItems);
     fixture.detectChanges();
   });
 
@@ -124,7 +124,7 @@ describe('UiMenuItems', () => {
       children: [{ label: 'Child', expanded: true }],
     };
 
-    fixture.componentRef.setInput('uiMenuItems', [item]);
+    fixture.componentRef.setInput('uiMenu', [item]);
     fixture.componentRef.setInput('submenuMode', 'floating');
     fixture.componentRef.setInput('extent', 'compact');
     fixture.detectChanges();

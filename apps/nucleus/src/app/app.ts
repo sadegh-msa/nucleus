@@ -5,7 +5,7 @@ import { RouterModule } from '@angular/router';
 import { injectAuthStore } from '@nucleus/core';
 import { type LangDirType, LocaleUtil } from '@nucleus/l10n';
 import { Panel, PanelManager } from '@nucleus/panel';
-import { type UiMenuItemModel, UiMenuItems, UiMessage, UiMessageManager } from '@nucleus/ui';
+import { UiMenu, type UiMenuItemModel, UiMessage, UiMessageManager } from '@nucleus/ui';
 import { ConfirmationService } from 'primeng/api';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { navMainMenu } from './app.menu';
@@ -17,7 +17,7 @@ import { navMainMenu } from './app.menu';
     ConfirmDialogModule,
     UiMessage,
     NgTemplateOutlet,
-    UiMenuItems,
+    UiMenu,
     NgClass,
     Panel,
   ],

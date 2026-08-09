@@ -26,7 +26,7 @@ const menuConfig = uiDefaultConfig.menu;
 const menuStyleClass = uiStyleClass.menu;
 
 @Component({
-  selector: 'menu[uiMenuItems]',
+  selector: 'menu[uiMenu]',
   imports: [
     NgTemplateOutlet,
     NgStyle,
@@ -38,18 +38,18 @@ const menuStyleClass = uiStyleClass.menu;
     UiTooltip,
     UiPopover,
   ],
-  templateUrl: './menu-items.html',
+  templateUrl: './menu.html',
   host: {
     '[class]': 'styleClass()',
   },
 })
-export class UiMenuItems {
+export class UiMenu {
   readonly #router = inject(Router);
   readonly #document = inject(DOCUMENT);
   readonly #changeDetectorRef = inject(ChangeDetectorRef);
   readonly #uiCssSupport = inject(UiCssSupport);
 
-  uiMenuItems = input.required<UiMenuItemModel[]>();
+  uiMenu = input.required<UiMenuItemModel[]>();
   popoverPlacement = input<UiPlacementType>(menuConfig.popoverPlacement);
   tooltipPlacement = input<UiPlacementType>(menuConfig.tooltipPlacement);
   extent = input<ExtentType>(menuConfig.extent);
@@ -93,7 +93,7 @@ export class UiMenuItems {
   });
 
   readonly items = linkedSignal<UiMenuItemModel[], UiMenuItemModel[]>({
-    source: this.uiMenuItems,
+    source: this.uiMenu,
     computation: (newItems) => this.#computeItems(newItems),
   });
 

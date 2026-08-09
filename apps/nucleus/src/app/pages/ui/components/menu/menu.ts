@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
-import { type UiMenuItemModel, UiMenuItems } from '@nucleus/ui';
+import { UiMenu, type UiMenuItemModel } from '@nucleus/ui';
 import { navMainMenu } from '../../../../app.menu';
 
 @Component({
   selector: 'app-menu',
-  imports: [UiMenuItems],
+  imports: [UiMenu],
   templateUrl: './menu.html',
   styleUrl: './menu.scss',
 })
