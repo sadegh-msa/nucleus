@@ -2,34 +2,36 @@
 @use '../../mixins/transition-mixin' as transition;
 
 @layer utilities {
-  @each $speed, $time in animation.$speed-map {
-    .animation-delay-#{$speed} {
-      @include animation.delay($speed);
-    }
+  .ui {
+    @each $speed, $time in animation.$speed-map {
+      &.animation-delay-#{$speed} {
+        @include animation.delay($speed);
+      }
 
-    .transition-delay-#{$speed} {
-      @include transition.delay($speed);
-    }
+      &.transition-delay-#{$speed} {
+        @include transition.delay($speed);
+      }
 
-    .fade-#{$speed} {
-      @include transition.duration($speed);
-      @include transition.properties(opacity);
-      @include transition.timing-function();
-    }
+      &.fade-#{$speed} {
+        @include transition.duration($speed);
+        @include transition.properties(opacity);
+        @include transition.timing-function();
+      }
 
-    .fade-in-#{$speed},
-    .fade-out-#{$speed} {
-      @include animation.timing-function();
-      @include animation.duration($speed);
-      animation-iteration-count: 1;
-    }
+      &.fade-in-#{$speed},
+      &.fade-out-#{$speed} {
+        @include animation.timing-function();
+        @include animation.duration($speed);
+        animation-iteration-count: 1;
+      }
 
-    .fade-in-#{$speed} {
-      animation-name: fadeIn;
-    }
+      &.fade-in-#{$speed} {
+        animation-name: fadeIn;
+      }
 
-    .fade-out-#{$speed} {
-      animation-name: fadeOut;
+      &.fade-out-#{$speed} {
+        animation-name: fadeOut;
+      }
     }
   }
 }
@@ -51,4 +53,3 @@
     opacity: 0;
   }
 }
-
