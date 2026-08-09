@@ -1,5 +1,6 @@
 export * from './css-support';
 export * from './html';
+export * from './menu-builder';
 export * from './message-manager';
 export * from './popover-builder';
 export * from './screen';

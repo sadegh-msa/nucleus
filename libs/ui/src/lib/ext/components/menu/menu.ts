@@ -18,8 +18,8 @@ import { uiDefaultConfig } from '../../../int/configs';
 import { uiStyleClass } from '../../../int/constants';
 import { UiPopover, UiRipple, UiSvgIcon, UiTooltip } from '../../directives';
 import { uniquifyStyleClass } from '../../helpers';
-import type { UiMenuItemModel } from '../../models';
-import { UiCssSupport } from '../../services';
+import type { UiMenuItemModel } from '../../models/menu-item.model';
+import { UiCssSupport, UiMenuBuilder } from '../../services';
 import type { ExtentType, UiMenuModeType, UiMenuSubModeType, UiPlacementType } from '../../types';
 
 const menuConfig = uiDefaultConfig.menu;
@@ -48,6 +48,7 @@ export class UiMenu {
   readonly #document = inject(DOCUMENT);
   readonly #changeDetectorRef = inject(ChangeDetectorRef);
   readonly #uiCssSupport = inject(UiCssSupport);
+  readonly #uiMenuBuilder = inject(UiMenuBuilder);
 
   uiMenu = input.required<UiMenuItemModel[]>();
   popoverPlacement = input<UiPlacementType>(menuConfig.popoverPlacement);
@@ -94,7 +95,7 @@ export class UiMenu {
 
   readonly items = linkedSignal<UiMenuItemModel[], UiMenuItemModel[]>({
     source: this.uiMenu,
-    computation: (newItems) => this.#computeItems(newItems),
+    computation: (newItems) => this.computeItems(newItems),
   });
 
   #urlToItemMap: Record<string, UiMenuItemModel> = {};
@@ -132,8 +133,8 @@ export class UiMenu {
 
     if (!this.#uiCssSupport.calcSize()) {
       effect(() => {
-        this.items();
-        untracked(() => this.#calculateSizes());
+        const items = this.items();
+        untracked(() => this.#uiMenuBuilder.calculateItemSizes(items));
       });
     }
 
@@ -143,13 +144,13 @@ export class UiMenu {
 
       untracked(() => {
         if (isSubmenuFloating && isCompact) {
-          this.#collapseItems();
+          this.#uiMenuBuilder.collapseItems(this.items());
         }
       });
     });
   }
 
-  #computeItems(items: UiMenuItemModel[]) {
+  computeItems(items: UiMenuItemModel[]) {
     items.forEach((item) => {
       Object.assign(
         item,
@@ -169,7 +170,7 @@ export class UiMenu {
       }
 
       if (item.children?.length) {
-        this.#computeItems(item.children);
+        this.computeItems(item.children);
 
         if (this.isSubmenuSliding()) {
           item.expanded = item.children?.some((i) => i.expanded || i.isActive);
@@ -180,51 +181,8 @@ export class UiMenu {
     return items;
   }
 
-  #calculateItemSize(item: UiMenuItemModel) {
-    if (!item.expanded) {
-      return 0;
-    }
-
-    item.children?.forEach((i) => {
-      item.size ??= 0;
-      item.size += this.#calculateItemSize(i) + 1;
-    });
-
-    return item.size ?? 0;
-  }
-
-  #calculateSizes() {
-    this.items().forEach((i) => {
-      this.#calculateItemSize(i);
-    });
-  }
-
-  #collapseItem(item: UiMenuItemModel) {
-    item.children?.forEach((i) => {
-      this.#collapseItem(i);
-    });
-    item.expanded = false;
-  }
-
-  #collapseItems() {
-    this.items().forEach((i) => {
-      this.#collapseItem(i);
-    });
-  }
-
   setItemActivity(item: UiMenuItemModel, isActive: boolean) {
-    item.isActive = isActive;
-
-    if (isActive) {
-      const original = structuredClone(item);
-      Object.assign(item, structuredClone(item.active), { original });
-    } else {
-      Object.keys(item.active || {}).forEach((key) => {
-        item[key as keyof UiMenuItemModel] = undefined;
-      });
-      Object.assign(item, structuredClone(item.original), { original: undefined });
-    }
-
+    this.#uiMenuBuilder.setItemActivity(item, isActive);
     this.#changeDetectorRef.markForCheck();
   }
 
@@ -233,14 +191,14 @@ export class UiMenu {
       if (!item.expanded) {
         item.expanded = true;
       } else {
-        this.#collapseItem(item);
+        this.#uiMenuBuilder.collapseItem(item);
       }
     } else if (this.isSubmenuFloating()) {
-      this.#collapseItems();
+      this.#uiMenuBuilder.collapseItems(this.items());
     }
 
     if (this.isSubmenuSliding() && !this.#uiCssSupport.calcSize()) {
-      this.#calculateSizes();
+      this.#uiMenuBuilder.calculateItemSizes(this.items());
     }
 
     if (item.command) {
