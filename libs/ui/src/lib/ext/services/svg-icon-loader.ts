@@ -1,11 +1,11 @@
 import { inject, Service } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { sleepRandom, TemporaryStorage } from '@nucleus/common';
+import { uiDefaultConfig } from '../../int/configs';
 import { injectUiConfig } from '../providers';
 import type { UiIconVariant } from '../types';
 
-const STORAGE_KEY = 'uiSvgIcon';
-const RETRYING_TIMES = 10;
+const svgIconConfig = uiDefaultConfig.svgIcon;
 
 @Service()
 export class UiSvgIconLoader {
@@ -14,12 +14,13 @@ export class UiSvgIconLoader {
   readonly #temporaryStorage = inject(TemporaryStorage);
 
   async loadIcon(variant: UiIconVariant, icon: string): Promise<string | null> {
-    const storageKey = `${STORAGE_KEY}.${variant}.${icon}`;
+    const { loadingStatus, retryingTimes, storageKeyPrefix } = svgIconConfig;
+    const storageKey = `${storageKeyPrefix}.${variant}.${icon}`;
     let cachedSvg = this.#temporaryStorage.getItem(storageKey)?.trim();
 
     let retrying = 0;
 
-    while (cachedSvg === 'initial' && retrying <= RETRYING_TIMES) {
+    while (cachedSvg === loadingStatus && retrying <= retryingTimes) {
       cachedSvg = this.#temporaryStorage.getItem(storageKey)?.trim();
       await sleepRandom();
       retrying++;
@@ -29,7 +30,7 @@ export class UiSvgIconLoader {
       return cachedSvg;
     }
 
-    this.#temporaryStorage.setItem(storageKey, 'initial');
+    this.#temporaryStorage.setItem(storageKey, loadingStatus);
 
     try {
       const url = this.#createIconUrl(variant, icon);
@@ -41,7 +42,6 @@ export class UiSvgIconLoader {
         return rawSvg;
       }
     } catch {
-      return null;
     }
 
     return null;

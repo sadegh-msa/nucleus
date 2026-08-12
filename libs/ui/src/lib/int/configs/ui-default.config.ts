@@ -42,6 +42,9 @@ export const uiDefaultConfig = Object.freeze({
     tag: 's',
   },
   svgIcon: {
+    loadingStatus: 'loading',
+    retryingTimes: 10,
+    storageKeyPrefix: 'uiSvgIcon',
     variant: 'outline' as UiIconVariant,
   },
   tooltip: {
