@@ -1,7 +1,7 @@
 @use 'helpers/color-helper' as *;
 @use 'helpers/size-helper' as *;
 
-nu-sign-layout {
+nu-auth-layout {
   position: relative;
   height: 100vh;
   width: 100vw;
@@ -42,11 +42,15 @@ nu-sign-layout {
     }
 
     > form {
+      display: grid;
+      gap: get-size-var(sm-5);
       grid-template-columns: repeat(1, minmax(0, 1fr));
     }
 
     > footer {
-      > .nu-form-actions {
+      > .actions {
+        display: grid;
+        gap: get-size-var(xs-4);
         grid-template-columns: repeat(2, minmax(0, 1fr));
 
         > :is(a, button) {

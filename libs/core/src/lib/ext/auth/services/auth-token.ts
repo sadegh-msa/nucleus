@@ -6,7 +6,7 @@ import { authInternalConfig } from '../../../int/auth/configs';
 import { injectAuthConfig } from '../providers/auth-config-provider';
 import { injectAuthStore } from '../store/auth-store';
 
-const routesConfig = authInternalConfig.routes;
+const entityConfig = authInternalConfig.entity;
 const tokenConfig = authInternalConfig.token;
 
 @Service()
@@ -17,7 +17,7 @@ export class AuthToken {
   readonly #authStore = injectAuthStore();
   readonly #authConfig = injectAuthConfig();
 
-  readonly #authPaths = Object.values(routesConfig).map((i) => i.path);
+  readonly #authPaths = Object.values(entityConfig).map((i) => i.route.path);
 
   readonly #accessTokenResource = resource({
     loader: () => this.#fetchAccessToken(),
@@ -56,7 +56,7 @@ export class AuthToken {
           }
         } else if (status === 'failure') {
           if (!this.isAuthRouteActivated(location.pathname)) {
-            this.#redirectToApp(false, ['/', routesConfig.signIn.path]);
+            this.#redirectToApp(false, ['/', entityConfig.signIn.route.path]);
           }
         }
       });

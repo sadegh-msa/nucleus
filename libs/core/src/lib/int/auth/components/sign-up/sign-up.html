@@ -1,34 +1,35 @@
-<nu-sign-layout>
+<nu-auth-layout>
   <ng-container title i18n>Sign up</ng-container>
 
   <ng-container form>
-    <form id="sign-up-form" (submit)="onSubmit($event)" autocomplete="off">
-      <ui-form-field
-        id="email-form-field"
+    <form
+      [id]="formId"
+      class="ui form"
+      autocomplete="off"
+      (submit)="onSubmit($event)"
+    >
+      <fieldset
+        uiFormField
         label="Email" i18n-label
-        inputId="email"
         [fieldState]="form.email()"
       >
         <input
-          id="email"
           class="ui input"
           placeholder="username@example.com"
           aria-describedby="email-help"
           spellcheck="false"
           [formField]="form.email"
         />
-      </ui-form-field>
+      </fieldset>
 
-      <ui-form-field
-        id="password-form-field"
+      <fieldset
+        uiFormField
         label="Password" i18n-label
-        inputId="password"
         [fieldState]="form.password()"
         [hint]="passwordHint()"
       >
-        <input uiInputPassword
-          id="password"
-          type="password"
+        <input
+          uiInputPassword
           placeholder="************"
           aria-describedby="password-help"
           spellcheck="false"
@@ -38,18 +39,16 @@
           uiPopoverPlacement="block-start-inline-center"
           uiPopoverEvent="focus"
         />
-      </ui-form-field>
+      </fieldset>
 
-      <ui-form-field
-        id="confirm-password-form-field"
+      <fieldset
+        uiFormField
         label="Confirm password" i18n-label
-        inputId="confirm-password"
         [fieldState]="form.confirmPassword()"
         [hint]="confirmPasswordHint()"
       >
-        <input uiInputPassword
-          id="confirm-password"
-          type="password"
+        <input
+          uiInputPassword
           placeholder="************"
           aria-describedby="confirm-password-help"
           spellcheck="false"
@@ -57,42 +56,37 @@
           [passwordToConfirm]="form.password().value()"
           (confirm)="arePasswordsMatching.set($event)"
         />
-      </ui-form-field>
+      </fieldset>
     </form>
   </ng-container>
 
   <ng-container actions>
-    <div class="nu-form-actions">
-      <button
-        id="sign-up-button"
-        class="ui button normal primary emphasis"
-        form="sign-up-form"
-        (click)="form().markAsTouched()"
-      >
-        <svg uiSvgIcon="user" />
-        <span i18n>Sign up</span>
-      </button>
+    <button
+      class="ui button normal primary emphasis"
+      [attr.form]="formId"
+      (click)="form().markAsTouched()"
+    >
+      <svg uiSvgIcon="user" />
+      <span i18n>Sign up</span>
+    </button>
 
-      <a
-        id="sign-in-button"
-        class="ui button normal stamp basic"
-        [routerLink]="['/', config.routes.signIn.path]"
-      >
-        <svg uiSvgIcon="login" />
-        <span i18n>Sign in</span>
-      </a>
+    <a
+      class="ui button normal stamp basic"
+      [routerLink]="['/', config.signIn.route.path]"
+    >
+      <svg uiSvgIcon="login" />
+      <span i18n>Sign in</span>
+    </a>
 
-      <a
-        id="reset-password-button"
-        class="ui button normal stamp basic"
-        [routerLink]="['/', config.routes.resetPassword.path]"
-      >
-        <svg uiSvgIcon="lock" />
-        <span i18n>Forgot password?</span>
-      </a>
-    </div>
+    <a
+      class="ui button normal stamp basic"
+      [routerLink]="['/', config.resetPassword.route.path]"
+    >
+      <svg uiSvgIcon="lock" />
+      <span i18n>Forgot password?</span>
+    </a>
   </ng-container>
-</nu-sign-layout>
+</nu-auth-layout>
 
 <ng-template #passwordPopover>
   @if(passwordStrength(); as ps) {

@@ -6,17 +6,18 @@ import { UiCheckbox, UiFormField, UiInputPassword, UiSvgIcon } from '@nucleus/ui
 import type { AuthSignInModel } from '../../../../ext/auth/models/auth.model';
 import { injectAuthStore } from '../../../../ext/auth/store/auth-store';
 import { authInternalConfig } from '../../configs';
-import { SignLayout } from '../sign-layout/sign-layout';
+import { AuthLayout } from '../auth-layout/auth-layout';
 
 @Component({
   selector: 'nu-sign-in',
   templateUrl: './sign-in.html',
-  imports: [RouterLink, FormField, SignLayout, UiFormField, UiCheckbox, UiInputPassword, UiSvgIcon],
+  imports: [RouterLink, FormField, AuthLayout, UiFormField, UiCheckbox, UiInputPassword, UiSvgIcon],
 })
 export class SignIn {
   readonly #authStore = injectAuthStore();
 
-  readonly config = authInternalConfig;
+  readonly config = authInternalConfig.entity;
+  readonly formId = this.config.signIn.html.form.id;
   readonly authSignInModel = signal<AuthSignInModel>({
     email: '',
     password: '',

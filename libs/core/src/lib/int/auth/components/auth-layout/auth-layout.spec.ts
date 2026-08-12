@@ -6,17 +6,17 @@ import { provideUiConfig } from '@nucleus/ui';
 import { MOCK_NU_COMMON_CONFIG, MOCK_UI_CONFIG, setupGlobalMocks } from '@test-mocks';
 import { vi } from 'vitest';
 import { AuthToken } from '../../../../ext/auth/services/auth-token';
-import { SignLayout } from './sign-layout';
+import { AuthLayout } from './auth-layout';
 
 setupGlobalMocks();
 
-describe('SignLayout', () => {
-  let component: SignLayout;
-  let fixture: ComponentFixture<SignLayout>;
+describe('AuthLayout', () => {
+  let component: AuthLayout;
+  let fixture: ComponentFixture<AuthLayout>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [SignLayout],
+      imports: [AuthLayout],
       providers: [
         provideRouter([]),
         provideNuCommonConfig(MOCK_NU_COMMON_CONFIG),
@@ -29,7 +29,7 @@ describe('SignLayout', () => {
       schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(SignLayout);
+    fixture = TestBed.createComponent(AuthLayout);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -6,6 +6,9 @@ import type { UiPlacementType } from '../../ext/types/placement.type';
 import type { TriggerEventType } from '../../ext/types/trigger.type';
 
 export const uiDefaultConfig = Object.freeze({
+  formField: {
+    helpPlacement: 'block-start-inline-end' as UiPlacementType,
+  },
   menu: {
     extent: 'wide' as ExtentType,
     mode: 'still' as UiMenuModeType,

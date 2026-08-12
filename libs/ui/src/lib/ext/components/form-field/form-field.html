@@ -1,8 +1,8 @@
-<div class="ui-form-field-header">
+<header>
   @if (label()) {
     <label [for]="inputId()">
       {{ label() }}
-      @if(fieldState()?.required()) {
+      @if(isRequired()) {
         *
       }
     </label>
@@ -10,7 +10,7 @@
 
   @if (help()) {
     <i
-      class="ui-form-field-help"
+      class="help"
       [uiTooltip]="help()"
       [uiTooltipPlacement]="helpPlacement()"
       >?</i>
@@ -19,11 +19,12 @@
   @let hintMessage = hint()?.message;
   @let hintStyleClass = hint()?.styleClass;
   @let errorMessage = error();
+  @let isMessageVisible = isDirty() || isTouched();
 
-  @if (isTouched() && (errorMessage || hintMessage)) {
-    <span class="ui-form-field-message" [class]="hintStyleClass">
+  @if (isMessageVisible && (errorMessage || hintMessage)) {
+    <span class="message" [class]="hintStyleClass">
       {{ errorMessage || hintMessage }}
     </span>
   }
-</div>
+</header>
 <ng-content />

@@ -4,11 +4,12 @@ test.describe('Sample CRUD Routes', () => {
   test.describe('List Page', () => {
     test('should redirect /crud/sample to list view', async ({ authenticatedPage: page }) => {
       await page.goto('/crud/sample');
-      await expect(page).toHaveURL(/\/crud\/sample\/list/);
+      await page.waitForURL(/\/crud\/sample\/list/);
     });
 
     test('should render sample list', async ({ authenticatedPage: page }) => {
       await page.goto('/crud/sample/list');
+      await page.waitForSelector('app-sample-list', { state: 'attached', timeout: 30000 });
       await expect(page.locator('app-sample-list')).toBeVisible();
       await expect(page.locator('.page-list')).toBeVisible();
       await expect(page.locator('.page-list-toolbar')).toBeVisible();
@@ -19,6 +20,7 @@ test.describe('Sample CRUD Routes', () => {
   test.describe('Add Page', () => {
     test('should render sample form in add mode', async ({ authenticatedPage: page }) => {
       await page.goto('/crud/sample/add');
+      await page.waitForSelector('app-sample-form', { state: 'attached', timeout: 30000 });
       await expect(page.locator('app-sample-form')).toBeVisible();
       await expect(page.locator('#title')).toBeVisible();
       await expect(page.locator('#code')).toBeVisible();
@@ -29,6 +31,7 @@ test.describe('Sample CRUD Routes', () => {
   test.describe('View Page', () => {
     test('should render sample form in view mode', async ({ authenticatedPage: page }) => {
       await page.goto('/crud/sample/view/1');
+      await page.waitForSelector('app-sample-form', { state: 'attached', timeout: 30000 });
       await expect(page.locator('app-sample-form')).toBeVisible();
       await expect(page.locator('#title')).toBeVisible();
       await expect(page.locator('#code')).toBeVisible();
@@ -38,6 +41,7 @@ test.describe('Sample CRUD Routes', () => {
   test.describe('Edit Page', () => {
     test('should render sample form in edit mode', async ({ authenticatedPage: page }) => {
       await page.goto('/crud/sample/edit/1');
+      await page.waitForSelector('app-sample-form', { state: 'attached', timeout: 30000 });
       await expect(page.locator('app-sample-form')).toBeVisible();
       await expect(page.locator('#title')).toBeVisible();
       await expect(page.locator('#code')).toBeVisible();

@@ -13,24 +13,29 @@ test.describe('Auth Visual Regression', () => {
 
     test('should match sign in form screenshot', async ({ page }) => {
       await page.goto('/signin');
-      await expect(page.locator('#sign-in-form')).toBeVisible();
+      await expect(page.locator('#signin-form')).toBeVisible();
       await page.waitForLoadState('networkidle');
 
-      await expect(page.locator('#sign-in-form')).toHaveScreenshot('signin-form.png');
+      await expect(page.locator('#signin-form')).toHaveScreenshot('signin-form.png');
     });
 
     test('should match sign in form with validation errors screenshot', async ({ page }) => {
       await page.goto('/signin');
       await page.waitForLoadState('networkidle');
 
-      await page.locator('#email').fill('invalid');
-      await page.locator('#email').blur();
-      await expect(page.locator('#email-form-field')).toContainText('Invalid');
+      await page.locator('#signin-form-ng-form0-email').fill('invalid');
+      await page.locator('#signin-form-ng-form0-email').blur();
+      await expect(page.locator('fieldset.form-field').filter({ hasText: 'Email' })).toContainText(
+        'Invalid',
+      );
 
-      await page.locator('#sign-in-button').click();
-      await expect(page.locator('#password-form-field')).toContainText('Required');
+      await page.locator('#signin-form-ng-form0-password').fill('');
+      await page.locator('#signin-form-ng-form0-password').blur();
+      await expect(
+        page.locator('fieldset.form-field').filter({ hasText: 'Password' }),
+      ).toContainText('Required');
 
-      await expect(page.locator('#sign-in-form')).toHaveScreenshot('signin-form-errors.png');
+      await expect(page.locator('#signin-form')).toHaveScreenshot('signin-form-errors.png');
     });
   });
 
@@ -46,45 +51,64 @@ test.describe('Auth Visual Regression', () => {
 
     test('should match sign up form screenshot', async ({ page }) => {
       await page.goto('/signup');
-      await expect(page.locator('#sign-up-form')).toBeVisible();
+      await expect(page.locator('#signup-form')).toBeVisible();
       await page.waitForLoadState('networkidle');
 
-      await expect(page.locator('#sign-up-form')).toHaveScreenshot('signup-form.png');
+      await expect(page.locator('#signup-form')).toHaveScreenshot('signup-form.png');
     });
 
     test('should match sign up form with validation errors screenshot', async ({ page }) => {
       await page.goto('/signup');
       await page.waitForLoadState('networkidle');
 
-      await page.locator('#sign-up-button').click();
-      await expect(page.locator('#email-form-field .ui-form-field-message')).toBeVisible();
+      await page.locator('#signup-form-ng-form0-email').fill('invalid');
+      await page.locator('#signup-form-ng-form0-email').blur();
+      await expect(page.locator('fieldset.form-field').filter({ hasText: 'Email' })).toContainText(
+        'Invalid',
+      );
 
-      await expect(page.locator('#sign-up-form')).toHaveScreenshot('signup-form-errors.png');
+      await page.locator('#signup-form-ng-form0-password').fill('');
+      await page.locator('#signup-form-ng-form0-password').blur();
+      await expect(
+        page.locator('fieldset.form-field').filter({ hasText: 'Password' }).first(),
+      ).toContainText('Required');
+
+      await page.locator('#signup-form-ng-form0-confirmPassword').fill('');
+      await page.locator('#signup-form-ng-form0-confirmPassword').blur();
+      await expect(
+        page.locator('fieldset.form-field').filter({ hasText: 'Confirm password' }),
+      ).toContainText('Required');
+
+      await expect(page.locator('#signup-form')).toHaveScreenshot('signup-form-errors.png');
     });
 
     test('should match sign up password strength popover screenshot', async ({ page }) => {
       await page.goto('/signup');
       await page.waitForLoadState('networkidle');
 
-      await page.locator('#password').focus();
-      await expect(page.locator('#password-form-field')).toBeVisible();
+      await page.locator('#signup-form-ng-form0-password').focus();
+      await expect(
+        page.locator('fieldset.form-field').filter({ hasText: 'Password' }).first(),
+      ).toBeVisible();
 
-      await expect(page.locator('#password-form-field')).toHaveScreenshot(
-        'signup-form-password-popover.png',
-      );
+      await expect(
+        page.locator('fieldset.form-field').filter({ hasText: 'Password' }).first(),
+      ).toHaveScreenshot('signup-form-password-popover.png');
     });
 
     test('should match sign up form with matching passwords screenshot', async ({ page }) => {
       await page.goto('/signup');
       await page.waitForLoadState('networkidle');
 
-      await page.locator('#email').fill('newuser@example.com');
-      await page.locator('#password').fill('AB1!ab2@CD3#');
-      await page.locator('#confirm-password').fill('AB1!ab2@CD3#');
-      await page.locator('#confirm-password').blur();
-      await expect(page.locator('#confirm-password-form-field')).toContainText('Match');
+      await page.locator('#signup-form-ng-form0-email').fill('newuser@example.com');
+      await page.locator('#signup-form-ng-form0-password').fill('AB1!ab2@CD3#');
+      await page.locator('#signup-form-ng-form0-confirmPassword').fill('AB1!ab2@CD3#');
+      await page.locator('#signup-form-ng-form0-confirmPassword').blur();
+      await expect(
+        page.locator('fieldset.form-field').filter({ hasText: 'Confirm password' }),
+      ).toContainText('Match');
 
-      await expect(page.locator('#sign-up-form')).toHaveScreenshot('signup-form-matching.png');
+      await expect(page.locator('#signup-form')).toHaveScreenshot('signup-form-matching.png');
     });
   });
 });

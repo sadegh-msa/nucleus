@@ -12,7 +12,7 @@ import {
 import type { AuthSignUpModel } from '../../../../ext/auth/models/auth.model';
 import { injectAuthStore } from '../../../../ext/auth/store/auth-store';
 import { authInternalConfig } from '../../configs';
-import { SignLayout } from '../sign-layout/sign-layout';
+import { AuthLayout } from '../auth-layout/auth-layout';
 
 @Component({
   selector: 'nu-sign-up',
@@ -20,7 +20,7 @@ import { SignLayout } from '../sign-layout/sign-layout';
   imports: [
     RouterLink,
     FormField,
-    SignLayout,
+    AuthLayout,
     UiFormField,
     UiInputPassword,
     UiSvgIcon,
@@ -31,7 +31,8 @@ import { SignLayout } from '../sign-layout/sign-layout';
 export class SignUp {
   readonly #authStore = injectAuthStore();
 
-  readonly config = authInternalConfig;
+  readonly config = authInternalConfig.entity;
+  readonly formId = this.config.signUp.html.form.id;
   readonly authSignInModel = signal<AuthSignUpModel & { confirmPassword: string }>({
     email: '',
     password: '',
@@ -82,7 +83,11 @@ export class SignUp {
   });
 
   readonly confirmPasswordHint = computed(() => {
-    if (this.arePasswordsMatching()) {
+    if (
+      this.form.password().value() &&
+      this.form.confirmPassword().value() &&
+      this.arePasswordsMatching()
+    ) {
       return {
         message: $localize`Match`,
         styleClass: 'ui text success',

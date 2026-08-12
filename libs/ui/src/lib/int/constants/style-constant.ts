@@ -21,6 +21,9 @@ export const uiStyleClass = Object.freeze({
   checkbox: {
     basic: 'ui checkbox',
   },
+  formField: {
+    basic: 'ui form-field',
+  },
   menu: {
     basic: 'ui menu',
     status: {

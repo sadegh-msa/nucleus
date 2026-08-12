@@ -1,20 +1,33 @@
+const signIn = 'signin';
+const signUp = 'signup';
+const resetPassword = 'reset-password';
+
 export const authInternalConfig = Object.freeze({
-  rest: {
-    endpoint: 'auth',
-  },
-  routes: {
+  entity: {
     signIn: {
-      path: 'signin',
-      title: $localize`Sign in`,
+      html: { form: { id: `${signIn}-form` } },
+      route: {
+        path: signIn,
+        title: $localize`Sign in`,
+      },
     },
     signUp: {
-      path: 'signup',
-      title: $localize`Sign up`,
+      html: { form: { id: `${signUp}-form` } },
+      route: {
+        path: signUp,
+        title: $localize`Sign up`,
+      },
     },
     resetPassword: {
-      path: 'reset-password',
-      title: $localize`Reset password`,
+      html: { form: { id: `${resetPassword}-form` } },
+      route: {
+        path: resetPassword,
+        title: $localize`Reset password`,
+      },
     },
+  },
+  rest: {
+    endpoint: 'auth',
   },
   token: {
     cookieAccessTokenKey: 'aat',

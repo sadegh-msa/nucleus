@@ -4,11 +4,11 @@ import { injectNuCommonConfig } from '@nucleus/common';
 import { AuthToken } from '../../../../ext/auth/services/auth-token';
 
 @Component({
-  selector: 'nu-sign-layout',
-  templateUrl: './sign-layout.html',
+  selector: 'nu-auth-layout',
+  templateUrl: './auth-layout.html',
   imports: [NgOptimizedImage, NgStyle, NgTemplateOutlet, AsyncPipe],
 })
-export class SignLayout {
+export class AuthLayout {
   readonly #authToken = inject(AuthToken);
 
   readonly branding = injectNuCommonConfig().branding;

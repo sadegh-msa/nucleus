@@ -4,88 +4,90 @@
 @use '../../mixins/text-mixin' as text;
 
 @layer components {
-  ui-form-field,
-  .ui-form-field {
-    position: relative;
-    display: flex;
-    width: 100%;
-    flex-direction: column;
-    justify-content: flex-start;
-
-    &:not(.ui-error) {
-      & > {
-        .ui-form-field-header {
-          .ui-form-field-message:not(.ui.text) {
-            @include text.color(neutral-lighter);
-          }
-        }
-      }
-    }
-
-    &.ui-error {
-      & > {
-        .ui-form-field-header {
-          .ui-form-field-message {
-            @include text.color(danger);
-          }
-        }
-
-        .ui.input {
-          border-color: get-color-var(danger);
-        }
-      }
-    }
-
-    > .ui-form-field-header {
+  fieldset {
+    .ui.form-field,
+    &.ui.form-field {
+      position: relative;
       display: flex;
-      align-items: flex-end;
-      margin-block-end: get-size-var(xs-1);
-      padding-inline: get-size-var(xs-1);
+      width: 100%;
+      flex-direction: column;
+      justify-content: flex-start;
 
-      > .ui-form-field-help {
-        @include text.color(neutral-lighter);
-        @include text.weight(bold);
-        cursor: pointer;
-        font-style: normal;
-        padding-inline: get-size-var(xs-4);
-
-        &:hover {
-          @include text.color(info);
+      &:not(.error) {
+        & > {
+          header {
+            .message:not(.ui.text) {
+              @include text.color(neutral-lighter);
+            }
+          }
         }
       }
 
-      > .ui-form-field-message {
-        @include text.size(medium);
-        flex-grow: 1;
-        text-align: end;
+      &.error {
+        & > {
+          header {
+            .message {
+              @include text.color(danger);
+            }
+          }
+
+          .ui.input {
+            border-color: get-color-var(danger);
+          }
+        }
       }
-    }
 
-    label {
-      @include text.weight(bold);
-    }
+      > header {
+        display: flex;
+        align-items: flex-end;
+        margin-block-end: get-size-var(xs-1);
+        padding-inline: get-size-var(xs-1);
 
-    &:has(input[type='checkbox']) {
-      flex-direction: row-reverse;
-      gap: get-size-var(xs-4);
-      justify-content: flex-end;
-      align-items: center;
-      margin-inline-start: get-border-width(thin);
+        > .help {
+          @include text.color(neutral-lighter);
+          @include text.weight(bold);
+          cursor: pointer;
+          font-style: normal;
+          padding-inline: get-size-var(xs-4);
+
+          &:hover {
+            @include text.color(info);
+          }
+        }
+
+        > .message {
+          @include text.size(medium);
+          flex-grow: 1;
+          text-align: end;
+        }
+      }
 
       label {
-        cursor: pointer;
-        user-select: none;
+        @include text.weight(bold);
       }
-    }
 
-    &:has(input[type='checkbox']:focus) {
-      margin-inline-start: 0;
-      gap: calc(#{get-size-var(xs-4)} - #{get-border-width(thin)});
-    }
+      &:has(input[type='checkbox']) {
+        flex-direction: row-reverse;
+        gap: get-size-var(xs-4);
+        justify-content: flex-end;
+        align-items: center;
+        margin-inline-start: get-border-width(thin);
 
-    &:has(input[type='checkbox']:disabled) {
-      label {
-        cursor: not-allowed;
+        label {
+          cursor: pointer;
+          user-select: none;
+        }
+      }
+
+      &:has(input[type='checkbox']:focus) {
+        margin-inline-start: 0;
+        gap: calc(#{get-size-var(xs-4)} - #{get-border-width(thin)});
+      }
+
+      &:has(input[type='checkbox']:disabled) {
+        label {
+          cursor: not-allowed;
+        }
       }
     }
   }
