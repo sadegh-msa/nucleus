@@ -53,11 +53,25 @@
 </article>
 
 <ng-template #popover let-placement="data">
-  <h3 class="ui primary popover-sample"
-      [class.bordered]="!popoverHasBubble()">
+  <style>
+    h4.popover-sample {
+      display: flex;
+      align-items: center;
+      gap: calc(var(--ui-size-base) * 4);
+      width: max-content;
+
+      &.no-bubble {
+        color: var(--ui-color-accent);
+        background-color: var(--ui-color-accent-surface);
+        padding: calc(var(--ui-size-base) * 5);
+      }
+    }
+  </style>
+  <h4 class="ui primary popover-sample"
+      [class.no-bubble]="!popoverHasBubble()">
     <svg uiSvgIcon="demo" variant="bold" class="normal" />
     {{ placement }}
-  </h3>
+  </h4>
 </ng-template>
 
 <article id="bubbles">

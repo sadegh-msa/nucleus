@@ -33,18 +33,6 @@
 
     &#popovers {
       grid-area: 1 / 2 / 2 / 3;
-
-      h3.popover-sample {
-        display: flex;
-        align-items: center;
-        gap: get-size-var(xs-4);
-        width: max-content;
-
-        &.bordered {
-          @include box.rounded-tiny(accent);
-          background-color: get-color-var(paper);
-        }
-      }
     }
 
     &#tooltips,
