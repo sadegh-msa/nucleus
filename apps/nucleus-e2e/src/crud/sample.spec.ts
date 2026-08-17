@@ -22,9 +22,10 @@ test.describe('Sample CRUD Routes', () => {
       await page.goto('/crud/sample/add');
       await page.waitForSelector('app-sample-form', { state: 'attached', timeout: 30000 });
       await expect(page.locator('app-sample-form')).toBeVisible();
-      await expect(page.locator('#title')).toBeVisible();
-      await expect(page.locator('#code')).toBeVisible();
-      await expect(page.locator('#description')).toBeVisible();
+      await expect(page.locator('#sample-form-ng-form0-title')).toBeVisible();
+      await expect(page.locator('#sample-form-ng-form0-code')).toBeVisible();
+      await expect(page.locator('#sample-form-ng-form0-date')).toBeVisible();
+      await expect(page.locator('#sample-form-ng-form0-description')).toBeVisible();
     });
   });
 
@@ -33,8 +34,10 @@ test.describe('Sample CRUD Routes', () => {
       await page.goto('/crud/sample/view/1');
       await page.waitForSelector('app-sample-form', { state: 'attached', timeout: 30000 });
       await expect(page.locator('app-sample-form')).toBeVisible();
-      await expect(page.locator('#title')).toBeVisible();
-      await expect(page.locator('#code')).toBeVisible();
+      await expect(page.locator('#sample-form-ng-form0-title')).toBeVisible();
+      await expect(page.locator('#sample-form-ng-form0-code')).toBeVisible();
+      await expect(page.locator('#sample-form-ng-form0-date')).toBeVisible();
+      await expect(page.locator('#sample-form-ng-form0-description')).toBeVisible();
     });
   });
 
@@ -43,8 +46,10 @@ test.describe('Sample CRUD Routes', () => {
       await page.goto('/crud/sample/edit/1');
       await page.waitForSelector('app-sample-form', { state: 'attached', timeout: 30000 });
       await expect(page.locator('app-sample-form')).toBeVisible();
-      await expect(page.locator('#title')).toBeVisible();
-      await expect(page.locator('#code')).toBeVisible();
+      await expect(page.locator('#sample-form-ng-form0-title')).toBeVisible();
+      await expect(page.locator('#sample-form-ng-form0-code')).toBeVisible();
+      await expect(page.locator('#sample-form-ng-form0-date')).toBeVisible();
+      await expect(page.locator('#sample-form-ng-form0-description')).toBeVisible();
     });
   });
 });

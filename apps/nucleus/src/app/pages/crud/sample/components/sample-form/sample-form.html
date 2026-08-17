@@ -1,48 +1,67 @@
-<div class="page page-form" [loading]="isSubmitting()">
-  <nu-generic-form-toolbar [toolbar]="toolbar"
-                            [data]="data()"
-                            class="page-toolbar page-form-toolbar" />
+<div class="page page-form" [loading]="isBusy()">
+  <nu-generic-form-toolbar
+    [toolbar]="toolbar"
+    [data]="data()"
+    class="page-toolbar page-form-toolbar"
+  />
 
   <div class="page-content page-form-content">
-    <form class="form-view" [formGroup]="form" (ngSubmit)="save()" autocomplete="off"
-          [ngClass]="{'form-view': pageType() === 'view'}">
-      <div class="form-field-2">
-        <label for="title">Title *</label>
-        <input id="title"
-               aria-describedby="title-help"
-               formControlName="title" />
-        <div class="form-field-message">
-          @if (formControlHasError('title', 'required')) {
-            <small class="p-error" i18n>Username is not available.</small>
-          }
-        </div>
-      </div>
+    <form
+      [id]="formId"
+      class="ui form compact"
+      autocomplete="off"
+      [class.view]="pageType() === 'view'"
+      (submit)="onSubmit($event)"
+    >
+      <fieldset
+        uiFormField
+        label="Title" i18n-label
+        [fieldState]="form.title()"
+      >
+        <input
+          class="ui input"
+          aria-describedby="title-help"
+          [formField]="form.title"
+        />
+      </fieldset>
 
-      <div class="form-field-2">
-        <label for="code">Code *</label>
-        <input id="code"
-               aria-describedby="code-help"
-               formControlName="code" />
-      </div>
+      <fieldset
+        uiFormField
+        label="Code" i18n-label
+        [fieldState]="form.code()"
+      >
+        <input
+          class="ui input"
+          aria-describedby="code-help"
+          [formField]="form.code"
+        />
+      </fieldset>
 
-      <div class="form-field-2">
-        <label for="date">Date *</label>
-        <ui-calendar id="date"
-               aria-describedby="date-help"
-               formControlName="date" />
-      </div>
+      <fieldset
+        uiFormField
+        label="Date" i18n-label
+        [fieldState]="form.date()"
+      >
+        <input
+          class="ui input"
+          aria-describedby="date-help"
+          type="date"
+          [formField]="form.date"
+        />
+      </fieldset>
 
-      <div class="form-field-6">
-        <label>Test Dropdown</label>
-        <select formControlName="divisionId"></select>
-      </div>
-
-      <div class="form-field-4">
-        <label for="description">Description</label>
-        <input id="description"
-               aria-describedby="description-help"
-               formControlName="description" />
-      </div>
+      <fieldset
+        uiFormField
+        label="Description" i18n-label
+        [fieldState]="form.description()"
+      >
+        <textarea
+          class="ui textarea"
+          placeholder="Description"
+          aria-describedby="description-help"
+          [formField]="form.description"
+        ></textarea>
+      </fieldset>
     </form>
   </div>
 </div>

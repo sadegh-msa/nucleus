@@ -14,7 +14,6 @@ export * from './helpers/format-messages-helper';
 export * from './models/crud.model';
 export * from './models/crud-config.model';
 export * from './models/dropdown.model';
-export * from './models/form.model';
 export * from './models/generic.model';
 export * from './models/info.model';
 export * from './models/page.model';

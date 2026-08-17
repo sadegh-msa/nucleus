@@ -1,15 +1,16 @@
 import type { GenericFormConsumerModel } from '@nucleus/core';
 import type { SampleGenericModel } from '../models/sample-generic.model';
 
-type FormModel = GenericFormConsumerModel<SampleGenericModel>;
+type ConsumerModel = GenericFormConsumerModel<SampleGenericModel>;
 
 export abstract class AbstractGenericSampleForm {
-  data!: FormModel['data'];
-  title!: FormModel['title'];
-  isSubmitted!: FormModel['isSubmitted'];
-  isSubmitting!: FormModel['isSubmitting'];
-  save!: FormModel['save'];
-  formControlHasError!: FormModel['formControlHasError'];
-  toolbar!: FormModel['toolbar'];
-  navigationState: FormModel['navigationState'];
+  abstract formModel: ConsumerModel['formModel'];
+  abstract form: ConsumerModel['form'];
+  data!: ConsumerModel['data'];
+  id!: ConsumerModel['id'];
+  isBusy!: ConsumerModel['isBusy'];
+  navigationState: ConsumerModel['navigationState'];
+  title!: ConsumerModel['title'];
+  toolbar!: ConsumerModel['toolbar'];
+  onSubmit!: ConsumerModel['onSubmit'];
 }

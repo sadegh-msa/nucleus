@@ -44,7 +44,6 @@ export class SampleList extends AbstractGenericSampleList implements OnInit {
         type: 'datetime',
         format: 'longDate',
       },
-      { field: 'divisionId', label: 'Division' },
     ],
     ...createTableToolbar<SampleGenericModel>(this.config),
   };

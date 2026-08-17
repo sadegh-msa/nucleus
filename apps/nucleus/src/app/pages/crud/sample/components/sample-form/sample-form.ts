@@ -1,40 +1,48 @@
-import { NgClass } from '@angular/common';
-import { Component, inject, input, type OnInit } from '@angular/core';
-import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Component, computed, inject, input, type OnInit, signal } from '@angular/core';
+import { FormField, form, readonly, required } from '@angular/forms/signals';
 import { GenericFormBuilder, GenericFormToolbar, type PageType } from '@nucleus/core';
-import { UiCalendar, UiLoading } from '@nucleus/ui';
+import { UiFormField, UiLoading } from '@nucleus/ui';
 import { AbstractGenericSampleForm } from '../../abstracts/abstract-generic-sample-form';
-import type { SampleTypedFormModel } from '../../models/sample.model';
+import type { SampleFormModel } from '../../models/sample.model';
 import type { SampleGenericModel } from '../../models/sample-generic.model';
 import { sampleConfig } from '../../sample.config';
 import { SampleStore } from '../../store/sample-store';
-import type { SampleStatusType } from '../../types/sample.type';
 
 @Component({
   selector: 'app-sample-form',
   templateUrl: './sample-form.html',
-  imports: [ReactiveFormsModule, NgClass, UiLoading, GenericFormToolbar, UiCalendar],
+  imports: [UiLoading, GenericFormToolbar, UiFormField, FormField],
   providers: [GenericFormBuilder],
 })
 export class SampleForm extends AbstractGenericSampleForm implements OnInit {
   readonly #genericFormBuilder = inject(GenericFormBuilder<SampleGenericModel>);
 
   pageType = input<PageType>('view');
-  id = input('');
+  inputId = input('', { alias: 'id' });
   isEmbedded = input(false);
 
-  readonly config = sampleConfig;
   readonly store = inject(SampleStore);
-  readonly form = new FormGroup<SampleTypedFormModel>({
-    id: new FormControl(null),
-    title: new FormControl(null, [Validators.required]),
-    code: new FormControl(null, [Validators.required]),
-    description: new FormControl(null),
-    active: new FormControl(true),
-    date: new FormControl(new Date()),
-    status: new FormControl<SampleStatusType>('draft'),
-    divisionId: new FormControl(null),
-    details: new FormControl([]),
+  readonly isViewPage = computed(() => this.pageType() === 'view');
+  readonly config = sampleConfig;
+  readonly formId = this.config.html.form.id;
+  readonly formModel = signal<SampleFormModel>({
+    id: '',
+    title: '',
+    code: '',
+    description: '',
+    date: new Date(),
+    active: true,
+    status: 'draft',
+    details: [],
+  });
+  readonly form = form(this.formModel, (spt) => {
+    required(spt.title, { message: $localize`Required` });
+    required(spt.code, { message: $localize`Required` });
+    required(spt.date, { message: $localize`Required` });
+    readonly(spt.title, { when: () => this.isViewPage() });
+    readonly(spt.code, { when: () => this.isViewPage() });
+    readonly(spt.date, { when: () => this.isViewPage() });
+    readonly(spt.description, { when: () => this.isViewPage() });
   });
 
   constructor() {

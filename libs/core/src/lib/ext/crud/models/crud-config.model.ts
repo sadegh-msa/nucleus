@@ -12,6 +12,9 @@ export interface CrudConfigModel<B, I extends keyof B, C extends keyof B, T exte
     title: B[T];
     dates: string[];
   };
+  html: {
+    form: { id: string };
+  };
   path: {
     base: string;
     full: string[];

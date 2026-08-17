@@ -1,0 +1,194 @@
+@use '../helpers/size-helper' as *;
+@use '../helpers/color-helper' as *;
+@use '../helpers/border-helper' as *;
+@use './box-mixin' as box;
+@use './mixins/size-mixin' as size;
+@use './transition-mixin' as transition;
+@use './mixins/text-mixin' as text;
+
+@mixin form-field() {
+  fieldset {
+    .ui.form-field,
+    &.ui.form-field {
+      position: relative;
+      display: flex;
+      width: 100%;
+      flex-direction: column;
+      justify-content: flex-start;
+
+      &:not(.error) {
+        & > {
+          header {
+            .message:not(.ui.text) {
+              @include text.color(neutral-lighter);
+            }
+          }
+        }
+      }
+
+      &.error {
+        & > {
+          header {
+            .message {
+              @include text.color(danger);
+            }
+          }
+
+          .ui.input {
+            border-color: get-color-var(danger);
+          }
+        }
+      }
+
+      > header {
+        display: flex;
+        align-items: flex-end;
+        margin-block-end: get-size-var(xs-1);
+        padding-inline: get-size-var(xs-1);
+
+        > .help {
+          @include text.color(neutral-lighter);
+          @include text.weight(bold);
+          cursor: pointer;
+          font-style: normal;
+          padding-inline: get-size-var(xs-4);
+
+          &:hover {
+            @include text.color(info);
+          }
+        }
+
+        > .message {
+          @include text.size(medium);
+          flex-grow: 1;
+          text-align: end;
+        }
+      }
+
+      label {
+        @include text.weight(bold);
+      }
+
+      &:has(input[type='checkbox']) {
+        flex-direction: row-reverse;
+        gap: get-size-var(xs-4);
+        justify-content: flex-end;
+        align-items: center;
+        margin-inline-start: get-border-width(thin);
+
+        label {
+          cursor: pointer;
+          user-select: none;
+        }
+      }
+
+      &:has(input[type='checkbox']:focus) {
+        margin-inline-start: 0;
+        gap: calc(#{get-size-var(xs-4)} - #{get-border-width(thin)});
+      }
+
+      &:has(input[type='checkbox']:disabled) {
+        label {
+          cursor: not-allowed;
+        }
+      }
+    }
+  }
+}
+
+@mixin input-common() {
+  &.input,
+  &.textarea {
+    @include transition.normal(color, background-color, border-color, text-decoration-color, fill, stroke);
+    @include box.rounded(neutral-surface);
+    padding: get-size-var(xs-4);
+    font-size: get-size-var(sm-2);
+    line-height: get-size-var(sm-4);
+
+    &:disabled {
+      background-color: get-color-var(neutral-surface);
+      color: get-color-var(neutral);
+    }
+  }
+
+  &.input {
+    height: get-size-var(lg-3);
+    vertical-align: middle;
+
+    &::placeholder {
+      vertical-align: middle;
+    }
+  }
+
+  &.textarea {
+    min-width: 100%;
+    max-width: 100%;
+    width: 100%;
+    min-height: get-size-var(lg-3);
+    height: get-size-var(\7xl-2);
+  }
+}
+
+@mixin input-viewable() {
+  .ui {
+    @include input-common();
+
+    &.input,
+    &.textarea {
+      &:not([disabled]) {
+        background-color: get-color-var(watermark-surface);
+        color: get-color-var(ink);
+      }
+
+      &::placeholder {
+        display: none;
+      }
+    }
+  }
+}
+
+@mixin input-editable() {
+  .ui {
+    @include input-common();
+
+    &.input,
+    &.textarea {
+      &:not([disabled]) {
+        background-color: get-color-var(paper);
+        color: get-color-var(ink);
+      }
+
+      &::placeholder {
+        color: get-color-var(neutral-lighter);
+      }
+    }
+  }
+}
+
+@mixin common() {
+  display: grid;
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+  gap: get-size-var(sm-5);
+}
+
+@mixin generic() {
+  @include common();
+  @include form-field();
+
+  &.compact {
+    width: 50%;
+    margin: auto;
+  }
+
+  &:not(.view) {
+    @include input-editable();
+  }
+
+  &.view {
+    @include input-viewable();
+  }
+}
+
+@mixin search() {
+  @include common();
+}

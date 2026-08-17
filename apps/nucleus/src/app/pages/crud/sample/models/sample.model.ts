@@ -1,4 +1,4 @@
-import type { CommonFieldsModel, CrudConfigModel, TypedFormModel } from '@nucleus/core';
+import type { CommonFieldsModel, CrudConfigModel } from '@nucleus/core';
 import type { SampleStatusType } from '../types/sample.type';
 
 export interface SampleDetailModel {
@@ -8,7 +8,6 @@ export interface SampleDetailModel {
   description: string;
   sampleId: string;
   accountId: string;
-  divisionId: string;
 }
 
 export interface SampleFormModel {
@@ -20,12 +19,10 @@ export interface SampleFormModel {
   description: string;
   status: SampleStatusType;
   details: SampleDetailModel[];
-  divisionId: string;
 }
 
 export type SampleModel = CommonFieldsModel & SampleFormModel;
 export type SampleListModel = SampleModel[];
 export type SampleAddModel = Omit<SampleFormModel, 'id'>;
 export type SampleUpdateModel = SampleFormModel;
-export type SampleTypedFormModel = TypedFormModel<SampleFormModel>;
 export type SampleConfigModel = CrudConfigModel<SampleModel, 'id', 'code', 'title'>;

@@ -12,7 +12,6 @@ export * from './services/password-validator';
 export * from './services/permanent-storage';
 export * from './services/temporary-storage';
 export * from './types/data.type';
-export * from './types/form.type';
 export * from './types/global.type';
 export * from './types/operation.type';
 export * from './utils/apply-mixins-util';

@@ -318,11 +318,11 @@ describe('createCrudSignalStore', () => {
     });
   });
 
-  describe('getMutate', () => {
+  describe('mutateGet', () => {
     it('should update get response and reset status to Initial', () => {
       const response = { id: '1', name: 'Mutated Item' };
 
-      store.getMutate(response);
+      store.mutateGet(response);
 
       expect(store.getResponse().data).toEqual(response);
       expect(store.getStatus()).toBe('initial');

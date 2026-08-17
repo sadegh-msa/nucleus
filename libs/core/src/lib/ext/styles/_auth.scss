@@ -41,12 +41,6 @@ nu-auth-layout {
       }
     }
 
-    > form {
-      display: grid;
-      gap: get-size-var(sm-5);
-      grid-template-columns: repeat(1, minmax(0, 1fr));
-    }
-
     > footer {
       > .actions {
         display: grid;

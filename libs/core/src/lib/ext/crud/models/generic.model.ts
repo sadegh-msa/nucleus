@@ -1,5 +1,5 @@
 import type { InputSignal, WritableSignal } from '@angular/core';
-import type { FormGroup } from '@angular/forms';
+import type { FieldTree } from '@angular/forms/signals';
 import type {
   AddStateModel,
   DeleteStateModel,
@@ -13,8 +13,6 @@ import type { PaginationModel } from './pagination.model';
 import type { TableModel } from './table.model';
 import type { ToolbarModel, ToolModel } from './toolbar.model';
 
-// eslint-disable-next-line
-type GenericTypedFormModel = any;
 // eslint-disable-next-line
 type GenericRequestModel = any;
 // eslint-disable-next-line
@@ -46,7 +44,7 @@ export interface CrudStoreModel {
   loadAdd(request: GenericRequestModel, tool?: ToolModel): void;
   loadUpdate(query: string, request: GenericRequestModel, tool?: ToolModel): void;
   loadDelete(query: string, tool?: ToolModel): void;
-  getMutate(response: GenericResponseModel): void;
+  mutateGet(response: GenericResponseModel): void;
   resetList(): void;
   resetGet(): void;
   resetAdd(): void;
@@ -71,7 +69,6 @@ export interface GenericEntityModel<
   Add = unknown,
   Update = unknown,
   Form = unknown,
-  TypedFrom = GenericTypedFormModel,
   Config = CrudConfigModel<any, any, any, any>,
 > {
   full: Full;
@@ -79,37 +76,36 @@ export interface GenericEntityModel<
   add: Add;
   update: Update;
   form: Form;
-  typedForm: TypedFrom;
   store: CrudStoreModel;
   config: Config;
 }
 
 export interface GenericListConsumerModel<T extends GenericEntityModel> {
-  store: T['store'];
   config: Readonly<T['config']>;
-  isEmbedded: InputSignal<boolean>;
-  toolbar: ToolbarModel;
-  table: TableModel;
   data: WritableSignal<T['list']>;
   isDataLoading: WritableSignal<boolean>;
+  isEmbedded: InputSignal<boolean>;
   pagination: WritableSignal<PaginationModel>;
   selectedRecords: WritableSignal<T['list']>;
+  store: T['store'];
+  table: TableModel;
+  toolbar: ToolbarModel;
   changeSelection: (selectedItems: T['list'] | T['list'][0]) => void;
 }
 
 export interface GenericFormConsumerModel<T extends GenericEntityModel> {
-  store: T['store'];
-  id: InputSignal<string>;
   config: Readonly<T['config']>;
-  isEmbedded: InputSignal<boolean>;
-  toolbar: ToolbarModel;
-  pageType: InputSignal<PageType>;
-  form: FormGroup<T['typedForm']>;
-  navigationState?: Record<string, unknown>;
   data: WritableSignal<T['full']>;
+  formModel: WritableSignal<T['form']>;
+  id: WritableSignal<string>;
+  inputId: InputSignal<string>;
+  isBusy: WritableSignal<boolean>;
+  isEmbedded: InputSignal<boolean>;
+  navigationState?: Record<string, unknown>;
+  pageType: InputSignal<PageType>;
+  store: T['store'];
   title: WritableSignal<string>;
-  isSubmitting: WritableSignal<boolean>;
-  isSubmitted: WritableSignal<boolean>;
-  save: () => void;
-  formControlHasError: (controlName: string, error: string) => boolean | undefined;
+  toolbar: ToolbarModel;
+  form: FieldTree<T['form'], string | number, 'writable'>;
+  onSubmit: (event: Event) => void;
 }

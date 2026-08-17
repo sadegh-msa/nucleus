@@ -5,7 +5,6 @@ import type {
   SampleFormModel,
   SampleListModel,
   SampleModel,
-  SampleTypedFormModel,
   SampleUpdateModel,
 } from './sample.model';
 
@@ -15,6 +14,5 @@ export type SampleGenericModel = GenericEntityModel<
   SampleAddModel,
   SampleUpdateModel,
   SampleFormModel,
-  SampleTypedFormModel,
   SampleConfigModel
 >;

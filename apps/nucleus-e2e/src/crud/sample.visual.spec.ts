@@ -42,7 +42,7 @@ test.describe('Sample CRUD Visual Regression', () => {
 
     test('should match sample form fields screenshot', async ({ authenticatedPage: page }) => {
       await page.goto('/crud/sample/add');
-      await expect(page.locator('#title')).toBeVisible();
+      await expect(page.locator('#sample-form-ng-form0-title')).toBeVisible();
       await page.waitForLoadState('networkidle');
 
       await expect(page.locator('app-sample-form')).toHaveScreenshot('sample-form-fields.png');

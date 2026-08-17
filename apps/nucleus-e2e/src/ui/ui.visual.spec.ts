@@ -80,7 +80,9 @@ test.describe('UI Visual Regression', () => {
       await expect(page.locator('#popovers')).toHaveScreenshot('popovers-section.png');
     });
 
-    test('should match popovers section with focus trigger screenshot', async ({ authenticatedPage: page }) => {
+    test('should match popovers section with focus trigger screenshot', async ({
+      authenticatedPage: page,
+    }) => {
       await page.goto('/ui/popover');
       await page.waitForLoadState('networkidle');
 

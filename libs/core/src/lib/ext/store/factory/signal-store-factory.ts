@@ -224,13 +224,13 @@ export function createCrudSignalStore<Query, Request, Response>(
             delete: { ...store.delete(), query, tool, status: 'inProgress' },
           });
           rest.delete(query).subscribe({
-            next: () => {
+            next: (response) => {
               const message = $localize`${config.title} deleted successfully`;
               uiMessageManager.addSuccess(message);
               patchState(store, {
                 delete: {
                   ...store.delete(),
-                  response: { control: {}, data: query },
+                  response,
                   message,
                   tool,
                   status: 'success',
@@ -247,7 +247,7 @@ export function createCrudSignalStore<Query, Request, Response>(
           });
         },
 
-        getMutate(response: Response) {
+        mutateGet(response: Response) {
           patchState(store, {
             get: {
               ...store.get(),

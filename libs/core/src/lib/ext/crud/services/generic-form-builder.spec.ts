@@ -1,9 +1,14 @@
 import { signal } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
-import { FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { type Mock, vi } from 'vitest';
 import { GenericFormBuilder } from './generic-form-builder';
+
+interface MockForm {
+  markAsTouched: Mock;
+  invalid: Mock;
+  value: Mock;
+}
 
 describe('GenericFormBuilder', () => {
   let service: GenericFormBuilder<any>;
@@ -36,10 +41,8 @@ describe('GenericFormBuilder', () => {
 
       expect(consumer.data).toBeDefined();
       expect(consumer.title).toBeDefined();
-      expect(consumer.isSubmitting).toBeDefined();
-      expect(consumer.isSubmitted).toBeDefined();
-      expect(consumer.save).toBeDefined();
-      expect(consumer.formControlHasError).toBeDefined();
+      expect(consumer.isBusy).toBeDefined();
+      expect(consumer.onSubmit).toBeDefined();
     });
 
     it('should set default title to ...', () => {
@@ -51,39 +54,19 @@ describe('GenericFormBuilder', () => {
     });
   });
 
-  describe('formControlHasError', () => {
-    it('should return false when not submitted', () => {
-      const consumer = createMockConsumer();
-      service.init(consumer as any);
-
-      const result = service.formControlHasError('name', 'required');
-
-      expect(result).toBeFalsy();
-    });
-  });
-
   describe('save', () => {
-    it('should set isSubmitted to true', () => {
-      const consumer = createMockConsumer();
-      service.init(consumer as any);
-
-      service.save();
-
-      expect(consumer.isSubmitted()).toBe(true);
-    });
-
     it('should mark form as touched', () => {
       const consumer = createMockConsumer();
       service.init(consumer as any);
 
       service.save();
 
-      expect(consumer.form.touched).toBe(true);
+      expect(consumer.form().markAsTouched).toHaveBeenCalled();
     });
 
     it('should return early when form is invalid', () => {
       const consumer = createMockConsumer();
-      consumer.form.controls['name'].setErrors({ required: true });
+      consumer.form().invalid.mockReturnValue(true);
       service.init(consumer as any);
 
       service.save();
@@ -171,22 +154,25 @@ describe('GenericFormBuilder', () => {
 });
 
 function createMockConsumer() {
-  const form = new FormGroup({
-    name: new FormControl(''),
-    title: new FormControl(''),
-  });
+  const mockForm: MockForm = {
+    markAsTouched: vi.fn(),
+    invalid: vi.fn().mockReturnValue(false),
+    value: vi.fn().mockReturnValue({ name: '', title: '' }),
+  };
+
+  const formSignal = signal(mockForm);
 
   return {
     data: signal({}),
     title: signal('...'),
-    isSubmitting: signal(false),
-    isSubmitted: signal(false),
-    form,
+    isBusy: signal(false),
+    form: formSignal,
+    formModel: signal({ name: '', title: '' }),
     id: signal('123'),
+    inputId: signal(''),
     pageType: signal('view'),
     isEmbedded: signal(false),
-    save: vi.fn(),
-    formControlHasError: vi.fn().mockReturnValue(false),
+    onSubmit: vi.fn(),
     config: {
       path: {
         page: {
@@ -219,7 +205,7 @@ function createMockConsumer() {
       resetAdd: vi.fn(),
       resetUpdate: vi.fn(),
       resetDelete: vi.fn(),
-      getMutate: vi.fn(),
+      mutateGet: vi.fn(),
     },
     toolbar: { tools: [] },
     navigationState: undefined,

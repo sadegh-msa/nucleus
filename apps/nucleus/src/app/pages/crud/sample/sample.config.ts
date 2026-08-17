@@ -16,6 +16,9 @@ export const sampleConfig = Object.freeze({
     title: 'title',
     dates: ['date', 'createdAt', 'updatedAt'],
   },
+  html: {
+    form: { id: `${entity}-form` },
+  },
   path: {
     base: `${prefix}/${entity}`,
     full,
