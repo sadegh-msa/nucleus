@@ -390,8 +390,7 @@ describe('UiFormField', () => {
         imports: [UiFormField],
       })
       class ContentHostComponent {
-        readonly fieldState = signal(
-          createMockFieldState([], true));
+        readonly fieldState = signal(createMockFieldState([], true));
       }
 
       const contentFixture = TestBed.createComponent(ContentHostComponent);

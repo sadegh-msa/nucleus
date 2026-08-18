@@ -1,12 +1,148 @@
 import { describe, expect, it } from 'vitest';
 import {
   deepSet,
+  isEmpty,
+  isNil,
+  isNotEmpty,
+  isNotNil,
   mergeAll,
   mergeAllIgnoreNil,
   mergeDeepLeft,
   mergeDeepRight,
   patchExisting,
-} from './object-util';
+} from './data-util';
+
+describe('isEmpty', () => {
+  it('should return true for empty string', () => {
+    expect(isEmpty('')).toBe(true);
+  });
+
+  it('should return true for empty array', () => {
+    expect(isEmpty([])).toBe(true);
+  });
+
+  it('should return true for empty object', () => {
+    expect(isEmpty({})).toBe(true);
+  });
+
+  it('should return false for null (Ramda behavior)', () => {
+    expect(isEmpty(null)).toBe(false);
+  });
+
+  it('should return false for undefined (Ramda behavior)', () => {
+    expect(isEmpty(undefined)).toBe(false);
+  });
+
+  it('should return false for non-empty string', () => {
+    expect(isEmpty('hello')).toBe(false);
+  });
+
+  it('should return false for non-empty array', () => {
+    expect(isEmpty([1, 2])).toBe(false);
+  });
+
+  it('should return false for non-empty object', () => {
+    expect(isEmpty({ a: 1 })).toBe(false);
+  });
+
+  it('should return false for number', () => {
+    expect(isEmpty(0)).toBe(false);
+  });
+});
+
+describe('isNil', () => {
+  it('should return true for null', () => {
+    expect(isNil(null)).toBe(true);
+  });
+
+  it('should return true for undefined', () => {
+    expect(isNil(undefined)).toBe(true);
+  });
+
+  it('should return false for empty string', () => {
+    expect(isNil('')).toBe(false);
+  });
+
+  it('should return false for 0', () => {
+    expect(isNil(0)).toBe(false);
+  });
+
+  it('should return false for false', () => {
+    expect(isNil(false)).toBe(false);
+  });
+
+  it('should return false for empty array', () => {
+    expect(isNil([])).toBe(false);
+  });
+
+  it('should return false for empty object', () => {
+    expect(isNil({})).toBe(false);
+  });
+});
+
+describe('isNotEmpty', () => {
+  it('should return false for empty string', () => {
+    expect(isNotEmpty('')).toBe(false);
+  });
+
+  it('should return false for empty array', () => {
+    expect(isNotEmpty([])).toBe(false);
+  });
+
+  it('should return false for empty object', () => {
+    expect(isNotEmpty({})).toBe(false);
+  });
+
+  it('should return true for null (inverse of isEmpty)', () => {
+    expect(isNotEmpty(null)).toBe(true);
+  });
+
+  it('should return true for undefined (inverse of isEmpty)', () => {
+    expect(isNotEmpty(undefined)).toBe(true);
+  });
+
+  it('should return true for non-empty string', () => {
+    expect(isNotEmpty('hello')).toBe(true);
+  });
+
+  it('should return true for non-empty array', () => {
+    expect(isNotEmpty([1, 2])).toBe(true);
+  });
+
+  it('should return true for non-empty object', () => {
+    expect(isNotEmpty({ a: 1 })).toBe(true);
+  });
+});
+
+describe('isNotNil', () => {
+  it('should return false for null', () => {
+    expect(isNotNil(null)).toBe(false);
+  });
+
+  it('should return false for undefined', () => {
+    expect(isNotNil(undefined)).toBe(false);
+  });
+
+  it('should return true for empty string', () => {
+    expect(isNotNil('')).toBe(true);
+  });
+
+  it('should return true for 0', () => {
+    expect(isNotNil(0)).toBe(true);
+  });
+
+  it('should return true for false', () => {
+    expect(isNotNil(false)).toBe(true);
+  });
+
+  it('should return true for empty array', () => {
+    expect(isNotNil([])).toBe(true);
+  });
+
+  it('should return true for empty object', () => {
+    expect(isNotNil({})).toBe(true);
+  });
+});
 
 describe('mergeAll', () => {
   it('should merge two objects with b taking priority', () => {

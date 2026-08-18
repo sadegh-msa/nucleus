@@ -15,6 +15,22 @@ export function deepSet(obj: any, path: string, getValue: (v: any) => any) {
   return deepSetObjectValue(obj, path.split('.'), getValue);
 }
 
+export function isEmpty(value: any) {
+  return R.isEmpty(value);
+}
+
+export function isNil(value: unknown) {
+  return R.isNil(value);
+}
+
+export function isNotEmpty(value: any) {
+  return R.isNotEmpty(value);
+}
+
+export function isNotNil(value: unknown) {
+  return R.isNotNil(value);
+}
+
 export function mergeAll<T = any>(...objects: any[]) {
   return R.mergeAll<T>(objects) as T;
 }
@@ -26,7 +42,7 @@ export function mergeAllIgnoreNil<T = any>(...objects: any[]) {
   )(objects) as T;
 }
 
-export function patchExisting<T>(target: T, source: Partial<T>): T {
+export function patchExisting<T>(target: T, source: Partial<T> | object): T {
   return R.mergeRight(target as object, R.pick(R.keys(target as object), source)) as T;
 }
 

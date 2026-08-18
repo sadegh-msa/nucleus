@@ -41,8 +41,7 @@ export class UiSvgIconLoader {
         this.#temporaryStorage.setItem(storageKey, rawSvg);
         return rawSvg;
       }
-    } catch {
-    }
+    } catch {}
 
     return null;
   }
