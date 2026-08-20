@@ -5,8 +5,10 @@
 <menu class="toolbar-end">
   @if (hasInfoFields && hasData) {
     <li>
-      <button class="ui button medium stamp basic second-info"
-              (click)="infoOverlay.toggle($event)">
+      <button uiRipple
+              class="ui button medium stamp basic second-info"
+              (click)="infoOverlay.toggle($event)"
+      >
         <svg uiSvgIcon="info-circle" />
         <span i18n>Info</span>
       </button>

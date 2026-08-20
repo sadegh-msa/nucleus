@@ -1,7 +1,7 @@
 import { NgClass } from '@angular/common';
 import { Component, inject, input } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { UiSvgIcon, UiTooltip } from '@nucleus/ui';
+import { UiRipple, UiSvgIcon, UiTooltip } from '@nucleus/ui';
 import { ConfirmationService } from 'primeng/api';
 import { ConfirmPopupModule } from 'primeng/confirmpopup';
 import { AuthPermission } from '../../../auth';
@@ -10,7 +10,15 @@ import type { ToolbarModel, ToolModel } from '../../models/toolbar.model';
 @Component({
   selector: 'nu-generic-toolbar',
   templateUrl: './generic-toolbar.html',
-  imports: [AuthPermission, ConfirmPopupModule, RouterModule, NgClass, UiSvgIcon, UiTooltip],
+  imports: [
+    AuthPermission,
+    ConfirmPopupModule,
+    RouterModule,
+    NgClass,
+    UiSvgIcon,
+    UiTooltip,
+    UiRipple,
+  ],
 })
 export class GenericToolbar {
   readonly #confirmationService = inject(ConfirmationService);

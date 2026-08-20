@@ -2,6 +2,7 @@ import { Component, computed, input, model } from '@angular/core';
 import { DividerModule } from 'primeng/divider';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { PaginatorModule, type PaginatorState } from 'primeng/paginator';
+import { UiRipple } from '@/libs/ui/src';
 import { createRowsPerPageOptions } from '../../factory/pagination-factory';
 import type { PaginationModel } from '../../models/pagination.model';
 import type { ToolbarModel } from '../../models/toolbar.model';
@@ -10,7 +11,7 @@ import { GenericToolbar } from '../generic-toolbar/generic-toolbar';
 @Component({
   selector: 'nu-generic-list-toolbar',
   templateUrl: './generic-list-toolbar.html',
-  imports: [DividerModule, GenericToolbar, OverlayPanelModule, PaginatorModule],
+  imports: [DividerModule, GenericToolbar, OverlayPanelModule, PaginatorModule, UiRipple],
 })
 export class GenericListToolbar {
   readonly paginatorLabel = computed(() => this.createPaginatorLabel());

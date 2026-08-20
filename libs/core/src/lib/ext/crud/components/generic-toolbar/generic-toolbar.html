@@ -3,6 +3,7 @@
     <li>
       @if (tool.element === 'button') {
         <button #buttonElement
+                uiRipple
                 (click)="runCommand(buttonElement, tool)"
                 [uiTooltip]="tool.tooltip" uiTooltipPlacement="block-end-inline-center"
                 [ngClass]="tool.ngClass || []"
@@ -21,7 +22,8 @@
           <p-confirmPopup [key]="tool.key" />
         }
       } @else if (tool.element === 'link') {
-        <a [ngClass]="tool.ngClass || []"
+        <a uiRipple
+           [ngClass]="tool.ngClass || []"
            [uiTooltip]="tool.tooltip" uiTooltipPlacement="block-end-inline-center"
            [routerLink]="tool.command()"
            [state]="tool.routerStates ? tool.routerStates() : {}"
