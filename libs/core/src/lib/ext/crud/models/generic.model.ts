@@ -83,7 +83,7 @@ export interface GenericEntityModel<
 export interface GenericListConsumerModel<T extends GenericEntityModel> {
   config: Readonly<T['config']>;
   data: WritableSignal<T['list']>;
-  isDataLoading: WritableSignal<boolean>;
+  isBusy: WritableSignal<boolean>;
   isEmbedded: InputSignal<boolean>;
   pagination: WritableSignal<PaginationModel>;
   selectedRecords: WritableSignal<T['list']>;

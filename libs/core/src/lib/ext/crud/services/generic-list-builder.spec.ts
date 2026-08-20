@@ -44,7 +44,7 @@ describe('GenericListBuilder', () => {
 
       expect(consumer.pagination).toBeDefined();
       expect(consumer.data).toBeDefined();
-      expect(consumer.isDataLoading).toBeDefined();
+      expect(consumer.isBusy).toBeDefined();
       expect(consumer.selectedRecords).toBeDefined();
     });
   });
@@ -54,7 +54,7 @@ function createMockConsumer() {
   return {
     pagination: signal(null),
     data: signal([]),
-    isDataLoading: signal(false),
+    isBusy: signal(false),
     selectedRecords: signal([]),
     isEmbedded: signal(false),
     toolbar: { tools: [] } as any,

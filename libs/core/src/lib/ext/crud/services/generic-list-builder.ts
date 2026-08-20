@@ -25,7 +25,7 @@ export class GenericListBuilder<T extends GenericEntityModel> {
   init(consumer: GenericListConsumerModel<T>) {
     consumer.pagination = signal(createPagination());
     consumer.data = signal<T['list']>([]);
-    consumer.isDataLoading = signal(false);
+    consumer.isBusy = signal(false);
     consumer.selectedRecords = signal([]);
     consumer.changeSelection = this.#selectionChanged.bind(this);
 
@@ -84,7 +84,7 @@ export class GenericListBuilder<T extends GenericEntityModel> {
       () => {
         const { response, status, tool } = this.#consumer.store.list();
         tool?.showLoading?.set(status === 'inProgress');
-        this.#consumer.isDataLoading.set(status === 'inProgress');
+        this.#consumer.isBusy.set(status === 'inProgress');
 
         if (status === 'success') {
           this.#handleLoadDataResponse(response);

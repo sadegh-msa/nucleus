@@ -8,7 +8,7 @@
                              [idField]="config.field.id"
                              [table]="table"
                              [firstRow]="pagination().first"
-                             [showLoading]="isDataLoading()"
+                             [showLoading]="isBusy()"
                              [isActivatable]="true"
                              selectionMode="multiple"
                              (selection)="changeSelection($event)"
