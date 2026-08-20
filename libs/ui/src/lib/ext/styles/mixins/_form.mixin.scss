@@ -122,7 +122,7 @@
 
   &.textarea {
     min-width: 100%;
-    max-width: 100%;
+    max-width: min-content;
     width: 100%;
     min-height: get-size-var(lg-3);
     height: get-size-var(\7xl-2);
