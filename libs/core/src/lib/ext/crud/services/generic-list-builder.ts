@@ -95,12 +95,17 @@ export class GenericListBuilder<T extends GenericEntityModel> {
   }
 
   #handleDeleteEvents() {
+    const { store } = this.#consumer;
+
+    store.resetDelete();
+
     effect(
       () => {
         const { status, tool, query } = this.#consumer.store.delete();
         tool?.showLoading?.set(status === 'inProgress' ? query : false);
 
         if (status === 'success') {
+          store.resetDelete();
           this.loadData();
         }
       },
