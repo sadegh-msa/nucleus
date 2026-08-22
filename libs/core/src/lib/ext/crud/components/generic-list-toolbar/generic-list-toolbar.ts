@@ -1,8 +1,8 @@
 import { Component, computed, input, model } from '@angular/core';
+import { UiRipple } from '@nucleus/ui';
 import { DividerModule } from 'primeng/divider';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { PaginatorModule, type PaginatorState } from 'primeng/paginator';
-import { UiRipple } from '@/libs/ui/src';
 import { createRowsPerPageOptions } from '../../factory/pagination-factory';
 import type { PaginationModel } from '../../models/pagination.model';
 import type { ToolbarModel } from '../../models/toolbar.model';
