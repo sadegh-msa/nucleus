@@ -1,9 +1,9 @@
 import { DOCUMENT, Renderer2 } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
-import { UiPopoverPositioner } from '../../int/services/popover-positioner';
-import { UiPopoverRenderer } from '../../int/services/popover-renderer';
-import type { TriggerEventType } from '../types/trigger.type';
+import type { TriggerEventType } from '../../ext/types/trigger.type';
 import { UiPopoverBuilder } from './popover-builder';
+import { UiPopoverPositioner } from './popover-positioner';
+import { UiPopoverRenderer } from './popover-renderer';
 
 describe('UiPopoverBuilder', () => {
   let service: UiPopoverBuilder;

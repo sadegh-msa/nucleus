@@ -1,9 +1,9 @@
 import { inject, Service } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { sleepRandom, TemporaryStorage } from '@nucleus/common';
-import { uiDefaultConfig } from '../../int/configs';
-import { injectUiConfig } from '../providers';
-import type { UiIconVariant } from '../types';
+import { injectUiConfig } from '../../ext/providers';
+import type { UiIconVariant } from '../../ext/types';
+import { uiDefaultConfig } from '../configs';
 
 const svgIconConfig = uiDefaultConfig.svgIcon;
 

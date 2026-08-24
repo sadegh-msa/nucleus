@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, computed, effect, inject, Service, signal } from '@angular/core';
 import type { ControlValueAccessor } from '@angular/forms';
-import type { ToggleValueModel, UiGenericToggleConsumerModel } from '../models/toggle.model';
+import type { ToggleValueModel, UiGenericToggleConsumerModel } from '../../ext/models/toggle.model';
 
 @Service({ autoProvided: false })
 export class UiToggleValueAccessor {

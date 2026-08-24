@@ -15,7 +15,7 @@ import {
 } from '@angular/core';
 import { uiDefaultConfig } from '../../../int/configs';
 import { uiStyleClass } from '../../../int/constants';
-import { UiSvgIconLoader } from '../../services/svg-icon-loader';
+import { UiSvgIconLoader } from '../../../int/services';
 import type { UiIconVariant } from '../../types';
 
 const svgIconConfig = uiDefaultConfig.svgIcon;

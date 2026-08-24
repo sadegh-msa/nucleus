@@ -1,10 +1,10 @@
 import { DOCUMENT, ElementRef, type Injector, inject, Service } from '@angular/core';
 import type { SetTimeoutType } from '@nucleus/common';
-import { eventMap, uiStyleClass } from '../../int/constants';
-import { UiPopoverPositioner } from '../../int/services/popover-positioner';
-import { UiPopoverRenderer } from '../../int/services/popover-renderer';
-import type { UiPopoverModel } from '../models';
-import type { TriggerEventType } from '../types/trigger.type';
+import type { UiPopoverModel } from '../../ext/models';
+import type { TriggerEventType } from '../../ext/types/trigger.type';
+import { eventMap, uiStyleClass } from '../constants';
+import { UiPopoverPositioner } from './popover-positioner';
+import { UiPopoverRenderer } from './popover-renderer';
 
 const popoverStyleClass = uiStyleClass.popover;
 

@@ -1,10 +1,10 @@
 import { type ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideRouter, Router } from '@angular/router';
 import { vi } from 'vitest';
+import { UiMenuBuilder } from '../../../int/services';
 import type { UiMenuItemModel } from '../../models/menu-item.model';
 import { provideUiConfig } from '../../providers';
 import { UiCssSupport } from '../../services/css-support';
-import { UiMenuBuilder } from '../../services/menu-builder';
 import { UiMenu } from './menu';
 
 describe('UiMenu', () => {
@@ -335,10 +335,7 @@ describe('UiMenu', () => {
 
   describe('style fallbacks', () => {
     const setInput = (target: ComponentFixture<UiMenu>, name: string, value: unknown) =>
-      (target.componentRef as { setInput: (n: string, v: unknown) => void }).setInput(
-        name,
-        value,
-      );
+      (target.componentRef as { setInput: (n: string, v: unknown) => void }).setInput(name, value);
 
     it('should survive undefined style inputs', () => {
       const localFixture = TestBed.createComponent(UiMenu);

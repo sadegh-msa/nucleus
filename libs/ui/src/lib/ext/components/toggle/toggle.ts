@@ -1,8 +1,8 @@
 import { NgClass, TitleCasePipe } from '@angular/common';
 import { Component, forwardRef, inject, input } from '@angular/core';
 import { type ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { UiToggleValueAccessor } from '../../../int/services';
 import type { ToggleValueModel, UiGenericToggleConsumerModel } from '../../models/toggle.model';
-import { UiToggleValueAccessor } from '../../services/toggle-value-accessor';
 
 @Component({
   selector: 'ui-toggle',

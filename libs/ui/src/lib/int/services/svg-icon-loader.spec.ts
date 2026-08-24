@@ -1,7 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { TemporaryStorage } from '@nucleus/common';
 import { afterEach, vi } from 'vitest';
-import { provideUiConfig } from '../providers';
+import { provideUiConfig } from '../../ext/providers';
 import { UiSvgIconLoader } from './svg-icon-loader';
 
 vi.mock('@nucleus/common', async (importOriginal) => {

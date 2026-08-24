@@ -1,5 +1,5 @@
 import { Service } from '@angular/core';
-import type { UiMenuItemModel } from '../models/menu-item.model';
+import type { UiMenuItemModel } from '../../ext/models/menu-item.model';
 
 @Service()
 export class UiMenuBuilder {

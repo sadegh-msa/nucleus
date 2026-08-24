@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { type ComponentFixture, TestBed } from '@angular/core/testing';
 import { vi } from 'vitest';
+import { UiSvgIconLoader } from '../../../int/services';
 import { provideUiConfig } from '../../providers';
-import { UiSvgIconLoader } from '../../services/svg-icon-loader';
 import { UiSvgIcon } from './svg-icon';
 
 if (typeof globalThis.IntersectionObserver === 'undefined') {

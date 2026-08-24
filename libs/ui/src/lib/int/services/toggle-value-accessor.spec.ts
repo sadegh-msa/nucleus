@@ -2,7 +2,7 @@ import { ChangeDetectorRef, signal } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import type { ControlValueAccessor } from '@angular/forms';
 import { vi } from 'vitest';
-import type { ToggleValueModel, UiGenericToggleConsumerModel } from '../models/toggle.model';
+import type { ToggleValueModel, UiGenericToggleConsumerModel } from '../../ext/models/toggle.model';
 import { UiToggleValueAccessor } from './toggle-value-accessor';
 
 describe('UiToggleValueAccessor', () => {

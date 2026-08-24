@@ -15,8 +15,8 @@ import {
 } from '@angular/core';
 import { uiDefaultConfig } from '../../../int/configs';
 import { uiStyleClass } from '../../../int/constants';
+import { UiPopoverBuilder } from '../../../int/services';
 import type { UiPopoverModel } from '../../models';
-import { UiPopoverBuilder } from '../../services/popover-builder';
 import type { TriggerEventType, UiPlacementType } from '../../types';
 
 const popoverConfig = uiDefaultConfig.popover;

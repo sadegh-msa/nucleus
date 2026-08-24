@@ -16,10 +16,11 @@ import { mergeDeepLeft, mergeDeepRight, SafeHtml } from '@nucleus/common';
 import { filter, map } from 'rxjs/operators';
 import { uiDefaultConfig } from '../../../int/configs';
 import { uiStyleClass } from '../../../int/constants';
+import { UiMenuBuilder } from '../../../int/services';
 import { UiPopover, UiRipple, UiSvgIcon, UiTooltip } from '../../directives';
 import { uniquifyStyleClass } from '../../helpers';
 import type { UiMenuItemModel } from '../../models/menu-item.model';
-import { UiCssSupport, UiMenuBuilder } from '../../services';
+import { UiCssSupport } from '../../services';
 import type { ExtentType, UiMenuModeType, UiMenuSubModeType, UiPlacementType } from '../../types';
 
 const menuConfig = uiDefaultConfig.menu;

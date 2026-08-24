@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { type ComponentFixture, TestBed } from '@angular/core/testing';
 import { setupGlobalMocks } from '@test-mocks';
 import { afterEach, vi } from 'vitest';
-import { UiPopoverBuilder } from '../../services/popover-builder';
+import { UiPopoverBuilder } from '../../../int/services';
 import { UiPopover } from './popover';
 
 setupGlobalMocks();
