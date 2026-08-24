@@ -163,4 +163,32 @@ describe('UiMessageManager', () => {
       expect(message?.code).toBe(404);
     });
   });
+
+  describe('configuration fallbacks', () => {
+    it('should fall back to the built-in duration when the configured duration is falsy', () => {
+      TestBed.resetTestingModule();
+      TestBed.configureTestingModule({
+        providers: [provideUiConfig({ ...mockConfig, message: { duration: 0 } })],
+      });
+      const fallbackService = TestBed.inject(UiMessageManager);
+
+      fallbackService.add({ variant: 'info', content: 'Test' });
+      expect(fallbackService.messages().size).toBe(1);
+
+      vi.advanceTimersByTime(4999);
+      expect(fallbackService.messages().size).toBe(1);
+
+      vi.advanceTimersByTime(1);
+      expect(fallbackService.messages().size).toBe(0);
+    });
+
+    it('should fall back to the generic title for an unknown variant', () => {
+      service.add({ variant: 'custom', content: 'Test' } as never);
+
+      const messages = service.messages();
+      const message = messages.values().next().value;
+
+      expect(message?.title).toBe('Notification');
+    });
+  });
 });

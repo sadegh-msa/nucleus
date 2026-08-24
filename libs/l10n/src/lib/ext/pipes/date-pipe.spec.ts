@@ -17,7 +17,7 @@ type MockedDateUtil = {
   imports: [NuDatePipe],
 })
 class HostComponent {
-  date: string | Date | null = null;
+  date: string | Date | null | undefined = null;
   format: string | 'distance' = '';
 }
 
@@ -57,5 +57,60 @@ describe('NuDatePipe', () => {
     fixture.componentInstance.date = null;
     fixture.detectChanges();
     expect(fixture.nativeElement.textContent?.trim()).toBe('');
+  });
+
+  it('should handle undefined input', () => {
+    fixture.componentInstance.date = undefined;
+    fixture.detectChanges();
+    expect(fixture.nativeElement.textContent?.trim()).toBe('');
+    expect(dateService.convertToDate).not.toHaveBeenCalled();
+  });
+
+  it('should handle empty string input', () => {
+    fixture.componentInstance.date = '';
+    fixture.detectChanges();
+    expect(fixture.nativeElement.textContent?.trim()).toBe('');
+    expect(dateService.convertToDate).not.toHaveBeenCalled();
+  });
+
+  it('should return the input as-is when conversion returns null', () => {
+    dateService.convertToDate.mockReturnValue(null);
+    fixture.componentInstance.date = 'not-a-date';
+    fixture.detectChanges();
+    expect(fixture.nativeElement.textContent).toContain('not-a-date');
+    expect(dateService.format).not.toHaveBeenCalled();
+  });
+
+  it('should return the input as-is when the date is invalid', () => {
+    dateService.convertToDate.mockReturnValue(new Date());
+    dateService.isValidDate.mockReturnValue(false);
+    fixture.componentInstance.date = 'bad-date';
+    fixture.detectChanges();
+    expect(fixture.nativeElement.textContent).toContain('bad-date');
+    expect(dateService.format).not.toHaveBeenCalled();
+  });
+
+  it('should format with distance mode', () => {
+    const d = new Date('2024-01-15');
+    dateService.convertToDate.mockReturnValue(d);
+    dateService.isValidDate.mockReturnValue(true);
+    dateService.formatDistanceToNow.mockReturnValue('2 minutes ago');
+    fixture.componentInstance.date = '2024-01-15T10:30:00Z';
+    fixture.componentInstance.format = 'distance';
+    fixture.detectChanges();
+    expect(fixture.nativeElement.textContent).toContain('2 minutes ago');
+    expect(dateService.formatDistanceToNow).toHaveBeenCalledWith(d);
+    expect(dateService.format).not.toHaveBeenCalled();
+  });
+
+  it('should accept a Date instance input', () => {
+    const d = new Date('2024-01-15');
+    dateService.convertToDate.mockReturnValue(d);
+    dateService.isValidDate.mockReturnValue(true);
+    dateService.format.mockReturnValue('2024-01-15');
+    fixture.componentInstance.date = d;
+    fixture.detectChanges();
+    expect(fixture.nativeElement.textContent).toContain('2024-01-15');
+    expect(dateService.convertToDate).toHaveBeenCalledWith(d);
   });
 });

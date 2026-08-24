@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { type ComponentFixture, TestBed } from '@angular/core/testing';
+import { vi } from 'vitest';
 import { provideUiConfig } from '../../providers';
+import { UiSvgIconLoader } from '../../services/svg-icon-loader';
 import { UiSvgIcon } from './svg-icon';
 
 if (typeof globalThis.IntersectionObserver === 'undefined') {
@@ -35,9 +37,13 @@ const mockConfig = {
   verification: { duration: 60, length: 6 },
 };
 
+const mockSvg =
+  '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/></svg>';
+
 describe('UiSvgIcon', () => {
   let fixture: ComponentFixture<TestHostComponent>;
   let svgEl: SVGElement;
+  let svgIconLoader: UiSvgIconLoader;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -48,6 +54,7 @@ describe('UiSvgIcon', () => {
     fixture = TestBed.createComponent(TestHostComponent);
     fixture.detectChanges();
     svgEl = fixture.nativeElement.querySelector('svg');
+    svgIconLoader = TestBed.inject(UiSvgIconLoader);
   });
 
   it('should create', () => {
@@ -117,5 +124,95 @@ describe('UiSvgIcon with generateId', () => {
 
   it('should create with generateId enabled', () => {
     expect(svgEl).toBeTruthy();
+  });
+});
+
+describe('UiSvgIcon icon loading', () => {
+  let fixture: ComponentFixture<TestHostComponent>;
+  let svgEl: SVGElement;
+  let svgIconLoader: UiSvgIconLoader;
+  let loadIconSpy: ReturnType<typeof vi.fn>;
+
+  beforeEach(async () => {
+    loadIconSpy = vi.fn().mockResolvedValue(mockSvg);
+    await TestBed.configureTestingModule({
+      imports: [TestHostComponent],
+      providers: [
+        provideUiConfig(mockConfig),
+        {
+          provide: UiSvgIconLoader,
+          useValue: { loadIcon: loadIconSpy, normalizeSvg: vi.fn((svg: string) => svg) },
+        },
+      ],
+    }).compileComponents();
+
+    fixture = TestBed.createComponent(TestHostComponent);
+    fixture.detectChanges();
+    svgEl = fixture.nativeElement.querySelector('svg');
+    svgIconLoader = TestBed.inject(UiSvgIconLoader);
+  });
+
+  it('should load icon when in viewport', async () => {
+    const observers = (globalThis as any).IntersectionObserver.instances || [];
+    if (observers.length > 0) {
+      const callback = observers[0].constructor.prototype.callback || observers[0]._callback;
+      if (callback) {
+        callback([{ isIntersecting: true, target: svgEl }], observers[0]);
+      }
+    }
+
+    await new Promise((r) => setTimeout(r, 100));
+    fixture.detectChanges();
+
+    expect(loadIconSpy).toHaveBeenCalled();
+  });
+
+  it('should insert icon SVG into element when loaded', async () => {
+    const observers = (globalThis as any).IntersectionObserver.instances || [];
+    if (observers.length > 0) {
+      const callback = observers[0].constructor.prototype.callback || observers[0]._callback;
+      if (callback) {
+        callback([{ isIntersecting: true, target: svgEl }], observers[0]);
+      }
+    }
+
+    await new Promise((r) => setTimeout(r, 100));
+    fixture.detectChanges();
+
+    expect(svgEl.innerHTML).toContain('path');
+  });
+
+  it('should handle empty SVG gracefully', async () => {
+    loadIconSpy.mockResolvedValue('');
+
+    const observers = (globalThis as any).IntersectionObserver.instances || [];
+    if (observers.length > 0) {
+      const callback = observers[0].constructor.prototype.callback || observers[0]._callback;
+      if (callback) {
+        callback([{ isIntersecting: true, target: svgEl }], observers[0]);
+      }
+    }
+
+    await new Promise((r) => setTimeout(r, 100));
+    fixture.detectChanges();
+
+    expect(svgEl.innerHTML).toBe('');
+  });
+
+  it('should handle SVG with only text content gracefully', async () => {
+    loadIconSpy.mockResolvedValue('just text');
+
+    const observers = (globalThis as any).IntersectionObserver.instances || [];
+    if (observers.length > 0) {
+      const callback = observers[0].constructor.prototype.callback || observers[0]._callback;
+      if (callback) {
+        callback([{ isIntersecting: true, target: svgEl }], observers[0]);
+      }
+    }
+
+    await new Promise((r) => setTimeout(r, 100));
+    fixture.detectChanges();
+
+    expect(svgEl.innerHTML).toBe('');
   });
 });

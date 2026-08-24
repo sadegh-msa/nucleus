@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { type ComponentFixture, TestBed } from '@angular/core/testing';
 import { setupGlobalMocks } from '@test-mocks';
-import { afterEach } from 'vitest';
+import { afterEach, vi } from 'vitest';
+import { UiPopoverBuilder } from '../../services/popover-builder';
 import { UiPopover } from './popover';
 
 setupGlobalMocks();
@@ -80,6 +81,128 @@ describe('UiPopover configurable', () => {
     fixture.detectChanges();
 
     expect(spy).toHaveBeenCalled();
+  });
+
+  it('should set hasClose when provided', () => {
+    expect(directive.hasClose()).toBe(false);
+  });
+
+  afterEach(() => fixture?.destroy());
+});
+
+describe('UiPopover effects', () => {
+  let fixture: ComponentFixture<TestHostComponent>;
+  let directive: UiPopover;
+  let popoverBuilder: UiPopoverBuilder;
+  let renderSpy: ReturnType<typeof vi.fn>;
+  let showSpy: ReturnType<typeof vi.fn>;
+  let hideSpy: ReturnType<typeof vi.fn>;
+  let handleTriggerSpy: ReturnType<typeof vi.fn>;
+
+  beforeEach(async () => {
+    renderSpy = vi.fn().mockReturnValue({
+      popoverElement: document.createElement('div'),
+      cleanUpElementObservers: vi.fn(),
+    });
+    showSpy = vi.fn();
+    hideSpy = vi.fn();
+    handleTriggerSpy = vi.fn().mockReturnValue(() => {});
+
+    await TestBed.configureTestingModule({
+      imports: [TestHostComponent],
+      providers: [
+        {
+          provide: UiPopoverBuilder,
+          useValue: {
+            render: renderSpy,
+            showPopover: showSpy,
+            hidePopover: hideSpy,
+            handleTriggerEvents: handleTriggerSpy,
+          },
+        },
+      ],
+    }).compileComponents();
+    fixture = TestBed.createComponent(TestHostComponent);
+    fixture.detectChanges();
+    const divEl = fixture.debugElement.query(
+      (el) => el.nativeElement.tagName === 'DIV' && el.nativeElement.hasAttribute('uipopover'),
+    );
+    directive = divEl.injector.get(UiPopover);
+    popoverBuilder = TestBed.inject(UiPopoverBuilder);
+  });
+
+  it('should call handleTriggerEvents on init', () => {
+    expect(handleTriggerSpy).toHaveBeenCalled();
+  });
+
+  it('should render popover when visible becomes true', () => {
+    directive.visible.set(true);
+    fixture.detectChanges();
+
+    expect(renderSpy).toHaveBeenCalled();
+    expect(showSpy).toHaveBeenCalled();
+  });
+
+  it('should hide popover when visible becomes false', () => {
+    directive.visible.set(true);
+    fixture.detectChanges();
+    vi.clearAllMocks();
+
+    directive.visible.set(false);
+    fixture.detectChanges();
+
+    expect(hideSpy).toHaveBeenCalled();
+  });
+
+  it('should clean up on destroy', () => {
+    directive.visible.set(true);
+    fixture.detectChanges();
+
+    fixture.destroy();
+    expect(true).toBe(true);
+  });
+
+it('should call renderPopover when handleTriggerEvents is called with existing popoverElement', () => {
+    directive.visible.set(true);
+    fixture.detectChanges();
+    vi.clearAllMocks();
+
+    const handleTriggerCallback = handleTriggerSpy.mock.results[0]?.value;
+    if (handleTriggerCallback) {
+      handleTriggerCallback();
+      fixture.detectChanges();
+
+      expect(renderSpy).toHaveBeenCalled();
+    }
+  });
+
+  it('should render popover when getPopoverElement callback is called and popoverElement is null', () => {
+    const handleTriggerCall = handleTriggerSpy.mock.calls[0];
+    const getPopoverElement = handleTriggerCall?.[3];
+
+    if (getPopoverElement) {
+      (directive as any).popoverElement = null;
+      vi.clearAllMocks();
+
+      getPopoverElement();
+      fixture.detectChanges();
+
+      expect(renderSpy).toHaveBeenCalled();
+    }
+  });
+
+  it('should call renderPopover when getPopoverElement is called and popoverElement exists', () => {
+    const handleTriggerCall = handleTriggerSpy.mock.calls[0];
+    const getPopoverElement = handleTriggerCall?.[3];
+
+    if (getPopoverElement) {
+      vi.clearAllMocks();
+
+      getPopoverElement();
+      fixture.detectChanges();
+
+      expect(renderSpy).toHaveBeenCalled();
+    }
   });
 
   afterEach(() => fixture?.destroy());

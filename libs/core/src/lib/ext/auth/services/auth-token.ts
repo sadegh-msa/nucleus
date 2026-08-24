@@ -178,7 +178,7 @@ export class AuthToken {
       accessToken,
       this.#authConfig.rememberMeExpiry,
     );
-    this.#reloadAccessToken();
+    await this.#reloadAccessToken();
   }
 
   async getAccessToken() {
@@ -194,7 +194,7 @@ export class AuthToken {
 
   async deleteAccessToken() {
     await this.#cookieManager.deleteItem(tokenConfig.cookieAccessTokenKey);
-    this.#reloadAccessToken();
+    await this.#reloadAccessToken();
   }
 
   isAuthRouteActivated(url: string) {

@@ -182,6 +182,14 @@ describe('DateUtil', () => {
       expect(result).toBeInstanceOf(Date);
     });
 
+    it('should treat a string without Z suffix as UTC', () => {
+      const withSuffix = service.convertToDate('2024-01-15T10:30:00Z');
+      const withoutSuffix = service.convertToDate('2024-01-15T10:30:00');
+
+      expect(withoutSuffix?.getTime()).toBe(withSuffix?.getTime());
+      expect(withoutSuffix?.getTime()).toBe(Date.UTC(2024, 0, 15, 10, 30, 0));
+    });
+
     it('should return null for empty string', () => {
       const result = service.convertToDate('');
 
@@ -220,6 +228,28 @@ describe('DateUtil', () => {
       expect(formatted).toBeTruthy();
       expect(formatted).toMatch(/\d{2}:\d{2}/);
     });
+
+    it('should format to the Jalali calendar for fa', () => {
+      document.documentElement.lang = 'fa';
+
+      TestBed.resetTestingModule();
+      TestBed.configureTestingModule({});
+      const freshService = TestBed.inject(DateUtil);
+      const date = new Date(2024, 0, 15, 12, 0, 0);
+
+      expect(freshService.format(date, 'yyyy/MM/dd HH:mm')).toBe('1402/10/25 12:00');
+    });
+
+    it('should format with the default output format for fa', () => {
+      document.documentElement.lang = 'fa';
+
+      TestBed.resetTestingModule();
+      TestBed.configureTestingModule({});
+      const freshService = TestBed.inject(DateUtil);
+      const date = new Date(2024, 0, 15, 12, 0, 0);
+
+      expect(freshService.format(date)).toBe('25 دی 1402 12:00');
+    });
   });
 
   describe('parse', () => {
@@ -240,6 +270,22 @@ describe('DateUtil', () => {
       const parsed = service.parse('01/15/2024 10:30', 'MM/dd/yyyy HH:mm', reference);
 
       expect(parsed).toBeInstanceOf(Date);
+    });
+
+    it('should parse a Jalali date string with default format for fa', () => {
+      document.documentElement.lang = 'fa';
+
+      TestBed.resetTestingModule();
+      TestBed.configureTestingModule({});
+      const freshService = TestBed.inject(DateUtil);
+
+      const parsed = freshService.parse('1402/10/25 10:30');
+
+      expect(parsed.getFullYear()).toBe(2024);
+      expect(parsed.getMonth()).toBe(0);
+      expect(parsed.getDate()).toBe(15);
+      expect(parsed.getHours()).toBe(10);
+      expect(parsed.getMinutes()).toBe(30);
     });
   });
 
@@ -274,11 +320,41 @@ describe('DateUtil', () => {
       expect(() => service.formatDistanceToNow('invalid')).toThrow();
     });
 
+    it('should return the input value as-is when it is an empty string', () => {
+      expect(service.formatDistanceToNow('')).toBe('');
+    });
+
     it('should return formatted result for current date', () => {
       const result = service.formatDistanceToNow(new Date());
 
       expect(result).toBeTruthy();
       expect(typeof result).toBe('string');
+    });
+
+    it('should return Persian relative time for recent dates when lang is fa', () => {
+      document.documentElement.lang = 'fa';
+
+      TestBed.resetTestingModule();
+      TestBed.configureTestingModule({});
+      const freshService = TestBed.inject(DateUtil);
+      const recentDate = new Date(Date.now() - 90 * 1000);
+
+      const result = freshService.formatDistanceToNow(recentDate);
+
+      expect(result).toContain('قبل');
+    });
+
+    it('should return formatted Jalali date for dates beyond the distance limit when lang is fa', () => {
+      document.documentElement.lang = 'fa';
+
+      TestBed.resetTestingModule();
+      TestBed.configureTestingModule({});
+      const freshService = TestBed.inject(DateUtil);
+      const beyondLimit = new Date('2020-01-01T00:00:00Z');
+
+      const result = freshService.formatDistanceToNow(beyondLimit);
+
+      expect(result).toContain('دی 1398');
     });
   });
 });

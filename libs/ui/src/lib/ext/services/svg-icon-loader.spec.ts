@@ -107,6 +107,21 @@ describe('UiSvgIconLoader', () => {
 
       expect(storage.getItem('uiSvgIcon.outline.heart')).toBe(svgContent);
     });
+
+    it('should wait for an in-flight load flagged with the loading status', async () => {
+      const cached = '<svg viewBox="0 0 24 24"><circle/></svg>';
+      const getItemSpy = vi
+        .spyOn(storage, 'getItem')
+        .mockReturnValueOnce('loading')
+        .mockReturnValueOnce(cached);
+      const fetchSpy = vi.spyOn(globalThis, 'fetch');
+
+      const result = await service.loadIcon('outline', 'busy');
+
+      expect(result).toBe(cached);
+      expect(getItemSpy).toHaveBeenCalledTimes(2);
+      expect(fetchSpy).not.toHaveBeenCalled();
+    });
   });
 
   describe('normalizeSvg', () => {
@@ -134,6 +149,15 @@ describe('UiSvgIconLoader', () => {
       const result = service.normalizeSvg(rawSvg, false);
 
       expect(result).toContain('<id-0>');
+    });
+
+    it('should leave an SVG without id placeholders untouched when generating ids', () => {
+      const rawSvg = '<svg viewBox="0 0 24 24"><path/></svg>';
+
+      const result = service.normalizeSvg(rawSvg, true);
+
+      expect(result).toContain('path');
+      expect(result).toContain('svg');
     });
   });
 });

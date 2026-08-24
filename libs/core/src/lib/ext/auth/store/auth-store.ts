@@ -140,8 +140,13 @@ function createAuthStoreInstance(): AuthStoreModel {
   };
 }
 
-export function provideAuthStore(): Provider[] {
-  return [AuthSignalStore, { provide: AUTH_STORE, useFactory: createAuthStoreInstance }];
+type ValueType = Partial<{
+  [key in 'useClass' | 'useValue' | 'useFactory' | 'useExisting']: unknown;
+}>;
+export function provideAuthStore(
+  value: ValueType = { useFactory: createAuthStoreInstance },
+): Provider[] {
+  return [AuthSignalStore, { provide: AUTH_STORE, ...value } as Provider];
 }
 
 export function injectAuthStore(): AuthStoreModel {

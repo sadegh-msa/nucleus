@@ -75,10 +75,10 @@ describe('AuthRest', () => {
   });
 
   describe('signOut', () => {
-    it('should POST to logout endpoint', () => {
+    it('should POST to signout endpoint', () => {
       service.signOut().subscribe();
 
-      const req = httpMock.expectOne((request) => request.url.includes('logout'));
+      const req = httpMock.expectOne((request) => request.url.includes('signout'));
 
       expect(req.request.method).toBe('POST');
       req.flush({});

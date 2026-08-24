@@ -130,6 +130,20 @@ describe('UiToggleValueAccessor', () => {
     });
   });
 
+  describe('effect', () => {
+    it('should not call onChange when consumer is disabled', () => {
+      const consumer = createMockConsumer();
+      const onChange = vi.fn();
+      service.init(consumer);
+      consumer.registerOnChange(onChange);
+      consumer.isDisabled.set(true);
+
+      consumer.toggle();
+
+      expect(onChange).not.toHaveBeenCalled();
+    });
+  });
+
   describe('computed signals', () => {
     it('should compute isBinary correctly for undefined value', () => {
       const consumer = createMockConsumer();
@@ -177,5 +191,6 @@ function createMockConsumer(
     registerOnChange: vi.fn(),
     registerOnTouched: vi.fn(),
     setDisabledState: vi.fn(),
+    onTouched: vi.fn(),
   };
 }

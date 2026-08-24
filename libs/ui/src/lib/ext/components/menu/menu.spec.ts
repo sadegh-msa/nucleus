@@ -1,6 +1,9 @@
 import { type ComponentFixture, TestBed } from '@angular/core/testing';
-import { provideRouter } from '@angular/router';
+import { provideRouter, Router } from '@angular/router';
+import { vi } from 'vitest';
+import type { UiMenuItemModel } from '../../models/menu-item.model';
 import { provideUiConfig } from '../../providers';
+import { UiCssSupport } from '../../services/css-support';
 import { UiMenuBuilder } from '../../services/menu-builder';
 import { UiMenu } from './menu';
 
@@ -176,6 +179,182 @@ describe('UiMenu', () => {
       component.onClick(parent.children![0]);
       expect(parent.expanded).toBe(false);
       expect(parent.children?.[0].expanded).toBe(false);
+    });
+  });
+
+  it('should run the item command on click', () => {
+    const command = vi.fn();
+    const item = { label: 'Cmd', command };
+    component.onClick(item);
+    expect(command).toHaveBeenCalledWith(item);
+  });
+
+  it('should keep an item-specific active style override', () => {
+    fixture.componentRef.setInput('uiMenu', [
+      { label: 'X', active: { iconVariant: 'outline' } },
+    ] as UiMenuItemModel[]);
+    fixture.detectChanges();
+    expect(component.items()[0].active).toBeTruthy();
+  });
+
+  describe('sliding submenu expansion', () => {
+    it('should expand parents that contain active children', () => {
+      fixture.componentRef.setInput('uiMenu', [
+        { label: 'Parent', children: [{ label: 'Child', isActive: true }] },
+      ] as UiMenuItemModel[]);
+      fixture.detectChanges();
+      expect(component.items()[0].expanded).toBe(true);
+    });
+
+    it('should keep parents collapsed without active children', () => {
+      fixture.componentRef.setInput('uiMenu', [
+        { label: 'Parent', children: [{ label: 'Child' }] },
+      ] as UiMenuItemModel[]);
+      fixture.detectChanges();
+      expect(component.items()[0].expanded).toBeFalsy();
+    });
+
+    it('should not force expansion for floating submenus', () => {
+      fixture.componentRef.setInput('submenuMode', 'floating');
+      fixture.componentRef.setInput('uiMenu', [
+        { label: 'Parent', children: [{ label: 'Child', isActive: true }] },
+      ] as UiMenuItemModel[]);
+      fixture.detectChanges();
+      expect(component.items()[0].expanded).toBeFalsy();
+    });
+  });
+
+  describe('router navigation', () => {
+    let router: Router;
+
+    beforeEach(() => {
+      router = TestBed.inject(Router);
+    });
+
+    it('should activate the item for the new url and deactivate the previous one', async () => {
+      await router.navigateByUrl('/about').catch(() => undefined);
+      expect(component.items()[1].isActive).toBe(true);
+      expect(component.items()[0].isActive).toBeFalsy();
+
+      await router.navigateByUrl('/').catch(() => undefined);
+      expect(component.items()[0].isActive).toBe(true);
+      expect(component.items()[1].isActive).toBe(false);
+    });
+
+    it('should ignore urls that match no item', async () => {
+      await router.navigateByUrl('/about').catch(() => undefined);
+      await router.navigateByUrl('/nowhere').catch(() => undefined);
+      expect(component.items()[1].isActive).toBe(false);
+      expect(component.items()[0].isActive).toBeFalsy();
+    });
+  });
+
+  describe('with a previous url missing from the item map', () => {
+    let localFixture: ComponentFixture<UiMenu>;
+    let localComponent: UiMenu;
+    let router: Router;
+
+    beforeEach(async () => {
+      history.replaceState({}, '', '/unmapped');
+      TestBed.resetTestingModule();
+      await TestBed.configureTestingModule({
+        imports: [UiMenu],
+        providers: [provideRouter([]), provideUiConfig(mockConfig), UiMenuBuilder],
+      }).compileComponents();
+
+      localFixture = TestBed.createComponent(UiMenu);
+      localComponent = localFixture.componentInstance;
+      localFixture.componentRef.setInput('uiMenu', [
+        { label: 'A', routerLink: '/a' },
+      ] as UiMenuItemModel[]);
+      localFixture.detectChanges();
+      router = TestBed.inject(Router);
+    });
+
+    afterEach(() => {
+      localFixture.destroy();
+      history.replaceState({}, '', '/');
+    });
+
+    it('should activate matching items without touching unmapped urls', async () => {
+      await router.navigateByUrl('/a').catch(() => undefined);
+      expect(localComponent.items()[0].isActive).toBe(true);
+
+      await router.navigateByUrl('/nowhere').catch(() => undefined);
+      expect(localComponent.items()[0].isActive).toBe(false);
+    });
+
+    it('should skip navigation handling without mapped items', async () => {
+      const emptyFixture = TestBed.createComponent(UiMenu);
+      emptyFixture.componentRef.setInput('uiMenu', [] as UiMenuItemModel[]);
+      emptyFixture.detectChanges();
+
+      await router.navigateByUrl('/a').catch(() => undefined);
+      expect(emptyFixture.componentInstance.items()).toHaveLength(0);
+      emptyFixture.destroy();
+    });
+  });
+
+  describe('when calc-size is unsupported', () => {
+    let localFixture: ComponentFixture<UiMenu>;
+    let localComponent: UiMenu;
+    let sizesSpy: ReturnType<typeof vi.fn>;
+
+    beforeEach(async () => {
+      TestBed.resetTestingModule();
+      await TestBed.configureTestingModule({
+        imports: [UiMenu],
+        providers: [
+          provideRouter([]),
+          provideUiConfig(mockConfig),
+          UiMenuBuilder,
+          { provide: UiCssSupport, useValue: { calcSize: () => false } },
+        ],
+      }).compileComponents();
+
+      sizesSpy = vi.spyOn(TestBed.inject(UiMenuBuilder), 'calculateItemSizes');
+
+      localFixture = TestBed.createComponent(UiMenu);
+      localComponent = localFixture.componentInstance;
+      localFixture.componentRef.setInput('uiMenu', [{ label: 'Item' }] as UiMenuItemModel[]);
+      localFixture.detectChanges();
+    });
+
+    afterEach(() => localFixture.destroy());
+
+    it('should measure item sizes once items are ready', () => {
+      expect(sizesSpy).toHaveBeenCalledWith(localComponent.items());
+    });
+
+    it('should measure item sizes when a sliding leaf item is clicked', () => {
+      sizesSpy.mockClear();
+      localComponent.onClick({ label: 'Leaf' });
+      expect(sizesSpy).toHaveBeenCalledTimes(1);
+    });
+  });
+
+  describe('style fallbacks', () => {
+    const setInput = (target: ComponentFixture<UiMenu>, name: string, value: unknown) =>
+      (target.componentRef as { setInput: (n: string, v: unknown) => void }).setInput(
+        name,
+        value,
+      );
+
+    it('should survive undefined style inputs', () => {
+      const localFixture = TestBed.createComponent(UiMenu);
+      setInput(localFixture, 'uiMenu', [{ label: 'X' }]);
+      setInput(localFixture, 'defaultStyle', undefined);
+      setInput(localFixture, 'activeStyle', undefined);
+      expect(localFixture.componentInstance.items()[0].label).toBe('X');
+      localFixture.destroy();
+    });
+
+    it('should fall back when the default style has no ngClass', () => {
+      const localFixture = TestBed.createComponent(UiMenu);
+      setInput(localFixture, 'defaultStyle', { iconVariant: 'filled' });
+      setInput(localFixture, 'uiMenu', [{ label: 'X' }]);
+      expect(localFixture.componentInstance.items()[0].label).toBe('X');
+      localFixture.destroy();
     });
   });
 });

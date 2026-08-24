@@ -103,7 +103,7 @@ describe('PanelManager', () => {
   describe('storage', () => {
     it('should store extent to permanent storage', () => {
       service.navExtent.set('compact');
-      TestBed.flushEffects();
+      TestBed.tick();
 
       expect(storageService.setItem).toHaveBeenCalled();
     });

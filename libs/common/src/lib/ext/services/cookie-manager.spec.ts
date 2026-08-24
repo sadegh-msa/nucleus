@@ -102,4 +102,62 @@ describe('CookieManager', () => {
       expect(value).toBe('');
     });
   });
+
+  describe('null/undefined stored values', () => {
+    it('should return null for a cookie set with a null value', async () => {
+      await service.setItem('testKey', null);
+
+      expect(await service.getItem('testKey')).toBeNull();
+    });
+
+    it('should return null when the stored literal is "undefined"', async () => {
+      _document.cookie = 'testKey=undefined;path=/';
+
+      expect(await service.getItem('testKey')).toBeNull();
+    });
+  });
+
+  describe('cryptograph failures', () => {
+    let consoleErrorSpy: ReturnType<typeof vi.spyOn>;
+
+    const configureWithCryptograph = (overrides: Partial<Cryptograph>) => {
+      TestBed.resetTestingModule();
+      TestBed.configureTestingModule({
+        providers: [provideNuCommonConfig(mockConfig), { provide: Cryptograph, useValue: overrides }],
+      });
+
+      return TestBed.inject(CookieManager);
+    };
+
+    beforeEach(() => {
+      consoleErrorSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
+    });
+
+    afterEach(() => {
+      consoleErrorSpy.mockRestore();
+    });
+
+    it('should return false and log when encryption fails', async () => {
+      const encrypt = vi.fn().mockRejectedValue(new Error('encrypt failed'));
+      const brokenService = configureWithCryptograph({ encrypt } as Partial<Cryptograph>);
+
+      const result = await brokenService.setItem('testKey', 'testValue');
+
+      expect(result).toBe(false);
+      expect(encrypt).toHaveBeenCalled();
+      expect(consoleErrorSpy).toHaveBeenCalled();
+    });
+
+    it('should return undefined and log when decryption fails', async () => {
+      const decrypt = vi.fn().mockRejectedValue(new Error('decrypt failed'));
+      const brokenService = configureWithCryptograph({ decrypt } as Partial<Cryptograph>);
+
+      _document.cookie = 'testKey=somegarbage;path=/';
+      const value = await brokenService.getItem('testKey');
+
+      expect(value).toBeUndefined();
+      expect(decrypt).toHaveBeenCalled();
+      expect(consoleErrorSpy).toHaveBeenCalled();
+    });
+  });
 });

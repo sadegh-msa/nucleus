@@ -110,6 +110,35 @@ describe('UiRipple', () => {
     expect(ripple.style.getPropertyValue('--ui-ripple-left')).toBe('auto');
     expect(ripple.style.getPropertyValue('--ui-ripple-top')).toBe('auto');
   });
+
+  it('should attach ripple on pointerup', () => {
+    const event = new PointerEvent('pointerup', { bubbles: true, clientX: 50, clientY: 50 });
+    buttonEl.dispatchEvent(event);
+    fixture.detectChanges();
+
+    const ripple = buttonEl.querySelector('.ripple');
+    expect(ripple).toBeTruthy();
+  });
+
+  it('should remove the finished ripple after the configured duration', () => {
+    vi.useFakeTimers();
+
+    try {
+      const first = new PointerEvent('pointerdown', { bubbles: true, clientX: 50, clientY: 50 });
+      buttonEl.dispatchEvent(first);
+
+      const second = new PointerEvent('pointerdown', { bubbles: true, clientX: 60, clientY: 60 });
+      buttonEl.dispatchEvent(second);
+
+      expect(buttonEl.querySelector('.ripple')).toBeTruthy();
+
+      vi.advanceTimersByTime(1000);
+
+      expect(buttonEl.querySelector('.ripple')).toBeFalsy();
+    } finally {
+      vi.useRealTimers();
+    }
+  });
 });
 
 describe('UiRipple disabled', () => {

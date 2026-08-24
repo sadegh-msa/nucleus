@@ -7,6 +7,7 @@ import { UiScreen } from './screen';
 describe('UiScreen', () => {
   let service: UiScreen;
   let _document: Document;
+  let resizeCallback: (() => void) | undefined;
 
   beforeEach(() => {
     Object.defineProperty(window, 'screen', {
@@ -21,6 +22,10 @@ describe('UiScreen', () => {
 
     Object.defineProperty(globalThis, 'ResizeObserver', {
       value: class {
+        constructor(callback: () => void) {
+          resizeCallback = callback;
+        }
+
         observe() {}
         unobserve() {}
         disconnect() {}
@@ -91,6 +96,24 @@ describe('UiScreen', () => {
     it('should detect landscape orientation', () => {
       const b = service.breakpoints();
       expect(b.isLandscape).toBe(true);
+    });
+
+    it('should refresh window info after a debounced resize', async () => {
+      Object.defineProperty(window, 'screen', {
+        value: { availWidth: 800, availHeight: 1000 },
+        writable: true,
+        configurable: true,
+      });
+
+      resizeCallback?.();
+      resizeCallback?.();
+      await new Promise((resolve) => setTimeout(resolve, 150));
+
+      const b = service.breakpoints();
+      expect(b.isMd).toBe(true);
+      expect(b.isTablet).toBe(true);
+      expect(b.isWeb).toBe(false);
+      expect(b.isPortrait).toBe(true);
     });
   });
 });

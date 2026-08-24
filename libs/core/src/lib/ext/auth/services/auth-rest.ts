@@ -34,7 +34,7 @@ export class AuthRest {
   }
 
   signOut() {
-    return this.#httpClient.post(this.createUrl('logout'), {});
+    return this.#httpClient.post(this.createUrl('signout'), {});
   }
 
   refresh() {

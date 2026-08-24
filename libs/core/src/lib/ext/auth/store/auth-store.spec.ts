@@ -150,7 +150,7 @@ describe('AuthStore', () => {
       authStore.signOut();
       expect(authStore.signOutStatus()).toBe('inProgress');
 
-      const req = httpMock.expectOne((r) => r.url.includes('logout'));
+      const req = httpMock.expectOne((r) => r.url.includes('signout'));
       req.flush({});
 
       expect(authStore.signOutStatus()).toBe('success');
@@ -161,9 +161,9 @@ describe('AuthStore', () => {
     it('should set status to Failure on error', () => {
       authStore.signOut();
 
-      const req = httpMock.expectOne((r) => r.url.includes('logout'));
+      const req = httpMock.expectOne((r) => r.url.includes('signout'));
       req.flush(
-        { code: 500, reason: 'Server error', method: 'POST', path: '/logout', timestamp: '' },
+        { code: 500, reason: 'Server error', method: 'POST', path: '/signout', timestamp: '' },
         { status: 500, statusText: 'Server Error' },
       );
 
