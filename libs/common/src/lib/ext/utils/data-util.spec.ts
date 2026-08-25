@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import {
   deepSet,
+  equals,
   isEmpty,
   isNil,
   isNotEmpty,
@@ -11,6 +12,67 @@ import {
   mergeDeepRight,
   patchExisting,
 } from './data-util';
+
+describe('equals', () => {
+  it('should return true for equal primitives', () => {
+    expect(equals(1, 1)).toBe(true);
+    expect(equals('a', 'a')).toBe(true);
+    expect(equals(true, true)).toBe(true);
+  });
+
+  it('should return false for different primitives', () => {
+    expect(equals(1, 2)).toBe(false);
+    expect(equals('a', 'b')).toBe(false);
+    expect(equals(true, false)).toBe(false);
+  });
+
+  it('should return true for equal arrays', () => {
+    expect(equals([1, 2, 3], [1, 2, 3])).toBe(true);
+    expect(equals(['a', 'b'], ['a', 'b'])).toBe(true);
+  });
+
+  it('should return false for different arrays', () => {
+    expect(equals([1, 2], [2, 1])).toBe(false);
+    expect(equals([1, 2], [1, 2, 3])).toBe(false);
+  });
+
+  it('should return true for equal objects', () => {
+    expect(equals({ a: 1, b: 2 }, { a: 1, b: 2 })).toBe(true);
+    expect(equals({ x: { y: 1 } }, { x: { y: 1 } })).toBe(true);
+  });
+
+  it('should return false for different objects', () => {
+    expect(equals({ a: 1 }, { a: 2 })).toBe(false);
+    expect(equals({ a: 1 }, { b: 1 })).toBe(false);
+    expect(equals({ a: 1 }, { a: 1, b: 2 })).toBe(false);
+  });
+
+  it('should return true for null and null', () => {
+    expect(equals(null, null)).toBe(true);
+  });
+
+  it('should return true for undefined and undefined', () => {
+    expect(equals(undefined, undefined)).toBe(true);
+  });
+
+  it('should return false for null and undefined', () => {
+    expect(equals(null, undefined)).toBe(false);
+  });
+
+  it('should handle Date objects', () => {
+    const d1 = new Date('2024-01-01');
+    const d2 = new Date('2024-01-01');
+    const d3 = new Date('2024-01-02');
+    expect(equals(d1, d2)).toBe(true);
+    expect(equals(d1, d3)).toBe(false);
+  });
+
+  it('should handle nested structures', () => {
+    const a = { a: [1, { b: 2 }], c: { d: [3, 4] } };
+    const b = { a: [1, { b: 2 }], c: { d: [3, 4] } };
+    expect(equals(a, b)).toBe(true);
+  });
+});
 
 describe('isEmpty', () => {
   it('should return true for empty string', () => {

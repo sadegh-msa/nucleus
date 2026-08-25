@@ -15,6 +15,10 @@ export function deepSet(obj: any, path: string, getValue: (v: any) => any) {
   return deepSetObjectValue(obj, path.split('.'), getValue);
 }
 
+export function equals(a: unknown, b: unknown) {
+  return R.equals(a, b);
+}
+
 export function isEmpty(value: any) {
   return R.isEmpty(value);
 }
