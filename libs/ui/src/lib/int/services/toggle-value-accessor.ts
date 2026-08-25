@@ -1,4 +1,12 @@
-import { ChangeDetectorRef, computed, effect, inject, Service, signal } from '@angular/core';
+import {
+  ChangeDetectorRef,
+  computed,
+  effect,
+  inject,
+  Service,
+  signal,
+  untracked,
+} from '@angular/core';
 import type { ControlValueAccessor } from '@angular/forms';
 import type { ToggleValueModel, UiGenericToggleConsumerModel } from '../../ext/models/toggle.model';
 
@@ -23,8 +31,10 @@ export class UiToggleValueAccessor {
           ? this.#consumer.value()
           : undefined;
 
-      this.#onChange(value);
-      this.#changeDetectorRef.markForCheck();
+      untracked(() => {
+        this.#onChange(value);
+        this.#changeDetectorRef.markForCheck();
+      });
     });
   }
 

@@ -100,10 +100,7 @@ export class SignUp {
   constructor() {
     effect(() => {
       const status = this.#authStore.signUpStatus();
-
-      untracked(() => {
-        this.isSubmitting.set(status === 'inProgress');
-      });
+      untracked(() => this.isSubmitting.set(status === 'inProgress'));
     });
   }
 

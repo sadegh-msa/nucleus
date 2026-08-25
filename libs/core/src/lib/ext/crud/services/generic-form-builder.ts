@@ -11,7 +11,7 @@ import {
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Router } from '@angular/router';
-import { patchExisting } from '@nucleus/common';
+import { isNotEmpty, patchExisting } from '@nucleus/common';
 import { createAddToolbar, createEditToolbar, createViewToolbar } from '../factory/toolbar-factory';
 import type { GenericEntityModel, GenericFormConsumerModel } from '../models/generic.model';
 import type { RouterStateModel } from '../models/router.model';
@@ -71,13 +71,13 @@ export class GenericFormBuilder<T extends GenericEntityModel> {
     effect(() => {
       const dataValue = data();
 
-      if (Object.keys(dataValue ?? {}).length) {
-        untracked(() => {
+      untracked(() => {
+        if (isNotEmpty(dataValue)) {
           this.updateId(dataValue);
           this.updateTitle(dataValue);
           this.patchFormValue(dataValue);
-        });
-      }
+        }
+      });
     }, effectOptions);
   }
 
@@ -223,13 +223,13 @@ export class GenericFormBuilder<T extends GenericEntityModel> {
 
       case 'edit':
         toolbar = createEditToolbar<T>(config, {
-          'cancel': viewExtra,
+          cancel: viewExtra,
         });
         break;
 
       case 'view':
         toolbar = createViewToolbar<T>(config, {
-          'edit': viewExtra,
+          edit: viewExtra,
         });
         break;
     }

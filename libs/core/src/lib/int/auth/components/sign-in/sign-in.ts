@@ -34,10 +34,7 @@ export class SignIn {
   constructor() {
     effect(() => {
       const status = this.#authStore.signInStatus();
-
-      untracked(() => {
-        this.isSubmitting.set(status === 'inProgress');
-      });
+      untracked(() => this.isSubmitting.set(status === 'inProgress'));
     });
   }
 

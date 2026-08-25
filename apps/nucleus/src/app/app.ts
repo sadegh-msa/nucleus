@@ -69,16 +69,20 @@ export class App {
   #handleEvents() {
     effect(() => {
       const status = this.#authStore.checkStatus();
-      if (status === 'success') {
-        this.isUserAuthenticated.set(true);
-      } else if (status === 'failure') {
-        this.isUserAuthenticated.set(false);
-      }
+
+      untracked(() => {
+        if (status === 'success') {
+          this.isUserAuthenticated.set(true);
+        } else if (status === 'failure') {
+          this.isUserAuthenticated.set(false);
+        }
+      });
     });
 
     effect(() => {
       const status = this.#authStore.signOutStatus();
-      this.showLoading.set(status === 'inProgress');
+
+      untracked(() => this.showLoading.set(status === 'inProgress'));
     });
   }
 

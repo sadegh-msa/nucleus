@@ -165,11 +165,13 @@ export class AuthToken {
   async #checkToken() {
     const isAuthenticated = await this.isAuthenticated();
 
-    if (isAuthenticated) {
-      this.#authStore.checkSuccess();
-    } else {
-      this.#authStore.checkFailure();
-    }
+    untracked(() => {
+      if (isAuthenticated) {
+        this.#authStore.checkSuccess();
+      } else {
+        this.#authStore.checkFailure();
+      }
+    });
   }
 
   async setAccessToken(accessToken: string | null) {
