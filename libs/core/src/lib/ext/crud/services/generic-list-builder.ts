@@ -19,7 +19,7 @@ export class GenericListBuilder<T extends GenericEntityModel> {
   readonly #router = inject(Router);
 
   #consumer!: GenericListConsumerModel<T>;
-  #lastQuery = { page: paginationConfig.page, rows: paginationConfig.rows };
+  #lastQuery = { page: -1, rows: 0 };
 
   init(consumer: GenericListConsumerModel<T>) {
     consumer.pagination = signal(createPagination());
@@ -51,14 +51,18 @@ export class GenericListBuilder<T extends GenericEntityModel> {
       .pipe(
         takeUntilDestroyed(this.#destroyRef),
         map(({ page, rows }) => ({ page: Number(page), rows: Number(rows) })),
+        map(({ page, rows }) => {
+          return {
+            page: page > 0 ? page - 1 : paginationConfig.page,
+            rows: rows > 0 ? rows : paginationConfig.rows,
+          };
+        }),
+        filter(({ page, rows }) => {
+          return page !== this.#lastQuery.page && rows !== this.#lastQuery.rows;
+        }),
       )
-      .subscribe((queryParams) => {
-        const { page, rows } = queryParams;
-        this.#lastQuery = mergeAll(this.#lastQuery, {
-          page: page > 0 ? page - 1 : paginationConfig.page,
-          rows: rows > 0 ? rows : paginationConfig.rows,
-        });
-
+      .subscribe(({ page, rows }) => {
+        this.#lastQuery = mergeAll(this.#lastQuery, { page, rows });
         this.loadData();
       });
   }
@@ -146,7 +150,7 @@ export class GenericListBuilder<T extends GenericEntityModel> {
 
   createToolbar(attachEventHandler: boolean) {
     const toolbar = createListToolbar<T>(this.#consumer.config, {
-      'refresh': { showLoading: signal(false) },
+      refresh: { showLoading: signal(false) },
     });
 
     if (attachEventHandler) {
