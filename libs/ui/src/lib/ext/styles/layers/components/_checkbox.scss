@@ -40,7 +40,7 @@
       }
     }
 
-    &:not(:disabled) {
+    &:enabled {
       cursor: pointer;
 
       &:checked::before {
