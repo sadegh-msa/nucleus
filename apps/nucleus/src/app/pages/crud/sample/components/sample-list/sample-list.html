@@ -4,7 +4,7 @@
                                      [(pagination)]="pagination"
                                      class="page-toolbar page-list-toolbar" />
 
-  <nu-generic-list [data]="filteredData"
+  <nu-generic-list [data]="data()"
                              [idField]="config.field.id"
                              [table]="table"
                              [firstRow]="pagination().first"

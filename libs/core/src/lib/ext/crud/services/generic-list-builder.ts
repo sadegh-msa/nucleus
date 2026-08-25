@@ -1,13 +1,12 @@
-import { DestroyRef, effect, Injector, inject, Service, signal } from '@angular/core';
+import { DestroyRef, effect, Injector, inject, Service, signal, untracked } from '@angular/core';
 import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, Router } from '@angular/router';
-import { mergeAll } from '@nucleus/common';
-import { filter, pairwise } from 'rxjs';
+import { equals, mergeAll } from '@nucleus/common';
+import { filter, map, pairwise } from 'rxjs';
 import { crudInternalConfig } from '../../../int/crud/configs';
 import { createPagination } from '../factory/pagination-factory';
 import { createListToolbar } from '../factory/toolbar-factory';
 import type { GenericEntityModel, GenericListConsumerModel } from '../models/generic.model';
-import type { RestListResponseModel } from '../models/rest.model';
 import type { ToolModel } from '../models/toolbar.model';
 
 const paginationConfig = crudInternalConfig.pagination;
@@ -49,7 +48,10 @@ export class GenericListBuilder<T extends GenericEntityModel> {
 
   #handleRouterEvents() {
     this.#activatedRoute.queryParams
-      .pipe(takeUntilDestroyed(this.#destroyRef))
+      .pipe(
+        takeUntilDestroyed(this.#destroyRef),
+        map(({ page, rows }) => ({ page: Number(page), rows: Number(rows) })),
+      )
       .subscribe((queryParams) => {
         const { page, rows } = queryParams;
         this.#lastQuery = mergeAll(this.#lastQuery, {
@@ -68,27 +70,33 @@ export class GenericListBuilder<T extends GenericEntityModel> {
       .pipe(
         takeUntilDestroyed(this.#destroyRef),
         pairwise(),
-        filter(([p, c]) => p.page !== c.page || p.rows !== c.rows || p.pages !== c.pages),
+        filter(([p, c]) => !equals(p, c)),
       )
       .subscribe(() => this.#updateUrl());
 
-    table.events$?.pipe(takeUntilDestroyed(this.#destroyRef)).subscribe(({ tool, payload }) => {
-      if (tool.type === 'delete') {
-        this.delete(tool, payload as string);
-      }
-    });
+    table.events$
+      ?.pipe(takeUntilDestroyed(this.#destroyRef)) //
+      .subscribe(({ tool, payload }) => {
+        if (tool.type === 'delete') {
+          this.delete(tool, payload as string);
+        }
+      });
   }
 
   #handleLoadDataEvents() {
     effect(
       () => {
         const { response, status, tool } = this.#consumer.store.list();
-        tool?.showLoading?.set(status === 'inProgress');
-        this.#consumer.isBusy.set(status === 'inProgress');
 
-        if (status === 'success') {
-          this.#handleLoadDataResponse(response);
-        }
+        untracked(() => {
+          tool?.showLoading?.set(status === 'inProgress');
+          this.#consumer.isBusy.set(status === 'inProgress');
+
+          if (status === 'success') {
+            this.#consumer.data.set(response.data);
+            this.#consumer.pagination.set(response.control.pagination);
+          }
+        });
       },
       { injector: this.#injector },
     );
@@ -102,12 +110,15 @@ export class GenericListBuilder<T extends GenericEntityModel> {
     effect(
       () => {
         const { status, tool, query } = this.#consumer.store.delete();
-        tool?.showLoading?.set(status === 'inProgress' ? query : false);
 
-        if (status === 'success') {
-          store.resetDelete();
-          this.loadData();
-        }
+        untracked(() => {
+          tool?.showLoading?.set(status === 'inProgress' ? query : false);
+
+          if (status === 'success') {
+            store.resetDelete();
+            this.loadData();
+          }
+        });
       },
       { injector: this.#injector },
     );
@@ -131,11 +142,6 @@ export class GenericListBuilder<T extends GenericEntityModel> {
         replaceUrl: true,
       })
       .then();
-  }
-
-  #handleLoadDataResponse(response: RestListResponseModel<T['list']>) {
-    const { data } = response;
-    this.#consumer.data.set(data);
   }
 
   createToolbar(attachEventHandler: boolean) {

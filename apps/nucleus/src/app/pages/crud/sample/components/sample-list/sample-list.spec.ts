@@ -42,7 +42,7 @@ describe('SampleList', () => {
     expect(component.table.columns.length).toBeGreaterThan(0);
   });
 
-  it('should have filteredData initially empty', () => {
-    expect(component.filteredData).toEqual([]);
+  it('should have data initially empty', () => {
+    expect(component.data()).toEqual([]);
   });
 });
