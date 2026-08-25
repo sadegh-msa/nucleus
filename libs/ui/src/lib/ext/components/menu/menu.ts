@@ -12,7 +12,7 @@ import {
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { NavigationStart, Router, RouterLink } from '@angular/router';
-import { mergeDeepLeft, mergeDeepRight, SafeHtml } from '@nucleus/common';
+import { isEmpty, mergeDeepLeft, mergeDeepRight, SafeHtml } from '@nucleus/common';
 import { filter, map } from 'rxjs/operators';
 import { uiDefaultConfig } from '../../../int/configs';
 import { uiStyleClass } from '../../../int/constants';
@@ -107,10 +107,11 @@ export class UiMenu {
       .pipe(
         takeUntilDestroyed(), //
         filter((event) => event instanceof NavigationStart), //
-        map((event) => event.url),
+        map((event) => event.url.split('?')[0]),
+        filter(url => url !== this.#currentUrl)
       )
       .subscribe((currentUrl) => {
-        if (!Object.keys(this.#urlToItemMap).length) {
+        if (isEmpty(this.#urlToItemMap)) {
           return;
         }
 

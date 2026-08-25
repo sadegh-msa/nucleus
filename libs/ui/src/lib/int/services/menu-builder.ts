@@ -38,15 +38,18 @@ export class UiMenuBuilder {
 
   setItemActivity(item: UiMenuItemModel, isActive: boolean) {
     if (isActive) {
-      const { isActive: _, original: __, active: ___, ...rest } = item;
-      const original = rest;
+      const original = structuredClone({ ...item, original: undefined });
       Object.assign(item, structuredClone(item.active), { original });
     } else {
+      const original = { ...item.original };
+      item.original = undefined;
+
       Object.keys(item.active ?? {}).forEach((key) => {
         item[key as keyof UiMenuItemModel] = undefined;
       });
-      Object.assign(item, structuredClone(item.original), { original: undefined, isActive: false });
+      Object.assign(item, original);
     }
+
     item.isActive = isActive;
   }
 }
