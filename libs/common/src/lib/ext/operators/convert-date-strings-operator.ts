@@ -1,5 +1,5 @@
 import { map, type Observable } from 'rxjs';
-import { deepSet } from '../utils/data-util';
+import { deepSet, isEmpty } from '../utils/data-util';
 
 export function convertDateStrings<T>(
   ...fieldPaths: string[]
@@ -7,11 +7,11 @@ export function convertDateStrings<T>(
   return (source$) => {
     return source$.pipe(
       map((payload) => {
-        if (!Object.keys(payload || {}).length) {
+        if (isEmpty(payload)) {
           return payload;
         }
 
-        const result = structuredClone(payload || {}) as Record<string, any>;
+        const result = structuredClone(payload) as Record<string, any>;
 
         for (const fieldPath of fieldPaths) {
           deepSet(result, fieldPath, (v) => new Date(v));

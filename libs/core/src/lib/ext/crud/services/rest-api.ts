@@ -1,6 +1,6 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { inject, Service } from '@angular/core';
-import { injectNuCommonConfig } from '@nucleus/common';
+import { injectNuCommonConfig, isNotEmpty, isNotNil } from '@nucleus/common';
 import type { RestListQueryModel } from '../models/rest.model';
 
 @Service()
@@ -12,13 +12,13 @@ export class RestApi {
     return [this.commonConfig.api.rest.url, ...paths].filter((p) => !!p).join('/');
   }
 
-  createListHttpParams(query: RestListQueryModel = {}) {
+  createListHttpParams({ page, rows, order, filter, fields }: RestListQueryModel = {}) {
     const fromObject = {
-      ...(Number.isInteger(query.page) && { page: query.page }),
-      ...(Number.isInteger(query.rows) && { rows: query.rows }),
-      ...(Object.keys(query.order || {}).length && { order: JSON.stringify(query.order) }),
-      ...(Object.keys(query.filter || {}).length && { filter: JSON.stringify(query.filter) }),
-      ...(query.fields?.length && { fields: query.fields.join(',') }),
+      ...(isNotNil(page) && Number.isInteger(page) && { page }),
+      ...(isNotNil(rows) && Number.isInteger(rows) && { rows }),
+      ...(isNotNil(order) && isNotEmpty(order) && { order: JSON.stringify(order) }),
+      ...(isNotNil(filter) && isNotEmpty(filter) && { filter: JSON.stringify(filter) }),
+      ...(isNotNil(fields) && isNotEmpty(fields) && { fields: fields.join(',') }),
     };
 
     return new HttpParams({ fromObject });
