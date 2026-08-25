@@ -223,13 +223,13 @@ export class GenericFormBuilder<T extends GenericEntityModel> {
 
       case 'edit':
         toolbar = createEditToolbar<T>(config, {
-          ['cancel']: viewExtra,
+          'cancel': viewExtra,
         });
         break;
 
       case 'view':
         toolbar = createViewToolbar<T>(config, {
-          ['edit']: viewExtra,
+          'edit': viewExtra,
         });
         break;
     }

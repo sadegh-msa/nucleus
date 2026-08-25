@@ -61,7 +61,7 @@ describe('ToolbarFactory', () => {
 
     it('should merge tool overrides', () => {
       const toolbar = createAddToolbar(mockConfig as any, {
-        ['save']: { label: 'Custom Save' },
+        'save': { label: 'Custom Save' },
       });
 
       expect(toolbar.tools[0].label).toBe('Custom Save');
@@ -71,7 +71,7 @@ describe('ToolbarFactory', () => {
   describe('createEditToolbar', () => {
     it('should create toolbar with save and cancel tools', () => {
       const toolbar = createEditToolbar(mockConfig as any, {
-        ['cancel']: { id: signal('123'), routerStates: signal({}) },
+        'cancel': { id: signal('123'), routerStates: signal({}) },
       });
 
       expect(toolbar.tools).toHaveLength(2);

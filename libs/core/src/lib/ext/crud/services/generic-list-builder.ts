@@ -146,7 +146,7 @@ export class GenericListBuilder<T extends GenericEntityModel> {
 
   createToolbar(attachEventHandler: boolean) {
     const toolbar = createListToolbar<T>(this.#consumer.config, {
-      ['refresh']: { showLoading: signal(false) },
+      'refresh': { showLoading: signal(false) },
     });
 
     if (attachEventHandler) {
