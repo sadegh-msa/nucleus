@@ -10,7 +10,7 @@
       </li>
     } @else if (!item.hidden) {
       <li>
-        @let itemTooltipPlacement = item.tooltipPlacement || tooltipPlacement();
+        @let itemTooltipPlacement = item.tooltipPlacement ?? tooltipPlacement();
         @let isItemTooltipDisabled = !isCompact() || item.expanded || isSubMenu;
 
         @if (item.routerLink) {
@@ -43,7 +43,7 @@
                   [uiPopover]="submenu"
                   [uiPopoverData]="item"
                   [uiPopoverHasBubble]="false"
-                  [uiPopoverPlacement]="item.popoverPlacement || popoverPlacement()"
+                  [uiPopoverPlacement]="item.popoverPlacement ?? popoverPlacement()"
                   [uiPopoverDisabled]="!item.children?.length"
                   [uiPopoverVisible]="item.expanded"
           >
@@ -76,7 +76,7 @@
     <menu class="ui menu"
           [class.expanded]="item.expanded"
           [class.submenu]="isSubmenuFloating()"
-          [style]="`--menu-size: ${(item.size || item.children.length)}`"
+          [style]="`--menu-size: ${(item.size ?? item.children.length)}`"
     >
      <!-- @if (isSubmenuFloating()) {
         <li>

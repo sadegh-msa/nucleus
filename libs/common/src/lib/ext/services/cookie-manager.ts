@@ -35,7 +35,7 @@ export class CookieManager {
         .split('=')
         .map((v) => v.trim()),
     );
-    const encryptedValue = (pairs.find(([k, v]) => k === key) || [])[1] || '';
+    const encryptedValue = (pairs.find(([k, v]) => k === key) ?? [])[1] ?? '';
 
     if (['null', 'undefined'].includes(encryptedValue)) {
       return null;

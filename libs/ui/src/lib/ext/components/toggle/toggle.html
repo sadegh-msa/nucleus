@@ -10,6 +10,6 @@
 
 @if (hasLabel()) {
   <label (click)="toggle()">
-    {{ label() || (value()?.toString() | titlecase) }}
+    {{ label() ?? (value()?.toString() | titlecase) }}
   </label>
 }

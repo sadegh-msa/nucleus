@@ -62,7 +62,7 @@ export class UiSvgIcon implements OnInit, OnDestroy {
   readonly #isInViewport = signal(false);
 
   readonly rawSvg = computed(() => this.#resource.value());
-  readonly variant = computed(() => this.inputVariant() || svgIconConfig.variant);
+  readonly variant = computed(() => this.inputVariant() ?? svgIconConfig.variant);
   readonly styleClass = computed(() => `${svgIconStyleClass.basic} ${this.variant()}`);
 
   constructor() {
@@ -104,7 +104,7 @@ export class UiSvgIcon implements OnInit, OnDestroy {
       this.#renderer.setAttribute(
         hostElement,
         attribute,
-        svgElement.getAttribute(attribute) || '',
+        svgElement.getAttribute(attribute) ?? '',
         '',
       );
     });

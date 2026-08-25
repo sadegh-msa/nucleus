@@ -6,10 +6,10 @@
     <ng-container *ngTemplateOutlet="handleBoolean" />
   }
   @case ('datetime') {
-    {{ value() | date: format() || 'medium' }}
+    {{ value() | date: format() ?? 'medium' }}
   }
   @case ('currency') {
-    {{ value() | currency: format() || 'CAD' }}
+    {{ value() | currency: format() ?? 'CAD' }}
   }
   @default {
     {{ value() }}

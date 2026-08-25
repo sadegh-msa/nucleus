@@ -87,7 +87,7 @@ export class PanelBreadcrumb {
       let label = labels[i];
 
       if (i === urlSegments.length - 1 && hasId) {
-        label = routeState?.title || '...';
+        label = routeState?.title ?? '...';
       }
 
       items.push({ label, routerLink });

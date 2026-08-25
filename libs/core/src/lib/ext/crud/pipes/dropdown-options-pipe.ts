@@ -13,6 +13,6 @@ const optionCollection = {
 })
 export class DropdownOptionsPipe implements PipeTransform {
   transform(value: string, ...args: unknown[]): ValueLabelModel[] {
-    return optionCollection[value] || [];
+    return optionCollection[value] ?? [];
   }
 }

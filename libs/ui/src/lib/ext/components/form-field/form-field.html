@@ -21,9 +21,9 @@
   @let errorMessage = error();
   @let isMessageVisible = isDirty() || isTouched();
 
-  @if (isMessageVisible && (errorMessage || hintMessage)) {
+  @if (isMessageVisible && (errorMessage ?? hintMessage)) {
     <span class="message" [class]="hintStyleClass">
-      {{ errorMessage || hintMessage }}
+      {{ errorMessage ?? hintMessage }}
     </span>
   }
 </header>

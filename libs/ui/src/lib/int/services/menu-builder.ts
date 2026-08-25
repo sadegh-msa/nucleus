@@ -42,7 +42,7 @@ export class UiMenuBuilder {
       const original = rest;
       Object.assign(item, structuredClone(item.active), { original });
     } else {
-      Object.keys(item.active || {}).forEach((key) => {
+      Object.keys(item.active ?? {}).forEach((key) => {
         item[key as keyof UiMenuItemModel] = undefined;
       });
       Object.assign(item, structuredClone(item.original), { original: undefined, isActive: false });

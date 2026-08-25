@@ -28,7 +28,7 @@ export class UiMessageManager {
       case 'info':
         return $localize`Info`;
       default:
-        return message.title || $localize`Notification`;
+        return message.title ?? $localize`Notification`;
     }
   }
 
@@ -36,7 +36,7 @@ export class UiMessageManager {
     const key = ++this.#key;
 
     this.#messages.update((messages) => {
-      messages.set(key, { ...message, title: message.title || this.#createTitle(message) });
+      messages.set(key, { ...message, title: message.title ?? this.#createTitle(message) });
       return new Map(messages.entries());
     });
 

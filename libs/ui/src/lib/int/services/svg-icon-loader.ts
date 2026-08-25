@@ -64,7 +64,7 @@ export class UiSvgIconLoader {
   #updateTagIds(rawSvg: string) {
     let svg = rawSvg;
 
-    const svgIdSet = new Set<string>(svg.match(/<id-\d+>/g) || []);
+    const svgIdSet = new Set<string>(svg.match(/<id-\d+>/g) ?? []);
 
     svgIdSet.forEach((svgId) => {
       svg = svg.replaceAll(svgId, crypto.randomUUID());

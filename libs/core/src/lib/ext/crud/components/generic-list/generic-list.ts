@@ -105,7 +105,7 @@ export class GenericList {
     }
 
     const activated =
-      (this.activated() || {})[this.idField()] !== (row || {})[this.idField()] ? row : null;
+      (this.activated() ?? {})[this.idField()] !== (row ?? {})[this.idField()] ? row : null;
 
     this.activated.set(activated);
   }

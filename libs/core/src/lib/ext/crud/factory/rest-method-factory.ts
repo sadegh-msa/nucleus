@@ -13,7 +13,7 @@ import type {
 import { RestApi } from '../services/rest-api';
 
 function convertDateOperator<Response>(dateFields: string[]) {
-  return convertDateStrings<Response>(...(dateFields || []).map((f: string) => `data.${f}`));
+  return convertDateStrings<Response>(...(dateFields ?? []).map((f: string) => `data.${f}`));
 }
 
 export function createListRestMethod<T extends GenericEntityModel>({

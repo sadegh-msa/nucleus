@@ -125,7 +125,7 @@ export class AuthToken {
   }
 
   #restoreRequestedUrl() {
-    return this.#permanentStorage.getItem(tokenConfig.requestedUrlKey) || '';
+    return this.#permanentStorage.getItem(tokenConfig.requestedUrlKey) ?? '';
   }
 
   #redirectToApp(loadRequestedUrl = false, path = ['/']) {
@@ -150,7 +150,7 @@ export class AuthToken {
         debounceTime(tokenConfig.deadlineExtenderTime),
       )
       .subscribe(async () => {
-        await this.setAccessToken((await this.getAccessToken()) || null);
+        await this.setAccessToken((await this.getAccessToken()) ?? null);
       });
   }
 
@@ -159,7 +159,7 @@ export class AuthToken {
   }
 
   async #fetchAccessToken() {
-    return (await this.#cookieManager.getItem(tokenConfig.cookieAccessTokenKey)) || null;
+    return (await this.#cookieManager.getItem(tokenConfig.cookieAccessTokenKey)) ?? null;
   }
 
   async #checkToken() {

@@ -153,9 +153,9 @@ describe('UiSvgIcon icon loading', () => {
   });
 
   it('should load icon when in viewport', async () => {
-    const observers = (globalThis as any).IntersectionObserver.instances || [];
+    const observers = (globalThis as any).IntersectionObserver.instances ?? [];
     if (observers.length > 0) {
-      const callback = observers[0].constructor.prototype.callback || observers[0]._callback;
+      const callback = observers[0].constructor.prototype.callback ?? observers[0]._callback;
       if (callback) {
         callback([{ isIntersecting: true, target: svgEl }], observers[0]);
       }
@@ -168,9 +168,9 @@ describe('UiSvgIcon icon loading', () => {
   });
 
   it('should insert icon SVG into element when loaded', async () => {
-    const observers = (globalThis as any).IntersectionObserver.instances || [];
+    const observers = (globalThis as any).IntersectionObserver.instances ?? [];
     if (observers.length > 0) {
-      const callback = observers[0].constructor.prototype.callback || observers[0]._callback;
+      const callback = observers[0].constructor.prototype.callback ?? observers[0]._callback;
       if (callback) {
         callback([{ isIntersecting: true, target: svgEl }], observers[0]);
       }
@@ -185,9 +185,9 @@ describe('UiSvgIcon icon loading', () => {
   it('should handle empty SVG gracefully', async () => {
     loadIconSpy.mockResolvedValue('');
 
-    const observers = (globalThis as any).IntersectionObserver.instances || [];
+    const observers = (globalThis as any).IntersectionObserver.instances ?? [];
     if (observers.length > 0) {
-      const callback = observers[0].constructor.prototype.callback || observers[0]._callback;
+      const callback = observers[0].constructor.prototype.callback ?? observers[0]._callback;
       if (callback) {
         callback([{ isIntersecting: true, target: svgEl }], observers[0]);
       }
@@ -202,9 +202,9 @@ describe('UiSvgIcon icon loading', () => {
   it('should handle SVG with only text content gracefully', async () => {
     loadIconSpy.mockResolvedValue('just text');
 
-    const observers = (globalThis as any).IntersectionObserver.instances || [];
+    const observers = (globalThis as any).IntersectionObserver.instances ?? [];
     if (observers.length > 0) {
-      const callback = observers[0].constructor.prototype.callback || observers[0]._callback;
+      const callback = observers[0].constructor.prototype.callback ?? observers[0]._callback;
       if (callback) {
         callback([{ isIntersecting: true, target: svgEl }], observers[0]);
       }

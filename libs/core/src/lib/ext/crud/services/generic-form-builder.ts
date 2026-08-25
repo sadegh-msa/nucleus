@@ -164,7 +164,7 @@ export class GenericFormBuilder<T extends GenericEntityModel> {
   }
 
   #setNavigationState(state: RouterStateModel) {
-    const historyState = window.history.state || {};
+    const historyState = window.history.state ?? {};
     window.history.replaceState({ ...historyState, ...state }, '', this.#router.url);
   }
 
@@ -179,7 +179,7 @@ export class GenericFormBuilder<T extends GenericEntityModel> {
   }
 
   #getStateTitle() {
-    return (window.history.state || {})['title'] || '...';
+    return (window.history.state ?? {})['title'] ?? '...';
   }
 
   fetchIdValue(data: T['full']) {

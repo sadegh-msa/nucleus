@@ -12,7 +12,7 @@ export class UiPopoverPositioner {
     const triggerDomRect = triggerElement.getBoundingClientRect();
     const popoverDomRect = popoverElement.getBoundingClientRect();
 
-    let popoverStyle = popoverElement.getAttribute('style') || '';
+    let popoverStyle = popoverElement.getAttribute('style') ?? '';
     popoverStyle = popoverStyle.at(-1) !== ';' ? `${popoverStyle};` : popoverStyle;
 
     for (const [key, value] of Object.entries(triggerDomRect.toJSON())) {

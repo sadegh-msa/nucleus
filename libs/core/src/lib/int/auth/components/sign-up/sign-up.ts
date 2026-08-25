@@ -44,7 +44,7 @@ export class SignUp {
     required(f.password, { message: $localize`Required` });
     maxLength(f.password, 36, { message: $localize`Too long` });
     validate(f.password, () => {
-      const { moderate, strong } = this.passwordStrength() || {};
+      const { moderate, strong } = this.passwordStrength() ?? {};
       if (!moderate && !strong) {
         return { kind: 'strength', message: $localize`Weak` };
       }
@@ -63,7 +63,7 @@ export class SignUp {
   readonly isSubmitting = signal(false);
 
   readonly passwordHint = computed(() => {
-    const { moderate, strong } = this.passwordStrength() || {};
+    const { moderate, strong } = this.passwordStrength() ?? {};
 
     let message = '';
     let styleClass = '';

@@ -6,7 +6,7 @@
                 uiRipple
                 (click)="runCommand(buttonElement, tool)"
                 [uiTooltip]="tool.tooltip" uiTooltipPlacement="block-end-inline-center"
-                [ngClass]="tool.ngClass || []"
+                [ngClass]="tool.ngClass ?? []"
                 [disabled]="!!(tool.disabled && tool.disabled())"
                 *permission="tool.permission">
           @if (tool.icon) {
@@ -23,7 +23,7 @@
         }
       } @else if (tool.element === 'link') {
         <a uiRipple
-           [ngClass]="tool.ngClass || []"
+           [ngClass]="tool.ngClass ?? []"
            [uiTooltip]="tool.tooltip" uiTooltipPlacement="block-end-inline-center"
            [routerLink]="tool.command()"
            [state]="tool.routerStates ? tool.routerStates() : {}"
