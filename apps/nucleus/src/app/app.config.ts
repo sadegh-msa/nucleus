@@ -5,7 +5,7 @@ import {
   provideZonelessChangeDetection,
 } from '@angular/core';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
-import { provideRouter, withComponentInputBinding } from '@angular/router';
+import { provideRouter, withComponentInputBinding, withViewTransitions } from '@angular/router';
 import { type NuCommonConfigModel, provideNuCommon } from '@nucleus/common';
 import { provideAuth, provideAuthStore } from '@nucleus/core';
 import { provideNuL10n } from '@nucleus/l10n';
@@ -19,7 +19,7 @@ export const appConfig: ApplicationConfig = {
   providers: [
     provideZonelessChangeDetection(),
     provideBrowserGlobalErrorListeners(),
-    provideRouter(appRoutes, withComponentInputBinding()),
+    provideRouter(appRoutes, withComponentInputBinding(), withViewTransitions()),
     provideHttpClient(),
     provideNuCommon({
       api: environment.api,
