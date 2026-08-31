@@ -1,4 +1,8 @@
-import { UserSheriffConfig as SheriffConfig, anyTag, noDependencies } from '@softarc/sheriff-core';
+import {
+  anyTag,
+  noDependencies,
+  type UserSheriffConfig as SheriffConfig,
+} from '@softarc/sheriff-core';
 
 /**
  * Architecture Matrix enforcement (DDD): each module may only import what its
@@ -26,8 +30,8 @@ export const config: SheriffConfig = {
     'lib:l10n': noDependencies,
     'lib:theme': noDependencies,
     'lib:ui': ['lib:common'],
-    'lib:crud': ['lib:ui', 'lib:common'],
-    'lib:auth': ['lib:crud', 'lib:ui', 'lib:common'],
+    'lib:auth': ['lib:ui', 'lib:common'],
+    'lib:crud': ['lib:ui', 'lib:common', 'lib:auth'],
     'lib:panel': ['lib:crud', 'lib:ui', 'lib:common'],
   },
 };

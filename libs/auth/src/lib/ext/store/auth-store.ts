@@ -1,6 +1,5 @@
 import { computed, InjectionToken, inject, type Provider } from '@angular/core';
 import { patchState, signalStore, withComputed, withMethods, withState } from '@ngrx/signals';
-import { formatErrorMessage } from '@nucleus/crud';
 import { UiMessageManager } from '@nucleus/ui';
 import { AuthRest } from '../../int/services';
 import type {
@@ -28,6 +27,10 @@ const initialAuthState: AuthStoreStateModel = {
 };
 
 const AUTH_STORE = new InjectionToken<AuthStoreModel>('AuthStore');
+
+const formatErrorMessage = (error: { code: number; reason: string }) => {
+  return `${error.code}: ${error.reason}`;
+};
 
 const AuthSignalStore = signalStore(
   { providedIn: 'root' },

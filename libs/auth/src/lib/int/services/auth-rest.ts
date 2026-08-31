@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Service } from '@angular/core';
-import { RestApi } from '@nucleus/crud';
+import { injectNuCommonConfig } from '@nucleus/common';
 import { map } from 'rxjs';
 import type {
   AuthSignInModel,
@@ -13,12 +13,12 @@ import { authInternalConfig } from '../../int/configs';
 @Service()
 export class AuthRest {
   readonly #httpClient = inject(HttpClient);
-  readonly #restApi = inject(RestApi);
+  readonly #commonConfig = injectNuCommonConfig();
 
   readonly endpoint = authInternalConfig.rest.endpoint;
 
   createUrl(...paths: string[]) {
-    return this.#restApi.createUrl(this.endpoint, ...paths);
+    return [this.#commonConfig.api.rest.url, ...paths].filter((p) => !!p).join('/');
   }
 
   signIn(data: AuthSignInModel) {
