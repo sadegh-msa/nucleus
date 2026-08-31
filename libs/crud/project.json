@@ -1,0 +1,42 @@
+{
+  "name": "crud",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/crud/src",
+  "prefix": "nu",
+  "projectType": "library",
+  "release": {
+    "version": {
+      "currentVersionResolver": "git-tag",
+      "fallbackCurrentVersionResolver": "disk",
+      "preserveLocalDependencyProtocols": false,
+      "manifestRootsToUpdate": ["dist/{projectRoot}"]
+    }
+  },
+  "tags": ["scope:shared", "type:feature"],
+  "targets": {
+    "build": {
+      "executor": "@nx/angular:package",
+      "outputs": ["{workspaceRoot}/dist/{projectRoot}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "project": "libs/crud/ng-package.json"
+      },
+      "configurations": {
+        "production": {
+          "tsConfig": "libs/crud/tsconfig.lib.prod.json"
+        },
+        "development": {
+          "tsConfig": "libs/crud/tsconfig.lib.json"
+        }
+      }
+    },
+    "nx-release-publish": {
+      "options": {
+        "packageRoot": "dist/{projectRoot}"
+      }
+    },
+    "test": {
+      "options": {}
+    }
+  }
+}

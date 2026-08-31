@@ -1,4 +1,4 @@
-import type { GenericEntityModel } from '@nucleus/core';
+import type { GenericEntityModel } from '@nucleus/crud';
 import type {
   SampleAddModel,
   SampleConfigModel,

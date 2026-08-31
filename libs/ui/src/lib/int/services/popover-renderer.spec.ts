@@ -145,9 +145,13 @@ describe('UiPopoverRenderer', () => {
       makePopoverModel({ content: templateRef, templateData: { id: 1 } }),
     );
 
-    expect(createEmbeddedView).toHaveBeenCalledWith(templateRef, { data: { id: 1 } }, {
-      injector: expect.anything(),
-    });
+    expect(createEmbeddedView).toHaveBeenCalledWith(
+      templateRef,
+      { data: { id: 1 } },
+      {
+        injector: expect.anything(),
+      },
+    );
     expect(createEmbeddedView.mock.results[0].value.detectChanges).toHaveBeenCalled();
     expect(popoverElement.contains(node)).toBe(true);
   });

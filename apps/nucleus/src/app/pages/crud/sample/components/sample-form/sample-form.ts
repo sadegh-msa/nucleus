@@ -1,6 +1,6 @@
 import { Component, computed, inject, input, type OnInit, signal } from '@angular/core';
 import { FormField, form, readonly, required } from '@angular/forms/signals';
-import { GenericFormBuilder, GenericFormToolbar, type PageType } from '@nucleus/core';
+import { GenericFormBuilder, GenericFormToolbar, type PageType } from '@nucleus/crud';
 import { UiFormField, UiLoading } from '@nucleus/ui';
 import { AbstractGenericSampleForm } from '../../abstracts/abstract-generic-sample-form';
 import type { SampleFormModel } from '../../models/sample.model';

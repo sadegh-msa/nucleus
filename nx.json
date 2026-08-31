@@ -67,8 +67,9 @@
       },
       "include": [
         "apps/nucleus/**/*",
+        "libs/auth/**/*",
         "libs/common/**/*",
-        "libs/core/**/*",
+        "libs/crud/**/*",
         "libs/l10n/**/*",
         "libs/panel/**/*",
         "libs/theme/**/*",

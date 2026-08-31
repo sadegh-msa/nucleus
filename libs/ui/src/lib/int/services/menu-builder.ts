@@ -38,7 +38,7 @@ export class UiMenuBuilder {
 
   setItemActivity(item: UiMenuItemModel, isActive: boolean) {
     if (isActive) {
-      const original = structuredClone({ ...item, original: undefined });
+      const original = structuredClone({ ...item });
       Object.assign(item, structuredClone(item.active), { original });
     } else {
       const original = { ...item.original };

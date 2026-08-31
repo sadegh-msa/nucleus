@@ -1,4 +1,4 @@
-import type { CommonFieldsModel, CrudConfigModel } from '@nucleus/core';
+import type { CommonFieldsModel, CrudConfigModel } from '@nucleus/crud';
 import type { SampleStatusType } from '../types/sample.type';
 
 export interface SampleDetailModel {

@@ -162,7 +162,7 @@ describe('UiPopover effects', () => {
     expect(true).toBe(true);
   });
 
-it('should call renderPopover when handleTriggerEvents is called with existing popoverElement', () => {
+  it('should call renderPopover when handleTriggerEvents is called with existing popoverElement', () => {
     directive.visible.set(true);
     fixture.detectChanges();
     vi.clearAllMocks();

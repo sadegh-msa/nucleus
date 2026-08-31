@@ -12,7 +12,7 @@
       "manifestRootsToUpdate": ["dist/{projectRoot}"]
     }
   },
-  "tags": ["scope:shared"],
+  "tags": ["scope:shared", "type:util"],
   "targets": {
     "build": {
       "executor": "@nx/angular:package",

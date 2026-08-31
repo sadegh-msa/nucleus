@@ -1,4 +1,4 @@
-import type { GenericListConsumerModel } from '@nucleus/core';
+import type { GenericListConsumerModel } from '@nucleus/crud';
 import type { SampleGenericModel } from '../models/sample-generic.model';
 
 type ListModel = GenericListConsumerModel<SampleGenericModel>;

@@ -108,7 +108,7 @@ export class UiMenu {
         takeUntilDestroyed(), //
         filter((event) => event instanceof NavigationStart), //
         map((event) => event.url.split('?')[0]),
-        filter(url => url !== this.#currentUrl)
+        filter((url) => url !== this.#currentUrl),
       )
       .subscribe((currentUrl) => {
         if (isEmpty(this.#urlToItemMap)) {

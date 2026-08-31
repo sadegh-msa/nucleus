@@ -1,7 +1,7 @@
 import { inject, Service, signal } from '@angular/core';
 import { NavigationEnd, Router, Scroll } from '@angular/router';
 import { isUUID } from '@nucleus/common';
-import type { RouterStateModel } from '@nucleus/core';
+import type { RouterStateModel } from '@nucleus/crud';
 import type { UiMenuItemModel } from '@nucleus/ui';
 import { filter, map } from 'rxjs';
 

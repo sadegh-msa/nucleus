@@ -91,7 +91,12 @@ describe('UiMenuBuilder', () => {
       service.setItemActivity(item, true);
 
       expect(item.isActive).toBe(true);
-      expect(item.original).toEqual({ label: 'Test', expanded: false, icon: 'home' });
+      expect(item.original).toEqual({
+        active: activeStyle,
+        label: 'Test',
+        expanded: false,
+        icon: 'home',
+      });
       expect(item.icon).toBe('star');
     });
 

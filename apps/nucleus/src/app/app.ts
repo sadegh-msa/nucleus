@@ -2,7 +2,7 @@ import { NgClass, NgTemplateOutlet } from '@angular/common';
 import { Component, effect, inject, signal, untracked } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { injectAuthStore } from '@nucleus/core';
+import { injectAuthStore } from '@nucleus/auth';
 import { type LangDirType, LocaleUtil } from '@nucleus/l10n';
 import { Panel, PanelManager } from '@nucleus/panel';
 import { UiMenu, type UiMenuItemModel, UiMessage, UiMessageManager } from '@nucleus/ui';

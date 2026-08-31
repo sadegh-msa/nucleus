@@ -1,4 +1,4 @@
-import type { GenericFormConsumerModel } from '@nucleus/core';
+import type { GenericFormConsumerModel } from '@nucleus/crud';
 import type { SampleGenericModel } from '../models/sample-generic.model';
 
 type ConsumerModel = GenericFormConsumerModel<SampleGenericModel>;

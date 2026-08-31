@@ -123,7 +123,10 @@ describe('CookieManager', () => {
     const configureWithCryptograph = (overrides: Partial<Cryptograph>) => {
       TestBed.resetTestingModule();
       TestBed.configureTestingModule({
-        providers: [provideNuCommonConfig(mockConfig), { provide: Cryptograph, useValue: overrides }],
+        providers: [
+          provideNuCommonConfig(mockConfig),
+          { provide: Cryptograph, useValue: overrides },
+        ],
       });
 
       return TestBed.inject(CookieManager);

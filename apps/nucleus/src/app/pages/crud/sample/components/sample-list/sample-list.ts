@@ -5,7 +5,7 @@ import {
   GenericListBuilder,
   GenericListToolbar,
   type TableModel,
-} from '@nucleus/core';
+} from '@nucleus/crud';
 import { AbstractGenericSampleList } from '../../abstracts/abstract-generic-sample-list';
 import type { SampleModel } from '../../models/sample.model';
 import type { SampleGenericModel } from '../../models/sample-generic.model';

@@ -1,5 +1,6 @@
 import { Component, computed, inject, ViewEncapsulation } from '@angular/core';
-import { NuPanelHeader, NuPanelNav, PanelProgressbar } from '../../../int';
+import { NuPanelHeader, NuPanelNav } from '../../../int/components';
+import { PanelProgressbar } from '../../../int/services';
 import { PanelManager } from '../../services/panel-manager';
 
 @Component({

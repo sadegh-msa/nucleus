@@ -11,7 +11,8 @@
 @use 'layers/components/toggle';
 @use 'layers/components/form';
 @use 'layers/components/list';
-@use '@/libs/core/src/lib/ext/styles/index.scss';
+@use '@/libs/crud/src/lib/ext/styles/index.scss' as crud;
+@use '@/libs/auth/src/lib/ext/styles/index.scss' as auth;
 
 
 table {
