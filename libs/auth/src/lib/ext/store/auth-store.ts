@@ -2,13 +2,13 @@ import { computed, InjectionToken, inject, type Provider } from '@angular/core';
 import { patchState, signalStore, withComputed, withMethods, withState } from '@ngrx/signals';
 import { formatErrorMessage } from '@nucleus/crud';
 import { UiMessageManager } from '@nucleus/ui';
+import { AuthRest } from '../../int/services';
 import type {
   AuthSignInModel,
   AuthSignUpModel,
   AuthStoreModel,
   AuthStoreStateModel,
 } from '../models/auth-store.model';
-import { AuthRest } from '../services/auth-rest';
 
 const initialAuthState: AuthStoreStateModel = {
   signIn: {

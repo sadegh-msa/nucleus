@@ -2,13 +2,13 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Service } from '@angular/core';
 import { RestApi } from '@nucleus/crud';
 import { map } from 'rxjs';
-import { authInternalConfig } from '../../int/configs';
 import type {
   AuthSignInModel,
   AuthSignInResponseModel,
   AuthSignUpModel,
   AuthSignUpResponseModel,
-} from '../models/auth.model';
+} from '../../ext/models/auth.model';
+import { authInternalConfig } from '../../int/configs';
 
 @Service()
 export class AuthRest {

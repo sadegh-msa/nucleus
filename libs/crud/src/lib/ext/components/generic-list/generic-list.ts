@@ -9,7 +9,7 @@ import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { SkeletonModule } from 'primeng/skeleton';
 import { TableModule } from 'primeng/table';
 import { filter } from 'rxjs';
-import { infoFieldsDefault } from '../../defaults/info-fields.default';
+import { infoFieldsDefault } from '../../../int/constants';
 import { AuthPermission } from '../../directives/auth-permission';
 import type { InfoFieldModel } from '../../models/info.model';
 import type { TableModel } from '../../models/table.model';

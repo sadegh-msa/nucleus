@@ -6,7 +6,7 @@ import { provideUiConfig } from '@nucleus/ui';
 import { MOCK_NU_COMMON_CONFIG, MOCK_UI_CONFIG, setupGlobalMocks } from '@test-mocks';
 import { ConfirmationService } from 'primeng/api';
 import { vi } from 'vitest';
-import { infoFieldsDefault } from '../../defaults/info-fields.default';
+import { infoFieldsDefault } from '../../../int/constants';
 import type { ToolModel } from '../../models/toolbar.model';
 import { GenericList } from './generic-list';
 

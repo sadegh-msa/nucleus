@@ -1,4 +1,4 @@
-import type { InfoFieldModel } from '../models/info.model';
+import type { InfoFieldModel } from '../../ext/models/info.model';
 
 export const infoFieldsDefault = Object.freeze([
   [{ field: 'id', label: $localize`ID`, type: 'text', separator: ':' }],

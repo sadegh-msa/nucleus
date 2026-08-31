@@ -4,7 +4,6 @@ export * from './components/generic-list/generic-list';
 export * from './components/generic-list-toolbar/generic-list-toolbar';
 export * from './components/generic-toolbar/generic-toolbar';
 export * from './components/info-fields/info-fields';
-export * from './defaults/info-fields.default';
 export * from './directives/auth-permission';
 export * from './factory/page-paths-factory';
 export * from './factory/pagination-factory';
