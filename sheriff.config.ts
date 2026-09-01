@@ -14,12 +14,12 @@ export const config: SheriffConfig = {
   entryFile: 'apps/nucleus/src/main.ts',
   // ponytail: one module per lib. Nested index.ts dirs would each become barrel
   // modules and flag every intra-lib relative import; a nonexistent barrelFileName
-  // collapses each lib to a single barrel-less module. EncapsulationPattern is
-  // never-matching (regex match = encapsulated, so nothing is); lib barrels keep
-  // int/ hidden cross-lib; depRules below enforce the matrix.
+  // collapses each lib to a single barrel-less module. EncapsulationPattern matches
+  // lib/int/ relative to each module root (regex match = encapsulated): int files are
+  // private to their lib, same-module imports are exempt; depRules below enforce the matrix.
   enableBarrelLess: true,
   barrelFileName: '__never__.ts',
-  encapsulationPattern: /$^/,
+  encapsulationPattern: /^lib\/int\//,
   modules: {
     'apps/nucleus/src/app': 'app',
     'libs/domain/<domain>/src': ['domain:<domain>'],
