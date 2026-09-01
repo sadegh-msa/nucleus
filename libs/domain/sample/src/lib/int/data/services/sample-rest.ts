@@ -7,8 +7,8 @@ import {
   createUpdateRestMethod,
   type RestMethodParamsModel,
 } from '@nucleus/crud';
+import { sampleConfig } from '../../../ext/sample.config';
 import type { SampleGenericModel } from '../models/sample-generic.model';
-import { sampleConfig } from '../sample.config';
 
 @Service()
 export class SampleRest {

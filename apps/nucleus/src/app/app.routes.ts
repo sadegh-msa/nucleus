@@ -1,6 +1,6 @@
 import type { Route } from '@angular/router';
 import { authCanActivate, authRoutes } from '@nucleus/auth';
-import { sampleConfig, sampleRoutes } from './pages/crud/sample';
+import { sampleConfig, sampleRoutes } from '@nucleus/domain/sample';
 import { uiRoutes } from './pages/ui/ui.routes';
 
 export const appRoutes: Route[] = [

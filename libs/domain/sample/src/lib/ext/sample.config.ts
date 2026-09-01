@@ -1,5 +1,5 @@
 import { createActionPermissions, createPagePaths } from '@nucleus/crud';
-import type { SampleConfigModel } from './models/sample.model';
+import type { SampleConfigModel } from '../int/data/models/sample.model';
 
 const prefix = 'crud';
 const entity = 'sample';

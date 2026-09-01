@@ -6,11 +6,11 @@ import {
   GenericListToolbar,
   type TableModel,
 } from '@nucleus/crud';
+import { sampleConfig } from '../../../../ext/sample.config';
+import type { SampleModel } from '../../../data/models/sample.model';
+import type { SampleGenericModel } from '../../../data/models/sample-generic.model';
+import { SampleStore } from '../../../data/store/sample-store';
 import { AbstractGenericSampleList } from '../../abstracts/abstract-generic-sample-list';
-import type { SampleModel } from '../../models/sample.model';
-import type { SampleGenericModel } from '../../models/sample-generic.model';
-import { sampleConfig } from '../../sample.config';
-import { SampleStore } from '../../store/sample-store';
 
 @Component({
   selector: 'app-sample-list',

@@ -4,9 +4,9 @@ import { pagePathPattern } from '@nucleus/crud';
 const { list, view, add, edit } = pagePathPattern;
 
 const loadListComponent = () =>
-  import('./components/sample-list/sample-list').then((m) => m.SampleList);
+  import('../int/feature/components/sample-list/sample-list').then((m) => m.SampleList);
 const loadFormComponent = () =>
-  import('./components/sample-form/sample-form').then((m) => m.SampleForm);
+  import('../int/feature/components/sample-form/sample-form').then((m) => m.SampleForm);
 
 export const sampleRoutes: Route[] = [
   { path: '', redirectTo: list, pathMatch: 'full' },

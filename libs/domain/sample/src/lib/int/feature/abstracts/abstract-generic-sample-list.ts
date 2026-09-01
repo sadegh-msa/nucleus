@@ -1,5 +1,5 @@
 import type { GenericListConsumerModel } from '@nucleus/crud';
-import type { SampleGenericModel } from '../models/sample-generic.model';
+import type { SampleGenericModel } from '../../data/models/sample-generic.model';
 
 type ListModel = GenericListConsumerModel<SampleGenericModel>;
 

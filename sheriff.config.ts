@@ -2,6 +2,7 @@ import {
   anyTag,
   noDependencies,
   type UserSheriffConfig as SheriffConfig,
+  sameTag,
 } from '@softarc/sheriff-core';
 
 /**
@@ -21,11 +22,13 @@ export const config: SheriffConfig = {
   encapsulationPattern: /$^/,
   modules: {
     'apps/nucleus/src/app': 'app',
-    'libs/<lib>/src': ['lib:<lib>'],
+    'libs/domain/<domain>/src': ['domain:<domain>'],
+    'libs/<lib>/src': ['lib:<lib>', 'domain:shared'],
   },
   depRules: {
     root: anyTag,
     app: anyTag,
+    'domain:*': [sameTag, 'domain:shared'],
     'lib:common': noDependencies,
     'lib:l10n': noDependencies,
     'lib:theme': noDependencies,

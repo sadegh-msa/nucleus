@@ -1,0 +1,13 @@
+{
+  "name": "domain-sample",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/domain/sample/src",
+  "prefix": "nu",
+  "projectType": "library",
+  "tags": ["scope:domain", "type:feature"],
+  "targets": {
+    "test": {
+      "options": {}
+    }
+  }
+}

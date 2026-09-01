@@ -2,11 +2,11 @@ import { Component, computed, inject, input, type OnInit, signal } from '@angula
 import { FormField, form, readonly, required } from '@angular/forms/signals';
 import { GenericFormBuilder, GenericFormToolbar, type PageType } from '@nucleus/crud';
 import { UiFormField, UiLoading } from '@nucleus/ui';
+import { sampleConfig } from '../../../../ext/sample.config';
+import type { SampleFormModel } from '../../../data/models/sample.model';
+import type { SampleGenericModel } from '../../../data/models/sample-generic.model';
+import { SampleStore } from '../../../data/store/sample-store';
 import { AbstractGenericSampleForm } from '../../abstracts/abstract-generic-sample-form';
-import type { SampleFormModel } from '../../models/sample.model';
-import type { SampleGenericModel } from '../../models/sample-generic.model';
-import { sampleConfig } from '../../sample.config';
-import { SampleStore } from '../../store/sample-store';
 
 @Component({
   selector: 'app-sample-form',
