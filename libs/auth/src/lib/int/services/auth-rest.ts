@@ -18,7 +18,7 @@ export class AuthRest {
   readonly endpoint = authInternalConfig.rest.endpoint;
 
   createUrl(...paths: string[]) {
-    return [this.#commonConfig.api.rest.url, ...paths].filter((p) => !!p).join('/');
+    return [this.#commonConfig.api.rest.url, this.endpoint, ...paths].filter((p) => !!p).join('/');
   }
 
   signIn(data: AuthSignInModel) {
