@@ -39,7 +39,93 @@
             "input": "apps/nucleus/public"
           }
         ],
-        "styles": ["apps/nucleus/src/styles.scss"],
+        "styles": [
+          {
+            "input": "libs/ui/src/lib/ext/styles/ui.scss",
+            "bundleName": "ui"
+          },
+          {
+            "input": "libs/ui/src/lib/ext/styles/layers/utilities/index.scss",
+            "bundleName": "utilities"
+          },
+          {
+            "input": "libs/ui/src/lib/ext/styles/layers/components/bubble.scss",
+            "bundleName": "bubble"
+          },
+          {
+            "input": "libs/ui/src/lib/ext/styles/layers/components/button.scss",
+            "bundleName": "button"
+          },
+          {
+            "input": "libs/ui/src/lib/ext/styles/layers/components/card.scss",
+            "bundleName": "card"
+          },
+          {
+            "input": "libs/ui/src/lib/ext/styles/layers/components/checkbox.scss",
+            "bundleName": "checkbox"
+          },
+          {
+            "input": "libs/ui/src/lib/ext/styles/layers/components/form.scss",
+            "bundleName": "form"
+          },
+          {
+            "input": "libs/ui/src/lib/ext/styles/layers/components/icon.scss",
+            "bundleName": "icon"
+          },
+          {
+            "input": "libs/ui/src/lib/ext/styles/layers/components/link.scss",
+            "bundleName": "link"
+          },
+          {
+            "input": "libs/ui/src/lib/ext/styles/layers/components/list.scss",
+            "bundleName": "list"
+          },
+          {
+            "input": "libs/ui/src/lib/ext/styles/layers/components/menu.scss",
+            "bundleName": "menu"
+          },
+          {
+            "input": "libs/ui/src/lib/ext/styles/layers/components/message.scss",
+            "bundleName": "message"
+          },
+          {
+            "input": "libs/ui/src/lib/ext/styles/layers/components/popover.scss",
+            "bundleName": "popover"
+          },
+          {
+            "input": "libs/ui/src/lib/ext/styles/layers/components/ripple.scss",
+            "bundleName": "ripple"
+          },
+          {
+            "input": "libs/ui/src/lib/ext/styles/layers/components/text.scss",
+            "bundleName": "text"
+          },
+          {
+            "input": "libs/ui/src/lib/ext/styles/layers/components/toggle.scss",
+            "bundleName": "toggle"
+          },
+          {
+            "input": "libs/auth/src/lib/ext/styles/index.scss",
+            "bundleName": "auth"
+          },
+          {
+            "input": "libs/panel/src/lib/ext/styles/index.scss",
+            "bundleName": "panel"
+          },
+          {
+            "input": "libs/crud/src/lib/ext/styles/index.scss",
+            "bundleName": "crud"
+          },
+          {
+            "input": "libs/theme/src/lib/ext/styles/variables.scss",
+            "bundleName": "variables"
+          },
+          {
+            "input": "libs/theme/src/lib/ext/styles/fonts/index.scss",
+            "bundleName": "fonts"
+          },
+          "apps/nucleus/src/styles.scss"
+        ],
         "stylePreprocessorOptions": {
           "includePaths": ["libs/ui/src/lib/ext/styles"]
         },

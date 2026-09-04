@@ -1,18 +1,6 @@
 @use 'helpers/color-helper' as *;
 @use 'helpers/border-helper' as *;
 @use 'helpers/size-helper' as *;
-@use '@/libs/theme/src/lib/ext/styles/_basic-theme.scss';
-
-/****************/
-@use 'layers/components/card';
-@use 'layers/components/bubble';
-@use 'layers/components/checkbox';
-@use 'layers/components/toggle';
-@use 'layers/components/form';
-@use 'layers/components/list';
-@use '@/libs/crud/src/lib/ext/styles/index.scss' as crud;
-@use '@/libs/auth/src/lib/ext/styles/index.scss' as auth;
-
 
 table {
   width: 100%;

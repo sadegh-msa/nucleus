@@ -1,4 +1,4 @@
-import { Component, computed, inject, ViewEncapsulation } from '@angular/core';
+import { Component, computed, inject } from '@angular/core';
 import { NuPanelHeader, NuPanelNav } from '../../../int/components';
 import { PanelProgressbar } from '../../../int/services';
 import { PanelManager } from '../../services/panel-manager';
@@ -10,8 +10,6 @@ import { PanelManager } from '../../services/panel-manager';
     '[class]': 'styleClass()',
   },
   templateUrl: './panel.html',
-  styleUrl: './panel.scss',
-  encapsulation: ViewEncapsulation.None,
 })
 export class Panel {
   readonly #panelManager = inject(PanelManager);
