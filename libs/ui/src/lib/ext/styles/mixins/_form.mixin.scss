@@ -100,9 +100,8 @@
   &.textarea {
     @include transition.normal(color, background-color, border-color, text-decoration-color, fill, stroke);
     @include box.rounded($border-color: neutral-surface);
+    @include text.size(large);
     padding: get-size-var(xs-4);
-    font-size: get-size-var(sm-2);
-    line-height: get-size-var(sm-4);
 
     &:disabled {
       @include box.color($bg-color: neutral-surface, $text-color: neutral);

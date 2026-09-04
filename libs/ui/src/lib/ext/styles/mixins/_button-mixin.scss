@@ -52,6 +52,8 @@ $border-radius-list: get-border-radius-list();
       $size-value: md-6;
     } @else if $size == normal {
       $size-value: lg-2;
+    } @else if $size == large {
+      $size-value: lg-5;
     }
 
     @include size.semi-strict-height($size-value);
@@ -64,6 +66,8 @@ $border-radius-list: get-border-radius-list();
       $size-value: md-4;
     } @else if $size == normal {
       $size-value: md-6;
+    } @else if $size == large {
+      $size-value: lg-1;
     }
 
     @include size.semi-strict-rect($size-value);
@@ -80,6 +84,8 @@ $border-radius-list: get-border-radius-list();
       padding: get-size-var(xs-4) get-size-var(sm-1);
     } @else if $size == normal {
       padding: get-size-var(xs-6) get-size-var(sm-3);
+    } @else if $size == large {
+      padding: get-size-var(sm-1) get-size-var(sm-5);
     }
   }
 }

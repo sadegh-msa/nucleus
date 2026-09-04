@@ -19,6 +19,8 @@ $sizes: get-size-list();
     @include size.strict-rect(sm-4);
   } @else if $size == normal {
     @include size.strict-rect(sm-6);
+  } @else if $size == large {
+    @include size.strict-rect(md-1);
   }
 }
 

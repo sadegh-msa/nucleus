@@ -24,6 +24,8 @@ $weights: get-config(typography, font, weights);
       @include size.strict-rect(sm-3);
     } @else if $size == normal {
       @include size.strict-rect(sm-4);
+    } @else if $size == large {
+      @include size.strict-rect(sm-5);
     }
   }
 }
@@ -43,6 +45,9 @@ $weights: get-config(typography, font, weights);
   } @else if $size == normal {
     font-size: get-size-var(sm-1);
     line-height: get-size-var(sm-3);
+  } @else if $size == large {
+    font-size: get-size-var(sm-2);
+    line-height: get-size-var(sm-4);
   }
 
   @include icon-size($size);
