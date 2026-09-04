@@ -54,7 +54,7 @@ $border-radius-list: get-border-radius-list();
       $size-value: lg-2;
     }
 
-    @include size.semistrict-height($size-value);
+    @include size.semi-strict-height($size-value);
   } @else if $type == icon-button {
     @if $size == tiny {
       $size-value: sm-5;
@@ -66,7 +66,7 @@ $border-radius-list: get-border-radius-list();
       $size-value: md-6;
     }
 
-    @include size.semistrict-rect($size-value);
+    @include size.semi-strict-rect($size-value);
   }
 }
 
