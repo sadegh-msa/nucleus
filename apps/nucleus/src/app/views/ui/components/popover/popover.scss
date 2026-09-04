@@ -1,5 +1,4 @@
 @use 'helpers/size-helper' as *;
-@use 'helpers/color-helper' as *;
 @use 'mixins/box-mixin' as box;
 
 @mixin rotate-icon($rotate-value) {
@@ -23,7 +22,7 @@
   gap: get-size-var(sm-1);
 
   article {
-    @include box.rounded(paper-darkest);
+    @include box.rounded($border-color: paper-darkest);
     padding: get-size-var(sm-1);
     width: 100%;
 

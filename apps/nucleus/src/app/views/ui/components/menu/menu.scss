@@ -1,5 +1,4 @@
 @use 'helpers/size-helper' as *;
-@use 'helpers/color-helper' as *;
 @use 'mixins/box-mixin' as box;
 @use 'mixins/shadow-mixin' as shadow;
 
@@ -7,7 +6,7 @@
   display: flex;
 
   section {
-    @include box.rounded-small;
+    @include box.rounded(small);
     display: flex;
     flex-direction: column;
     width: 100%;
@@ -19,11 +18,10 @@
     }
 
     > menu {
-      @include box.rounded-small(paper-darkest);
+      @include box.rounded(small, $bg-color: paper-dark, $border-color: paper-darkest);
       @include shadow.medium;
       height: max-content;
       width: max-content;
-      background-color: get-color-var(paper-dark);
 
       &.wide,
       &.compact ::ng-deep menu {

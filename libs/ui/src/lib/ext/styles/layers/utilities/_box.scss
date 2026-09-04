@@ -1,30 +1,22 @@
 @use '../../mixins/box-mixin' as box;
+@use '../../helpers/size-helper' as *;
+
+$sizes: get-size-list();
 
 @layer utilities {
   .ui.rounded {
-    &,
-    &-normal {
-      @include box.rounded(null);
+    @each $size in $sizes {
+      &-#{$size} {
+        @include box.rounded($size);
+      }
     }
 
-    &-tiny {
-      @include box.rounded-tiny(null);
-    }
-
-    &-small {
-      @include box.rounded-small(null);
-    }
-
-    &-medium {
-      @include box.rounded-medium(null);
-    }
-
-    &-large {
-      @include box.rounded-large(null);
+    & {
+      @include box.rounded();
     }
 
     &-full {
-      @include box.rounded-full(null);
+      @include box.rounded(full);
     }
   }
 }

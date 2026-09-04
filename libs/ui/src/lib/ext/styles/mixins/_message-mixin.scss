@@ -1,22 +1,25 @@
 @use '../helpers/config-helper' as *;
 @use '../helpers/size-helper' as *;
-@use '../helpers/color-helper' as *;
-@use '../mixins/box-mixin' as box;
-@use '../mixins/shadow-mixin' as shadow;
+@use './box-mixin' as box;
+@use './shadow-mixin' as shadow;
+@use './text-mixin' as text;
 
 $variants: get-config(message, variants);
 
 @mixin generic() {
   @each $variant in $variants {
     &.#{$variant} {
-      @include box.rounded-large(#{$variant}-surface);
-      background-color: get-color-var(#{$variant}-surface);
-      color: get-color-var($variant);
+      @include box.rounded(
+        large,
+        $bg-color: #{$variant}-surface,
+        $border-color: #{$variant}-surface,
+        $text-color: $variant
+      );
 
       > hgroup {
         > h4,
         h6 {
-          color: get-color-var($variant);
+          @include text.color($variant);
         }
       }
     }

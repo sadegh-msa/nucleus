@@ -2,7 +2,6 @@
 @use '../helpers/color-helper' as *;
 @use '../utils/list-util' as *;
 @use '../utils/control-util' as *;
-@use '../mixins/color-mixin' as color;
 @use '../mixins/box-mixin' as box;
 @use '../mixins/shadow-mixin' as shadow;
 
@@ -99,23 +98,23 @@ $colors: get-color-list();
 
     &.#{$color} {
       &:not(.text) {
-        @include color.generic($bg-color, $text-color, $border-color);
+        @include box.color($bg-color: $bg-color, $border-color: $border-color, $text-color: $text-color);
       }
 
       &.text {
-        @include color.box(paper, paper-darker);
+        @include box.color($bg-color: paper, $border-color: paper-darker);
       }
     }
   }
 
   &:not(#{list-to-classes($colors)}) {
-    @include color.generic(ink, ink-surface, ink);
+    @include box.color($bg-color: ink, $border-color: ink, $text-color: ink-surface);
   }
 }
 
 @mixin generic() {
   @include shadow.large();
-  @include box.rounded(transparent);
+  @include box.rounded($border-color: transparent);
   @include colors();
   position: relative;
   z-index: 40;

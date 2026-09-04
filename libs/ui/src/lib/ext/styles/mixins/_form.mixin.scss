@@ -1,10 +1,9 @@
 @use '../helpers/size-helper' as *;
-@use '../helpers/color-helper' as *;
 @use '../helpers/border-helper' as *;
 @use './box-mixin' as box;
-@use './mixins/size-mixin' as size;
+@use './size-mixin' as size;
 @use './transition-mixin' as transition;
-@use './mixins/text-mixin' as text;
+@use './text-mixin' as text;
 
 @mixin form-field() {
   fieldset {
@@ -35,7 +34,7 @@
           }
 
           .ui.input {
-            border-color: get-color-var(danger);
+            @include box.color($border-color: danger);
           }
         }
       }
@@ -100,14 +99,13 @@
   &.input,
   &.textarea {
     @include transition.normal(color, background-color, border-color, text-decoration-color, fill, stroke);
-    @include box.rounded(neutral-surface);
+    @include box.rounded($border-color: neutral-surface);
     padding: get-size-var(xs-4);
     font-size: get-size-var(sm-2);
     line-height: get-size-var(sm-4);
 
     &:disabled {
-      background-color: get-color-var(neutral-surface);
-      color: get-color-var(neutral);
+      @include box.color($bg-color: neutral-surface, $text-color: neutral);
     }
   }
 
@@ -136,8 +134,7 @@
     &.input,
     &.textarea {
       &:not([disabled]) {
-        background-color: get-color-var(watermark-surface);
-        color: get-color-var(ink);
+        @include box.color($bg-color: watermark-surface, $text-color: ink);
       }
 
       &::placeholder {
@@ -154,12 +151,11 @@
     &.input,
     &.textarea {
       &:not([disabled]) {
-        background-color: get-color-var(paper);
-        color: get-color-var(ink);
+        @include box.color($bg-color: paper, $text-color: ink);
       }
 
       &::placeholder {
-        color: get-color-var(neutral-lighter);
+        @include text.color(neutral-lighter);
       }
     }
   }

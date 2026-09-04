@@ -1,4 +1,3 @@
-@use '../../helpers/color-helper' as *;
 @use '../../helpers/size-helper' as *;
 @use '../../mixins/box-mixin' as box;
 @use '../../mixins/shadow-mixin' as shadow;
@@ -18,14 +17,13 @@
     }
 
     > .ui-toggle-chassis {
-      @include box.rounded;
+      @include box.rounded($bg-color: paper-darkest);
       @include shadow.inset;
       display: flex;
       align-items: center;
       width: get-size-var(lg-3);
       position: relative;
       z-index: 10;
-      background-color: get-color-var(paper-darkest);
       padding: 1px;
 
       &:not(.disabled) {
@@ -44,19 +42,18 @@
 
       &.checked {
         &:not(.disabled) {
-          border-color: get-color-var(primary);
-          background-color: get-color-var(primary-dark);
+          @include box.color($bg-color: primary-dark, $border-color: primary);
 
           > .ui-toggle-switch {
             &:before,
             &:after {
-              background-color: get-color-var(primary);
+              @include box.color($bg-color: primary);
             }
           }
         }
 
         &.disabled {
-          background-color: get-color-var(paper-dark);
+          @include box.color($bg-color: paper-dark);
 
           > .ui-toggle-switch {
             > .ui-toggle-checkmark {
@@ -81,7 +78,7 @@
       }
 
       > .ui-toggle-switch {
-        @include box.rounded-medium;
+        @include box.rounded(medium, $bg-color: paper);
         @include shadow.medium;
         @include size.rect(sm-4);
         @include transition.normal(all);
@@ -90,7 +87,6 @@
         justify-content: center;
         position: relative;
         z-index: 20;
-        background-color: get-color-var(paper);
 
         > .ui-toggle-checkmark {
           @include checkmark.base(0.43rem, 0.16rem, primary);

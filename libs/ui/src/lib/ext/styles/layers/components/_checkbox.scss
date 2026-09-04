@@ -1,13 +1,11 @@
-@use '../../helpers/color-helper' as *;
 @use '../../helpers/border-helper' as *;
 @use '../../mixins/box-mixin' as box;
 @use '../../mixins/size-mixin' as size;
 
 @layer components {
   input[type='checkbox'].ui.checkbox {
-    @include box.rounded-medium();
+    @include box.rounded(medium, $bg-color: paper);
     appearance: none;
-    background-color: get-color-var(paper);
     margin: get-border-width-var(medium);
     display: flex;
     place-content: center;
@@ -15,16 +13,16 @@
     &::before {
       content: '';
       @include size.rect(sm-4);
-      @include box.rounded-medium(neutral-surface);
+      @include box.rounded(medium, $border-color: neutral-surface);
     }
 
     &:not(:checked) {
       // &:hover {
-      // background-color: get-color-var(paper-dark);
+      // @include box.color($bg-color: paper-dark);
       // }
 
       &:active {
-        background-color: get-color-var(paper-darker);
+        @include box.color($bg-color: paper-darker);
       }
     }
 
@@ -44,8 +42,7 @@
       cursor: pointer;
 
       &:checked::before {
-        @include box.rounded-medium(primary);
-        background-color: get-color-var(primary);
+        @include box.rounded(medium, $bg-color: primary, $border-color: primary);
       }
     }
 
@@ -53,8 +50,7 @@
       cursor: not-allowed;
 
       &:checked::before {
-        @include box.rounded-medium(watermark);
-        background-color: get-color-var(watermark);
+        @include box.rounded(medium, $bg-color: watermark, $border-color: watermark);
       }
     }
 

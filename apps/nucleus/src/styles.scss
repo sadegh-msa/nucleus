@@ -1,7 +1,6 @@
 @use 'helpers/color-helper' as *;
 @use 'helpers/border-helper' as *;
 @use 'helpers/size-helper' as *;
-@use 'mixins/box-mixin' as box;
 @use '@/libs/theme/src/lib/ext/styles/_basic-theme.scss';
 
 /****************/
@@ -16,7 +15,6 @@
 
 
 table {
-  @include box.rounded-small;
   width: 100%;
   border-collapse: collapse;
 

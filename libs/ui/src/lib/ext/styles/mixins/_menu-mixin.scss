@@ -1,4 +1,3 @@
-@use '../helpers/color-helper' as *;
 @use '../helpers/size-helper' as *;
 @use './text-mixin' as text;
 @use './button-mixin' as button;
@@ -8,11 +7,11 @@
 
 @mixin generic() {
   @include transition.normal(opacity);
+  @include box.color($bg-color: paper-dark);
   display: flex;
   flex-direction: column;
   overflow: hidden;
   z-index: 50;
-  background-color: get-color-var(paper-dark);
 
   &,
   menu {
@@ -27,7 +26,7 @@
 
   &.submenu,
   &.popup {
-    @include box.rounded-small(paper-darkest);
+    @include box.rounded(small, $border-color: paper-darkest);
     @include shadow.medium();
 
     li {
@@ -114,7 +113,7 @@
 
       > menu {
         @include transition.normal(max-height, colors, grid-template-rows);
-        background-color: get-color-var(transparent-dark);
+        @include box.color($bg-color: transparent-dark);
         overflow: hidden;
         position: relative;
 

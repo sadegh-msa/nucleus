@@ -1,6 +1,7 @@
 @use '../../helpers/size-helper' as *;
 @use '../../helpers/color-helper' as *;
 @use '../../mixins/screens-mixin' as *;
+@use '../../mixins/text-mixin' as text;
 
 @mixin set-h-padding($size) {
   &:has(+ ul),
@@ -26,8 +27,8 @@
   h4,
   h5,
   h6 {
+    @include text.color(ink);
     font-family: var(--font-family-heading), serif;
-    color: get-color-var(ink);
   }
 
   h1 {

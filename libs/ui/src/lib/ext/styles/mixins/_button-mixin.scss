@@ -11,7 +11,6 @@
 @use './transition-mixin' as transition;
 @use './box-mixin' as box;
 @use './size-mixin' as size;
-@use './color-mixin' as color;
 
 $colors: get-color-list();
 $sizes: get-size-list();
@@ -34,17 +33,9 @@ $border-radius-list: get-border-radius-list();
 @mixin radius($size, $type) {
   &:not(#{list-to-classes($border-radius-list, 'rounded-')}) {
     @if $type == text-button {
-      @if $size == tiny {
-        @include box.rounded-tiny();
-      } @else if $size == small {
-        @include box.rounded-small();
-      } @else if $size == medium {
-        @include box.rounded-small();
-      } @else if $size == normal {
-        @include box.rounded-medium();
-      }
+      @include box.rounded($size);
     } @else if $type == icon-button {
-      @include box.rounded-small();
+      @include box.rounded(small);
     }
   }
 }
@@ -112,25 +103,31 @@ $border-radius-list: get-border-radius-list();
   }
 }
 
-@mixin variant-color($bg-color, $text-color, $border-color: null) {
-  $is-bg-transparent: if-else(
-      string.index(#{$bg-color}, 'transparent'),
-      true,
-      false
-  );
+@mixin variant-color($bg-color, $border-color, $text-color) {
+  $is-bg-transparent: if-else(string.index(#{$bg-color}, 'transparent'), true, false);
   $is-bg-surface: if-else(string.index(#{$bg-color}, 'surface'), true, false);
   $is-bg-bright: $is-bg-transparent or $is-bg-surface;
 
   &:hover {
     $hover-variant: if-else($is-bg-bright, 'dark', 'light');
-    @include color.generic($bg-color, $text-color, $border-color, $hover-variant);
+    @include box.color(
+      $bg-color: $bg-color,
+      $border-color: $border-color,
+      $text-color: $text-color,
+      $variant: $hover-variant
+    );
   }
 
   &:not(.rippler) {
     &:active {
       $active-variant: if-else($is-bg-bright, 'darker', 'dark');
-      @include color.generic($bg-color, $text-color, $border-color, $active-variant);
-      @include shadow.inset();
+      @include box.color(
+        $bg-color: $bg-color,
+        $border-color: $border-color,
+        $text-color: $text-color,
+        $variant: $active-variant
+      );
+      @include shadow.inset;
     }
   }
 
@@ -145,16 +142,16 @@ $border-radius-list: get-border-radius-list();
   }
 }
 
-@mixin variant-properties($bg-color, $text-color, $border-color, $is-second: false) {
+@mixin variant-properties($bg-color, $border-color, $text-color, $is-second: false) {
   @if $is-second {
     &[class*='second-'] {
-      @include variant-color($bg-color, $text-color, $border-color);
+      @include variant-color($bg-color, $border-color, $text-color);
     }
   } @else {
-    @include color.generic($bg-color, $text-color, $border-color);
+    @include box.color($bg-color: $bg-color, $border-color: $border-color, $text-color: $text-color);
 
     &:not([class*='second-']) {
-      @include variant-color($bg-color, $text-color, $border-color);
+      @include variant-color($bg-color, $border-color, $text-color);
     }
   }
 
@@ -165,13 +162,13 @@ $border-radius-list: get-border-radius-list();
   $surface-color: '#{$color}-surface';
 
   @if $variant == basic {
-    @include variant-properties(transparent, $color, transparent, $is-second);
+    @include variant-properties(transparent, transparent, $color, $is-second);
   } @else if $variant == bordered {
-    @include variant-properties(transparent, $color, watermark, $is-second);
+    @include variant-properties(transparent, watermark, $color, $is-second);
   } @else if $variant == bulk {
-    @include variant-properties($surface-color, $color, $surface-color, $is-second);
+    @include variant-properties($surface-color, $surface-color, $color, $is-second);
   } @else if $variant == emphasis {
-    @include variant-properties($color, $surface-color, $color, $is-second);
+    @include variant-properties($color, $color, $surface-color, $is-second);
   } @else if $variant == outline {
     @include variant-properties(transparent, $color, $color, $is-second);
   }

@@ -1,14 +1,12 @@
-@use '../../helpers/color-helper' as *;
 @use '../../helpers/size-helper' as *;
 @use '../../mixins/box-mixin' as box;
 @use '../../mixins/shadow-mixin' as shadow;
 
 @layer components {
   .ui.card {
-    @include box.rounded();
+    @include box.rounded($bg-color: paper-dark);
     @include shadow.large();
     display: flex;
-    background-color: get-color-var(paper-dark);
     padding: get-size-var(xs-4);
 
     &:not(.horizontal, .vertical) {

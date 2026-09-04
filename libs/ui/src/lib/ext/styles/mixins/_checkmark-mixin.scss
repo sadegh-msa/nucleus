@@ -24,11 +24,10 @@
   &:before,
   &:after {
     @include transition.normal(height, width);
-    @include box.rounded-small(null);
+    @include box.rounded(small, $bg-color: $color);
     content: '';
     position: absolute;
     inset-block-end: 0;
-    background-color: get-color-var($color);
   }
 
   &:before {
@@ -60,6 +59,6 @@
 @mixin disabled {
   &:before,
   &:after {
-    background-color: get-color-var(neutral);
+    @include box.color($bg-color: neutral);
   }
 }

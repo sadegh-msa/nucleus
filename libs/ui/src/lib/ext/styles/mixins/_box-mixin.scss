@@ -1,45 +1,83 @@
+@use 'sass:meta';
+@use 'sass:map';
 @use '../helpers/color-helper' as *;
 @use '../helpers/border-helper' as *;
 @use '../utils/control-util' as *;
+@use './text-mixin' as text;
 
-@mixin generic($border-radius, $border-color, $border-width, $border-style) {
-  @if ($border-radius != null) {
+/*
+ * $bg-color
+ * $text-color
+ * $border-color
+ * $variant
+**/
+@mixin color($args...) {
+  $arg-map: meta.keywords($args);
+  $variant: map.get($arg-map, 'variant');
+
+  @if (map.has-key($arg-map, 'bg-color')) {
+    $bg-color: map.get($arg-map, 'bg-color');
+    $computed-bg-color: if-else($variant, '#{$bg-color}-#{$variant}', $bg-color);
+    background-color: get-color-var($computed-bg-color);
+  }
+
+  @if (map.has-key($arg-map, 'border-color')) {
+    $border-color: map.get($arg-map, 'border-color');
+    $computed-border-color: if-else($variant, '#{$border-color}-#{$variant}', $border-color);
+    border-color: get-color-var($computed-border-color);
+  }
+
+  @if (map.has-key($arg-map, 'text-color')) {
+    $text-color: map.get($arg-map, 'text-color');
+    $computed-text-color: if-else($variant, '#{$text-color}-#{$variant}', $text-color);
+    @include text.color($computed-text-color);
+  }
+}
+
+/*
+ * $bg-color
+ * $text-color
+ * $border-radius
+ * $border-color
+ * $border-width
+ * $border-style
+ * $variant
+**/
+@mixin generic($args...) {
+  $arg-map: meta.keywords($args);
+
+  @include color($arg-map...);
+
+  @if (map.has-key($arg-map, 'border-radius')) {
+    $border-radius: map.get($arg-map, 'border-radius');
     border-radius: if-else($border-radius == full, 100%, get-border-radius-var($border-radius));
   }
 
-  @if ($border-color != null) {
-    border-color: get-color-var($border-color);
+  @if (map.has-key($arg-map, 'border-color')) {
+    $border-width: map.get($arg-map, 'border-width');
+    $border-style: map.get($arg-map, 'border-style');
 
-    @if ($border-width != null) {
-      border-width: get-border-width($border-width);
+    @if (not map.has-key($arg-map, 'border-width')) {
+      $border-width: thin;
     }
 
-    @if ($border-style != null) {
-      border-style: $border-style;
+    @if (not map.has-key($arg-map, 'border-style')) {
+      $border-style: solid;
     }
+
+    border-width: get-border-width($border-width);
+    border-style: $border-style;
   }
 }
 
-@mixin rounded-tiny($border-color: null, $border-width: thin, $border-style: solid) {
-  @include generic(tiny, $border-color, $border-width, $border-style);
-}
+@mixin rounded($border-radius: normal, $args...) {
+  $arg-map: meta.keywords($args);
+  $new-args: map.merge(
+    $arg-map,
+    (
+      'border-radius': $border-radius
+    )
+  );
 
-@mixin rounded-small($border-color: null, $border-width: thin, $border-style: solid) {
-  @include generic(small, $border-color, $border-width, $border-style);
-}
-
-@mixin rounded-medium($border-color: null, $border-width: thin, $border-style: solid) {
-  @include generic(medium, $border-color, $border-width, $border-style);
-}
-
-@mixin rounded($border-color: null, $border-width: thin, $border-style: solid) {
-  @include generic(normal, $border-color, $border-width, $border-style);
-}
-
-@mixin rounded-large($border-color: null, $border-width: thin, $border-style: solid) {
-  @include generic(large, $border-color, $border-width, $border-style);
-}
-
-@mixin rounded-full($border-color: null, $border-width: thin, $border-style: solid) {
-  @include generic(full, $border-color, $border-width, $border-style);
+  @include generic($new-args...);
 }
