@@ -22,8 +22,11 @@ export class UiCheckbox implements OnInit {
   }
 
   #setCssVariable() {
-    const checkmarkSvgPath = `${uiStyleVar.checkmark}: url('data:image/svg+xml, ${getCheckmarkSvg()}');`;
-    this.#renderer.setAttribute(this.#elementRef.nativeElement, 'style', checkmarkSvgPath);
+    const checkboxElement = this.#elementRef.nativeElement as HTMLInputElement;
+    const checkmarkValue = checkboxElement.checked ? `url('data:image/svg+xml, ${getCheckmarkSvg()}')` : 'none';
+    const cssVariable = `${uiStyleVar.checkmark}: ${checkmarkValue};`;
+
+    this.#renderer.setAttribute(checkboxElement, 'style', cssVariable);
   }
 
   handleClickEvent() {
