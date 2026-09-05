@@ -97,7 +97,7 @@ $weights: get-config(typography, font, weights);
       }
     }
 
-    @if ($has-second) {
+    @if $has-second {
       &.second-#{$color} {
         &:hover {
           &[class*='second-'] {

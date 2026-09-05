@@ -6,9 +6,7 @@
 @use '../_default-config' as *;
 
 @function get-color-value($color-value, $light-dark) {
-  $is-map: meta.type-of($color-value) == 'map';
-
-  @if ($is-map) {
+  @if meta.type-of($color-value) == 'map' {
     @return map.get($color-value, $light-dark);
   }
 

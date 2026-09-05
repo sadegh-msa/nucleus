@@ -110,8 +110,8 @@ $border-radius-list: get-border-radius-list();
 }
 
 @mixin variant-color($bg-color, $border-color, $text-color) {
-  $is-bg-transparent: if-else(string.index(#{$bg-color}, 'transparent'), true, false);
-  $is-bg-surface: if-else(string.index(#{$bg-color}, 'surface'), true, false);
+  $is-bg-transparent: not not string.index(#{$bg-color}, 'transparent');
+  $is-bg-surface: not not string.index(#{$bg-color}, 'surface');
   $is-bg-bright: $is-bg-transparent or $is-bg-surface;
 
   &:hover {
@@ -138,9 +138,9 @@ $border-radius-list: get-border-radius-list();
   }
 
   &.rippler {
-    @if ($bg-color == ink) {
+    @if $bg-color == ink {
       --ui-ripple-bg-color: #{get-color-var(neutral)};
-    } @else if ($bg-color != transparent) {
+    } @else if $bg-color != transparent {
       --ui-ripple-bg-color: #{get-color-var('#{$bg-color}-darkest')};
     } @else {
       --ui-ripple-bg-color: #{get-color-var('#{$text-color}-surface-darkest')};

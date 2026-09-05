@@ -15,22 +15,22 @@
   $arg-map: meta.keywords($args);
   $variant: map.get($arg-map, 'variant');
 
-  @if (map.has-key($arg-map, 'bg-color')) {
+  @if map.has-key($arg-map, 'bg-color') {
     $bg-color: map.get($arg-map, 'bg-color');
-    $computed-bg-color: if-else($variant, '#{$bg-color}-#{$variant}', $bg-color);
-    background-color: get-color-var($computed-bg-color);
+    $bg-color-value: if-else($variant, '#{$bg-color}-#{$variant}', $bg-color);
+    background-color: get-color-var($bg-color-value);
   }
 
-  @if (map.has-key($arg-map, 'border-color')) {
+  @if map.has-key($arg-map, 'border-color') {
     $border-color: map.get($arg-map, 'border-color');
-    $computed-border-color: if-else($variant, '#{$border-color}-#{$variant}', $border-color);
-    border-color: get-color-var($computed-border-color);
+    $border-color-value: if-else($variant, '#{$border-color}-#{$variant}', $border-color);
+    border-color: get-color-var($border-color-value);
   }
 
-  @if (map.has-key($arg-map, 'text-color')) {
+  @if map.has-key($arg-map, 'text-color') {
     $text-color: map.get($arg-map, 'text-color');
-    $computed-text-color: if-else($variant, '#{$text-color}-#{$variant}', $text-color);
-    @include text.color($computed-text-color);
+    $text-color-value: if-else($variant, '#{$text-color}-#{$variant}', $text-color);
+    @include text.color($text-color-value);
   }
 }
 
@@ -48,20 +48,28 @@
 
   @include color($arg-map...);
 
-  @if (map.has-key($arg-map, 'border-radius')) {
+  @if map.has-key($arg-map, 'border-radius') {
     $border-radius: map.get($arg-map, 'border-radius');
-    border-radius: if-else($border-radius == full, 100%, get-border-radius-var($border-radius));
+    $border-radius-value: 0;
+
+    @if $border-radius == full {
+      $border-radius-value: 100%;
+    } @else {
+      $border-radius-value: get-border-radius-var($border-radius);
+    }
+
+    border-radius: $border-radius-value;
   }
 
-  @if (map.has-key($arg-map, 'border-color')) {
+  @if map.has-key($arg-map, 'border-color') {
     $border-width: map.get($arg-map, 'border-width');
     $border-style: map.get($arg-map, 'border-style');
 
-    @if (not map.has-key($arg-map, 'border-width')) {
+    @if not map.has-key($arg-map, 'border-width') {
       $border-width: thin;
     }
 
-    @if (not map.has-key($arg-map, 'border-style')) {
+    @if not map.has-key($arg-map, 'border-style') {
       $border-style: solid;
     }
 

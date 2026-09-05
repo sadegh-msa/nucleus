@@ -17,7 +17,7 @@ $colors: get-color-list();
 @mixin arrow($block-placement, $block-offset, $inline-placement, $inline-offset, $is-rotate-reversed: false) {
   $rotate-value: if-else($block-placement == $inline-placement, 45deg, -45deg);
 
-  @if ($is-rotate-reversed) {
+  @if $is-rotate-reversed {
     $rotate-value: -1 * $rotate-value;
   }
 
@@ -42,7 +42,7 @@ $colors: get-color-list();
   $block-offset: calc(-1 * var(--ui-bubble-arrow-size-half));
   $inline-offset: var(--ui-bubble-arrow-offset, var(--ui-bubble-arrow-size));
 
-  @if ($inline-placement == center) {
+  @if $inline-placement == center {
     $inline-placement: start;
     $inline-offset: calc(50% - var(--ui-bubble-arrow-size-half) + 1px);
   }
@@ -54,7 +54,7 @@ $colors: get-color-list();
   $inline-offset: calc(-1 * var(--ui-bubble-arrow-size-half));
   $block-offset: var(--ui-bubble-arrow-offset, var(--ui-bubble-arrow-size));
 
-  @if ($block-placement == center) {
+  @if $block-placement == center {
     $block-placement: start;
     $block-offset: calc(50% - var(--ui-bubble-arrow-size-half) + 1px);
   }
@@ -89,10 +89,10 @@ $colors: get-color-list();
     $text-color: '#{$color}-surface';
     $border-color: $color;
 
-    @if ($color == paper) {
+    @if $color == paper {
       $text-color: ink;
       $border-color: paper-darker;
-    } @else if ($color == watermark) {
+    } @else if $color == watermark {
       $text-color: ink;
     }
 

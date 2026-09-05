@@ -19,7 +19,7 @@
     $alias-value: (list.index(get-config(size, alias, names), $alias) - 1) * $alias-step;
     $increment: 1;
 
-    @if($level <= $alias-step) {
+    @if $level <= $alias-step {
       $increment: $level;
     }
 

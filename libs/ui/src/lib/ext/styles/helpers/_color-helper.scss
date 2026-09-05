@@ -20,7 +20,7 @@
   $colors: ();
 
   @each $color in $allColors {
-    @if string.index($color, '-surface') == null {
+    @if not string.index($color, '-surface') {
       $colors: list.append($colors, $color);
     }
   }
