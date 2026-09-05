@@ -28,8 +28,6 @@ export class AuthToken {
   constructor() {
     this.#handleEvents();
     this.#settleAccessTokenDeadlineExtender();
-
-    effect(() => this.#checkToken());
   }
 
   #handleEvents() {
@@ -95,6 +93,8 @@ export class AuthToken {
         }
       });
     });
+
+    effect(() => this.#checkToken());
   }
 
   async #handleSignInSuccess(accessToken: string | null) {

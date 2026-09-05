@@ -1,4 +1,4 @@
-import { Component, effect, signal, untracked } from '@angular/core';
+import { Component, computed, signal } from '@angular/core';
 import { email, FormField, form, maxLength, required } from '@angular/forms/signals';
 import { RouterLink } from '@angular/router';
 
@@ -18,25 +18,21 @@ export class SignIn {
 
   readonly config = authInternalConfig.entity;
   readonly formId = this.config.signIn.html.form.id;
+
   readonly authSignInModel = signal<AuthSignInModel>({
     email: '',
     password: '',
     rememberMe: false,
   });
+
+  readonly isSubmitting = computed(() => this.#authStore.signInStatus() === 'inProgress');
+
   readonly form = form(this.authSignInModel, (f) => {
     required(f.email, { message: $localize`Required` });
     email(f.email, { message: $localize`Invalid` });
     required(f.password, { message: $localize`Required` });
     maxLength(f.password, 36, { message: $localize`Too long` });
   });
-  readonly isSubmitting = signal(false);
-
-  constructor() {
-    effect(() => {
-      const status = this.#authStore.signInStatus();
-      untracked(() => this.isSubmitting.set(status === 'inProgress'));
-    });
-  }
 
   onSubmit(event: Event) {
     event.preventDefault();

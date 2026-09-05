@@ -1,5 +1,5 @@
 import { NgClass, NgTemplateOutlet } from '@angular/common';
-import { Component, effect, inject, signal, untracked } from '@angular/core';
+import { Component, computed, effect, inject, signal, untracked } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { injectAuthStore } from '@nucleus/auth';
@@ -42,15 +42,18 @@ export class App {
       permission: 'nucleus.menu.button.sign-out',
     },
   ] as UiMenuItemModel[];
-
-  readonly isUserAuthenticated = signal(false);
-  readonly showLoading = signal(false);
-  readonly htmlDir = signal<LangDirType>('ltr');
   readonly navExtent = this.#panelManager.navExtent;
+
+  readonly htmlDir = signal<LangDirType>('ltr');
+
+  readonly isUserAuthenticated = computed(() => this.#authStore.checkStatus() === 'success');
+  readonly showLoading = computed(() => this.#authStore.signOutStatus() === 'inProgress');
 
   constructor() {
     this.#handleEvents();
+  }
 
+  #handleEvents() {
     effect(() => {
       const dir = this.htmlDir();
 
@@ -63,26 +66,6 @@ export class App {
           content: dir.toUpperCase(),
         });
       });
-    });
-  }
-
-  #handleEvents() {
-    effect(() => {
-      const status = this.#authStore.checkStatus();
-
-      untracked(() => {
-        if (status === 'success') {
-          this.isUserAuthenticated.set(true);
-        } else if (status === 'failure') {
-          this.isUserAuthenticated.set(false);
-        }
-      });
-    });
-
-    effect(() => {
-      const status = this.#authStore.signOutStatus();
-
-      untracked(() => this.showLoading.set(status === 'inProgress'));
     });
   }
 
