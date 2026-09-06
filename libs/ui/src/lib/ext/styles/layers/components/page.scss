@@ -13,13 +13,13 @@
     }
 
     &:has(> .page-master, > .page-detail) {
-      height: 100%;
+      height: get-titled-size(full);
       overflow: hidden;
     }
 
     .page-master,
     .page-detail {
-      height: 50%;
+      height: get-titled-size(half);
       overflow: auto;
     }
 

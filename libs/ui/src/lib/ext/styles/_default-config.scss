@@ -30,13 +30,28 @@ $ui-default-config: (
     base: 0.125rem,
     factor: (
       min: 1,
-      max: 210,
+      max: 210
     ),
     alias: (
       names: xs sm md lg xl \2xl \3xl \4xl \5xl \6xl \7xl \8xl \9xl \10xl,
-      step: 7,
+      step: 7
     ),
     indicators: tiny small medium normal large,
+    titled: (
+      auto: auto,
+      fit: fit-content,
+      max: max-content,
+      min: min-content,
+      stretch: stretch,
+      octant: 12.5%,
+      quarter: 25%,
+      half: 50%,
+      full: 100%,
+      dvw: 100dvw,
+      dvh: 100dvh,
+      vw: 100vw,
+      vh: 100vh
+    )
   ),
   color: (
     pigments: (
@@ -61,7 +76,7 @@ $ui-default-config: (
       watermark: get-light-dark(generate-grayscale-color(70%), generate-grayscale-color(30%)),
       watermark-surface: $grayscale-surface,
       paper: get-light-dark(generate-grayscale-color(98%), generate-grayscale-color(3%)),
-      paper-surface: $grayscale-surface,
+      paper-surface: $grayscale-surface
     ),
     variants: (
       light: 2.5%,
@@ -77,8 +92,8 @@ $ui-default-config: (
       transparent: oklch(0% 0 0 / 0%),
       transparent-dark: css-get-light-dark(oklch(0% 0 0 / 2%), oklch(100% 0 0 / 2%)),
       transparent-darker: css-get-light-dark(oklch(0% 0 0 / 4%), oklch(100% 0 0 / 4%)),
-      transparent-darkest: css-get-light-dark(oklch(0% 0 0 / 8%), oklch(100% 0 0 / 8%)),
-    ),
+      transparent-darkest: css-get-light-dark(oklch(0% 0 0 / 8%), oklch(100% 0 0 / 8%))
+    )
   ),
   border: (
     width: (
@@ -92,23 +107,22 @@ $ui-default-config: (
       small: xs-3,
       medium: xs-4,
       normal: xs-5,
-      large: xs-6,
-      full: 100%
+      large: xs-6
     )
   ),
   typography: (
     font: (
-      weights: normal semibold bold bolder,
+      weights: normal semibold bold bolder
     )
   ),
   button: (
-    variants: basic bordered bulk emphasis outline,
+    variants: basic bordered bulk emphasis outline
   ),
   icon: (
     variants: animation bold brand broken bulk intact linear outline twotone,
-    filled: bold bulk,
+    filled: bold bulk
   ),
   message: (
-    variants: info success warning danger,
-  ),
+    variants: info success warning danger
+  )
 ) !default;

@@ -44,7 +44,7 @@ $colors: get-color-list();
 
   @if $inline-placement == center {
     $inline-placement: start;
-    $inline-offset: calc(50% - var(--ui-bubble-arrow-size-half) + 1px);
+    $inline-offset: calc(get-titled-size(half) - var(--ui-bubble-arrow-size-half) + 1px);
   }
 
   @include arrow($block-placement, $block-offset, $inline-placement, $inline-offset);
@@ -56,7 +56,7 @@ $colors: get-color-list();
 
   @if $block-placement == center {
     $block-placement: start;
-    $block-offset: calc(50% - var(--ui-bubble-arrow-size-half) + 1px);
+    $block-offset: calc(get-titled-size(half) - var(--ui-bubble-arrow-size-half) + 1px);
   }
 
   @include arrow($block-placement, $block-offset, $inline-placement, $inline-offset, true);

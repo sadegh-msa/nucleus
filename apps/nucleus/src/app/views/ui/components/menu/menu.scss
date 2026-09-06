@@ -1,6 +1,7 @@
 @use 'helpers/size-helper' as *;
 @use 'mixins/box-mixin' as box;
 @use 'mixins/shadow-mixin' as shadow;
+@use 'mixins/size-mixin' as size;
 
 :host {
   display: flex;
@@ -9,19 +10,18 @@
     @include box.rounded(small);
     display: flex;
     flex-direction: column;
-    width: 100%;
     gap: get-size-var(sm-1);
+    width: get-titled-size(full);
     padding: get-size-var(sm-1);
 
     &:first-of-type {
-      width: max-content;
+      width: get-titled-size(max);
     }
 
     > menu {
       @include box.rounded(small, $bg-color: paper-dark, $border-color: paper-darkest);
+      @include size.rect(max);
       @include shadow.medium;
-      height: max-content;
-      width: max-content;
 
       &.wide,
       &.compact ::ng-deep menu {

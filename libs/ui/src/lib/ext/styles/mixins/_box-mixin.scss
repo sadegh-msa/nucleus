@@ -2,6 +2,7 @@
 @use 'sass:map';
 @use '../helpers/color-helper' as *;
 @use '../helpers/border-helper' as *;
+@use '../helpers/size-helper' as *;
 @use '../utils/control-util' as *;
 @use './text-mixin' as text;
 
@@ -52,8 +53,8 @@
     $border-radius: map.get($arg-map, 'border-radius');
     $border-radius-value: 0;
 
-    @if $border-radius == full {
-      $border-radius-value: 100%;
+    @if is-titled-size($border-radius) {
+      $border-radius-value: get-titled-size($border-radius);
     } @else {
       $border-radius-value: get-border-radius-var($border-radius);
     }
@@ -61,7 +62,7 @@
     border-radius: $border-radius-value;
   }
 
-  @if map.has-key($arg-map, 'border-color') {
+  @if map.get($arg-map, 'border-color') {
     $border-width: map.get($arg-map, 'border-width');
     $border-style: map.get($arg-map, 'border-style');
 
@@ -73,7 +74,7 @@
       $border-style: solid;
     }
 
-    border-width: get-border-width($border-width);
+    border-width: get-border-width-var($border-width);
     border-style: $border-style;
   }
 }

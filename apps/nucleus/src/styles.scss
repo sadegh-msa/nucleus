@@ -3,7 +3,7 @@
 @use 'helpers/size-helper' as *;
 
 table {
-  width: 100%;
+  width: get-titled-size(full);
   border-collapse: collapse;
 
   th,

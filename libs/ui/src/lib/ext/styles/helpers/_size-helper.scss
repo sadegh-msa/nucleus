@@ -44,3 +44,15 @@
 @function get-size-var($size) {
   @return calc(var(#{get-base-size-var-name()}) * #{get-size-factor($size)});
 }
+
+@function get-titled-size-list() {
+  @return map.keys(get-config(size, titled));
+}
+
+@function is-titled-size($size) {
+  @return not not list.index(get-titled-size-list(), $size);
+}
+
+@function get-titled-size($size) {
+  @return get-config(size, titled, $size);
+}

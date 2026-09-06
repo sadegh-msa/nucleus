@@ -23,7 +23,7 @@
     @each $variant in get-config(icon, variants) {
       @if not list.index(get-config(icon, filled), $variant) {
         &.#{$variant} {
-          border-width: get-border-width(thin);
+          border-width: get-border-width-var(thin);
           border-color: transparent;
           outline: 2px solid transparent;
           outline-offset: 2px;

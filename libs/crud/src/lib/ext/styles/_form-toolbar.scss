@@ -10,7 +10,7 @@ nu-generic-form-toolbar {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  width: max-content;
+  width: get-titled-size(max);
 
   .p-paginator {
     padding: 0;

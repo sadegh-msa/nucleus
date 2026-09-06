@@ -1,5 +1,6 @@
 @use 'helpers/size-helper' as *;
 @use 'mixins/box-mixin' as box;
+@use 'mixins/size-mixin' as size;
 
 @mixin rotate-icon($rotate-value) {
   .ui.icon {
@@ -24,7 +25,7 @@
   article {
     @include box.rounded($border-color: paper-darkest);
     padding: get-size-var(sm-1);
-    width: 100%;
+    width: get-titled-size(full);
 
     &#tooltips {
       grid-area: 1 / 1 / 2 / 2;
@@ -236,7 +237,7 @@
 
         .ui.bubble {
           max-width: get-size-var(100);
-          width: max-content;
+          width: get-titled-size(max);
         }
       }
 
@@ -254,8 +255,7 @@
           justify-content: center;
 
           .ui.bubble {
-            height: max-content;
-            width: max-content;
+            @include size.rect(max);
           }
         }
       }

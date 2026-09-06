@@ -2,21 +2,24 @@
 @use '../../helpers/size-helper' as *;
 
 $sizes: get-size-list();
+$titled-sizes: octant, quarter, half, full;
 
 @layer utilities {
   .ui.rounded {
+    & {
+      @include box.rounded();
+    }
+
     @each $size in $sizes {
       &-#{$size} {
         @include box.rounded($size);
       }
     }
 
-    & {
-      @include box.rounded();
-    }
-
-    &-full {
-      @include box.rounded(full);
+    @each $size in $titled-sizes {
+      &-#{$size} {
+        @include box.rounded($size);
+      }
     }
   }
 }

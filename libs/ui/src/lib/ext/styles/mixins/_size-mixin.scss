@@ -1,18 +1,25 @@
 @use '../helpers/size-helper' as *;
+@use '../utils/control-util' as *;
 
 @mixin min-rect($width, $height: null) {
-  min-width: get-size-var($width);
-  min-height: get-size-var($height or $width);
+  $height-value: $height or $width;
+
+  min-width: if-else(is-titled-size($width), get-titled-size($width), get-size-var($width));
+  min-height: if-else(is-titled-size($height-value), get-titled-size($height-value), get-size-var($height-value));
 }
 
 @mixin rect($width, $height: null) {
-  width: get-size-var($width);
-  height: get-size-var($height or $width);
+  $height-value: $height or $width;
+
+  width: if-else(is-titled-size($width), get-titled-size($width), get-size-var($width));
+  height: if-else(is-titled-size($height-value), get-titled-size($height-value), get-size-var($height-value));
 }
 
 @mixin max-rect($width, $height: null) {
-  max-width: get-size-var($width);
-  max-height: get-size-var($height or $width);
+  $height-value: $height or $width;
+
+  max-width: if-else(is-titled-size($width), get-titled-size($width), get-size-var($width));
+  max-height: if-else(is-titled-size($height-value), get-titled-size($height-value), get-size-var($height-value));
 }
 
 @mixin semi-strict-rect($width, $height: null) {
@@ -26,25 +33,32 @@
   @include max-rect($width, $height);
 }
 
-@mixin semi-strict-height($height) {
-  min-height: get-size-var($height);
-  height: get-size-var($height);
-}
-
-@mixin strict-height($height) {
-  min-height: get-size-var($height);
-  height: get-size-var($height);
-  max-height: get-size-var($height);
-}
-
 @mixin semi-strict-width($width) {
-  min-width: get-size-var($width);
-  width: get-size-var($width);
+  $width-value: if-else(is-titled-size($width), get-titled-size($width), get-size-var($width));
+
+  min-width: $width-value;
+  width: $width-value;
 }
 
 @mixin strict-width($width) {
-  min-width: get-size-var($width);
-  width: get-size-var($width);
-  max-width: get-size-var($width);
+  $width-value: if-else(is-titled-size($width), get-titled-size($width), get-size-var($width));
+
+  min-width: $width-value;
+  width: $width-value;
+  max-width: $width-value;
 }
 
+@mixin semi-strict-height($height) {
+  $height-value: if-else(is-titled-size($height), get-titled-size($height), get-size-var($height));
+
+  min-height: $height-value;
+  height: $height-value;
+}
+
+@mixin strict-height($height) {
+  $height-value: if-else(is-titled-size($height), get-titled-size($height), get-size-var($height));
+
+  min-height: $height-value;
+  height: $height-value;
+  max-height: $height-value;
+}

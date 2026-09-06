@@ -3,12 +3,12 @@
 
 @layer components {
   .ui.messages {
+    position: fixed;
     display: flex;
-    width: max-content;
     flex-direction: column;
     gap: get-size-var(sm-1);
-    position: fixed;
-    bottom: get-size-var(sm-1);
+    width: get-titled-size(max);
+    inset-block-end: get-size-var(sm-1);
     inset-inline-end: get-size-var(sm-1);
     z-index: 500;
   }

@@ -1,26 +1,24 @@
 @use '../../styles/helpers/color-helper' as *;
 @use '../../styles/helpers/size-helper' as *;
+@use '../../styles/mixins/size-mixin' as size;
 
 :host {
   &.nu-loading {
+    @include size.max-rect(full);
     position: relative;
     z-index: 40;
-    max-height: 100%;
-    max-width: 100%;
     overflow: hidden;
 
     &.nu-loading-fullscreen {
-      height: 100vh;
-      width: 100vw;
+      @include size.rect(vw, vh);
     }
 
     > .nu-loading-container {
+      @include size.rect(full);
       position: absolute;
       top: 0;
       left: 0;
       z-index: 50;
-      height: 100%;
-      width: 100%;
       background-color: get-color-var(overlay);
       display: flex;
       align-items: center;

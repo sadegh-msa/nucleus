@@ -2,6 +2,7 @@
 @use '../../helpers/size-helper' as *;
 @use '../../helpers/border-helper' as *;
 @use '../../mixins/box-mixin' as box;
+@use '../../mixins/size-mixin' as size;
 @use '../../mixins/shadow-mixin' as shadow;
 
 @layer defaults {
@@ -26,15 +27,13 @@
 
   hr {
     @include box.color($border-color: watermark);
-    height: 0;
-    width: 100%;
+    @include size.rect(full, 0);
     border-top-width: get-border-width-var(thin);
   }
 
   ::-webkit-scrollbar {
     @include box.color($bg-color: watermark-surface);
-    height: get-size-var(xs-2);
-    width: get-size-var(xs-2);
+    @include size.rect(xs-2);
   }
 
   ::-webkit-scrollbar-thumb {

@@ -4,6 +4,7 @@
 @use 'mixins/screens-mixin' as *;
 @use 'mixins/shadow-mixin' as shadow;
 @use 'mixins/box-mixin' as box;
+@use 'mixins/size-mixin' as size;
 
 $panel-nav-compact-width: 69px;
 $panel-nav-wide-width: 260px;
@@ -36,18 +37,16 @@ $panel-nav-wide-width: 260px;
 }
 
 body {
+  @include size.rect(dvw, dvh);
   overflow: hidden;
   margin: 0;
-  height: 100dvh;
-  width: 100dvw;
   padding: 0;
 
   nu-panel {
+    @include size.rect(full);
     display: grid;
     gap: get-size-var(xs-6);
     padding: get-size-var(xs-6);
-    height: 100%;
-    width: 100%;
     overflow: hidden;
     background-color: get-color-var(paper-darker);
 
@@ -78,11 +77,10 @@ body {
     }
 
     > progress {
+      @include size.rect(dvw, xs-2);
       position: absolute;
       inset-block-start: 0;
       inset-inline-start: 0;
-      height: get-size-var(xs-2);
-      width: 100dvw;
       background-color: get-color-var(transparent);
       -webkit-appearance: none;
 
@@ -112,9 +110,8 @@ body {
     }
 
     > main {
+      @include size.rect(auto);
       grid-area: main;
-      height: auto;
-      width: auto;
       overflow: auto;
     }
   }

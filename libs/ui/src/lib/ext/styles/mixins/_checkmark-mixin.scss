@@ -46,12 +46,12 @@
 
 @mixin darkest {
   &:before {
-    width: 100%;
+    width: get-titled-size(full);
     transition-delay: 75ms;
   }
 
   &:after {
-    height: 100%;
+    height: get-titled-size(full);
     transition-delay: 150ms;
   }
 }

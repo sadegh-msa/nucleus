@@ -4,6 +4,7 @@
 @use './box-mixin' as box;
 @use './shadow-mixin' as shadow;
 @use './transition-mixin' as transition;
+@use './size-mixin' as size;
 
 @mixin generic() {
   @include transition.normal(opacity);
@@ -21,7 +22,7 @@
 
   hr {
     margin: get-size-var(xs-4) auto;
-    width: calc(100% - calc(var(--spacing) * 6));
+    width: calc(get-titled-size(full) - calc(var(--spacing) * 6));
   }
 
   &.submenu,
@@ -68,7 +69,7 @@
         }
 
         .multiline {
-          width: 100%;
+          width: get-titled-size(full);
         }
 
         > :not(.ui.icon, .ui.ripple) {
@@ -118,11 +119,10 @@
         position: relative;
 
         &::after {
+          @include size.rect(full);
           @include shadow.inset();
           content: '';
           position: absolute;
-          height: 100%;
-          width: 100%;
           pointer-events: none;
         }
 
@@ -149,8 +149,8 @@
     @include transition.normal(padding, color, background-color);
     position: relative;
     display: flex;
-    width: 100%;
     flex-direction: column;
+    width: get-titled-size(full);
 
     .ui.button:not(.standalone) {
       @include transition.normal(padding, gap, min-height);
@@ -163,8 +163,7 @@
 
       > :not(.ui.icon, .ui.ripple) {
         @include transition.normal(max-width, opacity);
-        width: 100%;
-        max-width: 100%;
+        @include size.strict-width(full);
         opacity: 1;
         overflow: hidden;
         text-overflow: ellipsis;

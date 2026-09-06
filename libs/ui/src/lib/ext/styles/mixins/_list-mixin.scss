@@ -8,9 +8,9 @@ $colors: get-color-list();
 @mixin generic() {
   display: flex;
   flex-direction: column;
-  width: max-content;
   align-items: flex-start;
   gap: get-size-var(xs-5);
+  width: get-titled-size(max);
   list-style: inside;
 
   li {

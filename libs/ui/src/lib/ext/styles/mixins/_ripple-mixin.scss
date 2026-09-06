@@ -1,3 +1,4 @@
+@use './box-mixin' as box;
 @use './transition-mixin' as transition;
 
 @mixin generic() {
@@ -5,10 +6,10 @@
   --ui-ripple-opacity: 1;
 
   @include transition.slow(background, transform, opacity);
+  @include box.rounded(full, $border-color: null);
   pointer-events: none;
   position: absolute;
   overflow: hidden;
-  border-radius: 100%;
   opacity: var(--ui-ripple-opacity);
   left: var(--ui-ripple-left);
   top: var(--ui-ripple-top);

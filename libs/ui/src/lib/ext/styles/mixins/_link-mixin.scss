@@ -8,9 +8,9 @@ $colors: get-color-list();
 @mixin generic() {
   @include text.generic(true, true, true);
   display: flex;
-  width: max-content;
   align-items: center;
   gap: get-size-var(xs-4);
+  width: get-titled-size(max);
   cursor: pointer;
   text-decoration-line: none;
 
