@@ -89,6 +89,10 @@
             "bundleName": "message"
           },
           {
+            "input": "libs/ui/src/lib/ext/styles/layers/components/page.scss",
+            "bundleName": "page"
+          },
+          {
             "input": "libs/ui/src/lib/ext/styles/layers/components/popover.scss",
             "bundleName": "popover"
           },

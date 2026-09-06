@@ -1,0 +1,43 @@
+@use '../../helpers/size-helper' as *;
+
+@layer components {
+  .page {
+    display: flex;
+    flex-direction: column;
+    min-height: 100%;
+
+    &.page-form {
+    }
+
+    &.page-list {
+    }
+
+    &:has(> .page-master, > .page-detail) {
+      height: 100%;
+      overflow: hidden;
+    }
+
+    .page-master,
+    .page-detail {
+      height: 50%;
+      overflow: auto;
+    }
+
+    .page-detail {
+      //@include styleclass('border-top-2 surface-border');
+    }
+
+    .page-content {
+      display: flex;
+      flex-direction: column;
+      flex-grow: 0.5;
+
+      &.page-form-content {
+        padding: get-size-var(xs-4);
+      }
+
+      &.page-list-content {
+      }
+    }
+  }
+}
