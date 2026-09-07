@@ -1,9 +1,19 @@
 @use '../../helpers/size-helper' as *;
-@use '../../helpers/color-helper' as *;
-@use '../../mixins/screens-mixin' as *;
 @use '../../mixins/text-mixin' as text;
 
-@mixin set-h-padding($size) {
+$preferred: 4vw;
+
+@mixin set-h-padding($min, $max) {
+  $min-value: calc(get-size-var($min) / 2);
+  $max-value: calc(get-size-var($max) / 2);
+
+  &:has(+ ul),
+  &:has(+ ol) {
+    padding-block-end: clamp($min-value, $preferred, $max-value);
+  }
+}
+
+@mixin set-h-padding-old($size) {
   &:has(+ ul),
   &:has(+ ol) {
     padding-block-end: calc(get-size-var($size) / 2);
@@ -32,90 +42,45 @@
   }
 
   h1 {
+    @include set-h-padding(md-3, md-4);
     font-weight: 900;
-
-    @include screens(handset) {
-      @include set-h-padding(sm-7);
-      font-size: get-size-var(sm-7);
-      line-height: get-size-var(md-4);
-    }
-
-    @include screens(tablet) {
-      @include set-h-padding(sm-7);
-      font-size: get-size-var(sm-7);
-      line-height: get-size-var(md-4);
-    }
-
-    @include screens(web) {
-      @include set-h-padding(md-1);
-      font-size: get-size-var(md-1);
-      line-height: get-size-var(md-5);
-    }
+    font-size: clamp(get-size-var(md-3), $preferred, get-size-var(md-4));
+    line-height: clamp(get-size-var(md-7), $preferred, get-size-var(lg-1));
   }
 
   h2 {
+    @include set-h-padding(md-1, md-2);
     font-weight: 900;
-
-    @include screens(handset) {
-      @include set-h-padding(sm-5);
-      font-size: get-size-var(sm-5);
-      line-height: get-size-var(md-2);
-    }
-
-    @include screens(tablet) {
-      @include set-h-padding(sm-5);
-      font-size: get-size-var(sm-5);
-      line-height: get-size-var(md-2);
-    }
-
-    @include screens(web) {
-      @include set-h-padding(sm-6);
-      font-size: get-size-var(sm-6);
-      line-height: get-size-var(md-3);
-    }
+    font-size: clamp(get-size-var(md-1), $preferred, get-size-var(md-2));
+    line-height: clamp(get-size-var(md-5), $preferred, get-size-var(md-6));
   }
 
   h3 {
+    @include set-h-padding(sm-6, sm-7);
     font-weight: 800;
-
-    @include screens(handset) {
-      @include set-h-padding(sm-4);
-      font-size: get-size-var(sm-4);
-      line-height: get-size-var(md-1);
-    }
-
-    @include screens(tablet) {
-      @include set-h-padding(sm-4);
-      font-size: get-size-var(sm-4);
-      line-height: get-size-var(md-1);
-    }
-
-    @include screens(web) {
-      @include set-h-padding(sm-5);
-      font-size: get-size-var(sm-5);
-      line-height: get-size-var(md-2);
-    }
+    font-size: clamp(get-size-var(sm-6), $preferred, get-size-var(sm-7));
+    line-height: clamp(get-size-var(md-3), $preferred, get-size-var(md-4));
   }
 
   h4 {
-    @include set-h-padding(sm-3);
+    @include set-h-padding(sm-4, sm-5);
     font-weight: 800;
-    font-size: get-size-var(sm-3);
-    line-height: get-size-var(sm-7);
+    font-size: clamp(get-size-var(sm-4), $preferred, get-size-var(sm-5));
+    line-height: clamp(get-size-var(md-1), $preferred, get-size-var(md-2));
   }
 
   h5 {
-    @include set-h-padding(sm-2);
+    @include set-h-padding(sm-2, sm-3);
     font-weight: 800;
-    font-size: get-size-var(sm-2);
-    line-height: get-size-var(sm-6);
+    font-size: clamp(get-size-var(sm-2), $preferred, get-size-var(sm-3));
+    line-height: clamp(get-size-var(sm-6), $preferred, get-size-var(sm-7));
   }
 
   h6 {
-    @include set-h-padding(sm-1);
+    @include set-h-padding(xs-7, sm-1);
     font-weight: 800;
-    font-size: get-size-var(sm-1);
-    line-height: get-size-var(sm-5);
+    font-size: clamp(get-size-var(xs-7), $preferred, get-size-var(sm-1));
+    line-height: clamp(get-size-var(sm-4), $preferred, get-size-var(sm-5));
   }
 
   hgroup {
