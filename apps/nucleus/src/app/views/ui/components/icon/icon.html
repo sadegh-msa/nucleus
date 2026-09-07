@@ -1,31 +1,37 @@
-<table>
-  <thead>
-    <tr>
-      <th>Icon family</th>
-      @for (color of colors; track $index) {
-        <th>{{ color }}</th>
-      }
-    </tr>
-  </thead>
+<article class="ui page page-static">
+  <h3>Icon</h3>
 
-  <tbody>
-    @for (variant of variants; track $index) {
-      <tr>
-        <td>{{ variant }}</td>
-        @for (color of colors; track $index) {
-          <td>
-            <div>
-              @for (size of sizes; track $index) {
-                <svg
-                  uiSvgIcon="demo"
-                  [variant]="variant"
-                  [ngClass]="[size, color]"
-                />
-              }
-            </div>
-          </td>
+  <article class="ui card flat bordered">
+    <table>
+      <thead>
+        <tr>
+          <th>family</th>
+          @for (color of colors; track $index) {
+            <th>{{ color }}</th>
+          }
+        </tr>
+      </thead>
+
+      <tbody>
+        @for (variant of variants; track $index) {
+          <tr>
+            <td>{{ variant }}</td>
+            @for (color of colors; track $index) {
+              <td>
+                <div>
+                  @for (size of sizes; track $index) {
+                    <svg
+                      uiSvgIcon="demo"
+                      [variant]="variant"
+                      [ngClass]="[size, color]"
+                    />
+                  }
+                </div>
+              </td>
+            }
+          </tr>
         }
-      </tr>
-    }
-  </tbody>
-</table>
+      </tbody>
+    </table>
+  </article>
+</article>

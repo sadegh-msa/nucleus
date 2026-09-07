@@ -4,28 +4,25 @@
 @use 'mixins/size-mixin' as size;
 
 :host {
-  display: flex;
+  & > article > article {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
 
-  section {
-    @include box.rounded(small);
-    display: flex;
-    flex-direction: column;
-    gap: get-size-var(sm-1);
-    width: get-titled-size(full);
-    padding: get-size-var(sm-1);
+    section {
+      display: flex;
+      flex-direction: column;
+      gap: get-size-var(sm-1);
+      padding: get-size-var(sm-1);
 
-    &:first-of-type {
-      width: get-titled-size(max);
-    }
+      > menu {
+        @include box.rounded(small, $bg-color: paper-dark, $border-color: paper-darkest);
+        @include size.rect(max);
+        @include shadow.medium;
 
-    > menu {
-      @include box.rounded(small, $bg-color: paper-dark, $border-color: paper-darkest);
-      @include size.rect(max);
-      @include shadow.medium;
-
-      &.wide,
-      &.compact ::ng-deep menu {
-        width: get-size-var(100);
+        &.wide,
+        &.compact ::ng-deep menu {
+          width: get-size-var(100);
+        }
       }
     }
   }

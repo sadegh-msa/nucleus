@@ -1,7 +1,0 @@
-@use 'helpers/size-helper' as *;
-
-:host {
-  display: flex;
-  flex-direction: column;
-  gap: get-size-var(xs-4);
-}

@@ -1,88 +1,99 @@
-<table>
-  <thead>
-  <tr>
-    <th>Size</th>
-    @for (color of colors; track $index) {
-      <th>{{ color }}</th>
-    }
-  </tr>
-  </thead>
+<article class="ui page page-static">
+  <h3>Button</h3>
 
-  <tbody>
-    @for (size of sizes; track $index) {
-      <tr>
-        <td>{{ size }}</td>
-        @for (color of colors; track $index) {
-          <td>
-            <button [class]="['ui', 'button', 'emphasis', size, color].join(' ')">
-              <ng-container *ngTemplateOutlet="icon" />
-              <span>{{ color | titlecase }}</span>
-            </button>
-          </td>
-        }
-      </tr>
-    }
+  <article class="ui card flat bordered">
+    <table>
+      <thead>
+        <tr>
+          <th>size</th>
+          @for (color of colors; track $index) {
+            <th>{{ color }}</th>
+          }
+        </tr>
+      </thead>
 
-  <tr>
-    <th>Variant</th>
-    <td [colSpan]="colors.length"></td>
-  </tr>
-
-    @for (variant of variants; track $index) {
-      <tr>
-        <td>{{ variant }}</td>
-        @for (color of colors; track $index) {
-          <td>
-            @if (variant === 'second') {
-              <button uiRipple
-                      [class]="['ui', 'button', 'basic', 'stamp', 'normal', `second-${color}`].join(' ')"
-              >
-                <ng-container *ngTemplateOutlet="icon" />
-                <span>{{ color | titlecase }}</span>
-              </button>
-            } @else {
-              <button uiRipple
-                      [class]="['ui', 'button', 'normal', variant, color].join(' ')"
-              >
-                <ng-container *ngTemplateOutlet="icon" />
-                @if (variant !== 'icon') {
+      <tbody>
+        @for (size of sizes; track $index) {
+          <tr>
+            <td>{{ size }}</td>
+            @for (color of colors; track $index) {
+              <td>
+                <button [class]="['ui', 'button', 'bulk', size, color].join(' ')">
+                  <ng-container *ngTemplateOutlet="icon" />
                   <span>{{ color | titlecase }}</span>
-                }
-              </button>
+                </button>
+              </td>
             }
-          </td>
+          </tr>
         }
-      </tr>
-    }
-  </tbody>
-</table>
 
-<table>
-  <thead>
-  <tr>
-    <th>Size</th>
-    @for (color of colors; track $index) {
-      <th>{{ color }}</th>
-    }
-  </tr>
-  </thead>
+        <tr>
+          <th>variant</th>
+          <td [colSpan]="colors.length"></td>
+        </tr>
 
-  <tbody>
-    @for (size of sizes; track $index) {
-      <tr>
-        <td>{{ size }}</td>
-        @for (color of colors; track $index) {
-          <td>
-            <a routerLink="/button" [class]="['ui', 'link', size, color].join(' ')">
-              <ng-container *ngTemplateOutlet="icon" />
-              <span>{{ color | titlecase }}</span>
-            </a>
-          </td>
+        @for (variant of variants; track $index) {
+          <tr>
+            <td>{{ variant }}</td>
+            @for (color of colors; track $index) {
+              <td>
+                @if (variant === 'second') {
+                  <button uiRipple
+                    [class]="['ui', 'button', 'basic', 'stamp', 'normal', `second-${color}`].join(' ')"
+                  >
+                    <ng-container *ngTemplateOutlet="icon" />
+                    <span>{{ color | titlecase }}</span>
+                  </button>
+                } @else {
+                  <button uiRipple
+                    [class]="['ui', 'button', 'normal', variant, color].join(' ')"
+                  >
+                    <ng-container *ngTemplateOutlet="icon" />
+                    @if (variant !== 'icon') {
+                      <span>{{ color | titlecase }}</span>
+                    }
+                  </button>
+                }
+              </td>
+            }
+          </tr>
         }
-      </tr>
-    }
-  </tbody>
-</table>
+      </tbody>
+    </table>
+  </article>
+
+  <article class="ui card flat bordered">
+    <table>
+      <caption>
+        <h4>Link</h4>
+      </caption>
+      <thead>
+        <tr>
+          <th>size</th>
+          @for (color of colors; track $index) {
+            <th>{{ color }}</th>
+          }
+        </tr>
+      </thead>
+
+      <tbody>
+        @for (size of sizes; track $index) {
+          <tr>
+            <td>{{ size }}</td>
+            @for (color of colors; track $index) {
+              <td>
+                <a routerLink="/button" [class]="['ui', 'link', size, color].join(' ')">
+                  <ng-container *ngTemplateOutlet="icon" />
+                  <span>{{ color | titlecase }}</span>
+                </a>
+              </td>
+            }
+          </tr>
+        }
+      </tbody>
+    </table>
+  </article>
+</article>
 
 <ng-template #icon>
   <svg uiSvgIcon="demo" />

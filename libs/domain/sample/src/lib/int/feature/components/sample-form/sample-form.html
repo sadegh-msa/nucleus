@@ -1,11 +1,11 @@
-<div class="page page-form" [loading]="isBusy()">
+<article class="ui page page-form" [loading]="isBusy()">
   <nu-generic-form-toolbar
     [toolbar]="toolbar"
     [data]="data()"
-    class="page-toolbar page-form-toolbar"
+    class="page-toolbar"
   />
 
-  <div class="page-content page-form-content">
+  <article class="page-content">
     <form
       [id]="formId"
       class="ui form compact"
@@ -63,5 +63,5 @@
         ></textarea>
       </fieldset>
     </form>
-  </div>
-</div>
+  </article>
+</article>

@@ -72,10 +72,6 @@ body {
       padding: get-size-var(sm-1);
     }
 
-    > :is(main):not(:has(.page)) {
-      padding: get-size-var(sm-1);
-    }
-
     > progress {
       @include size.rect(dvw, xs-2);
       position: absolute;

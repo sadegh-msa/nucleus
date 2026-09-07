@@ -6,9 +6,14 @@ table {
   width: get-titled-size(full);
   border-collapse: collapse;
 
+  caption,
   th,
   td {
     padding: get-size-var(sm-1);
+  }
+
+  caption {
+    text-align: start;
   }
 
   th {

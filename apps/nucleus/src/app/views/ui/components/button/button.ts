@@ -8,7 +8,6 @@ import { colors, sizes } from '../../shared/data';
   selector: 'app-button',
   imports: [RouterLink, NgTemplateOutlet, TitleCasePipe, UiSvgIcon, UiRipple],
   templateUrl: './button.html',
-  styleUrl: './button.scss',
 })
 export class Button {
   readonly colors = colors;

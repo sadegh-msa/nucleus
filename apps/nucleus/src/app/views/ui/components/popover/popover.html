@@ -1,21 +1,8 @@
-<article id="tooltips">
-  <h4 class="title">Tooltips</h4>
+<article class="ui page page-static">
+  <h3 class="title">Popover</h3>
 
-  <section>
-    @for (placement of placements; track $index) {
-      <button class="ui button bulk neutral second-stamp medium arrow"
-              [ngClass]="placement"
-              [uiTooltip]="placement"
-              [uiTooltipPlacement]="placement"
-      >
-        <svg uiSvgIcon="arrow-up-3" />
-      </button>
-    }
-  </section>
-</article>
-
-<article id="popovers">
-  <h4 class="title">Popovers</h4>
+<article id="popovers" class="ui card flat bordered">
+  <h4 class="title">Popover</h4>
 
   <section>
     @for (placement of placements; track $index) {
@@ -74,8 +61,24 @@
   </h4>
 </ng-template>
 
-<article id="bubbles">
-  <h4 class="title">Bubbles</h4>
+<article id="tooltips" class="ui card flat bordered">
+  <h4 class="title">Tooltip</h4>
+
+  <section>
+    @for (placement of placements; track $index) {
+      <button class="ui button bulk neutral second-stamp medium arrow"
+              [ngClass]="placement"
+              [uiTooltip]="placement"
+              [uiTooltipPlacement]="placement"
+      >
+        <svg uiSvgIcon="arrow-up-3" />
+      </button>
+    }
+  </section>
+</article>
+
+<article id="bubbles" class="ui card flat bordered">
+  <h4 class="title">Bubble</h4>
 
   <section class="corner">
     <div class="block-start">
@@ -228,6 +231,7 @@
       </p>
     </div>
   </section>
+</article>
 </article>
 
 <ng-template #bubbleExtra>

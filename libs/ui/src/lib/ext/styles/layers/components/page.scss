@@ -1,43 +1,47 @@
 @use '../../helpers/size-helper' as *;
 
 @layer components {
-  .page {
+  .ui.page {
     display: flex;
     flex-direction: column;
-    min-height: 100%;
-
-    &.page-form {
-    }
-
-    &.page-list {
-    }
+    min-height: get-titled-size(full);
+    min-width: get-titled-size(min);
 
     &:has(> .page-master, > .page-detail) {
       height: get-titled-size(full);
       overflow: hidden;
     }
 
-    .page-master,
-    .page-detail {
-      height: get-titled-size(half);
-      overflow: auto;
+    &.page-static {
+      padding: get-size-var(sm-3);
+      gap: get-size-var(sm-3);
     }
 
-    .page-detail {
-      //@include styleclass('border-top-2 surface-border');
+    &.page-form,
+    &.page-list {
+      .page-master,
+      .page-detail {
+        height: get-titled-size(half);
+        overflow: auto;
+      }
+
+      .page-detail {
+      }
+
+      .page-content {
+        display: flex;
+        flex-direction: column;
+        flex-grow: 0.5;
+      }
     }
 
-    .page-content {
-      display: flex;
-      flex-direction: column;
-      flex-grow: 0.5;
-
-      &.page-form-content {
+    &.page-form {
+      > .page-content {
         padding: get-size-var(xs-4);
       }
+    }
 
-      &.page-list-content {
-      }
+    &.page-list {
     }
   }
 }

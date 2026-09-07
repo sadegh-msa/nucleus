@@ -7,7 +7,6 @@ import { colors, sizes } from '../../shared/data';
   selector: 'app-icon',
   imports: [UiSvgIcon, NgClass],
   templateUrl: './icon.html',
-  styleUrl: './icon.scss',
 })
 export class Icon {
   readonly colors = colors;

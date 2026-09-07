@@ -13,8 +13,6 @@ nu-auth-layout {
   justify-content: center;
 
   > .ui.card {
-    gap: get-size-var(sm-1);
-    padding: get-size-var(sm-1);
     width: calc(10 * #{get-size-var(lg-7)});
 
     > {

@@ -4,7 +4,6 @@ import { colors, sizes } from '../../shared/data';
 @Component({
   selector: 'app-typography',
   templateUrl: './typography.html',
-  styleUrl: './typography.scss',
 })
 export class Typography {
   readonly colors = colors;

@@ -1,14 +1,20 @@
-<section>
-  <h4>Sliding</h4>
-  <menu [uiMenu]="slidingMenuItems" submenuMode="sliding"></menu>
-</section>
+<article class="ui page page-static">
+  <h3>Menu</h3>
 
-<section>
-  <h4>Floating</h4>
-  <menu [uiMenu]="floatingMenuItems" submenuMode="floating"></menu>
-</section>
+  <article class="ui card flat bordered">
+    <section>
+      <h4>Compact</h4>
+      <menu [uiMenu]="compactMenuItems" extent="compact"></menu>
+    </section>
 
-<section>
-  <h4>Compact</h4>
-  <menu [uiMenu]="compactMenuItems" extent="compact"></menu>
-</section>
+    <section>
+      <h4>Floating</h4>
+      <menu [uiMenu]="floatingMenuItems" submenuMode="floating"></menu>
+    </section>
+
+    <section>
+      <h4>Sliding</h4>
+      <menu [uiMenu]="slidingMenuItems" submenuMode="sliding"></menu>
+    </section>
+  </article>
+</article>

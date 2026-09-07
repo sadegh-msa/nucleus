@@ -1,53 +1,61 @@
-<section class="headings">
-  <h1 i18n>h1: Heading 1</h1>
-  <h2 i18n>h2: Heading 2</h2>
-  <h3 i18n>h3: Heading 3</h3>
-  <h4 i18n>h4: Heading 4</h4>
-  <h5 i18n>h5: Heading 5</h5>
-  <h6 i18n>h6: Heading 6</h6>
-</section>
+<article class="ui page page-static">
+  <h3>Typography</h3>
 
-<table class="colors">
-  <thead>
-    <tr>
-      <th>Size</th>
-      @for (color of colors; track $index) {
-        <th>{{ color }}</th>
-      }
-    </tr>
-  </thead>
+  <article class="ui card flat bordered">
+    <h1 i18n>h1: Heading 1</h1>
+    <h2 i18n>h2: Heading 2</h2>
+    <h3 i18n>h3: Heading 3</h3>
+    <h4 i18n>h4: Heading 4</h4>
+    <h5 i18n>h5: Heading 5</h5>
+    <h6 i18n>h6: Heading 6</h6>
+  </article>
 
-  <tbody>
-    @for (size of sizes; track $index) {
-      <tr>
-        <td>{{ size }}</td>
-        @for (color of colors; track $index) {
-          <td>
-            <span [class]="['ui', 'text', size, color].join(' ')">
-              {{ color }}
-            </span>
-          </td>
+  <article  class="ui card flat bordered">
+    <table>
+      <caption>
+        <h4>Text</h4>
+      </caption>
+      <thead>
+        <tr>
+          <th>size</th>
+          @for (color of colors; track $index) {
+            <th>{{ color }}</th>
+          }
+        </tr>
+      </thead>
+
+      <tbody>
+        @for (size of sizes; track $index) {
+          <tr>
+            <td>{{ size }}</td>
+            @for (color of colors; track $index) {
+              <td>
+                <span [class]="['ui', 'text', size, color].join(' ')">
+                  {{ color }}
+                </span>
+              </td>
+            }
+          </tr>
         }
-      </tr>
-    }
 
-    <tr>
-      <th>Weight</th>
-      <td [colSpan]="colors.length"></td>
-    </tr>
+        <tr>
+          <th>weight</th>
+          <td [colSpan]="colors.length"></td>
+        </tr>
 
-    @for (weight of weights; track $index) {
-      <tr>
-        <td>{{ weight }}</td>
-        @for (color of colors; track $index) {
-          <td>
-            <span [class]="['ui', 'text', `font-${weight}`, color].join(' ')">
-              {{ color }}
-            </span>
-          </td>
+        @for (weight of weights; track $index) {
+          <tr>
+            <td>{{ weight }}</td>
+            @for (color of colors; track $index) {
+              <td>
+                <span [class]="['ui', 'text', `font-${weight}`, color].join(' ')">
+                  {{ color }}
+                </span>
+              </td>
+            }
+          </tr>
         }
-      </tr>
-    }
-  </tbody>
-</table>
-
+      </tbody>
+    </table>
+  </article>
+</article>
