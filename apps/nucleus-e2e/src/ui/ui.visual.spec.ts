@@ -115,18 +115,18 @@ test.describe('UI Visual Regression', () => {
 
     test('should match headings section screenshot', async ({ authenticatedPage: page }) => {
       await page.goto('/ui/typography');
-      await expect(page.locator('.headings')).toBeVisible();
+      await expect(page.locator('article.ui.card').first()).toBeVisible();
       await page.waitForLoadState('networkidle');
 
-      await expect(page.locator('.headings')).toHaveScreenshot('headings-section.png');
+      await expect(page.locator('article.ui.card').first()).toHaveScreenshot('headings-section.png');
     });
 
     test('should match colors table screenshot', async ({ authenticatedPage: page }) => {
       await page.goto('/ui/typography');
-      await expect(page.locator('table.colors')).toBeVisible();
+      await expect(page.locator('table').first()).toBeVisible();
       await page.waitForLoadState('networkidle');
 
-      await expect(page.locator('table.colors')).toHaveScreenshot('typography-colors.png');
+      await expect(page.locator('table').first()).toHaveScreenshot('typography-colors.png');
     });
   });
 });

@@ -14,18 +14,18 @@ test.describe('Sample CRUD Visual Regression', () => {
 
     test('should match sample list toolbar screenshot', async ({ authenticatedPage: page }) => {
       await page.goto('/crud/sample/list');
-      await expect(page.locator('.page-list-toolbar')).toBeVisible();
+      await expect(page.locator('.page-toolbar')).toBeVisible();
       await page.waitForLoadState('networkidle');
 
-      await expect(page.locator('.page-list-toolbar')).toHaveScreenshot('sample-list-toolbar.png');
+      await expect(page.locator('.page-toolbar')).toHaveScreenshot('sample-list-toolbar.png');
     });
 
     test('should match sample list table screenshot', async ({ authenticatedPage: page }) => {
       await page.goto('/crud/sample/list');
-      await expect(page.locator('.page-list-content')).toBeVisible();
+      await expect(page.locator('.page-content')).toBeVisible();
       await page.waitForLoadState('networkidle');
 
-      await expect(page.locator('.page-list-content')).toHaveScreenshot('sample-list-table.png');
+      await expect(page.locator('.page-content')).toHaveScreenshot('sample-list-table.png');
     });
   });
 

@@ -12,8 +12,8 @@ test.describe('Sample CRUD Routes', () => {
       await page.waitForSelector('app-sample-list', { state: 'attached', timeout: 30000 });
       await expect(page.locator('app-sample-list')).toBeVisible();
       await expect(page.locator('.page-list')).toBeVisible();
-      await expect(page.locator('.page-list-toolbar')).toBeVisible();
-      await expect(page.locator('.page-list-content')).toBeVisible();
+      await expect(page.locator('.page-toolbar')).toBeVisible();
+      await expect(page.locator('.page-content')).toBeVisible();
     });
   });
 

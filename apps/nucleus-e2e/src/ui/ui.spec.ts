@@ -46,9 +46,9 @@ test.describe('UI Routes', () => {
       await page.goto('/ui/typography');
       await page.waitForSelector('app-typography', { state: 'attached', timeout: 30000 });
       await expect(page.locator('app-typography')).toBeVisible();
-      await expect(page.locator('.headings')).toBeVisible();
+      await expect(page.locator('article.ui.card').first()).toBeVisible();
       await expect(page.locator('h1')).toContainText('Heading 1');
-      await expect(page.locator('table.colors')).toBeVisible();
+      await expect(page.locator('table').first()).toBeVisible();
     });
   });
 });

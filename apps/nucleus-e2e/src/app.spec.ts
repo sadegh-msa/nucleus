@@ -13,6 +13,7 @@ test.describe('App', () => {
 
   test('should have RTL/LTR toggle button', async ({ page }) => {
     await page.goto('/signin');
+    await page.waitForLoadState('networkidle');
     const rtlButton = page.getByRole('button', { name: 'RTL' });
     await expect(rtlButton).toBeVisible();
 
@@ -23,6 +24,7 @@ test.describe('App', () => {
 
   test('should toggle direction back to LTR', async ({ page }) => {
     await page.goto('/signin');
+    await page.waitForLoadState('networkidle');
     const rtlButton = page.getByRole('button', { name: 'RTL' });
     await rtlButton.click();
 
