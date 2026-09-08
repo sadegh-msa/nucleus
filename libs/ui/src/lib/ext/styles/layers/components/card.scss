@@ -1,40 +1,7 @@
-@use '../../helpers/size-helper' as *;
-@use '../../mixins/box-mixin' as box;
-@use '../../mixins/shadow-mixin' as shadow;
+@use '../../mixins/card-mixin' as card;
 
 @layer components {
   .ui.card {
-    @include box.rounded($bg-color: paper-dark);
-    display: flex;
-    gap: get-size-var(sm-3);
-    min-width: get-titled-size(min);
-
-    &:not(.flat) {
-      @include shadow.large();
-    }
-
-    &:not(.horizontal, .vertical) {
-      flex-direction: column;
-    }
-
-    &:not(:has(> table)) {
-      padding: get-size-var(sm-3);
-    }
-
-    &:has(> table) {
-      padding: get-size-var(xs-3);
-    }
-
-    &.horizontal {
-      flex-direction: row;
-    }
-
-    &.vertical {
-      flex-direction: column;
-    }
-
-    &.bordered {
-      @include box.generic($border-color: neutral-surface-darker);
-    }
+    @include card.generic();
   }
 }

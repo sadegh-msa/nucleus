@@ -65,7 +65,7 @@
         gap: 0;
 
         &:not(.multiline) {
-          padding: get-size-var(xs-6) get-size-var(xs-4);
+          padding: get-size-var(xs-6) get-size-var(4.5);
         }
 
         .multiline {
@@ -163,7 +163,7 @@
 
       > :not(.ui.icon, .ui.ripple) {
         @include transition.normal(max-width, opacity);
-        @include size.strict-width(full);
+        width: get-titled-size(stretch);
         opacity: 1;
         overflow: hidden;
         text-overflow: ellipsis;

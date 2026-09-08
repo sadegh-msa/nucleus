@@ -15,14 +15,6 @@ nu-auth-layout {
   > .ui.card {
     width: calc(10 * #{get-size-var(lg-7)});
 
-    > {
-      header,
-      form,
-      footer {
-        padding: get-size-var(xs-4);
-      }
-    }
-
     > header {
       display: flex;
       flex-direction: column;

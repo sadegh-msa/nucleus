@@ -3,7 +3,7 @@
           [class]="`progress-${progressValue()}`"></progress>
 
 @defer (when isNavVisible()) {
-  <nav nu-panel-nav>
+  <nav nu-panel-nav class="ui card no-padding">
     <ng-content select="[nav-body]" />
 
     <ng-container nav-footer>
@@ -12,12 +12,12 @@
   </nav>
 }
 
-<header nu-panel-header>
+<header nu-panel-header class="ui card no-padding horizontal">
   <ng-container toolbar>
     <ng-content select="[toolbar]" />
   </ng-container>
 </header>
 
-<main>
+<main class="ui card no-padding">
   <ng-content />
 </main>
