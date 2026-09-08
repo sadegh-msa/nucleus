@@ -168,6 +168,8 @@ export class UiMenu {
 
         if (item.routerLink === this.#currentUrl && !item.original) {
           this.setItemActivity(item, true);
+        } else if(item.original) {
+          this.setItemActivity(item, false);
         }
       }
 
