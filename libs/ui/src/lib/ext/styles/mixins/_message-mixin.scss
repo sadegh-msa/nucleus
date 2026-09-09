@@ -17,7 +17,7 @@ $variants: get-config(message, variants);
       );
 
       > hgroup {
-        > h4,
+        > h5,
         h6 {
           @include text.color($variant);
         }
