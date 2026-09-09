@@ -1,6 +1,7 @@
 @use 'helpers/color-helper' as *;
 @use 'helpers/size-helper' as *;
 @use 'mixins/text-mixin' as text;
+@use 'mixins/z-index-mixin' as *;
 
 nu-generic-list {
   .boolean {
@@ -35,11 +36,11 @@ nu-generic-list {
       }
 
       .p-datatable-thead > tr > th {
+        @include z-index(header);
         background-color: get-color-var(paper-darkest);
         padding: get-size-var(xs-6);
         position: sticky;
         top: 0;
-        z-index: 20;
 
         &:first-child {
           padding-inline-start: get-size-var(sm-1);

@@ -4,6 +4,7 @@
 @use '../../mixins/size-mixin' as size;
 @use '../../mixins/transition-mixin' as transition;
 @use '../../mixins/checkmark-mixin' as checkmark;
+@use '../../mixins/z-index-mixin' as *;
 
 @layer components {
   ui-toggle {
@@ -17,13 +18,13 @@
     }
 
     > .ui-toggle-chassis {
+      @include z-index(widget);
       @include box.rounded($bg-color: paper-darkest);
       @include shadow.inset;
       display: flex;
       align-items: center;
       width: get-size-var(lg-3);
       position: relative;
-      z-index: 10;
       padding: 1px;
 
       &:not(.disabled) {
@@ -78,6 +79,7 @@
       }
 
       > .ui-toggle-switch {
+        @include z-index(widget, 1);
         @include box.rounded(medium, $bg-color: paper);
         @include shadow.medium;
         @include size.rect(sm-4);
@@ -86,7 +88,6 @@
         align-items: center;
         justify-content: center;
         position: relative;
-        z-index: 20;
 
         > .ui-toggle-checkmark {
           @include checkmark.base(0.43rem, 0.16rem, primary);

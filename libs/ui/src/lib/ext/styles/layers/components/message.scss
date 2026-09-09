@@ -1,8 +1,10 @@
 @use '../../helpers/size-helper' as *;
 @use '../../mixins/message-mixin' as message;
+@use '../../mixins/z-index-mixin' as *;
 
 @layer components {
   .ui.messages {
+    @include z-index(message);
     position: fixed;
     display: flex;
     flex-direction: column;
@@ -10,7 +12,6 @@
     width: get-titled-size(max);
     inset-block-end: get-size-var(sm-1);
     inset-inline-end: get-size-var(sm-1);
-    z-index: 500;
   }
 
   section.ui.message {

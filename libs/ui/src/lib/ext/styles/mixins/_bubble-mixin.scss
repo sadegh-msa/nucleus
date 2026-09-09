@@ -4,6 +4,7 @@
 @use '../utils/control-util' as *;
 @use '../mixins/box-mixin' as box;
 @use '../mixins/shadow-mixin' as shadow;
+@use '../mixins/z-index-mixin' as *;
 
 $colors: get-color-list();
 
@@ -116,8 +117,8 @@ $colors: get-color-list();
   @include shadow.large();
   @include box.rounded($border-color: transparent);
   @include colors();
+  @include z-index(popup);
   position: relative;
-  z-index: 40;
   //--ui-bubble-arrow-offset: 50px;
   --ui-bubble-arrow-size: #{get-size-var(xs-7)};
   --ui-bubble-arrow-size-half: calc(var(--ui-bubble-arrow-size) / 2);

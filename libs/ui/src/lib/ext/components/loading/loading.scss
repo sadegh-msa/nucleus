@@ -1,12 +1,13 @@
 @use '../../styles/helpers/color-helper' as *;
 @use '../../styles/helpers/size-helper' as *;
 @use '../../styles/mixins/size-mixin' as size;
+@use '../../styles/mixins/z-index-mixin' as *;
 
 :host {
   &.nu-loading {
     @include size.max-rect(full);
+    @include z-index(overlay);
     position: relative;
-    z-index: 40;
     overflow: hidden;
 
     &.nu-loading-fullscreen {
@@ -15,11 +16,11 @@
 
     > .nu-loading-container {
       @include size.rect(full);
+      @include z-index(overlay, 1);
+      background-color: get-color-var(overlay);
       position: absolute;
       top: 0;
       left: 0;
-      z-index: 50;
-      background-color: get-color-var(overlay);
       display: flex;
       align-items: center;
       justify-content: center;

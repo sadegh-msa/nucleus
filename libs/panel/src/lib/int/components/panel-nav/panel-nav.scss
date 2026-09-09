@@ -1,6 +1,7 @@
 @use 'helpers/size-helper' as *;
 @use 'mixins/transition-mixin' as transition;
 @use 'mixins/size-mixin' as size;
+@use 'mixins/z-index-mixin' as *;
 
 :host {
   position: relative;
@@ -28,9 +29,9 @@
       }
 
       figure {
+        @include z-index(toolbar, -1);
         height: var(--nav-logo-height);
         width: var(--nav-logo-width);
-        z-index: 19;
 
         img {
           min-height: var(--nav-logo-height);
@@ -42,9 +43,6 @@
 
   section.content {
     @include size.rect(full);
-  }
-
-  footer {
   }
 
   button.toggle {

@@ -125,5 +125,21 @@ $ui-default-config: (
   ),
   message: (
     variants: info success warning danger
+  ),
+  z-index: (
+    layer: (
+      substrate: -1,
+      surface: 1,
+      widget: 10,
+      header: 20,
+      toolbar: 30,
+      menu: 40,
+      dimmer: 50,
+      dialog: 60,
+      overlay: 70,
+      sheet: 80,
+      message: 90,
+      popup: 100
+    )
   )
 ) !default;

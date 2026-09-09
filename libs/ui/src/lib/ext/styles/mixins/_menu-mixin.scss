@@ -5,14 +5,15 @@
 @use './shadow-mixin' as shadow;
 @use './transition-mixin' as transition;
 @use './size-mixin' as size;
+@use './z-index-mixin' as *;
 
 @mixin generic() {
   @include transition.normal(opacity);
   @include box.color($bg-color: paper-dark);
+  @include z-index(menu);
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  z-index: 50;
 
   &,
   menu {

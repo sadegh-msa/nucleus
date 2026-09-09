@@ -2,10 +2,11 @@
 @use '../helpers/size-helper' as *;
 @use '../mixins/transition-mixin' as transition;
 @use '../mixins/box-mixin' as box;
+@use '../mixins/z-index-mixin' as *;
 
 @mixin base($size, $thickness, $color) {
+  @include z-index(widget);
   position: relative;
-  z-index: 20;
   background-color: transparent;
   height: calc(#{$size} * 1.7);
   margin-block-end: calc(#{$size} / 3);

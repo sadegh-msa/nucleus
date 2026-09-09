@@ -1,4 +1,5 @@
 @use '../../mixins/bubble-mixin' as bubble;
+@use '../../mixins/z-index-mixin' as *;
 
 @layer components {
   .ui.bubble {
@@ -9,10 +10,10 @@
     }
 
     > .bubble-arrow {
+      @include z-index(substrate);
       height: var(--ui-bubble-arrow-size);
       width: var(--ui-bubble-arrow-size);
       position: absolute;
-      z-index: -1;
       background-color: inherit;
     }
   }

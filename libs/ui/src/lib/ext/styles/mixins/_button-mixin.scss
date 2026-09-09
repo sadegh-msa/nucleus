@@ -11,6 +11,7 @@
 @use './transition-mixin' as transition;
 @use './box-mixin' as box;
 @use './size-mixin' as size;
+@use './z-index-mixin' as *;
 
 $colors: get-color-list();
 $sizes: get-size-list();
@@ -230,9 +231,9 @@ $border-radius-list: get-border-radius-list();
   > * {
     &:not(.ui.ripple) {
       @include transition.normal(color);
+      @include z-index(surface, 1);
       pointer-events: none;
       user-select: none;
-      z-index: 2;
     }
   }
 

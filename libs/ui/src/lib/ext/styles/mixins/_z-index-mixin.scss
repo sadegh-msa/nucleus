@@ -1,0 +1,6 @@
+@use '../helpers/config-helper' as *;
+
+@mixin z-index($z-index, $offset: 0) {
+  $z-index-value: calc(get-config(z-index, layer, $z-index) + $offset);
+  z-index: $z-index-value;
+}

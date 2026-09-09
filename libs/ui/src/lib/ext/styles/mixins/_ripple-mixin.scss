@@ -1,5 +1,6 @@
 @use './box-mixin' as box;
 @use './transition-mixin' as transition;
+@use './z-index-mixin' as *;
 
 @mixin generic() {
   --ui-ripple-scale: 0;
@@ -7,6 +8,7 @@
 
   @include transition.slow(background, transform, opacity);
   @include box.rounded(full, $border-color: null);
+  @include z-index(surface);
   pointer-events: none;
   position: absolute;
   overflow: hidden;
@@ -15,7 +17,6 @@
   top: var(--ui-ripple-top);
   height: var(--ui-ripple-height);
   width: var(--ui-ripple-width);
-  z-index: 1;
   transform: scale3d(
     var(--ui-ripple-scale),
     var(--ui-ripple-scale),
