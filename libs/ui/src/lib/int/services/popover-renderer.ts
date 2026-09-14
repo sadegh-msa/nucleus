@@ -57,6 +57,9 @@ export class UiPopoverRenderer {
         content,
         {
           data: templateData,
+          control: {
+            close: () => visible.set(false)
+          }
         },
         { injector },
       );
