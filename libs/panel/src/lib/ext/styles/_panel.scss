@@ -101,6 +101,10 @@ body {
       @include size.rect(auto);
       grid-area: main;
       overflow: auto;
+
+      > :last-child {
+        height: get-titled-size(full);
+      }
     }
   }
 }
