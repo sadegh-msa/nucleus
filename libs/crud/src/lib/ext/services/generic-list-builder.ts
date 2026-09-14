@@ -58,7 +58,7 @@ export class GenericListBuilder<T extends GenericEntityModel> {
           };
         }),
         filter(({ page, rows }) => {
-          return page !== this.#lastQuery.page && rows !== this.#lastQuery.rows;
+          return page !== this.#lastQuery.page || rows !== this.#lastQuery.rows;
         }),
       )
       .subscribe(({ page, rows }) => {
