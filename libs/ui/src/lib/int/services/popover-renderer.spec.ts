@@ -147,13 +147,38 @@ describe('UiPopoverRenderer', () => {
 
     expect(createEmbeddedView).toHaveBeenCalledWith(
       templateRef,
-      { data: { id: 1 } },
+      {
+        data: { id: 1 },
+        control: { close: expect.any(Function) },
+      },
       {
         injector: expect.anything(),
       },
     );
     expect(createEmbeddedView.mock.results[0].value.detectChanges).toHaveBeenCalled();
     expect(popoverElement.contains(node)).toBe(true);
+  });
+
+  it('closes the popover through the template context close control', () => {
+    const visible = signal(true);
+    const templateRef = Object.create(TemplateRef.prototype) as TemplateRef<unknown>;
+    const createEmbeddedView = vi.fn().mockReturnValue({
+      rootNodes: [document.createElement('span')],
+      detectChanges: vi.fn(),
+    });
+
+    service.render(
+      makeInjector({ createEmbeddedView } as never),
+      'click',
+      makePopoverModel({ content: templateRef, visible }),
+    );
+
+    const context = createEmbeddedView.mock.calls[0][1] as {
+      control: { close: () => void };
+    };
+
+    context.control.close();
+    expect(visible()).toBe(false);
   });
 
   it('adds bubble arrow and close button for click popovers with close support', () => {
