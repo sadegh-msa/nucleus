@@ -1,7 +1,7 @@
 import { signal } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { ActivatedRoute, Router } from '@angular/router';
-import { of, Subject } from 'rxjs';
+import { Subject, of } from 'rxjs';
 import { type Mock, vi } from 'vitest';
 
 import { GenericListBuilder } from './generic-list-builder';
@@ -10,11 +10,13 @@ describe('GenericListBuilder', () => {
   let service: GenericListBuilder<any>;
   let router: { navigate: Mock };
   let activatedRoute: any;
+  let queryParams: Subject<Record<string, string | number>>;
 
   beforeEach(() => {
     router = { navigate: vi.fn().mockResolvedValue(true) };
+    queryParams = new Subject();
     activatedRoute = {
-      queryParams: of({ page: 2, rows: 20 }),
+      queryParams,
     };
 
     TestBed.configureTestingModule({
@@ -41,6 +43,7 @@ describe('GenericListBuilder', () => {
       service.init(consumer as any);
 
       TestBed.runInInjectionContext(() => service.run());
+      queryParams.next({ page: 2, rows: 20 });
 
       expect(consumer.store.loadList).toHaveBeenCalledWith({ page: 1, rows: 20 }, undefined);
       expect(consumer.toolbar.tools.length).toBe(2);
@@ -51,9 +54,48 @@ describe('GenericListBuilder', () => {
       const consumer = createMockConsumer();
       service.init(consumer as any);
 
+      queryParams.next({ page: 2, rows: 20 });
       TestBed.runInInjectionContext(() => service.run(false));
 
       expect(consumer.toolbar.tools.length).toBe(0);
+    });
+  });
+
+  describe('router query param changes', () => {
+    it('should reload when only page changes', () => {
+      const consumer = createMockConsumer();
+      service.init(consumer as any);
+      TestBed.runInInjectionContext(() => service.run(false));
+      queryParams.next({ page: 2, rows: 20 });
+      (consumer.store.loadList as Mock).mockClear();
+
+      queryParams.next({ page: 3, rows: 20 });
+
+      expect(consumer.store.loadList).toHaveBeenCalledWith({ page: 2, rows: 20 }, undefined);
+    });
+
+    it('should reload when only rows changes', () => {
+      const consumer = createMockConsumer();
+      service.init(consumer as any);
+      TestBed.runInInjectionContext(() => service.run(false));
+      queryParams.next({ page: 2, rows: 20 });
+      (consumer.store.loadList as Mock).mockClear();
+
+      queryParams.next({ page: 2, rows: 50 });
+
+      expect(consumer.store.loadList).toHaveBeenCalledWith({ page: 1, rows: 50 }, undefined);
+    });
+
+    it('should not reload when neither page nor rows changes', () => {
+      const consumer = createMockConsumer();
+      service.init(consumer as any);
+      TestBed.runInInjectionContext(() => service.run(false));
+      queryParams.next({ page: 2, rows: 20 });
+      (consumer.store.loadList as Mock).mockClear();
+
+      queryParams.next({ page: 2, rows: 20 });
+
+      expect(consumer.store.loadList).not.toHaveBeenCalled();
     });
   });
 
@@ -62,6 +104,7 @@ describe('GenericListBuilder', () => {
       const consumer = createMockConsumer();
       service.init(consumer as any);
       TestBed.runInInjectionContext(() => service.run());
+      queryParams.next({ page: 2, rows: 20 });
       (consumer.store.loadList as Mock).mockClear();
 
       const refreshTool = consumer.toolbar.tools.find((tool: any) => tool.type === 'refresh');
@@ -76,6 +119,7 @@ describe('GenericListBuilder', () => {
       const consumer = createMockConsumer();
       service.init(consumer as any);
       TestBed.runInInjectionContext(() => service.run());
+      queryParams.next({ page: 2, rows: 20 });
 
       const deleteTool = { type: 'delete', showLoading: signal(false) };
       consumer.table.events$.next({ tool: deleteTool, payload: 'item-1' });
@@ -137,6 +181,7 @@ describe('GenericListBuilder', () => {
       const consumer = createMockConsumer();
       service.init(consumer as any);
       TestBed.runInInjectionContext(() => service.run(false));
+      queryParams.next({ page: 2, rows: 20 });
       (consumer.store.resetDelete as Mock).mockClear();
       (consumer.store.loadList as Mock).mockClear();
 
