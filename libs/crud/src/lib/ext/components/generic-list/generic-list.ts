@@ -2,10 +2,7 @@ import { NgClass } from '@angular/common';
 import { Component, computed, DestroyRef, inject, input, output, signal } from '@angular/core';
 import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop';
 import { RouterModule } from '@angular/router';
-import { UiSvgIcon, UiTooltip } from '@nucleus/ui';
-import { ConfirmationService } from 'primeng/api';
-import { ConfirmPopupModule } from 'primeng/confirmpopup';
-import { OverlayPanelModule } from 'primeng/overlaypanel';
+import { UiPopover, UiSvgIcon, UiTooltip } from '@nucleus/ui';
 import { SkeletonModule } from 'primeng/skeleton';
 import { TableModule } from 'primeng/table';
 import { filter } from 'rxjs';
@@ -13,7 +10,6 @@ import { infoFieldsDefault } from '../../../int/constants';
 import { AuthPermission } from '../../directives/auth-permission';
 import type { InfoFieldModel } from '../../models/info.model';
 import type { TableModel } from '../../models/table.model';
-import type { ToolModel } from '../../models/toolbar.model';
 import { FieldValue } from '../field-value/field-value';
 import { InfoFields } from '../info-fields/info-fields';
 
@@ -22,22 +18,20 @@ import { InfoFields } from '../info-fields/info-fields';
   templateUrl: './generic-list.html',
   imports: [
     AuthPermission,
-    ConfirmPopupModule,
     FieldValue,
     InfoFields,
     NgClass,
-    OverlayPanelModule,
     RouterModule,
     SkeletonModule,
     TableModule,
     UiSvgIcon,
     UiTooltip,
+    UiPopover
   ],
-  providers: [ConfirmationService],
+  providers: [],
 })
 export class GenericList {
   readonly #destroyRef = inject(DestroyRef);
-  readonly #confirmationService = inject(ConfirmationService);
 
   readonly altData = computed(() => [...Array(10).keys()]);
   readonly activated = signal<any>(null);
@@ -74,25 +68,6 @@ export class GenericList {
         }),
       )
       .subscribe((row) => this.activated.set(row));
-  }
-
-  runCommand(targetElement: HTMLButtonElement, tool: ToolModel, row: any) {
-    if (!tool.confirm) {
-      tool.command(row);
-      return;
-    }
-
-    this.#confirmationService.confirm({
-      key: tool.key + row[this.idField()],
-      target: targetElement as EventTarget,
-      message: tool.confirm,
-      icon: 'pi pi-exclamation-triangle',
-      acceptLabel: $localize`Yes`,
-      acceptButtonStyleClass: 'ui button danger basic',
-      rejectLabel: $localize`No`,
-      rejectButtonStyleClass: 'ui button stamp basic',
-      accept: () => tool.command(row),
-    });
   }
 
   changeSelection(selectedRows: any[]) {

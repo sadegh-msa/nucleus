@@ -4,10 +4,14 @@
       @if (tool.element === 'button') {
         <button #buttonElement
                 uiRipple
-                (click)="runCommand(buttonElement, tool)"
+                (click)="!tool.confirm && tool.command()"
                 [uiTooltip]="tool.tooltip" uiTooltipPlacement="block-end-inline-center"
                 [ngClass]="tool.ngClass ?? []"
                 [disabled]="!!(tool.disabled && tool.disabled())"
+                [uiPopover]="toolConfirmPopover"
+                [uiPopoverData]="{tool}"
+                [uiPopoverDisabled]="!tool.confirm"
+                uiPopoverPlacement="block-end-inline-end"
                 *permission="tool.permission">
           @if (tool.icon) {
             <svg [uiSvgIcon]="tool.icon" [variant]="tool.iconVariant" />
@@ -15,12 +19,8 @@
           @if (tool.label) {
             <span>{{ tool.label }}</span>
           }
-          <!--          [showLoading]="!!(tool.showLoading && tool.showLoading())"-->
+          <!--[showLoading]="!!(tool.showLoading && tool.showLoading())"-->
         </button>
-
-        @if (tool.confirm) {
-          <p-confirmPopup [key]="tool.key" />
-        }
       } @else if (tool.element === 'link') {
         <a uiRipple
            [ngClass]="tool.ngClass ?? []"
@@ -35,10 +35,31 @@
           @if (tool.label) {
             <span>{{ tool.label }}</span>
           }
-          <!--          [showLoading]="!!(tool.showLoading && tool.showLoading())"-->
-          <!--          [disabled]="!!(tool.disabled && tool.disabled())"-->
+          <!--[showLoading]="!!(tool.showLoading && tool.showLoading())"-->
+          <!--[disabled]="!!(tool.disabled && tool.disabled())"-->
         </a>
       }
     </li>
   }
 </menu>
+
+
+<ng-template #toolConfirmPopover let-control="control" let-data="data">
+  <div class="tool-confirm">
+    <p><strong>{{ data.tool.confirm }}</strong></p>
+    <div class="actions">
+      <button
+        class="ui button small bulk danger"
+        (click)="data.tool.command();control.close()"
+      >
+        <span i18n>Yes</span>
+      </button>
+      <button
+        class="ui button small basic stamp"
+        (click)="control.close()"
+      >
+        <span i18n>No</span>
+      </button>
+    </div>
+  </div>
+</ng-template>

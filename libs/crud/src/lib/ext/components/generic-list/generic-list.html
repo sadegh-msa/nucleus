@@ -11,7 +11,7 @@
       @if (selectionMode()) {
         <th class="table-selection-header">
           @if (selectionMode() === "single") {
-            <!--          <i class="pi pi-circle" style="font-size: 1.4rem"></i>-->
+            <!--<i class="pi pi-circle" style="font-size: 1.4rem"></i>-->
           } @else if (selectionMode() === "multiple") {
             <p-tableHeaderCheckbox />
           }
@@ -25,14 +25,14 @@
       }
 
       @if (table().tools.length) {
-        <th class="table-tools-header">Actions</th>
+        <th class="table-actions-header">Actions</th>
       }
     </tr>
   </ng-template>
   <ng-template let-i="rowIndex" let-row pTemplate="body">
     <tr
       [ngClass]="{
-        'table-activation': (activated() ?? {})[idField()] === (row ?? {})[idField()],
+      'table-activation': (activated() ?? {})[idField()] === (row ?? {})[idField()],
       }"
     >
       @if (!data().length && showLoading()) {
@@ -71,15 +71,19 @@
           </td>
         }
 
-        <td class="table-tools">
+        <td class="table-actions">
           @for (tool of table().tools; track tool.key) {
             @if (tool.element === 'button') {
               <button
                 #toolElement
-                (click)="runCommand(toolElement, tool, row)"
+                (click)="!tool.confirm && tool.command(row)"
                 [ngClass]="tool.ngClass ?? []"
                 [disabled]="!!(tool.disabled && tool.disabled())"
                 [uiTooltip]="tool.tooltip" uiTooltipPlacement="block-end-inline-center"
+                [uiPopover]="toolConfirmPopover"
+                [uiPopoverData]="{tool, row}"
+                [uiPopoverDisabled]="!tool.confirm"
+                uiPopoverPlacement="block-end-edge-start"
                 *permission="tool.permission"
               >
                 @if (tool.icon) {
@@ -88,12 +92,9 @@
                 @if (tool.label) {
                   <span>{{ tool.label }}</span>
                 }
-                <!--                [showLoading]="!!(tool.showLoading && tool.showLoading() === row[idField])"-->
+                <!--[showLoading]="!!(tool.showLoading && tool.showLoading() === row[idField])"-->
               </button>
 
-              @if (tool.confirm) {
-                <p-confirmPopup [key]="tool.key + row[idField()]" />
-              }
             } @else if (tool.element === 'link') {
               <a
                 [ngClass]="tool.ngClass ?? []"
@@ -119,15 +120,15 @@
 
           <button
             class="ui button nu-tool watermark basic medium second-info"
-            (click)="infoOverlay.toggle($event)"
-            uiTooltip="Info" i18n-uiTooltip uiTooltipPlacement="block-end-inline-center"
+            uiTooltip="Info" i18n-uiTooltip
+            uiTooltipPlacement="block-end-inline-center"
+            [uiPopover]="infoFieldsPopover"
+            [uiPopoverData]="{row}"
+            uiPopoverPlacement="block-end-edge-start"
           >
             <svg uiSvgIcon="info-circle" variant="bulk" />
           </button>
 
-          <p-overlayPanel #infoOverlay styleClass="info-fields-overlay">
-            <nu-info-fields [infoFields]="infoFields()" [data]="row" />
-          </p-overlayPanel>
         </td>
       }
     </tr>
@@ -139,3 +140,27 @@
     </tr>
   </ng-template>
 </p-table>
+
+<ng-template #toolConfirmPopover let-control="control" let-data="data">
+  <div class="tool-confirm">
+    <p><strong>{{ data.tool.confirm }}</strong></p>
+    <div class="actions">
+      <button
+        class="ui button small bulk danger"
+        (click)="data.tool.command(data.row);control.close()"
+      >
+        <span i18n>Yes</span>
+      </button>
+      <button
+        class="ui button small basic stamp"
+        (click)="control.close()"
+      >
+        <span i18n>No</span>
+      </button>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #infoFieldsPopover let-data="data">
+  <nu-info-fields [infoFields]="infoFields()" [data]="data.row" />
+</ng-template>

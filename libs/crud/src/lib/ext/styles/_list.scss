@@ -14,17 +14,6 @@ nu-generic-list {
     }
   }
 
-  .table-confirm {
-    align-items: center;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-
-    & > span {
-      //@include styleclass('mr-4 font-bold');
-    }
-  }
-
   p-table {
     .p-datatable {
       & > .p-datatable-wrapper {
@@ -57,7 +46,7 @@ nu-generic-list {
           }
         }
 
-        &.table-tools-header {
+        &.table-actions-header {
           padding-inline-end: get-size-var(md-2);
           position: sticky;
           right: 0;
@@ -78,7 +67,7 @@ nu-generic-list {
           &:hover {
             background-color: get-color-var(paper-darkest) !important;
 
-            .table-tools {
+            .table-actions {
               a,
               .p-button {
                 &:not(.ui-button-danger) {
@@ -98,7 +87,7 @@ nu-generic-list {
             > td {
               background-color: get-color-var(primary-surface);
 
-              &:not(.table-tools) {
+              &:not(.table-actions) {
                 color: get-color-var(primary);
               }
             }
@@ -113,7 +102,7 @@ nu-generic-list {
               padding-inline-start: get-size-var(sm-1);
             }
 
-            &.table-tools {
+            &.table-actions {
               display: flex;
               flex-direction: row;
               justify-content: flex-end;

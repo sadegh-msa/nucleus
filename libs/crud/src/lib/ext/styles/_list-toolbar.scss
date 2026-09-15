@@ -5,29 +5,34 @@ nu-generic-list-toolbar {
   @include toolbar;
 }
 
-.generic-list-toolbar-paginator-overlay {
-  align-items: center;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  width: get-titled-size(max);
-
-  .p-paginator {
-    padding: 0;
-  }
-
-  .p-divider {
-    margin: get-size-var(xs-6) 0;
-  }
-
-  .paginator-rows-per-page {
-    align-items: center;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-
-    .p-buttonset {
+body {
+  #ui-popover-container {
+    .generic-list-toolbar-paginator-popover {
+      align-items: center;
       display: flex;
+      flex-direction: column;
+      justify-content: center;
+      width: get-titled-size(max);
+
+      .p-paginator {
+        padding: 0;
+        background-color: inherit;
+      }
+
+      .p-divider {
+        margin: get-size-var(xs-6) 0;
+      }
+
+      .paginator-rows-per-page {
+        align-items: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+
+        .p-buttonset {
+          display: flex;
+        }
+      }
     }
   }
 }

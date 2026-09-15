@@ -4,37 +4,39 @@
   @if (showPaginator()) {
     <li>
       <button uiRipple
-              class="ui button nu-tool medium stamp basic"
-              (click)="paginatorOverlay.toggle($event)"
+        class="ui button nu-tool medium stamp basic"
+        [uiPopover]="paginatorPopup"
+        uiPopoverHasClose
+        uiPopoverPlacement="block-end-edge-start"
       >
         <span>{{ paginatorLabel() }}</span>
       </button>
-
-      <p-overlayPanel #paginatorOverlay
-                      styleClass="generic-list-toolbar-paginator-overlay">
-        <p-paginator (onPageChange)="paginate($event)"
-                     [first]="pagination().first"
-                     [rows]="pagination().rows"
-                     [showJumpToPageDropdown]="true"
-                     [showPageLinks]="false"
-                     [totalRecords]="pagination().total" />
-        <p-divider />
-        <div class="paginator-rows-per-page">
-          <span class="p-buttonset">
-            @for (option of rowsPerPageOptions(); track option) {
-              <button uiRipple
-                class="ui button medium basic"
-                [class.stamp]="option !== pagination().rows"
-                [class.primary]="option === pagination().rows"
-                (click)="paginate({rows: option, first: 0})"
-              >
-                <span>{{ option }}</span>
-              </button>
-            }
-          </span>
-        </div>
-      </p-overlayPanel>
     </li>
   }
 </menu>
 
+<ng-template #paginatorPopup>
+  <div class="generic-list-toolbar-paginator-popover">
+    <p-paginator (onPageChange)="paginate($event)"
+      [first]="pagination().first"
+      [rows]="pagination().rows"
+      [showJumpToPageDropdown]="true"
+      [showPageLinks]="false"
+      [totalRecords]="pagination().total" />
+    <p-divider />
+    <div class="paginator-rows-per-page">
+      <span class="p-buttonset">
+        @for (option of rowsPerPageOptions(); track option) {
+          <button uiRipple
+            class="ui button medium basic"
+            [class.stamp]="option !== pagination().rows"
+            [class.primary]="option === pagination().rows"
+            (click)="paginate({rows: option, first: 0})"
+          >
+            <span>{{ option }}</span>
+          </button>
+        }
+      </span>
+    </div>
+  </div>
+</ng-template>

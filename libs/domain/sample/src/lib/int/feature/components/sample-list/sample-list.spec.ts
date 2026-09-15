@@ -4,7 +4,6 @@ import { provideRouter } from '@angular/router';
 import { provideNuCommonConfig } from '@nucleus/common';
 import { provideUiConfig } from '@nucleus/ui';
 import { MOCK_NU_COMMON_CONFIG, MOCK_UI_CONFIG, setupGlobalMocks } from '@test-mocks';
-import { ConfirmationService } from 'primeng/api';
 import { SampleList } from './sample-list';
 
 setupGlobalMocks();
@@ -20,7 +19,6 @@ describe('SampleList', () => {
         provideRouter([]),
         provideNuCommonConfig(MOCK_NU_COMMON_CONFIG),
         provideUiConfig(MOCK_UI_CONFIG),
-        ConfirmationService,
       ],
       schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();

@@ -6,18 +6,19 @@
   @if (hasInfoFields && hasData) {
     <li>
       <button uiRipple
-              class="ui button medium stamp basic second-info"
-              (click)="infoOverlay.toggle($event)"
+        class="ui button medium stamp basic second-info"
+        [uiPopover]="infoFieldsPopover"
+        [uiPopoverData]="{data}"
+        uiPopoverPlacement="block-end-edge-start"
       >
         <svg uiSvgIcon="info-circle" />
         <span i18n>Info</span>
       </button>
-
-      <p-overlayPanel #infoOverlay
-                      styleClass="info-fields-overlay">
-        <nu-info-fields [infoFields]="infoFields()" [data]="data()" />
-      </p-overlayPanel>
     </li>
   }
 </menu>
+
+<ng-template #infoFieldsPopover let-data="data">
+  <nu-info-fields [infoFields]="infoFields()" [data]="data.data()" />
+</ng-template>
 

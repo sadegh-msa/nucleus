@@ -4,7 +4,6 @@ import { provideRouter } from '@angular/router';
 import { provideNuCommonConfig } from '@nucleus/common';
 import { provideUiConfig } from '@nucleus/ui';
 import { MOCK_NU_COMMON_CONFIG, MOCK_UI_CONFIG, setupGlobalMocks } from '@test-mocks';
-import { ConfirmationService } from 'primeng/api';
 import { vi } from 'vitest';
 import { infoFieldsDefault } from '../../../int/constants';
 import type { ToolModel } from '../../models/toolbar.model';
@@ -48,7 +47,6 @@ describe('GenericList', () => {
         provideRouter([]),
         provideNuCommonConfig(MOCK_NU_COMMON_CONFIG),
         provideUiConfig(MOCK_UI_CONFIG),
-        ConfirmationService,
       ],
       schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
@@ -153,47 +151,34 @@ describe('GenericList', () => {
     expect(component.activated()).toBeNull();
   });
 
-  describe('runCommand', () => {
-    let confirmSpy: ReturnType<typeof vi.spyOn>;
-    let target: HTMLButtonElement;
+  describe('tool command buttons', () => {
+    const renderToolButton = (tool: ToolModel) => {
+      fixture.componentRef.setInput('table', { ...mockTable, tools: [tool] });
+      fixture.detectChanges();
 
-    beforeEach(() => {
-      confirmSpy = vi.spyOn(fixture.debugElement.injector.get(ConfirmationService), 'confirm');
-      target = document.createElement('button') as HTMLButtonElement;
-    });
+      const row = fixture.debugElement.query((el) => el.nativeElement.tagName === 'TBODY');
+      return row.query((el) => el.nativeElement.tagName === 'TR').query(
+        (el) => el.nativeElement.tagName === 'BUTTON',
+      );
+    };
 
-    it('should run command with row when tool has no confirm', () => {
+    it('should run command with row on click when tool has no confirm', () => {
       const tool = createTool();
+      const button = renderToolButton(tool);
 
-      component.runCommand(target, tool, mockData[0]);
+      button.nativeElement.click();
 
       expect(tool.command).toHaveBeenCalledTimes(1);
       expect(tool.command).toHaveBeenCalledWith(mockData[0]);
-      expect(confirmSpy).not.toHaveBeenCalled();
     });
 
-    it('should ask for confirmation instead of running command', () => {
+    it('should not run command on click when tool has confirm', () => {
       const tool = createTool({ confirm: CONFIRM_MESSAGE });
+      const button = renderToolButton(tool);
 
-      component.runCommand(target, tool, mockData[0]);
+      button.nativeElement.click();
 
       expect(tool.command).not.toHaveBeenCalled();
-      expect(confirmSpy).toHaveBeenCalledTimes(1);
-
-      const options = confirmSpy.mock.calls[0][0];
-      expect(options?.key).toBe(`delete${mockData[0].id}`);
-      expect(options?.target).toBe(target);
-      expect(options?.message).toBe(CONFIRM_MESSAGE);
-    });
-
-    it('should run command when confirmation is accepted', () => {
-      const tool = createTool({ confirm: CONFIRM_MESSAGE });
-
-      component.runCommand(target, tool, mockData[1]);
-      confirmSpy.mock.calls[0][0]?.accept?.();
-
-      expect(tool.command).toHaveBeenCalledTimes(1);
-      expect(tool.command).toHaveBeenCalledWith(mockData[1]);
     });
   });
 });
