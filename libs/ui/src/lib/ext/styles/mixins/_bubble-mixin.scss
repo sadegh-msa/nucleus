@@ -117,7 +117,7 @@ $colors: get-color-list();
   @include shadow.large();
   @include box.rounded($border-color: transparent);
   @include colors();
-  @include z-index(popup);
+  @include z-index(popover);
   position: relative;
   //--ui-bubble-arrow-offset: 50px;
   --ui-bubble-arrow-size: #{get-size-var(xs-7)};

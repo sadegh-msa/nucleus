@@ -134,12 +134,12 @@ $ui-default-config: (
       header: 20,
       toolbar: 30,
       menu: 40,
-      dimmer: 50,
-      dialog: 60,
-      overlay: 70,
-      sheet: 80,
-      message: 90,
-      popup: 100
+      modal: 50,
+      dimmer: 60,
+      sheet: 70,
+      message: 80,
+      popover: 90,
+      topmost: 100
     )
   )
 ) !default;
