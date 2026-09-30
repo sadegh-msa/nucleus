@@ -27,5 +27,8 @@
       "@test-mocks": ["./utils/test-mocks.ts"]
     }
   },
+  "angularCompilerOptions": {
+    "strictTemplates": true
+  },
   "exclude": ["node_modules", "tmp"]
 }
