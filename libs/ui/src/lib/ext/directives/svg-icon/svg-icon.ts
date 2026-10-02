@@ -92,9 +92,10 @@ export class UiSvgIcon implements OnInit, OnDestroy {
   }
 
   #insertIcon(hostElement: HTMLElement, rawSvg: string) {
-    const tempElement = this.#renderer.createElement('div');
-    tempElement.innerHTML = this.#uiSvgIconLoader.normalizeSvg(rawSvg, this.generateId());
-    const svgElement = tempElement.children[0];
+    const normalizedSvg = this.#uiSvgIconLoader.normalizeSvg(rawSvg, this.generateId());
+    const domParser = new DOMParser();
+    const doc = domParser.parseFromString(normalizedSvg, 'text/html');
+    const svgElement = doc.body.children[0] as SVGElement;
 
     if (!svgElement) {
       return;
@@ -109,6 +110,6 @@ export class UiSvgIcon implements OnInit, OnDestroy {
       );
     });
 
-    this.#renderer.setProperty(hostElement, 'innerHTML', svgElement.innerHTML);
+    this.#renderer.setProperty(hostElement, 'innerHTML', svgElement.getHTML());
   }
 }

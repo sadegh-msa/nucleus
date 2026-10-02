@@ -69,7 +69,7 @@ export class UiPopoverRenderer {
       embeddedViewRef.detectChanges();
     } else {
       const contentElement = renderer.createElement('p');
-      contentElement.innerHTML = content;
+      contentElement.setHTML(content);
       renderer.appendChild(popoverElement, contentElement);
     }
 

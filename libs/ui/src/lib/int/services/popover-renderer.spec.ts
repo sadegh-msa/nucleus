@@ -123,7 +123,7 @@ describe('UiPopoverRenderer', () => {
   it('renders string content into a body-attached container', () => {
     const { popoverElement } = service.render(makeInjector(), 'click', makePopoverModel());
 
-    expect(popoverElement.querySelector('p').innerHTML).toBe('Hello popover');
+    expect(popoverElement.querySelector('p').getHTML()).toBe('Hello popover');
     expect(popoverElement.classList.contains('popover')).toBe(true);
     expect(popoverElement.classList.contains('numb')).toBe(true);
     expect(popoverElement.classList.contains('transparent')).toBe(true);
@@ -195,7 +195,7 @@ describe('UiPopoverRenderer', () => {
 
     const closeButton = popoverElement.querySelector('button');
     expect(closeButton.classList.contains('bubble-close')).toBe(true);
-    expect(closeButton.innerHTML).toContain('svg');
+    expect(closeButton.getHTML()).toContain('svg');
 
     (closeButton as unknown as { onclick: (event: Event) => void }).onclick(new Event('click'));
     expect(visible()).toBe(false);

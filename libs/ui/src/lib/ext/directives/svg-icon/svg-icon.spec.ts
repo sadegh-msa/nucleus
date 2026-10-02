@@ -179,7 +179,7 @@ describe('UiSvgIcon icon loading', () => {
     await new Promise((r) => setTimeout(r, 100));
     fixture.detectChanges();
 
-    expect(svgEl.innerHTML).toContain('path');
+    expect(svgEl.getHTML()).toContain('path');
   });
 
   it('should handle empty SVG gracefully', async () => {
@@ -196,7 +196,7 @@ describe('UiSvgIcon icon loading', () => {
     await new Promise((r) => setTimeout(r, 100));
     fixture.detectChanges();
 
-    expect(svgEl.innerHTML).toBe('');
+    expect(svgEl.getHTML()).toBe('');
   });
 
   it('should handle SVG with only text content gracefully', async () => {
@@ -213,6 +213,6 @@ describe('UiSvgIcon icon loading', () => {
     await new Promise((r) => setTimeout(r, 100));
     fixture.detectChanges();
 
-    expect(svgEl.innerHTML).toBe('');
+    expect(svgEl.getHTML()).toBe('');
   });
 });

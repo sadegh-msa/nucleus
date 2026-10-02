@@ -23,7 +23,7 @@ describe('SafeHtml', () => {
 
   it('should render HTML', () => {
     const div = fixture.nativeElement.querySelector('div');
-    expect(div.innerHTML).toContain('Hello');
+    expect(div.getHTML()).toContain('Hello');
   });
 
   it('should handle different HTML content', () => {
