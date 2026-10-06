@@ -11,7 +11,7 @@ import {
 import { uniquifyStyleClass, VisualObserver } from '../../ext/helpers';
 import type { UiPopoverModel } from '../../ext/models';
 import type { TriggerEventType } from '../../ext/types/trigger.type';
-import { getCloseSvg, uiStyleClass, uiStyleId } from '../constants';
+import { getCloseSvg, uiHtmlId, uiStyleClass } from '../constants';
 import { UiPopoverPositioner } from './popover-positioner';
 
 const popoverStyleClass = uiStyleClass.popover;
@@ -58,8 +58,8 @@ export class UiPopoverRenderer {
         {
           data: templateData,
           control: {
-            close: () => visible.set(false)
-          }
+            close: () => visible.set(false),
+          },
         },
         { injector },
       );
@@ -93,7 +93,7 @@ export class UiPopoverRenderer {
     let container = renderer.parentNode(triggerElement);
 
     if (attachTo === 'body') {
-      const containerId = uiStyleId.popover.container;
+      const containerId = uiHtmlId.popover.container;
       container = document.getElementById(containerId);
 
       if (!container) {

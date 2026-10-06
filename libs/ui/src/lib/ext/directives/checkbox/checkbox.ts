@@ -1,6 +1,6 @@
 import { Directive, ElementRef, inject, type OnInit, Renderer2 } from '@angular/core';
 import { getCheckmarkSvg } from '../../../int/constants';
-import { uiStyleClass, uiStyleVar } from '../../../int/constants/style-constant';
+import { uiStyleClass, uiStyleVar } from '../../../int/constants/html-constant';
 
 const checkboxStyleClass = uiStyleClass.checkbox;
 

@@ -11,7 +11,7 @@ import {
 } from '@angular/core';
 import { FormField } from '@angular/forms/signals';
 import { type PasswordStrengthModel, PasswordValidator } from '@nucleus/common';
-import { uiStyleClass } from '../../../int/constants/style-constant';
+import { uiStyleClass } from '../../../int/constants/html-constant';
 
 const passwordStyleClass = uiStyleClass.password;
 

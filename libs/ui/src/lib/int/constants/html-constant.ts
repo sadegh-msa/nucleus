@@ -1,4 +1,4 @@
-export const uiStyleId = Object.freeze({
+export const uiHtmlId = Object.freeze({
   popover: {
     container: 'ui-popover-container',
   },
