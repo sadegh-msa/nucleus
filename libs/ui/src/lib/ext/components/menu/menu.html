@@ -11,7 +11,7 @@
     } @else if (!item.hidden) {
       <li>
         @let itemTooltipPlacement = item.tooltipPlacement ?? tooltipPlacement();
-        @let isItemTooltipDisabled = !isCompact() || item.expanded || isSubMenu;
+        @let isItemTooltipDisabled = !isCompact() || isSubMenu;
 
         @if (item.routerLink) {
           <a [uiRipple]="!item.disabled"

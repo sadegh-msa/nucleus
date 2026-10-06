@@ -4,6 +4,12 @@ export const uiHtmlId = Object.freeze({
   },
 });
 
+export const uiHtmlData = Object.freeze({
+  popover: {
+    trigger: { id: 'data-trigger-id' },
+  },
+});
+
 export const uiStyleVar = Object.freeze({
   checkmark: '--ui-checkmark-svg-path',
   popover: '--ui-popover',

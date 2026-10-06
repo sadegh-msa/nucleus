@@ -2,7 +2,7 @@ import { DOCUMENT, ElementRef, type Injector, inject, Service } from '@angular/c
 import type { SetTimeoutType } from '@nucleus/common';
 import type { UiPopoverModel } from '../../ext/models';
 import type { TriggerEventType } from '../../ext/types/trigger.type';
-import { eventMap, uiStyleClass } from '../constants';
+import { eventMap, uiHtmlData, uiStyleClass } from '../constants';
 import { UiPopoverPositioner } from './popover-positioner';
 import { UiPopoverRenderer } from './popover-renderer';
 
@@ -127,6 +127,18 @@ export class UiPopoverBuilder {
       () => {
         const visible = !popover.visible();
 
+        if (!triggerElement.getAttribute('id')) {
+          triggerElement.setAttribute('id', crypto.randomUUID());
+        }
+
+        const triggerElementId = triggerElement.getAttribute('id');
+
+        if (triggerElementId) {
+          const popoverElement = getPopoverElement();
+          const triggerIdAttr = uiHtmlData.popover.trigger.id;
+          popoverElement?.setAttribute(triggerIdAttr, triggerElementId);
+        }
+
         if (visible) {
           addEventListeners();
         } else {
@@ -154,6 +166,12 @@ export class UiPopoverBuilder {
   }
 
   showPopover(popoverElement: HTMLElement) {
+    const triggerIdAttr = uiHtmlData.popover.trigger.id;
+    const triggerId = popoverElement.getAttribute(triggerIdAttr);
+
+    popoverElement.parentElement
+      ?.querySelectorAll<HTMLElement>(`[${triggerIdAttr}="${triggerId}"]`)
+      .forEach((element) => this.hidePopover(element));
     popoverElement.classList.remove(...popoverStyleClass.invisibility);
   }
 
