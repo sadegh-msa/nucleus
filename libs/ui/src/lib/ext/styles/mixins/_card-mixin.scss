@@ -6,7 +6,6 @@
   @include box.rounded($bg-color: paper-dark);
   display: flex;
   gap: get-size-var(sm-5);
-  min-width: get-titled-size(min);
 
   &:not(.flat) {
     @include shadow.large();
