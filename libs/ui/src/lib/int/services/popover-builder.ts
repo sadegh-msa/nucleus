@@ -1,5 +1,6 @@
 import { DOCUMENT, ElementRef, type Injector, inject, Service } from '@angular/core';
 import type { SetTimeoutType } from '@nucleus/common';
+import { getHtmlElementId } from '../../ext/helpers';
 import type { UiPopoverModel } from '../../ext/models';
 import type { TriggerEventType } from '../../ext/types/trigger.type';
 import { eventMap, uiHtmlData, uiStyleClass } from '../constants';
@@ -127,11 +128,7 @@ export class UiPopoverBuilder {
       () => {
         const visible = !popover.visible();
 
-        if (!triggerElement.getAttribute('id')) {
-          triggerElement.setAttribute('id', crypto.randomUUID());
-        }
-
-        const triggerElementId = triggerElement.getAttribute('id');
+        const triggerElementId = getHtmlElementId(triggerElement);
 
         if (triggerElementId) {
           const popoverElement = getPopoverElement();
