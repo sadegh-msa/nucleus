@@ -5,29 +5,33 @@ import { RouterModule } from '@angular/router';
 import { injectAuthStore } from '@nucleus/auth';
 import { type LangDirType, LocaleUtil } from '@nucleus/l10n';
 import { Panel, PanelManager } from '@nucleus/panel';
-import { UiMenu, type UiMenuItemModel, UiMessage, UiMessageManager } from '@nucleus/ui';
-import { ConfirmationService } from 'primeng/api';
-import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import {
+  UiDialog,
+  UiMenu,
+  type UiMenuItemModel,
+  UiMessage,
+  UiMessageManager,
+  UiSvgIcon,
+} from '@nucleus/ui';
 import { navMainMenu } from './app.menu';
 
 @Component({
   imports: [
     RouterModule,
     FormsModule,
-    ConfirmDialogModule,
     UiMessage,
     NgTemplateOutlet,
     UiMenu,
     NgClass,
     Panel,
+    UiSvgIcon,
+    UiDialog,
   ],
   selector: 'app-root',
   templateUrl: './app.html',
-  providers: [ConfirmationService],
 })
 export class App {
   readonly #authStore = injectAuthStore();
-  readonly #confirmationService = inject(ConfirmationService);
   readonly #panelManager = inject(PanelManager);
   readonly #localeUtil = inject(LocaleUtil);
   readonly #uiMessageManager = inject(UiMessageManager);
@@ -38,13 +42,14 @@ export class App {
       id: 'nucleus-menu-sign-out',
       label: $localize`Sign out`,
       icon: 'logout',
-      command: () => this.confirmSignOut(),
+      command: () => this.showSignOutConfirm.set(true),
       permission: 'nucleus.menu.button.sign-out',
     },
   ] as UiMenuItemModel[];
   readonly navExtent = this.#panelManager.navExtent;
 
   readonly htmlDir = signal<LangDirType>('ltr');
+  readonly showSignOutConfirm = signal(false);
 
   readonly isUserAuthenticated = computed(() => this.#authStore.checkStatus() === 'success');
   readonly showLoading = computed(() => this.#authStore.signOutStatus() === 'inProgress');
@@ -71,14 +76,6 @@ export class App {
 
   signOut() {
     this.#authStore.signOut();
-  }
-
-  confirmSignOut() {
-    this.#confirmationService.confirm({
-      message: 'Are You sure you want to logout?',
-      header: 'Sign Out',
-      icon: 'pi pi-exclamation-triangle',
-      accept: () => this.signOut(),
-    });
+    this.showSignOutConfirm.set(false);
   }
 }

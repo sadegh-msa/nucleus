@@ -21,19 +21,19 @@
         <nu-panel>
           <ng-container nav-body>
             <menu [uiMenu]="navMainMenu"
-                  [ngClass]="navExtent()"
-                  [extent]="navExtent()"
-                  [submenuMode]="navExtent() === 'compact' ? 'floating' : 'sliding'"
-                  class="rounded-medium"
+              [ngClass]="navExtent()"
+              [extent]="navExtent()"
+              [submenuMode]="navExtent() === 'compact' ? 'floating' : 'sliding'"
+              class="rounded-medium"
             ></menu>
           </ng-container>
 
           <ng-container nav-footer>
             <menu [uiMenu]="navFooterMenu"
-                  [ngClass]="navExtent()"
-                  [extent]="navExtent()"
-                  [submenuMode]="navExtent() === 'compact' ? 'floating' : 'sliding'"
-                  class="rounded-medium"
+              [ngClass]="navExtent()"
+              [extent]="navExtent()"
+              [submenuMode]="navExtent() === 'compact' ? 'floating' : 'sliding'"
+              class="rounded-medium"
             ></menu>
           </ng-container>
 
@@ -50,4 +50,32 @@
 </ng-template>
 
 <ui-message />
-<p-confirmDialog />
+
+<dialog [uiDialog]="showSignOutConfirm()">
+  <header>
+    <h4 i18n>Sign Out</h4>
+  </header>
+  <section>
+    <h6 i18n>Are You sure you want to logout?</h6>
+  </section>
+
+  <footer>
+    <div class="actions">
+      <button
+        class="ui button normal warning bulk"
+        (click)="signOut()"
+      >
+        <svg uiSvgIcon="logout"  />
+        <span i18n>Yes</span>
+      </button>
+
+      <button
+        class="ui button normal neutral bulk"
+        (click)="showSignOutConfirm.set(false)"
+      >
+        <svg uiSvgIcon="close-square" />
+        <span i18n>No</span>
+      </button>
+    </div>
+  </footer>
+</dialog>

@@ -1,6 +1,39 @@
 @use '../helpers/size-helper' as *;
-@use './mixins/box-mixin' as box;
-@use './mixins/shadow-mixin' as shadow;
+@use './box-mixin' as box;
+@use './shadow-mixin' as shadow;
+@use './z-index-mixin' as *;
+
+@mixin dialog() {
+  $min-button-width: get-size-var(\6xl-1);
+
+  @include z-index(dialog);
+  min-width: calc(4 * #{$min-button-width});
+  position: absolute;
+  display: none;
+  margin: auto;
+
+  &:open {
+    display: flex;
+  }
+
+  &::backdrop {
+    backdrop-filter: blur(get-size-var(xs-2)) grayscale(get-titled-size(full)) brightness(get-titled-size(half));
+  }
+
+  > footer {
+    > .actions {
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-end;
+      width: get-titled-size(full);
+      gap: get-size-var(xs-2);
+
+      > :is(a, button) {
+        min-width: $min-button-width;
+      }
+    }
+  }
+}
 
 @mixin generic() {
   @include box.rounded($bg-color: paper-dark);
