@@ -2,9 +2,9 @@
 @use '../helpers/color-helper' as *;
 @use '../utils/list-util' as *;
 @use '../utils/control-util' as *;
-@use '../mixins/box-mixin' as box;
-@use '../mixins/shadow-mixin' as shadow;
-@use '../mixins/z-index-mixin' as *;
+@use './box-mixin' as box;
+@use './shadow-mixin' as shadow;
+@use './z-index-mixin' as *;
 
 $colors: get-color-list();
 

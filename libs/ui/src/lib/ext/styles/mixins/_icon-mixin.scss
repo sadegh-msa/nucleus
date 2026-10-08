@@ -1,7 +1,7 @@
 @use '../helpers/color-helper' as *;
 @use '../helpers/size-helper' as *;
-@use '../mixins/transition-mixin' as transition;
-@use '../mixins/size-mixin' as size;
+@use './transition-mixin' as transition;
+@use './size-mixin' as size;
 
 $colors: get-color-list();
 $sizes: get-size-list();

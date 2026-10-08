@@ -1,8 +1,8 @@
 @use '../helpers/color-helper' as *;
 @use '../helpers/size-helper' as *;
-@use '../mixins/transition-mixin' as transition;
-@use '../mixins/box-mixin' as box;
-@use '../mixins/z-index-mixin' as *;
+@use './transition-mixin' as transition;
+@use './box-mixin' as box;
+@use './z-index-mixin' as *;
 
 @mixin base($size, $thickness, $color) {
   @include z-index(widget);
