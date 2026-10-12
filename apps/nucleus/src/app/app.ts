@@ -42,6 +42,7 @@ export class App {
       id: 'nucleus-menu-sign-out',
       label: $localize`Sign out`,
       icon: 'logout',
+      iconNgClass: 'bidi',
       command: () => this.showSignOutConfirm.set(true),
       permission: 'nucleus.menu.button.sign-out',
     },

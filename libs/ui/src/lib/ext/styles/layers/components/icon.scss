@@ -10,7 +10,7 @@
   svg {
     &.ui.icon {
       @include icon.generic();
-      @include size.max-rect(sm-5)
+      @include size.max-rect(sm-4)
     }
 
     &.bidi {
@@ -19,7 +19,7 @@
       }
     }
 
-    // Fix the issue of iconsax
+    // Fix the issue of solid icons
     @each $variant in get-config(icon, variants) {
       @if not list.index(get-config(icon, filled), $variant) {
         &.#{$variant} {

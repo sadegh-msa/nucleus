@@ -4,21 +4,21 @@ export const navMainMenu = [
   {
     id: 'nucleus-nav-link-libs',
     label: 'Libraries',
-    icon: 'code-1',
+    icon: 'code-square',
     permission: 'nucleus.libs',
     expanded: false,
     children: [
       {
         id: 'nucleus-nav-link-libs-crud',
         label: 'CRUD',
-        icon: 'document-code',
+        icon: 'sheet',
         permission: 'nucleus.libs.crud',
         expanded: false,
         children: [
           {
             id: 'nucleus-nav-link-sample-list',
             label: 'Sample list',
-            icon: 'grid-1',
+            icon: 'pipette',
             routerLink: '/crud/sample/list',
             permission: 'nucleus.sample.list',
           },
@@ -27,42 +27,42 @@ export const navMainMenu = [
       {
         id: 'nucleus-nav-link-libs-ui',
         label: 'UI',
-        icon: 'main-component',
+        icon: 'blocks',
         permission: 'nucleus.libs.ui',
         expanded: false,
         children: [
           {
             id: 'nucleus-nav-link-button',
             label: 'Button',
-            icon: 'mouse-square',
+            icon: 'cursor-square',
             routerLink: '/ui/button',
             permission: 'nucleus.button',
           },
           {
             id: 'nucleus-nav-link-icon',
             label: 'Icon',
-            icon: 'shapes',
+            icon: 'mask-sad',
             routerLink: '/ui/icon',
             permission: 'nucleus.icon',
           },
           {
             id: 'nucleus-nav-link-menu',
             label: 'Menu',
-            icon: 'menu-1',
+            icon: 'hamburger-menu',
             routerLink: '/ui/menu',
             permission: 'nucleus.menu',
           },
           {
             id: 'nucleus-nav-link-popover',
             label: 'Popover',
-            icon: 'message',
+            icon: 'chat-square-line',
             routerLink: '/ui/popover',
             permission: 'nucleus.popover',
           },
           {
             id: 'nucleus-nav-link-typography',
             label: 'Typography',
-            icon: 'text',
+            icon: 'text-format',
             routerLink: '/ui/typography',
             permission: 'nucleus.typography',
           },

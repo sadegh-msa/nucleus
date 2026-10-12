@@ -37,7 +37,8 @@ const createSaveTool = (toOverride = {}, toMerge = {}) =>
     {
       type: 'save',
       label: $localize`Save`,
-      icon: 'save-2',
+      icon: 'diskette',
+      iconNgClass: 'bidi',
       element: 'button',
       ngClass: buttonStyleClass.emphasis.primary,
       key: self.crypto.randomUUID(),
@@ -52,7 +53,7 @@ const createCancelTool = (toOverride = {}, toMerge = {}) =>
     {
       type: 'cancel',
       label: $localize`Cancel`,
-      icon: 'close-square',
+      icon: 'close',
       element: 'link',
       ngClass: buttonStyleClass.basic.stamp,
       ...toOverride,
@@ -65,7 +66,7 @@ const createAddTool = (toOverride = {}, toMerge = {}) =>
     {
       type: 'add',
       label: $localize`Add`,
-      icon: 'add-square',
+      icon: 'add',
       element: 'link',
       ngClass: buttonStyleClass.basic.stamp,
       key: self.crypto.randomUUID(),
@@ -79,7 +80,8 @@ const createEditTool = (toOverride = {}, toMerge = {}) =>
     {
       type: 'edit',
       label: $localize`Edit`,
-      icon: 'edit',
+      icon: 'pen',
+      iconNgClass: 'bidi',
       element: 'link',
       ngClass: buttonStyleClass.basic.primary,
       key: self.crypto.randomUUID(),
@@ -93,7 +95,7 @@ const createDeleteTool = (toOverride = {}, toMerge = {}) =>
     {
       type: 'delete',
       label: $localize`Delete`,
-      icon: 'trash',
+      icon: 'trash-bin',
       element: 'button',
       confirm: deleteConfirmMessage,
       ngClass: buttonStyleClass.basic.danger,
@@ -109,7 +111,8 @@ const createRefreshTool = (toOverride = {}, toMerge = {}) =>
     {
       type: 'refresh',
       label: $localize`Refresh`,
-      icon: 'refresh-square-2',
+      icon: 'refresh',
+      iconNgClass: 'bidi',
       element: 'button',
       ngClass: buttonStyleClass.basic.stamp,
       key: self.crypto.randomUUID(),
@@ -124,7 +127,8 @@ const createBackTool = (toOverride = {}, toMerge = {}) =>
     {
       type: 'back',
       label: $localize`Back to List`,
-      icon: 'arrow-up-3',
+      icon: 'arrow-to-top-right',
+      iconNgClass: 'bidi',
       element: 'link',
       ngClass: buttonStyleClass.basic.stamp,
       key: self.crypto.randomUUID(),
@@ -138,8 +142,9 @@ const createTableViewTool = (toOverride = {}, toMerge = {}) =>
     {
       type: 'view',
       tooltip: $localize`View`,
-      icon: 'book',
-      iconVariant: 'bulk',
+      icon: 'notebook-minimalistic',
+      iconVariant: 'bold-duotone',
+      iconNgClass: 'bidi',
       element: 'link',
       ngClass: buttonStyleClass.table.basic.primary,
       key: self.crypto.randomUUID(),
@@ -153,8 +158,8 @@ const createTableDeleteTool = (toOverride = {}, toMerge = {}) =>
     {
       type: 'delete',
       tooltip: $localize`Delete`,
-      icon: 'trash',
-      iconVariant: 'bulk',
+      icon: 'trash-bin',
+      iconVariant: 'bold-duotone',
       element: 'button',
       confirm: deleteConfirmMessage,
       ngClass: buttonStyleClass.table.basic.danger,
@@ -173,7 +178,6 @@ export function createAddToolbar<T extends GenericEntityModel>(
     {
       command: () => subject$.next({ tool: saveTool }),
       permission: config.permission.action.add,
-      icon: 'save-add',
     },
     tools?.['save'],
   );

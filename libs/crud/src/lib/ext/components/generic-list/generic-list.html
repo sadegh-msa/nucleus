@@ -107,7 +107,10 @@
                 *permission="tool.permission"
               >
                 @if (tool.icon) {
-                  <svg [uiSvgIcon]="tool.icon" [variant]="tool.iconVariant" />
+                  <svg [uiSvgIcon]="tool.icon"
+                       [variant]="tool.iconVariant"
+                       [ngClass]="tool.iconNgClass"
+                   />
                 }
                 @if (tool.label) {
                   <span>{{ tool.label }}</span>
@@ -126,7 +129,7 @@
             [uiPopoverData]="{row}"
             uiPopoverPlacement="block-end-edge-start"
           >
-            <svg uiSvgIcon="info-circle" variant="bulk" />
+            <svg uiSvgIcon="info-circle" variant="bold-duotone" />
           </button>
 
         </td>

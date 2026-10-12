@@ -15,6 +15,7 @@ export interface ToolModel {
   tooltip?: string;
   icon?: string;
   iconVariant?: UiIconVariant;
+  iconNgClass?: NgClass['ngClass'];
   ngClass?: NgClass['ngClass'];
   confirm?: string;
   showLoading?: WritableSignal<boolean | number | string>;

@@ -58,7 +58,7 @@ $sizes: get-size-list();
     }
   }
 
-  &:is(.outline, .bulk, .bold) g {
+  &:is(.outline, .bold, .bold-duotone) g {
       fill: currentColor;
   }
 }

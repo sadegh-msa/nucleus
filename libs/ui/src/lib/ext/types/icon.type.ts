@@ -1,12 +1,12 @@
 export const uiIconVariants = [
   'animation',
   'bold',
-  'brand',
+  'bold-duotone',
   'broken',
-  'bulk',
-  'intact',
   'linear',
+  'liner-duotone',
   'outline',
-  'twotone',
+  'intact',
+  'brand',
 ] as const;
 export type UiIconVariant = (typeof uiIconVariants)[number];

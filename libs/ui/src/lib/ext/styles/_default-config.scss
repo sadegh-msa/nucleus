@@ -120,8 +120,8 @@ $ui-default-config: (
     variants: basic bordered bulk emphasis outline
   ),
   icon: (
-    variants: animation bold brand broken bulk intact linear outline twotone,
-    filled: bold bulk
+    variants: animation bold bold-duotone brand broken intact linear liner-duotone outline,
+    filled: bold bold-duotone
   ),
   message: (
     variants: info success warning danger

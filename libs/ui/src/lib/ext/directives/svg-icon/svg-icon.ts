@@ -102,6 +102,10 @@ export class UiSvgIcon implements OnInit, OnDestroy {
     }
 
     svgElement.getAttributeNames().forEach((attribute: string) => {
+      if (attribute === 'class') {
+        return;
+      }
+
       this.#renderer.setAttribute(
         hostElement,
         attribute,
