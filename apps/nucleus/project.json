@@ -97,6 +97,10 @@
             "bundleName": "popover"
           },
           {
+            "input": "libs/ui/src/lib/ext/styles/layers/components/radio.scss",
+            "bundleName": "radio"
+          },
+          {
             "input": "libs/ui/src/lib/ext/styles/layers/components/range.scss",
             "bundleName": "range"
           },

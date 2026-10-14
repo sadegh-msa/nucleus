@@ -1,0 +1,35 @@
+@use '../../helpers/border-helper' as *;
+@use '../../mixins/box-mixin' as box;
+@use '../../mixins/size-mixin' as size;
+@use '../../mixins/transition-mixin' as transition;
+
+@layer components {
+  input[type='radio'].ui.radio {
+    @include box.rounded(full, $border-color: neutral-surface, $bg-color: paper);
+    @include size.strict-rect(sm-4);
+    appearance: none;
+    -webkit-appearance: none;
+    cursor: pointer;
+
+    &:checked {
+      @include transition.normal(border-color, background-color);
+      @include box.rounded(full, $border-color: primary, $bg-color: primary, $border-width: medium);
+      position: relative;
+
+      &:after {
+        @include box.rounded(full, $border-color: paper, $border-width: medium);
+        @include size.strict-rect(full);
+        content: '';
+        position: absolute;
+        inset-inline-start: 0;
+      }
+    }
+
+    &:focus-visible {
+      border-color: transparent;
+      outline-style: solid;
+      outline-width: get-border-width-var(medium);
+      outline-offset: calc(-1 * get-border-width-var(medium));
+    }
+  }
+}
