@@ -81,16 +81,6 @@
         }
       }
 
-      &:has(input[type='checkbox']:focus) {
-        margin-inline-start: 0;
-        gap: calc(#{get-size-var(xs-4)} - #{get-border-width-var(thin)});
-
-        .ui.checkbox:focus {
-          outline-offset: get-border-width-var(thin);
-          margin-inline: get-border-width-var(thick);
-        }
-      }
-
       &:has(input[type='checkbox']:disabled) {
         label {
           cursor: not-allowed;

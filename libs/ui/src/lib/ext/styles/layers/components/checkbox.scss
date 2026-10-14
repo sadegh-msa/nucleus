@@ -49,5 +49,9 @@
         @include box.rounded(medium, $bg-color: watermark, $border-color: watermark);
       }
     }
+
+    &:focus-visible {
+      outline-offset: 0;
+    }
   }
 }

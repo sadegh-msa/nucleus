@@ -1,3 +1,4 @@
+@use '../helpers/border-helper' as *;
 @use '../helpers/color-helper' as *;
 @use '../helpers/size-helper' as *;
 @use './mixins/box-mixin' as box;
@@ -14,8 +15,9 @@
 }
 
 @mixin focus-thumb {
-  outline: 2px solid get-color-var(ink);
-  outline-offset: -2px;
+  border-color: transparent;
+  outline: get-border-width-var(medium) solid get-color-var(ink);
+  outline-offset: calc(-1 * get-border-width-var(medium));
 }
 
 @mixin generic() {
@@ -24,7 +26,7 @@
   background: transparent;
   cursor: pointer;
 
-  &:focus {
+  &:focus-visible {
     outline: none;
   }
 
@@ -39,7 +41,7 @@
     margin-block-start: calc(-1 * get-size-var(xs-4));
   }
 
-  &:focus::-webkit-slider-thumb {
+  &:focus-visible::-webkit-slider-thumb {
     @include focus-thumb;
   }
 
@@ -51,7 +53,7 @@
     @include thumb;
   }
 
-  &:focus::-moz-range-thumb {
+  &:focus-visible::-moz-range-thumb {
     @include focus-thumb;
   }
 }
