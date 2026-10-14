@@ -49,10 +49,5 @@
         @include box.rounded(medium, $bg-color: watermark, $border-color: watermark);
       }
     }
-
-    &:focus {
-      outline-offset: get-border-width-var(thin);
-      margin-inline: get-border-width-var(thick);
-    }
   }
 }
