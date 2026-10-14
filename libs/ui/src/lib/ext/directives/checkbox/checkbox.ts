@@ -1,4 +1,13 @@
-import { Directive, ElementRef, inject, type OnInit, Renderer2 } from '@angular/core';
+import {
+  booleanAttribute,
+  Directive,
+  ElementRef,
+  effect,
+  inject,
+  input,
+  Renderer2,
+  untracked,
+} from '@angular/core';
 import { getCheckmarkSvg } from '../../../int/constants';
 import { uiStyleClass, uiStyleVar } from '../../../int/constants/html-constant';
 
@@ -8,28 +17,40 @@ const checkboxStyleClass = uiStyleClass.checkbox;
   selector: 'input[type="checkbox"][uiCheckbox]',
   host: {
     '[class]': 'styleClass',
-    '(click)': 'handleClickEvent()',
+    '(click)': 'onClickEvent()',
   },
 })
-export class UiCheckbox implements OnInit {
+export class UiCheckbox {
   readonly #renderer = inject(Renderer2);
   readonly #elementRef = inject(ElementRef);
 
   readonly styleClass = checkboxStyleClass.basic;
 
-  ngOnInit() {
-    this.#setCssVariable();
+  checked = input(false, { transform: booleanAttribute });
+
+  constructor() {
+    effect(() => {
+      const checked = this.checked();
+      untracked(() => this.#setCssVariable(checked));
+    });
   }
 
-  #setCssVariable() {
+  #setCssVariable(checked?: boolean) {
     const checkboxElement = this.#elementRef.nativeElement as HTMLInputElement;
-    const checkmarkValue = checkboxElement.checked ? `url('data:image/svg+xml, ${getCheckmarkSvg()}')` : 'none';
+
+    if (checked !== undefined) {
+      checkboxElement.checked = checked;
+    }
+
+    const checkmarkValue = checkboxElement.checked
+      ? `url('data:image/svg+xml, ${getCheckmarkSvg()}')`
+      : 'none';
     const cssVariable = `${uiStyleVar.checkmark}: ${checkmarkValue};`;
 
     this.#renderer.setAttribute(checkboxElement, 'style', cssVariable);
   }
 
-  handleClickEvent() {
+  onClickEvent() {
     this.#setCssVariable();
   }
 }
