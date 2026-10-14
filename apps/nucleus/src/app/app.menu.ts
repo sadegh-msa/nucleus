@@ -4,7 +4,7 @@ export const navMainMenu = [
   {
     id: 'nucleus-nav-link-libs',
     label: 'Libraries',
-    icon: 'code-square',
+    icon: 'library',
     permission: 'nucleus.libs',
     expanded: false,
     children: [
