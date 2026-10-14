@@ -1,0 +1,8 @@
+@use '../../mixins/range-mixin' as range;
+
+@layer components {
+  input[type='range'].ui.input {
+    @include range.generic();
+  }
+}
+

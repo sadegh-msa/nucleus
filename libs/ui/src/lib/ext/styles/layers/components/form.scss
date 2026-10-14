@@ -1,4 +1,5 @@
-@use '../../mixins/form.mixin' as form;
+@use '../../mixins/form-mixin' as form;
+@use '../../mixins/range-mixin' as range;
 
 @layer components {
   form.ui.form {

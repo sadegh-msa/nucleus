@@ -97,6 +97,10 @@
             "bundleName": "popover"
           },
           {
+            "input": "libs/ui/src/lib/ext/styles/layers/components/range.scss",
+            "bundleName": "range"
+          },
+          {
             "input": "libs/ui/src/lib/ext/styles/layers/components/ripple.scss",
             "bundleName": "ripple"
           },

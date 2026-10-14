@@ -1,0 +1,57 @@
+@use '../helpers/color-helper' as *;
+@use '../helpers/size-helper' as *;
+@use './mixins/box-mixin' as box;
+@use './mixins/size-mixin' as size;
+
+@mixin track {
+  @include box.rounded($border-color: watermark, $bg-color: paper-surface);
+  height: get-size-var(xs-4);
+}
+
+@mixin thumb {
+  @include box.rounded($border-radius: medium, $border-color: primary, $bg-color: primary);
+  @include size.strict-rect(sm-4);
+}
+
+@mixin focus-thumb {
+  outline: 2px solid get-color-var(ink);
+  outline-offset: -2px;
+}
+
+@mixin generic() {
+  -webkit-appearance: none;
+  appearance: none;
+  background: transparent;
+  cursor: pointer;
+
+  &:focus {
+    outline: none;
+  }
+
+  &::-webkit-slider-runnable-track {
+    @include track;
+  }
+
+  &::-webkit-slider-thumb {
+    @include thumb;
+    -webkit-appearance: none;
+    appearance: none;
+    margin-block-start: calc(-1 * get-size-var(xs-4));
+  }
+
+  &:focus::-webkit-slider-thumb {
+    @include focus-thumb;
+  }
+
+  &::-moz-range-track {
+    @include track;
+  }
+
+  &::-moz-range-thumb {
+    @include thumb;
+  }
+
+  &:focus::-moz-range-thumb {
+    @include focus-thumb;
+  }
+}
