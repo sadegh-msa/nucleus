@@ -1,13 +1,23 @@
 import { NgClass, TitleCasePipe } from '@angular/common';
-import { Component, forwardRef, inject, input } from '@angular/core';
-import { type ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
+import {
+  booleanAttribute,
+  Component,
+  forwardRef,
+  inject,
+  input
+} from '@angular/core';
+import { type ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { UiToggleValueAccessor } from '../../../int/services';
 import type { ToggleValueModel, UiGenericToggleConsumerModel } from '../../models/toggle.model';
 
 @Component({
   selector: 'ui-toggle',
-  imports: [FormsModule, NgClass, TitleCasePipe],
+  imports: [NgClass, TitleCasePipe],
   templateUrl: './toggle.html',
+  host: {
+    '[attr.tabindex]': '0',
+    '(keydown.space)': 'toggle()',
+  },
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
@@ -22,7 +32,7 @@ export class UiToggle implements ControlValueAccessor, UiGenericToggleConsumerMo
 
   value = input<ToggleValueModel>();
   label = input<string>();
-  hasCheckmark = input<boolean>();
+  hasCheckmark = input<boolean>(false, { alias: 'checkmark', transform: booleanAttribute });
   isChecked!: UiGenericToggleConsumerModel['isChecked'];
   isDisabled!: UiGenericToggleConsumerModel['isDisabled'];
   isBinary!: UiGenericToggleConsumerModel['isBinary'];

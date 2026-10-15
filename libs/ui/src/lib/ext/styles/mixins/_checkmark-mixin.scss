@@ -4,7 +4,7 @@
 @use './box-mixin' as box;
 @use './z-index-mixin' as *;
 
-@mixin base($size, $thickness, $color) {
+@mixin init($size, $thickness, $color) {
   @include z-index(widget);
   position: relative;
   background-color: transparent;
@@ -45,7 +45,7 @@
   }
 }
 
-@mixin darkest {
+@mixin run {
   &:before {
     width: get-titled-size(full);
     transition-delay: 75ms;

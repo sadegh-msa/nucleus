@@ -1,3 +1,4 @@
+@use '../../helpers/border-helper' as *;
 @use '../../helpers/size-helper' as *;
 @use '../../mixins/box-mixin' as box;
 @use '../../mixins/shadow-mixin' as shadow;
@@ -8,16 +9,23 @@
 
 @layer components {
   ui-toggle {
+    @include size.rect(min);
+    @include box.rounded();
     display: flex;
     align-items: center;
     position: relative;
     gap: get-size-var(xs-4);
 
+    &:focus-visible {
+      outline-style: solid;
+      outline-width: get-border-width-var(medium);
+    }
+
     > label {
       user-select: none;
     }
 
-    > .ui-toggle-chassis {
+    > .chassis {
       @include z-index(widget);
       @include box.rounded($bg-color: paper-darkest);
       @include shadow.inset;
@@ -45,7 +53,7 @@
         &:not(.disabled) {
           @include box.color($bg-color: primary-dark, $border-color: primary);
 
-          > .ui-toggle-switch {
+          > .switch {
             &:before,
             &:after {
               @include box.color($bg-color: primary);
@@ -56,14 +64,14 @@
         &.disabled {
           @include box.color($bg-color: paper-dark);
 
-          > .ui-toggle-switch {
-            > .ui-toggle-checkmark {
+          > .switch {
+            > .checkmark {
               @include checkmark.disabled;
             }
           }
         }
 
-        > .ui-toggle-switch {
+        > .switch {
           &:dir(ltr) {
             translate: get-size-var(sm-5) 0;
           }
@@ -72,13 +80,13 @@
             translate: calc(-1 * #{get-size-var(sm-5)}) 0;
           }
 
-          > .ui-toggle-checkmark {
-            @include checkmark.darkest;
+          > .checkmark {
+            @include checkmark.run;
           }
         }
       }
 
-      > .ui-toggle-switch {
+      > .switch {
         @include z-index(widget, 1);
         @include box.rounded(medium, $bg-color: paper);
         @include shadow.medium;
@@ -89,8 +97,8 @@
         justify-content: center;
         position: relative;
 
-        > .ui-toggle-checkmark {
-          @include checkmark.base(0.43rem, 0.16rem, primary);
+        > .checkmark {
+          @include checkmark.init(0.43rem, 0.16rem, primary);
         }
       }
     }
