@@ -1,0 +1,11 @@
+@use '../../mixins/input-mixin' as input-mixin;
+
+@layer components {
+  input[type='checkbox'].ui.checkbox {
+    @include input-mixin.boolean(checkbox);
+  }
+
+  input[type='radio'].ui.radio {
+    @include input-mixin.boolean(radio);
+  }
+}

@@ -61,16 +61,16 @@
             "bundleName": "card"
           },
           {
-            "input": "libs/ui/src/lib/ext/styles/layers/components/checkbox.scss",
-            "bundleName": "checkbox"
-          },
-          {
             "input": "libs/ui/src/lib/ext/styles/layers/components/form.scss",
             "bundleName": "form"
           },
           {
             "input": "libs/ui/src/lib/ext/styles/layers/components/icon.scss",
             "bundleName": "icon"
+          },
+          {
+            "input": "libs/ui/src/lib/ext/styles/layers/components/input.scss",
+            "bundleName": "input"
           },
           {
             "input": "libs/ui/src/lib/ext/styles/layers/components/link.scss",
@@ -95,10 +95,6 @@
           {
             "input": "libs/ui/src/lib/ext/styles/layers/components/popover.scss",
             "bundleName": "popover"
-          },
-          {
-            "input": "libs/ui/src/lib/ext/styles/layers/components/radio.scss",
-            "bundleName": "radio"
           },
           {
             "input": "libs/ui/src/lib/ext/styles/layers/components/range.scss",

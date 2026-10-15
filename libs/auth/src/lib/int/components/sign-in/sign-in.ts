@@ -2,7 +2,7 @@ import { Component, computed, signal } from '@angular/core';
 import { email, FormField, form, maxLength, required } from '@angular/forms/signals';
 import { RouterLink } from '@angular/router';
 
-import { UiCheckbox, UiFormField, UiInputPassword, UiSvgIcon } from '@nucleus/ui';
+import { UiFormField, UiInputPassword, UiSvgIcon } from '@nucleus/ui';
 import type { AuthSignInModel } from '../../../ext/models/auth.model';
 import { injectAuthStore } from '../../../ext/store/auth-store';
 import { authInternalConfig } from '../../configs';
@@ -11,7 +11,7 @@ import { AuthLayout } from '../auth-layout/auth-layout';
 @Component({
   selector: 'nu-sign-in',
   templateUrl: './sign-in.html',
-  imports: [RouterLink, FormField, AuthLayout, UiFormField, UiCheckbox, UiInputPassword, UiSvgIcon],
+  imports: [RouterLink, FormField, AuthLayout, UiFormField, UiInputPassword, UiSvgIcon],
 })
 export class SignIn {
   readonly #authStore = injectAuthStore();

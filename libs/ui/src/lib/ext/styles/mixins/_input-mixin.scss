@@ -1,0 +1,75 @@
+@use '../utils/control-util' as *;
+@use '../helpers/border-helper' as *;
+@use './text-mixin' as text;
+@use './box-mixin' as box;
+@use './size-mixin' as size;
+@use './transition-mixin' as transition;
+
+@mixin boolean($type) {
+  $radius: if-else($type == radio, full, medium);
+
+  @include box.rounded($radius, $border-color: neutral-surface, $bg-color: paper, $border-width: medium);
+  @include size.strict-rect(sm-4);
+  appearance: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &:not(:checked) {
+    &:hover {
+      @include box.color($bg-color: neutral-surface);
+    }
+
+    &:active {
+      @include box.color($bg-color: paper-darker);
+    }
+  }
+
+  &:checked {
+    @include box.rounded($radius);
+  }
+
+  @if $type == checkbox {
+    &:checked::after {
+      @include box.rounded($radius);
+      @include size.rect(max);
+      @include transition.normal(color);
+      @include text.color(paper);
+      @include text.size(large);
+      @include text.weight(bold);
+      content: '\2713';
+      text-align: center;
+    }
+  } @else if $type == radio {
+    &:checked::after {
+      @include box.rounded($radius, $border-color: paper, $border-width: medium);
+      @include size.rect(full);
+      content: '';
+    }
+  }
+
+  &:enabled {
+    cursor: pointer;
+
+    &:checked {
+      @include transition.normal(background-color, border-color);
+      @include box.color($bg-color: primary, $border-color: primary);
+    }
+  }
+
+  &:disabled {
+    @include box.color($border-color: watermark);
+    cursor: not-allowed;
+
+    &:checked {
+      @include box.color($bg-color: watermark);
+    }
+  }
+
+  &:focus-visible {
+    border-color: transparent;
+    outline-style: solid;
+    outline-width: get-border-width-var(medium);
+    outline-offset: calc(-1 * get-border-width-var(medium));
+  }
+}

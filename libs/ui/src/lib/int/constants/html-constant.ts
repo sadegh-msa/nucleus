@@ -11,7 +11,6 @@ export const uiHtmlData = Object.freeze({
 });
 
 export const uiStyleVar = Object.freeze({
-  checkmark: '--ui-checkmark-svg-path',
   popover: '--ui-popover',
   ripple: '--ui-ripple',
   trigger: '--ui-trigger',

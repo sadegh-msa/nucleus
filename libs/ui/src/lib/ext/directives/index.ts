@@ -1,4 +1,3 @@
-export * from './checkbox/checkbox';
 export * from './dialog/dialog';
 export * from './input-password/input-password';
 export * from './popover/popover';
