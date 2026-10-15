@@ -21,7 +21,6 @@
 }
 
 @mixin generic() {
-  -webkit-appearance: none;
   appearance: none;
   background: transparent;
   cursor: pointer;
@@ -36,7 +35,6 @@
 
   &::-webkit-slider-thumb {
     @include thumb;
-    -webkit-appearance: none;
     appearance: none;
     margin-block-start: calc(-1 * get-size-var(xs-4));
   }
