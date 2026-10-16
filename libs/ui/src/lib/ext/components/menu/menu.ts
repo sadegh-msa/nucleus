@@ -141,14 +141,26 @@ export class UiMenu {
     }
 
     effect(() => {
+      const items = this.items();
       const isSubmenuFloating = this.isSubmenuFloating();
       const isCompact = this.isCompact();
 
       untracked(() => {
         if (isSubmenuFloating && isCompact) {
-          this.#uiMenuBuilder.collapseItems(this.items());
+          this.#uiMenuBuilder.collapseItems(items);
         }
       });
+    });
+
+    let isExtentInit = true;
+    effect(() => {
+      this.extent();
+
+      if (isExtentInit) {
+        isExtentInit = false;
+        return;
+      }
+      untracked(() => this.computeItems(this.items()));
     });
   }
 
@@ -168,7 +180,7 @@ export class UiMenu {
 
         if (item.routerLink === this.#currentUrl && !item.original) {
           this.setItemActivity(item, true);
-        } else if(item.original) {
+        } else if (item.original) {
           this.setItemActivity(item, false);
         }
       }
