@@ -141,5 +141,8 @@ $ui-default-config: (
       popover: 90,
       topmost: 100
     )
+  ),
+  skeleton: (
+    variants: circle rectangle square
   )
 ) !default;

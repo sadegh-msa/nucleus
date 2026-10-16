@@ -1,0 +1,7 @@
+@use '../../mixins/skeleton-mixin' as skeleton;
+
+@layer components {
+  .ui.skeleton {
+    @include skeleton.generic();
+  }
+}

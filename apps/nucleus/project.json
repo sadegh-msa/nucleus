@@ -105,6 +105,10 @@
             "bundleName": "ripple"
           },
           {
+            "input": "libs/ui/src/lib/ext/styles/layers/components/skeleton.scss",
+            "bundleName": "skeleton"
+          },
+          {
             "input": "libs/ui/src/lib/ext/styles/layers/components/text.scss",
             "bundleName": "text"
           },
