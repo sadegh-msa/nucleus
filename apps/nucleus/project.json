@@ -61,6 +61,10 @@
             "bundleName": "card"
           },
           {
+            "input": "libs/ui/src/lib/ext/styles/layers/components/dialog.scss",
+            "bundleName": "dialog"
+          },
+          {
             "input": "libs/ui/src/lib/ext/styles/layers/components/form.scss",
             "bundleName": "form"
           },

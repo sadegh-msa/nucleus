@@ -1,0 +1,9 @@
+@use '../../mixins/dialog-mixin' as dialog;
+
+
+@layer components {
+  dialog.ui.card {
+    @include dialog.generic();
+  }
+}
+

@@ -5,8 +5,4 @@
   .ui.card {
     @include card.generic();
   }
-
-  dialog.ui.card {
-    @include card.dialog();
-  }
 }
