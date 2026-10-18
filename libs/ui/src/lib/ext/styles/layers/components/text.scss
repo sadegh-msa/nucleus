@@ -11,6 +11,6 @@
   h4,
   h5,
   h6 {
-    @include text.colors(false, false, false);
+    @include text.colors($has-hover: false, $has-active: false, $has-second: false);
   }
 }
