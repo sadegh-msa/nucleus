@@ -88,14 +88,14 @@ export class GenericFormBuilder<T extends GenericEntityModel> {
       () => {
         const { status, response, tool } = store.get();
 
-        if (Object.keys(response.data ?? {}).length) {
-          untracked(() => {
-            isBusy.set(status === 'inProgress');
-            tool?.showLoading?.set(isBusy());
+        untracked(() => {
+          isBusy.set(status === 'inProgress');
+          tool?.showLoading?.set(isBusy());
 
+          if (Object.keys(response.data ?? {}).length) {
             data.set(response.data);
-          });
-        }
+          }
+        });
       },
       { injector: this.#injector },
     );
@@ -266,7 +266,10 @@ export class GenericFormBuilder<T extends GenericEntityModel> {
 
     if (navigationState?.['saved']) {
       this.#setNavigationState({ saved: false });
-      return;
+
+      if (!tool) {
+        return;
+      }
     }
 
     store.resetGet();
