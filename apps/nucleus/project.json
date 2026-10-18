@@ -89,6 +89,10 @@
             "bundleName": "list"
           },
           {
+            "input": "libs/ui/src/lib/ext/styles/layers/components/loading.scss",
+            "bundleName": "loading"
+          },
+          {
             "input": "libs/ui/src/lib/ext/styles/layers/components/menu.scss",
             "bundleName": "menu"
           },

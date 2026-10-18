@@ -1,5 +1,6 @@
 export * from './dialog/dialog';
 export * from './input-password/input-password';
+export * from './loading/loading';
 export * from './popover/popover';
 export * from './ripple/ripple';
 export * from './svg-icon/svg-icon';

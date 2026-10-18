@@ -1,4 +1,7 @@
 export const uiHtmlId = Object.freeze({
+  loading: {
+    container: 'ui-loading-container',
+  },
   popover: {
     container: 'ui-popover-container',
   },
@@ -31,6 +34,9 @@ export const uiStyleClass = Object.freeze({
   },
   formField: {
     basic: 'ui form-field',
+  },
+  loading: {
+    basic: 'ui loading',
   },
   menu: {
     basic: 'ui menu',
