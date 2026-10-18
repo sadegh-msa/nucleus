@@ -65,6 +65,10 @@
             "bundleName": "dialog"
           },
           {
+            "input": "libs/ui/src/lib/ext/styles/layers/components/dimmer.scss",
+            "bundleName": "dimmer"
+          },
+          {
             "input": "libs/ui/src/lib/ext/styles/layers/components/form.scss",
             "bundleName": "form"
           },
