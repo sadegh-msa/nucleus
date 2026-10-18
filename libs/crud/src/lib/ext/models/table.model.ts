@@ -11,6 +11,7 @@ export interface TableColumnModel {
   format?: string;
   isHidden?: boolean;
   ngClass?: NgClass['ngClass'];
+  labelNgClass?: NgClass['ngClass'];
 }
 
 export interface TableModel {

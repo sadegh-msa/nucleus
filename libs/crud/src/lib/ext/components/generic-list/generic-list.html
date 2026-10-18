@@ -1,148 +1,179 @@
-<p-table
-  [value]="data().length ? data() : showLoading() ? altData() : []"
-  [loading]="!!data().length && showLoading()"
-  loadingIcon="pi pi-spin pi-spinner"
-  [selectionMode]="selectionMode() ?? 'multiple'"
-  [styleClass]="isActivatable() ? 'table-activatable' : ''"
-  (selectionChange)="changeSelection($event)"
+@let hasSelection = !!selectionMode();
+@let isSingleSelection = selectionMode() === 'single';
+@let isMultipleSelection = selectionMode() === 'multiple';
+@let columns = table().columns;
+@let tools = table().tools;
+@let dataLength = data().length;
+@let rows = dataLength ? data() : showLoading() ? altData() : [];
+
+<table
+  class="ui table"
+  [class.activatable]="isActivatable()"
+  [uiLoading]="!!dataLength && showLoading()"
 >
-  <ng-template pTemplate="header">
-    <tr #HTR>
-      @if (selectionMode()) {
-        <th class="table-selection-header">
-          @if (selectionMode() === "single") {
-            <!--<i class="pi pi-circle" style="font-size: 1.4rem"></i>-->
-          } @else if (selectionMode() === "multiple") {
-            <p-tableHeaderCheckbox />
-          }
-        </th>
-      }
-
-      @for (column of table().columns; track column.field) {
-        <th [uiTooltip]="column.tooltip" uiTooltipPlacement="block-end-edge-end">
-          {{ column.label }}
-        </th>
-      }
-
-      @if (table().tools.length) {
-        <th class="table-actions-header">Actions</th>
-      }
-    </tr>
-  </ng-template>
-  <ng-template let-i="rowIndex" let-row pTemplate="body">
-    <tr
-      [ngClass]="{
-      'table-activation': (activated() ?? {})[idField()] === (row ?? {})[idField()],
-      }"
-    >
-      @if (!data().length && showLoading()) {
-        @if (selectionMode()) {
-          <td>
-            <p-skeleton />
-          </td>
-        }
-
-        @for (column of table().columns; track column.field) {
-          <td>
-            <p-skeleton />
-          </td>
-        }
-
-        <td>
-          <p-skeleton />
-        </td>
-      } @else if (data().length) {
-        @if (selectionMode()) {
-          <td class="table-selection">
-            @if (selectionMode() === "single") {
-              <p-tableRadioButton [value]="row" />
-            } @else if (selectionMode() === "multiple") {
-              <p-tableCheckbox [value]="row" />
-            }
-          </td>
-        }
-
-        @for (column of table().columns; track column.field) {
-          <td (click)="activateRow(row)" [ngClass]="column.ngClass ?? []">
-            <nu-field-value [value]="column.type === 'index' ? firstRow() + i : row[column.field]"
-              [type]="column.type"
-              [format]="column.format"
-            />
-          </td>
-        }
-
-        <td class="table-actions">
-          @for (tool of table().tools; track tool.key) {
-            @if (tool.element === 'button') {
-              <button
-                #toolElement
-                (click)="!tool.confirm && tool.command(row)"
-                [ngClass]="tool.ngClass ?? []"
-                [disabled]="!!(tool.disabled && tool.disabled())"
-                [uiTooltip]="tool.tooltip" uiTooltipPlacement="block-end-inline-center"
-                [uiPopover]="toolConfirmPopover"
-                [uiPopoverData]="{tool, row}"
-                [uiPopoverDisabled]="!tool.confirm"
-                uiPopoverPlacement="block-end-edge-start"
-                *permission="tool.permission"
-              >
-                @if (tool.icon) {
-                  <svg [uiSvgIcon]="tool.icon" [variant]="tool.iconVariant" />
-                }
-                @if (tool.label) {
-                  <span>{{ tool.label }}</span>
-                }
-                <!--[showLoading]="!!(tool.showLoading && tool.showLoading() === row[idField])"-->
-              </button>
-
-            } @else if (tool.element === 'link') {
-              <a
-                [ngClass]="tool.ngClass ?? []"
-                [routerLink]="tool.command(row)"
-                [state]="(tool.createRouterStates && tool.createRouterStates(row)) ?? {}"
-                [queryParams]="
-                (tool.createRouterQueryParams && tool.createRouterQueryParams(row)) ?? {}
-                "
-                [uiTooltip]="tool.tooltip" uiTooltipPlacement="block-end-inline-center"
-                *permission="tool.permission"
-              >
-                @if (tool.icon) {
-                  <svg [uiSvgIcon]="tool.icon"
-                       [variant]="tool.iconVariant"
-                       [ngClass]="tool.iconNgClass"
-                   />
-                }
-                @if (tool.label) {
-                  <span>{{ tool.label }}</span>
-                }
-                <!--                [showLoading]="!!(tool.showLoading && tool.showLoading() === row[idField])"-->
-                <!--                [disabled]="!!(tool.disabled && tool.disabled())"-->
-              </a>
-            }
-          }
-
-          <button
-            class="ui button nu-tool watermark basic medium second-info"
-            uiTooltip="Info" i18n-uiTooltip
-            uiTooltipPlacement="block-end-inline-center"
-            [uiPopover]="infoFieldsPopover"
-            [uiPopoverData]="{row}"
-            uiPopoverPlacement="block-end-edge-start"
-          >
-            <svg uiSvgIcon="info-circle" variant="bold-duotone" />
-          </button>
-
-        </td>
-      }
-    </tr>
-  </ng-template>
-
-  <ng-template pTemplate="emptymessage">
+  <thead>
     <tr>
-      <td colspan="4">No results found.</td>
+      @if (hasSelection) {
+        <th class="selection-header">
+          @if (isSingleSelection) {
+            <span class="symbol">🞊</span>
+          } @else if (isMultipleSelection) {
+            <input
+              class="ui checkbox"
+              type="checkbox"
+              [checked]="selectedRows().size === dataLength"
+              (click)="onToggleSelectAll()"
+            />
+          }
+        </th>
+      }
+
+      @for (column of columns; track column.field) {
+        <th [uiTooltip]="column.tooltip" uiTooltipPlacement="block-end-edge-end">
+          <span [ngClass]="column.labelNgClass || []">{{ column.label }}</span>
+        </th>
+      }
+
+      @if (tools.length) {
+        <th class="actions-header">
+          <span>Actions</span>
+        </th>
+      }
     </tr>
-  </ng-template>
-</p-table>
+  </thead>
+  <tbody>
+    @for (row of rows; track row[idField()]; let rowIndex = $index) {
+      @let rowId = row[idField()];
+      @let activatedRowId = (activatedRow() ?? {})[idField()];
+
+      <tr [ngClass]="{ 'activation': activatedRowId === rowId }">
+        @if (!dataLength && showLoading()) {
+          @if (hasSelection) {
+            <td>
+              <div class="ui skeleton small"
+                [class.circle]="isSingleSelection"
+                [class.square]="isMultipleSelection"
+              ></div>
+            </td>
+          }
+
+          @for (column of columns; track column.field) {
+            <td>
+              <div class="ui skeleton rectangle small"></div>
+            </td>
+          }
+
+          <td>
+            <div class="ui skeleton rectangle small"></div>
+          </td>
+        } @else if (dataLength) {
+          @if (hasSelection) {
+            <td class="selection">
+              @if (isSingleSelection) {
+                <input
+                  type="radio"
+                  class="ui radio"
+                  [checked]="selectedRows().has(row)"
+                  (click)="onToggleSelection(row)"
+                />
+              } @else if (isMultipleSelection) {
+                <input
+                  class="ui checkbox"
+                  type="checkbox"
+                  [checked]="selectedRows().has(row)"
+                  (click)="onToggleSelection(row)"
+                />
+              }
+            </td>
+          }
+
+          @for (column of columns; track column.field) {
+            <td (click)="onToggleActivation(row)" [ngClass]="column.ngClass ?? []">
+              <nu-field-value [value]="column.type === 'index' ? firstRow() + rowIndex : row[column.field]"
+                [type]="column.type"
+                [format]="column.format"
+              />
+            </td>
+          }
+
+          <td class="actions">
+            @for (tool of tools; track tool.key) {
+              @if (tool.element === 'button') {
+                <button
+                  #toolElement
+                  (click)="!tool.confirm && tool.command(row)"
+                  [ngClass]="tool.ngClass ?? []"
+                  [disabled]="!!(tool.disabled && tool.disabled())"
+                  [uiTooltip]="tool.tooltip"
+                  [uiPopover]="toolConfirmPopover"
+                  [uiPopoverData]="{tool, row}"
+                  [uiPopoverDisabled]="!tool.confirm"
+                  uiPopoverPlacement="block-end-edge-start"
+                  *permission="tool.permission"
+                >
+                  @let showToolLoading =!!(tool.showLoading && tool.showLoading() === rowId);
+
+                  @if (!showToolLoading && tool.icon) {
+                    <svg
+                      [uiSvgIcon]="tool.icon"
+                      [variant]="tool.iconVariant"
+                      [ngClass]="tool.iconNgClass"
+                    />
+                  } @else if (showToolLoading) {
+                    <svg
+                      uiSvgIcon="spinner"
+                      variant="animation"
+                      [ngClass]="tool.iconNgClass"
+                    />
+                  }
+                  @if (tool.label) {
+                    <span>{{ tool.label }}</span>
+                  }
+                </button>
+
+              } @else if (tool.element === 'link') {
+                <a
+                  [ngClass]="tool.ngClass ?? []"
+                  [class.disabled]="!!(tool.disabled && tool.disabled())"
+                  [routerLink]="tool.command(row)"
+                  [state]="(tool.createRouterStates && tool.createRouterStates(row)) ?? {}"
+                  [queryParams]="(tool.createRouterQueryParams && tool.createRouterQueryParams(row)) ?? {}"
+                  [uiTooltip]="tool.tooltip"
+                  *permission="tool.permission"
+                >
+                  @if (tool.icon) {
+                    <svg [uiSvgIcon]="tool.icon"
+                      [variant]="tool.iconVariant"
+                      [ngClass]="tool.iconNgClass"
+                    />
+                  }
+                  @if (tool.label) {
+                    <span>{{ tool.label }}</span>
+                  }
+                </a>
+              }
+            }
+
+            <button
+              class="ui button nu-tool watermark basic medium second-info"
+              uiTooltip="Info" i18n-uiTooltip
+              [uiPopover]="infoFieldsPopover"
+              [uiPopoverData]="{row}"
+              uiPopoverPlacement="block-end-edge-start"
+            >
+              <svg uiSvgIcon="info-circle" variant="bold-duotone" />
+            </button>
+
+          </td>
+        }
+      </tr>
+    } @empty {
+      <tr>
+        <td colspan="4" i18n>No results found.</td>
+      </tr>
+    }
+  </tbody>
+</table>
 
 <ng-template #toolConfirmPopover let-control="control" let-data="data">
   <div class="tool-confirm">

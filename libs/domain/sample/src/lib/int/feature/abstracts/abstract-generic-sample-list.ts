@@ -7,7 +7,7 @@ export abstract class AbstractGenericSampleList {
   isBusy!: ListModel['isBusy'];
   data!: ListModel['data'];
   pagination!: ListModel['pagination'];
-  selectedRecords!: ListModel['selectedRecords'];
+  selectedRows!: ListModel['selectedRows'];
   toolbar!: ListModel['toolbar'];
   changeSelection!: ListModel['changeSelection'];
 }

@@ -204,10 +204,10 @@ describe('GenericListBuilder', () => {
       service.init(consumer as any);
 
       consumer.changeSelection([{ id: '1' }, { id: '2' }]);
-      expect(consumer.selectedRecords()).toEqual([{ id: '1' }, { id: '2' }]);
+      expect(consumer.selectedRows()).toEqual(new Set([{ id: '1' }, { id: '2' }]));
 
       consumer.changeSelection({ id: '3' });
-      expect(consumer.selectedRecords()).toEqual([{ id: '3' }]);
+      expect(consumer.selectedRows()).toEqual(new Set([{ id: '3' }]));
     });
   });
 
@@ -244,7 +244,7 @@ describe('GenericListBuilder', () => {
       expect(consumer.pagination).toBeDefined();
       expect(consumer.data).toBeDefined();
       expect(consumer.isBusy).toBeDefined();
-      expect(consumer.selectedRecords).toBeDefined();
+      expect(consumer.selectedRows).toBeDefined();
     });
   });
 });
@@ -254,7 +254,7 @@ function createMockConsumer() {
     pagination: signal(null),
     data: signal([]),
     isBusy: signal(false),
-    selectedRecords: signal([]),
+    selectedRows: signal(new Set()),
     isEmbedded: signal(false),
     toolbar: { tools: [] } as any,
     changeSelection: vi.fn(),

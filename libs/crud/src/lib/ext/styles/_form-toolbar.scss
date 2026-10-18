@@ -11,12 +11,4 @@ nu-generic-form-toolbar {
   flex-direction: column;
   justify-content: center;
   width: get-titled-size(max);
-
-  .p-paginator {
-    padding: 0;
-  }
-
-  .p-divider {
-    margin: get-size-var(xs-6) 0;
-  }
 }

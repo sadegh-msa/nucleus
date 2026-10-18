@@ -14,121 +14,86 @@ nu-generic-list {
     }
   }
 
-  p-table {
-    .p-datatable {
-      & > .p-datatable-wrapper {
-        overflow: visible;
+  table.ui.table {
+    > thead > tr > th {
+      @include z-index(header);
+      background-color: get-color-var(paper-darkest);
+      padding: get-size-var(xs-6);
+      position: sticky;
+      top: 0;
+
+      &:first-child {
+        padding-inline-start: get-size-var(sm-1);
       }
 
-      .p-datatable-loading-overlay {
-        margin-block-start: get-size-var(xs-6);
+      &.selection-header {
+        display: table-cell;
+        width: get-size-var(sm-2);
       }
 
-      .p-datatable-thead > tr > th {
-        @include z-index(header);
-        background-color: get-color-var(paper-darkest);
-        padding: get-size-var(xs-6);
+      &.actions-header {
+        padding-inline-end: get-size-var(md-2);
         position: sticky;
-        top: 0;
+        right: 0;
+        text-align: right;
+      }
+    }
 
-        &:first-child {
-          padding-inline-start: get-size-var(sm-1);
+    > tbody {
+      > tr {
+        &:nth-child(odd) {
+          background-color: get-color-var(paper-dark);
         }
 
-        &.table-selection-header {
-          display: table-cell;
-          width: get-size-var(sm-2);
+        &:nth-child(even) {
+          background-color: get-color-var(paper-darker);
+        }
 
-          & > span {
-            background-color: transparent;
-            position: absolute;
+        &:hover {
+          background-color: get-color-var(paper-darkest) !important;
+        }
+
+        &.activation {
+          > td {
+            background-color: get-color-var(primary-surface);
+
+            &:not(.actions) {
+              color: get-color-var(primary);
+            }
+          }
+        }
+
+        > td {
+          border: 0;
+          padding: get-size-var(xs-6);
+          white-space: nowrap;
+
+          &:first-child {
+            padding-inline-start: get-size-var(sm-1);
+          }
+
+          &.selection {
+            width: get-titled-size(min);
+          }
+
+          &.actions {
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-end;
+            position: sticky;
             right: 0;
           }
-        }
 
-        &.table-actions-header {
-          padding-inline-end: get-size-var(md-2);
-          position: sticky;
-          right: 0;
-          text-align: right;
-        }
-      }
-
-      .p-datatable-tbody {
-        > tr {
-          &:nth-child(odd) {
-            background-color: get-color-var(paper-dark);
-          }
-
-          &:nth-child(even) {
-            background-color: get-color-var(paper-darker);
-          }
-
-          &:hover {
-            background-color: get-color-var(paper-darkest) !important;
-
-            .table-actions {
-              a,
-              .p-button {
-                &:not(.ui-button-danger) {
-                  &:hover {
-                    color: get-color-var(primary);
-                  }
-                }
-
-                &:not(:hover) {
-                  color: get-color-var(stamp);
-                }
-              }
-            }
-          }
-
-          &.table-activation {
-            > td {
-              background-color: get-color-var(primary-surface);
-
-              &:not(.table-actions) {
-                color: get-color-var(primary);
-              }
-            }
-          }
-
-          > td {
-            border: 0;
-            padding: get-size-var(xs-6);
-            white-space: nowrap;
-
-            &:first-child {
-              padding-inline-start: get-size-var(sm-1);
-            }
-
-            &.table-actions {
-              display: flex;
-              flex-direction: row;
-              justify-content: flex-end;
-              position: sticky;
-              right: 0;
-            }
-
-            .p-skeleton {
-              margin-block: get-size-var(xs-6);
-            }
+          .ui.skeleton {
+            margin-block: calc(get-size-var(xs-4) - 1px);
           }
         }
       }
+    }
 
-      .p-datatable-loading-overlay {
-        background-color: get-color-var(overlay);
-      }
-
-      &.table-activatable {
-        .p-datatable-tbody {
-          > tr {
-            td {
-              cursor: pointer;
-            }
-          }
-        }
+    &.activatable {
+      > tbody > tr > td {
+        cursor: pointer;
       }
     }
   }

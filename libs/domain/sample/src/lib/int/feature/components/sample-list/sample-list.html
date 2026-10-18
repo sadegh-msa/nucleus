@@ -1,6 +1,6 @@
 <article class="ui page page-list">
   <nu-generic-list-toolbar [toolbar]="toolbar"
-                                     [selectedRecords]="selectedRecords().length"
+                                     [selectedRows]="selectedRows().size"
                                      [(pagination)]="pagination"
                                      class="page-toolbar" />
 
@@ -11,7 +11,9 @@
                              [showLoading]="isBusy()"
                              [isActivatable]="true"
                              selectionMode="multiple"
-                             (selection)="changeSelection($event)"
-                             (activation)="activate($event)"
+                             [selected]="selected"
+                             [activated]="activated"
+                             (activation)="onActivation($event)"
+                             (selection)="onSelection($event)"
                              class="page-content" />
 </article>

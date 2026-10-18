@@ -27,14 +27,21 @@ export class SampleList extends AbstractGenericSampleList implements OnInit {
   readonly store = inject(SampleStore);
   readonly table: TableModel = {
     columns: [
-      { field: 'index', label: '#', tooltip: 'Index', type: 'index' },
+      {
+        field: 'index',
+        label: '#',
+        tooltip: 'Index',
+        type: 'index',
+        labelNgClass: 'symbol',
+      },
       {
         field: 'active',
-        label: 'A',
+        label: '🗹',
         tooltip: 'is Active',
         type: 'boolean',
         format: 'icon',
         ngClass: 'boolean',
+        labelNgClass: 'symbol',
       },
       { field: 'code', label: 'Code' },
       { field: 'title', label: 'Title' },
@@ -47,6 +54,8 @@ export class SampleList extends AbstractGenericSampleList implements OnInit {
     ],
     ...createTableToolbar<SampleGenericModel>(this.config),
   };
+  readonly selected = [];
+  readonly activated = null;
 
   constructor() {
     super();
@@ -58,7 +67,12 @@ export class SampleList extends AbstractGenericSampleList implements OnInit {
     this.#genericListBuilder.run();
   }
 
-  activate(row: SampleModel) {
+  onActivation(row: SampleModel) {
     console.log(row);
+  }
+
+  onSelection(rows: Set<SampleModel>) {
+    console.log(rows);
+    this.selectedRows.set(rows);
   }
 }

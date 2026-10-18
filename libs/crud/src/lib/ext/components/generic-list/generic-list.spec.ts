@@ -85,70 +85,77 @@ describe('GenericList', () => {
   it('should emit selection', () => {
     const spy = vi.fn();
     component.selection.subscribe(spy);
-    component.changeSelection([mockData[0]]);
-    expect(spy).toHaveBeenCalledWith([mockData[0]]);
+    component.onToggleSelection(mockData[0]);
+    fixture.detectChanges();
+    expect(spy).toHaveBeenCalledWith(new Set([mockData[0]]));
   });
 
   it('should activate a row', () => {
     fixture.componentRef.setInput('isActivatable', true);
-    component.activateRow(mockData[0]);
-    expect(component.activated()).toBe(mockData[0]);
+    component.onToggleActivation(mockData[0]);
+    fixture.detectChanges();
+    expect(component.activatedRow()).toBe(mockData[0]);
   });
 
   it('should deactivate a row when activating the same row', () => {
     fixture.componentRef.setInput('isActivatable', true);
-    component.activateRow(mockData[0]);
-    component.activateRow(mockData[0]);
-    expect(component.activated()).toBeNull();
+    component.onToggleActivation(mockData[0]);
+    component.onToggleActivation(mockData[0]);
+    fixture.detectChanges();
+    expect(component.activatedRow()).toBeNull();
   });
 
   it('should not activate rows when not activatable', () => {
-    component.activateRow(mockData[0]);
-    expect(component.activated()).toBeNull();
+    fixture.componentRef.setInput('activated', 'non-matching-id');
+    fixture.detectChanges();
+    component.onToggleActivation(mockData[0]);
+    fixture.detectChanges();
+    expect(component.activatedRow()).toBeUndefined();
   });
 
   it('should keep no row activated when activating a falsy row', () => {
     fixture.componentRef.setInput('isActivatable', true);
-    component.activateRow(null);
-    expect(component.activated()).toBeNull();
+    component.onToggleActivation(null);
+    fixture.detectChanges();
+    expect(component.activatedRow()).toBeNull();
   });
 
-  it('should emit activation when activated signal changes', async () => {
+  it('should emit activation when activatedRow signal changes', async () => {
     const spy = vi.fn();
     component.activation.subscribe(spy);
 
-    component.activated.set(mockData[0]);
+    component.activatedRow.set(mockData[0]);
     await fixture.whenStable();
 
     expect(spy).toHaveBeenCalledWith(mockData[0]);
   });
 
-  it('should update activated signal from activatedRow input', async () => {
+  it('should update activatedRow signal from activatedRowId input', async () => {
     fixture.componentRef.setInput('isActivatable', true);
-    component.activateRow(mockData[0]);
+    component.onToggleActivation(mockData[0]);
 
-    fixture.componentRef.setInput('activatedRow', mockData[1]);
+    fixture.componentRef.setInput('activated', mockData[1].id);
     await fixture.whenStable();
 
-    expect(component.activated()).toBe(mockData[1]);
+    expect(component.activatedRow()).toBe(mockData[1]);
   });
 
-  it('should keep activated row when activatedRow input has the same id', async () => {
+  it('should keep activated row when activatedRowId input has the same id', async () => {
     fixture.componentRef.setInput('isActivatable', true);
-    component.activateRow(mockData[0]);
+    component.onToggleActivation(mockData[0]);
 
-    fixture.componentRef.setInput('activatedRow', mockData[0]);
+    fixture.componentRef.setInput('activated', mockData[0].id);
     await fixture.whenStable();
 
-    expect(component.activated()).toBe(mockData[0]);
+    expect(component.activatedRow()).toBe(mockData[0]);
   });
 
-  it('should ignore activatedRow input when nothing is activated', async () => {
+  it('should find row by activatedRowId input', async () => {
     fixture.componentRef.setInput('isActivatable', true);
-    fixture.componentRef.setInput('activatedRow', mockData[1]);
+    fixture.componentRef.setInput('activated', mockData[1].id);
     await fixture.whenStable();
 
-    expect(component.activated()).toBeNull();
+    expect(component.activatedRow()).toBe(mockData[1]);
   });
 
   describe('tool command buttons', () => {

@@ -24,6 +24,20 @@
     &.toolbar-end {
       margin-inline-start: auto;
       float: right;
+
+      > li {
+        display: flex;
+        align-items: center;
+
+        > .selected-button,
+        > .rows-button {
+          min-width: get-size-var(\6xl-7);
+        }
+
+        > .page-button {
+          min-width: get-size-var(\3xl-7);
+        }
+      }
     }
   }
 }

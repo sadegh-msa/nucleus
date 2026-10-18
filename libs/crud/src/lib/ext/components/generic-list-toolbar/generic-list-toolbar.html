@@ -1,42 +1,101 @@
 <nu-generic-toolbar [toolbar]="toolbar()" />
 
+@let label = paginatorLabel();
+
 <menu class="toolbar-end">
   @if (showPaginator()) {
+    @if(selectedRows()) {
+      <li>
+        <button uiRipple
+          class="ui button nu-tool medium stamp basic selected-button"
+          uiTooltip="Selected rows" i18n-uiTooltip
+        >
+          <span>{{ label.selected }}</span>
+        </button>
+      </li>
+    }
+    <li>
+      <button uiRipple
+        class="ui button nu-tool medium stamp basic rows-button"
+        uiTooltip="Rows / Total" i18n-uiTooltip
+        [uiPopover]="rowsPopover"
+        uiPopoverPlacement="block-end-inline-center"
+      >
+        <span>{{ label.rows }}</span>
+      </button>
+    </li>
     <li>
       <button uiRipple
         class="ui button nu-tool medium stamp basic"
-        [uiPopover]="paginatorPopup"
-        uiPopoverHasClose
-        uiPopoverPlacement="block-end-edge-start"
+        uiTooltip="First page" i18n-uiTooltip
+        (click)="goFirstPage()"
+        [disabled]="isBackButtonDisabled()"
       >
-        <span>{{ paginatorLabel() }}</span>
+        <svg uiSvgIcon="chevron-first" class="bidi"></svg>
+      </button>
+      <button uiRipple
+        class="ui button nu-tool medium stamp basic"
+        uiTooltip="Previous page" i18n-uiTooltip
+        (click)="goPreviousPage()"
+        [disabled]="isBackButtonDisabled()"
+      >
+        <svg uiSvgIcon="alt-arrow-left" class="bidi"></svg>
+      </button>
+
+      <button uiRipple
+        class="ui button nu-tool medium stamp basic page-button"
+        uiTooltip="Page / Pages" i18n-uiTooltip
+        [uiPopover]="pagePopover"
+        uiPopoverPlacement="block-end-inline-center"
+      >
+        <span>{{ label.page }}</span>
+      </button>
+
+      <button uiRipple
+        class="ui button nu-tool medium stamp basic"
+        uiTooltip="Next page" i18n-uiTooltip
+        (click)="goNextPage()"
+        [disabled]="isNextButtonDisabled()"
+      >
+        <svg uiSvgIcon="alt-arrow-right" class="bidi"></svg>
+      </button>
+      <button uiRipple
+        class="ui button nu-tool medium stamp basic"
+        uiTooltip="Last page" i18n-uiTooltip
+        (click)="goLastPage()"
+        [disabled]="isNextButtonDisabled()"
+      >
+        <svg uiSvgIcon="chevron-last" class="bidi"></svg>
       </button>
     </li>
   }
 </menu>
 
-<ng-template #paginatorPopup>
-  <div class="generic-list-toolbar-paginator-popover">
-    <p-paginator (onPageChange)="paginate($event)"
-      [first]="pagination().first"
-      [rows]="pagination().rows"
-      [showJumpToPageDropdown]="true"
-      [showPageLinks]="false"
-      [totalRecords]="pagination().total" />
-    <p-divider />
-    <div class="paginator-rows-per-page">
-      <span class="p-buttonset">
-        @for (option of rowsPerPageOptions(); track option) {
-          <button uiRipple
-            class="ui button medium basic"
-            [class.stamp]="option !== pagination().rows"
-            [class.primary]="option === pagination().rows"
-            (click)="paginate({rows: option, first: 0})"
-          >
-            <span>{{ option }}</span>
-          </button>
-        }
-      </span>
-    </div>
+<ng-template #pagePopover>
+  <div class="generic-list-toolbar-paginator-page">
+    <input class="ui input"
+      type="range"
+      step="1"
+      min="0"
+      [max]="pagination().pages - 1"
+      [value]="pagination().page"
+      (input)="goPage(+$event.target.value)"
+    />
   </div>
 </ng-template>
+
+<ng-template #rowsPopover>
+  <div class="generic-list-toolbar-paginator-rows">
+    @for (option of rowsPerPageOptions(); track option) {
+      <button uiRipple
+        class="ui button medium basic"
+        [class.stamp]="option !== pagination().rows"
+        [class.primary]="option === pagination().rows"
+        (click)="setRowsPerPage(option)"
+      >
+        <span>{{ option }}</span>
+      </button>
+    }
+  </div>
+</ng-template>
+

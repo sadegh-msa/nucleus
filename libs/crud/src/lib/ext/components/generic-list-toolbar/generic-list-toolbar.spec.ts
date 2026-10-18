@@ -55,21 +55,14 @@ describe('GenericListToolbar', () => {
 
   it('should create paginator label', () => {
     const label = component.paginatorLabel();
-    expect(label).toContain('Rows 1 - 10 of 50');
-    expect(label).toContain('Page 1 of 5');
+    expect(label.rows).toContain('1 - 10 / 50');
+    expect(label.page).toContain('1 / 5');
   });
 
-  it('should include selected count in label when selectedRecords > 0', () => {
-    fixture.componentRef.setInput('selectedRecords', 3);
+  it('should include selected count in label when selectedRows > 0', () => {
+    fixture.componentRef.setInput('selectedRows', 3);
     fixture.detectChanges();
     const label = component.paginatorLabel();
-    expect(label).toContain('3 Selected');
-  });
-
-  it('should paginate', () => {
-    component.paginate({ first: 10, page: 1, rows: 10 });
-    expect(component.pagination().first).toBe(10);
-    expect(component.pagination().page).toBe(1);
-    expect(component.pagination().rows).toBe(10);
+    expect(label.selected).toContain('3 selected');
   });
 });

@@ -25,7 +25,7 @@ export class GenericListBuilder<T extends GenericEntityModel> {
     consumer.pagination = signal(createPagination());
     consumer.data = signal<T['list']>([]);
     consumer.isBusy = signal(false);
-    consumer.selectedRecords = signal([]);
+    consumer.selectedRows = signal(new Set([]));
     consumer.changeSelection = this.#selectionChanged.bind(this);
 
     this.#consumer = consumer;
@@ -129,8 +129,8 @@ export class GenericListBuilder<T extends GenericEntityModel> {
   }
 
   #selectionChanged(selectedItems: T['list'] | T['list'][0]) {
-    this.#consumer.selectedRecords.set(
-      Array.isArray(selectedItems) ? [...selectedItems] : [selectedItems],
+    this.#consumer.selectedRows.set(
+      new Set(Array.isArray(selectedItems) ? [...selectedItems] : [selectedItems]),
     );
   }
 

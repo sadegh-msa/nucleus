@@ -4,14 +4,11 @@ import {
   provideBrowserGlobalErrorListeners,
   provideZonelessChangeDetection,
 } from '@angular/core';
-import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { provideRouter, withComponentInputBinding, withViewTransitions } from '@angular/router';
 import { provideAuth, provideAuthStore } from '@nucleus/auth';
 import { type NuCommonConfigModel, provideNuCommon } from '@nucleus/common';
 import { provideNuL10n } from '@nucleus/l10n';
 import { provideUi } from '@nucleus/ui';
-import Aura from '@primeng/themes/aura';
-import { providePrimeNG } from 'primeng/config';
 import { environment } from '../environments/environment';
 import { appRoutes } from './app.routes';
 
@@ -31,14 +28,5 @@ export const appConfig: ApplicationConfig = {
     provideUi(environment.ui),
     provideAuth({ ...environment.auth }),
     provideAuthStore(),
-    providePrimeNG({
-      theme: {
-        preset: Aura,
-        options: {
-          darkModeSelector: '.my-app-dark',
-        },
-      },
-    }),
-    provideAnimationsAsync(),
   ],
 };

@@ -1,11 +1,8 @@
 import { NgClass } from '@angular/common';
-import { Component, computed, DestroyRef, inject, input, output, signal } from '@angular/core';
-import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop';
+import { Component, computed, effect, input, output, signal, untracked } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { UiPopover, UiSvgIcon, UiTooltip } from '@nucleus/ui';
-import { SkeletonModule } from 'primeng/skeleton';
-import { TableModule } from 'primeng/table';
-import { filter } from 'rxjs';
+import { UiLoading, UiPopover, UiSvgIcon, UiTooltip } from '@nucleus/ui';
 import { infoFieldsDefault } from '../../../int/constants';
 import { AuthPermission } from '../../directives/auth-permission';
 import type { InfoFieldModel } from '../../models/info.model';
@@ -22,66 +19,114 @@ import { InfoFields } from '../info-fields/info-fields';
     InfoFields,
     NgClass,
     RouterModule,
-    SkeletonModule,
-    TableModule,
     UiSvgIcon,
     UiTooltip,
-    UiPopover
+    UiPopover,
+    FormsModule,
+    UiLoading,
   ],
   providers: [],
 })
 export class GenericList {
-  readonly #destroyRef = inject(DestroyRef);
-
+  readonly activatedRow = signal<any>(null);
+  readonly selectedRows = signal<Set<any>>(new Set());
   readonly altData = computed(() => [...Array(10).keys()]);
-  readonly activated = signal<any>(null);
 
   infoFields = input<InfoFieldModel[][]>(infoFieldsDefault);
   idField = input<string>('id');
-  selectionMode = input<'single' | 'multiple' | null>(null);
-  isActivatable = input(false);
   table = input<TableModel>({ columns: [], tools: [] });
   showLoading = input(false);
   firstRow = input(0);
-  activatedRow = input<any>();
   data = input.required<any[]>();
+  isActivatable = input(false);
+  activatedRowId = input<string | null>(null, { alias: 'activated' });
+  selectionMode = input<'single' | 'multiple' | null>(null);
+  selectedRowIds = input<string[]>([], { alias: 'selected' });
 
-  selection = output<any[]>();
   activation = output<any>();
+  selection = output<Set<any>>();
 
   constructor() {
-    toObservable(this.activated)
-      .pipe(takeUntilDestroyed(this.#destroyRef))
-      .subscribe((row) => this.activation.emit(row));
+    effect(() => {
+      this.data();
+      this.idField();
 
-    toObservable(this.activatedRow)
-      .pipe(
-        takeUntilDestroyed(this.#destroyRef),
-        filter((row) => {
-          const activated = this.activated();
+      untracked(() => {
+        this.selectedRows.set(new Set());
+        this.activatedRow.set(null);
+      });
+    });
 
-          if (!row || !activated) {
-            return false;
-          }
+    effect(() => {
+      const activated = this.activatedRow();
+      untracked(() => this.activation.emit(activated));
+    });
 
-          return row[this.idField()] !== activated[this.idField()];
-        }),
-      )
-      .subscribe((row) => this.activated.set(row));
+    effect(() => {
+      const activatedRowId = this.activatedRowId();
+      const data = this.data();
+      const idField = this.idField();
+
+      untracked(() => {
+        const row = data.find((r) => r[idField] === activatedRowId);
+        this.activatedRow.set(row);
+      });
+    });
+
+    effect(() => {
+      const selectedRows = this.selectedRows();
+      untracked(() => this.selection.emit(selectedRows));
+    });
+
+    effect(() => {
+      const selectedRowIds = this.selectedRowIds();
+      const data = this.data();
+      const idField = this.idField();
+
+      untracked(() => {
+        const rows = data.filter((r) => selectedRowIds?.includes(r[idField]));
+        this.selectedRows.set(new Set(rows));
+      });
+    });
   }
 
-  changeSelection(selectedRows: any[]) {
-    this.selection.emit(selectedRows);
-  }
-
-  activateRow(row: any) {
+  onToggleActivation(row: any) {
     if (!this.isActivatable()) {
       return;
     }
 
-    const activated =
-      (this.activated() ?? {})[this.idField()] !== (row ?? {})[this.idField()] ? row : null;
+    const rowId = (row ?? {})[this.idField()];
+    const activatedRowId = (this.activatedRow() ?? {})[this.idField()];
 
-    this.activated.set(activated);
+    this.activatedRow.set(activatedRowId !== rowId ? row : null);
+  }
+
+  onToggleSelection(row: any) {
+    const selectedRows = this.selectedRows();
+    const selectionMode = this.selectionMode();
+
+    if (selectedRows.has(row)) {
+      selectedRows.delete(row);
+    } else {
+      if (selectionMode === 'single') {
+        selectedRows.clear();
+      }
+
+      selectedRows.add(row);
+    }
+
+    this.selectedRows.set(new Set(selectedRows.values()));
+  }
+
+  onToggleSelectAll() {
+    if (this.selectionMode() !== 'multiple') {
+      return;
+    }
+
+    const data = this.data();
+    const selectedRows = this.selectedRows();
+    const newSelectedRows = selectedRows.size !== data.length ? data : [];
+
+    this.selectedRows.set(new Set(newSelectedRows));
   }
 }

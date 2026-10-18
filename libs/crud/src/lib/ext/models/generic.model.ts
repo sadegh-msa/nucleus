@@ -86,7 +86,7 @@ export interface GenericListConsumerModel<T extends GenericEntityModel> {
   isBusy: WritableSignal<boolean>;
   isEmbedded: InputSignal<boolean>;
   pagination: WritableSignal<PaginationModel>;
-  selectedRecords: WritableSignal<T['list']>;
+  selectedRows: WritableSignal<Set<T['list'][0]>>;
   store: T['store'];
   table: TableModel;
   toolbar: ToolbarModel;
