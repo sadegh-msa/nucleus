@@ -12,37 +12,48 @@
           [uiPopoverData]="{tool}"
           [uiPopoverDisabled]="!tool.confirm"
           uiPopoverPlacement="block-end-inline-end"
-          *permission="tool.permission">
-          @if (tool.icon) {
+          *permission="tool.permission"
+        >
+
+          @let showLoading =!!(tool.showLoading && tool.showLoading());
+
+          @if (!showLoading && tool.icon) {
             <svg [uiSvgIcon]="tool.icon"
               [variant]="tool.iconVariant"
               [ngClass]="tool.iconNgClass ?? []"
             />
+          } @else if (showLoading) {
+            <svg
+              uiSvgIcon="spinner"
+              variant="animation"
+              [ngClass]="tool.iconNgClass ?? []"
+            />
           }
+
           @if (tool.label) {
             <span>{{ tool.label }}</span>
           }
-          <!--[showLoading]="!!(tool.showLoading && tool.showLoading())"-->
         </button>
       } @else if (tool.element === 'link') {
         <a uiRipple
           [ngClass]="tool.ngClass ?? []"
+          [class.disabled]="!!(tool.disabled && tool.disabled())"
           [uiTooltip]="tool.tooltip" uiTooltipPlacement="block-end-inline-center"
           [routerLink]="tool.command()"
           [state]="tool.routerStates ? tool.routerStates() : {}"
           [queryParams]="tool.routerQueryParams ? tool.routerQueryParams(): {}"
-          *permission="tool.permission">
+          *permission="tool.permission"
+        >
           @if (tool.icon) {
             <svg [uiSvgIcon]="tool.icon"
               [variant]="tool.iconVariant"
               [ngClass]="tool.iconNgClass ?? []"
             />
           }
+
           @if (tool.label) {
             <span>{{ tool.label }}</span>
           }
-          <!--[showLoading]="!!(tool.showLoading && tool.showLoading())"-->
-          <!--[disabled]="!!(tool.disabled && tool.disabled())"-->
         </a>
       }
     </li>
