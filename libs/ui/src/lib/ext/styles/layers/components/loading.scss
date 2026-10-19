@@ -15,8 +15,8 @@
     .ui {
       &.loading {
         @include z-index(loading, 1);
-        @include transition.normal(filter);
-        backdrop-filter: blur(get-size-var(xs-2)) grayscale(get-titled-size(full)) brightness(95%);
+        @include transition.normal(backdrop-filter);
+        backdrop-filter: blur(get-size-var(xs-1)) grayscale(get-titled-size(full)) brightness(95%);
         pointer-events: all;
         position: relative;
         display: flex;

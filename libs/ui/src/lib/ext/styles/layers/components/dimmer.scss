@@ -5,6 +5,6 @@
   .ui.dimmer {
     @include transition.normal(filter);
     pointer-events: none;
-    filter: blur(get-size-var(xs-2)) grayscale(get-titled-size(full)) brightness(95%);
+    filter: blur(get-size-var(xs-1)) grayscale(get-titled-size(full)) brightness(95%);
   }
 }
