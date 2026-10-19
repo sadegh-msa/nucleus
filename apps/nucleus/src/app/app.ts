@@ -56,10 +56,6 @@ export class App {
   readonly showLoading = computed(() => this.#authStore.signOutStatus() === 'inProgress');
 
   constructor() {
-    this.#handleEvents();
-  }
-
-  #handleEvents() {
     effect(() => {
       const dir = this.htmlDir();
 

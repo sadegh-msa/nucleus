@@ -16,10 +16,7 @@ export class PanelBreadcrumb {
 
   constructor() {
     this.#update(location.pathname);
-    this.#handleEvents();
-  }
 
-  #handleEvents() {
     if (!proxiedFns.has(window.history.replaceState)) {
       const original = window.history.replaceState;
       const proxied = new Proxy(original, {

@@ -26,11 +26,6 @@ export class AuthToken {
   readonly isAuthenticated = computed(async () => !!(await this.getAccessToken()));
 
   constructor() {
-    this.#handleEvents();
-    this.#settleAccessTokenDeadlineExtender();
-  }
-
-  #handleEvents() {
     this.#router.events
       .pipe(
         filter((v) => v instanceof NavigationCancel),
@@ -95,6 +90,15 @@ export class AuthToken {
     });
 
     effect(() => this.#checkToken());
+
+    fromEvent(document, 'click')
+      .pipe(
+        skipWhile(() => !this.isAuthenticated()),
+        debounceTime(tokenConfig.deadlineExtenderTime),
+      )
+      .subscribe(async () => {
+        await this.setAccessToken((await this.getAccessToken()) ?? null);
+      });
   }
 
   async #handleSignInSuccess(accessToken: string | null) {
@@ -141,17 +145,6 @@ export class AuthToken {
       .navigate(path)
       .then()
       .catch(() => this.#router.navigate(['/']).then());
-  }
-
-  #settleAccessTokenDeadlineExtender() {
-    fromEvent(document, 'click')
-      .pipe(
-        skipWhile(() => !this.isAuthenticated()),
-        debounceTime(tokenConfig.deadlineExtenderTime),
-      )
-      .subscribe(async () => {
-        await this.setAccessToken((await this.getAccessToken()) ?? null);
-      });
   }
 
   #reloadAccessToken() {
