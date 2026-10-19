@@ -17,15 +17,10 @@
 
           @let showLoading =!!(tool.showLoading && tool.showLoading());
 
-          @if (!showLoading && tool.icon) {
-            <svg [uiSvgIcon]="tool.icon"
-              [variant]="tool.iconVariant"
-              [ngClass]="tool.iconNgClass ?? []"
-            />
-          } @else if (showLoading) {
+          @if (tool.icon) {
             <svg
-              uiSvgIcon="spinner"
-              variant="animation"
+              [uiSvgIcon]="showLoading ? 'spinner' : tool.icon"
+              [variant]="showLoading ? 'animation' : tool.iconVariant"
               [ngClass]="tool.iconNgClass ?? []"
             />
           }

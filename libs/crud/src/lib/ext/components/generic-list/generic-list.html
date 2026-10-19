@@ -113,17 +113,11 @@
                 >
                   @let showToolLoading =!!(tool.showLoading && tool.showLoading() === rowId);
 
-                  @if (!showToolLoading && tool.icon) {
+                  @if (tool.icon) {
                     <svg
-                      [uiSvgIcon]="tool.icon"
-                      [variant]="tool.iconVariant"
-                      [ngClass]="tool.iconNgClass"
-                    />
-                  } @else if (showToolLoading) {
-                    <svg
-                      uiSvgIcon="spinner"
-                      variant="animation"
-                      [ngClass]="tool.iconNgClass"
+                      [uiSvgIcon]="showToolLoading ? 'spinner' : tool.icon"
+                      [variant]="showToolLoading ? 'animation' : tool.iconVariant"
+                      [ngClass]="tool.iconNgClass ?? []"
                     />
                   }
                   @if (tool.label) {
@@ -144,7 +138,7 @@
                   @if (tool.icon) {
                     <svg [uiSvgIcon]="tool.icon"
                       [variant]="tool.iconVariant"
-                      [ngClass]="tool.iconNgClass"
+                      [ngClass]="tool.iconNgClass ?? []"
                     />
                   }
                   @if (tool.label) {
