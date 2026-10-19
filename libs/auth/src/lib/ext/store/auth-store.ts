@@ -1,6 +1,8 @@
 import { computed, InjectionToken, inject, type Provider } from '@angular/core';
 import { patchState, signalStore, withComputed, withMethods, withState } from '@ngrx/signals';
+import { injectNuCommonConfig } from '@nucleus/common';
 import { UiMessageManager } from '@nucleus/ui';
+import { retry } from 'rxjs';
 import { AuthRest } from '../../int/services';
 import type {
   AuthSignInModel,
@@ -49,63 +51,73 @@ const AuthSignalStore = signalStore(
   withMethods((state) => {
     const authRestService = inject(AuthRest);
     const uiMessageManager = inject(UiMessageManager);
+    const retryConfig = injectNuCommonConfig().api.rest.retry;
 
     return {
       doSignIn(request: AuthSignInModel) {
         patchState(state, { signIn: { ...state.signIn(), request, status: 'inProgress' } });
-        authRestService.signIn(request).subscribe({
-          next: (response) => {
-            patchState(state, {
-              signIn: {
-                ...state.signIn(),
-                response,
-                message: $localize`You signed in successfully`,
-                status: 'success',
-              },
-            });
-          },
-          error: ({ error }: { error: any }) => {
-            const message = formatErrorMessage(error);
-            uiMessageManager.addError(message);
-            patchState(state, { signIn: { ...state.signIn(), message, status: 'failure' } });
-          },
-        });
+        authRestService
+          .signIn(request)
+          .pipe(retry(retryConfig))
+          .subscribe({
+            next: (response) => {
+              patchState(state, {
+                signIn: {
+                  ...state.signIn(),
+                  response,
+                  message: $localize`You signed in successfully`,
+                  status: 'success',
+                },
+              });
+            },
+            error: ({ error }: { error: any }) => {
+              const message = formatErrorMessage(error);
+              uiMessageManager.addError(message);
+              patchState(state, { signIn: { ...state.signIn(), message, status: 'failure' } });
+            },
+          });
       },
 
       doSignUp(request: AuthSignUpModel) {
         patchState(state, { signUp: { ...state.signUp(), request, status: 'inProgress' } });
-        authRestService.signUp(request).subscribe({
-          next: (response) => {
-            const message = $localize`You signed up successfully`;
-            uiMessageManager.addSuccess(message);
-            patchState(state, {
-              signUp: { ...state.signUp(), response, message, status: 'success' },
-            });
-          },
-          error: ({ error }: { error: any }) => {
-            const message = formatErrorMessage(error);
-            uiMessageManager.addError(message);
-            patchState(state, { signUp: { ...state.signUp(), message, status: 'failure' } });
-          },
-        });
+        authRestService
+          .signUp(request)
+          .pipe(retry(retryConfig))
+          .subscribe({
+            next: (response) => {
+              const message = $localize`You signed up successfully`;
+              uiMessageManager.addSuccess(message);
+              patchState(state, {
+                signUp: { ...state.signUp(), response, message, status: 'success' },
+              });
+            },
+            error: ({ error }: { error: any }) => {
+              const message = formatErrorMessage(error);
+              uiMessageManager.addError(message);
+              patchState(state, { signUp: { ...state.signUp(), message, status: 'failure' } });
+            },
+          });
       },
 
       doSignOut() {
         patchState(state, { signOut: { ...state.signOut(), status: 'inProgress' } });
-        authRestService.signOut().subscribe({
-          next: () => {
-            const message = $localize`You signed out successfully`;
-            patchState(state, {
-              ...initialAuthState,
-              signOut: { ...initialAuthState.signOut, message, status: 'success' },
-            });
-          },
-          error: ({ error }: { error: any }) => {
-            const message = formatErrorMessage(error);
-            uiMessageManager.addError(message);
-            patchState(state, { signOut: { ...state.signOut(), message, status: 'failure' } });
-          },
-        });
+        authRestService
+          .signOut()
+          .pipe(retry(retryConfig))
+          .subscribe({
+            next: () => {
+              const message = $localize`You signed out successfully`;
+              patchState(state, {
+                ...initialAuthState,
+                signOut: { ...initialAuthState.signOut, message, status: 'success' },
+              });
+            },
+            error: ({ error }: { error: any }) => {
+              const message = formatErrorMessage(error);
+              uiMessageManager.addError(message);
+              patchState(state, { signOut: { ...state.signOut(), message, status: 'failure' } });
+            },
+          });
       },
 
       doCheckSuccess() {

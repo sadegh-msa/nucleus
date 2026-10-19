@@ -6,6 +6,11 @@ export const environment = {
       url: 'http://mockoon.localhost:3000/api',
       path: 'api/v1',
       time: '',
+      retry: {
+        count: 3,
+        delay: 2000,
+        resetOnSuccess: true,
+      },
     },
   },
   auth: {

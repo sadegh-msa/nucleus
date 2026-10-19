@@ -6,6 +6,11 @@ export interface NuCommonConfigModel {
       url: string;
       path: string;
       time: string;
+      retry: {
+        count: number;
+        delay: number;
+        resetOnSuccess: boolean;
+      },
     };
   };
   branding: NuBrandingConfigModel;

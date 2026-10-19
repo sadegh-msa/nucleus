@@ -1,6 +1,8 @@
 import { computed, inject } from '@angular/core';
 import { patchState, signalStore, withComputed, withMethods, withState } from '@ngrx/signals';
+import { injectNuCommonConfig } from '@nucleus/common';
 import { UiMessageManager } from '@nucleus/ui';
+import { retry } from 'rxjs';
 import { formatErrorMessage } from '../helpers/format-messages-helper';
 import type {
   AddStateModel,
@@ -99,6 +101,7 @@ export function createCrudSignalStore<Query, Request, Response>(
 
     withMethods((store) => {
       const uiMessageManager = inject(UiMessageManager);
+      const retryConfig = injectNuCommonConfig().api.rest.retry;
       const rest = restFactory();
 
       return {
@@ -106,20 +109,23 @@ export function createCrudSignalStore<Query, Request, Response>(
           patchState(store, {
             list: { ...store.list(), query, tool, status: 'inProgress' },
           });
-          rest.list(query).subscribe({
-            next: (response) => {
-              patchState(store, {
-                list: { ...store.list(), response, tool, status: 'success' },
-              });
-            },
-            error: ({ error }: { error: any }) => {
-              const message = formatErrorMessage(error);
-              uiMessageManager.addError(message);
-              patchState(store, {
-                list: { ...store.list(), message, tool, status: 'failure' },
-              });
-            },
-          });
+          rest
+            .list(query)
+            .pipe(retry(retryConfig))
+            .subscribe({
+              next: (response) => {
+                patchState(store, {
+                  list: { ...store.list(), response, tool, status: 'success' },
+                });
+              },
+              error: ({ error }: { error: any }) => {
+                const message = formatErrorMessage(error);
+                uiMessageManager.addError(message);
+                patchState(store, {
+                  list: { ...store.list(), message, tool, status: 'failure' },
+                });
+              },
+            });
         },
 
         loadGet(query: string, tool?: ToolModel) {
@@ -135,42 +141,48 @@ export function createCrudSignalStore<Query, Request, Response>(
           patchState(store, {
             get: { ...store.get(), query, tool, status: 'inProgress' },
           });
-          rest.get(query).subscribe({
-            next: (response) => {
-              patchState(store, {
-                get: { ...store.get(), response, tool, status: 'success' },
-              });
-            },
-            error: ({ error }: { error: any }) => {
-              const message = formatErrorMessage(error);
-              uiMessageManager.addError(message);
-              patchState(store, {
-                get: { ...store.get(), message, tool, status: 'failure' },
-              });
-            },
-          });
+          rest
+            .get(query)
+            .pipe(retry(retryConfig))
+            .subscribe({
+              next: (response) => {
+                patchState(store, {
+                  get: { ...store.get(), response, tool, status: 'success' },
+                });
+              },
+              error: ({ error }: { error: any }) => {
+                const message = formatErrorMessage(error);
+                uiMessageManager.addError(message);
+                patchState(store, {
+                  get: { ...store.get(), message, tool, status: 'failure' },
+                });
+              },
+            });
         },
 
         loadAdd(request: Request, tool?: ToolModel) {
           patchState(store, {
             add: { ...store.add(), request, tool, status: 'inProgress' },
           });
-          rest.add(request).subscribe({
-            next: (response) => {
-              const message = $localize`${config.title} added successfully`;
-              uiMessageManager.addSuccess(message);
-              patchState(store, {
-                add: { ...store.add(), response, message, tool, status: 'success' },
-              });
-            },
-            error: ({ error }: { error: any }) => {
-              const message = formatErrorMessage(error);
-              uiMessageManager.addError(message);
-              patchState(store, {
-                add: { ...store.add(), message, tool, status: 'failure' },
-              });
-            },
-          });
+          rest
+            .add(request)
+            .pipe(retry(retryConfig))
+            .subscribe({
+              next: (response) => {
+                const message = $localize`${config.title} added successfully`;
+                uiMessageManager.addSuccess(message);
+                patchState(store, {
+                  add: { ...store.add(), response, message, tool, status: 'success' },
+                });
+              },
+              error: ({ error }: { error: any }) => {
+                const message = formatErrorMessage(error);
+                uiMessageManager.addError(message);
+                patchState(store, {
+                  add: { ...store.add(), message, tool, status: 'failure' },
+                });
+              },
+            });
         },
 
         loadUpdate(query: string, request: Request, tool?: ToolModel) {
@@ -186,28 +198,31 @@ export function createCrudSignalStore<Query, Request, Response>(
           patchState(store, {
             update: { ...store.update(), query, request, tool, status: 'inProgress' },
           });
-          rest.update(query, request).subscribe({
-            next: (response) => {
-              const message = $localize`${config.title} updated successfully`;
-              uiMessageManager.addSuccess(message);
-              patchState(store, {
-                update: {
-                  ...store.update(),
-                  response,
-                  message,
-                  tool,
-                  status: 'success',
-                },
-              });
-            },
-            error: ({ error }: { error: any }) => {
-              const message = formatErrorMessage(error);
-              uiMessageManager.addError(message);
-              patchState(store, {
-                update: { ...store.update(), message, tool, status: 'failure' },
-              });
-            },
-          });
+          rest
+            .update(query, request)
+            .pipe(retry(retryConfig))
+            .subscribe({
+              next: (response) => {
+                const message = $localize`${config.title} updated successfully`;
+                uiMessageManager.addSuccess(message);
+                patchState(store, {
+                  update: {
+                    ...store.update(),
+                    response,
+                    message,
+                    tool,
+                    status: 'success',
+                  },
+                });
+              },
+              error: ({ error }: { error: any }) => {
+                const message = formatErrorMessage(error);
+                uiMessageManager.addError(message);
+                patchState(store, {
+                  update: { ...store.update(), message, tool, status: 'failure' },
+                });
+              },
+            });
         },
 
         loadDelete(query: string, tool?: ToolModel) {
@@ -223,28 +238,31 @@ export function createCrudSignalStore<Query, Request, Response>(
           patchState(store, {
             delete: { ...store.delete(), query, tool, status: 'inProgress' },
           });
-          rest.delete(query).subscribe({
-            next: (response) => {
-              const message = $localize`${config.title} deleted successfully`;
-              uiMessageManager.addSuccess(message);
-              patchState(store, {
-                delete: {
-                  ...store.delete(),
-                  response,
-                  message,
-                  tool,
-                  status: 'success',
-                },
-              });
-            },
-            error: ({ error }: { error: any }) => {
-              const message = formatErrorMessage(error);
-              uiMessageManager.addError(message);
-              patchState(store, {
-                delete: { ...store.delete(), message, tool, status: 'failure' },
-              });
-            },
-          });
+          rest
+            .delete(query)
+            .pipe(retry(retryConfig))
+            .subscribe({
+              next: (response) => {
+                const message = $localize`${config.title} deleted successfully`;
+                uiMessageManager.addSuccess(message);
+                patchState(store, {
+                  delete: {
+                    ...store.delete(),
+                    response,
+                    message,
+                    tool,
+                    status: 'success',
+                  },
+                });
+              },
+              error: ({ error }: { error: any }) => {
+                const message = formatErrorMessage(error);
+                uiMessageManager.addError(message);
+                patchState(store, {
+                  delete: { ...store.delete(), message, tool, status: 'failure' },
+                });
+              },
+            });
         },
 
         mutateGet(response: Response) {
