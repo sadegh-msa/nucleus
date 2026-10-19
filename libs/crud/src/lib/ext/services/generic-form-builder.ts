@@ -207,7 +207,7 @@ export class GenericFormBuilder<T extends GenericEntityModel> {
   }
 
   createToolbar(attachEventHandler: boolean) {
-    const { pageType, config, id, data } = this.#consumer;
+    const { pageType, config, id, data, isBusy } = this.#consumer;
     const viewExtra = {
       id: computed(() => id()),
       routerStates: computed(() => {
@@ -238,6 +238,10 @@ export class GenericFormBuilder<T extends GenericEntityModel> {
       toolbar?.events$
         ?.pipe(takeUntilDestroyed(this.#destroyRef)) //
         .subscribe(({ tool }) => {
+          if (isBusy()) {
+            return;
+          }
+
           switch (tool.type) {
             case 'save':
               this.save(tool);
@@ -297,7 +301,7 @@ export class GenericFormBuilder<T extends GenericEntityModel> {
   }
 
   save(tool?: ToolModel) {
-    const { form, pageType } = this.#consumer;
+    const { form, pageType, isBusy } = this.#consumer;
 
     form().markAsTouched();
 

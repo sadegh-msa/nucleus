@@ -68,7 +68,7 @@ export class GenericListBuilder<T extends GenericEntityModel> {
   }
 
   #handleConsumerEvents() {
-    const { table, pagination } = this.#consumer;
+    const { table, pagination, isBusy } = this.#consumer;
 
     toObservable(pagination, { injector: this.#injector })
       .pipe(
@@ -81,6 +81,10 @@ export class GenericListBuilder<T extends GenericEntityModel> {
     table.events$
       ?.pipe(takeUntilDestroyed(this.#destroyRef)) //
       .subscribe(({ tool, payload }) => {
+        if (isBusy()) {
+          return;
+        }
+
         if (tool.type === 'delete') {
           this.delete(tool, payload as string);
         }
@@ -149,16 +153,23 @@ export class GenericListBuilder<T extends GenericEntityModel> {
   }
 
   createToolbar(attachEventHandler: boolean) {
-    const toolbar = createListToolbar<T>(this.#consumer.config, {
+    const { config, isBusy } = this.#consumer;
+    const toolbar = createListToolbar<T>(config, {
       refresh: { showLoading: signal(false) },
     });
 
     if (attachEventHandler) {
-      toolbar.events$?.pipe(takeUntilDestroyed(this.#destroyRef)).subscribe(({ tool }) => {
-        if (tool.type === 'refresh') {
-          this.loadData(tool);
-        }
-      });
+      toolbar.events$ //
+        ?.pipe(takeUntilDestroyed(this.#destroyRef)) //
+        .subscribe(({ tool }) => {
+          if (isBusy()) {
+            return;
+          }
+
+          if (tool.type === 'refresh') {
+            this.loadData(tool);
+          }
+        });
     }
 
     return toolbar;
