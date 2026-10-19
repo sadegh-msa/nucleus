@@ -97,6 +97,17 @@ export class UiLoading implements OnInit, OnDestroy {
     return this.targetElement.getBoundingClientRect() as UiElementRectModel;
   }
 
+  getTargetElementRadius() {
+    const computedStyle = window.getComputedStyle(this.targetElement);
+
+    return {
+      startStart: computedStyle.getPropertyValue('border-start-start-radius'),
+      startEnd: computedStyle.getPropertyValue('border-start-end-radius'),
+      endStart: computedStyle.getPropertyValue('border-end-start-radius'),
+      endEnd: computedStyle.getPropertyValue('border-end-end-radius'),
+    };
+  }
+
   appendLoadingElement() {
     const container = this.getContainerElement();
     const element = this.#renderer.createElement('div');
@@ -106,6 +117,7 @@ export class UiLoading implements OnInit, OnDestroy {
     this.#renderer.appendChild(container, element);
     this.#loadingElement = element;
     this.updateLoadingElementPosition();
+    this.updateLoadingElementRadius();
   }
 
   removeLoadingElement() {
@@ -127,6 +139,18 @@ export class UiLoading implements OnInit, OnDestroy {
       element.style.top = `${top}px`;
       element.style.width = `${width}px`;
       element.style.height = `${height}px`;
+    }
+  }
+
+  updateLoadingElementRadius() {
+    const { startStart, startEnd, endStart, endEnd } = this.getTargetElementRadius();
+    const element = this.#loadingElement;
+
+    if (element) {
+      element.style.borderStartStartRadius = startStart;
+      element.style.borderStartEndRadius = startEnd;
+      element.style.borderEndStartRadius = endStart;
+      element.style.borderEndEndRadius = endEnd;
     }
   }
 }
