@@ -1,11 +1,11 @@
-<article class="ui page page-form" [uiLoading]="isBusy()">
+<article class="ui page page-form">
   <nu-generic-form-toolbar
     [toolbar]="toolbar"
     [data]="data()"
     class="page-toolbar"
   />
 
-  <article class="page-content">
+  <article class="page-content" [uiLoading]="isBusy()">
     <form
       [id]="formId"
       class="ui form compact"
