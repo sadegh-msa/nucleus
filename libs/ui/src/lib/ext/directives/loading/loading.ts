@@ -15,6 +15,7 @@ import { uiHtmlId, uiStyleClass } from '../../../int/constants';
 import { VisualObserver } from '../../helpers';
 import type { UiElementRectModel } from '../../models';
 
+const mainStyleClass = uiStyleClass.main;
 const loadingStyleClass = uiStyleClass.loading;
 
 @Directive({
@@ -30,6 +31,10 @@ export class UiLoading implements OnInit, OnDestroy {
 
   #loadingElement: HTMLElement | null = null;
   #targetVisualObserver: VisualObserver | null = null;
+
+  get mainElement() {
+    return this.#document.getElementsByTagName('main')[0]!;
+  }
 
   get targetElement() {
     return this.#elementRef.nativeElement;
@@ -50,6 +55,8 @@ export class UiLoading implements OnInit, OnDestroy {
       const showLoading = this.showLoading();
 
       untracked(() => {
+        this.updateMainElementStyle({ freeze: showLoading });
+
         if (showLoading) {
           this.appendLoadingElement();
         } else {
@@ -65,7 +72,7 @@ export class UiLoading implements OnInit, OnDestroy {
       clearTimeout(setTimeoutHandler);
 
       setTimeoutHandler = setTimeout(() => {
-        this.updateLoadingElementPosition();
+        this.updateLoadingElementRect();
       }, 100);
     });
 
@@ -93,6 +100,18 @@ export class UiLoading implements OnInit, OnDestroy {
     return container;
   }
 
+  updateMainElementStyle({ freeze }: { freeze: boolean }) {
+    if (freeze) {
+      this.mainElement.classList.add(mainStyleClass.freeze);
+    } else {
+      this.mainElement.classList.remove(mainStyleClass.freeze);
+    }
+  }
+
+  getMainElementRect() {
+    return this.mainElement.getBoundingClientRect() as UiElementRectModel;
+  }
+
   getTargetElementRect() {
     return this.targetElement.getBoundingClientRect() as UiElementRectModel;
   }
@@ -116,7 +135,7 @@ export class UiLoading implements OnInit, OnDestroy {
 
     this.#renderer.appendChild(container, element);
     this.#loadingElement = element;
-    this.updateLoadingElementPosition();
+    this.updateLoadingElementRect();
     this.updateLoadingElementRadius();
   }
 
@@ -130,7 +149,8 @@ export class UiLoading implements OnInit, OnDestroy {
     this.#loadingElement = null;
   }
 
-  updateLoadingElementPosition() {
+  updateLoadingElementRect() {
+    const mainRect = this.getMainElementRect();
     const { left, top, width, height } = this.getTargetElementRect();
     const element = this.#loadingElement;
 
@@ -139,6 +159,8 @@ export class UiLoading implements OnInit, OnDestroy {
       element.style.top = `${top}px`;
       element.style.width = `${width}px`;
       element.style.height = `${height}px`;
+      element.style.maxWidth = `${mainRect.width + mainRect.left - left}px`;
+      element.style.maxHeight = `${mainRect.height + mainRect.top - top}px`;
     }
   }
 
