@@ -104,6 +104,7 @@ body {
 
       > :last-child {
         height: get-titled-size(full);
+        border-radius: inherit;
       }
     }
   }

@@ -5,6 +5,7 @@
   flex-direction: column;
   min-height: get-titled-size(full);
   min-width: get-titled-size(min);
+  border-radius: inherit;
 
   &:has(> .page-master, > .page-detail) {
     height: get-titled-size(full);
@@ -30,7 +31,9 @@
     .page-content {
       display: flex;
       flex-direction: column;
-      flex-grow: 0.5;
+      flex-grow: 1;
+      border-end-start-radius: inherit;
+      border-end-end-radius: inherit;
     }
   }
 
