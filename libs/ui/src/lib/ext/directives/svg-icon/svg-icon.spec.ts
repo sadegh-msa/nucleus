@@ -43,7 +43,7 @@ const mockSvg =
 describe('UiSvgIcon', () => {
   let fixture: ComponentFixture<TestHostComponent>;
   let svgEl: SVGElement;
-  let svgIconLoader: UiSvgIconLoader;
+  let _svgIconLoader: UiSvgIconLoader;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -54,7 +54,7 @@ describe('UiSvgIcon', () => {
     fixture = TestBed.createComponent(TestHostComponent);
     fixture.detectChanges();
     svgEl = fixture.nativeElement.querySelector('svg');
-    svgIconLoader = TestBed.inject(UiSvgIconLoader);
+    _svgIconLoader = TestBed.inject(UiSvgIconLoader);
   });
 
   it('should create', () => {
@@ -130,7 +130,7 @@ describe('UiSvgIcon with generateId', () => {
 describe('UiSvgIcon icon loading', () => {
   let fixture: ComponentFixture<TestHostComponent>;
   let svgEl: SVGElement;
-  let svgIconLoader: UiSvgIconLoader;
+  let _svgIconLoader: UiSvgIconLoader;
   let loadIconSpy: ReturnType<typeof vi.fn>;
 
   beforeEach(async () => {
@@ -149,7 +149,7 @@ describe('UiSvgIcon icon loading', () => {
     fixture = TestBed.createComponent(TestHostComponent);
     fixture.detectChanges();
     svgEl = fixture.nativeElement.querySelector('svg');
-    svgIconLoader = TestBed.inject(UiSvgIconLoader);
+    _svgIconLoader = TestBed.inject(UiSvgIconLoader);
   });
 
   it('should load icon when in viewport', async () => {

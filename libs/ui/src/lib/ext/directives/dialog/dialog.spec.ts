@@ -1,11 +1,11 @@
 import { Component, signal } from '@angular/core';
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { type ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { UiDialog } from './dialog';
 
 @Component({
   template: `
-    <dialog #dialogRef uiDialog [uiDialog]="isVisible()" [uiDialogStyleClass]="styleClass()"></dialog>
+    <dialog #dialogRef [uiDialog]="isVisible()" [uiDialogStyleClass]="styleClass()"></dialog>
     <button (click)="toggle()">Toggle</button>
   `,
   imports: [UiDialog],

@@ -301,7 +301,7 @@ export class GenericFormBuilder<T extends GenericEntityModel> {
   }
 
   save(tool?: ToolModel) {
-    const { form, pageType, isBusy } = this.#consumer;
+    const { form, pageType } = this.#consumer;
 
     form().markAsTouched();
 

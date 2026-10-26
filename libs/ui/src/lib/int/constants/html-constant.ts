@@ -39,7 +39,7 @@ export const uiStyleClass = Object.freeze({
     basic: 'ui loading',
   },
   main: {
-    freeze: 'freeze'
+    freeze: 'freeze',
   },
   menu: {
     basic: 'ui menu',

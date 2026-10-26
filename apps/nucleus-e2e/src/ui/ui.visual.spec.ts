@@ -118,7 +118,9 @@ test.describe('UI Visual Regression', () => {
       await expect(page.locator('article.ui.card').first()).toBeVisible();
       await page.waitForLoadState('networkidle');
 
-      await expect(page.locator('article.ui.card').first()).toHaveScreenshot('headings-section.png');
+      await expect(page.locator('article.ui.card').first()).toHaveScreenshot(
+        'headings-section.png',
+      );
     });
 
     test('should match colors table screenshot', async ({ authenticatedPage: page }) => {

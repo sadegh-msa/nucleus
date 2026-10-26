@@ -164,9 +164,9 @@ describe('GenericList', () => {
       fixture.detectChanges();
 
       const row = fixture.debugElement.query((el) => el.nativeElement.tagName === 'TBODY');
-      return row.query((el) => el.nativeElement.tagName === 'TR').query(
-        (el) => el.nativeElement.tagName === 'BUTTON',
-      );
+      return row
+        .query((el) => el.nativeElement.tagName === 'TR')
+        .query((el) => el.nativeElement.tagName === 'BUTTON');
     };
 
     it('should run command with row on click when tool has no confirm', () => {

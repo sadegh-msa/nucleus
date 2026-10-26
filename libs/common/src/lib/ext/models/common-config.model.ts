@@ -10,7 +10,7 @@ export interface NuCommonConfigModel {
         count: number;
         delay: number;
         resetOnSuccess: boolean;
-      },
+      };
     };
   };
   branding: NuBrandingConfigModel;

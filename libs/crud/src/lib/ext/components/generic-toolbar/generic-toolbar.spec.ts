@@ -91,7 +91,11 @@ describe('GenericToolbar', () => {
 
     it('should apply disabled class to link when disabled', () => {
       const disabledSignal = { value: true };
-      const tool = createTool({ element: 'link', disabled: () => disabledSignal.value, key: 'disabled3' });
+      const tool = createTool({
+        element: 'link',
+        disabled: () => disabledSignal.value,
+        key: 'disabled3',
+      });
       fixture.componentRef.setInput('toolbar', { tools: [tool] });
       fixture.detectChanges();
 

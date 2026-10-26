@@ -8,15 +8,7 @@ import type { ToolbarModel } from '../../models/toolbar.model';
 @Component({
   selector: 'nu-generic-toolbar',
   templateUrl: './generic-toolbar.html',
-  imports: [
-    AuthPermission,
-    RouterModule,
-    NgClass,
-    UiSvgIcon,
-    UiTooltip,
-    UiRipple,
-    UiPopover
-  ],
+  imports: [AuthPermission, RouterModule, NgClass, UiSvgIcon, UiTooltip, UiRipple, UiPopover],
 })
 export class GenericToolbar {
   toolbar = input.required<ToolbarModel>();

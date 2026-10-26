@@ -93,7 +93,7 @@ describe('UiPopover configurable', () => {
 describe('UiPopover effects', () => {
   let fixture: ComponentFixture<TestHostComponent>;
   let directive: UiPopover;
-  let popoverBuilder: UiPopoverBuilder;
+  let _popoverBuilder: UiPopoverBuilder;
   let renderSpy: ReturnType<typeof vi.fn>;
   let showSpy: ReturnType<typeof vi.fn>;
   let hideSpy: ReturnType<typeof vi.fn>;
@@ -128,7 +128,7 @@ describe('UiPopover effects', () => {
       (el) => el.nativeElement.tagName === 'DIV' && el.nativeElement.hasAttribute('uipopover'),
     );
     directive = divEl.injector.get(UiPopover);
-    popoverBuilder = TestBed.inject(UiPopoverBuilder);
+    _popoverBuilder = TestBed.inject(UiPopoverBuilder);
   });
 
   it('should call handleTriggerEvents on init', () => {

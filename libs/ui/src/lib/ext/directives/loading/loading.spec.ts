@@ -1,7 +1,6 @@
-import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { Component } from '@angular/core';
-import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { DOCUMENT } from '@angular/common';
+import { Component, NO_ERRORS_SCHEMA } from '@angular/core';
+import { type ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideUiConfig } from '@nucleus/ui';
 import { MOCK_UI_CONFIG, setupGlobalMocks } from '@test-mocks';
 import { vi } from 'vitest';
@@ -117,10 +116,7 @@ describe('UiLoading', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [TestHostComponent],
-      providers: [
-        provideUiConfig(MOCK_UI_CONFIG),
-        { provide: DOCUMENT, useValue: document },
-      ],
+      providers: [provideUiConfig(MOCK_UI_CONFIG), { provide: DOCUMENT, useValue: document }],
       schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
 
@@ -129,7 +125,9 @@ describe('UiLoading', () => {
     fixture.detectChanges();
 
     testElement = fixture.nativeElement.querySelector('div');
-    const directiveElements = fixture.debugElement.queryAll((el) => el.injector.get(UiLoading, null));
+    const directiveElements = fixture.debugElement.queryAll((el) =>
+      el.injector.get(UiLoading, null),
+    );
     directive = directiveElements[0]?.injector.get(UiLoading);
   });
 
@@ -190,7 +188,8 @@ describe('UiLoading', () => {
 
   describe('getTargetElementRect', () => {
     it('should return bounding client rect of target element', () => {
-      testElement.getBoundingClientRect = () => DOMRect.fromRect({ x: 15, y: 25, width: 150, height: 75 });
+      testElement.getBoundingClientRect = () =>
+        DOMRect.fromRect({ x: 15, y: 25, width: 150, height: 75 });
 
       const rect = directive.getTargetElementRect();
 
