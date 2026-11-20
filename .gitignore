@@ -62,7 +62,8 @@ __snapshots__/
 .claude/worktrees
 .claude/settings.local.json
 .codegraph/
-.kilo/
+.kilo/*
+!.kilo/kilo.jsonc
 .mimocode/
 .omo/
 .superpowers/

@@ -1,0 +1,37 @@
+{
+  "$schema": "https://app.kilo.ai/config.json",
+  "mcp": {
+    "angular-cli": {
+      "enabled": true,
+      "type": "local",
+      "command": ["bunx", "-y", "@angular/cli", "mcp"]
+    },
+    "chrome-devtools": {
+      "enabled": true,
+      "type": "local",
+      "command": ["bunx", "-y", "chrome-devtools-mcp", "--no-usage-statistics"],
+    },
+    "nx": {
+      "enabled": true,
+      "type": "local",
+      "command": ["bunx", "-y", "nx", "mcp"]
+    },
+    "playwright": {
+      "enabled": true,
+      "type": "local",
+      "command": ["bunx", "-y", "@playwright/mcp"]
+    }
+  },
+  "plugin": [],
+  "permission": {
+    "bash": "allow",
+    "external_directory": {},
+    "context7_query-docs": {
+      "*": "allow"
+    }
+  },
+  "disabled_providers": [],
+  "provider": {
+  }
+}
+
